@@ -1,2 +1,9 @@
+Samples for "waveform stitching" program routines (in progress)
 
-Temp placeholder
+Giving source files (yet still prepared with jser interation) and finalized files.
+
+Mostly usable for media which utilizes the same/similar musoc tracks in different places
+=> Goal: Create software to automate process of 'stitching' via samples to finalized product via new tool
+
+contact: rebrand.ly/mailcontact
+
