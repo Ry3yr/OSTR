@@ -3,5 +3,17 @@
 }
 
 .u-section-1 .u-text-1 {
+  margin-bottom: 0;
+}
+
+.u-section-1 .u-custom-html-1 {
+  min-height: 297px;
+  margin-top: 0;
   margin-bottom: 60px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-custom-html-1 {
+    height: auto;
+  }
 }
