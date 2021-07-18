@@ -129,21 +129,21 @@ clear:both;
             <form id="tfnewsearch" method="get" action="https://vgmdb.net/search">
               <input class="tftextinput" name="q" size="21" maxlength="120" type="text">
               <input value="vgmdbsearch" class="tfbutton" type="submit">
+              <input type="hidden" value="" name="recaptchaResponse">
             </form>
             <div class="tfclear"></div>
           </div>
         </div>
-        <div class="u-clearfix u-custom-html u-custom-html-2">
-          <div id="widgetmain" style="text-align:left;overflow-y:auto;overflow-x:hidden;width:600px;background-color:#transparent; border:1px solid #333333;">
-            <div id="rsswidget" style="height:500px;">
-              <iframe src="http://us1.rssfeedwidget.com/getrss.php?time=1626283386459&amp;x=http%3A%2F%2Ffeeds.feedburner.com%2Fvgmdb_album_new%3Fformat%3Dxml&amp;w=600&amp;h=500&amp;bc=333333&amp;bw=1&amp;bgc=transparent&amp;m=20&amp;it=true&amp;t=vgmdb&amp;tc=333333&amp;ts=15&amp;tb=transparent&amp;il=true&amp;lc=0000FF&amp;ls=14&amp;lb=false&amp;id=true&amp;dc=333333&amp;ds=14&amp;idt=true&amp;dtc=284F2D&amp;dts=12" border="0" hspace="0" vspace="0" marginwidth="0" marginheight="0" style="border:0; padding:0; margin:0; width:600px; height:500px;" id="rssOutput" frameborder="no">Reading RSS Feed ...</iframe>
-            </div>
-            <div style="text-align:right;margin-bottom:0;border-top:1px solid #333333;" id="widgetbottom">
-              <span style="font-size:70%"></span>
-              <br>
-            </div>
-          </div>
-        </div>
+        <div class="u-clearfix u-custom-html u-custom-html-2">function jsonparser1() {
+    $.ajax({
+        type: "GET",
+        url: "http://online.wsj.com/xml/rss/3_7085.xml",
+        dataType: "xml",
+        success: function (result) {
+           $("div").html(result);
+        },
+    });
+} </div>
       </div>
     </section>
     
