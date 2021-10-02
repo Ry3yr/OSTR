@@ -1,4 +1,4 @@
-Samples for "waveform stitching" program routines (in progress)
+Samples for "waveform stitching/splicing" program routines (in progress)
 
 Samples over various media so far: ~95pcs
 
