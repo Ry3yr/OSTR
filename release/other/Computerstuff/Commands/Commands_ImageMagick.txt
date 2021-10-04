@@ -1,0 +1,927 @@
+Ratio-Calc_(for_rolling): E:\Dropbox\Public\Texte + Bilder\Computer Tipps & Tricks\Excel\Ratio_Calc_KKV_GGT.ods
+ - Remove element from picture(Erase):  https://online.theinpaint.com/
+- Remove bg: https://www.remove.bg/de
+- remove object: https://theinpaint.com/
+  --image to 3d model: http://app.selva3d.com/transform
+  *Resharpen Face Images: https://www.myheritage.de/photo-enhancer
+*Recolorize B&W Images: deepai.org/machine-learning-model/colorizer
+*online-image_tiler https://www.bgreco.net/tiler/index.php
+X to PDF (while keeping 24 bpp): https://smallpdf.com/de/result#r=eea2e15ea73d1036e7391ae1716513a2&t=extract
+-----------------------------------------------
+*non-imagemagicktools *Image-magickinwork
+*Reusable *notes-forcommands *Dist-ortImage  *Monta-geImage 
+*Hex-coloridentify **imgmgck-scripts
+
+
+
+Convert all to jpg                     mogrify -format jpg *.*
+__________________________________________________________________________________________________________________________________
+
+Convert all to gif                     mogrify  -quality 100 -format gif *.*
+__________________________________________________________________________________________________________________________________
+
+Convert all to png                mogrify -format png *.*
+___________________________________________________________________________________________________________________________
+
+Clean up transparency cutout (background) resident: (antialias ing / alias)
+---------------------------------------------------------------------------
+for %x in (*png) do convert %x -channel a -blur 0x1 -level 50x100% +channel %x
+(Source: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=34994&p=161050#p161050)
+
+______________________________________________________________________________________________________________________________
+
+Convert bit per pixel (bpp)
+------------------------------
+
+convert *.jpg -depth 12 out.jpg
+
+Source: https://legacy.imagemagick.org/discourse-server/viewtopic.php?t=5947
+_______________________________________________________________________________________________________________________________
+
+Replace all but xxxx color with yyyy color:
+-------------------------------------------------------------
+
+Replace all with "transparent" except "black"
+for %x in (*png) do convert %x -fill transparent +opaque #000000 %x
+
+   #for-transparent#:  for %x in (*png) do convert %x -fill red +opaque transparent %x
+
+(source: https://stackoverflow.com/questions/44121536/replace-every-color-except-a-specific-one-in-imagemagick)
+
+
+___________________________________________________________________________________________________________________________
+
+Convert vector-svg to png
+-------------------------
+set inkscape="E:\Dropbox\Public\Useful_Handy_Winprogs\000_Windows_specific\Inkscape\App\Inkscape\inkscape.exe"
+for %%x in (*.svg) do %inkscape% -f %%x -e %%x.png -d 300 -y 0.0
+
+__________________________________________________________________________________________________________________________________
+
+Convert BMP to GIF                     mogrify -format gif *.bmp
+________________
+
+
+__________________________________________________________________________________________________________________________________
+
+Convert GIF to BMP                          mogrify -format bmp *.gif
+_______________
+
+__________________________________________________________________________________________________________________________________
+
+Convert JPG to GIF                          mogrify -format gif *.jpg
+------------------                          (SOURCE: DEL *.jpghttp://likesalmon.net/use-image-magick-to-batch-convert-png-files-to-gif/)
+
+__________________________________________________________________________________________________________________________________
+
+Convert PNG to GIF:                         mogrify -format gif *.png
+-------------------
+___________________________________________________________________________________________________________________________________
+                                            
+Convert PNG to JPG                         mogrify -format jpg *.png
+-------------------
+
+___________________________________________________________________________________________________________________________________
+
+Convert Gif to JPG:                        mogrify  -format jpg *.gif
+-------------------
+
+
+Noise Reduction: (remove decent watermarks)
+------------------------
+convert -noise 4x4 input.jpg output.jpg
+(SOURCE: https://www.imagemagick.org/discourse-server/viewtopic.php?t=19049)
+
+___________________________________________________________________________________________________________________________________
+
+Convert image to 4 bit:
+-----------------------
+
+for %%x in (*.bmp) do convert %%x -colors 4 %%X_.bmp
+(Source: http://www.multipole.org/discourse-server/viewtopic.php?t=15395) 
+
+
+___________________________________________________________________________________________________________________________
+
+Take Screenshot:
+----------------
+
+convert screenshot: out.png 
+https://www.imagemagick.org/discourse-server/viewtopic.php?t=27119
+
+
+_________________________________________________________________________________________________________________________________
+
+
+Subtract 2 images from each other:
+-------------------------------------------
+composite -compose subtract  file1.png file2.png result.png
+
+(Source: http://www.imagemagick.org/discourse-server/viewtopic.php?t=16279)
+
+__________________________________________________________________________________________________________________________________
+Turn Image semi-transparent: (keep prev transparency)
+--------------------------------------------------------------------
+for %x in (*png) do convert %x -alpha on -channel a -evaluate multiply 0.65 +channel %x
+
+
+(Android icons)
+for %x in (*png) do convert %x -alpha on -channel a -evaluate multiply 0.80 +channel %x
+
+
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?t=18708 )
+
+
+__________________________________________________________________________________________________________________________________
+
+___________________________________________________________________________________________________________________________________
+
+Extract frames FROM anim gif:       for %x in (*gif) do convert -quality 100 %x  %03d.gif
+--------------------------------                   (convert  image.gif image_%d.gif     )
+                                                             (SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=11578)
+
+     ignore transparency:  for %x in (*gif) do convert -coalesce %x out%05d.gif
+                                            (SOURCE: http://stackoverflow.com/questions/12791505/how-to-extract-frames-from-a-gif-file-preserving-frame-dimensions)
+
+__________________________________________________________________________________________________________________________________
+
+Convert png to animated png:               convert -delay 0 -loop 0 *.png out.mng
+-------------------------------------------
+
+
+        extract png form mng:  mplayer -ss 00:00:00 -frames 4 -vo png t.mng
+        ---------------------------- 
+
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?t=22231)
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?t=22231)
+__________________________________________________________________________________________________________________________________
+
+Convert Frames to animated gif:          
+-------------------------------
+
+    ---ignore-transparency-->               convert -alpha off -delay 0 -loop 0 *.gif out.gif
+
+     -----Anim-Gif--->Frames RETAIN size:  convert -coalesce *.gif out%05d.gif
+------------------------------------------------
+(will also append any transparent BG's !) (SOURCE: http://stackoverflow.com/questions/12791505/how-to-extract-frames-from-a-gif-file-preserving-frame-dimensions)
+
+
+__________________________________________________________________________________________________________________________________
+Extract specific frame from anim gif:      convert image.gif[0] image0.gif
+-------------------------------------      (SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=11578)
+
+__________________________________________________________________________________________________________________________________
+
+===================================
+===================================
+====Join multiple_animated gifs together: ===
+
+
+Append to each other (create one long animated gif)
+----------------------------
+convert 2.gif a.gif 34.gif result.gif 
+(Source: www.imagemagick.org/discourse-server/viewtopic.php?t=22117)
+
+__________________________________________________________________________________________________________________________________
+
+
+Join Animated Gifs Side-by-side (horizontally)
+--------------------------------------
+convert animation1.gif animation2.gif +append -layer optimize animation3.gif
+(https://imagemagick.org/discourse-server/posting.php?mode=edit&f=1&p=162948)
+
+
+__________________________________________________________________________________________________________________________________
+
+
+
+======================================
+===============Font:==================
+======================================
+
+Extract font from ttf:
+----------------------
+convert -background none -fill black -font font.ttf -pointsize 300 label:"0" 0.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"1" 1.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"2" 2.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"3" 3.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"4" 4.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"5" 5.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"6" 6.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"7" 7.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"8" 8.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"9" 9.png
+convert -background none -fill black -font font.ttf -pointsize 300 label:"0" 0.png
+http://stackoverflow.com/questions/17142331/convert-truetype-glyphs-to-png-image
+
+
+=========================================================
+========================Resize:===========================
+=https://www.imagemagick.org/discourse-server/viewtopic.php?t=15742)=
+
+[for_svg_conversion] for %x in (*.jpg) do convert %x -resize 999x  %x.jpg
+                                         for %x in (*.png) do convert %x -resize 999x  %x.png
+======================================
+
+
+Resize to x-value (while keeping aspect ratio), then extend to fill rest
+(for best aspect ratio for youtube videos)
+-------------------------------------------------------------------------
+for %x in (*.jpg) do convert %x -resize 640x -gravity Center -extent 640x360 %x
+
+__________________________________________________________________________________________________________________
+
+
+Resize all images in folder to same width (preserve ratio => height might vary !):
+---------------------------------------------------------------------------------------------------------------
+for %x in (*jpg) do convert %x -resize 640x480 %x
+
+__________________________________________________________________________________________________________________________________
+
+Resize all images in folder to forced res:
+-----------------------------------------------
+for %x in (*png) do convert %x -resize 1440x2560! %x
+www.imagemagick.org/Usage/resize/
+
+___________________________________________________________________________________________________________________________________
+
+Resize to fixed y-value BUT variable x-value:
+------------------------------------------------------------------
+for %x in (*png) do convert %x -resize x106 %x
+(SOURCE: https://stackoverflow.com/questions/7200909/imagemagick-convert-to-fixed-width-proportional-height)
+
+
+
+_____________________________________________________________________________________________________________________
+
+
+Resize and denoise picture:
+---------------------------
+
+for %x in (*.jpg) do convert %x -resize 3000x3000+0+0 -noise 5 -median 5 -unsharp 5 -normalize -write out.png %x
+
+(SOURCE: www.imagemagick.org/discourse-server/viewtopic.php?t=15855)
+
+
+_____________________________________________________________________________________________________________________
+
+
+Resize only latest picture in folder:
+-------------------------------------
+
+for /f %%i in ('dir "c:\0scan" /b /a-d /t:c /od') do set a=%%i
+convert c:\0scan\%a% -resize 640x480 c:\0scan\%a%
+exit
+
+_____________________________________________________________________________________________________________________
+
+Resize all images in folder x%
+------------------------------
+for %x in (*png) do convert %x -resize "50%"x"50%" %x
+
+or
+
+
+for %x in (*png) do convert %x -resize 999x999 %x
+
+__________________________________________________________________________________________________________________________________
+
+Resize all images in folder to same with (preserve ratio) & fill rest canvas with black: [resize&fill up space]
+-------------------------------------------------------------------------------------------------------
+for %x in (*png) do convert %x -gravity center -background black -extent 57x57 %x
+(http://www.imagemagick.org/discourse-server/viewtopic.php?t=15399)
+
+
+http://www.howtogeek.com/109369/how-to-quickly-resize-convert-modify-images-from-the-linux-terminal/
+
+______________________________________________________________________________________________________________________________
+======================================
+==============Extend =================
+======================================
+
+Extend all images in folder to xxxXxxx: (border around image)
+---------------------------------------------------------------------------------------------------------------
+
+for %x in (*png) do convert %x -gravity center -background transparent -extent 640x1136 %x
+(SOURCE: http://stackoverflow.com/questions/12179342/imagemagick-extend-canvas-with-transparent-background)
+
+______________________________________________________________________________________________________________________________
+
+======================================
+========Move Image about (via crop/border)=====
+======================================
+
+Move imae upwards:
+-----------------------------
+for %%x in (*.jpg) do convert %%x -bordercolor black -border 0x190 %%x
+for %%x in (*.jpg) do convert %%x -bordercolor black -crop 1080x1920-0+380 %%x
+pause
+
+======================================
+===============BORDER=================
+======================================
+Add border around image:
+------------------------
+convert *.gif -bordercolor White -border 1x1 %d.png
+(SOURCE: http://www.imagemagick.org/Usage/crop/#crop_equal)
+_____________________________________________________________________________________________________________________________
+Border to LEFT side of image:
+-----------------------------
+for %%x in (*.png) do convert %%x -background black -splice 62x0 %%x
+(SOURCE: http://www.imagemagick.org/Usage/crop/#extent)
+
+________________________________________________________________________
+
+Border to LEFT side of image:
+?????????????????????????????
+(SOURCE: http://www.imagemagick.org/Usage/crop/#extent)
+___________________________________________________________________________________________________________________________
+
+Border to TOP of image:
+-----------------------
+for %x in (*.gif) do convert %x -background black -splice 0x580 %x
+
+_____________________________________________________________________________________________________________________________
+==================================================================
+======Shave and Splice (Border by removing part of orig image=====
+==================================================================
+
+Shave off bottom border:
+
+
+convert *.jpg -gravity south -background transparent -chop 0x40 *.jpg
+
+___________________________________________________________________________________________
+
+Border at Top only:
+for %x in (*png) do convert %x -gravity north -background transparent -splice 0x20 %x
+(Source: http://stackoverflow.com/questions/2313206/add-border-to-top-of-image-using-imagemagick)
+____________________________________________________________________________________________________________________________
+
+Border at bottom:
+convert source.jpg -gravity south -background transparent -splice 0x40 out.jpg
+(Source: http://stackoverflow.com/questions/2313206/add-border-to-top-of-image-using-imagemagick)
+____________________________________________________________________________________________________________________________
+
+add black border (down and right) to image (overwrite existing image content):
+-------------------------------------------------------
+for %%x in (*gif) do convert %%x -gravity southeast -background Black -chop 55x55+0+0 -splice 55x55+0+0 %%x
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=26154&p=114850#p114850)
+
+____________________________________________________________________________________________________________________________
+
+add black border (up and left) to image (overwrite existing image content):
+----------------------------------------------------
+for %x in (*gif) do convert %x -gravity northwest -background Black -chop 1x1+0+0 -splice 1x1+0+0 %x
+
+_____________________________________________________________________________________________________________________________
+
+
+======================================
+==============CROP===================
+======================================
+
+
+Slice picture in half (horizo):
+------------------------
+convert -crop 100%x50% +repage result.png %d_out.png
+(Source: https://www.imagemagick.org/discourse-server/viewtopic.php?t=13876)
+_______________________________________________________________________________
+
+Slice picture in half (vertic):
+------------------------
+convert -crop 50%x100% +repage result.png %d_out.png
+[[for %x in (*jpg) do convert -crop 50%x100% +repage %x out%d_image.jpg]]
+(Source: https://www.imagemagick.org/discourse-server/viewtopic.php?t=13876)
+
+_______________________________________________________________________________
+
+Normal Crop:
+-----------------
+for %%x in (*png) do convert %%x -crop 100x100-0-0  %%x
+
+_______________________________________________________________________________
+
+Move picture down by x-pxl, then recrop to orig res:
+---------------------------------------------------------------
+for %%x in (*png) do convert %%x -gravity north -background #7F330 -splice 0x10 %%x
+for %%x in (*png) do convert %%x -crop 100x100-0-0  %%x
+
+_______________________________________________________________________________
+
+
+crop image to tiles with overlap (8x10 tiles with 55 px overlap):
+-----------------------------------------------------------------
+convert EXE4_Complete_Networkmap.png -crop 10x8+55+55@  +repage  +adjoin  %d.gif
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=26154&p=114840#p114840)
+
+_____________________________________________________________________________________________________________________________
+
+Crop image to smaller tiles:
+----------------------------
+
+convert -crop 64x64 +repage test.tif test%02d.tif
+(SOURCE: http://shortrecipes.blogspot.de/2010/02/imagemagick-split-one-image-to-smaller.html)
+
+OR:
+
+convert full.png -crop 32x32 tiles.png (sprite sheet extract)
+______________________________________________________________________________________________________________________________
+
+==========================
+====Join Images=============
+
+Join images side by side
+----------------------------------
+convert font_A.gif font_P.gif  +append  append_row.gif
+(Source: http://www.imagemagick.org/Usage/layers/#append)
+
+______________________________________________________________________________________________________________________________
+
+==========================
+======Rotate==============
+==========================
+
+Rotate image and paste it into self 3 times:
+--------------------------------------------
+for %%x in (*png) do convert %%x ^ +duplicate -distort SRT "%%[fx:t?-90:0]" +append ^ +duplicate -distort SRT "%%[fx:t?0:180]" -append %%x
+(SOURCE: )
+
+______________________________________________________________________________________________________________________________
+
+Rotate single image 25 times (360°)
+------------------------------------------------------------
+move *.png source.png
+for /L %i in (0,15,360) do convert source.png -trim -background black -rotate %i -gravity Center -extent 1080x1920 +repage r_fr_%i.png
+for %x in (*png) do convert %x -gravity Center -extent 1080x1920+0+0 +repage  %x
+for %x in (*.png) do convert %x -fill black -opaque white %x
+
+(www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=29082&p=129876#p129876)
+
+_____________________________________________________________________________________________________________________________
+
+Rotate all images by 180°
+------------------------------
+
+for %x in (*png) do mogrify -rotate 180 %x
+
+______________________________________________________________________________________________________________________________
+
+Rotate all pngs by 15° and fill leftover color with transparent:
+------------------------------------------------------------------------
+for %x in (*png) do mogrify -rotate 15 -background transparent %x
+
+(http://www.minihowtos.net/imagemagick-rotate-image)
+______________________________________________________________________________________________________________________________
+
+Rotate image by 90°
+------------------------
+convert -rotate 90 original_file.jpg new_file.jpg
+(http://www.minihowtos.net/imagemagick-rotate-image)
+_______________________________________________________________________________________________________________________________
+ Auto rotate based on EXIF meta-data
+---------------------------------------------
+convert -auto-orient original_file.jpg new_file.jpg
+(http://www.minihowtos.net/imagemagick-rotate-image)
+_______________________________________________________________________________________________________________________________
+
+================
+=======Roll======
+
+Scroll image by 15 x 15 pixels
+------------------------------------
+
+for %%x in (*jpg) do convert %%x -roll +15+15 %%x
+
+
+#roll an image vertically or horizontally by the amount given.
+#http://www.imagemagick.org/script/command-line-options.php#roll
+http://multipole.org/discourse-server/viewtopic.php?f=1&t=28916&p=128795&sid=3942fae589ce75b3e62c5bd6b32503b1#p128795
+_______________________________________________________________________________________________________________________________
+
+===================================
+=====Manipulate Colors in image:=========
+====================================
+
+Change colorspace:
+------------------------
+for %x in (*png) do convert %x -colorspace Gray +level-colors ,#db5131 %x
+(SOURCE: https://coderwall.com/p/izu8kw/convert-an-image-to-a-single-level-colour-with-imagemagick)
+
+_____________________________________________________________________________________________________________________________
+
+
+Change Brightness.saturation.hue
+-----------------------------------------------------
+convert image -modulate 100,XX,100
+
+the first number is percent brightness (actually either brightness or lightness, that is HSB vs HSL), the second number is percent satutation and the third number is percent hue
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?t=16212)
+
+_______________________________________________________________________________________________________________________________
+Remove color channel
+--------------------
+for %%x in (*.png) do convert %%x -channel Blue -evaluate set 0 +channel %%x
+https://stackoverflow.com/questions/24225503/how-to-remove-blue-channel-from-an-image-with-imagemagick-in-bash-console
+
+_______________________________________________________________________________________________________________________________Shift saturation:
+----------------------------
+convert in.png -colorspace HSL -channel Saturation -negate -evaluate multiply 0.8 -negate -colorspace RGB out.png
+
+
+==========================
+======Other CMDS==========
+==========================
+
+Append picture to BACKGROUND of each picture:
+---------------------------------------------
+
+for %x in (*gif) do convert background.png %x -composite %~nx.gif
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=26050)
+
+_______________________________________________________________________________________________________________________________
+
+Convert multiple images in curr folder to one multipage pdf:
+-------------------------------------------------------------
+convert -compress JPEG -quality 100 -page A4 -density 72 *.jpg result2.pdf
+
+(Doesn't work always: convert *.* result.pdf)
+
+(http://superuser.com/questions/793046/imagemagicks-convert-output-is-small-when-page-format-is-specified)
+(SOURCE: http://unix.stackexchange.com/questions/18054/convert-a-folder-of-images-into-a-multi-page-pdf-file-usind-command-line-tools)
+__________________________________________________________________________________________________________________________
+
+Convert images to grayscale:
+----------------------------
+for %x in (*.png) do convert -type Grayscale %x
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=11400)
+
+_____________________________________________________________________________________________________________________________
+________________________________________________________________________________________________________________________________
+Find duplicate Image with sha sig:     
+for %%X in (*.*) do identify -verbose %%X >> out.txt | findstr /v /i "\.txt$" | findstr /v /i "\.bat$" "\.txt$" 
+findstr "Image: signature " out.txt >> image.txt
+DEL out.txt
+                                       (SOURCE: imagemagick.org/discourse-server/posting.php?mode=reply&f=1&t=25766)
+                                       (SOURCE: http://www.unix.com/windows-and-dos-issues-and-discussions/248519-findstring-loop.html#post302906621)
+                                       (SOURCE: http://superuser.com/questions/383641/excluding-files-of-particular-extension-using-dir-command-on-windows-command-lin)
+
+
+
+_________________________________________________________________________________________________________________________________ 
+Get curr Imagemagick version:     convert -version
+-----------------------------
+
+==============================================
+==========Replace colors from picture==============
+
+Replace hex.txt colors in all pngs
+----------------------------------
+
+for /F %%c in (hex.txt) do for %%x in (*png) do convert %%x -fill "#000000" -opaque "%%c" %%x
+(Source: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=31371)
+
+__________________________________________________________________________________________________________________________________
+get hex codes from curr picture:       
+--------------------------------
+
+@echo off
+SET /P image=Drag and drop that contains the hex colors to remove:
+convert %image% -unique-colors -depth 8  txt:- > out.txt
+set repl="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Rename_FILES\repl.bat"
+type out.txt |%repl% ".*(#......).*" "$1" a >hex.txt
+type hex.txt >> all.txt
+del all.txt
+del out.txt
+
+(execute inside folder that contains image to get hex from)
+
+(SOURCE:http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=25767&p=112431#p112431)
+(SOURCE2: http://forums.techguy.org/dos-other/1129973-extract-every-6-following-characters.html#post8942421)
+
+_______________________________________________________________________________________________________________________________
+
+BASIC Replace  one color w. another (here, white w. black)
+-------------------------------------
+for %x in (*.png) do convert %x -fuzz xx% -fill white -opaque transparent %x.png
+(SOURCE: https://www.imagemagick.org/discourse-server/viewtopic.php?t=18196)
+
+_______________________________________________________________________________________________________________________________
+
+Replace Transparent with white
+---------------------------------------
+for %x in (*.png) do convert %x -fuzz xx% -fill white -opaque transparent %x
+(SOURCE: https://www.imagemagick.org/discourse-server/viewtopic.php?t=18196)
+________________________________________________________________________________________________________________________________
+Replace color with transparent (hex):
+---------------------------------------------
+for %x in (*.png) do convert %x -fuzz 50% -fill transparent -opaque "#FFFFFF" %x
+(SOURCE:http://www.wizards-toolkit.org/discourse-server/viewtopic.php?f=1&t=10961&view=previous)
+        
+__________________________________________________________________________________________________________________________________
+
+Replace one Hex-Color with another:          
+---------------------------------  
+for %x in (*png) do convert %x -fill "#FFFFFF" -opaque "#FBF8F8" %x
+(SOURCE: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=24294&p=104154#p104154)
+
+__________________________________________________________________________________________________________________________________
+
+Replace one color with another color: 
+-------------------------------------
+for %%x in (*gif) do convert %%x -fill red -opaque "#A8A8B0" %%x
+
+__________________________________________________________________________________________________________________________________
+Replace all with white except #xxxxxx:
+
+--------------------------------------
+for %x in (*.png) do  convert %x -fuzz 25% -fill white +opaque "#000000" %x
+#(Source: https://stackoverflow.com/questions/15426968/using-imagemagick-to-remove-all-color-except-black-in-an-image)
+___________________________________________________________________________________________________________________________________
+
+Delete all colours except black: 
+-------------------------------
+ for %%x in (*.gif) do convert %%x ( -clone 0 -fill white +opaque #000000 -transparent white ) -delete 0 -background white -flatten %%~nx.gif
+
+
+
+==============================
+========DistortImage=============
+=https://www.imagemagick.org/Usage/distorts/#circular_distorts==
+
+
+
+Distort / bend image into circle (ring):
+--------------------------------
+for %x in (*.png) do magick %x -virtual-pixel Background  -background transparent -distort Arc 360 %x_out.png
+(Source: https://www.imagemagick.org/Usage/distorts/#circular_distorts)
+___________________________________________________________________________________________________________________________
+
+Distort image into circular sphere:
+------------------------------------------------
+for %x in (*.png) do magick %%x -distort arc 360 %x_out.png
+(SOURCE: https://imagemagick.org/discourse-server/viewtopic.php?f=1&t=34940&p=160856#p160856)
+
+"un-distort" image
+--------------------------
+http://im.snibgo.com/debarrel.htm#polar
+(Source: https://imagemagick.org/discourse-server/viewtopic.php?f=1&t=34940&p=160856#p160856)
+
+
+___________________________________________________________________________________________________________________________
+
+==========================================================
+==========MontageImage in specific manner======= zusammenfügen ==
+
+__________________________________________________________________________________________________________________________
+
+Arrange images into ring: 
+------------------------------------
+magick *.png -gravity north -background none -extent 500x500 -virtual-pixel none -distort SRT "%[fx:t*360/n]" -flatten result.png
+(Source: https://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=34940&p=160794#p160794)
+
+___________________________________________________________________________________________________________________________
+
+Create ferries wheel / gondola animation:
+-------------------------------------------------------------
+convert rose: -gravity center -extent 256x256 -duplicate 5 -distort SRT "128,128 1 %[fx:t*-60] 128,48" -distort srt "%[fx:t*60]" -set delay 50 -loop 0 output.gif
+(Source: https://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=33938&p=155774#p155774)
+
+__________________________________________________________________________________________________________________________________
+Align pictures montage vertically (längs):         convert *.jpg -append result.jpg
+----------------------------------         (SOURCE:http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=24302)
+
+__________________________________________________________________________________________________________________________________
+
+Align pictures horizontally (waagerecht):  convert *.* +append result.png
+----------------------------------------   (SOURCE:http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=24302) 
+
+__________________________________________________________________________________________________________________________________
+
+Align pictures in a specific manner:       montage *.png -tile 2x2 -geometry +0+0 result.png
+------------------------------------       (SOURCE:http://www.imagemagick.org/Usage/montage/)
+__________________________________________________________________________________________________________________________________
+
+Align single picture to canvas mutiple times:  convert -size %width%x%height% tile:picture.png tiled_picture.png
+---------------------------------------------
+__________________________________________________________________________________________________________________________________
+
+Append image at bottom of other:               convert %src%.png %app%.png -append tiled_%src%-%app%.png
+----------------------------------
+
+______________________________________________________________________________________________
+
+Monitor ImageMagic Progress:                
+----------------------------                (gives the user a percentage count to inform of the progress made)
+
+                                            
+                                             e.g mogrify  -format gif *.jpg
+                 (SOURCE:http://www.imagemagick.org/discourse-server/viewtopic.php?f=6&t=22521&p=93888&hilit=progress+bar#p93888)
+__________________________________________________________________________________________________________________________________
+
+
+
+Center Scale:               for %x in (*.png) do convert %x -resize 640x1136^ -gravity Center -crop 640x1136+0+0 +repage %x
+-------------                  (SOURCE: http://viseztrance.com/2010/09/scale-and-center-crop-with-imagemagick-one-liner.html)
+__________________________________________________________________________________________________________________________________
+
+Crop Image.                                 convert crop.png -crop 1227x3000+300+0  crop1.png
+-----------                                                       #xresxyres+xoff+yoff
+                                               (SOURCE: http://www.imagemagick.org/Usage/crop/)
+__________________________________________________________________________________________________________________________________
+
+Paste image ontop others:
+--------------------------------------
+for %%x in (*png) do convert -composite -gravity center %%x pasteimg.png %%x 
+(SOURCE: https://stackoverflow.com/questions/31019244/how-to-overlay-an-image-on-top-of-another-image-using-imagick)
+
+
+===========================================================
+===========Tilez=============================================
+
+Tile singuar image over given canvas:
+------------------------------------------------------
+
+
+for %%X in (*.png) do convert -size 300x300 tile:%%X %%~nX_tiled.png
+
+(SOURCE: https://www.imagemagick.org/discourse-server/viewtopic.php?t=22860)
+_______________________________________________________________________________________________________________________________
+
+
+Tile MULTIPLE images (from same folder) over given canvas:
+----------------------------------------------------------------------------------------
+
+@echo off
+SET /P WIDE=Tile Width:
+SET /P HIGH=Tile Height
+magick ???.png +append -size %WIDE%x%HIGH% xc: -virtual-pixel tile -set option:distort:viewport "%%[fx:(v.w*v.h/u.h)+v.w]x%%[fx:u.h]" ( -clone 0 -distort SRT 0 +repage -crop %WIDE%x0 -append +repage ) -delete 0,1 -extent %WIDE%x%HIGH% tiled.png
+
+
+(Source: https://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=34998)
+_______________________________________________________________________________________________________________________________
+
+
+======================
+====hexidentifycolor======
+
+https://www.rapidtables.com/convert/color/hex-to-rgb.html 
+
+http://chir.ag/projects/name-that-color/#DCD2D1
+
+Name        Hex            (R,G,B)
+-------------------------------------
+Black 	#000000 	(0,0,0)
+White 	#FFFFFF 	(255,255,255)
+Red 	#FF0000 	(255,0,0)
+Lime 	#00FF00 	(0,255,0)
+Blue 	#0000FF 	(0,0,255)
+Yellow 	#FFFF00 	(255,255,0)
+Cyan 	#00FFFF 	(0,255,255)
+Magenta 	#FF00FF 	(255,0,255)
+Silver 	#C0C0C0 	(192,192,192)
+Gray 	#808080 	(128,128,128)
+Maroon 	#800000 	(128,0,0)
+Olive 	#808000 	(128,128,0)
+Green 	#008000 	(0,128,0)
+Purple 	#800080 	(128,0,128)
+Teal 	#008080 	(0,128,128)
+Navy 	#000080 	(0,0,128)
+
+
+
+===============================================================================
+==============================imgmgckscripts======================================
+===============================================================================
+===================================Reusable=====================================
+===============================================================================
+
+
+~~~~Roll jpg file in folder indef~~~~
+
+@echo off
+echo "Press Enter to roll image into rolled dir"
+echo "Exit Script to stop processing"
+echo "Don't use lossy formats as jpg files for rolling theyll deteriorate"
+mkdir rolled
+:START
+set SAVESTAMP=%DATE:/=-%@%TIME::=-%
+set SAVESTAMP=%SAVESTAMP: =%
+set SAVESTAMP=%SAVESTAMP:,=.%.png
+for %%x in (*png) do convert -quality 100 %%x -roll +15+15 %%x.no
+move *.png rolled/%savestamp%
+for /R %%x in (*.png.no) do ren "%%x" *.
+goto start
+
+
+~~~~Convert video to frame and find dupl frames~~~
+
+set extractdupl="E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\video_to_frame_&_dupl_frame.bat"
+%extractdupl%
+
+~~~~~Extract Frames from avi~~~~~
+set extract="E:\Dropbox\Public\00_MyDosStuff\FFMPEG Scripts\Extract_frames_from_video_(ffmpeg)_TO_BMP.bat"
+%extract%
+
+
+set giftovid="E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Animated_gif_to_mp4.bat"
+%giftovid%
+
+
+~~~~~~Find Duplicates~~~~~~~~~~~~~~
+set duplicate="E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Z_find_duplicate_images.bat"
+%duplicate%
+
+
+~~~~~~~~~Convert Frames to animated gif~~~~         
+ convert -delay 0 -loop 0 *.gif out.gif
+
+~~~~~Convert animated gifs to frames:~~~~           
+convert  image.gif image_%d.gif
+
+ffmpeg -i *.gif f_%06d.gif
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~Tiler.bat~~~~~~~~~~~~~~~~~~~~~~~~~~~
+set tile="E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Tile.bat"
+%tile%
+
+###28.5.15 note:
+Strangely the tile seems to work fine with path "E:\Dropbox\Public\Texte + Bilder\Cheats&GameSaves\gbagamecheats\Megamanbattlenetwork Spieltipps\Megaman Battlenetwork 4\MMBN4_Maps\MMBN_BG\Network_BGS\02_Mayls_HP_(loops)\0extracted frames\"
+gif's named "mayl hp 001.gif..."
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~Tiler+Append image afterwards~~~~~~~
+set tileappend="E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Tile_+Append_image_to_all_EXE4.bat"
+%tileappend%
+
+
+But fails with "E:\Desktop\EXE" gif's named "00001.gif"
+Weird...
+
+~~~~~~~~~~~Apend image to multiple in folder~~~~~~~~~~~~~~~~~~~~
+set appendmultiple="E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Append_Image_over_other_image\[AUTO_]Append_Image_to_multiple_images_(all_files_in_folder).bat"
+%appendmultiple%
+
+~~~~~~~~~~~Remove Background from image~~~~~~~~~~~~~~~~~~~~~~~~~~
+copy "E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Remove_Background.bat" Remove_Background.bat
+Remove_Background.bat
+
+~~~~~~~~~~~Remove Color from mulitple images~~~~~~~~~~~~~~~~~~~~~
+copy "E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Remove_colors_from_all_images.bat" "Remove_colors_from_all_images.bat"
+Remove_colors_from_all_images.bat
+
+~~~~~~~~~~~Remove prev image hex's from other image~~~~~~~~~~~~~~
+copy "E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\hex_identify_and_remove.bat" "hex_identify_and_remove.bat"
+hex_identify_and_remove.bat
+
+~~~~~~~~~~~Slice_and_crop_image_over_multiple_pages~~~~~~~~~~~~~~
+copy "E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Print_image_over_multple_pages.bat" "Print_image_over_multiple_pages.bat"
+Print_image_over_multiple_pages.bat
+
+~~~~~~~~~~~Borderless printing (add bleed)~~~~~~~~~~~~~~~~~~~~~~~
+copy "E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Borderless_Printing_(Add_Bleed).bat" "Borderless_Printing_(Add_Bleed).bat"
+Borderless_Printing_(Add_Bleed).bat
+
+~~~~~~~Photo Mosaic gen (map)~~~~~~~~~
+E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts\Further_Tools\[[Non_Imagemagick]]\Photo_Mosaic_Creator\AndreaMosaicPortable\AndreaMosaicPortable.exe
+
+==================
+==notesforcommands==
+
+if "%" is inside command:
+------------------------------------
+make % into %% to have em work in bat files
+
+
+
+if using fuzz with %%x (inside scripts):
+-------------------------------------------------------
+
+use -fuzz xx%% 
+
+else it won't work:
+
+
+===================
+=Nonimagemagicktools:=
+---------------------------------
+*Join gif side-by-side: https://ezgif.com/combine
+*Resize Image while preventing Blur: ---https://waifu2x.booru.pics--
+*Rolling image calc/screen aspect ratio: http://andrew.hedges.name/experiments/aspect_ratio/ OR: http://www.umrechnung.org/mathematik-kgv-ggt-berechnen/gemeinsames-vielfaches-teiler.htm
+   --- Imagemagick script folder: E:\Dropbox\Public\00_MyDosStuff\0ImageMagick Scripts
+*http://de.bloggif.com/cube-3d
+*http://de.bloggif.com/effect (Wetterfahne = rotate)
+*Remove Background of image online: https://clippingmagic.com
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~imagemagickinwork~~~~~~~
+
+Pathology crop/restitch
+http://www.andrewjanowczyk.com/dividing-and-re-merging-large-images-humpty-dumpty/
+
+=========================
+======imgmgckscripts=======
+
+DE-Fisheye
+http://www.fmwconcepts.com/imagemagick/defisheye/index.php

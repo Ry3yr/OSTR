@@ -1,0 +1,528 @@
+Use MEDIAINFO to examine video files indepth (f.e. find out whether the FPS is constant)
+--------------
+Ratio-Calc_(for_rolling): E:\Dropbox\Public\Texte + Bilder\Computer Tipps & Tricks\Excel\Ratio_Calc_KKV_GGT.ods
+Rolling image calc/screen aspect ratio: 
+         *http://andrew.hedges.name/experiments/aspect_ratio/
+          *http://www.umrechnung.org/mathematik-kgv-ggt-berechnen/gemeinsames-vielfaches-teiler.htm
+Convert Subitle (multi via zip): https://lab.sorz.org/tools/asstosrt/
+Loop-video-x-times: https://www.media.io/de/loop-video.html
+Merge/Combine video: https://www.media.io/merge-video.html
+-------
+DLD_FFMPEG: https://ffmpeg.zeranoe.com/builds/
+_____________________________________________________________________________________________
+>>>>>>>>>>>>>> ONLINE_CONVERT_ALTERNATIVE: https://cloudconvert.com/gif-to-mp4 [Container: MPEG4  Customres: 640x1136]<<<<<<<<<<<<<<<<
+________________________________________________________________________
+*convert-videoformats *remuxvi-deoformats *convert-audioformats
+
+
+__________________________________________________________
+Overlay image over frame(s) (supports transparency!):
+-----------------------------------
+ffmpeg -i in.mp4 -i input.png -filter_complex "[1][0]scale2ref[img][vid];[vid][img]overlay=enable='between(t,49,57)'" -c:a copy outz.mp4
+(Source: https://unix.stackexchange.com/questions/588667/ffmpeg-replace-part-of-a-video-by-a-jpg-file-for-5-seconds)
+
+___________________________________________________________
+Webm to mp3
+------------
+ffmpeg -i input.webm -vn -ab 128k -ar 44100 -y out.mp3 
+
+https://bytefreaks.net/gnulinux/bash/ffmpeg-extract-audio-from-webm-to-mp3
+
+___________________________________________________________
+
+Replace mp4s audio with new one from mp3:
+----------------------------------------
+ffmpeg -i test.mp4 -i test.mp3 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
+
+(Source: https://superuser.com/questions/277642/how-to-merge-audio-and-video-file-in-ffmpeg)
+___________________________________________________________
+
+Concatenate "Combine mp4s together"
+----------------------------------------------------
+(alt: E:\Dropbox\Public\00_MyDosStuff\FFMPEG Scripts\[Additional_Video_Tools]\MP4_Tools_(Splitter_&_Joiner))---
+
+
+---FFMPEG way (audio desync might happen!)
+ Create a file mylist.txt with all the files you want to have concatenated in the following form (lines starting with a # are ignored):
+txt:
+file 001.m4v
+file 002.m4v
+file 003.m4v
+ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
+
+
+--OS WAY--
+
+copy /b *m4v newfile.mp4
+
+
+(BORING: COPY /b 001.m4v +002.m4v + 003.m4v output.mp4)
+
+
+(nonworking:  for %f in (out.txt) do COPY /b "%f" output.mp4)
+(Source: https://stackoverflow.com/questions/35416110/ffmpeg-concat-video-and-audio-out-of-sync)
+(https://trac.ffmpeg.org/wiki/Concatenate)
+https://superuser.com/questions/111825/a-command-line-or-batch-cmd-to-concatenate-multiple-files)
+
+_____________________________________________
+
+Combine mp3s in txt together
+-------------------------------------
+
+ffmpeg -f concat -safe 0 -i out.txt -c copy output.mp4
+
+(Source: https://stackoverflow.com/questions/3886295/how-do-i-list-one-filename-per-output-line-in-linux)
+_____________________________________________________________________________________________
+
+Downmix (5.1) Stream to x
+---------------------------------------
+
+Downmix to WAV
+for %%x in (*.mkv) do ffmpeg -i "%%x" -c pcm_s16le -ac 2 out.wav
+
+Downmix to DTS:
+for %%x in (*.mkv) do ffmpeg -i "%%x" -strict -2 -c:a dca -ac 2 -vol 425 out.dts
+
+(Source: https://superuser.com/questions/852400/properly-downmix-5-1-to-stereo-using-ffmpeg)
+
+______________________________________________________________________________________________________
+
+Merge two *.wav files => Single stereo wav file:
+-------------------------------------------------------
+ffmpeg -i front_left.wav -i front_right.wav -codec:a aac -strict -2 -filter_complex "[0:a][1:a]amix" -ac 2 -f flv out.wav
+(Source: https://superuser.com/questions/767722/ffmpeg-combine-two-mono-live-audio-stream-to-single-stereo-stream)
+
+___________________________________________________________________________________________________
+Pan audio channels:
+--------------------------
+--Pan to right--
+ffmpeg -i in.mp3 -af "pan=stereo:c0=0*c0|c1=1*c1" out.wav
+
+--Pan to center--
+
+(Source: https://stackoverflow.com/questions/43372275/change-volume-in-only-one-of-the-audio-channels-with-ffmpeg)
+(Source: https://stackoverflow.com/questions/10178459/panning-all-audio-channels-center-in-ffmpeg)
+https://superuser.com/questions/685910/ffmpeg-stereo-channels-into-two-mono-channels
+ffmpeg.org/ffmpeg-filters.html#pan
+_______________________________
+
+Extract stereo channels => 2x mono channel:
+----------------------------------------------------------
+for %x in (*.mp3) do ffmpeg -i "%x" -map_channel 0.0.0 left.wav -map_channel 0.0.1 right.wav
+
+(Source: https://superuser.com/questions/685910/ffmpeg-stereo-channels-into-two-mono-channels)
+_______________________________
+
+Extract Video to Audio Stream:AC3 (mkv -> ac3 fil)[important for 5.1 audio extraction]
+------------------------------------------------------
+for %x in (*.mkv) do ffmpeg -i %x -acodec copy %x.ac3
+(Source: http://www.savvyadmin.com/extract-ac3-dolby-digital-with-ffmpeg/)
+____________________________
+
+Extract Audio AC3 to wav channels: (works directly from mkv aswell)
+ -------------------------------------------------
+ffmpeg -i out.ac3 -filter_complex "channelsplit=channel_layout=5.1[FL][FR][FC][LFE][BL][BR]" -map "[FL]" front_left.wav -map "[FR]" front_right.wav -map "[FC]" front_center.wav -map "[LFE]" lfe.wav -map "[BL]" back_left.wav -map "[BR]" back_right.wav
+
+(Source: https://randocity.com/2016/04/10/audio-tip-how-to-decode-5-1-dts-ac3-to-6-wav-files/)
+
+______________________________________________________________________________________________________
+
+Change speed of media
+--------------------------------
+mkdir out
+for %x in (*.mp3) do ffmpeg  -i "%x" -filter:a "atempo=2.0" -vn out/"%x"
+for %x in (*.mp4) do ffmpeg -i %x -filter:v "setpts=0.5*PTS" out/"%x"
+(Source: https://stackoverflow.com/questions/33957747/how-do-i-reduce-the-speed-of-a-voice-mp3-file-with-sox-to-75)
+______________________________________________________________________________________________________
+
+Extract subtitles
+-----------------------
+for %x in (*.mkv) do ffmpeg -txt_format text -i %x  %x_.srt
+
+
+(source: https://trac.ffmpeg.org/wiki/ExtractSubtitles)
+
+______________________________________________________________________________________________________
+
+
+
+MP3GAIN to change volume (curr folder): mp3gain /g -30 *.mp3
+------------------------------------------------------------------------------------
+MP3GAIN to change volume (all subdirs): FOR /R "%~dp0" %%x in (*.mp3) do mp3gain /g -30 "%%x"
+
+______________________________________________________________________________________________________
+
+Multi mp3 to video:
+--------------------------
+for %%x in (*.mp3) do ffmpeg -loop 1 -i cover.jpg -i %%x -c:v libx264 -tune stillimage -c:a aac -strict experimental -b:a 192k -pix_fmt yuv420p -shortest %%x.mp4
+
+
+Convert images to video:  [!!!!! REGARDING IMG -2-> VIDEO Conversions: MAKE. SURE. THE. DIMENSIONS ARE divisble by 2 !!!!!] USE GIF'S FOR VIDEO CREATION !!! (BMP's cause problems)
+______________________________________________________________________________________________________
+[Image to - MP4]
+ffmpeg -r 20 -f image2 -i %03d.gif -f mp4 -q:v 0 -vcodec mpeg4 -r 24 myVideo.mp4
+|
+[Image to - WMV-HQ]
+ffmpeg -r 10 -f image2 -i %03d.gif -q:a 2 -q:v 2 -vcodec msmpeg4 -acodec wmav2 myvideo.wmv
+|
+**Alternate mode:
+ffmpeg -y -r 20 -f image2 -i %04d.gif -f mp4 -pix_fmt yuv420p outds.mp4
+**Alternate colormode (reverse):
+ffmpeg -r 20 -f image2 -i %04d.gif -f mp4 -c:v libx264 -pix_fmt bgr24 res.mp4
+|
+%02.gif  FOR 00.gif
+%03.gif  FOR 000.gif
+%04.gif  FOR 0000.gif input files
+(http://stackoverflow.com/questions/31222186/ffmpeg-frames-to-mp4-windows)
+
+___________________________________________________________________________________________________________
+Convert wmv to mp4 (android compatible):
+----------------------------------------------------------
+for %x in (*.wmv) do ffmpeg -i %x -s 640x1136 -vcodec mpeg4 -acodec aac -strict -2 -ac 1 -ar 16000 -r 13 -ab 32000 %x.mp4
+(Source: https://stackoverflow.com/questions/14171826/converting-video-for-android-using-ffmpeg)
+
+
+___________________________________________________________________________________________________________
+Convert xyz to mp4 (playback)
+----------------------------------------------------------
+for %x in (*.mkv) do ffmpeg -i %x -s 1280x720 -vcodec mpeg4 -acodec aac -strict -2 -ac 1 -ar 16000 -r 24 -ab 32000 %~nx.mp4
+______________________________________________________________________________________________________________
+
+Cut Video length with FFMPEG:
+----------------------------------------------
+
+Variable version (start, end)
+for %%x in (*mp4) do ffmpeg -i %%x -ss 00:00:55 -t 00:03:15 -async 1 cut.mp4
+https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg
+
+
+Fixed version (reqs start, end, duration)s
+for %x in (*.mp4) do ffmpeg -i %x -ss 60 -t 60 -acodec copy -vcodec copy %x-
+(superuser.com/questions/138331/using-ffmpeg-to-cut-up-video?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+
+
+______________________________________________________________________________________________________________________________
+Extract Frames from video:  
+https://averagelinuxuser.com/video-to-images-with-vlc-media-player/
+https://ezgif.com/video-to-png/
+         
+--------------------------- 
+for %x in (*mp4) do   ffmpeg -i  %x "%03d.png"
+for %x in (*wmv) do   ffmpeg -i  %x "%03d.png"
+    EMERGENCY CMND: for %x in (*wmv) do ffmpeg -i %x -r 24 image-%04d.jpg
+
+
+___________________________________________________________________________________________________________________________
+
+Extract Album Art:
+--------------------------
+for %x in (*mp3) do ffmpeg -i "%x" "%x".jpg
+
+  -- Batch album art extract via MP3Tag:
+        Use the action type Export cover to file As format string use Folder to create a Folder.ext image in each directory. 
+      Extension is added automatically.
+         http://community.mp3tag.de/t/extract-cover-art-from-multiple-directories/9471
+____________________________________________________________________________________________________________________________
+
+
+Edit MP3 Tag via FFMPEG:
+---------------------------------------
+
+ffmpeg -i file.mp3 -metadata album_artist="ALBUM ARTIST written by ffmpeg" file_ffmpeg.mp3
+
+(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-verändern)
+___________________________________________________________________________________________________________________________
+
+Combine jpg and mp3 to video (youtube upload)
+---------------------------------------------------------------------
+ffmpeg -loop 1 -i *.jpg -i *.mp3 -c:v libx264 -tune stillimage -c:a aac -strict experimental -b:a 192k -pix_fmt yuv420p -shortest out.mp4
+
+___________________________________________________________________________________________________________________________
+
+Downscale video (forced ratio) BUT KEEP audiostreams AS IS (for multi language mkvs)
+------------------------------------------------------------------------------------
+for %x in (*.mkv) do ffmpeg -i %x -filter:v scale=960:540 -map 0 -c copy -c:v libx265 _%x
+
+(Source: https://stackoverflow.com/questions/39685629/re-encode-video-stream-only-with-ffmpeg-and-with-all-audio-streams)
+
+___________________________________________________________________
+
+Downscale_video (forced ratio)
+------------------------------------------------
+--960x540----(1/2  1920x1080)--:
+for %x in (*.mkv) do ffmpeg -i %x -filter:v scale=960:540 -c:a copy out/_%x
+
+---640x480--:
+for %x in (*.mkv) do ffmpeg -i %x -filter:v scale=640:480 -c:a copy _%x
+(https://trac.ffmpeg.org/wiki/Scaling)
+
+_____________________________________________________________
+
+
+Convert MKV (5.1 audio) to MKV (stereo audio)
+----------------------------
+
+for %x in (*.mkv) do ffmpeg -i "%x" -c:v copy -ac 2 -af "pan=stereo|FL=FC+0.30*FL+0.30*BL|FR=FC+0.30*FR+0.30*BR" output_stereo.mkv
+(Source: https://superuser.com/questions/852400/properly-downmix-5-1-to-stereo-using-ffmpeg)
+
+_____________________________________________________________________________________
+
+
+Animated gif to mp4
+------------------------------
+
+for %x in (*gif) do ffmpeg -i %x -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" video.mp4
+
+(SOURCE: https://unix.stackexchange.com/questions/40638/how-to-do-i-convert-an-animated-gif-to-an-mp4-or-mv4w-on-the-command-line?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+______________________________________________________________________________________________________________________________
+Extract Frames from animated gif:
+-------------------------------------------------
+for %x in (*gif) do ffmpeg -i %x %05d.png
+
+www.raymond.cc/blog/split-or-break-gif-animation-into-individual-frames/
+
+______________________________________________________________________________________________________________________________
+Convert video directly to animated gif:
+------------------------------------------------------
+ffmpeg -i "%~dpnx1"  -r 10 -f image2pipe -vcodec ppm - |  convert -delay 0 -loop 0 -  out.gif
+
+##ffmpeg -i "%~dpnx1" -vf scale=320:-1 -r 10 -f image2pipe -vcodec ppm - | convert -delay 5 -loop 0 - gif:- | convert -layers Optimize - output.gif 
+
+superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality
+
+______________________________________________________________________________________________________________________________
+
+Extract From 00:00:30  (with 5 sec duraction):
+---------------------------
+ffmpeg -ss 00:00:30 -t 00:00:005 -i original.mp4 -vcodec copy -acodec copy output.mp4
+
+________________________________________________________________________________________________________________________________
+ Change video framerate:
+-------------------------
+
+ffmpeg -i input.wmv -sameq -r 10 -y output.wmv
+
+(superuser.com/questions/1187149/change-frame-rate-without-changing-film-speed-duration)
+
+
+________________________________________________________________________________________________________________________________
+
+There is no need to rename files if using the -start_number switch like so: 
+
+ffmpeg -start_number n -i test_%d.jpg -vcodec mpeg4 test.avi 
+
+where n is the start of the sequence of stills.
+
+superuser.com/questions/624567/how-to-create-a-video-from-images-using-ffmpeg
+
+______________________________________________________________________________________________________________________________
+
+
+
+Show ffmpeg pixel formats (if curr video doesn't convert corr):
+---------------------------------------------------------------
+
+ffmpeg -pix_fmts
+______________________________________________________________________________________________________________________________
+
+Reduce music volume
+---------------------
+for  %%x in (*.mp3) do ffmpeg -i "%%x" -af volume=0.7 "%%x"
+OR
+for  %%x in (*.mp3) do ffmpeg -i "%%x" -af volume=70dB "%%x"
+
+
+OR (older FFMPPEG versions
+  for  %%x in (*.mp3) do ffmpeg -f lavfi -i "amovie=%%x,volume=0.7" "%%x"
+
+______________________________________________________________________________________________________________________________
+
+Increase music volume: 
+-----------------------              
+for %%x in (*mp3) do ffmpeg -i "%%x" -vol 200 "%%x"
+(Source: http://www.die-unbelehrbaren.de/software/konverter/mit-ffmpeg-die-lautstarke-von-audiodateien-erhohen/)
+
+
+________________________________________________________________________________________________________________________________
+
+
+image to false color video: (rgb pixel value)
+----------------------------
+ffmpeg -r 20 -f image2 -i %05d.bmp -f mp4 -pix_fmt rgb24 out.mp4
+
+_______________________________________________________________________________________________________________________________
+
+Repack video:
+--------------
+for %x in (*mp4) do   ffmpeg -i  %x "%04d.bmp"
+ffmpeg -r 20 -f image2 -i %04d.bmp -f mp4 -q:v 0 -vcodec mpeg4 -r 24 myVideo.mp4
+
+______________________________________________________________________________________________________________________________
+Extract mp4 & recompress w. new settings:
+----------------------------------------------------
+for %x in (*mp4) do   ffmpeg -i  %x "%04d.bmp"
+ffmpeg -r 12 -f image2 -i %04d.bmp -f mp4 -q:v 0 -vcodec mpeg4 -r 24 myVideo.mp4
+
+_________________________________________________________________________________________________________
+
+Merge videos side-by-side: ffmpeg -i a.mp4 -i b.mp4 -filter_complex "[0:v:0]pad=iw*2:ih[bg]; [bg][1:v:0]overlay=w" output.mp4
+--------------------------  (SOURCE: https://lists.ffmpeg.org/pipermail/ffmpeg-user/2013-June/015662.html )
+
+________________________________________________________________________________________________________________________________
+
+
+Join two pictures/frames in one picture:   for /L %%i in (1,1, 4000) do convert a%%i.png b%%i.png -monitor +append c%%i.png
+----------------------------------------   (4000 = Videoframes)
+
+
+
+________________________________________________________________________________________________________________________________
+
+Crop video:     ffmpeg -i a.mp4 -filter:v "crop=320:480:40:0" -crf 20 -maxrate 400k -bufsize 1835k a1.mp4 && MOVE a1.mp4 a.mp4
+----------              ( 320: x crop,  480 y crop, 40 x offset, 0 y ofset)
+
+f
+________________________________________________________________________________________________________________________________
+
+Convert Video:            for %x in (*.avi) do ffmpeg -i %x -acodec libfaac -b:a 128k -vcodec mpeg4 -b:v 1200k -flags +aic+mv4 %x.mp4
+---------------                       (Avi to MP4 in this case)
+                                (SOURCE:  http://andrebluehs.net/blog/converting-avi-to-mp4-with-ffmpeg/)
+
+_____________________________________________________________________________________
+*************************************************************************************
+*************************************************************************************
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~Convert-videoformats:~~~~~~~~~~~~~~~~~~~~
+----------------------
+Burn in mkv embeded subtitles (with constant 24 fps):
+-----------------------------------------------------------------------
+for %x in (*.mkv) do ffmpeg -r 24 -i "%x" -filter_complex "[0:v][0:s]overlay[v]" -map "[v]" -map 0:a  E:\Z_[SERIES]\"%~nx.mp4"
+
+If you have multiple subtitle streams, you can select which one to use by replacing [0:s] with [0:s:0] to select the first subtitle stream or [0:s:1] to select the second subtitle stream, and so on.
+(Source: https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo)
+_________________________________
+
+Burn in srt/ass Subtitles (with constant 24 fps):
+-------------------------
+for %x in (*.m4v) do ffmpeg -r 24 -i "%x" -vf subtitles="%~nx".ass "K:\Zygodm\%~nx".mp4
+  for %x in (*.m4v) do ffmpeg -r 24 -i "%x" -vf subtitles="%~nx".ass "K:\Zygodm\%~nx".mp4
+
+(Source: https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo)
+____________________________________
+
+======================================
+==mkv -> mp4 (with constant 24 fps=
+
+for %x in (*.mp4) do ffmpeg -r 24 -i "%x" -codec copy K:\zsatsu\"%~nx.mp4"
+
+=====================
+===copy codec (no reconversion)
+
+for %x in (*.mkv) do ffmpeg -i "%x" -codec copy  E:\Z_[SERIES]\"%~nx.mp4"
+(SOURCE: https://askubuntu.com/questions/396883/how-to-simply-convert-video-files-i-e-mkv-to-mp4)
+(https://stackoverflow.com/questions/40077681/ffmpeg-converting-from-mkv-to-mp4-without-re-encoding)
+
+================
+==mkv -> mp4=====
+for %x in (*mkv) do ffmpeg -i %x -b:a 128k -codec:v libx264 -pix_fmt yuv420p -crf 20 E:\Z_[SERIES]\%~nx.mp4
+(Source: https://gist.github.com/dvlden/b9d923cb31775f92fa54eb8c39ccd5a9)
+
+#way too high bitrate
+#for %x in (*mkv) do ffmpeg -i %x -b:a 128k -codec:v libx264 -pix_fmt yuv420p -b:v 4500k -minrate 4500k -maxrate 9000k -bufsize 9000k E:\Z_[SERIES]\%~nx.mp4
+
+=================
+===*mp4 -> wmv:  ===
+ [HQ] for %x in (*wmv) do ffmpeg -i %x -q:a 2 -q:v 2 -vcodec msmpeg4 -acodec wmav2 %x1.mp4
+ (https://walterebert.com/blog/creating-wmv-videos-with-ffmpeg/)
+
+==============
+===wmv -> avi:===
+for %x in (*wmv) do ffmpeg -i %x %x1.mp4
+
+
+______________________________________________________________
+~~~~Convert n resize:~~~~
+
+for %x in (*.wmv) do ffmpeg -i %x -vf scale=640:1136 %~nx.mp4
+
+(Source: https://unix.stackexchange.com/questions/190431/convert-a-video-to-a-fixed-screen-size-by-cropping-and-resizing)
+________________________________________________________________
+
+Downscale_video (correct_aspect_ratio):
+--------------------------------------
+for %x in (*.*) do ffmpeg -i %x -filter:v scale=640:-0.5 -c:a K:\zygodm\%~nx.mp4
+
+for %x in (*.mp4) do ffmpeg -i %x -filter:v scale=640:-0.5 -c:a copy _%x
+
+(source: https://superuser.com/questions/624563/how-to-resize-a-video-to-make-it-smaller-with-ffmpeg)
+
+
+________________________________________________________________________________________________________________________________
+
+Scale/Resize Videos                                    
+-------------------
+ ffmpeg -i a.mp4 -vf scale=iw/1.25:-1 a1.mp4
+
+                                                        (1.25 in this case is the new x and y resolution, for
+                                                        example: 320:1.25 = 256 )
+                                                        (SOURCE: http://trac.ffmpeg.org/wiki/FilteringGuide)
+
+__________________________________________________________
+
+these two lines in a batch file will demux h.264 video and aac audio to elementry streams when you drag/drop an MP4 file onto it
+-------------------------------------------------
+ffmpeg -i %1 -vcodec copy %~n1.h264
+ffmpeg -i %1 -acodec copy %~n1.aac
+
+
+__________________________________________________________
+
+
+this batch file will remux to an MKV file.
+---------------------------------------------
+ffmpeg -i %1 -c copy %~n1.mkv
+
+(SOURCE: https://forum.videohelp.com/threads/384950-Need-a-tsMuxer-type-program-to-demux-AVI-files)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~convert-audioformats~~~~~~~~~~~~~~~~~~~~~~~
+
+*m4a -> mp3 (linux/android):
+for x in *m4a; do
+ffmpeg -i "$x" -vn -c:a libmp3lame -ab 192k -ar 48000 -f mp3 "$x".mp3
+done
+
+
+===================
+==remuxvideoformats===
+
+MKVToolnix Remux to mkv ("%~nx" instead of "%x" to omit extra .avi)
+--------------------------------------
+for %x in (*.avi) do "C:/Program Files/MKVToolNix\mkvmerge.exe" --ui-language de --output ^"C:/out/%~nx.mkv^" --language 0:und --language 1:und --language 2:und ^"^(^" ^"%x^" ^"^)^" --track-order 0:0,0:1,0:2
+
+
+
+HANDBRAKE:
+
+===========================================
+------MKV -> M4V w. subtitle burn in--(CONSTANT framerate)
+for %x in (*) do "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1 -o "E:\Z_Series\%~nx.mp4"  -f  mp4 --strict-anamorphic -e x264 -q 22 -r 24 --cfr -a 1 -E faac -B 128 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 --subtitle 1 --subtitle-burn=1 --markers="C:\Users\%Username%\AppData\Local\Temp\%~nx.csv" -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+=======================================================
+==MKV -> MP4---640 x 480-with subtitles burn in--(constant framerate)==
+for %x in (*.mkv) do "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1 -o "E:\Z_Series\%~nx.mp4" -f  mp4 -w 640 -l 480 -e x264 -q 22 -r 24 --cfr -a 1 -E faac -B 128 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 --subtitle 1 --subtitle-burn=1 --markers="C:\Users\%Username%\AppData\Local\Temp\%~nx.csv" -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+============================================
+----xxx -> MP4 w. SRT file burn in (CONSTANT framerate)=
+for %x in (*mkv) do "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1 -o "E:\Z_Series\%~nx.mp4"  -f mp4 --strict-anamorphic  -e x264 -q 20 --cfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 --srt-file "%~nx.srt" --srt-codeset UTF-8 --srt-offset 0 -srt-lang eng -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+================================
+==mkv to mp4 (640x480)=constant framerate=
+for %x in (*) do "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1 -o "E:\Z_SERIES\%~nx.mp4"  -f  mp4 -w 640 -l 480 -e x264 -q 22 -r 24 --cfr  -a 1 -E faac -B 128 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 -x weightp=0:cabac=0 --verbose=1
+=================================
+-------MKV -> M4V with subtitles burn in----(variable framerate)-
+for %x in (*.mkv) do  "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1-9 -o "E:\Z_[SERIES]\%~nx.mp4"  -f mp4 --strict-anamorphic  -e x264 -q 20 --vfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 --subtitle 1 --subtitle-burn=1 --markers="C:\Users\Pascal\AppData\Local\Temp\%~nx.csv" -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+=====================================
+ =mkv to mp4 (640x480) WITH subtitle-burn-in=variable===
+for %x in (*.mkv) do  "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1-9 -o "K:/Z5DS/%~nx.mp4" -f mp4 -w 480 -l 360 -e x264 -q 20 --vfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1 --subtitle 1 --subtitle-burn=1
+
+
+
+
