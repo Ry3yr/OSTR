@@ -1,1 +1,1432 @@
+https://textmechanic.com/text-tools/basic-text-tools/remove-lines-containing/
+     E:\Dropbox\Public\Texte + Bilder\Computer Tipps & Tricks\0_program_specific\Excel\Excel_to_remodel_batch_scripts.jpg
+--------------------------------------------------------
+*SHOR-TCUTS *Sent2Snippets *FOR-LOOP *if-else *Windows-settings *environment-variables *cntrl-pnl 
+*diskr-elated *cutfilenam-es *program-installation *internet-related *cmd-troubleshooting
+
+
+
+________________________________________________________________________________
+
+Change brightness from cmd:
+-----------------------------------------
+
+powercfg -SetDcValueIndex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb 10
+powercfg -S 381b4222-f694-41f0-9685-ff5bb260df2e
+
+(Source: https://superuser.com/questions/472081/can-i-force-a-greater-screen-brightness-from-windows-command-prompt)
+
+____________________________________________________________________________________
+
+Print directory + subdirs to txt:
+------------------------------------------
+tree > C:\extHDD.txt /a /f
+
+  alt:
+  tree > E:\Dropbox\Public\2Diaric\HDD_Foldertree\TXT\extHDD.txt /a /f
+
+(Source: https://www.groovypost.com/tips/print-contents-folder-windows-10/)
+
+
+OR: "Create Snapshot via Beyond Compare (on Desktop)
+C:\"Program Files"\"Beyond Compare 4"\bcompare -slient "@C:\Program Files\Beyond Compare 4\script.txt" "E:" "C:\Users\Q702\Desktop\C.bcss"
+
+__________________________________________________________________________________
+Create batteryreport:
+----------------------------
+Win 7:
+powercfg -energy
+
+Win 8+:
+powercfg /batteryreport
+(Source: http://www.helpwithwindows.com/Windows7/Check-your-laptop-battery-health-in-Windows-7.html)
+__________________________________________________________________________________
+
+Change Scripts homedir:
+--------------------------------
+SET ~=%HOMEPATH%
+CD %~%
+
+(SOURCE: https://superuser.com/questions/168714/is-there-a-shortcut-command-in-windows-command-prompt-to-get-to-the-current-user)
+
+____________________________________________________________________________________
+Open CMD, run cmd, close cmd again (timeout)
+-----------------------------------------------------
+start C:\Anki\anki.exe
+ping 127.0.0.1 -n 3
+taskkill /im cmd.exe
+(Source: https://superuser.com/questions/520527/windows-command-line-time-limit)
+
+
+____________________________________________________________________________________
+
+create symlink
+---------------------
+mklink "E:\Path\File.txt" "F:\Real_File.txt"
+mklink /D "E:\Path\Books" "F:\Books"
+(Source: https://www.maketecheasier.com/create-symbolic-links-windows10/)
+____________________________________________________________________________________
+
+Delete folder struct (fast) via cmd
+---------
+
+DEL /F/Q/S *.* > NUL
+
+(Source: https://www.ghacks.net/2017/07/18/how-to-delete-large-folders-in-windows-super-fast/)
+
+_________________________________________________________________________________________
+
+Drag and drop copy example:
+--------------------------
+@echo off
+SET /P variable=Drag a *.sf2 file into the window:
+copy %variable% C:\Users\Anwender\Desktop\0\0.sf2
+echo "copy of %variable% done
+pause
+exit
+__________________________________________________________________________________________
+
+Drag and drop enable on *.bat cmd:
+--------------
+TrID "%~1"
+(Source: https://stackoverflow.com/questions/14786623/batch-file-copy-using-1-for-drag-and-drop)
+
+_________________________________________________________________________________________
+
+Open CMD in curr dir:
+---------------------------
+@echo off
+cmd.exe
+
+_________________________________________________________________________________________
+
+
+User Path:
+---------------
+C:\Users\%USERNAME%
+
+
+_________________________________________________________________________________________
+
+Find Website IP Adress: (ipadress)
+---------------------------------
+tracert www.instructables.com
+
+(Source: https://www.instructables.com/id/Find-the-IP-address-of-a-website-using-command-pro)
+
+
+_________________________________________________________________________________________
+
+Stop all wifi activity: (ipconf)
+--------------------------
+ipconfig /release
+
+
+Start all internet activity:
+---------------------------------
+iponfig /renew
+
+_________________________________________________________________________________________
+
+Change dir (cd) inside bat file:
+------------------------------------------
+
+cd /d C:\path\to\file
+
+(SOURCE: https://stackoverflow.com/questions/40406516/change-directory-command-in-batch-file-is-not-working)
+
+_________________________________________________________________________________________
+
+
+Batch change file ext:
+-------------------------------
+
+ren *.jpg *.png
+(SOURCE: https://www.online-tech-tips.com/computer-tips/how-to-change-file-extension/)
+
+_________________________________________________________________________________________
+Drive format must be.. GPT. NFTS max size is 2 TB
+https://forums.tomshardware.com/threads/cant-allocate-portion-of-a-3tb-hard-drive-on-windows-10.2826552/
+(Usei "AOMEI Partition Assistant 84" for 3TB GPT formatting!! https://www.wikihow.com/Convert-MBR-to-GPT-Disk-with-AOMEI-Partition-Assistant) 
+
+Format via diskpart:
+-----------------------------
+diskpart
+list disk
+select disk 1
+clean
+create partition primary
+select partition 1
+active
+format FS=NTFS label=Data quick
+assign letter=w
+
+(Source: https://www.windowscentral.com/how-clean-and-format-storage-drive-using-diskpart-windows-10)
+(https://www.easeus.com/partition-manager-software/hard-drive-shows-wrong-capacity.html)
+_________________________________________________________________________________________
+
+Quickformat (via cmd):
+-------------------------------
+format D: /FS:NTFS /q
+
+
+(Source: https://www.tomshardware.com/news/format-hard-drive-command-prompt,37632.html)
+
+
+_________________________________________________________________________________________
+
+Format 32 (via cmd):
+-----------------------------
+
+format I: /FS:NTFS
+(Source: https://www.informationsarchiv.net/topics/51416/)
+_________________________________________________________________________________________
+
+Change volume ID of storage:
+----------------------------------------
+
+volumeid "I:" 72DB-3A49 
+(Source: docs.microsoft.com/en-us/sysinternals/downloads/volumeid)
+
+OR (via gui [for exfat and ntfs aswell]):
+
+E:\Dropbox\Public\Useful_Handy_Winprogs\000_Windows_specific\Volume_ID_(chg_UUID)\Volume Serial Number Editor\KLVolSNEdit.exe
+
+
+_________________________________________________________________________________________
+
+??? wildcard:
+-------------------
+n Windows BAT scripts and at the command line the question marks "?" are wildcards for individual characters, so "???.png" 
+means any PNG image with a three character name.
+(SOURCE: http://imagemagick.org/discourse-server/viewtopic.php?p=161077#p161077)
+
+______________________________________________________________________________________________________________________________________________________
+
+Opening Folders from DOS to Explorer     - %SystemRoot%\explorer.exe /e,"PATH\OF\FILE\"
+                                            (SOURCE: http://forum.chip.de/windows-xp-aeltere-versionen/batch-datei-ordner-oeffnen-606322.html)
+
+_________________________________________________________________________________________
+
+open send to folder (sendto):
+-----------------------------------------
+
+shell:sendto
+
+________________________________________________________________________________________
+
+delete all except mp3:
+------------------------------
+for /f "delims=" %%F in ('dir %~dp0 /s /b /a-d ^|findstr /vile ".mp3 .bat"') do del "%%F"
+(SOURCE: https://stackoverflow.com/questions/39060220/batch-to-delete-all-except-certain-extensions-recursively & https://www.computerhope.com/issues/ch001760.htm & https://ss64.com/nt/for_d.html)
+
+________________________________________________________________________________________
+
+Make File/Folder Write protected
+-----------------------------------------
+
+attrib +R d:\mysecretscript.vbs
+
+If it's NTFS, you can use the file system security feature.
+Edit the folder's "security" tab, I'm assuming you didn't change them before: delete "authenticated users", 
+it may warn you that you must disable inheritance first, do so in the "advance" option.Make sure UAC is on.
+
+(Source: https://www.safaribooksonline.com/library/view/windows-server-cookbook/0596006330/ch04s14.html
+https://superuser.com/questions/868399/how-to-make-a-folder-read-only-in-windows)
+________________________________________________________________________________________
+
+Reconnect wifi:
+---------------------
+%comspec% /c netsh wlan disconnect
+%comspec% /c netsh wlan connect name=TripMate-6D2E
+(Source: https://autohotkey.com/boards/viewtopic.php?t=34970)
+____________________________________________
+ Command Line to add firewall rule:
+---------------------------------------------------
+Netsh.exe advfirewall firewall add rule name="<Rule Name>" program="<FilePath>" protocol=tcp dir=in enable=yes action=allow profile=Private
+
+(SOURCE: http://www.itninja.com/blog/view/how-to-add-firewall-rules-using-netsh-exe-advanced-way)
+_____________________________
+
+Path to filename in send to:
+----------------------------------------
+"%~dpnx1"
+
+_____________________________
+
+Filename w.o. ext:
+---------------------------
+"%~dpn1"
+
+_____________________________
+
+Only Path: (use cd /d   to change dir in bat!)
+--------------
+"%~dp1"
+
+
+(SOURCE: https://im-coder.com/loesen-sie-den-absoluten-pfad-vom-relativen-pfad-und-oder-dateinamen.html)
+(https://stackoverflow.com/questions/5034076/what-does-dp0-mean-and-how-does-it-work)
+stackoverflow.com/questions/46683762/why-does-dp1-in-a-windows-batch-file-append-a-backslash-when-the-argument-is-c
+Because Microsoft made it like that. ;-) I believe the main purpose is that you can append all the parts ~d, ~p, ~n, ~x to get the full path,
+without having to insert any extra \ characters.
+
+________________________________________
+
+Path to used .bat executable (in send to):
+---------------------------------------
+"%~dpnx0"
+
+_________________________________________
+
+Replace Sting in Variable:
+------------------------------------
+(set oldstring="%~dpnx1") # only when used in ->send-to-> batch scripts
+
+set file=%oldstring:stringtoreplace=newstring%
+set newstring=%file%
+echo %newstring%
+
+(SOURCE: https://stackoverflow.com/questions/2772456/string-replacement-in-batch-file)
+
+____________________________________________
+
+Relativ/absolute path in batch file:
+-------------------------------------------------
+
+You can use 
+
+%~dp0
+
+ to get only the path portion of the 0th argument
+
+(SOURCE: https://stackoverflow.com/questions/1645843/resolve-absolute-path-from-relative-path-and-or-file-name)
+
+
+-----------------------------------------------------------------------------
+
+
+Kill Process:
+-------------------
+taskkill /F /IM cmd.exe
+
+--------------------------------------------------------------------------------
+
+Userinput overview:
+
+http://www.robvanderwoude.com/userinput.php
+
+--------------------------------------------------------------------------------
+
+Commands in one line, with conditions:
+---------------------------------------
+
+You can use the special characters listed in the following table to pass multiple commands.
+
+& [...]
+command1 & command2
+Use to separate multiple commands on one command line. Cmd.exe runs the first command, and then the second command.
+&& [...]
+command1 && command2
+Use to run the command following && only if the command preceding the symbol is successful. Cmd.exe runs the first command, and then runs the second command only if the first command completed successfully.
+|| [...]
+command1 && command2
+Run following ONLY if first fails
+
+(SOURCE: https://stackoverflow.com/questions/8055371/how-do-i-run-two-commands-in-one-line-in-windows-cmd)
+
+______________________________________________________________________________________________________________________
+
+Start program minimized:
+------------------------ 
+
+Run, cmd /c start "" /min C:/path/to/program
+
+(https://autohotkey.com/board/topic/40744-minimize-a-cmd-window-on-startup-to-the-system-tray/)
+
+
+_______________________________________________________________________________________________________________________
+
+
+Set Clipboard:
+--------------
+
+%windir%\system32\clip.exe
+
+(stackoverflow.com/questions/6832203/access-clipboard-in-windows-batch-file/15747067)
+
+_______________________________________________________________________________________________________________________
+
+Recreate Folderstructure without copying files inside:
+----------------------------------------------------------------------------
+robocopy "A:\Source folder" "B:\Destination folder" /e /xf *
+
+(SOURCE:  https://superuser.com/questions/530128/how-to-copy-a-directory-structure-without-copying-files)
+__________________________________________________
+
+copy while excluding "file.ext"
+--------------------------------------------
+robocopy source target /IS /S /XD /XF file.ext
+
+________________________________________________________________________________________
+
+copy folder, while excluding "exclude-folder"
+---------------------------------------------------
+robocopy "A:\Source folder" "B:\Destination folder" /e /XD exclude-folder
+(Source: https://pureinfotech.com/exclude-files-folders-robocopy-windows-10/)
+
+_______________________________________________________________________________________________________________________
+Xcopy – Exclude files
+......................................
+If you want to copy a directory to another location but want to exclude some files then you can use /EXCLUDE switch with Xcopy command.  You need to put the list of the files to be excluded in a file and then specify this file with the /EXCLUDE switch.
+
+Xcopy /I Sourcedir  Destdir /EXCLUDE:filename
+
+_________________________________________________________________________________
+
+Copy a directory including files and sub directories recursively.
+---------------------------------------------------------------------------
+Xcopy  /S /I /E Source_Directory  Destination_directory
+(SOURCE: https://www.windows-commandline.com/xcopy-command-syntax-examples/ )
+
+______________________________________________________
+
+Sync two folders via XCOPY:
+---------------------------
+
+XCOPY I:\ F:\extSD\ /E /D /C /Y
+
+(https://stackoverflow.com/questions/26243865/sync-two-folders-using-batch-file)
+
+ /E - Copies folders and subfolders, including empty ones.
+/H - Copies hidden and system files also.
+/K - Copies attributes. Typically, Xcopy resets read-only attributes.
+/O - Copies file ownership and ACL information.
+/X - Copies file audit settings (implies /O).
+(https://support.microsoft.com/de-de/help/323007/how-to-copy-a-folder-to-another-folder-and-retain-its-permissions)
+_______________________________________________________________________________________________________________________
+
+Sync two folders/disks via robocopy:
+------------------------------------
+
+robocopy /mir source dest 
+
+(https://serverfault.com/questions/154324/how-do-i-mirror-a-folder-copy-only-missing-and-changed-files-recursively-in-wi)
+
+
+
+______________________________________________________________________________________________________________________
+
+Read curr Dir to variable:
+----------------------------
+echo %~dp0 > define.txt
+set /p originalpath= <define.txt
+DEL define.txt
+echo %originalpath%
+
+_________________________________________________________________________________________________________________________________
+
+Delete first line of text file:
+------------------------------
+
+MORE /E +1 out.txt > out2.txt
+move out2.txt out.txt
+(SOURCE: https://mgxp.blogspot.de/2013/09/delete-first-lines-from-text-file-using.html)
+
+_________________________________________________________________________________________________________________________________
+
+Delete last line of text file:
+--------------------------------------
+
+(SOURCE: )
+_________________________________________________________________________________________________________________________________
+
+List/Read w.o. to txt (w.o. header)
+------------------------------------------
+
+dir /b > out.txt
+
+(https://de.wikipedia.org/wiki/Dir_(Kommandozeilenbefehl))
+https://stackoverflow.com/questions/23228983/batch-file-list-files-in-directory-only-filenames/23229008
+________________________________________________________________________________________________________________________________
+
+List/Read curr folder to out.txt (filelist, tree, dir):
+-----------------------
+dir > in.txt
+Set "InputFile=in.txt"
+Set "OutputFile=out.txt"
+setLocal EnableDelayedExpansion > "%OutputFile%"
+for /f "usebackq tokens=* delims= " %%a in ("%InputFile%") do (
+set s=%%a
+>> "%OutputFile%" echo.!s:~36!
+)
+DEL in.txt
+_________________________________________________________________________________________________________________________________
+
+Read current folder (recursively + subfolders) to txt:
+-----------------------------------------------------------------------------
+dir /s /b > outrecurs.txt
+(Source: https://stackoverflow.com/questions/2376801/recursive-directory-listing-in-dos)
+
+_________________________________________________________________________________________________________________________________
+
+Remove duplicate files:
+-----------------------
+
+@echo off
+
+for %%a in (*.*) do for %%b in ("c:\foo\%%a") do (
+   if exist "%%b" (
+      if "%%~Ta %%~Za" equ "%%~Tb %%~Zb" (
+         del "%%a"
+      ) else (
+         fc "%%a" "%%b" > NUL
+         if not errorlevel 1 del "%%a"
+      )
+   )
+)
+
+
+(SOURCE: stackoverflow.com/questions/30465549/delete-duplicate-files-using-windows-command-line)
+
+
+___________________________________________________________________________________________________________________________________
+
+Find first file in dir:
+-----------------------
+
+for /f "delims=" %%F in ('dir *.gif /b /o-n') do set filename=%%F
+echo "%filename%"
+(SOURCE: http://stackoverflow.com/questions/11882993/batch-script-to-get-first-filename-from-a-directory)
+
+
+
+
+___________________________________________________________________________________________________________________________________
+Find most recent file in folder:
+--------------------------------
+
+Example with specified directory path:
+for /f %%i in ('dir "c:\0scan" /b /a-d /t:c /od') do set LAST=%%i
+
+
+
+
+for /f %%i in ('dir /b/a-d/od/t:c') do set LAST=%%i
+
+(SOURCE: https://blogs.msdn.microsoft.com/oldnewthing/20120801-00/?p=6993)
+(SOURCE2: https://stackoverflow.com/questions/10519389/get-last-created-directory-batch-command)
+
+
+==================================================
+
+___________________________________________________________________________________________________________________________________
+
+
+
+Timestamp to file:
+------------------
+set SAVESTAMP=%DATE:/=-%@%TIME::=-%
+set SAVESTAMP=%SAVESTAMP: =%
+set SAVESTAMP=%SAVESTAMP:,=.%.jpg
+copy *.jpg %savestamp%.jpg
+
+(SOURCE: http://stackoverflow.com/questions/1064557/creating-a-file-name-as-a-timestamp-in-a-batch-job)
+____________________________________________________________________________________________________________________________________
+
+
+Wait for 1 second:
+-------------------
+
+@ping -n 10 localhost> nul
+(SOURCE: https://www.script-example.com/themen/sleep-or-wait-in-Batch-Dateien--cmd-.php)
+
+____________________________________________________________________________________________________________________________________
+
+Add text to beginning of each line   : (here "MB)
+------------------------------------------------------------------
+for /f "tokens=*" %%a in (wiiidlist.txt) do (echo MB.%%a) >> output.txt
+(Source: https://stackoverflow.com/questions/32801741/how-do-i-prepend-a-string-to-each-line-in-a-text-file-using-windows-cmd)
+
+____________________________________________________________________________________________________________________________________
+Add text to end of each line         :
+-------------------------------------------------------------------
+
+@echo off
+setLocal EnableDelayedExpansion
+for /f "tokens=* delims= " %%a in (wiidlist.txt) do (
+set /a N+=1
+echo ^"%%a^",>>output.txt
+)
+
+(Source: https://www.dostips.com/forum/viewtopic.php?p=49294#p49294)
+_____________________________________________________________________________________
+
+Add text to beginning & end of each line :
+-------------------------------------------------------------------
+
+@echo off
+setLocal EnableDelayedExpansion
+for /f "tokens=* delims= " %%a in (filename.txt) do (
+echo "%%a", >>newfilename.txt
+)
+____________________________________________________________________________________________________________________________________
+
+Read text file to variable:
+-----------------------------------
+set /p pathname=<C:\currfile.txt
+(SOURCE: https://stackoverflow.com/questions/3068929/how-to-read-file-contents-into-a-variable-in-a-batch-file)
+
+____________________________________________________________________________________________________________________________________
+
+
+Turn errors etc off:    @echo off
+-------------------------
+
+__________________________________________________________
+
+Find and delete unwanted text:
+------------------------------
+
+findstr "redirect" res.txt > unwanted.txt
+findstr /v "redirect" res.txt > text_cleaned.txt
+
+(in this case:
+res.txt    = source file
+unwanted.txt = text file containing the new unwanted text
+text cleaned.txt the new purged file
+
+(SOURCE:  http://stackoverflow.com/questions/4665505/to-remove-some-content-from-a-file-using-dos-batch-file)
+
+_________________________________________________________________________________________________________________________________
+
+Copy dir recursively:
+----------------------
+
+xcopy e:\* c:\0scan /s
+_________________________________________________________________________________________________________________________________
+
+Copy one text files content to another:   type hex.txt >> all.txt
+---------------------------------------
+_________________________________________________________________________________________________________________________________
+ 
+Read lines from text files:               for /F %%c in (hex.txt) do %%c
+---------------------------
+__________________________________________________________________________________________________________________________________
+
+Rename .bat to .cmd                      To make it work from RocketDock (!)
+                                       (SOURCE: http://stackoverflow.com/questions/148968/windows-batch-files-bat-vs-cmd?rq=1)
+
+___________________________________________________________________________________________________________________________________
+Move files with specific name parts in them:     md am
+--------------------------------------------     move *.am.mp3 am 
+
+___________________________________________________________________________________________________________________________________
+Ignore filetype from curr cmd:    | findstr /v /i "\.txt$" | findstr /v /i "\.bat$" "\.txt$" 
+-------------------------------    (SOURCE: http://superuser.com/questions/383641/excluding-files-of-particular-extension-using-dir-command-on-windows-command-lin)
+
+___________________________________________________________________________________________________________________________________
+extract text from txt:  findstr "text to extract" source.txt >> text to output to
+---------------------    (SOURCE: http://scripthacks.wordpress.com/2008/09/16/grep-equivalent-for-windows-string-parsing/)
+                         findstr = windows equivalent of unix 'grep'
+
+___________________________________________________________________________________________________________________________________
+
+Grep as variable:      set sed=E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Grep_Sed\sed.exe
+----------------       call %sed%
+___________________________________________________________________________________________________________________________________
+
+Sed as variable:       set grep=E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Grep_Sed\grep.exe
+----------------       (call %grep%)
+___________________________________________________________________________________________________________________________________
+Kill Process:                  Taskkill /F /IM explorer.exe
+--------------
+
+___________________________________________________________________________________________________________________________________
+Rename double extension to single one             ren *.ass *.
+ (f.e. .ass.srt to only .srt)                     ren *.srt *.ass
+
+     (SOURCE:  http://www.unix.com/windows-and-dos-issues-and-discussions/222349-simple-renaming-question.html)
+___________________________________________________________________________________________________________________________________
+Checkdisk:
+----------
+
+chkdsk /f d:
+
+___________________________________________________________________________________________________________________________________
+Define EXE as environment variable:      set variable=PATH\TO\EXE.exe
+-----------------------------------      (you can call the exe in an example by using %variable% [in this case])
+
+
+___________________________________________________________________________________________________________________________________
+Xcopy, copy complete dir:                xcopy /E SOURCEDIR TARGETDIR
+-------------------------
+
+
+___________________________________________________________________________________________________________________________________
+Diskpart shrink Drive:                 shrink [desired=<desiredsize>] [minimum=<minimumsize>]
+---------------------                   (SOURCE: http://technet.microsoft.com/de-de/library/cc731894.aspx)
+
+
+___________________________________________________________________________________________________________________________________
+Diskpart extend Drive:                  extend [size=n] [disk=n] [noerr]
+----------------------                  (SOURCE: http://support.microsoft.com/kb/325590/de)
+
+___________________________________________________________________________________________________________________________________
+compressed dir list:                            dir /w
+--------------------
+
+___________________________________________________________________________________________________________________________________
+detail dir list (with foldersize etc):          dir /p 
+--------------------------------------
+
+___________________________________________________________________________________________________________________________________
+Go back to previous dir:                    cd..
+------------------------
+
+___________________________________________________________________________________________________________________________________
+Clear Screen:                               cls
+-------------
+
+___________________________________________________________________________________________________________________________________
+
+Format Disk without asking Y/N or confirm:  format E: /Q /A:32k /FS:FAT /y
+------------------------------------------   (the /y switch always answers all questions with YES and ENTER, no userinteraction needed)
+                                                (SOURCE: http://www.autoitscript.com/forum/topic/8615-silent-format-of-floppy-disk/)
+
+___________________________________________________________________________________________________________________________________
+
+Grant permission for curr user on file:      icacls %variablea% /grant %USERNAME%:f
+---------------------------------------    (SOURCE: http://www.computerhope.com/forum/index.php?topic=37539.0)
+
+
+___________________________________________________________________________________________________________________________________
+
+Username as variable:         %USERNAME%
+-------------------- (SOURCE: http://stackoverflow.com/questions/1607271/how-do-you-find-the-current-user-in-a-windows-environment)
+
+___________________________________________________________________________________________________________________________________
+echo                                     - print a specific line to screen e.g.   "echo hello world"
+
+___________________________________________________________________________________________________________________________________
+
+Net send                                 - send a user generated popup windows message using dos and net. framework http://www.robvanderwoude.com/usermessages.php
+
+                                         - change dos windos text color  http://www.computerhope.com/color.htm
+___________________________________________________________________________________________________________________________________
+
+Escaping %% Variables if the name of an  - Use double % characters to escape a single one:
+                                           set variable=%%val%%
+
+___________________________________________________________________________________________________________________________________________________________
+
+SET /P variable=Please enter your name:  - replace the "variable" with whatever you want, the stuff after "=" is what will be asked from the user to be typed in
+    %variable%"                                         * in the next line you can use the typed in userinput by calling "%variable%"
+                                                         http://www.codeproject.com/Tips/123810/Get-user-input-from-DOS-prompt
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+User Choice                               
+   echo 1. TEXTCHOICE1                      
+   echo 2. TEXTCHOICE2                                                   
+   set /p choice=I choose (1,2,3):
+   if %choice%==1 goto test 
+   if %choice%==2 goto start 
+   if %choice%==3 goto exit     
+:test
+:start
+:exit                      
+(SOURCE: http://stackoverflow.com/questions/4663928/batch-script-loop-through-file-names)
+
+
+Preset User Choice: (in this case nr. 2)
+------------------------
+   set choice=2
+______________________________________________________________________________________________________________________________________________________
+
+actual folder is %folder%                  (SOURCE: http://stackoverflow.com/questions/2874836/how-to-ignore-from-being-evaluated)
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+DEL                                      - Delete file   e.g.   DEL file.file
+     
+
+   DEL /q C:\FRAMES\*                    - Delete without promting for yes/no
+                                      (SOURCE: http://stackoverflow.com/questions/7160342/how-to-skip-are-you-sure-y-n-when-deleting-files-in-batch-files)
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+rd file /s /q                            - Delete a folder recursively  e.g. rd NDs_UNPACK /s /q
+                                             (SOURCE: http://answers.yahoo.com/question/index?qid=20071025083146AA5bP2S)
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+current dir
+
+%~dp0 refers to the full path to the batch file's directory (static) 
+%~dpnx0 refers to the full path to the batch directory and file name (static).
+https://stackoverflow.com/questions/4419868/what-is-the-current-directory-in-a-batch-file
+_______________________________________________________________________________________________________________________________________________________________________________________________
+Pipe output into text file
+
+command 2> TEXTFILE.txt                   - adding a " 2> text.txt" to any command will have it's output redirect to said file
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+Read first line of txt into variable:
+-------------------------------------
+::==
+@echo off
+setLocal EnableDelayedExpansion
+for /f "tokens=* delims= " %%a in (out.txt) do (
+if !myvar!'==' set myvar=%%a
+)
+echo myvar is set to !myvar!
+::==
+
+(SOURCE: https://www.computing.net/answers/programming/read-lines-from-txt-file-in-dos/15219.html)
+_______________________________________________________________________________________________________________________________________________________________________________________________
+Read file into variable (- Replace the "co.txt" with whatever file you want to read into a variable)
+----------------------------------------------------------------------------------------------------
+set /p variable= <co.txt
+
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+Turn DOS Prompts off                      - Turns the DOS commands and showing of path such as "C:\User>" off, makes the scrip look cleaner  (add to the beginning of your DOS Scripts !)
+    @echo off                                   (SOURCE: http://www.computerhope.com/secret.htm) 
+
+______________________________________________________________________________________________________________________________________________________________________________________________
+
+
+Execute DOS Cmds afte each other            putting a && between 2 commands on the same line will make DOS clearing those commands after each other
+cmd1&&cmd2&&cmd3                                 (SOURCE: http://superuser.com/questions/62850/execute-multiple-commands-with-1-line-in-windows-commandline)
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+Save DOS command to variable
+FOR /F "tokens=1 delims=" %A in ('pwd') do SET myVar=%A echo %myVar%             (SOURCE: http://justgeeks.blogspot.de/2008/07/save-output-of-dos-command-to-variable.html)
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+Set path/filepath to variable:
+set SOURCE=E:\Desktop\MMBN4Programs\ProgramParts\01blnk.gif         (SOURCE: http://www.computerhope.com/sethlp.htm#01) 
+
+________________________________________________________________________________________________________________________________________________________________________________________________
+
+Write variable to File:
+ECHO %PATH% > PATH.TXT                         (Source: http://www.computing.net/answers/dos/environment-variable-to-a-text-file/16705.html)
+
+_________________________________________________________________________________________________________________________________________________________________________________________________
+Replace Text in Texfile 2:
+--------------------------
+@echo off
+setlocal enabledelayedexpansion
+set INTEXTFILE=test.txt
+set OUTTEXTFILE=test_out.txt
+set SEARCHTEXT=bath
+set REPLACETEXT=hello
+set OUTPUTLINE=
+for /f "tokens=1,* delims=¶" %%A in ( '"type %INTEXTFILE%"') do (
+SET string=%%A
+SET modified=!string:%SEARCHTEXT%=%REPLACETEXT%!
+echo !modified! >> %OUTTEXTFILE%
+)
+del %INTEXTFILE%
+rename %OUTTEXTFILE% %INTEXTFILE%
+
+
+(Source: https://stackoverflow.com/questions/5273937/how-to-replace-substrings-in-windows-batch-file)
+
+
+
+__________________________________________________________________________________________________________________________
+Replace Text in textfile:
+-------------------------
+set /p text= <textfile.txt                      - Replace "textfile.txt" with the name your txt has
+set str=%text%                                        - replace "text-to-replace" with the string you want to replace
+echo.%str%                                                 - replace "replacing-text" with the text you want to have newly written  
+set str=%str:text-to-replace=replacing-text%
+ECHO %str% > textfile.txt
+_________________________________________________________________________________________________________________________________________________________________________________________________
+
+Remove all spaces in textfile:
+
+set /p xycos= <co.txt
+set str=%xycos%
+echo."%str%"
+set str=%str: =%                               (SOURCE: http://www.dostips.com/DtTipsStringManipulation.php#Snippets.RemoveSpaces)
+ECHO %str% > co.TXT
+
+_________________________________________________________________________________________________________________________________________________________________________________________________
+
+Extract last 7 characters from line:
+
+set /p xycos= <co.txt
+set str=%xycos%
+echo.%str%
+set str=%str:~-8%
+echo %str% > co2.txt
+(SOURCE: SOURCE: http://www.dostips.com/DtTipsStringManipulation.php)
+
+
+
+
+
+________________________________________________________________________________________________________________________________________________________________________________________________
+Delete First 36 Characters from each line of txt file
+
+Set "InputFile=in.txt"
+Set "OutputFile=out.txt"
+setLocal EnableDelayedExpansion > "%OutputFile%"
+for /f "usebackq tokens=* delims= " %%a in ("%InputFile%") do (
+set s=%%a
+>> "%OutputFile%" echo.!s:~36!
+)
+
+
+(SOURCE: http://www.petri.co.il/forums/showthread.php?t=60210)
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+Repeat/Loop Script (user defined)
+
+:start
+SKRIPT                                     - set a ":start" at the beginning of your script and a ":exit" at its end
+:exit
+set /p choice=I choose (1,2,3):                 Then paste the choice option right before the end and the script will repeat every time a "1" is entered and will close when you enter a "2"
+   if %choice%==2 goto start
+   if %choice%==3 goto exit
+________________________________________________________________________________________________________________________________________________________________________________________________
+
+Opperess Errors & Commandline Output:        2>nul >NUL
+-------------------------------------        
+
+
+
+Oppress Errors:
+---------------
+
+Command  2>nul                               2>NUL command" after each command will suppress errors in the shell and stop them from getting outputted to the shell
+                                                 (SOURCE: http://www.computing.net/answers/programming/suppresshide-dos-system-errors/18159.html)
+
+
+
+
+Opress Commandline Output:                    >NUL after each line will prevent output to the command line
+-------------------------
+
+Command >NUL
+
+________________________________________________________________________________________________________________________________________________________________________________________________
+
+Pause script for x seconds:
+-----------------------------
+
+timeout 5 > nul (after Win XP)
+
+OR
+
+ping 1.1.1.1 -n 1 -w 5000 > nul                  (SOURCE: http://stackoverflow.com/questions/1672338/how-to-sleep-for-5-seconds-in-windowss-command-prompt-or-dos)
+
+________________________________________________________________________________________________________________________________________________________________________________________________
+
+Open other bat from current one:
+---------------------------------
+
+start test.bat                               This will open another command window and run the test.bat batch file. Downside, the other command window stays open.
+
+OR
+
+start cmd /c test.bat                       This will open another command window, run test.bat, and automatically close. Downside, you may not want it to automatically close.
+                                                 (SOURCE: http://answers.yahoo.com/question/index?qid=20080213161834AATH9Zq)
+ Pick whichever one works best for you. Typically, I'll use the 'start cmd /c' option to run subroutines from a primary batch file.
+__________________________________________________________________________________________________________________________________________________________________________
+
+
+Read drag and drop file(path) to variable:       SET /P app=drag and drop image file:
+
+
+__________________________________________________________________________________________________________________________________________________________________________
+Shutdown PC after Time:                shutdown -f -s -t 28800      (8hours)
+                                                       shutdown -f -s -t 
+-------------------------------------------------------------------
+cd into current directory of bat file: cd "%~dp0"
+-------------------------------------------------------------------
+
+
+for command:
+-------------
+
+for %%x in (*.mp4) do MP4Box -add %%~nx.srt
+
+                                                 the %%x is the complete file currently processed (for example "001-video.mp4"
+                                                 the %%~nx portion is JUST THE FILENAME, without the extension (useful for commands that require to list the desired file, here, srt for example)
+                                                 (SOURCE: http://superuser.com/questions/223156/how-do-i-hide-file-extensions-in-a-command-prompt-dir-output )
+-------------------------------------------------------------------
+
+
+
+==========================
+==========ifelse==========
+
+if exist <insert file name here> (
+    rem file exists
+) else (
+    rem file doesn't exist
+)
+
+
+(source: https://stackoverflow.com/questions/4340350/how-to-check-if-a-file-exists-from-inside-a-batch-file)
+-------------------------------------------------------------------
+==========================
+==========FORLOOP=========
+
+
+Loop through text list:
+
+for /F "tokens=*" %%A in (myfile.txt) do [process] %%A 
+
+(Source: https://stackoverflow.com/questions/155932/how-do-you-loop-through-each-line-in-a-text-file-using-a-windows-batch-file)
+
+__________________________________________________
+
+FOR - Loop commands
+FOR - Loop through a set of files in one folder
+FOR /R - Loop through files (recurse subfolders) 
+FOR /L - Loop through a range of numbers
+FOR /F - Loop through items in a text file
+FOR /F - Loop through the output of a command
+FOR /D - Loop thorugh folders
+https://ss64.com/nt/for_d.html
+
+
+
+___________________________________________________________________________________________________________________________
+
+[Recursive] Rename spcific file in sub dir (here: iconTex.tga inside "%%i/meta/")
+---------------------------------------------------------------------------------------------------------
+for /D %%i in (*) do (
+#cd "%%i/meta"
+convert "%%i/meta/"iconTex.tga -resize 128x128! "%%i/meta/"iconTex.tga
+)
+pause
+exit
+
+(Source: )
+
+
+___________________________________________________________________________________________________________________________
+[Recursive] Rename file in folders to dir: (+rename folders to underscore aswell)
+------------------------------
+
+echo "replacing spaces in folders..."
+SETLOCAL ENABLEDELAYEDEXPANSION
+FOR /D /R %%i IN (*) DO (
+    SET "n=%%~nxi"
+    REN "%%i" "!n: =_!"
+)
+for /d %%a in (*) do for %%b in (%%a\*) do ren "%%b" %%a%%~xb
+
+
+___________________________________________________________________________________________________________________________
+
+[Recursive] Replace spaces( ) in folders with underscores(_):
+--------------------------------------------
+
+echo "replacing spaces in folders..."
+SETLOCAL ENABLEDELAYEDEXPANSION
+FOR /D /R %%i IN (*) DO (
+    SET "n=%%~nxi"
+    REN "%%i" "!n: =_!"
+)
+
+(Source: https://stackoverflow.com/questions/19251407/how-to-replace-spaces-with-dashes-of-folder-names-in-bulk)
+
+___________________________________________________________________________________________________________________________
+
+Replace spaces in filnames w underscores:
+-----------------------------------------
+
+@echo off
+setlocal enabledelayedexpansion
+for %%j in (*.*) do (
+set filename=%%~nj
+set filename=!filename:.=_!
+set filename=!filename: =_!
+if not "!filename!"=="%%~nj" ren "%%j" "!filename!%%~xj"
+)
+
+
+
+______________________________________________
+Copy all filetype x files  from subdirs to new one:
+-----------------------------------------------------------------
+
+FOR /R %r in (*.m4v) do copy "%r" D:\zzzd\
+
+_________________________________________________________________________________________________________________________________
+Execute command in all subdirs:
+-------------------------------
+
+For /R #command-here#
+
+(SOURCE: https://ss64.com/nt/for_r.html)
+_________________________________________________________________________________________________________________________________
+FOR loop recursively in all subdirs:
+------------------------------------
+FOR /R "%~dp0" %%x in (*.mp3) do --command-- "%%x"
+
+_________________________________________________________________________________________________________________________________
+
+Double for loop:
+----------------
+
+for %%n in (*gif) do for %%x in (*png) do ###CMD###
+
+___________________________________________________________________________________________________________________________________
+
+EXCLUDE file from for loop (here: excludefile.png)
+--------------------------------------------------
+attrib +h filetohide.file
+
+then after the command
+
+attrib -h filetohide.file
+
+(SOURCE: https://psycodedeveloper.wordpress.com/2014/03/18/how-to-exclude-files-from-a-for-loop-in-a-batch-file/)
+
+
+   HIDE certain file type:
+   -------------------------------
+   attrib +h *.nfo /
+    (SOURCE: swww.sevenforums.com/customization/81717-hide-all-certain-file-type-folder-tree.html)
+
+   Superhide file/folder (won't show even if hidden files are set to "shown")
+  -----------------------------
+attrib +s +h “C:\Users\Taylor Gibb\Desktop\Top Secret” 
+https://www.howtogeek.com/104825/make-a-super-hidden-folder-in-windows-without-any-extra-software/
+___________________________________________________________________________________________________________________________________
+
+FOR LOOP:
+---------
+Repeat command for each file
+for %%X in (*.txt) do COMMAND                
+
+the filetype in the bracket determines the filetype to consider. 
+Replace the COMMAND afterwards with whatever you want to have
+the script repeat that command for those files
+(SOURCE: http://www.easydos.com/for.html )
+
+___________________________________________________________________________________________________________________________________
+
+
+===========================
+=====diskrelated==============
+
+Find out cluster size of disk (any)
+-----------------------------------------------
+chkdsk volumeletter:
+
+(SOURCE: forum.sysinternals.com/how-to-check-allocation-unit-size_topic20598.html)
+________________________________
+
+Find out cluster size of disk (ntfs)
+-----------------------------------------
+
+fsutil fsinfo ntfsinfo [your drive]
+
+(SOURCE: stackoverflow.com/questions/81236/how-can-i-view-the-allocation-unit-size-of-a-ntfs-partition-in-vista)
+
+
+=====================
+===cutfilenames=========
+
+Rename/Replace filename pattern:
+
+@echo off
+Setlocal enabledelayedexpansion
+Set "Pattern= "
+Set "Replace=_"
+For %%a in (*.mp3) Do (
+    Set "File=%%~a"
+    Ren "%%a" "!File:%Pattern%=%Replace%!"
+)
+
+(Source: https://stackoverflow.com/questions/20791264/how-to-replace-all-spaces-by-underscores-in-all-file-names-of-a-folder)
+
+_________________________________________
+
+Reaname/Replace spaces in *xxx to underscore:
+----------------------------------------------------------------
+
+cmd /e:on /v:on /c "for %f in ("* *.mp3") do (set "n=%~nxf" & set "n=!n: =_!" & ren "%~ff" "!n!"
+
+(Source: https://stackoverflow.com/questions/20791264/how-to-replace-all-spaces-by-underscores-in-all-file-names-of-a-folder)
+
+_________________________________________________________________________________
+
+rename file ext:
+----------------
+ren *.gif *.png.gif
+
+___________________________________________________________________________________________________________
+
+Rename file extension (here: .jpg.no to .jpg)
+---------------------------------------------
+
+for /R %x in (*.jpg.no) do ren "%x" *.
+(SOURCE: http://stackoverflow.com/questions/9885241/changing-all-files-extensions-in-a-folder-with-one-command-on-windows)
+
+___________________________________________________________________________________________________________
+Single_line_rename extension (.gif.png -> .png)
+---------------------------------------------------------------------
+for /f "delims=." %%a in ('dir /b *.gif.png') do ren "%%~a.gif.png" "%%~a.png"
+(SOURCE: https://superuser.com/questions/608128/how-to-batch-rename-and-remove-last-characters)
+____________________________________________________________________________________________________________
+
+
+
+Remove first characters from filename: cut
+-------------------------------------------------------
+for %i in (*.txt) do (set fName=%i)
+ren %fName% %fName:~7%
+(Source: https://www.sevenforums.com/general-discussion/220789-remove-last-seven-characters-multiple-filenames.html)
+
+
+
+
+=================
+==programinstallation=
+
+
+Unistall via MSI:
+-----------------------
+Msiexec.exe Command Line The Windows Installer technology uses Msiexec.exe for installing MSI and MSP packages.
+This tool gives you full control over the installation process, allowing you to set: install options (install, uninstall, administrative install, advertise a product)
+ display options (full, basic or no UI during the installation) restart options 
+(if the machine will be restarted after the installation) logging options update options 
+(apply or remove updates) repair options (only for an installed package) public properties which are used by the installation.
+The usual form of the msiexec command line is this: 
+msiexec.exe <install_option> <path_to_package> [package_parameters]
+www.advancedinstaller.com/user-guide/msiexec.html
+
+________________________________________________________________________________________
+
+
+Setup program in silent mode:
+----------------------------------------------
+Setup.exe /s
+
+________________________________________________________________________________________
+
+
+
+
+===========================
+======Windowssettings=========
+
+Curr Wallpaper Dir:
+-------------------------
+C:\Users\%USERNAME%\AppData\Roaming\Microsoft\Windows\Themes
+
+_______________________________
+
+
+Delete Icon Cache:
+-------------------------
+attrib -h C:\Users\%USERNAME%\AppData\Local\IconCache.db
+del C:\Users\%USERNAME%\AppData\Local\IconCache.db
+(SOURCE: https://www.itechtics.com/refresh-icon-cache-without-restarting-windows/)
+
+Disable UAC 
+------------------
+C:\Windows\System32\cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f 
+
+Enable UAC 
+----------------
+C:\Windows\System32\cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 1 /f
+
+(Source: www.howtogeek.com/howto/windows-vista/enable-or-disable-uac-from-the-windows-vista-command-line/)
+
+
+=========================
+===Environmentvariables=======
+**E:\Dropbox\Public\Useful_Handy_Winprogs\000_Windows_specific\Environment_variable_EditorRapidEE\rapidee.exe
+   [Backups: E:\Dropbox\Public\Useful_Handy_Winprogs\000_Windows_specific\Environment_variable_EditorRapidEE\BACKUP]
+**Open EnvirVarsPanel: rundll32 sysdm.cpl,EditEnvironmentVariables
+_______________________________
+Folder for my bat cmd's (environment vars): C:\cmdtools\
+----------------------
+
+
+______________________________________________________
+
+Set Environment Variable permanently:
+--------------------------------------------------------
+setx /M path "%path%;C:\your\path\here\"
+
+
+#If adding manually: 
+Use the bottom window's (system) PATH option and delimit via ";"
+
+(SOURCE: https://superuser.com/questions/1452632/how-to-add-to-system-path-environment-variable-in-windows-10-via-cmd-not-to-u)
+_____________________________________________
+
+User environm Path:
+-----------------------------
+
+setx OGRE_HOME “D:\Program Files\OgreSDK”
+(SOURCE: stackoverflow.com/questions/17215562/invalid-syntax-with-setx)
+
+_______________________________________________________________
+
+====================
+===Sent2Snippets=======
+
+Rename files ext:
+--------------------------
+
+@echo off
+echo %~dp1 > C:\currfile.txt
+set /p path=<C:\currfile.txt
+echo %path%
+cd /d %path%
+SET /P orig=Please enter old file ext:
+SET /P new=Please enter NEW file ext:
+ren *.%orig% *.%new%
+exit
+
+______________________________________
+
+=========================SHORTCUTS===================
+Aren -rename all files in folders to 0001 0002 etc...
+
+set aren="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Aren_rename\AREN_dec_rename.bat"
+%aren%
+
+
+Rename files in folders to folder:
+----------------------------------
+set dirfolderren="E:\Dropbox\Public\00_MyDosStuff\Rename_Files_inside_Folders_to_Foldername.bat"
+%dirfolderren%
+
+
+Repeat command for all subdirs: (copy and change command desired
+-------------------------------
+E:\Dropbox\Public\00_MyDosStuff\REPEAT_CMD_for_ALL_SUBDIRS
+
+
+
+
+HANDBRAKE:
+-------MKV -> M4V with subtitles-----
+for %x in (*.mkv) do  "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1-9 -o "E:\Z_[SERIES]/%~nx.mp4"  -f mp4 --strict-anamorphic  -e x264 -q 20 --vfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 --subtitle 1 --subtitle-burn=1 --markers="C:\Users\Anwender\AppData\Local\Temp\%~nx.csv" -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+==================
+==mkv to mp4 (640x480)
+for %x in (*.mkv) do  "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1-9 -o "E:\Z_[SERIES]/%~nx.mp4" -f mp4 -w 640 -l 352 -e x264 -q 20 --vfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+=====================================
+=mkv to mp4 (640x48) WITH subtitle-burn-in====
+for %x in (*.mkv) do  "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1-9 -o "C:/%~nx.mp4" -f mp4 -w 640 -l 352 -e x264 -q 20 --vfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1 --subtitle 1 --subtitle-burn=1
+====================
+==old=to mp4 (640x480)==
+for %x in (*.mkv) do "E:\Dropbox\Public\Useful_Handy_Winprogs\iOS_related\[PC_Software]\Video_Converter\Handbrake\HandBrakeCLI.exe" -i "%x" -t 1 -c 1 -o "E:\Z_[SERIES]\%~nx.mp4"  -f mp4 -w 640 -l 352 -e x264 -q 20 --vfr  -a 1 -E faac -B 160 -6 dpl2 -R Auto -D 0 --gain=0 --audio-copy-mask none --audio-fallback ffac3 -x ref=1:weightp=1:subq=2:rc-lookahead=10:trellis=0:8x8dct=0 --verbose=1
+
+
+
+
+
+-------any mp4 without subtitles---
+copy E:\Dropbox\Public\00_MyDosStuff\Handbrake_CLI_Scripts\Handbrake_general_TO_mp4.bat Handbrake_general_TO_mp4.bat
+Handbrake_general_TO_mp4.bat
+
+~~~~HASH/CALC MD5 Folder Creation~~~~~~~~~
+set hashprobe="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Hash_CALC\DirHash.exe"
+for %%x in (*png) do %hashprobe% "%%x" -overwrite -nowait  md5 >> hash.txt
+
+~~~~~GENERAL Replace in Filename~~~~~~~~~~~~~
+set genren="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Rename_FILES\01_general_rename.bat"
+set repl="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Rename_FILES\repl.bat"
+%genren%
+
+~~~~~Replace "Verknüfung in Filename"~~~~~~~~
+set linkren="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Rename_FILES\02_link_rename.bat"
+set repl="E:\Dropbox\Public\00_MyDosStuff\00DOS_Tools\Rename_FILES\repl.bat"
+%linkren%
+
+~~~~~Output Text dump from current folder~~~~
+set listfolder="E:\Dropbox\Public\00_MyDosStuff\List_current_Folder_to_txt.bat"
+%listfolder%
+
+~~~~~Extract frames from video to gif~~~~~~~~
+set frameextract="E:\Dropbox\Public\00_MyDosStuff\FFMPEG Scripts\Extract_frames_from_video_(ffmpeg)_TO_GIF.bat"
+%frameextract%
+
+
+
+===============
+====cntrlpnl======
+All the .cpl file are located in the System32 directory.
+
+
+Open Environment Variables:
+------------------------------------------
+rundll32 sysdm.cpl,EditEnvironmentVariables
+
+Call Bluetooth Settings Panel:
+-------------------------------------------
+rundll32.exe Shell32.dll,Control_RunDLL bthprops.cpl,,1 (https://stackoverflow.com/questions/21625703/how-to-open-devices-and-printers-control-panel-in-windows-8-via-cli-or-ahk)
+
+Devices and Printers:
+-------------------------------
+control printers
+   OR
+explorer shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A} 
+(https://www.eightforums.com/threads/clsid-key-guid-shortcuts-list-for-windows-8.13591/)
+
+Windows 7, Bluetooth Devices
+-----------------------------
+control bthprops.cpl
+
+Open internet control panel: (https://autohotkey.com/board/topic/49706-solvedopening-control-panel-items/)
+------------------------
+inetcpl.cpl
+
+Open Speech control panel:
+----------------------------------------
+%A_ProgramFiles%\Common Files\Microsoft Shared\Speech\sapi.cpl 
+
+
+View available wifi networks: (https://superuser.com/questions/440751/windows-7-open-the-volume-control-popup-from-the-command-prompt)
+---------------------------------------
+rundll32 van.dll,RunVAN
+
+Show Volume Slider Popup (Sound volume) (https://superuser.com/questions/440751/windows-7-open-the-volume-control-popup-from-the-command-prompt)
+--------------------------
+sndvol.exe -f
+
+host file:
+------------
+C:\Windows\System32\drivers\etc
+
+======================
+==internetrelated=========
+
+Test Host file
+--------------------
+Testing your settings
+1.) Open a command prompt.
+2.) Use the command: ping -c2 example.com.
+3.) The ping results will show the IP address and confirm that it is responding.
+https://www.vultr.com/docs/using-hosts-file-to-test-websites
+
+
+Host file troubleshooting:
+---------------------------------
+to test site: ping www.xyz.com -n 1
+flushDNS: ipconfig /flushdns
+https://serverfault.com/questions/452268/hosts-file-ignored-how-to-troubleshoot
+
+
+=====================
+====cmdtroubleshooting====
+
+Bat, escape % via snd instance
+https://stackoverflow.com/questions/14509652/what-is-the-difference-between-and-in-a-cmd-file
 
