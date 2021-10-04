@@ -1,1 +1,1529 @@
+[[ / ! \ USE BUILTIN context menu "legacy ompile" function of ahk FROM NOW ON!]] (for new features use regular compile, but keep ahk file!!) 
+   E:\Dropbox\Public\00_yAutoHotkeyStuff\Scripts\000_Full_installation_scripts\AHK_Decompile\AHK_Regain_ahk_script_via_RESHACKER.jpg
+  -> INCASE need to salvage .ahk script: USE RESHACKER
+----------------
+Autohotkey&AutoIT-comp: https://www.autohotkey.com/docs/misc/AutoIt2Compat.htm
+------------------------------------------------------------------------------------------------------------
+##AHK Scripts can EAT keyevents (f.e.x "Special_Keys_Q702..exe) => Games like takatis, or emulators up/down buttons fail to function !
+==> E:\Dropbox\Public\00_MyDosStuff\StartStop_Keyhogger.bat
+-----------------------------------------------------------------------------------------------------------------
+https://github.com/ahkscript/awesome-AutoHotkey#hotkeys
+DLD Autohotkey old &new vers: https://autohotkey.com/download/1.0/
+*mouse-clickz *short-cutz *ctrl-pnl *GUI-elements('button-z) *loop-z *ahk-errorz
+*program-specific *ahk-classes *ahk-ideaz
 
+
+__________________________________________________________
+
+Hide windows titlebar (fullscreen)
+---------------------
+WinSet, Style, -0xC00000, Adobe Audition CC 2017,
+
+(Source: https://www.reddit.com/r/AutoHotkey/comments/czii72/hide_windows_title_bars_borderless_windowed/)
+
+____________________________________________________________
+
+Change program title:
+----------------------
+
+WinWait, Adobe Audition CC 2017,
+WinSetTitle, Adobe Audition CC 2017, , AA
+
+(Source: https://www.autohotkey.com/docs/commands/WinSetTitle.htm)
+
+_____________________________________________________________
+
+Open Website in default browser:
+---------------------------------------------
+
+run, http://www.website.com
+
+_____________________________________________________________
+
+GetBrightness level (Laptops only):
+-----------------------------------------------------------
+
+GetCurrentBrightnessLevel()
+{
+	static GUID_VIDEO_SUBGROUP__, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, SystemPowerStatus
+	if (!VarSetCapacity(GUID_VIDEO_SUBGROUP__)) {
+		VarSetCapacity(SystemPowerStatus, 12)
+		,VarSetCapacity(GUID_VIDEO_SUBGROUP__, 16)
+		,VarSetCapacity(GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 16)
+		,NumPut(0x7516B95F, GUID_VIDEO_SUBGROUP__, 0, "UInt"), NumPut(0x4464F776, GUID_VIDEO_SUBGROUP__, 4, "UInt")
+		,NumPut(0x1606538C, GUID_VIDEO_SUBGROUP__, 8, "UInt"), NumPut(0x99CC407F, GUID_VIDEO_SUBGROUP__, 12, "UInt")
+		,NumPut(0xADED5E82, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 0, "UInt"), NumPut(0x4619B909, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 4, "UInt")
+		,NumPut(0xD7F54999, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 8, "UInt"), NumPut(0xCB0BAC1D, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 12, "UInt")
+	}
+	;get charger status
+	if (!DllCall("GetSystemPowerStatus", "Ptr", &SystemPowerStatus))
+		return -1
+	isOnAc := NumGet(SystemPowerStatus, 0, "UChar") == 1
+	; get GUID for active power scheme
+	if (DllCall("powrprof\PowerGetActiveScheme", "Ptr", 0, "Ptr*", currSchemeGuid, "UInt"))
+		return -1
+	if (DllCall(isOnAc ? "powrprof\PowerReadACValueIndex" : "powrprof\PowerReadDCValueIndex", "Ptr", 0, "Ptr", currSchemeGuid, "Ptr", &GUID_VIDEO_SUBGROUP__, "Ptr", &GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, "UInt*", currBrightness, "UInt") == 0, DllCall("LocalFree", "Ptr", currSchemeGuid, "Ptr")) {
+		return currBrightness
+	}
+	return -1
+}
+MsgBox % GetCurrentBrightnessLevel()
+
+(Source: https://www.autohotkey.com/boards/viewtopic.php?t=36170)
+
+_____________________________________________________________
+Tooltip on Mouseover:
+--------------------------------
+OnMessage(0x200, "CheckControl")
+CheckControl() 
+{
+MouseGetPos,,,, VarControl
+IfEqual, VarControl, Button5
+  Message := "Environment Variables"
+Else IfEqual, VarControl, Button4
+  Message := "Kill Special Hotkeys"
+Else IfEqual, VarControl, Button3
+  Message := "Bluescreens"
+ToolTip % Message
+}
+
+(Source: https://jacks-autohotkey-blog.com/2019/08/26/autohotkey-tip-of-the-week-use-tooltips-to-make-apps-user-friendly-august-26-2019/)
+_____________________________________________________________________
+Create Tooltip at x,y:
+-----------------------------
+ToolTip, EnvironmentVariables, 0, 110, 
+
+(Source: https://www.autohotkey.com/docs/commands/ToolTip.htm)
+____________________________________________________________________
+Resize Window:
+------------------------
+
+ResizeWin(0,400)
+
+~~~~Library~for~Resize~Win~(put_on_beginning_of_script)~~
+    ResizeWin(Width = 0,Height = 0)
+    {
+      WinGetPos,X,Y,W,H,A
+      If %Width% = 0
+        Width := W
+
+      If %Height% = 0
+        Height := H
+
+      WinMove,A,,%X%,%Y%,%Width%,%Height%
+    }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(Source: https://www.howtogeek.com/howto/28663/create-a-hotkey-to-resize-windows-to-a-specific-size-with-autohotkey/)
+____________________________________________________________________
+
+Create Windows TrayTip (Balloon Popup):
+-------------------------------------------------------
+
+TrayTip, Title, TextReturn 
+
+(Source: https://www.reddit.com/r/AutoHotkey/comments/9nchjl/traytip_doesnt_work/)
+
+____________________________________________________________________
+
+Filesize to Variable
+---------------------------
+FileGetSize, filesize , C:/out.txt, k
+
+(Source: https://www.autohotkey.com/docs/commands/FileGetSize.htm)
+
+_____________________________________________________________________
+
+Check for File => Set Variable accordingly
+-------------------------------------------------------
+if FileExist("C:\Windows\System32\drivers\etc\hosts")
+    VariableHost= yes
+else
+    VariableHost = no
+MsgBox, %VariableHost%
+
+(SOURCE: --)
+
+_____________________________________________________________________
+
+Autocorrect word (typed):
+-----------------------------------
+
+::gbatemp::chgd
+(Source: https://autohotkey.com/board/topic/89909-autocorrect-script-a-bit-better/)
+
+
+_____________________________________________________________________
+
+
+Attach window to other existing window (here: ahkclass CabinetWClass = explorer.exe) #"-200" and "-50" are used here to move the window up left a bit)
+--------------------------------------------------------
+
+SendMode Input
+SetWorkingDir %A_ScriptDir%
+loop
+{	
+	SetToPos()	
+}
+
+SetToPos()
+{
+	WinWait, ahk_class CabinetWClass
+	WinGetPos,X_Pos,Y_Pos, , , A
+	WinMove, Folder Size,, X_Pos-200, Y_Pos-50
+                   WinSet, Transparent, 150, Folder Size
+}
+
+________________________________________________________________________
+
+Attach GUI Window to preexisting window:
+----------------------------------------------------------
+
+SendMode Input
+SetWorkingDir %A_ScriptDir%
+Gui, +AlwaysOnTop
+Gui, Show , NoActivate w100 h30 , POC AttachToCalc
+loop
+{	
+	SetToPos()	
+}
+
+SetToPos()
+{
+	WinWait, Folder Size	
+	WinGetPos,X_Pos,Y_Pos, , , A
+	WinMove, POC AttachToCalc,, X_Pos, Y_Pos
+}
+
+(Source: https://autohotkey.com/board/topic/150024-attach-window-to-another-window/)
+_________________________________________________________________________________________
+
+Move Window by x & y coordinates)
+-----------------------------------------
+WinMove,Folder Size,,1230,70
+(Source: https://www.autohotkey.com/docs/commands/WinMove.htm)
+
+
+___________________________________________________________________________________________________________________________
+
+Run command line command (cmdz/commandline/zeile)
+--------------------------------------
+run, %comspec% /c ie4uinit.exe -ClearIconCache
+
+(Source:https://superuser.com/questions/1192892/autohotkey-run-windows-commands )
+
+--------------------------------------------------------------------------------
+
+Kill task:
+--------------
+
+W-ahk:
+Process, Close, process.exe
+
+W-cmd:
+run, %comspec% /c /F /IM process.exe
+
+___________________________________________________________________________________________________________________________
+
+Check if process exists -if-else:
+------------------------------------------
+
+Process, Exist, test.exe
+Variable= Errorlevel
+If Variable= 0
+    Run, example.exe
+Else if Variable != 0
+    Run, example2.exe
+
+(Source: https://autohotkey.com/board/topic/98317-if-process-exist-command/)
+
+___________________________________________________________________________________________________________________________
+
+Open file with system default:
+--------------------------------------
+Run, open "C:\My File.wav"
+(Source: https://autohotkey.com/board/topic/16544-autohotkey-rockshow-do-i-open-file-with-specific-program/)
+
+
+___________________________________________________________________________________________________________________________
+
+PostMessage (Trigger buttons/events in apps):
+-----------------------------------------------------------------
+PostMessage, 0x111, 65, 0, , Unbenannt - Editor
+(Source: https://www.autohotkey.com/docs/misc/SendMessage.htm)
+
+
+____________________________________________________________________________________________________________________________
+
+Set Working Dir to curr Script dir: (might be req'd if you launch an ahk exe via another ahk exe)
+------------------------------------------------
+
+SetWorkingDir %A_ScriptDir%
+
+(Source autohotkey.com/docs/commands/SetWorkingDir.htm)
+
+__________________________________________________________________________________________________________________________________________
+
+
+FileCopy, C:\*.txt, C:\My Folder
+----------------------------------------------
+
+(Source: autohotkey.com/docs/commands/FileCopy.htm)
+
+
+_________________________________________________________________________
+
+Replace String in file (will kill off linebreaks !!!)
+_______________________________________
+Loop, Read,system_user.conf, out.conf
+{
+	line := a_LoopReadLine
+
+	if ( InStr( line, "enable_music" ) )
+		StringReplace, line, line, enable_music = 0, enable_music = 1
+		
+	FileAppend, %line%
+}
+FileMove, out.conf, system_user.conf, 1
+return
+
+
+(Source: https://autohotkey.com/board/topic/5225-replace-a-string-in-a-text-file/)
+
+_____________________________________________________________________________________________________________________________________
+
+
+Shutdown_modes_(Poweroff, LogOff, Hibernate)
+----------------------------------------------------------------------
+;PowerOff
+Shutdown, 1
+  ;FORCE: Shutdown, 5
+
+;Reboot
+Shutdown, 2
+  ;FORCE: Shutdown, 7
+
+;Log Off
+Shutdown, 0
+ ;FORCE: Shutdown, 4
+
+;Hibernate, 
+DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+
+(SOURCE: https://autohotkey.com/docs/commands/Shutdown.htm)
+
+__________________________________________________________________________________________________________________________________________
+
+Activate Window:
+---------------------------------
+SetTitleMatchMode, 2
+WinActivate, YGOProES
+
+(SOURCE: https://autohotkey.com/docs/commands/SetTitleMatchMode.htm)
+
+__________________________________________________________________________________________________________________________________________
+Press Button w. specific text: (click button with text / find text) (Controlclick / Control)
+------------------------------------------
+SetControlDelay -1
+ControlClick,Abbrechen,A,,,,NA
+
+(SOURCE: https://autohotkey.com/board/topic/94034-find-buttontext-and-click-on-it/)
+__________________________________________________________________________________________________________________________________________
+Search & identify image location onscreen
+------------------------------------------------------------
+
+FileInstall, connect_button.png, connect_button.png, 1
+ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, connect_button.png
+Sleep, 200
+click  %FoundX%, %FoundY%
+Sleep, 700
+FileDelete, connect_button.png
+exit
+
+(SOURCE: https://autohotkey.com/boards/viewtopic.php?t=4544)
+(SOURCE: https://autohotkey.com/board/topic/24361-find-text-and-click-it/)
+
+
+__________________________________________________________________________________________________________________________________________
+Click/find spec. color on screen:
+----------------------------------------
+
+;get curr pos mous cursor color
+y:: 
+MouseGetPos, MouseX, MouseY
+PixelGetColor, color, %MouseX%, %MouseY%
+MsgBox The color at the current cursor position is %color%.
+return
+
+
+;click on defined color
+z::
+PixelSearch, Px, Py, 0, 0, A_ScreenWidth, A_ScreenHeight, 0xFDF4E5, 3, Fast
+if ErrorLevel
+MsgBox, That color was not found in the specified region.
+else
+   click %Px%, %Py%
+
+
+(SOURCE: https://autohotkey.com/board/topic/56407-mouse-click-on-a-specified-color/)
+__________________________________________________________________________________________________________________________________________
+
+WinClose (AHK version of Alt+F4
+------------------------------------------------
+WinClose, A,
+(SOURCE: https://autohotkey.com/docs/commands/WinClose.htm)
+
+__________________________________________________________________________________________________________________________________________
+
+Reconnect wifi:
+---------------------
+
+Send, %comspec% /c netsh wlan disconnect
+Send, %comspec% /c netsh wlan connect name=TripMate-6D2E
+(Source: https://autohotkey.com/boards/viewtopic.php?t=34970)
+__________________________________________________________________________________________________________________________________________
+#NoTrayIcon
+------------------
+Hide Tray icon from executed script
+
+--------------------------------------------------------------------------------
+Restart Explorer.exe
+-------------------------------
+WinGet, h, ID, ahk_class Progman	        ; use ahk_class WorkerW for XP
+PostMessage, 0x12, 0, 0, , ahk_id %h%	;wm_quit
+sleep, 25
+Run, "%windir%\explorer.exe"
+return
+
+(SOURCE: https://autohotkey.com/board/topic/93906-restart-explorer-the-official-way/)
+
+--------------------------------------------------------------------------------
+Hide Window (WinHide)
+----------------------------------
+WinHide, Update found,
+(Source: autohotkey.com/docs/commands/WinHide.htm)
+
+--------------------------------------------------------------------------------
+
+Close Window (Winkill)
+----------------------------------
+WinKill, Geräte und Drucker,
+(SOURCE: autohotkey.com/docs/commands/WinKill.htm)
+--------------------------------------------------------------------------------
+
+Check if connected to internet:
+----------------------------------------------
+
+ConnectedToInternet(flag=0x40) { 
+Return DllCall("Wininet.dll\InternetGetConnectedState", "Str", flag,"Int",0) 
+}
+
+If ConnectedToInternet()
+MsgBox Connected!
+
+
+(Source: https://autohotkey.com/board/topic/111086-solved-check-if-connected-to-the-internet/)
+
+
+--------------------------------------------------------------------------------
+
+-------Make changes to window (Winset)-----
+
+ Redraw window:
+      WinSet, Redraw ,,Folder Size
+
+Window to bottom of stack:
+     WinSet, Bottom ,,Folder Size
+
+Window to top of stack
+    WinSet, Top ,,Folder Size
+
+Window to certain size
+    WinSet, Region, 400-129 W77 H65, Folder Size
+
+
+(Source: https://www.autohotkey.com/docs/commands/WinSet.htm)
+
+
+
+
+Make Window Transparent:
+WinSet, Transparent, 150, PROGRAM
+(WinSet commands: https://autohotkey.com/docs/commands/WinSet.htm)
+
+__________________________________________________
+
+Make Taskbar transparent:
+--------------------------
+WinSet, Transparent, 60, ahk_class Shell_TrayWnd
+(SOURCE: autohotkey.com/board/topic/45243-slider-to-control-taskbar-transparency/)
+
+
+
+--------------------------------------------------------------------------------
+
+Pause/Suspend Script:
+---------------------------------
+
+ESC::
+Suspend,Toggle
+
+(SOURCE: autohotkey.com/board/topic/60321-how-to-toggle-script-onoff-with-a-key/)
+
+--------------------------------------------------------------------------------
+
+AHKPanic ()
+https://autohotkey.com/board/topic/57028-ahkpanic-pause-suspend-or-close-all-running-scripts/
+
+--------------------------------------------------------------------------------
+
+
+Run bat, then close it after execution:
+---------------------------------------
+
+Run, path/to/executable.bat | taskkill /F /IM cmd.exe
+
+(SOURCE: stackoverflow.com/questions/14626178/how-to-close-the-command-line-window-after-running-a-batch-file)
+
+_________________________________________________________________________________
+
+
+Identify curr Window class:
+----------------------------
+
+^g::
+WinGetClass, class, A
+MsgBox, The active window's class is "%class%".
+
+(SOURCE:https://autohotkey.com/docs/commands/WinGetClass.htm)
+
+_________________________________________________________________________________
+
+Start cmd then send text to it:
+--------------------------------------------
+run, %comspec% /k ,,,pid1
+WinWaitActive, %ComSpec% ahk_pid %PID1%
+controlsend,,C:\Programme"\WIDCOMM\Bluetooth Software\BTTray.exe`n,ahk_pid %pid1%
+
+(SOURCE: https://autohotkey.com/board/topic/121831-send-text-to-cmdexe-window-and-execute/)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Start cmd/programm hidden (hide)
+---------------------------------------------
+
+run cmd /c time /t #cmd_here# ,,hide
+(Source: https://stackoverflow.com/questions/40981543/autohotkey-run-command-in-background)
+
+_________________________________________________________________________________
+
+
+Start Program minimized to tray:
+--------------------------------
+Run, cmd /c start "" /min E:\Dropbox\Public\Useful_Handy_Winprogs\000_Windows_specific\FastStone_Capture_6.9_En_Portable\FSCapture.exe
+Sleep, 900
+WinHide, FastStone Capture,
+
+
+_________________________________________________________________________________
+
+
+
+Select Context Menu Item
+---------------------------------------------
+
+WinMenuSelectItem, WinTitle, WinText, Menu
+
+http://autohotkey.com/docs/commands/WinMenuSelectItem.htm
+
+
+_________________________________________________________________________________
+To make a script unconditionally use its own folder as its working directory:
+------------------------------------------------------------------------------
+SetWorkingDir %A_ScriptDir%
+
+
+_________________________________________________________________________________
+
+Open link in Webbrowser:
+------------------------
+Run, C:\FirefoxPortable\FirefoxPortable.exe https://web.whatsapp.com/, Max
+
+_________________________________________________________________________________
+Multiple Keys for Hotkey:
+------------------------
+
+APPSKEY & 1::
+
+_________________________________________________________________________________
+
+Turn off PC Screen
+------------------
+
+SendMessage,0x112,0xF170,2,,Program Manager
+
+https://autohotkey.com/board/topic/87263-turn-off-screen/
+
+
+_________________________________________________________________________________
+
+
+Sendtext:
+_______
+
+send, cd C:/adb
+
+
+_________________________________________________________________________________
+Forward cmd directly to CMD: (FAST!!!!)
+------------------------------------
+Send, {LWINDOWN}r{LWINUP}
+WinWait, Ausführen,
+IfWinNotActive, Ausführen, , WinActivate, Ausführen,
+puttyspath := "E:\Dropbox\Public\U_PC_Backup\WinSCP\putty.exe -ssh -P 22 root@192.168.0.155:22 -pw pswrd" 
+Clipboard := puttyspath
+Send ^a
+Send ^v
+WinWaitActive, Ausführen,
+Send, {ENTER}
+
+_________________________________________________________________________________
+
+Forward cmd directly to CMD: (SLOW)
+----------------------------
+run, %comspec% /k ,,,pid1
+WinWaitActive, %ComSpec% ahk_pid %PID1%
+send cd C:\Windows\Syswow64\`n
+send E:\Dropbox\Public\U_PC_Backup\WinSCP\putty.exe -ssh -P 22 root@192.168.0.155:22 -pw pswrd
+Send, {ENTER}
+
+
+
+_________________________________________________________________________________
+
+Send fixed text to clipboard:
+-----------------------------
+text2send := "TEXTTHATWILLBEINTHECLIPBOARD" 
+Clipboard := text2send
+
+_________________________________________________________________________________
+
+
+Button to activate script (wait till button is pressed)
+-------------------------------------------------------------
+
+Numpad2::
+[SCRIPT]
+exit
+
+###f.e. this will only execute the script when the Numpad2 button is pressed
+
+_________________________________________________________________________________
+Download File from web:
+-----------------------
+
+url := "http://lh3.googleusercontent.com/-bj2m6876UJw/Tx_8fzb4TVI/AAAAAAAAAVM/DGgWw6csnTI/s800/loading40.gif"
+file:= "loading40.gif"
+UrlDownloadToFile, % url, % file
+
+
+__________________________________________________________________________________
+Avoid checking empty variables:
+--------------------------------
+#NoEnv
+
+Specifying the line #NoEnv anywhere in a script prevents empty variables from being looked up 
+(SOURCE: http://www.autohotkey.com/docs/commands/_NoEnv.htm)
+___________________________________________________________________________________
+
+Play File:
+----------
+
+SoundPlay, FILENAME.mp3
+http://www.autohotkey.com/docs/commands/SoundPlay.htm
+___________________________________________________________________________________
+
+
+Compile files into archive:
+---------------------------
+
+FileInstall, C:\My Documents\My File.txt, C:\My Documents\My File.txt, 1
+
+(SOURCE: http://www.autohotkey.com/docs/commands/FileInstall.htm)
+___________________________________________________________________________________
+
+
+Split path to dir and filename:
+--------------------------------
+folderpath = C:\file\path\file.exe
+Splitpath, folderpath, ofname, ofdir, ofext, ofnamene, ofdrv
+MsgBox, folderpath: %folderpath%`nofname:  %ofname%`nofdir: %ofdir%`nofext: %ofext%`nofnamene: %ofnamene%`nofdrv: %ofdrv%
+(SOURCE: http://www.autohotkey.com/board/topic/113083-string-modification-again/)
+
+___________________________________________________________________________________
+ 
+
+Get currently selected file's path:
+------------------------------------------
+                                               Send ^c
+                                               Variable = %clipboard%
+                                               Send %Variable%
+_____________________________________________________________________________________
+
+
+If Button pressed 2x do action:
+-------------------------------
+~MButton::
+Send {Media_Play_Pause}
+If (A_PriorHotKey = A_ThisHotKey and A_TimeSincePriorHotkey < 500)
+{
+Run,C:\Users\Pascal\Dropbox\Public\00_yAutoHotkeyStuff\Scripts\Mouse_Media_Controls.exe
+}
+Return
+
+_____________________________________________________________________________________
+Kill Curr Active Process:
+-------------------------
+
+WinGet, PID, PID, % "ahk_id " WinExist("A")
+Process, Close, %PID%
+
+(Source: http://www.autohotkey.com/board/topic/30521-kill-current-windows-process-hotkey-script-request/)
+
+______________________________________________________________________________________
+Kill Window:
+------------
+                                    WinActivate, %OutputVar%,
+                                    WinGetActiveTitle, OutputVar
+                                    WinKill, %OutputVar%
+                                    return
+                                    (SOURCE: http://www.autohotkey.com/board/topic/83048-force-close-the-active-window/)
+______________________________________________________________________________________
+
+Add path upon program open:         Run,  Folderico.exe "C:\Users\Administrator\Dropbox\Public\Test\Applic\test\SENT\0old"
+---------------------------         (SOURCE: http://www.autohotkey.com/board/topic/112845-getting-path-into-application-not-accepting-regular-path/)
+______________________________________________________________________________________
+
+Edit String, remove 4 char from / to /:
+----------------------------------
+                                        var = %clipboard%
+                                        StringReplace, var, var, C:, Lokal
+                                        outputvar := RegExReplace(Var, "\\[^\\]{4}\K[^\\]+")
+
+______________________________________________________________________________________
+Modify Clipboard:
+-----------------
+                                     outputvar = %clipboard%
+                                     StringReplace, outputvar, outputvar, C:, Lokal
+                                      (SOURCE:  http://www.autohotkey.com/board/topic/112906-replace-content-of-clipboard-shift-to-window-middle/)
+
+_______________________________________________________________________________________
+MoveMouse to middle of screen:
+-------------------------------
+                                     CoordMode, Mouse, Screen
+                                     MouseMove, (A_ScreenWidth // 2), (A_ScreenHeight // 2)
+                                      (SOURCE: http://www.autohotkey.com/board/topic/74519-solved-move-cursor-to-center-of-screen/)
+                                    
+_______________________________________________________________________________________
+Mousclick at ... coordinates:
+------------------------------
+                                     MouseClick, left,  700,  441
+
+_______________________________________________________________________________________
+Move window to center of Screen:
+--------------------------------
+                                   CenterWindow,(Icon for selected folder : Portable version)
+                                   {
+                                       WinGetPos,,, Width, Height, %WinTitle%
+                                       WinMove, %WinTitle%,, (A_ScreenWidth/2)-(Width/2), (A_ScreenHeight/2)-(Height/2)
+                                   }
+
+                                   (SOURCE: http://www.autohotkey.com/docs/commands/WinMove.htm)
+
+________________________________________________________________________
+
+Move mouse by to coordinates:
+--------------------------------------
+MouseMove, 200, -150
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Move mouse by values (from last mouse position):
+-------------------------------
+MouseMove, 20, 30, 50, R
+(SOURCE: https://autohotkey.com/docs/commands/MouseMove.htm)
+
+_________________________________________________________________________________________
+TrayTip on Taskbaricon hover:(tooltip)
+--------------------------------------------
+Menu, Tray, Tip,Keylogger.exe: Press [Ctrl] [Alt] [L] to show log file
+
+__________________________________________________________________________________________
+
+Tray Tip Baloon Message: 
+------------------------
+                         RefreshTrayTip:
+                         TrayTip, Refreshed TrayTip, This is a more permanent TrayTip., , 16
+__________________________________________________________________________________________
+Tool Tip:
+---------                ToolTip, Timed ToolTip`nThis will be displayed for 5 seconds.
+
+__________________________________________________________________________________________
+
+Delete File:
+------------
+
+                            FileDelete, C:\test.txt
+___________________________________________________________________________________________
+Move File:                  FileMove, C:\My Documents\List1.txt, D:\Main Backup\
+-----------
+
+___________________________________________________________________________________________
+
+Create Folder:              FileCreateDir, C:\FOLDER
+---------------
+
+____________________________________________________________________________________________
+
+Wait for Window in Window:   WinActivate, PDF Optionen ahk_class SALSUBFRAME
+--------------------------   WinActivate, Standart_Bewerbung.doc - OpenOffice.org Writer ahk_class SALFRAME
+
+_____________________________________________________________________________________________
+
+Paste current date:                           FormatTime, ClipBoard,, d.MM.yyyy  ; Set the clipboard to the current date
+-------------------                           Send ^v                                 ; Simulate typing Ctrl-V (paste)
+
+
+_____________________________________________________________________________________________
+
+End curr command string after the cmd:         exit  (add after last command to avoid skipping to next !)
+--------------------------------------
+_____________________________________________________________________________________________
+
+
+
+Break app on button press (x)                    x::ExitApp
+----------------------------
+
+______________________________________________________________________________________________
+
+Jump inside script:
+-------------------                
+Gosub, Sub2
+.
+.
+Sub2:
+(SOURCE: http://www.autohotkey.com/docs/commands/Exit.htm)
+_______________________________________________________________________________________________
+Trigger Windows Taskbar            WinActivate,  ahk_class Shell_TrayWnd
+------------------------
+
+_______________________________________________________________________________________________
+Hide ahk script taskbar icon:       #NoTrayIcon
+-----------------------------
+________________________________________________________________________________________________
+
+Reload Script:                     Reload
+--------------
+________________________________________________________________________________________________
+
+Comment out line:                   #CommentFlag // 
+-----------------
+
+________________________________________________________________________________________________
+Define any key with {vkXXscYYY}:   Sends a keystroke that has virtual key XX and scan code YYY. 
+--------------------------------   For example: Send {vkFFsc159}. If the
+                                   sc or vk portion is omitted, the most appropriate value is sent in its place.
+                                   The values for XX and YYY are hexadecimal and can usually be determined from
+     => scYYY
+
+f.e: sc160::Run, ????.exe
+(Ignore the vkXX Part!)
+
+
+__________________________________________________________________________________________________
+Kill Process:                                Process,Close,firefox.exe
+              OR: Process,Close,cmd.exe (will however open a cmd window..)
+ (SOURCE: https://autohotkey.com/board/topic/49732-kill-process/)
+                                              (SOURCE: http://www.autohotkey.com/board/topic/49732-kill-process/)
+
+__________________________________________________________________________________________________
+Windows Media Player Controls:                  Left::Send   {Media_Prev}
+                                                Down::Send   {Media_Play_Pause}
+                                                Right::Send  {Media_Next}
+__________________________________________________________________________________________________
+
+Choose option in current windows list:          ControlSend, SysListView321, 2, Dienste
+__________________________________________________________________________________________________
+
+Give the clipboard entirely new contents        clipboard = my text                              
+
+___________________________________________________________________________________________________
+
+Empty Clipboard                                  clipboard                                        
+
+___________________________________________________________________________________________________
+
+
+Run Program                                      Run, C:\path\to\program.exe
+
+___________________________________________________________________________________________________
+
+Open Windows Execute Dialog: (Win + R)           Send, {LWINDOWN}r{LWINUP}
+(Administrator ausführen)
+___________________________________________________________________________________________________
+
+Any Ctrl + button combo                          Send, {CTRLDOWN}b{CTRLUP}
+___________________________________________________________________________________________________
+Any Alt + FXX Combo   (Alt:F4)                   Send, {ALTDOWN}{F4}{ALTUP}
+___________________________________________________________________________________________________
+
+Sleep xxx miliseconds                            Sleep, 900
+
+___________________________________________________________________________________________________
+Wait for Window then activate it                 SetTitleMatchMode, 2
+                                                 WinWait, Windows XP Professional - VMware Workstation,
+                                                 WinActivate, Windows XP Professional - VMware Workstation,
+
+  Winwait with timeout: WinWait, Kamera- und Objektivdaten, ,15
+  (here: 15 seconds)
+___________________________________________________________________________________________________
+Decompile ahk to exe (Place as "Decompile_handler.exe) and use reg for calling 
+---------------------------------------------------------------------------------------------------------
+=> (E:\Dropbox\Public\00_yAutoHotkeyStuff\Scripts\000_Full_installation_scripts\AHK_Decompile\Legacy)
+------------------------------------------------------------------------------------------------------------
+Send ^c
+fullfolderpath = %clipboard%
+Run, C:\Windows\Exe2Ahk.exe "%fullfolderpath%"
+folderpath = %fullfolderpath%
+Splitpath, folderpath, ofname, ofdir, ofext, ofnamene, ofdrv
+Run, C:\Windows\Irfanview\i_view32.exe %fullfolderpath% /convert=%ofdir%\%ofnamene%.ico
+
+              RegPortion
+              -----------------
+              [HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.exe\shell\DecompileAhk]
+             @="Decompile to Ahk (legacy)"
+             [HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\.exe\shell\DecompileAhk\command]
+              @="C:\\Windows\\Decompile_Ahk_handler.exe"
+___________________________________________________________________________________________________
+Maximize Window                                  WinMaximize, Irfanview,
+
+___________________________________________________________________________________________________
+Minimize Window                                  WinMinimize, Irfanview
+
+___________________________________________________________________________________________________
+Minimize current active Window                   WinMinimize, A
+
+___________________________________________________________________________________________________
+Wait for Left Mouseclick to resume script        KeyWait, LButton, D
+___________________________________________________________________________________________________
+Ignore Single Instance in apps                   #SingleInstance ignore
+
+___________________________________________________________________________________________________
+Execute Script on button press                   +::   (+ at the thop of the script will make the script 
+                                                        execute each time the + button is pressed)
+___________________________________________________________________________________________________
+Loop app xxx times                               Loop, 99999999999999999999
+                                                  {
+                                                 }
+
+___________________________________________________________________________________________________ 
+
+Go to sub loop label (skip part of loop):
+---------------------------------------------------------
+
+
+{
+Nofalsedata:
+
+blabla
+
+^g::Gosub, Nofalsedata
+}
+(
+SOURCE: https://www.autohotkey.com/docs/commands/Gosub.htmwww.autohotkey.com/docs/commands/Continue.htm)
+___________________________________________________________________________________________________ 
+Variables
+=========
+___________________________________________________________________________________________________
+Read a spec line from file to variable           FileReadLine, OutputVar, Filename, LineNum
+
+___________________________________________________________________________________________________
+
+Read a File to a Variable                        FileRead, OutputVar, C:\path\vmxp.txt
+___________________________________________________________________________________________________
+
+Present Message Box for showing content:
+----------------------------------------
+                                                 MsgBox, LINE1`nLINE2`nLINE3
+(SOURCE: https://autohotkey.com/board/topic/71306-multiple-lines-in-msgbox-solved/)
+
+`n = newline
+
+___________________________________________________________________________________________________
+
+Present InputBox for User to input variable      InputBox, OutputVar, InputBoxTitle, InputBoxText,
+
+
+Linebreak in Input/Messagebox                    `
+___________________________________________________________________________________________________
+
+Output the previously read variable              Send, %OutputVar%
+___________________________________________________________________________________________________
+
+Loop:
+------
+Loop 3
+{
+    command to be looped
+}
+
+## the number after "Loop" defines the number of times the loop will occur. In this case, 3 times.
+----------------------------------------------------------------------------------------------------------------
+
+Sleep:
+------
+Sleep 60000  ; Wait 60 seconds.
+----------------------------------------------------------------------------------------------------------------
+
+
+====================
+===mouseclickz========
+
+Rightclick mouse at half screen:
+----------------------------------------------
+MouseClick, right, A_ScreenWidth/2, A_ScreenHeight/2
+(SOURCE: https://autohotkey.com/docs/commands/MouseClick.htm)
+
+-------------------------------------------------------------------
+
+
+===============
+==while,when,until=
+===loopz========
+
+
+Timer Loop
+_________
+
+#Persistent
+SetTimer, TimerLabel, 1000
+Return
+
+TimerLabel:
+if WinActive("ahk_class Rechner")
+    Suspend, On
+else
+    Suspend, Off
+Return
+
+
+______________________________________________________________
+
+If - else - loop
+_______________________
+
+IfWinActive, Rechner
+{
+sleep, 1000
+}
+else
+#IfWinNotActive, Rechner
+ Reload
+
+____________________________________________________________________________________
+Loop infitely until Window doesn't exist [WORKING]
+---------------------------------------------------------- (must be last action in script...)
+
+
+Loop
+{
+SetTitleMatchMode, 1
+Sleep, 1000
+IfWinNotExist, YGOProES
+{
+ WinClose, YGOAutomatation
+}
+Sleep, 500
+IfWinNotExist, YGOProES
+{
+Process, Close, YGOPro_Run.exe
+}
+}
+
+(SOURCE: )
+_________________________________________________________________________________________________________________________________________________________________________
+
+
+Wait till process is closed before contine:
+-------------------------------------------  
+Process, waitclose, Mouse_Media_Controls.exe
+
+ (SOURCE: http://www.autohotkey.com/docs/commands/Process.htm)
+
+_________________________________________________________________________________________________________________________________________________________________________
+
+Repeat Command till window is gone:
+-----------------------------------
+                                   While (WinExist("%OutputVar%"))
+                                   {
+                                   WinActivate, %OutputVar%,
+                                   Sleep, 555
+                                   Send, {ALTDOWN}{F4}{ALTUP}
+                                   }
+                               (SOURCE: http://www.autohotkey.com/board/topic/64665-what-is-wrong-with-this-while-loop/)
+_______________________________________________________________________________________________________________________________________
+Repeat command till window not active:              
+---------------------------------               
+                                               IfWinActive, IrfanView,
+                                               {
+                                                   WinActivate, IrfanView,
+                                               }
+                                               else
+                                                   Run, %irfanviewpath%
+                                               (SOURCE:http://www.autohotkey.com/board/topic/76763-if-winactive-do-this-else-function-normally/)
+
+
+___________________________________________________________________________
+
+Select/unselect Checkbox via Keyboard: (#winhandling)
+------------------------------------------------------
+ Send, {SPACE} or Send, {+} 
+
+;(SOURCE: https://answers.yahoo.com/question/index?qid=20080910195304AAGZvMI)
+
+__________________________________________________________________________
+
+
+====================
+===guielements========
+https://www.autohotkey.com/docs/commands/GuiControls.htm
+https://lexikos.github.io/v2/docs/objects/Gui.htm
+
+
+____________________________________________
+Password Box MD5 encrypted:
+------------------------------------
+Pass := "89F24D4B7E9368413812C7506A78597A"
+InputBox, CapUser, Enter Pass
+If ( MD5(CapUser, StrLen(CapUser)) != Pass )
+{
+   MsgBox, Wrong credentials entered.  Exiting.
+   ExitApp
+}
+MsgBox, You reached here - correct!
+Return
+MD5( ByRef V, L=0 ) { ; www.autohotkey.com/forum/viewtopic.php?p=275910#275910
+ VarSetCapacity( MD5_CTX,104,0 ), DllCall( "advapi32\MD5Init", Str,MD5_CTX )
+ DllCall( "advapi32\MD5Update", Str,MD5_CTX, Str,V, UInt,L ? L : VarSetCapacity(V) )
+ DllCall( "advapi32\MD5Final", Str,MD5_CTX )
+ Loop % StrLen( Hex:="123456789ABCDEF0" )
+  N := NumGet( MD5_CTX,87+A_Index,"Char"), MD5 .= SubStr(Hex,N>>4,1) . SubStr(Hex,N&15,1)
+Return MD5
+}
+
+(Source: https://autohotkey.com/board/topic/50988-password-protect-a-script/#entry319043)
+
+-------------------------------------------------------------------------------------------
+Password textbox (open upon correct passentry, no feedback)
+-------------
+password := "1234"
+display := false
+GUI, Add, Edit, Section +Password gLogin xs w300 vpsswrd,
+GUI, Show, AutoSize
+return
+Label:
+GuiControl % (display:=!display) ? "-Password" : "+Password", psswrd
+return
+Login:
+GUI, Submit, NoHide
+if not ((caseSensitive) ? (psswrd == password) : (psswrd = password)) 
+{
+GUI, +OwnDialogs
+exit
+return
+}
+Gui, Add, Button, x146 y145 w45 h50 ,Host
+Gui, Add, Button, x190 y145 w16 h16 ,1
+Gui, Add, Button, x190 y160 w16 h16 ,0
+Gui, Add, Button, x190 y176 w16 h16 ,H
+exit
+return
+exit
+
+(Source: https://autohotkey.com/board/topic/50988-password-protect-a-script/#entry319043)
+_____________________________________________
+
+Password textbox (short):
+----------------------------------
+
+password := "1234"
+display := false
+GUI, Add, Edit, Section +Password w300 vpsswrd,
+GUI, Add, Button, +Default gLogin xs w300, OK
+GUI, Show, AutoSize
+return
+Label:
+GuiControl % (display:=!display) ? "-Password" : "+Password", psswrd
+return
+Login:
+	GUI, Submit, NoHide
+	if not ((caseSensitive) ? (psswrd == password) : (psswrd = password)) {
+		GUI, +OwnDialogs
+		MsgBox, 64,, Wrong Password.
+	return
+	}
+	MsgBox, 64,, Welcome!
+	ExitApp
+return
+
+(Source: https://www.autohotkey.com/boards/viewtopic.php?t=63320)
+
+_____________________________________________________
+Textbox:
+-----------
+Gui, Add, Button, Default, OK
+Gui, Add, Edit, vMyEdit -WantReturn
+Gui, Show
+
+ButtonOK:
+Gui, Submit
+SendInput <%MyEdit%>{Enter 2}</%MyEdit%>{Up}{Tab}
+(Source: https://superuser.com/questions/248076/simple-textbox-submit-with-enter-in-autohotkey)
+
+_______________________________________________________
+
+Progressbar:
+----------------
+Gui, Add, Progress, w200 h20 cBlue vMyProgress, 75 
+(Source: https://www.autohotkey.com/docs/commands/GuiControls.htm)
+
+
+____________________________________________________________
+Slider:
+--------
+Gui, Add, Slider, gshow_result w400 vMySlider Range1-100 TickInterval1, 50
+gui, show
+return
+show_result:
+GuiControlGet, result , , MySlider, 
+final_result:=round(result/10,1)
+tooltip % final_result
+return
+(Source: https://autohotkey.com/board/topic/74827-slider-control/)
+  (Working: Vol Slider: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=68596&p=295651#p295651)
+
+----------------------------------------------------------------
+====Brightness Slider=====
+
+*via autohotkey lib:
+E:\Dropbox\Public\00_yAutoHotkeyStuff\Resources\Script_Snippets\Brightness_Change
+https://www.addictivetips.com/windows-tips/control-brightness-levels-windows-10/
+
+*via cmd
+Gui, Add, Slider, x29 y23 gbright_result w250 vBrightSlider Range1-100 TickInterval1, % GetCurrentBrightnessLevel()
+Gui, Show, x131 y91 h45  w280, Brightness
+Return
+bright_result:
+GuiControlGet, result , , BrightSlider,
+final_result:=round(result/10*10)
+run, powercfg -SetDcValueIndex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb %final_result%,, hide
+run, powercfg -SetAcValueIndex 381b4222-f694-41f0-9685-ff5bb260df2e 7516b95f-f776-4464-8c53-06167f40cc99 aded5e82-b909-4619-9949-f5d71dac0bcb %final_result%,, hide
+run, powercfg -S 381b4222-f694-41f0-9685-ff5bb260df2e,, hide
+return
+
+(Source: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=75218)
+(https://superuser.com/questions/472081/can-i-force-a-greater-screen-brightness-from-windows-command-prompt)
+#Add "GetBrighteness" Function to the top of the script !!!
+------------------------------------------------------------------------------------------------------------
+
+Add text in desired size:
+--------------------------------
+
+Gui, Font, s5
+Gui, Add, Text, x29 y255 w45 h50 ,%VariableCopyhandler%
+
+(SOURCE: https://autohotkey.com/board/topic/40019-gui-font-sizes/)
+
+------------------------------------------------------------------------------------------------------------
+
+(attach) clickable checkbutton to window:
+-----------------------------------------------------
+IfWinNotActive, (ahk_exe Rechner)
+{
+WinWaitActive, Rechner
+hParent := WinExist("Rechner")
+Gui, Margin, 0, 0
+Gui, Add, CheckBox, gGoHereWhenClicked, %YourProg%
+Gui,  -Caption HWNDhChild
+DllCall("SetParent", Ptr, hChild, Ptr, hParent)
+Gui, Show, x0 y0
+WinWaitNotActive Rechner
+Sleep, 2500
+Reload
+exit
+
+GoHereWhenClicked:
+MsgBox I am here
+exit
+}
+
+;(SOURCE: https://autohotkey.com/board/topic/3470-checkbox-example/)
+
+_____________________________________________________________________________________
+
+(attach) Clickable button on window:
+----------------------------------------
+
+#SingleInstance force 
+#NoTrayIcon 
+IfWinNotActive, (ahk_exe Rechner)
+{
+WinWaitActive, Rechner
+hParent := WinExist("Rechner")
+Gui, Margin, 0, 0
+Gui, Add, Button,, Test
+Gui,  -Caption HWNDhChild
+DllCall("SetParent", Ptr, hChild, Ptr, hParent)
+Gui, Show, x0 y0
+WinWaitNotActive Rechner
+Sleep, 2500
+Reload
+exit
+
+ButtonTest:
+MsgBox I am here
+Sleep 1000
+exit
+}
+
+____________________________________________________________________
+
+Start gui minimized
+----------------------------
+Gui, Show, x131 y91 h283 w278 minimize, YGOAutomatation
+
+(SOURCE: autohotkey.com/board/topic/51308-start-gui-minimizedhidden/)
+
+________________________buttonz___________________________________
+Hide a button:
+--------------------
+GuiControl, Hide, kb
+
+___________________________________________________________________
+Disable a button:
+----------------------
+GuiControl, Disable, kb
+
+(Source: https://www.autohotkey.com/docs/commands/GuiControl.htm)
+
+---------------------------------------------------------------------------------------------------------------
+Create an already disabled button:
+--------------------------------------------
+Gui, Add, Button, +Disabled x180 y192 w17 h13, kb,
+__________________________________________________________________
+Change button text:
+----------------------------
+GuiControl Text, ButtonName, Newtext
+(Source: https://autohotkey.com/board/topic/60887-gui-change-button-name/)
+__________________________________________________________________
+Add button:
+----------------
+Gui, Add, Button, x0 y0 w50 h50 ,Button
+___________________________________________________________________
+
+
+https://autohotkey.com/board/topic/738-smartgui-creator/
+
+
+
+https://autohotkey.com/docs/commands/GuiControls.htm
+
+
+
+
+=====================
+======shortcutz========
+(https://autohotkey.com/docs/Hotkeys.htm)
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~related to AHKScripts directly~~~
+
+PauseScript (alt+p)
+-----------------------------
+!p::Pause, toggle
+
+Exit Script:
+---------------
+ESC::exit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;Context sensitive Hotkey:
+
+F2::
+IfWinActive,ahk_class IrfanView
+    Send, {ALTDOWN}f{ALTUP}n
+else
+    Send {F2}
+return
+exit
+
+(SOURCE: https://autohotkey.com/board/topic/76763-if-winactive-do-this-else-function-normally/)
+
+
+;Doubleclick:
+~RButton::
+If (A_PriorHotKey = A_ThisHotKey and A_TimeSincePriorHotkey < 500)
+{
+##comand
+}
+Return
+
+
+^ESC::
+ExitApp
+exit
+
+
+n::
+ COMMAND
+exit
+   -> Example shortcut using the key "n"
+
+
+#n
+  -> [WIN] + n
+
+
+^c 
+  -> [Ctrl] + c 
+
+
+^!s
+  -> [Ctrl] + [Alt] s
+
+^AppsKey:: 
+  -> Ctrl, then AppsKey
+
+===============
+====cntrlpnl======
+All the .cpl file are located in the System32 directory.
+
+Edit Environment Variables:
+----------------------------------------
+rundll32 sysdm.cpl,EditEnvironmentVariables
+
+Call Bluetooth Settings Panel:
+-------------------------------------------
+rundll32.exe Shell32.dll,Control_RunDLL bthprops.cpl,,1 (https://stackoverflow.com/questions/21625703/how-to-open-devices-and-printers-control-panel-in-windows-8-via-cli-or-ahk)
+
+Devices and Printers:
+-------------------------------
+control printers
+   OR
+explorer shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A}
+ (https://www.eightforums.com/threads/clsid-key-guid-shortcuts-list-for-windows-8.13591/)
+
+Windows 7, Bluetooth Devices
+-----------------------------
+control bthprops.cpl
+
+Open internet control panel: (https://autohotkey.com/board/topic/49706-solvedopening-control-panel-items/)
+------------------------
+inetcpl.cpl
+
+Open Speech control panel:
+----------------------------------------
+%A_ProgramFiles%\Common Files\Microsoft Shared\Speech\sapi.cpl 
+
+
+View available wifi networks: (https://superuser.com/questions/440751/windows-7-open-the-volume-control-popup-from-the-command-prompt)
+---------------------------------------
+rundll32 van.dll,RunVAN
+
+Show Volume Slider Popup (Sound volume) (https://superuser.com/questions/440751/windows-7-open-the-volume-control-popup-from-the-command-prompt)
+--------------------------
+sndvol.exe -f
+
+OR
+
+SetWinDelay, -1
+Run, % "sndvol -f"
+WinWaitActive, ahk_class #32770
+WinMove, % A_ScreenWidth - 84, % A_ScreenHeight - 305 - 48
+
+
+=================
+==ahkerrorz=====
+
+
+3.4.2018
+compling "Special_Keys_Q702.ahk" with *new* ahk ver:
+  -> mute audio by 2x context_menu button will "fire repeadetly" when holding down button
+(doesn't happen if using legacy compiler)
+
+
+================
+===programspecific==
+
+
+****WINAMP*****
+
+Minimize Winamp
+-------------------------
+WinWaitActive, Winamp
+WM_COMMAND     :=0x111
+WINAMP_MINIMIZE:=40334
+SendMessage WM_COMMAND,WINAMP_MINIMIZE,0,,ahk_class Winamp v1.x
+(SOURCE: https://www.autohotkey.com/boards/viewtopic.php?f=76&t=61914)
+_________________________________________
+
+
+Load, Minimize and play Winamp music:
+----------------------------------------------------
+
+APPSKEY & CTRL::
+CTRL & APPSKEY::
+DetectHiddenWindows, On
+Target := "ahk_class Winamp v1.x"W
+IfWinNotExist %Target%
+{
+Run "E:\Dropbox\Public\Useful_Handy_Winprogs\000_Windows_specific\Winamp_portable\Winamp\Winamp.exe"
+WinWait, %Target%
+WinWaitActive, Winamp
+WM_COMMAND     :=0x111
+WINAMP_MINIMIZE:=40334
+SendMessage WM_COMMAND,WINAMP_MINIMIZE,0,,ahk_class Winamp v1.x
+}
+SendMessage, 1024, 0, 104
+WinampPlayStatus := ErrorLevel
+If( WinampPlayStatus == 0 )
+{
+ControlSend, ahk_parent, x
+}
+else
+{
+ControlSend, ahk_parent, c
+}
+return
+exit
+
+
+====================
+==ahkclasses==========
+
+*Internet Explorer:  ahk_class IEFrame
+
+*Notepad:  ahk_class Notepad 
+
+*Windows Explorer:  ahk_class CabinetWClass
+
+
+(Source https://autohotkey.com/board/topic/33994-in-what-cases-ahk-class-should-be-used/)
+
+
+=============
+== ahkideas ==
+
+https://www.reddit.com/r/AutoHotkey/comments/lywlnt/control_window_transparency_with_the_mouse_wheel/
