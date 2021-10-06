@@ -1,0 +1,430 @@
+HTML test site:
+www.w3schools.com/html/tryit.asp?filename=tryhtml_intro
+validator.w3.org/#validate_by_input
+www.online-toolz.com/tools/html-validator.php
+enjoycss.com/
+htmledit.squarefree.com
+sourceforge.net/projects/portableapps/files/KompoZer%20Portable/KompoZerPortable_0.8_Beta_3_English.paf.exe
+------------
+*html-unicodecharas *brk-nz *html-knowledge
+*host-website
+
+____________________________
+Change font color:
+-------------------
+
+<span style="color: rgb(51, 51, 255);">me</style>
+
+__________________________
+Change font size:
+------------------
+
+<font size="-1">text</font>
+
+_________________________________
+Change img size via html:
+-------------------------
+
+<img src='image.jpg' alt="Image" height="100" width="100">
+
+https://www.codegrepper.com/code-examples/html/resize+image+in+html
+_________________________________
+Link to website-image on another page:
+---------------------------------
+
+<p>
+ <a href="https://www.computerhope.com/">
+  <img src="https://www.computerhope.com/cdn/media/logo-200-gray.png">
+ </a>
+</p>
+
+https://www.computerhope.com/issues/ch000059.htm
+
+_______________________________________________________________
+Use Github Pages to host website:
+---------------------------------
+http://docsbeta.pinegrow.com/host-html-website-github-pages-free/
+
+(Result: => https://ry3yr.github.io/OSTR/All_Project_(spoiler_button).html)
+  (Push git change via windows: https://gitforwindows.org/)
+
+_______________________________________________________________
+
+Render webpage into frame:
+--------------------------
+<iframe src="https://www.abcsubmit.com/view/id_1f8339emu_jn1?utm=abcsubmit" width="400" height="400"></iframe>
+
+_______________________________________________________________
+RSS Feed Widget
+---------------
+<div id="widgetmain" style="text-align:left;overflow-y:auto;overflow-x:hidden;width:600px;background-color:#transparent; border:1px solid #333333;"><div id="rsswidget" style="height:500px;"><iframe src="http://us1.rssfeedwidget.com/getrss.php?time=1626283386459&amp;x=http%3A%2F%2Ffeeds.feedburner.com%2Fvgmdb_album_new%3Fformat%3Dxml&amp;w=600&amp;h=500&amp;bc=333333&amp;bw=1&amp;bgc=transparent&amp;m=20&amp;it=true&amp;t=vgmdb&amp;tc=333333&amp;ts=15&amp;tb=transparent&amp;il=true&amp;lc=0000FF&amp;ls=14&amp;lb=false&amp;id=true&amp;dc=333333&amp;ds=14&amp;idt=true&amp;dtc=284F2D&amp;dts=12" border="0" hspace="0" vspace="0" marginwidth="0" marginheight="0" style="border:0; padding:0; margin:0; width:600px; height:500px;" id="rssOutput" frameborder="no">Reading RSS Feed ...</iframe></div><div style="text-align:right;margin-bottom:0;border-top:1px solid #333333;" id="widgetbottom"><span style="font-size:70%"></span><br></div></div> 
+
+www.rssfeedwidget.com
+(Source: https://stackoverflow.com/questions/15821278/how-to-make-a-html-page-to-show-content-from-another-url)
+    #  You have to check for HTTP response header X-Frame-Option of those sites. 
+    if its value is "DENY or SAMEORIGIN", then you can not load those website in the iframes.  
+    DENY = No one can load the website in iframe. Even the same domain page wont be able to load. 
+    SAMEORIGIN = only a page which is in same domain can load this website in iframe.  
+    https://stackoverflow.com/questions/6663244/cant-show-some-websites-in-iframe-tag
+
+Alt RSS Widget:
+<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<div class="elfsight-app-8283fde1-03d2-4c5e-a789-3e2e667372e4"></div>
+
+____________________________________________
+Embed Gdrive folder via iframe:
+--------------------------------
+<iframe src="
+https://drive.google.com/embeddedfolderview?id=1QbDDSVbCEZOXjJKICwuJNEHFKWwl_AvX#list" 
+style="width:100%; height:600px; border:0;"></iframe>
+(Source: https://stackoverflow.com/questions/20681974/how-to-embed-a-google-drive-folder-in-a-website)
+
+____________________________________________
+
+Embed Gdrive file via iframe
+-------------------------
+<iframe src="
+https://drive.google.com/file/d/1z0_ygovRUlwMRjc-UQVO8HbwW57Qs_On/preview" 
+width="640" height="480"></iframe>
+(Source:https://stackoverflow.com/questions/44164367/how-to-embed-google-drive-document-pdf-in-blogger-post)
+
+____________________________________________
+
+Contact form (mail):
+--------------------------
+GDRIVE: you can still view or host HTML files that are in public folders as follows:
+Replace https://drive.google.com/?authuser=0#folders/ with "googledrive.com/host/"
+        Your new URL will look something like this: http://www.googledrive.com/host/0B81vQexWOx6hRDVMQWZTekx4Umc
+   https://superuser.com/questions/813701/view-rendered-html-of-html-document-in-new-google-drive
+https://www.freecontactform.com/form-guides/html-email-form#htmlform
+https://hwpi.harvard.edu/assetslibrary/host-css-or-js-file-google-drive 
+   https://discuss.codecademy.com/t/linking-css-to-html-via-google-drive/64725/4
+[Service] https://www.abcsubmit.com
+
+
+
+____________________________________________
+
+GoogleDrive embed: (dot menu -> Embed item... -> copy code)
+----------------------------
+
+<iframe src="https://drive.google.com/file/d/-url-identifier-gdrive/preview" width="640" height="480"></iframe>
+
+url-identifier-gdrive: f.e.: (between "/d/"  and "/view")
+https://drive.google.com/file/d/1pOZxwsDoRQ3V3ubonniGEbpSo6BXjQnr/view
+
+--hotlink--file: (https://stackoverflow.com/questions/10311092/displaying-files-e-g-images-stored-in-google-drive-on-a-website)
+https://docs.google.com/uc?id=FILE-ID
+
+____________________________________________
+HTML Password encrypt (via pagecrypt)
+-------------------------------------------------------
+
+https://www.maxlaumeister.com/pagecrypt/ 
+
+   E:\Dropbox\Public\00_Powershell\[Context_menu_handler_sendto]\encrypt_html.bat
+
+
+
+____________________________________________
+
+HTML Password protect (via htaccess):
+------------------------------------------------------
+
+https://www.lifewire.com/password-protect-single-file-with-htaccess-3467922
+
+
+____________________________________________
+
+Append to Form input (query) via onsubmit:
+-------------------------------------------
+
+(Source: https://stackoverflow.com/questions/34128361/appending-form-input-value-to-action-url-as-path)
+
+____________________________________________
+
+Searchbox (w.o. q=?, only "/"):
+---------------------------------------
+<div id="tfheader">
+    <form id="tfnewsearch" method="get" action="http://de.wiktionary.org/wiki/">
+        <input type="text" class="tftextinput" id="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+    </form>
+<div class="tfclear"></div>
+</div>
+
+<script>
+    var a = document.getElementById('tfnewsearch');
+    a.addEventListener('submit',function(e) {
+        e.preventDefault();
+        var b = document.getElementById('tftextinput').value;
+        window.location.href = 'http://de.wiktionary.org/wiki/'+b;
+
+    });
+</script>
+
+https://stackoverflow.com/questions/27580420/html-how-to-create-search-bar
+________________________________________________________________________________________________________
+
+Search bar (works on: PC, iPad, Android, 3DS, WiiU)
+------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search Box Example 1</title>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+<!-- CSS styles for standard search box -->
+<style type="text/css">
+	#tfheader{
+		background-color:#c3dfef;
+	}
+	#tfnewsearch{
+		float:right;
+		padding:20px;
+	}
+	.tftextinput{
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		border:1px solid #0076a3; border-right:0px;
+		border-top-left-radius: 5px 5px;
+		border-bottom-left-radius: 5px 5px;
+	}
+	.tfbutton {
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		color: #ffffff;
+		border: solid 1px #0076a3; border-right:0px;
+		background: #0095cd;
+		background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+		background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+		border-top-right-radius: 5px 5px;
+		border-bottom-right-radius: 5px 5px;
+	}
+	.tfbutton:hover {
+		text-decoration: none;
+		background: #007ead;
+		background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+		background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+	}
+	/* Fixes submit button height problem in Firefox */
+	.tfbutton::-moz-focus-inner {
+	  border: 0;
+	}
+	.tfclear{
+		clear:both;
+	}
+</style>
+</head>
+<body>
+	<!-- HTML for SEARCH BAR -->
+	<div id="tfheader">
+		<form id="tfnewsearch" method="get" action="http://www.google.com">
+		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+		</form>
+	<div class="tfclear"></div>
+	</div>
+</body>
+</html>
+
+(Source: https://www.textfixer.com/tutorials/html-search-box.php)
+https://pastebin.com/MzWCYjeD
+
+________________________________________________________________________________________________
+
+Search Bar Example (with set off text)
+-------------------------------------------------
+
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+<style>
+body{
+    padding:20px;
+}
+*{
+   margin: 0;
+   padding:0px;
+}
+.tftextinput{
+   font-family: Arial, Helvetica, sans-serif;
+   font-size:14px;
+   border:1px solid #0076a3; 
+   border-bottom-left-radius:5px;
+   border-bottom-right-radius:5px; 
+}
+</style>
+<title>savepage</title>
+</head>
+<body>
+<div id="tfheader">
+   <form id="tfnewsearch" method="GET" action="https://api.github.com/users/xxx/events/public"> 
+   <input class="tftextinput" id="text" size="21" maxlength="120" type="text"><br>
+   <input value="GitHubUser" class="tfbutton" type="submit"></form>
+</div>
+<script>
+var ele=document.getElementById('tfnewsearch');
+ele.addEventListener("submit",function(evt){
+   let alt=ele.getAttribute('action');
+  let such_link=document.getElementById('text').value;
+  let neuer_link=alt.replace('xxx',`${such_link}`)
+  neu=ele.setAttribute('action',neuer_link);
+  //ele.submit();
+ // evt.preventDefault();
+  console.log(ele.getAttribute('action'))
+});
+  </script>
+</body>
+</html>
+
+(Source: https://www.html-seminar.de/forum/thread/8884-html-submit-form-searchbox-ver%C3%A4nderte-position-suchparameter/#post60465)
+
+________________________________________________________________________________________________________
+
+Hide texrt data:
+--------------------
+
+.hidden {
+  background: #000;
+  font-color: #000;
+  transition: background 0.5s ease;
+}
+
+.hidden:hover {
+  background: none;
+}
+
+
+Here is a large block of text with a hidden <span class="hidden">password</span> that is only revealed on hover.
+
+(Source:https://discourse.joplinapp.org/t/hiding-passwords-with-markdown/1588/2 )
+________________________________________________________________________________________________________
+
+CSS Data uri:
+---------------------
+
+https://css-tricks.com/data-uris/
+
+________________________________________________________________________________________________________
+
+Create colored button:
+----------------------
+
+<button style="background-color: white; border-color:white; color: white" > 
+https://www.wikihow.com/Change-the-Button-Color-in-HTML
+
+_______________________________________________________
+
+
+HTML Spoiler Tag code:
+-------------------------------------
+
+<div class="pre-spoiler">
+<input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Zuklappen'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Aufklappen';}" value="Buttontext">
+<div class="spoiler" style="display: none;">
+ <br>Text
+ <br>der 
+<br>sichtbar gemacht wird
+</div> 
+
+
+#Make button white, via "KompoZer's "split-view" -> edit button"
+<input name="Buttonz" onclick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Buttonz'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Buttonz';}" value="Buttonz" background-color:="" white;="" border-color:white;="" color:="" white="" type=" style=">
+
+(SOURCE: https://forum.chip.de/discussion/1381745/spoiler-in-html)
+________________________________________________________________________________________________________
+
+
+
+
+=================
+===htmlunicodecharas==
+
+(enter on "Source page" in NVU-HTML_Editor "f.e."&#9742 => ☎)
+&#9986   ->  ✂
+
+
+https://www.w3schools.com/charsets/ref_utf_symbols.asp
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx==========xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx===brknz===xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+________
+Search Bar Example: (broken in 3DS/iPad)
+----------------------------
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <style type="text/css">
+#tfheader{
+}
+#tfnewsearch{
+float:left;
+padding:0px;
+}
+.tftextinput{
+margin: 0;
+padding: 0px 0px;
+font-family: Arial, Helvetica, sans-serif;
+font-size:14px;
+border:1px solid #0076a3; border-left:0px;
+border-top-left-radius: 0px 0px;
+border-bottom-left-radius: 5px 5px;
+}
+  </style>
+  <title>savepage</title>
+</head>
+<body>
+<!-- HTML for SEARCH BAR -->
+<div id="tfheader">
+<form id="tfnewsearch" method="get"
+ action="http://www.google.com"> <input
+ class="tftextinput" name="q" size="21"
+ maxlength="120" type="text"><input value="search"
+ class="tfbutton" type="submit"></form>
+</div>
+</body>
+</html>
+(Source: https://www.textfixer.com/tutorials/html-search-box.php)
+https://www.informatikzentrale.de/formulare-get-post-auswerten.html
+https://shipow.github.io/searchbox/
+
+
+====================
+==htmlknowledge======
+
+Percent-encoding, also known as URL encoding, is a mechanism for encoding information in a Uniform Resource Identifier (URI) under certain circumstances. Although it is known as URL encoding, it is, in fact, used more generally within the main Uniform Resource Identifier (URI) set, which includes both Uniform Resource Locator (URL) and Uniform Resource Name (URN). As such, it is also used in the preparation of data of the application/x-www-form-urlencoded media type, as is often used in the submission of HTML form data in HTTP requests.  
+https://en.wikipedia.org/wiki/Percent-encoding
+https://stackoverflow.com/questions/2949173/how-can-i-stop-the-browser-from-url-encoding-form-values-on-get
+https://help.surveygizmo.com/help/url-variables
+
+
+_______________________________________________
+_______________________________________________
+
+Host (direct link files) via GDrive:
+------------------------------------
+(download gdrive file via "browser's download function" => extract url via download manager:
+https://doc-08-28-docs.googleusercontent.com/docs/securesc/3pli3vb6c3fjid7vrr3dsc370lictgus/s0gn0auvde7qio9pka1m5fu34rjh8eec/1626641550000/12239065730730513726/06275268013771742302Z/1n2SyolVouApQftVAEWXqOKJ_F4bN2W4H?e=download&nonce=r0nhojk7dh1uu&user=06275268013771742302Z&hash=rbp7if89k7n8l4bgu8kpineqce7mj3f5
+=> remove "e=download&"
+https://doc-08-28-docs.googleusercontent.com/docs/securesc/3pli3vb6c3fjid7vrr3dsc370lictgus/s0gn0auvde7qio9pka1m5fu34rjh8eec/1626641550000/12239065730730513726/06275268013771742302Z/1n2SyolVouApQftVAEWXqOKJ_F4bN2W4H?nonce=r0nhojk7dh1uu&user=06275268013771742302Z&hash=rbp7if89k7n8l4bgu8kpineqce7mj3f5
+
+_______________________________________________
+
+==================
+== hostwebsite ===
+
+Use Github Pages to host website:
+---------------------------------
+http://docsbeta.pinegrow.com/host-html-website-github-pages-free/
+
+(Result:) => https://ry3yr.github.io/OSTR/All_Project_(spoiler_button).html
