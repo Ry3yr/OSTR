@@ -1,0 +1,572 @@
++---Action_01_-_Expertly
+|       vlc-record-2018-10-31-07h48m45s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       
++---Action_02_-_MasterMind_Yami
+|       vlc-record-2018-10-30-23h03m26s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h24m05s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-08h06m09s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h23m21s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-09h42m44s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-17h00m59s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+|       vlc-record-2018-10-31-17h11m21s-[T-N]Yu-Gi-Oh_27[2B400C28].mp4-.mp3
+|       
++---Action_03_-_Teas_Ploy
+|       vlc-record-2018-10-30-22h56m33s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       
++---Action_04_-_Crass
+|       vlc-record-2018-10-31-07h42m08s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       
++---Bored_01_-_Oh-Really_lalalal
+|       vlc-record-2018-10-30-22h46m25s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-22h48m43s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-22h51m08s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h30m16s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-09h12m48s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       
++---Bored_02_-_Odd_Occurances
+|       vlc-record-2018-10-30-23h46m00s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-07h40m12s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-08h59m58s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h06m55s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h32m20s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h46m37s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-12h00m26s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h06m54s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h21m21s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h22m57s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h53m16s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       
++---Bored_03_-_Gumeshoe_thug
+|       vlc-record-2018-10-31-09h28m24s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h30m55s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4- - Kopie.mp3
+|       vlc-record-2018-10-31-10h04m35s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       
++---Calming_01_-_Mysterious_Calm
+|       vlc-record-2018-10-30-22h24m54s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-23h25m03s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-23h46m40s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-30-23h57m11s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-07h38m28s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-08h07m07s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-12h44m37s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-13h00m07s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-13h09m10s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h23m16s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+|       vlc-record-2018-10-31-17h07m57s-[T-N]Yu-Gi-Oh_26[B8E2D718].mp4-.mp3
+|       
++---Calming_02_-_Cutesie
+|       vlc-record-2018-10-30-22h20m05s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-22h42m29s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h07m56s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-23h44m15s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-08h11m23s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h56m48s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h13m18s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-12h00m54s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h18m50s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h48m24s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-13h02m31s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+|       vlc-record-2018-10-31-13h13m14s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       
++---Calming_03_-_Cutsie_Moderato
+|       vlc-record-2018-10-30-22h29m58s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-23h15m20s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-07h54m34s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h27m55s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h00m41s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h03m50s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h49m07s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-12h03m51s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h22m25s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h49m08s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-16h10m32s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+|       vlc-record-2018-10-31-16h17m44s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+|       vlc-record-2018-10-31-16h38m03s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       
++---Calming_04_
+|       vlc-record-2018-10-31-08h33m18s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       
++---Calming_05_-_Understanding
+|       vlc-record-2018-10-31-12h29m10s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       
++---Comical_01_-_Wahaha
+|       vlc-record-2018-10-30-22h52m40s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h32m14s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-12h01m19s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       
++---Comical_02_-_Ridiculous_Beautification_Member_Honda
+|       vlc-record-2018-10-30-22h21m47s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-31-07h59m47s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-16h14m09s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+|       
++---Comical_03_Beautification_No2
+|       vlc-record-2018-10-30-22h45m11s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-31-09h24m29s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       
++---Comical_04_-_IYo_(Samurai)
+|       vlc-record-2018-10-30-23h34m53s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-30-23h42m42s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-07h53m01s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       
++---Comical_05_-_Mihos_Delusions
+|       vlc-record-2018-10-31-08h58m30s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h14m16s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-10h01m22s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       
++---Comical_06_-_Beautification_March_of_Honda
+|       vlc-record-2018-10-31-07h58m48s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       
++---Comical_07_-_UwaUwaUwaa
+|       vlc-record-2018-10-31-08h10m23s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       
++---Comical_08_-_Wahaha2_-Steadfast_Familiarity
+|       vlc-record-2018-10-31-08h24m43s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h41m04s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-12h16m56s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h30m12s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h47m35s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       
++---Comical_09_-_Honda_March_(4duty)
+|       vlc-record-2018-10-31-08h32m43s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h17m47s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-12h50m27s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-16h34m08s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       
++---Comical_10_-_Wahah_moderate
+|       vlc-record-2018-10-31-09h11m39s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       
++---Comical_11_-_Shizuka
+|       vlc-record-2018-10-31-12h15m50s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       
++---Cute_01_-_Gramps_Card
+|       vlc-record-2018-10-30-23h12m51s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-23h31m30s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-12h01m50s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h02m42s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h03m05s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h17m42s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-13h14m02s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-13h20m01s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-17h03m13s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+|       
++---Cute_02
+|       vlc-record-2018-10-31-07h49m48s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       
++---Darkness_01_-_Mighty_Presence
+|       vlc-record-2018-10-30-23h52m37s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-08h36m28s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-10h13m41s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h56m43s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-16h28m03s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       vlc-record-2018-10-31-17h10m37s-[T-N]Yu-Gi-Oh_26[B8E2D718].mp4-.mp3
+|       
++---Darkness_02_-_Summon_BEWD
+|       vlc-record-2018-10-30-23h22m35s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-07h46m45s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-13h22m50s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h27m24s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       vlc-record-2018-10-31-16h43m54s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       vlc-record-2018-10-31-17h02m14s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+|       
++---Demise_01_-_Lost_Game
+|       vlc-record-2018-10-30-22h39m25s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-22h57m36s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h41m03s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-08h25m45s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h33m49s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-12h52m30s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       
++---Demise_02_-_Gravedigging
+|       vlc-record-2018-10-30-22h59m15s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-31-08h14m08s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       
++---Demise_03_-_DadaDUM
+|       vlc-record-2018-10-30-23h00m07s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       
++---Demise_04_-_Progression
+|       vlc-record-2018-10-30-22h33m01s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-23h12m09s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-23h40m20s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-30-23h56m34s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-09h21m16s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-09h53m15s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-12h25m13s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h43m27s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-12h55m43s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       
++---Demise_05_-_Oriental-Creep
+|       vlc-record-2018-10-30-23h50m39s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       
++---Game_01_-_Unsteady_Back_and_Forth
+|       vlc-record-2018-10-30-23h02m31s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h39m20s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-07h44m01s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-09h06m11s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h36m42s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h38m06s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h50m49s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-10h06m01s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h09m35s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h27m02s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h37m52s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-12h54m52s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-13h07m05s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+|       vlc-record-2018-10-31-13h20m52s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h31m14s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       
++---Game_02_-_Tough_Play
+|       vlc-record-2018-10-30-23h20m13s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-08h03m20s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h13m17s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h38m45s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h18m57s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-09h42m04s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h56m42s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-10h12m47s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h57m47s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-12h59m05s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-13h21m42s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h37m22s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       vlc-record-2018-10-31-16h59m38s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+|       
++---Game_03_-_Evenly_Match(ed)
+|       vlc-record-2018-10-30-23h21m19s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-08h21m39s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-09h21m59s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-17h04m46s-[T-N]Yu-Gi-Oh_25[3C7AEAF0].mp4-.mp3
+|       
++---Game_04_-_Stumbling_about
+|       vlc-record-2018-10-30-23h55m13s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-07h45m17s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       
++---Game_05_-_Hangeki
+|       vlc-record-2018-10-31-08h05m29s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-16h32m22s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       vlc-record-2018-10-31-16h40m32s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       
++---Game_06_-_Forward
+|       0vlc-record-2018-10-31-12h28m16s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-30-22h37m50s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-23h19m00s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-08h20m14s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-09h08m58s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-13h18m20s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h29m56s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       vlc-record-2018-10-31-16h48m16s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       vlc-record-2018-10-31-16h55m56s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+|       vlc-record-2018-10-31-17h04m04s-[T-N]Yu-Gi-Oh_25[3C7AEAF0].mp4-.mp3
+|       
++---Game_07_-_Riff
+|       vlc-record-2018-10-31-08h40m11s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       
++---Game_08_-_New_Move
+|       vlc-record-2018-10-31-12h10m38s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       
++---Happy_01_-_Time_w_friends
+|       vlc-record-2018-10-30-22h20m48s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       
++---Happy_02_-_PartyON_WAKAWAKA
+|       vlc-record-2018-10-30-23h13m58s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       
++---Happy_03_-__Friends_Happy_Go_Lucky
+|       vlc-record-2018-10-30-22h22m25s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-23h48m03s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-07h51m55s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h26m09s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h45m34s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-10h00m20s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h20m14s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h34m51s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       
++---Happy_04_-_Familiar_Tranquility
+|       vlc-record-2018-10-30-22h28m20s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       
++---Happy_05_-_JuYo_(Friendship)
+|       vlc-record-2018-10-30-22h41m32s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       
++---Happy_06_-_Welcome_to_Burger_Land
+|       vlc-record-2018-10-30-22h52m05s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       
++---Happy_07_-_Real_Friends
+|       vlc-record-2018-10-30-22h54m29s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       
++---Happy_08_-_Energetic_Friends
+|       vlc-record-2018-10-31-08h15m50s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-09h26m44s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       
++---Happy_09_-_A_neat_PARTY
+|       vlc-record-2018-10-31-08h54m57s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h29m46s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-10h05m19s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h33m27s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       
++---Holy_01_-_Unkown_Stranger_(Yami)
+|       vlc-record-2018-10-30-23h05m36s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-31-10h03m44s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       
++---Holy_02_-_Hey_Look
+|       vlc-record-2018-10-30-23h11m04s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       
++---Intermission_THEME
+|       vlc-record-2018-10-30-22h30m42s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-31-09h02m34s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h16m40s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       
++---Oriental_01_-_Oriental_Sound
+|       vlc-record-2018-10-30-22h18m32s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-22h28m58s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       
++---Oriental_02_-_Shadi
+|       vlc-record-2018-10-30-23h48m56s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-30-23h58m02s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-07h37m02s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-07h50m31s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       
++---Oriental_03_-_Inside_the_puzzle
+|       vlc-record-2018-10-30-23h53m51s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       
++---Oriental_04_-_Odd
+|       vlc-record-2018-10-31-12h51m11s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       
++---Piano_01
+|       vlc-record-2018-10-30-22h35m35s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       
++---Piano_02_-_Distorted_Jam
+|       vlc-record-2018-10-31-09h10m54s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       
++---Tension_00_Unknown
+|       vlc-record-2018-10-31-11h59m36s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h05m18s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h05m48s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h06m31s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h07m34s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h14m12s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h14m43s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h23m57s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h35m53s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-12h47m05s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-12h49m46s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-16h19m29s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+|       
++---Tension_01_-_Unease_and_Tension
+|       0vlc-record-2018-10-30-23h15m51s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-22h23m31s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-22h55m19s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h33m14s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4- - Copy.mp3
+|       vlc-record-2018-10-30-23h37m14s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-07h51m10s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-07h53m46s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h28m52s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-08h59m08s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h02m34s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h34m56s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h47m29s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-10h09m59s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h15m12s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-12h30m59s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-12h48m03s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+|       vlc-record-2018-10-31-16h45m15s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       
++---Tension_02_-_Eerie_Creer_and_Peer
+|       vlc-record-2018-10-30-22h26m54s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-31-08h30m55s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h05m25s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h49m52s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       
++---Tension_03_-_Latent_Danger
+|       vlc-record-2018-10-30-22h28m00s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-22h47m19s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h11m30s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-23h36m15s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-08h27m23s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h04m51s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h13m52s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-09h34m08s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       
++---Tension_04_-_Becken_LOUD
+|       vlc-record-2018-10-30-22h31m05s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-31-07h55m36s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-07h57m09s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h16m58s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h31m48s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h51m35s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-10h08m01s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h40m11s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-13h12m01s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h35m22s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       
++---Tension_05_-_[Possessed]_Crass_Descend
+|       vlc-record-2018-10-30-22h53m44s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h29m00s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-07h47m29s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-08h12m35s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h22m25s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h30m08s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-10h02m30s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h41m45s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       
++---Tension_06_-_Falling_down_creepily
+|       vlc-record-2018-10-30-22h39m55s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       
++---Tension_07_-_BAM
+|       vlc-record-2018-10-30-22h43m39s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       
++---Tension_08_-_Sneaky
+|       vlc-record-2018-10-30-22h50m03s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       
++---Tension_09_Creepiness_Chanting
+|       vlc-record-2018-10-30-23h06m42s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-31-08h01m22s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h08m00s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h14m57s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-10h11m21s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       vlc-record-2018-10-31-12h11m18s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-12h32m07s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-13h10m09s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h15m26s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+|       vlc-record-2018-10-31-16h24m57s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       vlc-record-2018-10-31-16h51m57s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       vlc-record-2018-10-31-16h53m09s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       
++---Tension_10_-_Creepy_Chant_allegro
+|       vlc-record-2018-10-31-12h12m23s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+|       vlc-record-2018-10-31-13h23m38s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+|       vlc-record-2018-10-31-16h38m49s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       
++---Tension_11_-_High_Stakes_Presence
+|       vlc-record-2018-10-30-23h43m39s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       
++---Tension_12_-_Distortion_beep_bop
+|       vlc-record-2018-10-31-07h42m52s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+|       vlc-record-2018-10-31-09h59m30s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+|       
++---Tension_13_-_Thug_Life
+|       vlc-record-2018-10-31-08h00m52s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       
++---Tension_14_-_Creepy
+|       vlc-record-2018-10-31-08h34m14s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       
++---Tension_15_-_CREEPY_VERILY
+|       vlc-record-2018-10-31-08h39m38s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       
++---Tension_16_-_Tick_Tock_mindfulness
+|       vlc-record-2018-10-31-08h18m01s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-09h09m55s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h54m17s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-12h26m23s-[T-N]Yu-Gi-Oh_16[6F9650F0].mp4-.mp3
+|       vlc-record-2018-10-31-16h36m09s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+|       
++---Tension_17_-_Hopless_Despair
+|       vlc-record-2018-10-30-23h42m04s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       
++---TRANSFORMATION_to_Yami
+|       vlc-record-2018-10-30-22h36m41s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
+|       vlc-record-2018-10-30-23h01m07s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+|       vlc-record-2018-10-30-23h18m02s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+|       vlc-record-2018-10-30-23h38m41s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+|       vlc-record-2018-10-31-08h04m40s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+|       vlc-record-2018-10-31-08h19m05s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+|       vlc-record-2018-10-31-08h37m40s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+|       vlc-record-2018-10-31-09h08m10s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-09h23m14s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+|       vlc-record-2018-10-31-09h41m19s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+|       vlc-record-2018-10-31-09h53m37s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       vlc-record-2018-10-31-12h37m07s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+|       vlc-record-2018-10-31-16h44m37s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+|       vlc-record-2018-10-31-17h07m22s-[T-N]Yu-Gi-Oh_25[3C7AEAF0].mp4-.mp3
+|       vlc-record-2018-10-31-17h09m18s-[T-N]Yu-Gi-Oh_26[B8E2D718].mp4-.mp3
+|       
++---Uneasy_01_-_Millenium_Puzzle
+|       vlc-record-2018-10-30-23h51m52s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       
++---Uneasy_02_-_Someone_is_watching
+|       vlc-record-2018-10-31-09h58m26s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+|       
+\---[unsorted]
+    +---000
+    |       vlc-record-2018-10-30-22h58m24s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+    |       vlc-record-2018-10-30-23h02m14s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+    |       vlc-record-2018-10-30-23h04m22s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
+    |       vlc-record-2018-10-30-23h10m04s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+    |       vlc-record-2018-10-30-23h25m58s-[T-N]Yu-Gi-Oh_03[56059926].mp4-.mp3
+    |       vlc-record-2018-10-30-23h27m59s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+    |       vlc-record-2018-10-30-23h37m56s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
+    |       vlc-record-2018-10-30-23h45m06s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+    |       vlc-record-2018-10-30-23h50m12s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+    |       vlc-record-2018-10-31-07h41m36s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+    |       vlc-record-2018-10-31-07h43m18s-[T-N]Yu-Gi-Oh_06[598F653D].mp4-.mp3
+    |       vlc-record-2018-10-31-07h53m23s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+    |       vlc-record-2018-10-31-08h00m32s-[T-N]Yu-Gi-Oh_07[9A9D03FD].mp4-.mp3
+    |       vlc-record-2018-10-31-08h09m10s-[T-N]Yu-Gi-Oh_08[C8EF9B53].mp4-.mp3
+    |       vlc-record-2018-10-31-08h35m26s-[T-N]Yu-Gi-Oh_09[D578E48E].mp4-.mp3
+    |       vlc-record-2018-10-31-08h56m01s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+    |       vlc-record-2018-10-31-08h57m48s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+    |       vlc-record-2018-10-31-09h15m54s-[T-N]Yu-Gi-Oh_11[7B8645E6].mp4-.mp3
+    |       vlc-record-2018-10-31-09h25m22s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+    |       vlc-record-2018-10-31-09h33m20s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+    |       vlc-record-2018-10-31-09h35m32s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+    |       vlc-record-2018-10-31-09h37m31s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+    |       vlc-record-2018-10-31-09h40m14s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+    |       vlc-record-2018-10-31-09h43m47s-[T-N]Yu-Gi-Oh_12[51A25BEB].mp4-.mp3
+    |       vlc-record-2018-10-31-09h45m17s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+    |       vlc-record-2018-10-31-09h55m22s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+    |       vlc-record-2018-10-31-09h57m45s-[T-N]Yu-Gi-Oh_13[F6B3273A].mp4-.mp3
+    |       vlc-record-2018-10-31-10h03m14s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+    |       vlc-record-2018-10-31-10h06m49s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+    |       vlc-record-2018-10-31-10h15m13s-[T-N]Yu-Gi-Oh_14[8C99467F].mp4-.mp3
+    |       vlc-record-2018-10-31-12h03m30s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+    |       vlc-record-2018-10-31-12h04m32s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+    |       vlc-record-2018-10-31-12h09m03s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3
+    |       vlc-record-2018-10-31-12h34m21s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+    |       vlc-record-2018-10-31-12h45m53s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+    |       vlc-record-2018-10-31-12h46m20s-[T-N]Yu-Gi-Oh_17[F59A3F2A].mp4-.mp3
+    |       vlc-record-2018-10-31-12h52m13s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+    |       vlc-record-2018-10-31-12h52m58s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+    |       vlc-record-2018-10-31-12h54m14s-[T-N]Yu-Gi-Oh_18[3BC94F3C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h01m02s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h01m28s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h02m07s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h02m53s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h03m44s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h03m56s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h04m46s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h05m31s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h06m23s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h08m00s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h08m34s-[T-N]Yu-Gi-Oh_19[A1F92E1F].mp4-.mp3
+    |       vlc-record-2018-10-31-13h11m02s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h11m48s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h15m06s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h15m52s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h16m35s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h16m57s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-13h17m11s-[T-N]Yu-Gi-Oh_20v2[40E6046C].mp4-.mp3
+    |       vlc-record-2018-10-31-16h09m49s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+    |       vlc-record-2018-10-31-16h11m59s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+    |       vlc-record-2018-10-31-16h17m20s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+    |       vlc-record-2018-10-31-16h18m42s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+    |       vlc-record-2018-10-31-16h20m18s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+    |       vlc-record-2018-10-31-16h25m44s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+    |       vlc-record-2018-10-31-16h26m30s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+    |       vlc-record-2018-10-31-16h30m24s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+    |       vlc-record-2018-10-31-16h30m56s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+    |       vlc-record-2018-10-31-16h39m51s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+    |       vlc-record-2018-10-31-16h41m43s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+    |       vlc-record-2018-10-31-16h42m04s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+    |       vlc-record-2018-10-31-16h46m30s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+    |       vlc-record-2018-10-31-16h49m39s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+    |       vlc-record-2018-10-31-16h50m42s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+    |       vlc-record-2018-10-31-16h54m03s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+    |       vlc-record-2018-10-31-16h54m46s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+    |       vlc-record-2018-10-31-16h58m44s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+    |       
+    \---0single_instance_track
+            vlc-record-2018-10-31-16h21m01s-[T-N]Yu-Gi-Oh_21v2[08C2D340].mp4-.mp3
+            vlc-record-2018-10-31-16h28m55s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
+            vlc-record-2018-10-31-16h42m43s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+            vlc-record-2018-10-31-16h51m04s-[T-N]Yu-Gi-Oh_23[01B0F633].mp4-.mp3
+            vlc-record-2018-10-31-16h56m50s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+            vlc-record-2018-10-31-16h57m15s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+            vlc-record-2018-10-31-16h58m04s-[T-N]Yu-Gi-Oh_24[66B044D0].mp4-.mp3
+            vlc-record-2018-10-31-17h06m16s-[T-N]Yu-Gi-Oh_25[3C7AEAF0].mp4-.mp3
+            
