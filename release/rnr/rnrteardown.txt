@@ -1,0 +1,800 @@
+https://m.soundcloud.com/ryedai/ryuusei-no-rockman-tribe-ost-megaman-starforce
+
+
++---RnR
+|   +---000SFXs
+|   |       Shooting_Star_Rockman_episode_01_Subbed-09.mp3
+|   |       Shooting_Star_Rockman_episode_01_Subbed-15.mp3
+|   |       Shooting_Star_Rockman_episode_08-07.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_16_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-13.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-19.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-13.mp3
+|   |       
+|   +---000_Misora_Songs
+|   |       Shooting_Star_Rockman_episode_10_subbed-01.mp3
+|   |       Shooting_Star_Rockman_episode_10_subbed-05.mp3
+|   |       Shooting_Star_Rockman_episode_10_subbed-09.mp3
+|   |       Shooting_Star_Rockman_episode_10_subbed-11.mp3
+|   |       Shooting_Star_Rockman_episode_10_subbed-15.mp3
+|   |       Shooting_Star_Rockman_episode_11-07.mp3
+|   |       Shooting_Star_Rockman_episode_11-11.mp3
+|   |       Shooting_Star_Rockman_episode_11-13.mp3
+|   |       Shooting_Star_Rockman_episode_11-17.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-13.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-05.mp3
+|   |       
+|   +---00Opening_Songs_(Misora)
+|   |       Shooting_Star_Rockman_episode_01_Subbed-01.mp3
+|   |       
+|   +---01_Title_Theme_[Reading_of_Chapter_Name]
+|   |       Shooting_Star_Rockman_episode_01_Subbed-07.mp3
+|   |       Shooting_Star_Rockman_episode_10_subbed-03.mp3
+|   |       Shooting_Star_Rockman_episode_11-03.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_16_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-03.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-03.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-11.mp3
+|   |       Shooting_Star_Rockman_episode_26_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_28_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-03.mp3
+|   |       Shooting_Star_Rockman_episode_30_megaupload-01.mp3
+|   |       Shooting_Star_Rockman_episode_31_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_38_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-03.mp3
+|   |       
+|   +---02_Next_time_in_Ryuusei_no_Rockman
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-21.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-19.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-15.mp3
+|   |       
+|   +---Action_Theme_01_(slightly_minimal_trouble)
+|   |       Shooting_Star_Rockman_episode_02-5.mp3
+|   |       Shooting_Star_Rockman_episode_03-7.mp3
+|   |       Shooting_Star_Rockman_episode_07-01.mp3
+|   |       Shooting_Star_Rockman_episode_10_subbed-07.mp3
+|   |       Shooting_Star_Rockman_episode_16_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-01.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-21.mp3
+|   |       Shooting_Star_Rockman_episode_26_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_28_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_30_megaupload-11.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-07.mp3
+|   |       
+|   +---Action_Theme_02_(first_Rockman_fight_AWESOME)
+|   |       Shooting_Star_Rockman_episode_04-3.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-13.mp3
+|   |       
+|   +---Action_Theme_03_(epic_battle)
+|   |       Shooting_Star_Rockman_episode_04-5.mp3
+|   |       Shooting_Star_Rockman_episode_09_Subbed-05.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-15.mp3
+|   |       
+|   +---Action_Theme_04_(Rockman_first_training_AWESOME)
+|   |       Shooting_Star_Rockman_episode_05-01.mp3
+|   |       Shooting_Star_Rockman_episode_09_Subbed-07.mp3
+|   |       Shooting_Star_Rockman_episode_12-11.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-23.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-13.mp3
+|   |       
+|   +---Action_Theme_05_(Problem_Trouble)
+|   |       Shooting_Star_Rockman_episode_05-07.mp3
+|   |       Shooting_Star_Rockman_episode_07-09.mp3
+|   |       Shooting_Star_Rockman_episode_09_Subbed-03.mp3
+|   |       Shooting_Star_Rockman_episode_12-07.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-01.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-01.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-11.mp3
+|   |       
+|   +---Action_Theme_06_(Real_Trouble)
+|   |       Shooting_Star_Rockman_episode_01_Subbed-17.mp3
+|   |       Shooting_Star_Rockman_episode_06_Subbed-7.mp3
+|   |       Shooting_Star_Rockman_episode_07-03.mp3
+|   |       Shooting_Star_Rockman_episode_08-11.mp3
+|   |       Shooting_Star_Rockman_episode_09_Subbed-01.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_28_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_31_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-17.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-01.mp3
+|   |       
+|   +---Action_Theme_07_(Combat_Masters_AWESOME)
+|   |       Shooting_Star_Rockman_episode_07-05.mp3
+|   |       Shooting_Star_Rockman_episode_11-15.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_16_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-15.mp3
+|   |       Shooting_Star_Rockman_episode_26_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-05.mp3
+|   |       Shooting_Star_Rockman_episode_31_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-03.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 21 [FINAL][XviD][4C4EDD63]-03.mp3
+|   |       
+|   +---Action_Theme_08_(StarBreak_DenpaHenkan)(happy)
+|   |       Shooting_Star_Rockman_episode_07-07.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-19.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-11.mp3
+|   |       
+|   +---Action_Theme_09_(Ox_Fire_first_attack)(rockman_in_a_pinch)
+|   |       Shooting_Star_Rockman_episode_08-09.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-09.mp3
+|   |       
+|   +---Action_Theme_10_(cool_AWESOME)
+|   |       Shooting_Star_Rockman_episode_12-01.mp3
+|   |       
+|   +---Action_Theme_11_(Combatial_AWESOME)
+|   |       Shooting_Star_Rockman_episode_12-09.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-17.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-05.mp3
+|   |       
+|   +---Action_Theme_12_(Reversal_AWESOME)
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_31_subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-17.mp3
+|   |       
+|   +---Action_Theme_13_(despair_Trouble_ending)
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_28_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-09.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-15.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-11.mp3
+|   |       
+|   +---Despair_Theme
+|   |       Shooting_Star_Rockman_episode_01_Subbed-11.mp3
+|   |       Shooting_Star_Rockman_episode_05-09.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_26_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-07.mp3
+|   |       Shooting_Star_Rockman_episode_30_megaupload-03.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-01.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-15.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-15.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-05.mp3
+|   |       
+|   +---Ending_01_(Calming_Theme)
+|   |       00ending_(Lala.ai).mp3
+|   |       Shooting_Star_Rockman_episode_04-7.mp3
+|   |       Shooting_Star_Rockman_episode_09_Subbed-11.mp3
+|   |       Shooting_Star_Rockman_episode_12-13.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-09.mp3
+|   |       
+|   +---Ending_02_(Calming_Theme_Remix)
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-15.mp3
+|   |       
+|   +---Ending_03_(problem_on_mind)
+|   |       Shooting_Star_Rockman_episode_06_Subbed-5.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-23.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-01.mp3
+|   |       
+|   +---FM_Seijin_bored_Theme
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_38_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-15.mp3
+|   |       
+|   +---FM_Seijin_Denpa_Henkan_of_Demise
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-13.mp3
+|   |       
+|   +---FM_Seijin_Thinking_Theme
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-03.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-01.mp3
+|   |       
+|   +---FM_Seijjin_on_the_roll_(creepy_COOL)
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-09.mp3
+|   |       
+|   +---Guitar_(AWESOME)
+|   |       Shooting_Star_Rockman_episode_03-3.mp3
+|   |       Shooting_Star_Rockman_episode_06_Subbed-1.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_51_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-03.mp3
+|   |       
+|   +---Happy_Theme_01_(Everyday)
+|   |       Shooting_Star_Rockman_episode_01_Subbed-13.mp3
+|   |       Shooting_Star_Rockman_episode_09_Subbed-09.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-07.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-25.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-07.mp3
+|   |       
+|   +---Happy_Theme_02_(slightly_annoying)
+|   |       Shooting_Star_Rockman_episode_02-1.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-15.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_38_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-03.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-05.mp3
+|   |       
+|   +---Happy_Theme_03_(boring_REALLY_ANNOYING)
+|   |       Shooting_Star_Rockman_episode_08-01.mp3
+|   |       Shooting_Star_Rockman_episode_11-05.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-11.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_23_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-07.mp3
+|   |       Shooting_Star_Rockman_episode_26_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_38_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-01.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-01.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-05.mp3
+|   |       
+|   +---Happy_Theme_04_(boring_comical)
+|   |       Shooting_Star_Rockman_episode_08-03.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_34_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_38_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-19.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-19.mp3
+|   |       
+|   +---Happy_Theme_05_(HAPPY)
+|   |       Shooting_Star_Rockman_episode_08-05.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-19.mp3
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-05.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-09.mp3
+|   |       
+|   +---Happy_Theme_06_(Really_Happy_satisfyin_AWESOME)
+|   |       Shooting_Star_Rockman_episode_19_Subbed_by_Dats-09.mp3
+|   |       Shooting_Star_Rockman_episode_37_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_45_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-21.mp3
+|   |       
+|   +---Happy_Theme_07_(chaotical_really_funny_AWESOME)
+|   |       Shooting_Star_Rockman_episode_12-05.mp3
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-15.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-13.mp3
+|   |       
+|   +---Happy_Theme_08_(Cancers_Chaotic_funny_usless_plans_FUNNY)
+|   |       Shooting_Star_Rockman_episode_18_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-11.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-03.mp3
+|   |       
+|   +---Happy_Theme_09_(Utangai_GAME_funny_music)
+|   |       Shooting_Star_Rockman_episode_39_subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-09.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-05.mp3
+|   |       
+|   +---Happy_Theme_10_(Utangai_funny_calming)
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_44_subbed_by_DATS-17.mp3
+|   |       Shooting_Star_Rockman_Episode_46_Subbed_by_DATS-15.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-03.mp3
+|   |       
+|   +---Happy_Theme_11_(Utangai_smart_virus_capture_device)
+|   |       Shooting_Star_Rockman_Episode_42_Subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-13.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-07.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-13.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-03.mp3
+|   |       
+|   +---Lunas_Lullaby_(Beautiful)
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-05.mp3
+|   |       
+|   +---Misora_instrumental_01(Cancers_evildoings)
+|   |       Shooting_Star_Rockman_episode_10_subbed-13.mp3
+|   |       Shooting_Star_Rockman_episode_43_subbed_by_DATS-11.mp3
+|   |       
+|   +---Piano_Theme_01(beautiful)
+|   |       Shooting_Star_Rockman_episode_02-3.mp3
+|   |       Shooting_Star_Rockman_episode_07-11.mp3
+|   |       Shooting_Star_Rockman_episode_11-01.mp3
+|   |       Shooting_Star_Rockman_episode_31_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-17.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-15.mp3
+|   |       
+|   +---Piano_Theme_02_(thinking_explaining_wolf_gardner_thinking)
+|   |   |   Shooting_Star_Rockman_episode_05-05.mp3
+|   |   |   Shooting_Star_Rockman_episode_20_Subbed_by_DATS-15.mp3
+|   |   |   Shooting_Star_Rockman_episode_38_subbed_by_DATS-13.mp3
+|   |   |   Shooting_Star_Rockman_Episode_48_Subbed_by_DATS-01.mp3
+|   |   |   Shooting_Star_Rockman_Episode_53_subbed_by_DATS-13.mp3
+|   |   |   
+|   |   \---DONE
+|   |           Piano_Theme_02_(thinking_explaining).wav
+|   |           
+|   +---Piano_Theme_03_(calming)
+|   |       Shooting_Star_Rockman_episode_11-09.mp3
+|   |       
+|   +---Piano_Theme_04_(calming_beautiful)
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_20_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-07.mp3
+|   |       
+|   +---Piano_Theme_05_(teasing_cancer_stole_ophicus_money)
+|   |       Shooting_Star_Rockman_Episode_47_Subbed_by_DATS-09.mp3
+|   |       
+|   +---Space_Theme_01(Introduction)
+|   |       Shooting_Star_Rockman_episode_01_Subbed-03.mp3
+|   |       Shooting_Star_Rockman_episode_04-1.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_31_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_53_subbed_by_DATS-15.mp3
+|   |       
+|   +---Space_Theme_02_(Station_inspace)
+|   |       Shooting_Star_Rockman_episode_01_Subbed-05.mp3
+|   |       Shooting_Star_Rockman_episode_02-7.mp3
+|   |       Shooting_Star_Rockman_episode_06_Subbed-3.mp3
+|   |       Shooting_Star_Rockman_episode_28_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_40_subbed_by_DATS-21.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-15.mp3
+|   |       
+|   +---Space_Theme_03_(weird_music_kinda_interesting)
+|   |       Shooting_Star_Rockman_episode_03-1.mp3
+|   |       Shooting_Star_Rockman_episode_26_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_30_megaupload-07.mp3
+|   |       Shooting_Star_Rockman_episode_33_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-05.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-09.mp3
+|   |       
+|   +---Space_Theme_04_(Warrock_explains_FM_Seijins_ending_thme)
+|   |       Shooting_Star_Rockman_episode_03-5.mp3
+|   |       Shooting_Star_Rockman_episode_05-11.mp3
+|   |       Shooting_Star_Rockman_episode_12-03.mp3
+|   |       Shooting_Star_Rockman_episode_13_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_14_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_15_subbed_by_DATS-19.mp3
+|   |       Shooting_Star_Rockman_episode_17_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_35_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-19.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-05.mp3
+|   |       
+|   +---Space_Theme_05_(sinister_tactics_scheming_of_Gemini_Spark)
+|   |       Shooting_Star_Rockman_episode_16_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_episode_21_Subbed_by_DATS-07.mp3
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-15.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-11.mp3
+|   |       
+|   +---Space_Theme_06_(FM_Seijin_Gemini_Spark_evil_plotting)
+|   |       Shooting_Star_Rockman_episode_24-25_megaupload-09.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-13.mp3
+|   |       Shooting_Star_Rockman_episode_32_subbed_by_DATS-15.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_episode_38_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_Episode_41_Subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-01.mp3
+|   |       
+|   +---Space_Theme_07_(Gemini_Sparks_evil_plan)
+|   |       Shooting_Star_Rockman_episode_22_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_28_subbed_by_DATS-01.mp3
+|   |       Shooting_Star_Rockman_episode_29_megaupload-15.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-17.mp3
+|   |       
+|   +---Space_Theme_08_[piano](Retrospecitve_thinking_beautiful)
+|   |       Shooting_Star_Rockman_episode_16_subbed_by_DATS-05.mp3
+|   |       Shooting_Star_Rockman_episode_27_subbed_by_DATS-11.mp3
+|   |       Shooting_Star_Rockman_episode_30_megaupload-09.mp3
+|   |       Shooting_Star_Rockman_Episode_52_subbed_by_DATS-03.mp3
+|   |       Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-09.mp3
+|   |       
+|   +---Space_Theme_09_[piano]_(First_Talk_with_AM)
+|   |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-01.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-01.mp3
+|   |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-05.mp3
+|   |       
+|   +---Space_Theme_09_[piano]_(First_Talk_with_AM_Seijins)
+|   |       Shooting_Star_Rockman_episode_30_megaupload-05.mp3
+|   |       Shooting_Star_Rockman_Episode_50_Subbed_by_DATS-09.mp3
+|   |       Shooting_Star_Rockman_episode_54_subbed_by_DATS-13.mp3
+|   |       Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-07.mp3
+|   |       
+|   +---Subarus_epic_rescue_(as_for_Warrock)_AWESOME
+|   |       Shooting_Star_Rockman_episode_30_megaupload-13.mp3
+|   |       
+|   +---Upbeat_Happy_Theme_(after_Rockman_first_fight)
+|   |       Shooting_Star_Rockman_episode_05-03.mp3
+|   |       Shooting_Star_Rockman_episode_36_subbed_by_DATS-15.mp3
+|   |       
+|   \---Z_Ending_music_Ryuusei_no_Rockman
+|           Shooting_Star_Rockman_Episode_49_Subbed_by_DATS-15.mp3
+|           Shooting_Star_Rockman_Final_episode_-_episode_55_subbed_by_DATS-13.mp3
+|           
+\---Tribe_Specific_sorted
+    +---01SFX
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-13.mp3
+    |       
+    +---02Opening_Song
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-01.mp3
+    |       
+    +---03_Title_Reading_[This_time_in_RRT]
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 21 [FINAL][XviD][4C4EDD63]-01.mp3
+    |       
+    +---04_Next_Time_in_RRT
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-25.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-19.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-21.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-21.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-13.mp3
+    |       
+    +---0Misora_Songs
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-05.mp3
+    |       
+    +---Action_Theme_15_(Epic_Battle_Tribe_Style_not_so_actionpacked)
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-19.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-05.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 21 [FINAL][XviD][4C4EDD63]-09.mp3
+    |       
+    +---Action_Theme_16_(action_building_up)
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-21.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-05.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-05.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-11.mp3
+    |       
+    +---Action_Theme_17_(Bly_First_Battle)_AWESOME
+    |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-09.mp3
+    |       
+    +---Action_Theme_18_(tense_heat_up_Bly_Appears_in_epicness)
+    |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-13.mp3
+    |       
+    +---Action_Theme_19_(after_pulling_Sword_AWESOME)
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-13.mp3
+    |       
+    +---Ending_04_(really_calming)
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-15.mp3
+    |       
+    +---Happy_Theme_11_(funny,_cancers_epic_fail)
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-13.mp3
+    |       
+    +---Happy_Theme_12_(Hydes_rethinking_of_his_past_as_artist)
+    |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-05.mp3
+    |       
+    +---Happy_Theme_13_(Hyde_and_his_artistic_fail)_AWESOMELY_FUNNY
+    |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 13 [XviD][9F210F7E]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 14 [XviD][B8D921D1]-07.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-05.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-07.mp3
+    |       
+    +---Happy_Theme_14_(Pyramids)
+    |       [DATS] Ryuusei no Rockman Tribe - 07 [XviD][6C003E34]-11.mp3
+    |       
+    +---Happy_Theme_15_(Dossy_Festival)
+    |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-13.mp3
+    |       
+    +---Happy_Theme_16_(happy_celebration,_himalaya_scenario,_flying_impact)
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-17.mp3
+    |       
+    +---Happy_Theme_17_(REALLY_CALMING)
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-01.mp3
+    |       
+    +---Happy_Theme_18_(weird_nanska_^^)
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-11.mp3
+    |       
+    +---Happy_Theme_19_(calming_inspiring)
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-13.mp3
+    |       
+    +---Mu_Theme_01_(Foreshadowing)
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-15.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 03 [XviD][69D5DC40]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 11 [XviD][AB0BA47C]-19.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 15 [XviD][48C6A5E4]-13.mp3
+    |       
+    +---Mu_Theme_02_(Ancient_Relict)
+    |       [DATS] Ryuusei no Rockman Tribe - 01 [XviD][69D5DC40]-17.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 17 [XviD][25132E36]-01.mp3
+    |       
+    +---Mu_Theme_03_(Introduction)
+    |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-07.mp3
+    |       
+    +---Mu_Theme_04_(right_after_Introduction_flute_calming_AWESOME)
+    |       [DATS] Ryuusei no Rockman Tribe - 02 [XviD][FA1F1271]-09.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 10 [XviD][64A2B9CD]-07.mp3
+    |       
+    +---Mu_Theme_05_(creepy_chanting)_AWESOME
+    |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-03.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 16 [XviD][66D288C4]-13.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 21 [FINAL][XviD][4C4EDD63]-05.mp3
+    |       
+    +---Mu_Theme_06_(sinister_flute,piano)
+    |       [DATS] Ryuusei no Rockman Tribe - 04 [XviD][4FA06DEF]-15.mp3
+    |       
+    +---Mu_Theme_07_(xylophone_mu_style)
+    |       [DATS] Ryuusei no Rockman Tribe - 05 [XviD][C60f8DCB]-11.mp3
+    |       
+    +---Mu_Theme_08_(searching_for_the_2nd_relict_in_himalaya_(instrumental))
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-07.mp3
+    |       
+    +---Mu_Theme_09_(motivating_chanting)
+    |       [DATS] Ryuusei no Rockman Tribe - 06 [XviD][C96F8932]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 09 [XviD][38A1DC83]-01.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 18 [XviD][783B2A24]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 19 [XviD][E248D6FE]-13.mp3
+    |       
+    +---Mu_Theme_10_(Sword_of_Berserk,_shivers_down_spine)_A-W-E-S-O-M-E
+    |       [DATS] Ryuusei no Rockman Tribe - 08 [XviD][477346B4]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 12 [XviD][CB861A12]-11.mp3
+    |       [DATS] Ryuusei no Rockman Tribe - 21 [FINAL][XviD][4C4EDD63]-07.mp3
+    |       
+    +---Mu_Theme_11_(uprising_chanting,_similar_to_Mu_Theme_05
+    |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-11.mp3
+    |       
+    +---Mu_Theme_12_calming_xylophone(A-W-E-S-O-M-E)
+    |       [DATS] Ryuusei no Rockman Tribe - 20 [XviD][0CC24B55]-15.mp3
+    |       
+    \---Z_Misora_Tribe_Ending_Song
+            [DATS] Ryuusei no Rockman Tribe - 21 [FINAL][XviD][4C4EDD63]-11.mp3
+            
