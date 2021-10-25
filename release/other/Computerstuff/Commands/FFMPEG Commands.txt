@@ -14,6 +14,13 @@ ________________________________________________________________________________
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
+___________
+
+Flip Video:
+
+for %x in (*.mp4) do ffmpeg -i %x -vf hflip -c:a copy out.mp4
+
+https://duxyng.wordpress.com/2013/04/07/rotateflip-video-with-ffmpeg/
 
 __________________________________________________________
 Overlay image over frame(s) (supports transparency!):
@@ -35,6 +42,12 @@ Replace mp4s audio with new one from mp3:
 ffmpeg -i test.mp4 -i test.mp3 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 output.mp4
 
 (Source: https://superuser.com/questions/277642/how-to-merge-audio-and-video-file-in-ffmpeg)
+
+___________________________________________________________
+Picture and mp3 to video:
+-------------------------
+ffmpeg -loop 1 -i image.jpg -i audio.mp3 -c:a copy -c:v libx264 -shortest out.mp4 
+(Source: https://stackoverflow.com/questions/25381086/convert-mp3-video-with-static-image-ffmpeg-libav-bash
 ___________________________________________________________
 
 Concatenate "Combine mp4s together"
@@ -72,18 +85,6 @@ Combine mp3s in txt together
 ffmpeg -f concat -safe 0 -i out.txt -c copy output.mp4
 
 (Source: https://stackoverflow.com/questions/3886295/how-do-i-list-one-filename-per-output-line-in-linux)
-_____________________________________________________________________________________________
-
-Downmix (5.1) Stream to x
----------------------------------------
-
-Downmix to WAV
-for %%x in (*.mkv) do ffmpeg -i "%%x" -c pcm_s16le -ac 2 out.wav
-
-Downmix to DTS:
-for %%x in (*.mkv) do ffmpeg -i "%%x" -strict -2 -c:a dca -ac 2 -vol 425 out.dts
-
-(Source: https://superuser.com/questions/852400/properly-downmix-5-1-to-stereo-using-ffmpeg)
 
 ______________________________________________________________________________________________________
 
@@ -105,26 +106,34 @@ ffmpeg -i in.mp3 -af "pan=stereo:c0=0*c0|c1=1*c1" out.wav
 https://superuser.com/questions/685910/ffmpeg-stereo-channels-into-two-mono-channels
 ffmpeg.org/ffmpeg-filters.html#pan
 _______________________________
-
 Extract stereo channels => 2x mono channel:
 ----------------------------------------------------------
 for %x in (*.mp3) do ffmpeg -i "%x" -map_channel 0.0.0 left.wav -map_channel 0.0.1 right.wav
-
 (Source: https://superuser.com/questions/685910/ffmpeg-stereo-channels-into-two-mono-channels)
-_______________________________
-
-Extract Video to Audio Stream:AC3 (mkv -> ac3 fil)[important for 5.1 audio extraction]
+______________________________________________________________________________________________
+Extract Video to Audio Stream:AC3 (mkv -> ac3 file)[important for 5.1 audio extraction]
 ------------------------------------------------------
 for %x in (*.mkv) do ffmpeg -i %x -acodec copy %x.ac3
 (Source: http://www.savvyadmin.com/extract-ac3-dolby-digital-with-ffmpeg/)
-____________________________
-
+______________________________________________________________________________________________
 Extract Audio AC3 to wav channels: (works directly from mkv aswell)
  -------------------------------------------------
 ffmpeg -i out.ac3 -filter_complex "channelsplit=channel_layout=5.1[FL][FR][FC][LFE][BL][BR]" -map "[FL]" front_left.wav -map "[FR]" front_right.wav -map "[FC]" front_center.wav -map "[LFE]" lfe.wav -map "[BL]" back_left.wav -map "[BR]" back_right.wav
 
 (Source: https://randocity.com/2016/04/10/audio-tip-how-to-decode-5-1-dts-ac3-to-6-wav-files/)
 
+_____________________________________________________________________________________________
+
+Downmix (5.1) Stream to x (no multiple channels !)
+---------------------------------------
+
+Downmix to WAV
+for %%x in (*.mkv) do ffmpeg -i "%%x" -c pcm_s16le -ac 2 out.wav
+
+Downmix to DTS:
+for %%x in (*.mkv) do ffmpeg -i "%%x" -strict -2 -c:a dca -ac 2 -vol 425 out.dts
+
+(Source: https://superuser.com/questions/852400/properly-downmix-5-1-to-stereo-using-ffmpeg)
 ______________________________________________________________________________________________________
 
 Change speed of media
