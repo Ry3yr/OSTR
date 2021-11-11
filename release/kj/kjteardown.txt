@@ -2,1050 +2,1050 @@ Auflistung der Ordnerpfade
 Volumeseriennummer : CACC-EF5A
 C:.
 +---00Unsorted
-|   |   vlc-record-2021-10-18-18h42m04s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-21h20m48s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-22h05m25s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-22h08m39s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-22h16m55s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-22h53m55s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-23h14m10s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-23h16m06s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-23h28m42s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-23h39m00s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-23h43m42s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-18-23h47m33s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-00h42m33s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-00h46m24s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-00h48m58s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-00h58m21s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h07m13s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h12m22s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h21m11s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h22m53s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h23m40s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h28m55s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h31m56s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h39m57s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h43m37s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h45m01s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h53m47s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h54m21s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h58m05s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-01h58m58s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-02h11m55s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-19-02h14m38s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-22h38m01s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-22h42m13s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-22h49m02s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-22h51m10s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-22h53m57s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h23m59s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h31m32s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h32m00s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h32m31s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h34m14s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h35m41s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h40m54s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h46m05s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h48m03s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h48m59s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h52m39s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-20-23h55m47s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-00h09m11s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-19h14m58s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-19h21m09s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-19h40m26s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-19h54m16s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-20h03m31s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-20h09m01s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-20h17m25s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-20h18m27s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-20h37m59s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-21-20h39m47s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h29m57s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h30m58s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h33m49s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h35m14s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h36m58s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h43m23s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h44m14s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h45m11s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h47m03s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-22-23h49m39s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h16m45s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h19m16s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h20m39s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h21m55s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h22m34s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h23m42s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h26m14s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h28m05s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h28m57s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h29m46s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h33m17s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h34m09s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h36m22s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h42m37s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h49m20s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h50m55s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h56m36s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h58m28s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-21h59m22s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h05m27s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h06m48s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h08m59s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h11m31s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h12m43s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h20m57s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h22m55s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h23m59s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h25m40s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-24-22h26m50s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h15m36s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h21m47s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h24m22s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h38m50s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h50m11s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h51m18s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h52m42s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h53m35s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h55m45s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h58m05s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-20h58m42s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-21h09m15s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-21h12m32s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-21h13m22s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-21h14m05s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-28-21h14m53s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h10m03s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h10m40s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h11m55s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h16m38s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h19m16s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h20m42s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h24m44s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h27m46s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h29m55s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h31m03s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h31m53s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-17h39m04s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h05m48s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h09m45s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h12m27s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h13m57s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h17m02s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h19m01s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |   vlc-record-2021-10-29-18h23m20s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |   vlc-record-2021-10-18-18h42m04s Kaitou Joker - 02.mp3
+|   |   vlc-record-2021-10-18-21h20m48s Kaitou Joker - 05.mp3
+|   |   vlc-record-2021-10-18-22h05m25s Kaitou Joker - 07.mp3
+|   |   vlc-record-2021-10-18-22h08m39s Kaitou Joker - 07.mp3
+|   |   vlc-record-2021-10-18-22h16m55s Kaitou Joker - 07.mp3
+|   |   vlc-record-2021-10-18-22h53m55s Kaitou Joker - 09.mp3
+|   |   vlc-record-2021-10-18-23h14m10s Kaitou Joker - 10.mp3
+|   |   vlc-record-2021-10-18-23h16m06s Kaitou Joker - 10.mp3
+|   |   vlc-record-2021-10-18-23h28m42s Kaitou Joker - 11.mp3
+|   |   vlc-record-2021-10-18-23h39m00s Kaitou Joker - 11.mp3
+|   |   vlc-record-2021-10-18-23h43m42s Kaitou Joker - 12.mp3
+|   |   vlc-record-2021-10-18-23h47m33s Kaitou Joker - 12.mp3
+|   |   vlc-record-2021-10-19-00h42m33s Kaitou Joker - 15.mp3
+|   |   vlc-record-2021-10-19-00h46m24s Kaitou Joker - 15.mp3
+|   |   vlc-record-2021-10-19-00h48m58s Kaitou Joker - 15.mp3
+|   |   vlc-record-2021-10-19-00h58m21s Kaitou Joker - 15.mp3
+|   |   vlc-record-2021-10-19-01h07m13s Kaitou Joker - 16.mp3
+|   |   vlc-record-2021-10-19-01h12m22s Kaitou Joker - 16.mp3
+|   |   vlc-record-2021-10-19-01h21m11s Kaitou Joker - 17.mp3
+|   |   vlc-record-2021-10-19-01h22m53s Kaitou Joker - 17.mp3
+|   |   vlc-record-2021-10-19-01h23m40s Kaitou Joker - 17.mp3
+|   |   vlc-record-2021-10-19-01h28m55s Kaitou Joker - 17.mp3
+|   |   vlc-record-2021-10-19-01h31m56s Kaitou Joker - 17.mp3
+|   |   vlc-record-2021-10-19-01h39m57s Kaitou Joker - 18.mp3
+|   |   vlc-record-2021-10-19-01h43m37s Kaitou Joker - 18.mp3
+|   |   vlc-record-2021-10-19-01h45m01s Kaitou Joker - 18.mp3
+|   |   vlc-record-2021-10-19-01h53m47s Kaitou Joker - 19.mp3
+|   |   vlc-record-2021-10-19-01h54m21s Kaitou Joker - 19.mp3
+|   |   vlc-record-2021-10-19-01h58m05s Kaitou Joker - 19.mp3
+|   |   vlc-record-2021-10-19-01h58m58s Kaitou Joker - 19.mp3
+|   |   vlc-record-2021-10-19-02h11m55s Kaitou Joker - 20.mp3
+|   |   vlc-record-2021-10-19-02h14m38s Kaitou Joker - 20.mp3
+|   |   vlc-record-2021-10-20-22h38m01s Kaitou Joker - 21.mp3
+|   |   vlc-record-2021-10-20-22h42m13s Kaitou Joker - 21.mp3
+|   |   vlc-record-2021-10-20-22h49m02s Kaitou Joker - 21.mp3
+|   |   vlc-record-2021-10-20-22h51m10s Kaitou Joker - 22.mp3
+|   |   vlc-record-2021-10-20-22h53m57s Kaitou Joker - 22.mp3
+|   |   vlc-record-2021-10-20-23h23m59s Kaitou Joker - 22.mp3
+|   |   vlc-record-2021-10-20-23h31m32s Kaitou Joker - 23.mp3
+|   |   vlc-record-2021-10-20-23h32m00s Kaitou Joker - 23.mp3
+|   |   vlc-record-2021-10-20-23h32m31s Kaitou Joker - 23.mp3
+|   |   vlc-record-2021-10-20-23h34m14s Kaitou Joker - 23.mp3
+|   |   vlc-record-2021-10-20-23h35m41s Kaitou Joker - 23.mp3
+|   |   vlc-record-2021-10-20-23h40m54s Kaitou Joker - 23.mp3
+|   |   vlc-record-2021-10-20-23h46m05s Kaitou Joker - 24.mp3
+|   |   vlc-record-2021-10-20-23h48m03s Kaitou Joker - 24.mp3
+|   |   vlc-record-2021-10-20-23h48m59s Kaitou Joker - 24.mp3
+|   |   vlc-record-2021-10-20-23h52m39s Kaitou Joker - 24.mp3
+|   |   vlc-record-2021-10-20-23h55m47s Kaitou Joker - 24.mp3
+|   |   vlc-record-2021-10-21-00h09m11s Kaitou Joker - 25.mp3
+|   |   vlc-record-2021-10-21-19h14m58s Kaitou Joker - 26.mp3
+|   |   vlc-record-2021-10-21-19h21m09s Kaitou Joker - 26.mp3
+|   |   vlc-record-2021-10-21-19h40m26s Kaitou Joker - 27.mp3
+|   |   vlc-record-2021-10-21-19h54m16s Kaitou Joker - 28.mp3
+|   |   vlc-record-2021-10-21-20h03m31s Kaitou Joker - 29.mp3
+|   |   vlc-record-2021-10-21-20h09m01s Kaitou Joker - 29.mp3
+|   |   vlc-record-2021-10-21-20h17m25s Kaitou Joker - 30.mp3
+|   |   vlc-record-2021-10-21-20h18m27s Kaitou Joker - 30.mp3
+|   |   vlc-record-2021-10-21-20h37m59s Kaitou Joker - 31.mp3
+|   |   vlc-record-2021-10-21-20h39m47s Kaitou Joker - 31.mp3
+|   |   vlc-record-2021-10-22-23h29m57s Kaitou Joker - 32.mp3
+|   |   vlc-record-2021-10-22-23h30m58s Kaitou Joker - 32.mp3
+|   |   vlc-record-2021-10-22-23h33m49s Kaitou Joker - 32.mp3
+|   |   vlc-record-2021-10-22-23h35m14s Kaitou Joker - 32.mp3
+|   |   vlc-record-2021-10-22-23h36m58s Kaitou Joker - 32.mp3
+|   |   vlc-record-2021-10-22-23h43m23s Kaitou Joker - 33.mp3
+|   |   vlc-record-2021-10-22-23h44m14s Kaitou Joker - 33.mp3
+|   |   vlc-record-2021-10-22-23h45m11s Kaitou Joker - 33.mp3
+|   |   vlc-record-2021-10-22-23h47m03s Kaitou Joker - 33.mp3
+|   |   vlc-record-2021-10-22-23h49m39s Kaitou Joker - 33.mp3
+|   |   vlc-record-2021-10-24-21h16m45s Kaitou Joker - 35.mp3
+|   |   vlc-record-2021-10-24-21h19m16s Kaitou Joker - 35.mp3
+|   |   vlc-record-2021-10-24-21h20m39s Kaitou Joker - 35.mp3
+|   |   vlc-record-2021-10-24-21h21m55s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h22m34s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h23m42s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h26m14s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h28m05s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h28m57s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h29m46s Kaitou Joker - 36.mp3
+|   |   vlc-record-2021-10-24-21h33m17s Kaitou Joker - 37.mp3
+|   |   vlc-record-2021-10-24-21h34m09s Kaitou Joker - 37.mp3
+|   |   vlc-record-2021-10-24-21h36m22s Kaitou Joker - 37.mp3
+|   |   vlc-record-2021-10-24-21h42m37s Kaitou Joker - 37.mp3
+|   |   vlc-record-2021-10-24-21h49m20s Kaitou Joker - 38.mp3
+|   |   vlc-record-2021-10-24-21h50m55s Kaitou Joker - 38.mp3
+|   |   vlc-record-2021-10-24-21h56m36s Kaitou Joker - 38.mp3
+|   |   vlc-record-2021-10-24-21h58m28s Kaitou Joker - 38.mp3
+|   |   vlc-record-2021-10-24-21h59m22s Kaitou Joker - 38.mp3
+|   |   vlc-record-2021-10-24-22h05m27s Kaitou Joker - 39.mp3
+|   |   vlc-record-2021-10-24-22h06m48s Kaitou Joker - 39.mp3
+|   |   vlc-record-2021-10-24-22h08m59s Kaitou Joker - 39.mp3
+|   |   vlc-record-2021-10-24-22h11m31s Kaitou Joker - 39.mp3
+|   |   vlc-record-2021-10-24-22h12m43s Kaitou Joker - 39.mp3
+|   |   vlc-record-2021-10-24-22h20m57s Kaitou Joker - 40.mp3
+|   |   vlc-record-2021-10-24-22h22m55s Kaitou Joker - 40.mp3
+|   |   vlc-record-2021-10-24-22h23m59s Kaitou Joker - 40.mp3
+|   |   vlc-record-2021-10-24-22h25m40s Kaitou Joker - 40.mp3
+|   |   vlc-record-2021-10-24-22h26m50s Kaitou Joker - 40.mp3
+|   |   vlc-record-2021-10-28-20h15m36s Kaitou Joker - 41.mp3
+|   |   vlc-record-2021-10-28-20h21m47s Kaitou Joker - 41.mp3
+|   |   vlc-record-2021-10-28-20h24m22s Kaitou Joker - 41.mp3
+|   |   vlc-record-2021-10-28-20h38m50s Kaitou Joker - 42.mp3
+|   |   vlc-record-2021-10-28-20h50m11s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-20h51m18s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-20h52m42s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-20h53m35s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-20h55m45s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-20h58m05s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-20h58m42s Kaitou Joker - 44.mp3
+|   |   vlc-record-2021-10-28-21h09m15s Kaitou Joker - 45.mp3
+|   |   vlc-record-2021-10-28-21h12m32s Kaitou Joker - 46.mp3
+|   |   vlc-record-2021-10-28-21h13m22s Kaitou Joker - 46.mp3
+|   |   vlc-record-2021-10-28-21h14m05s Kaitou Joker - 46.mp3
+|   |   vlc-record-2021-10-28-21h14m53s Kaitou Joker - 46.mp3
+|   |   vlc-record-2021-10-29-17h10m03s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h10m40s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h11m55s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h16m38s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h19m16s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h20m42s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h24m44s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h27m46s Kaitou Joker - 47.mp3
+|   |   vlc-record-2021-10-29-17h29m55s Kaitou Joker - 48.mp3
+|   |   vlc-record-2021-10-29-17h31m03s Kaitou Joker - 48.mp3
+|   |   vlc-record-2021-10-29-17h31m53s Kaitou Joker - 48.mp3
+|   |   vlc-record-2021-10-29-17h39m04s Kaitou Joker - 48.mp3
+|   |   vlc-record-2021-10-29-18h05m48s Kaitou Joker - 50.mp3
+|   |   vlc-record-2021-10-29-18h09m45s Kaitou Joker - 50.mp3
+|   |   vlc-record-2021-10-29-18h12m27s Kaitou Joker - 50.mp3
+|   |   vlc-record-2021-10-29-18h13m57s Kaitou Joker - 50.mp3
+|   |   vlc-record-2021-10-29-18h17m02s Kaitou Joker - 51.mp3
+|   |   vlc-record-2021-10-29-18h19m01s Kaitou Joker - 51.mp3
+|   |   vlc-record-2021-10-29-18h23m20s Kaitou Joker - 51.mp3
 |   |   
 |   +---00Unsorted_Boring
-|   |       vlc-record-2021-10-18-23h05m28s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h06m44s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h12m39s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h27m00s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h11m21s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h29m20s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h42m53s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h43m35s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h47m03s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h13m36s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h17m59s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h02m18s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h20m29s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h09m36s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |       vlc-record-2021-10-18-23h05m28s Kaitou Joker - 10.mp3
+|   |       vlc-record-2021-10-18-23h06m44s Kaitou Joker - 10.mp3
+|   |       vlc-record-2021-10-18-23h12m39s Kaitou Joker - 10.mp3
+|   |       vlc-record-2021-10-18-23h27m00s Kaitou Joker - 11.mp3
+|   |       vlc-record-2021-10-19-00h11m21s Kaitou Joker - 13.mp3
+|   |       vlc-record-2021-10-19-00h29m20s Kaitou Joker - 14.mp3
+|   |       vlc-record-2021-10-19-00h42m53s Kaitou Joker - 15.mp3
+|   |       vlc-record-2021-10-19-00h43m35s Kaitou Joker - 15.mp3
+|   |       vlc-record-2021-10-19-00h47m03s Kaitou Joker - 15.mp3
+|   |       vlc-record-2021-10-19-01h13m36s Kaitou Joker - 16.mp3
+|   |       vlc-record-2021-10-19-01h17m59s Kaitou Joker - 16.mp3
+|   |       vlc-record-2021-10-21-20h02m18s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h20m29s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-24-21h09m36s Kaitou Joker - 35.mp3
 |   |       
 |   +---00Unsorted_Comical
-|   |       vlc-record-2021-10-18-22h03m44s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h07m04s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h16m53s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h18m53s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h22m12s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h23m21s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h45m03s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h51m31s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-23h52m06s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h02m12s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-00h33m13s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h04m42s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h41m51s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h52m41s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h09m53s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h12m33s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h13m19s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h51m38s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h18m47s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h29m42s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h31m00s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h36m38s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h47m04s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h48m20s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h00m58s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h10m18s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h28m13s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h57m40s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h12m55s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h47m34s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h48m57s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |       vlc-record-2021-10-18-22h03m44s Kaitou Joker - 07.mp3
+|   |       vlc-record-2021-10-18-23h07m04s Kaitou Joker - 10.mp3
+|   |       vlc-record-2021-10-18-23h16m53s Kaitou Joker - 10.mp3
+|   |       vlc-record-2021-10-18-23h18m53s Kaitou Joker - 10.mp3
+|   |       vlc-record-2021-10-18-23h22m12s Kaitou Joker - 11.mp3
+|   |       vlc-record-2021-10-18-23h23m21s Kaitou Joker - 11.mp3
+|   |       vlc-record-2021-10-18-23h45m03s Kaitou Joker - 12.mp3
+|   |       vlc-record-2021-10-18-23h51m31s Kaitou Joker - 12.mp3
+|   |       vlc-record-2021-10-18-23h52m06s Kaitou Joker - 12.mp3
+|   |       vlc-record-2021-10-19-00h02m12s Kaitou Joker - 12.mp3
+|   |       vlc-record-2021-10-19-00h33m13s Kaitou Joker - 14.mp3
+|   |       vlc-record-2021-10-19-01h04m42s Kaitou Joker - 16.mp3
+|   |       vlc-record-2021-10-19-01h41m51s Kaitou Joker - 18.mp3
+|   |       vlc-record-2021-10-19-01h52m41s Kaitou Joker - 18.mp3
+|   |       vlc-record-2021-10-19-02h09m53s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-19-02h12m33s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-19-02h13m19s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-20-22h51m38s Kaitou Joker - 22.mp3
+|   |       vlc-record-2021-10-20-23h18m47s Kaitou Joker - 22.mp3
+|   |       vlc-record-2021-10-20-23h29m42s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-20-23h31m00s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-21-19h36m38s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h47m04s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h48m20s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-20h00m58s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h10m18s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-22-23h28m13s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h57m40s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-28-20h12m55s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h47m34s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-20h48m57s Kaitou Joker - 44.mp3
 |   |       
 |   +---0tooshort
-|   |       vlc-record-2021-10-18-19h09m52s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-21h43m03s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-21h49m06s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-22h08m01s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-22h12m06s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-22h15m15s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-22h33m29s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-18-22h47m56s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h04m24s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h22m37s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h24m20s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h36m14s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h41m29s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h44m34s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h46m53s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-01h56m26s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h01m10s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h01m52s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h06m17s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h08m14s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h13m00s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h17m16s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-19-02h17m38s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h35m39s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h42m48s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h45m11s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h48m51s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h49m59s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h22m03s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h22m21s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h30m36s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h33m52s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h36m34s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h39m00s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h39m48s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h41m32s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h45m34s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h48m42s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h54m29s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h56m52s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-00h02m42s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-00h04m21s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-00h07m14s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-00h07m40s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h15m46s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h19m46s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h20m14s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h20m49s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h22m04s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h30m07s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h30m45s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h33m50s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h35m31s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h37m20s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h37m38s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h38m14s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h45m36s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h46m14s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h50m48s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h53m13s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h55m33s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h57m07s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h57m30s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h58m02s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h58m34s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h04m53s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h07m16s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h13m29s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h13m49s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h14m15s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h15m15s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h15m49s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h16m27s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h19m08s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h20m06s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h21m23s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h21m52s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h22m20s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h24m43s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h25m00s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h25m34s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h26m59s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h27m27s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h28m07s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h29m32s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h31m20s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h31m52s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h37m28s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h39m11s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h40m32s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h41m04s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h29m45s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h33m34s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h36m11s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h36m34s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h37m47s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h38m48s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h39m12s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h40m09s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h40m46s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h41m17s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h48m24s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h52m21s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h54m11s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h54m40s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h55m00s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h56m08s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h09m01s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h10m36s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h10m45s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h11m09s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h11m31s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h11m57s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h12m08s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h12m47s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h12m57s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h13m41s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h14m50s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h15m57s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h16m22s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h18m43s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h20m10s-[AnimeOut] Kaitou Joker - 35 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h24m33s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h25m12s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h25m26s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h25m42s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h27m37s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h30m48s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h31m25s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h31m54s-[AnimeOut] Kaitou Joker - 36 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h39m44s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h40m26s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h42m03s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h44m17s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h44m49s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h47m20s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h47m57s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h48m13s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h48m37s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h48m54s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h50m23s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h55m59s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h57m23s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h00m25s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h02m19s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h02m35s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h03m05s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h04m57s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h11m02s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h15m05s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h16m55s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h17m18s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h18m54s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h19m14s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h19m45s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h20m20s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h21m51s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h22m17s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h26m31s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h28m48s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h29m00s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-22h30m13s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h15m15s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h16m35s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h16m54s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h18m01s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h21m25s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h23m08s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h23m40s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h24m11s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h25m16s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h28m07s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h30m30s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h37m12s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h37m29s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h38m04s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h40m20s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h44m57s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h46m42s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h52m10s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h54m39s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h55m17s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h57m29s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h59m34s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h00m13s-[AnimeOut] Kaitou Joker - 44 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h00m23s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h00m55s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h01m45s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h02m09s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h02m54s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h03m20s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h04m31s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h05m08s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h05m45s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h07m41s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h08m22s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h08m47s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h10m51s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h11m47s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h12m00s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h18m45s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h20m00s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h22m33s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-21h23m06s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h17m33s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h17m57s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h18m18s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h18m40s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h20m21s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h21m47s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h23m30s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h24m22s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h28m44s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h29m09s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h29m22s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h33m28s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h34m12s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h35m23s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h43m21s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h43m47s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h44m28s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h46m55s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h57m58s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-17h59m37s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h02m00s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h02m41s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h05m06s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h09m04s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h09m15s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h09m35s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h11m46s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h13m23s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h15m06s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h15m43s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h16m33s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h17m57s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h18m26s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h20m09s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h20m36s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h21m22s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h21m52s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h22m27s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h22m57s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-29-18h25m37s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |       vlc-record-2021-10-18-19h09m52s Kaitou Joker - 03.mp3
+|   |       vlc-record-2021-10-18-21h43m03s Kaitou Joker - 05.mp3
+|   |       vlc-record-2021-10-18-21h49m06s Kaitou Joker - 06.mp3
+|   |       vlc-record-2021-10-18-22h08m01s Kaitou Joker - 07.mp3
+|   |       vlc-record-2021-10-18-22h12m06s Kaitou Joker - 07.mp3
+|   |       vlc-record-2021-10-18-22h15m15s Kaitou Joker - 07.mp3
+|   |       vlc-record-2021-10-18-22h33m29s Kaitou Joker - 08.mp3
+|   |       vlc-record-2021-10-18-22h47m56s Kaitou Joker - 09.mp3
+|   |       vlc-record-2021-10-19-01h04m24s Kaitou Joker - 16.mp3
+|   |       vlc-record-2021-10-19-01h22m37s Kaitou Joker - 17.mp3
+|   |       vlc-record-2021-10-19-01h24m20s Kaitou Joker - 17.mp3
+|   |       vlc-record-2021-10-19-01h36m14s Kaitou Joker - 17.mp3
+|   |       vlc-record-2021-10-19-01h41m29s Kaitou Joker - 18.mp3
+|   |       vlc-record-2021-10-19-01h44m34s Kaitou Joker - 18.mp3
+|   |       vlc-record-2021-10-19-01h46m53s Kaitou Joker - 18.mp3
+|   |       vlc-record-2021-10-19-01h56m26s Kaitou Joker - 19.mp3
+|   |       vlc-record-2021-10-19-02h01m10s Kaitou Joker - 19.mp3
+|   |       vlc-record-2021-10-19-02h01m52s Kaitou Joker - 19.mp3
+|   |       vlc-record-2021-10-19-02h06m17s Kaitou Joker - 19.mp3
+|   |       vlc-record-2021-10-19-02h08m14s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-19-02h13m00s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-19-02h17m16s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-19-02h17m38s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-20-22h35m39s Kaitou Joker - 21.mp3
+|   |       vlc-record-2021-10-20-22h42m48s Kaitou Joker - 21.mp3
+|   |       vlc-record-2021-10-20-22h45m11s Kaitou Joker - 21.mp3
+|   |       vlc-record-2021-10-20-22h48m51s Kaitou Joker - 21.mp3
+|   |       vlc-record-2021-10-20-22h49m59s Kaitou Joker - 22.mp3
+|   |       vlc-record-2021-10-20-23h22m03s Kaitou Joker - 22.mp3
+|   |       vlc-record-2021-10-20-23h22m21s Kaitou Joker - 22.mp3
+|   |       vlc-record-2021-10-20-23h30m36s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-20-23h33m52s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-20-23h36m34s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-20-23h39m00s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-20-23h39m48s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-20-23h41m32s Kaitou Joker - 24.mp3
+|   |       vlc-record-2021-10-20-23h45m34s Kaitou Joker - 24.mp3
+|   |       vlc-record-2021-10-20-23h48m42s Kaitou Joker - 24.mp3
+|   |       vlc-record-2021-10-20-23h54m29s Kaitou Joker - 24.mp3
+|   |       vlc-record-2021-10-20-23h56m52s Kaitou Joker - 24.mp3
+|   |       vlc-record-2021-10-21-00h02m42s Kaitou Joker - 25.mp3
+|   |       vlc-record-2021-10-21-00h04m21s Kaitou Joker - 25.mp3
+|   |       vlc-record-2021-10-21-00h07m14s Kaitou Joker - 25.mp3
+|   |       vlc-record-2021-10-21-00h07m40s Kaitou Joker - 25.mp3
+|   |       vlc-record-2021-10-21-19h15m46s Kaitou Joker - 26.mp3
+|   |       vlc-record-2021-10-21-19h19m46s Kaitou Joker - 26.mp3
+|   |       vlc-record-2021-10-21-19h20m14s Kaitou Joker - 26.mp3
+|   |       vlc-record-2021-10-21-19h20m49s Kaitou Joker - 26.mp3
+|   |       vlc-record-2021-10-21-19h22m04s Kaitou Joker - 26.mp3
+|   |       vlc-record-2021-10-21-19h30m07s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h30m45s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h33m50s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h35m31s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h37m20s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h37m38s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h38m14s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h45m36s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h46m14s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-19h50m48s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h53m13s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h55m33s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h57m07s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h57m30s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h58m02s Kaitou Joker - 28.mp3
+|   |       vlc-record-2021-10-21-19h58m34s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h04m53s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h07m16s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h13m29s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h13m49s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-21-20h14m15s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h15m15s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h15m49s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h16m27s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h19m08s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h20m06s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h21m23s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h21m52s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h22m20s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h24m43s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h25m00s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h25m34s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h26m59s Kaitou Joker - 30.mp3
+|   |       vlc-record-2021-10-21-20h27m27s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h28m07s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h29m32s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h31m20s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h31m52s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h37m28s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h39m11s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h40m32s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-21-20h41m04s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-22-23h29m45s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h33m34s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h36m11s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h36m34s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h37m47s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h38m48s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h39m12s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h40m09s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h40m46s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h41m17s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-22-23h48m24s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-22-23h52m21s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-22-23h54m11s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-22-23h54m40s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-22-23h55m00s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-22-23h56m08s Kaitou Joker - 33.mp3
+|   |       vlc-record-2021-10-24-21h09m01s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h10m36s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h10m45s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h11m09s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h11m31s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h11m57s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h12m08s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h12m47s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h12m57s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h13m41s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h14m50s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h15m57s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h16m22s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h18m43s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h20m10s Kaitou Joker - 35.mp3
+|   |       vlc-record-2021-10-24-21h24m33s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h25m12s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h25m26s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h25m42s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h27m37s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h30m48s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h31m25s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h31m54s Kaitou Joker - 36.mp3
+|   |       vlc-record-2021-10-24-21h39m44s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h40m26s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h42m03s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h44m17s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h44m49s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h47m20s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h47m57s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h48m13s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h48m37s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h48m54s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h50m23s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-21h55m59s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-21h57m23s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-22h00m25s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-22h02m19s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-22h02m35s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-22h03m05s Kaitou Joker - 38.mp3
+|   |       vlc-record-2021-10-24-22h04m57s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h11m02s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h15m05s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h16m55s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h17m18s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h18m54s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h19m14s Kaitou Joker - 39.mp3
+|   |       vlc-record-2021-10-24-22h19m45s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h20m20s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h21m51s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h22m17s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h26m31s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h28m48s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h29m00s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-24-22h30m13s Kaitou Joker - 40.mp3
+|   |       vlc-record-2021-10-28-20h15m15s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h16m35s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h16m54s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h18m01s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h21m25s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h23m08s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h23m40s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h24m11s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h25m16s Kaitou Joker - 41.mp3
+|   |       vlc-record-2021-10-28-20h28m07s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h30m30s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h37m12s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h37m29s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h38m04s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h40m20s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h44m57s Kaitou Joker - 42.mp3
+|   |       vlc-record-2021-10-28-20h46m42s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-20h52m10s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-20h54m39s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-20h55m17s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-20h57m29s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-20h59m34s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-21h00m13s Kaitou Joker - 44.mp3
+|   |       vlc-record-2021-10-28-21h00m23s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h00m55s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h01m45s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h02m09s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h02m54s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h03m20s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h04m31s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h05m08s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h05m45s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h07m41s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h08m22s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h08m47s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h10m51s Kaitou Joker - 45.mp3
+|   |       vlc-record-2021-10-28-21h11m47s Kaitou Joker - 46.mp3
+|   |       vlc-record-2021-10-28-21h12m00s Kaitou Joker - 46.mp3
+|   |       vlc-record-2021-10-28-21h18m45s Kaitou Joker - 46.mp3
+|   |       vlc-record-2021-10-28-21h20m00s Kaitou Joker - 46.mp3
+|   |       vlc-record-2021-10-28-21h22m33s Kaitou Joker - 46.mp3
+|   |       vlc-record-2021-10-28-21h23m06s Kaitou Joker - 46.mp3
+|   |       vlc-record-2021-10-29-17h17m33s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h17m57s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h18m18s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h18m40s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h20m21s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h21m47s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h23m30s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h24m22s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h28m44s Kaitou Joker - 47.mp3
+|   |       vlc-record-2021-10-29-17h29m09s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h29m22s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h33m28s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h34m12s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h35m23s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h43m21s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h43m47s Kaitou Joker - 48.mp3
+|   |       vlc-record-2021-10-29-17h44m28s Kaitou Joker - 49.mp3
+|   |       vlc-record-2021-10-29-17h46m55s Kaitou Joker - 49.mp3
+|   |       vlc-record-2021-10-29-17h57m58s Kaitou Joker - 49.mp3
+|   |       vlc-record-2021-10-29-17h59m37s Kaitou Joker - 49.mp3
+|   |       vlc-record-2021-10-29-18h02m00s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h02m41s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h05m06s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h09m04s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h09m15s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h09m35s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h11m46s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h13m23s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h15m06s Kaitou Joker - 50.mp3
+|   |       vlc-record-2021-10-29-18h15m43s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h16m33s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h17m57s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h18m26s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h20m09s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h20m36s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h21m22s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h21m52s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h22m27s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h22m57s Kaitou Joker - 51.mp3
+|   |       vlc-record-2021-10-29-18h25m37s Kaitou Joker - 51.mp3
 |   |       
 |   +---1too_noisy
-|   |       vlc-record-2021-10-21-19h49m51s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |       vlc-record-2021-10-21-19h49m51s Kaitou Joker - 28.mp3
 |   |       
 |   +---Action
-|   |       vlc-record-2021-10-21-20h05m36s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h38m03s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h54m12s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |       vlc-record-2021-10-21-20h05m36s Kaitou Joker - 29.mp3
+|   |       vlc-record-2021-10-24-21h38m03s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-24-21h54m12s Kaitou Joker - 38.mp3
 |   |       
 |   +---Danger
-|   |       vlc-record-2021-10-19-02h15m58s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-22h46m13s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-20-23h38m00s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-19h42m52s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-21-20h33m41s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-22-23h32m53s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-24-21h41m16s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|   |       vlc-record-2021-10-28-20h14m03s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |       vlc-record-2021-10-19-02h15m58s Kaitou Joker - 20.mp3
+|   |       vlc-record-2021-10-20-22h46m13s Kaitou Joker - 21.mp3
+|   |       vlc-record-2021-10-20-23h38m00s Kaitou Joker - 23.mp3
+|   |       vlc-record-2021-10-21-19h42m52s Kaitou Joker - 27.mp3
+|   |       vlc-record-2021-10-21-20h33m41s Kaitou Joker - 31.mp3
+|   |       vlc-record-2021-10-22-23h32m53s Kaitou Joker - 32.mp3
+|   |       vlc-record-2021-10-24-21h41m16s Kaitou Joker - 37.mp3
+|   |       vlc-record-2021-10-28-20h14m03s Kaitou Joker - 41.mp3
 |   |       
 |   \---violin
-|           vlc-record-2021-10-19-01h49m14s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|           vlc-record-2021-10-21-19h22m23s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|           vlc-record-2021-10-19-01h49m14s Kaitou Joker - 18.mp3
+|           vlc-record-2021-10-21-19h22m23s Kaitou Joker - 26.mp3
 |           
 +---01_This_Time_in_KJ
-|   |   vlc-record-2021-10-18-18h29m25s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |   vlc-record-2021-10-18-18h29m25s Kaitou Joker - 01.mp3
 |   |   
 |   \---DONE
 |           01_This_Time_in_KJ.mp3
 |           
 +---02_Intermission_Theme
-|   |   vlc-record-2021-10-18-18h51m12s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|   |   vlc-record-2021-10-18-18h51m12s Kaitou Joker - 02.mp3
 |   |   
 |   \---0000
 |           Intermission_Theme.mp3
 |           
 +---Action_Theme_01_-_Riff_GoGoGo
-|       vlc-record-2021-10-18-19h10m14s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h10m58s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h10m14s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-19-02h10m58s Kaitou Joker - 20.mp3
 |       
 +---Action_Theme_02_-_CoolCat
-|       vlc-record-2021-10-18-19h11m27s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-22h50m48s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h34m52s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-20h18m24s-[AnimeOut] Kaitou Joker - 41 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h11m27s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-20-22h50m48s Kaitou Joker - 22.mp3
+|       vlc-record-2021-10-21-20h34m52s Kaitou Joker - 31.mp3
+|       vlc-record-2021-10-28-20h18m24s Kaitou Joker - 41.mp3
 |       
 +---Action_Theme_03_-_CoolAntics
-|       vlc-record-2021-10-18-19h15m21s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h38m32s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h52m41s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h53m47s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h11m41s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h12m21s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h32m33s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h51m17s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h12m18s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h25m36s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h31m34s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h33m45s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h07m37s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h53m11s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h15m21s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-21h38m32s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-21h52m41s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-21h53m47s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h11m41s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-22h12m21s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-22h32m33s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-18-22h51m17s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-18-23h12m18s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-18-23h25m36s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-18-23h31m34s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-18-23h33m45s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-19-00h07m37s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-00h53m11s Kaitou Joker - 15.mp3
 |       
 +---Action_Theme_04_-_Riff_alternate
-|       vlc-record-2021-10-18-19h30m06s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h30m06s Kaitou Joker - 04.mp3
 |       
 +---Action_Theme_05_-_Intermission_esque
-|       vlc-record-2021-10-18-23h53m14s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h12m24s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h25m56s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h53m14s Kaitou Joker - 12.mp3
+|       vlc-record-2021-10-19-00h12m24s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-20-23h25m56s Kaitou Joker - 22.mp3
 |       
 +---Action_Theme_06_-_Shadow_(Cyan)
-|       vlc-record-2021-10-18-21h50m53s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h35m11s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h37m11s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h45m43s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h07m27s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-00h08m09s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h50m53s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-23h35m11s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-19-01h37m11s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-19-01h45m43s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-19-02h07m27s Kaitou Joker - 20.mp3
+|       vlc-record-2021-10-21-00h08m09s Kaitou Joker - 25.mp3
 |       
 +---Action_Theme_07_-_InAction
-|       vlc-record-2021-10-18-21h58m50s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h58m50s Kaitou Joker - 06.mp3
 |       
 +---Action_Theme_08_-_Distortion
-|       vlc-record-2021-10-18-22h20m49s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h20m49s Kaitou Joker - 08.mp3
 |       
 +---Action_Theme_09_-_Expl
-|       vlc-record-2021-10-18-22h26m39s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h26m39s Kaitou Joker - 08.mp3
 |       
 +---Action_Theme_10_-_InMotion_Expl
-|       vlc-record-2021-10-18-23h08m06s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h08m06s Kaitou Joker - 10.mp3
 |       
 +---Action_Theme_11_-_Violint_Tendencies_(Check_if_Unsure)
-|       vlc-record-2021-10-18-19h32m37s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h34m16s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h18m38s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h28m42s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h39m45s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h36m22s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h54m11s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h15m26s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h02m46s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h50m23s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h23m59s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h51m07s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h32m37s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-19h34m16s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-21h18m38s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-21h28m42s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-21h39m45s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-22h36m22s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-18-23h54m11s Kaitou Joker - 12.mp3
+|       vlc-record-2021-10-19-00h15m26s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-02h02m46s Kaitou Joker - 19.mp3
+|       vlc-record-2021-10-20-23h50m23s Kaitou Joker - 24.mp3
+|       vlc-record-2021-10-21-19h23m59s Kaitou Joker - 26.mp3
+|       vlc-record-2021-10-29-17h51m07s Kaitou Joker - 49.mp3
 |       
 +---Action_Theme_12_-_Straight_Flush
-|       vlc-record-2021-10-19-00h49m51s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h49m51s Kaitou Joker - 15.mp3
 |       
 +---Action_Theme_13_-_PyramidPower_Riff
-|       vlc-record-2021-10-19-01h09m04s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h09m04s Kaitou Joker - 16.mp3
 |       
 +---Action_Theme_14_-_Cool
-|       vlc-record-2021-10-19-01h39m08s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h39m08s Kaitou Joker - 18.mp3
 |       
 +---Action_Theme_15_-_Funky_Beat
-|       vlc-record-2021-10-19-02h08m37s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-02h08m37s Kaitou Joker - 20.mp3
 |       
 +---Action_Theme_16_-_
-|       vlc-record-2021-10-20-23h21m20s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-20-23h21m20s Kaitou Joker - 22.mp3
 |       
 +---Action_Theme_17_-_CrazyHappenings
-|       vlc-record-2021-10-20-23h25m13s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h36m52s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-20-23h25m13s Kaitou Joker - 22.mp3
+|       vlc-record-2021-10-20-23h36m52s Kaitou Joker - 23.mp3
 |       
 +---Action_Theme_18_-_Faceoff
-|       vlc-record-2021-10-21-00h00m56s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-00h00m56s Kaitou Joker - 25.mp3
 |       
 +---Action_Theme_19_-_
-|       vlc-record-2021-10-21-19h26m08s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-19h26m08s Kaitou Joker - 26.mp3
 |       
 +---Action_Theme_20_-_Chase
-|       vlc-record-2021-10-21-19h39m13s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h07m38s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h36m45s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-22-23h53m00s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-21h35m21s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-21h53m09s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-22h07m48s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h38m04s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h48m37s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-19h39m13s Kaitou Joker - 27.mp3
+|       vlc-record-2021-10-21-20h07m38s Kaitou Joker - 29.mp3
+|       vlc-record-2021-10-21-20h36m45s Kaitou Joker - 31.mp3
+|       vlc-record-2021-10-22-23h53m00s Kaitou Joker - 33.mp3
+|       vlc-record-2021-10-24-21h35m21s Kaitou Joker - 37.mp3
+|       vlc-record-2021-10-24-21h53m09s Kaitou Joker - 38.mp3
+|       vlc-record-2021-10-24-22h07m48s Kaitou Joker - 39.mp3
+|       vlc-record-2021-10-29-17h38m04s Kaitou Joker - 48.mp3
+|       vlc-record-2021-10-29-17h48m37s Kaitou Joker - 49.mp3
 |       
 +---Action_Theme_21
-|       vlc-record-2021-10-21-20h23m08s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-20h23m08s Kaitou Joker - 30.mp3
 |       
 +---Action_Theme_22_-_ChaoticalCool
-|       vlc-record-2021-10-24-22h01m22s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-22h13m52s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-18h06m42s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-22h01m22s Kaitou Joker - 38.mp3
+|       vlc-record-2021-10-24-22h13m52s Kaitou Joker - 39.mp3
+|       vlc-record-2021-10-29-18h06m42s Kaitou Joker - 50.mp3
 |       
 +---Action_Theme_23_-_
-|       vlc-record-2021-10-28-21h06m13s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-21h06m13s Kaitou Joker - 45.mp3
 |       
 +---Boring_Theme_01_-_Investigation
-|       vlc-record-2021-10-18-18h33m15s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h33m15s Kaitou Joker - 01.mp3
 |       
 +---Boring_Theme_02.5_-_Police_no_
-|       vlc-record-2021-10-19-00h48m02s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h02m50s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h08m25s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h19m28s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h47m06s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h48m02s Kaitou Joker - 15.mp3
+|       vlc-record-2021-10-19-01h02m50s Kaitou Joker - 16.mp3
+|       vlc-record-2021-10-19-01h08m25s Kaitou Joker - 16.mp3
+|       vlc-record-2021-10-20-23h19m28s Kaitou Joker - 22.mp3
+|       vlc-record-2021-10-20-23h47m06s Kaitou Joker - 24.mp3
 |       
 +---Boring_Theme_02_-_Policeboys
-|       vlc-record-2021-10-18-18h45m49s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h23m38s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h10m49s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h11m12s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h09m42s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h25m30s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h45m49s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-19h23m38s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-22h10m49s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-22h11m12s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-23h09m42s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-19-00h25m30s Kaitou Joker - 14.mp3
 |       
 +---Boring_Theme_03_-_Yawn
-|       vlc-record-2021-10-18-21h48m11s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h48m11s Kaitou Joker - 06.mp3
 |       
 +---Boring_Theme_04_-_Retrospect
-|       vlc-record-2021-10-18-22h21m12s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h21m12s Kaitou Joker - 08.mp3
 |       
 +---Calming_Theme_01_-_Ticking_Clock
-|       vlc-record-2021-10-18-18h44m22s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-00h03m36s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h44m22s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-21-00h03m36s Kaitou Joker - 25.mp3
 |       
 +---Calming_Theme_02_-_TalkingWithFriends_(Violin)
-|       vlc-record-2021-10-18-23h48m59s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h48m59s Kaitou Joker - 12.mp3
 |       
 +---Classy_Theme-08_-_Dance
-|       vlc-record-2021-10-29-17h22m22s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h36m13s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-29-17h22m22s Kaitou Joker - 47.mp3
+|       vlc-record-2021-10-29-17h36m13s Kaitou Joker - 48.mp3
 |       
 +---Classy_Theme_01_-_Steadfast
-|       vlc-record-2021-10-18-18h49m36s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h49m36s Kaitou Joker - 02.mp3
 |       
 +---Classy_Theme_02_-_Violin-y
-|       vlc-record-2021-10-18-19h04m27s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h05m45s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h18m16s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h05m41s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h43m03s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h57m40s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h04m27s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h05m45s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h18m16s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-19-01h05m41s Kaitou Joker - 16.mp3
+|       vlc-record-2021-10-20-23h43m03s Kaitou Joker - 24.mp3
+|       vlc-record-2021-10-20-23h57m40s Kaitou Joker - 25.mp3
 |       
 +---Classy_Theme_03_-_Banquet
-|       vlc-record-2021-10-18-19h12m18s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h46m26s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h12m18s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-23h46m26s Kaitou Joker - 12.mp3
 |       
 +---Classy_Theme_04_-_DangerousSaxoph
-|       vlc-record-2021-10-18-22h16m24s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h31m10s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h16m24s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-19-00h31m10s Kaitou Joker - 14.mp3
 |       
 +---Classy_Theme_05_-_AntsySaxoph
-|       vlc-record-2021-10-18-22h29m41s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h28m36s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h29m41s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-19-00h28m36s Kaitou Joker - 14.mp3
 |       
 +---Classy_Theme_06_-_Fast_Party_(mysterious)
-|       vlc-record-2021-10-19-00h44m13s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h44m13s Kaitou Joker - 15.mp3
 |       
 +---Classy_Theme_07_-
-|       vlc-record-2021-10-24-22h03m41s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-22h03m41s Kaitou Joker - 39.mp3
 |       
 +---Comical_Theme_01_-_Are_you_Kidding_me
-|       vlc-record-2021-10-18-18h31m56s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h31m56s Kaitou Joker - 01.mp3
 |       
 +---Comical_Theme_02_-_Is_this_a_carneval
-|       vlc-record-2021-10-18-18h34m15s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h13m48s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h07m23s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h34m19s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h06m17s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h34m15s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-19h13m48s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-22h07m23s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-23h34m19s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-19-01h06m17s Kaitou Joker - 16.mp3
 |       
 +---Comical_Theme_03_-_Ending_Laughing_(fast_violin)
-|       vlc-record-2021-10-18-18h35m32s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-18h55m21s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-18h57m08s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h09m13s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h20m55s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h25m28s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h34m34s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h52m27s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h09m53s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h59m35s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h35m32s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-18h55m21s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-18h57m08s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-19h09m13s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h20m55s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h25m28s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-19h34m34s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-19-00h52m27s Kaitou Joker - 15.mp3
+|       vlc-record-2021-10-19-01h09m53s Kaitou Joker - 16.mp3
+|       vlc-record-2021-10-19-01h59m35s Kaitou Joker - 19.mp3
 |       
 +---Comical_Theme_04_-_Bemused_(Violin)
-|       vlc-record-2021-10-18-18h41m09s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h15m45s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h24m25s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h41m09s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-19h15m45s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h24m25s Kaitou Joker - 04.mp3
 |       
 +---Comical_Theme_05_-_Happy_(Violin)
-|       vlc-record-2021-10-18-19h00m33s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h42m08s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h38m27s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h00m33s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-21h42m08s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-23h38m27s Kaitou Joker - 11.mp3
 |       
 +---Comical_Theme_06_-_Ridiculous
-|       vlc-record-2021-10-18-19h07m27s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h07m27s Kaitou Joker - 03.mp3
 |       
 +---Comical_Theme_07_-_Violint
-|       vlc-record-2021-10-18-19h08m16s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h22m03s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h08m16s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-21h22m03s Kaitou Joker - 05.mp3
 |       
 +---Comical_Theme_08_-_Military_March
-|       vlc-record-2021-10-18-19h26m08s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h26m08s Kaitou Joker - 04.mp3
 |       
 +---Comical_Theme_09_-_Hustle_and_Bustle_(violin)
-|       vlc-record-2021-10-18-18h33m59s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h33m59s Kaitou Joker - 01.mp3
 |       
 +---Comical_Theme_10_-_Ending_Violin
-|       vlc-record-2021-10-18-19h35m57s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h18m43s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h19m11s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h35m57s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-19-00h18m43s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-01h19m11s Kaitou Joker - 16.mp3
 |       
 +---Comical_Theme_11_-_Funny_Piano
-|       vlc-record-2021-10-19-01h55m30s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h57m20s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h55m30s Kaitou Joker - 19.mp3
+|       vlc-record-2021-10-19-01h57m20s Kaitou Joker - 19.mp3
 |       
 +---Danger_Theme_01_-_In_Danger
-|       vlc-record-2021-10-18-18h26m37s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-18h57m55s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h17m26s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h14m28s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h26m37s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-18h57m55s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-23h17m26s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-19-00h14m28s Kaitou Joker - 13.mp3
 |       
 +---Danger_Theme_02_-_In_Motion_(Violin)
-|       vlc-record-2021-10-18-18h32m54s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h26m38s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h49m28s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h10m25s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h14m13s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h51m55s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h26m00s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-22h44m06s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-21h40m39s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h32m54s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-19h26m38s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-21h49m28s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h10m25s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-22h14m13s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-22h51m55s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-19-01h26m00s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-20-22h44m06s Kaitou Joker - 21.mp3
+|       vlc-record-2021-10-24-21h40m39s Kaitou Joker - 37.mp3
 |       
 +---Danger_Theme_03_-_LurkingAroundTheCorner
-|       vlc-record-2021-10-18-18h53m00s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h27m52s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h47m03s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h12m48s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h36m00s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-22-23h32m03s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h53m00s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-19h27m52s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-21h47m03s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h12m48s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-19-00h36m00s Kaitou Joker - 14.mp3
+|       vlc-record-2021-10-22-23h32m03s Kaitou Joker - 32.mp3
 |       
 +---Danger_Theme_04_-_UneasyViolin
-|       vlc-record-2021-10-18-19h31m27s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h45m04s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h35m07s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h49m15s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h57m21s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h31m50s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h10m14s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h36m55s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h47m07s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-22h40m40s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-22-23h56m41s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h49m54s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-18h24m34s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h31m27s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-21h45m04s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h35m07s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-18-22h49m15s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-18-22h57m21s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-18-23h31m50s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-19-00h10m14s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-00h36m55s Kaitou Joker - 14.mp3
+|       vlc-record-2021-10-19-01h47m07s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-20-22h40m40s Kaitou Joker - 21.mp3
+|       vlc-record-2021-10-22-23h56m41s Kaitou Joker - 33.mp3
+|       vlc-record-2021-10-29-17h49m54s Kaitou Joker - 49.mp3
+|       vlc-record-2021-10-29-18h24m34s Kaitou Joker - 51.mp3
 |       
 +---Danger_Theme_05_-_HowVeryOdd
-|       vlc-record-2021-10-18-21h50m21s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h01m18s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h37m46s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h05m29s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h16m39s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h50m21s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h01m18s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-23h37m46s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-19-00h05m29s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-00h16m39s Kaitou Joker - 13.mp3
 |       
 +---Danger_Theme_06_-_Drawn_out_Tension_(Mysterious)
-|       vlc-record-2021-10-18-22h23m43s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h06m31s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h54m15s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h23m43s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-19-00h06m31s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-00h54m15s Kaitou Joker - 15.mp3
 |       
 +---Danger_Theme_07_-_(Violin)
-|       vlc-record-2021-10-18-22h33m40s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h58m50s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h33m40s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-18-23h58m50s Kaitou Joker - 12.mp3
 |       
 +---Danger_Theme_08_-_OnHalt
-|       vlc-record-2021-10-18-22h48m11s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h48m11s Kaitou Joker - 09.mp3
 |       
 +---Danger_Theme_09_-_Slithering_(violn)
-|       vlc-record-2021-10-19-00h35m34s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h35m34s Kaitou Joker - 14.mp3
 |       
 +---Danger_Theme_10_-_Saxophone
-|       vlc-record-2021-10-19-01h11m35s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h10m29s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h20m32s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h11m35s Kaitou Joker - 16.mp3
+|       vlc-record-2021-10-19-02h10m29s Kaitou Joker - 20.mp3
+|       vlc-record-2021-10-20-23h20m32s Kaitou Joker - 22.mp3
 |       
 +---Danger_Theme_11_-_Builtup_dada-da-da-dada
-|       vlc-record-2021-10-19-01h26m37s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h38m13s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h48m18s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h13m50s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h43m37s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-00h05m21s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h52m23s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h32m32s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-20h41m32s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-20h42m22s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-18h10m40s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h26m37s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-19-01h38m13s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-19-01h48m18s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-19-02h13m50s Kaitou Joker - 20.mp3
+|       vlc-record-2021-10-20-23h43m37s Kaitou Joker - 24.mp3
+|       vlc-record-2021-10-21-00h05m21s Kaitou Joker - 25.mp3
+|       vlc-record-2021-10-21-19h52m23s Kaitou Joker - 28.mp3
+|       vlc-record-2021-10-21-20h32m32s Kaitou Joker - 31.mp3
+|       vlc-record-2021-10-28-20h41m32s Kaitou Joker - 42.mp3
+|       vlc-record-2021-10-28-20h42m22s Kaitou Joker - 42.mp3
+|       vlc-record-2021-10-29-18h10m40s Kaitou Joker - 50.mp3
 |       
 +---Danger_Theme_12_-_Heavy
-|       vlc-record-2021-10-19-01h33m33s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h34m45s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h18m00s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h33m33s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-20-23h34m45s Kaitou Joker - 23.mp3
+|       vlc-record-2021-10-21-19h18m00s Kaitou Joker - 26.mp3
 |       
 +---Danger_Theme_13_-_Violinn
-|       vlc-record-2021-10-20-23h51m41s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-20-23h51m41s Kaitou Joker - 24.mp3
 |       
 +---Danger_Theme_14_-_Rose
-|       vlc-record-2021-10-21-00h00m06s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-00h00m06s Kaitou Joker - 25.mp3
 |       
 +---Danger_Theme_15_-_Climax
-|       vlc-record-2021-10-21-00h10m11s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h51m12s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-00h10m11s Kaitou Joker - 25.mp3
+|       vlc-record-2021-10-21-19h51m12s Kaitou Joker - 28.mp3
 |       
 +---Danger_Theme_16_-_Comical_Danger
-|       vlc-record-2021-10-21-20h25m59s-[AnimeOut] Kaitou Joker - 30 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-20h25m59s Kaitou Joker - 30.mp3
 |       
 +---Danger_Theme_17_-_President_D
-|       vlc-record-2021-10-24-21h52m31s-[AnimeOut] Kaitou Joker - 38 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-21h16m28s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h45m23s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h47m28s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-18h00m44s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-21h52m31s Kaitou Joker - 38.mp3
+|       vlc-record-2021-10-28-21h16m28s Kaitou Joker - 46.mp3
+|       vlc-record-2021-10-29-17h45m23s Kaitou Joker - 49.mp3
+|       vlc-record-2021-10-29-17h47m28s Kaitou Joker - 49.mp3
+|       vlc-record-2021-10-29-18h00m44s Kaitou Joker - 50.mp3
 |       
 +---Danger_Theme_18_-_President_Ds_Plot(s)
-|       vlc-record-2021-10-24-21h32m16s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-18h03m21s-[AnimeOut] Kaitou Joker - 50 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-21h32m16s Kaitou Joker - 37.mp3
+|       vlc-record-2021-10-29-18h03m21s Kaitou Joker - 50.mp3
 |       
 +---Ending_Theme_01_-_Resolution_calm
-|       vlc-record-2021-10-18-19h20m19s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h20m19s Kaitou Joker - 03.mp3
 |       
 +---Ending_Theme_02_-_Pianoesque
-|       vlc-record-2021-10-18-18h38m35s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h42m36s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h01m37s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h42m35s-[AnimeOut] Kaitou Joker - 48 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h38m35s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-21h42m36s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-23h01m37s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-29-17h42m35s Kaitou Joker - 48.mp3
 |       
 +---Ending_Theme_03_-_Surprising
-|       vlc-record-2021-10-18-22h17m54s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h17m54s Kaitou Joker - 07.mp3
 |       
 +---Ending_Theme_04_-_Piano_#2
-|       vlc-record-2021-10-18-22h58m29s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h42m44s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-21h19m02s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h52m58s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h57m11s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h58m29s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-19-01h42m44s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-28-21h19m02s Kaitou Joker - 46.mp3
+|       vlc-record-2021-10-29-17h52m58s Kaitou Joker - 49.mp3
+|       vlc-record-2021-10-29-17h57m11s Kaitou Joker - 49.mp3
 |       
 +---Ending_Theme_05_-_Piano-calm
-|       vlc-record-2021-10-20-22h45m42s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h40m14s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h29m15s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h04m11s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-20-22h45m42s Kaitou Joker - 21.mp3
+|       vlc-record-2021-10-20-23h40m14s Kaitou Joker - 23.mp3
+|       vlc-record-2021-10-21-19h29m15s Kaitou Joker - 26.mp3
+|       vlc-record-2021-10-21-20h04m11s Kaitou Joker - 29.mp3
 |       
 +---Ending_Theme_06_-_Trumpet
-|       vlc-record-2021-10-20-22h48m14s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h27m34s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-20-22h48m14s Kaitou Joker - 21.mp3
+|       vlc-record-2021-10-21-19h27m34s Kaitou Joker - 26.mp3
 |       
 +---Ending_Theme_07_-_Farwell_(Piano)
-|       vlc-record-2021-10-28-21h09m57s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-21h09m57s Kaitou Joker - 45.mp3
 |       
 +---Happy_Theme_01_-_Joker
-|       vlc-record-2021-10-18-18h26m56s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h26m56s Kaitou Joker - 01.mp3
 |       
 +---Happy_Theme_02_-_MiracleMaker
-|       vlc-record-2021-10-18-18h28m54s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-18h36m57s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h18m43s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h59m41s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h00m15s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h11m06s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h28m54s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-18h36m57s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-19h18m43s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-21h59m41s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-19-00h00m15s Kaitou Joker - 12.mp3
+|       vlc-record-2021-10-21-20h11m06s Kaitou Joker - 29.mp3
 |       
 +---Happy_Theme_03_-_SilverHearts_Explanation
-|       vlc-record-2021-10-18-18h30m50s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-18h46m44s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h17m25s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h34m56s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h57m36s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h15m21s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h11m08s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h57m50s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h13m20s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h26m43s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h55m47s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h14m01s-[AnimeOut] Kaitou Joker - 16 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h35m11s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h49m47s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h04m50s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h09m19s-[AnimeOut] Kaitou Joker - 20 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-22h47m04s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h22m41s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h39m15s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h44m10s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-20h12m04s-[AnimeOut] Kaitou Joker - 29 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-22-23h38m07s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-21h45m06s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-22h27m30s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h30m50s Kaitou Joker - 01.mp3
+|       vlc-record-2021-10-18-18h46m44s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-19h17m25s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h34m56s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-21h57m36s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h15m21s Kaitou Joker - 07.mp3
+|       vlc-record-2021-10-18-23h11m08s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-18-23h57m50s Kaitou Joker - 12.mp3
+|       vlc-record-2021-10-19-00h13m20s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-00h26m43s Kaitou Joker - 14.mp3
+|       vlc-record-2021-10-19-00h55m47s Kaitou Joker - 15.mp3
+|       vlc-record-2021-10-19-01h14m01s Kaitou Joker - 16.mp3
+|       vlc-record-2021-10-19-01h35m11s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-19-01h49m47s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-19-02h04m50s Kaitou Joker - 19.mp3
+|       vlc-record-2021-10-19-02h09m19s Kaitou Joker - 20.mp3
+|       vlc-record-2021-10-20-22h47m04s Kaitou Joker - 21.mp3
+|       vlc-record-2021-10-20-23h22m41s Kaitou Joker - 22.mp3
+|       vlc-record-2021-10-20-23h39m15s Kaitou Joker - 23.mp3
+|       vlc-record-2021-10-21-19h44m10s Kaitou Joker - 27.mp3
+|       vlc-record-2021-10-21-20h12m04s Kaitou Joker - 29.mp3
+|       vlc-record-2021-10-22-23h38m07s Kaitou Joker - 32.mp3
+|       vlc-record-2021-10-24-21h45m06s Kaitou Joker - 37.mp3
+|       vlc-record-2021-10-24-22h27m30s Kaitou Joker - 40.mp3
 |       
 +---Happy_Theme_05_-_Upbeat
-|       vlc-record-2021-10-18-18h34m55s-[AnimeOut] Kaitou Joker - 01 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h34m55s Kaitou Joker - 01.mp3
 |       
 +---Happy_Theme_06_-_Comical_Happiness
-|       vlc-record-2021-10-18-22h04m04s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h04m04s Kaitou Joker - 07.mp3
 |       
 +---Happy_Theme_07_Tranquil_Commotion
-|       vlc-record-2021-10-18-22h09m52s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h09m52s Kaitou Joker - 07.mp3
 |       
 +---Happy_Theme_08_-_Fidel-ty
-|       vlc-record-2021-10-18-22h18m45s-[AnimeOut] Kaitou Joker - 07 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h18m45s Kaitou Joker - 07.mp3
 |       
 +---Happy_Theme_09_-_In_the_Family_(piano)
-|       vlc-record-2021-10-18-22h28m26s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h28m26s Kaitou Joker - 08.mp3
 |       
 +---Happy_Theme_10_-_AmusingHappiness
-|       vlc-record-2021-10-18-22h58m56s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h58m56s Kaitou Joker - 09.mp3
 |       
 +---Happy_Theme_11_-_Beach-y
-|       vlc-record-2021-10-18-23h04m43s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h20m18s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h04m43s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-19-00h20m18s Kaitou Joker - 14.mp3
 |       
 +---Happy_Theme_12_-_WindUP
-|       vlc-record-2021-10-19-00h57m37s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h57m37s Kaitou Joker - 15.mp3
 |       
 +---Happy_Theme_13_-_AncinHappy
-|       vlc-record-2021-10-24-22h24m48s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-22h24m48s Kaitou Joker - 40.mp3
 |       
 +---Happy_Theme_14_-_New_Beginning
-|       vlc-record-2021-10-24-22h29m27s-[AnimeOut] Kaitou Joker - 40 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-22h29m27s Kaitou Joker - 40.mp3
 |       
 +---Miracle_Theme_01_-_Birth_of_a_miracle
-|       vlc-record-2021-10-18-18h59m03s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h56m00s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h17m53s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h56m42s-[AnimeOut] Kaitou Joker - 12 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h14m41s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h31m56s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h59m03s Kaitou Joker - 02.mp3
+|       vlc-record-2021-10-18-21h56m00s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-23h17m53s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-18-23h56m42s Kaitou Joker - 12.mp3
+|       vlc-record-2021-10-19-00h14m41s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-00h31m56s Kaitou Joker - 14.mp3
 |       
 +---Miracle_Theme_02_-_(VIOLIN)
-|       vlc-record-2021-10-18-22h31m53s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-23h19m44s-[AnimeOut] Kaitou Joker - 10 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-22h46m47s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h31m53s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-18-23h19m44s Kaitou Joker - 10.mp3
+|       vlc-record-2021-10-20-22h46m47s Kaitou Joker - 21.mp3
 |       
 +---Miracle_Theme_03_-_
-|       vlc-record-2021-10-18-23h36m30s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h27m28s-[AnimeOut] Kaitou Joker - 22 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-22h17m50s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h36m30s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-20-23h27m28s Kaitou Joker - 22.mp3
+|       vlc-record-2021-10-24-22h17m50s Kaitou Joker - 39.mp3
 |       
 +---Miracle_Theme_04_-_Ending_Miracle
-|       vlc-record-2021-10-19-00h40m44s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h51m42s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-02h05m29s-[AnimeOut] Kaitou Joker - 19 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h40m44s Kaitou Joker - 14.mp3
+|       vlc-record-2021-10-19-01h51m42s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-19-02h05m29s Kaitou Joker - 19.mp3
 |       
 +---Miracle_Theme_05_-_Ending_Miracle_(Fast)
-|       vlc-record-2021-10-19-00h38m49s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h50m35s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h38m25s-[AnimeOut] Kaitou Joker - 23 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h53m24s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h38m49s Kaitou Joker - 14.mp3
+|       vlc-record-2021-10-19-01h50m35s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-20-23h38m25s Kaitou Joker - 23.mp3
+|       vlc-record-2021-10-20-23h53m24s Kaitou Joker - 24.mp3
 |       
 +---Miracle_Theme_06_-_Cool_Miracle
-|       vlc-record-2021-10-21-19h31m27s-[AnimeOut] Kaitou Joker - 27 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h53m39s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-24-21h46m06s-[AnimeOut] Kaitou Joker - 37 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-21h20m39s-[AnimeOut] Kaitou Joker - 46 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-19h31m27s Kaitou Joker - 27.mp3
+|       vlc-record-2021-10-21-19h53m39s Kaitou Joker - 28.mp3
+|       vlc-record-2021-10-24-21h46m06s Kaitou Joker - 37.mp3
+|       vlc-record-2021-10-28-21h20m39s Kaitou Joker - 46.mp3
 |       
 +---Miracle_Theme_07_-_
-|       vlc-record-2021-10-24-22h16m08s-[AnimeOut] Kaitou Joker - 39 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-24-22h16m08s Kaitou Joker - 39.mp3
 |       
 +---Mysterious_Theme_01_-_
-|       vlc-record-2021-10-18-21h36m17s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h36m17s Kaitou Joker - 05.mp3
 |       
 +---Mysterious_Theme_02_-_FaceHeelTurn
-|       vlc-record-2021-10-18-22h44m33s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h44m33s Kaitou Joker - 09.mp3
 |       
 +---Mysterious_Theme_03_-_MusicBoxesque
-|       vlc-record-2021-10-18-23h23m53s-[AnimeOut] Kaitou Joker - 11 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h21m40s-[AnimeOut] Kaitou Joker - 14 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h51m42s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-22h42m59s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h44m08s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-22-23h50m50s-[AnimeOut] Kaitou Joker - 33 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h23m53s Kaitou Joker - 11.mp3
+|       vlc-record-2021-10-19-00h21m40s Kaitou Joker - 14.mp3
+|       vlc-record-2021-10-19-00h51m42s Kaitou Joker - 15.mp3
+|       vlc-record-2021-10-20-22h42m59s Kaitou Joker - 21.mp3
+|       vlc-record-2021-10-20-23h44m08s Kaitou Joker - 24.mp3
+|       vlc-record-2021-10-22-23h50m50s Kaitou Joker - 33.mp3
 |       
 +---Mysterious_Theme_04_-_Har
-|       vlc-record-2021-10-19-01h25m37s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h25m37s Kaitou Joker - 17.mp3
 |       
 +---Mysterious_Theme_05_-_
-|       vlc-record-2021-10-28-20h43m26s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-20h43m26s Kaitou Joker - 42.mp3
 |       
 +---ONN_-_Overworld_Network_News
-|       vlc-record-2021-10-21-19h59m06s-[AnimeOut] Kaitou Joker - 29 overworldNetworkNews.mkv-.mp3
+|       vlc-record-2021-10-21-19h59m06s Kaitou Joker - 29 overworldNetworkNews.mp3
 |       
 +---Oriental_Theme_02_-_
-|       vlc-record-2021-10-28-20h34m28s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-20h34m28s Kaitou Joker - 42.mp3
 |       
 +---Oriental_Theme_03_-_Sadness
-|       vlc-record-2021-10-28-20h35m41s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-20h35m41s Kaitou Joker - 42.mp3
 |       
 +---Oriental_Theme__01_-_
-|       vlc-record-2021-10-28-20h28m33s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-28-20h29m40s-[AnimeOut] Kaitou Joker - 42 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-20h28m33s Kaitou Joker - 42.mp3
+|       vlc-record-2021-10-28-20h29m40s Kaitou Joker - 42.mp3
 |       
 +---Professor_Clover
-|       vlc-record-2021-10-18-21h33m21s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h04m39s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h52m03s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h33m21s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-19-00h04m39s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-01h52m03s Kaitou Joker - 18.mp3
 |       
 +---Professor_Clovers_Inner_Workings
-|       vlc-record-2021-10-18-23h00m16s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-00h08m54s-[AnimeOut] Kaitou Joker - 13 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h20m15s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-19-01h53m08s-[AnimeOut] Kaitou Joker - 18 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h41m47s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h54m57s-[AnimeOut] Kaitou Joker - 24 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-20-23h58m34s-[AnimeOut] Kaitou Joker - 25 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-23h00m16s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-19-00h08m54s Kaitou Joker - 13.mp3
+|       vlc-record-2021-10-19-01h20m15s Kaitou Joker - 17.mp3
+|       vlc-record-2021-10-19-01h53m08s Kaitou Joker - 18.mp3
+|       vlc-record-2021-10-20-23h41m47s Kaitou Joker - 24.mp3
+|       vlc-record-2021-10-20-23h54m57s Kaitou Joker - 24.mp3
+|       vlc-record-2021-10-20-23h58m34s Kaitou Joker - 25.mp3
 |       
 +---Professor_Clovers_Underlings_(Danger_Theme)
-|       vlc-record-2021-10-19-01h24m48s-[AnimeOut] Kaitou Joker - 17 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-01h24m48s Kaitou Joker - 17.mp3
 |       
 +---Sad_Theme_01_-_Loss_and_Grief
-|       vlc-record-2021-10-18-21h25m14s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h37m25s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h45m31s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-17h54m50s-[AnimeOut] Kaitou Joker - 49 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h25m14s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-22h37m25s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-18-22h45m31s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-29-17h54m50s Kaitou Joker - 49.mp3
 |       
 +---Sad_Theme_02_-_Reconcilation
-|       vlc-record-2021-10-18-21h26m48s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h40m00s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-21-19h16m12s-[AnimeOut] Kaitou Joker - 26 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h26m48s Kaitou Joker - 05.mp3
+|       vlc-record-2021-10-18-22h40m00s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-21-19h16m12s Kaitou Joker - 26.mp3
 |       
 +---Sad_Theme_03_-_Something_off_(Piano)
-|       vlc-record-2021-10-18-21h30m32s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h30m32s Kaitou Joker - 05.mp3
 |       
 +---Sad_Theme_04_-_Rebirth
-|       vlc-record-2021-10-18-22h54m51s-[AnimeOut] Kaitou Joker - 09 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-29-18h25m55s-[AnimeOut] Kaitou Joker - 51 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-22h54m51s Kaitou Joker - 09.mp3
+|       vlc-record-2021-10-29-18h25m55s Kaitou Joker - 51.mp3
 |       
 +---Sad_Theme_05_-_Melancholy_(Piano)
-|       vlc-record-2021-10-20-22h39m11s-[AnimeOut] Kaitou Joker - 21 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-20-22h39m11s Kaitou Joker - 21.mp3
 |       
 +---Sad_Theme_06_-_Piano
-|       vlc-record-2021-10-21-20h35m39s-[AnimeOut] Kaitou Joker - 31 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-20h35m39s Kaitou Joker - 31.mp3
 |       
 +---Tranquil_01_-_Modest_Tranquility
-|       vlc-record-2021-10-18-18h40m31s-[AnimeOut] Kaitou Joker - 02 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-18h40m31s Kaitou Joker - 02.mp3
 |       
 +---Tranquil_02_-_Violin
-|       vlc-record-2021-10-18-21h19m21s-[AnimeOut] Kaitou Joker - 05 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-21h19m21s Kaitou Joker - 05.mp3
 |       
 +---Tranquil_03_-_A_Moment_of_Relaxation
-|       vlc-record-2021-10-21-19h55m50s-[AnimeOut] Kaitou Joker - 28 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-21-19h55m50s Kaitou Joker - 28.mp3
 |       
 +---Unique_Theme_01_-_Odd_(italienne)
-|       vlc-record-2021-10-19-00h44m44s-[AnimeOut] Kaitou Joker - 15 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-19-00h44m44s Kaitou Joker - 15.mp3
 |       
 +---Unique_Theme_02_-_Asiatic
-|       vlc-record-2021-10-28-21h03m46s-[AnimeOut] Kaitou Joker - 45 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-28-21h03m46s Kaitou Joker - 45.mp3
 |       
 +---Unique_Theme_03_-_
-|       vlc-record-2021-10-29-17h26m16s-[AnimeOut] Kaitou Joker - 47 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-29-17h26m16s Kaitou Joker - 47.mp3
 |       
 +---UNN_News
-|       vlc-record-2021-10-18-19h03m29s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h21m16s-[AnimeOut] Kaitou Joker - 03 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-19h22m59s-[AnimeOut] Kaitou Joker - 04 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-21h45m57s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h00m33s-[AnimeOut] Kaitou Joker - 06 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-18-22h23m03s-[AnimeOut] Kaitou Joker - 08 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
-|       vlc-record-2021-10-22-23h26m50s-[AnimeOut] Kaitou Joker - 32 [1080p][1080p][BlueLobster][RapidBot].mkv-.mp3
+|       vlc-record-2021-10-18-19h03m29s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h21m16s Kaitou Joker - 03.mp3
+|       vlc-record-2021-10-18-19h22m59s Kaitou Joker - 04.mp3
+|       vlc-record-2021-10-18-21h45m57s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h00m33s Kaitou Joker - 06.mp3
+|       vlc-record-2021-10-18-22h23m03s Kaitou Joker - 08.mp3
+|       vlc-record-2021-10-22-23h26m50s Kaitou Joker - 32.mp3
 |       
 \---[[FinSongs]]
         01_This_Time_in_KJ.mp3
