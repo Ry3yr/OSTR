@@ -14,7 +14,25 @@ ________________________________________________________________________________
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
-___________
+
+___________________________________________________________
+Mp3 equalizer over background image: (640x360 => middle image eq, 1280x720 => bottom eq)
+------------------------------------
+Modes: line, cline, p2p, point 
+
+ffmpeg -y -i song.mp3 -loop 1 -i song.jpg -filter_complex "[0:a]showwaves=s=1280x720:mode=line,colorkey=0x000000:0.01:0.1,format=yuva420p[v];[1:v][v]overlay[outv]" -map "[outv]" -pix_fmt yuv420p -map 0:a -c:v libx264 -c:a copy -shortest output.mp4
+
+(Source: https://stackoverflow.com/questions/34675160/ffmpeg-generate-overlay-complex-filter-for-audio-with-background-image)
+http://underpop.online.fr/f/ffmpeg/help/showwaves.htm.gz 
+https://stackoverflow.com/questions/61111568/ffmpeg-showwaves-change-color-of-waveform-on-top-of-an-image
+https://stackoverflow.com/questions/49415973/ffmpeg-showaves-with-both-color-and-colorkey)
+____________________________________________________________
+Mp3 to equalizer - video:
+-------------------------
+ffmpeg -i song.mp3 -filter_complex "[0:a]showwaves=s=1280x720:mode=line:rate=25,format=yuv420p[v]" -map "[v]" -map 0:a out.mp4
+
+(Source: https://www.inmotionhosting.com/support/website/audio-spectrum-visuals-ffmpeg/)
+___________________________________________________________
 
 Flip Video:
 
