@@ -1,0 +1,212 @@
+Auflistung der Ordnerpfade
+Volumeseriennummer : CACC-EF5A
+C:.
++---0rig
+|   \---Sad_Pensive_bgm_[NT_Warr_1st-run]
+|           rockman.exe_-_25-1.mp3
+|           rockman.exe_-_35-1.mp4-.mp3
+|           
++---Axess
+|   |   05.mp3
+|   |   06.mp3
+|   |   07-01.mp3
+|   |   07-03.mp3
+|   |   07-04.mp3
+|   |   08-02.mp3
+|   |   08_01.mp3
+|   |   08_04.mp3
+|   |   09-02.mp3
+|   |   09-03.mp3
+|   |   09-04-.mp3
+|   |   09-05.mp3
+|   |   
+|   +---axess_theme
+|   |       01_(17-01).mp3
+|   |       05-01.mp3
+|   |       06-03.mp3
+|   |       09_01.mp3
+|   |       axess_op.mp3
+|   |       Rockman.EXE Axess ~ DVD Menu Theme.m4a
+|   |       vlcsnap-2021-11-13-23h47m03s952.png
+|   |       
+|   +---cross_fusion
+|   |       02.mp3
+|   |       03-2.mp3
+|   |       03.mp3
+|   |       04-1.mp3
+|   |       05-02.mp3
+|   |       06-02.mp3
+|   |       08_02.mp3
+|   |       
+|   \---No_time_for_formalities
+|           07-02.mp3
+|           
++---Beast
+|   +---Back_n_forth
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_06_[FD0CC49F]_19-10.mp3
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_07_[3F02ACA9].mp3
+|   |       
+|   +---Beast-Out-(diarykeeper_ver)
+|   |       (Alt)_Rockman_EXE_-Beast-Out-(diarykeeper_ver).mp3
+|   |       (Alt)_Rockman_EXE_-Beast-Out-(diarykeeper_ver).txt
+|   |       
+|   +---Calm_Piano
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_09_[F1E709CB].mp3
+|   |       
+|   +---Chil_theme
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_07_[3F02ACA9].mp3
+|   |       
+|   +---Happy_Time
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_09_[F1E709CB].mp3
+|   |       
+|   +---Iris_calm
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_07_[3F02ACA9].mp3
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_08_[D49EDD35].mp3
+|   |       [WPP_De_Puku]Rockman_EXE_Beast_-_09_[F1E709CB].mp3
+|   |       
+|   \---Theme_Harmonica_ver
+|           [WPP_De_Puku]Rockman_EXE_Beast_-_09_[F1E709CB].mp3
+|           
+\---stream
+    +---0nah
+    |       01-03.mp3
+    |       03-02.mp3
+    |       04-03.mp3
+    |       06-02.mp3
+    |       06-03.mp3
+    |       06-04.mp3
+    |       06-05.mp3
+    |       10-02.mp3
+    |       10-03.mp3
+    |       10-04.mp3
+    |       11-01.mp3
+    |       11-02.mp3
+    |       12-01.mp3
+    |       12-02.mp3
+    |       13-03.mp3
+    |       17-01.mp3
+    |       20-01.mp3
+    |       21-01.mp3
+    |       36-01.mp3
+    |       39-07.mp3
+    |       40-03-opening-esque.mp3
+    |       41-03.mp3
+    |       46-03.mp3
+    |       
+    +---Calming_Piano
+    |       22-01.mp3
+    |       23-03.mp3
+    |       25-04.mp3
+    |       33-03-ending-happy.mp3
+    |       34-03-ending.mp3
+    |       39-09.mp3
+    |       
+    +---Calm_End
+    |       08-03.mp3
+    |       26-01-piano.mp3
+    |       27-03.mp3
+    |       
+    +---cross_fusion
+    |       02-05.mp3
+    |       03-04.mp3
+    |       04-02.mp3
+    |       08-02.mp3
+    |       10-01.mp3
+    |       22-01.mp3
+    |       28-01.mp3
+    |       46-02.mp3
+    |       
+    +---DUO
+    |       02-06.mp3
+    |       08-04.mp3
+    |       18-04.mp3
+    |       31-01.mp3
+    |       45-01.mp3
+    |       
+    +---eerie_cool_piano
+    |       39-02.mp3
+    |       
+    +---Happy_Piano
+    |       000.mp3
+    |       03-05.mp3
+    |       19-04.mp3
+    |       20-01.mp3
+    |       51-01.mp3
+    |       Happy_Piano.rar
+    |       
+    +---Harmonic_End
+    |       12-03.mp3
+    |       15-03.mp3
+    |       16-01.mp3
+    |       20-01.mp3
+    |       22-02.mp3
+    |       28-01.mp3
+    |       37-02.mp3
+    |       
+    +---Hope_Against_Laserman
+    |       02-01.mp3
+    |       15-02.mp3
+    |       39-06.mp3
+    |       
+    +---Intermission
+    |       Intermission_Stream.mp3
+    |       
+    +---odd_calm
+    |       02-02.mp3
+    |       13-01.mp3
+    |       33-01.mp3
+    |       
+    +---odd_sound
+    |       01-01.mp3
+    |       
+    +---riff
+    |       42-03_.mp3
+    |       
+    +---Sad_Piano
+    |   |   13-01_sad_piano.mp3
+    |   |   15-03.mp3
+    |   |   18-02.mp3
+    |   |   19-01.mp3
+    |   |   20-03.mp3
+    |   |   36-01.mp3
+    |   |   
+    |   \---DONE
+    |           REXE_Stream_Sad_Piano.mp3
+    |           
+    +---slur
+    |       02-04.mp3
+    |       03-03.mp3
+    |       04-01.mp3
+    |       06-01.mp3
+    |       15-01.mp3
+    |       26-03.mp3
+    |       
+    +---suspense
+    |       01-02.mp3
+    |       05-01.mp3
+    |       08-01.mp3
+    |       23-01.mp3
+    |       25-01.mp3
+    |       26-02.mp3
+    |       27-01.mp3
+    |       29-01.mp3
+    |       40-01.mp3
+    |       
+    \---Team_move_out
+            18-01.mp3
+            23-02.mp3
+            25-02.mp3
+            27-02.mp3
+            29-02.mp3
+            32-03.mp3
+            33-03.mp3
+            34-01.mp3
+            37-01.mp3
+            39-04.mp3
+            40-02.mp3
+            41-02.mp3
+            42-03.mp3
+            43-02.mp3
+            46-01.wmv
+            47-01.mp3
+            
