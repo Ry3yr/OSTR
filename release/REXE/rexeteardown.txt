@@ -1,47 +1,70 @@
 Auflistung der Ordnerpfade
 Volumeseriennummer : CACC-EF5A
 C:.
-+---0rig
++---[[Orig]]
 |   \---Sad_Pensive_bgm_[NT_Warr_1st-run]
 |           rockman.exe_-_25-1.mp3
 |           rockman.exe_-_35-1.mp4-.mp3
 |           
-+---Axess
-|   |   05.mp3
-|   |   06.mp3
-|   |   07-01.mp3
-|   |   07-03.mp3
-|   |   07-04.mp3
-|   |   08-02.mp3
-|   |   08_01.mp3
-|   |   08_04.mp3
-|   |   09-02.mp3
-|   |   09-03.mp3
-|   |   09-04-.mp3
-|   |   09-05.mp3
-|   |   
-|   +---axess_theme
-|   |       01_(17-01).mp3
-|   |       05-01.mp3
-|   |       06-03.mp3
-|   |       09_01.mp3
-|   |       axess_op.mp3
-|   |       Rockman.EXE Axess ~ DVD Menu Theme.m4a
-|   |       vlcsnap-2021-11-13-23h47m03s952.png
-|   |       
-|   +---cross_fusion
-|   |       02.mp3
-|   |       03-2.mp3
-|   |       03.mp3
-|   |       04-1.mp3
-|   |       05-02.mp3
-|   |       06-02.mp3
-|   |       08_02.mp3
-|   |       
-|   \---No_time_for_formalities
-|           07-02.mp3
++---[[Axess]]
+|   05.mp3
+|   06.mp3
+|   07-01.mp3
+|   07-03.mp3
+|   07-04.mp3
+|   08-02.mp3
+|   08_01.mp3
+|   08_04.mp3
+|   09-02.mp3
+|   09-03.mp3
+|   09-04-.mp3
+|   09-05.mp3
+|   
++---axess_piano_theme
+|       vlc-record-2021-11-15-08h17m56s-[wpp]rockman_exe_axess_-_29_[2DF772F2].mkv-.mp3
+|       
++---axess_theme
+|       01_(17-01).mp3
+|       05-01.mp3
+|       06-03.mp3
+|       09_01.mp3
+|       axess_op.mp3
+|       Rockman.EXE Axess ~ DVD Menu Theme.m4a
+|       vlcsnap-2021-11-13-23h47m03s952.png
+|       
++---cross_fusion
+|       02.mp3
+|       03-2.mp3
+|       03.mp3
+|       04-1.mp3
+|       05-02.mp3
+|       06-02.mp3
+|       08_02.mp3
+|       
++---Harmonica_ED
+|       vlc-record-2021-11-15-08h23m17s-[wpp]rockman_exe_axess_-_32_[AA12DFBA].mkv-.mp3
+|       vlc-record-2021-11-15-08h36m11s-[wpp]rockman_exe_axess_-_40v2_[60BEE9C1].mkv-.mp4
+|       
++---Hope_against_Laserman
+|       26-02.mp3
+|       vlc-record-2021-11-15-08h27m45s-[wpp]rockman_exe_axess_-_35_[C68F78C4].mkv-.mp4
+|       vlc-record-2021-11-15-08h31m28s-[wpp]rockman_exe_axess_-_36_[C30F45EE].mkv-.mp4
+|       vlc-record-2021-11-15-08h49m23s-[wpp]rockman_exe_axess_-_49_[ADC84801].mkv-.mp4
+|       vlc-record-2021-11-15-08h52m38s-[wpp]rockman_exe_axess_-_51_[9C840B82].mkv-.mp4
+|       
++---No_time_for_formalities
+|       07-02.mp3
+|       
+\---Sad_Piano
+        22-01.wmv
+        26-04.mp3
+        Sad_Piano.rar
+        vlc-record-2021-11-15-08h39m07s-[wpp]rockman_exe_axess_-_43_[C2F3BDAD].mkv-.mp4
+        vlc-record-2021-11-15-08h47m23s-[wpp]rockman_exe_axess_-_49_[ADC84801].mkv-.mp4
+        
+
 |           
-+---Beast
++---[[Beast]]
 |   +---Back_n_forth
 |   |       [WPP_De_Puku]Rockman_EXE_Beast_-_06_[FD0CC49F]_19-10.mp3
 |   |       [WPP_De_Puku]Rockman_EXE_Beast_-_07_[3F02ACA9].mp3
@@ -67,7 +90,7 @@ C:.
 |   \---Theme_Harmonica_ver
 |           [WPP_De_Puku]Rockman_EXE_Beast_-_09_[F1E709CB].mp3
 |           
-\---stream
+\---[[Stream]]
     +---0nah
     |       01-03.mp3
     |       03-02.mp3
