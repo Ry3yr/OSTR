@@ -1,0 +1,78 @@
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body style="margin: 0 auto;">
+    <div class="pre-spoiler">
+      <input name="Deutsch" onclick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Musicplayer'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Musicplayer';}"
+
+value="Musicplayer" type="button">
+      <div class="spoiler" style="display: none;">
+        <style>
+			h1 {
+				color:Green;
+			}
+			div.scroll {
+				margin:4px, 4px;
+				padding:4px;
+				background-color: white;
+				width: 500px;
+				height: 110px;
+				overflow-x: hidden;
+				overflow-y: auto;
+				text-align:justify;
+			}
+		</style>
+        <div class="scroll">
+          <style>
+        #playlist{
+            list-style: none;
+        }
+        #playlist li a{
+            color:black;
+            text-decoration: none;
+        }
+        #playlist .current-song a{
+            color:blue;
+        }
+    </style> <audio src="" controls="controls" id="audioPlayer"> Sorry, your
+            browser doesn't support html5! </audio>
+          <ul id="playlist">
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/009_Guitar.mp3">GuitarRnR</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kkj/Happy_Theme_07_%28Guitar_VERY_Happy_%5E%5E%29.mp3">GuitarKKJ</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kkj/Calming_Theme_04_%28Sindbad_burns_house_A-W-E-S-O-M-E%29.mp3">Burning</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kkj/Calming_Theme_02_-_Every_Living_Being_-_Kamikaze_Kaitou_Jeanne_Soundtrack_[unreleased].mp3">EveryLivingBeingKKJ</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/rnrt_002_Action_Theme_17_-_Bly_1st_Battle.mp3"></a>Bly1stEnc</li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kkj/Transformation_Theme_01.mp3">Transform01</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/017_Action_Theme_08_-_DenpaHenkan.mp3">DenpaHenkan</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kkj/Action_Theme_01_-_(Checkmate_01).mp3">Checkmate!</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/015_Happy_Theme_05_-_Happiness.mp3">Happiness</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/rnrt_004_Mu_Theme_09_(motivating_chanting).mp3">MotivatingChanting</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/rnrt_008_TRIBEKING_FIN.mp3">TribeKing</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/rnrt_012_Ending_04_-_Tranquility.mp3">Tranquility</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/rnr/rnrt_009_Action_Theme_19_-_After_Zerker.mp3">AfterZerker</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/ygos0/Mysterious_Calm.mp3">MysteriousCalm</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/ygos0/Calming_05_-_Understanding.mp3">Understanding</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kj/Sad_Theme_01_-_Loss_and_Grief.mp3">Loss&Grief</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/kj/Sad_Theme_04_-_Rebirth.mp3">Rebirth</a></li>
+            <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/REXE/REXE_Stream_Sad_Piano.mp3">SadPiano</a></li>
+           <li class="current-song"><a href="https://ry3yr.github.io/OSTR/release/REXE/REXE_Sad_Pensive.mp3">SadPensive</a></li>
+          </ul>
+          <script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+          <script src="audioPlayer.js"></script>
+          <script>
+        // loads the audio player
+        audioPlayer();
+    </script> </div>
+      </div>
+      <a href="#" onclick="playlist.prevTrack();">«</a>
+      <a href="#" onclick="playlist.nextTrack();">»</a>
+      
+      <iframe src="index.html" style="overflow:hidden; 
+         display:block; position: absolute; height: 100%; width: 100%" frameborder="0">
+        &lt;p style=""&gt; Your browser does not support iframes.
+        &lt;/p&gt;
+        &lt;/body&gt;
+      </iframe></div>
+  </body>
+</html>
