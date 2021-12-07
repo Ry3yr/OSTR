@@ -1,0 +1,25 @@
+<head><meta charset="UTF-8"><style>
+div {text-align: left;}
+h1 {font-size: 11px;font-family: Arial;}
+button {width: 99px;height: 28px;background-color: white;color: black;}
+{font-size: 11px;}
+button:hover{background-color: white;}
+</style></head><body>
+<div><button onclick="generateQuote();">CurrListening</button><p id="quoteOutput"></div>
+<script>const arrayOfQuotes = [
+    {'quote': 'Startdust Road - YGO Vrains OST 2 -Shinkichi Mitsumune'},
+    {'quote': 'Link to all - KHIII OST - Yoko Shimomura'},
+    {'quote': 'Can\'t stay mad at you - Haven OST - Danger'},
+    {'quote': 'Theme X - Xenoblade Chronicles X OST - Hiroyuki Sawano'},
+    {'quote': 'Destiny - YGO Sound Duel 03 - Shinkichi Mitsumune'},
+    {'quote': 'Abandoned Feeling and Picked up again Feeling - Tatsuya Kato'},
+    {'quote': 'Musique pour la tristesse de Xion - KHIII OST - Yoko Shimomura'},
+    {'quote': 'Kellys Lullaby - Another Code R OST - Satoshi Okubo'},
+    {'quote': 'Rachels Theme - Satsuriku no Tenshi Animation OST - Hideki Sakamoto'},
+    {'quote': 'Nears Theme - Death Note OST III - Hideki Taniuchi'},
+    {'quote': 'Shizumuta Yo - Detective Conan OST I - Katsuo Ohno'},
+    {'quote': 'Give me Jam - YGO SEVENS Sound Rush ONE - Ryo Kawasaki'},
+];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
+document.querySelector('#quoteOutput').textContent = `\"${arrayOfQuotes[random].quote}\"`;}
+</script>
+</body>
