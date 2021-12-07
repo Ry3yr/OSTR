@@ -1,0 +1,32 @@
+<head><meta charset="UTF-8"><style>
+div {text-align: left;}
+h1 {font-size: 11px;font-family: Arial;}
+button {width: 99px;height: 28px;background-color: white;color: black;}
+{font-size: 11px;}
+button:hover{background-color: white;}
+</style></head><body>
+<div><button onclick="generateQuote();">QuoteOfTheDay</button><p id="quoteOutput"></div>
+<script>const arrayOfQuotes = [
+    {'quote': 'Every person that you meet knows something you do not  learn from them - H Jackson'},
+    {'quote': 'Assume – to make an ASS out of U n ME  Vermutung sei die Mutter des Untergangs'},
+    {'quote': 'Neither a borrower nor a lender be – Polonius Hamlet'},
+    {'quote': 'I am alive not my fault so I have to try and get by as best I can without hurting anybody - Leo Tolstoy'},
+    {'quote': 'There is always a chance – as long as one can – think – Basil of Bakerstreet'},
+    {'quote': 'Bleib dem treu was dich besonders macht  dann folgt das Gute und Schöne im Leben hinterher'},
+    {'quote': 'There is no such thing as karma That only exists in a fair world and we both know the world is anything but fair'},
+    {'quote': 'Invention requires an excited mind Execution a calm one'},
+    {'quote': 'Ein Mensch ohne Phantasie ist wie ein Vogel ohne Flügel - Wilhelm Raabe'},
+    {'quote': 'As soon as you give up hope – everything is lost	'},
+    {'quote': 'You are only truly alone if you choose to be alone'},
+    {'quote': 'Data!data!data! I cannnot make bricks without clay  - ACDoyle'},
+    {'quote': 'Nothing ever goes away until it teaches us what we need to know - Perma Chodron'},
+    {'quote': 'We attract what we are'},
+    {'quote': 'The person who broke you cannot be the one to fix you'},
+    {'quote': 'There is only one way to avoid criticism   Do nothing say nothing  and be nothing – Aristotle'},
+    {'quote': 'I know nothing except the fact of my ignorance - Aristotle'},
+    {'quote': 'If you are absent during my struggle  do not expect to be present during my success – Will Smith'},
+    {'quote': 'It\'s not Music - It\'s magic'},
+];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
+document.querySelector('#quoteOutput').textContent = `\"${arrayOfQuotes[random].quote}\"`;}
+</script>
+</body>
