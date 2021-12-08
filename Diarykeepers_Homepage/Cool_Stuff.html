@@ -228,16 +228,18 @@ $(document).ready(function(){
 		      
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 		      
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#outputmusic").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic.html");
+    var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
+    $("#outputmusic").load(baseUrl + "/Daymusic.html");
 });
 </script>
     <div class="formClass">
         <div id="outputmusic">
         </div>
-
+        
 		      
 		     <a
 
