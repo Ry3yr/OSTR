@@ -1,15 +1,29 @@
-<!---https://stackoverflow.com/questions/18637418/trying-to-load-local-json-file-to-show-data-in-a-html-page-using-jquery--->
-<!---https://stackoverflow.com/questions/25203124/how-to-get-base-url-with-jquery-or-javascript--->
-<!---https://ry3yr.github.io/OSTR/Diarykeepers_Homepage--->
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body style="margin: 0 auto;">
+
+
+ &nbsp; &nbsp; &nbsp; <a href="Startseiteplayer-old.html">Old Audioplayer</a> click in case of issues with curr. one
+
+
+<h2 id="msg" style="display:none;">Loading, Please wait...</h2>
+<div class="cincopa_responsive_wrapper" style="height:200;left:0;position:absolute;top:0;width:200;"><iframe width="600" height="200" src="https://rt.cincopa.com/iframe.aspx?fid=AsBAY1ei9WsT" frameborder="0" allowfullscreen scrolling="no" allow="autoplay *; fullscreen *"></iframe></div></div>
+<br>
+<br>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
 <script type="text/javascript">
 $(document).ready(function(){
     var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
-    $("#output").load(baseUrl + "/Search.html");
+    $("#output").load(baseUrl + "/index.html");
 });
 </script>
     <div class="formClass">
         <div id="output">
         </div>
 
+  
+  </body>
+</html>
