@@ -13,16 +13,15 @@
 <br>
 <br>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
-<script type="text/javascript">
-$(document).ready(function(){
-    var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
-    $("#output").load(baseUrl + "/index.html");
-});
+
+<div id="topBar"> <a href ="#" onclick="load_home()"> HOME </a> </div>
+<div id ="content"> </div>
+<script>
+function load_home() {
+     document.getElementById("content").innerHTML='<object type="text/html" data="index.html" ></object>';
+}
 </script>
-    <div class="formClass">
-        <div id="output">
-        </div>
+
 
   
   </body>
