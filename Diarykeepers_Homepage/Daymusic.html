@@ -1,28 +1,36 @@
+
 <head><meta charset="UTF-8"><style>
 div {text-align: left;}
 h1 {font-size: 11px;font-family: Arial;}
-button {width: 110px;height: 28px;background-color: white;color: black;}
+button {width: 128px;height: 28px;background-color: white;color: black;}
 {font-size: 11px;}
 button:hover{background-color: white;}
 </style></head><body>
-<div><button onclick="generateQuote();">CurrListening</button><p id="quoteOutput"></div>
+<div><button onclick="generateQuote();">QuoteOfTheDay</button><p id="quoteOutput"></div>
 <script>const arrayOfQuotes = [
-    {'quote': 'Startdust Road - YGO Vrains OST 2 -Shinkichi Mitsumune'},
+{'quote': 'Startdust Road - YGO Vrains OST 2 -Shinkichi Mitsumune'},
     {'quote': 'Link to all - KHIII OST - Yoko Shimomura'},
-    {'quote': 'Can\'t stay mad at you - Haven OST - Danger'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TU_bS6ttM4Q">Can\'t stay mad at you - Haven Danger</a>'},
     {'quote': 'Theme X - Xenoblade Chronicles X OST - Hiroyuki Sawano'},
     {'quote': 'Destiny - YGO Sound Duel 03 - Shinkichi Mitsumune'},
     {'quote': 'Abandoned Feeling and Picked up again Feeling - Tatsuya Kato'},
     {'quote': 'Musique pour la tristesse de Xion - KHIII OST - Yoko Shimomura'},
-    {'quote': 'Kellys Lullaby - Another Code R OST - Satoshi Okubo'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=cqAawjQyieg">Kellys Lullaby - Another Code R - Satoshi Okubo</a>'},
     {'quote': 'Rachels Theme - Satsuriku no Tenshi Animation OST - Hideki Sakamoto'},
     {'quote': 'Nears Theme - Death Note OST III - Hideki Taniuchi'},
     {'quote': 'Shizumuta Yo - Detective Conan OST I - Katsuo Ohno'},
     {'quote': 'Give me Jam - YGO SEVENS Sound Rush ONE - Ryo Kawasaki'},
     {'quote': 'Battle de Chocobo - Chocobo Tales OST'},
     {'quote': 'Abandon Me - Chicory OST - Lena Raine'},
-    {'quote': 'A Fathers Letter - Music from the Outlands. Vol I - Stephen Barton'}, 
+    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=jCYB1BeDv1w">A Fathers Letter - MftO. Vol I - Stephen Barton</a>'}, 
 ];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
-document.querySelector('#quoteOutput').textContent = `\"${arrayOfQuotes[random].quote}\"`;}
+document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].quote}\"`;}
 </script>
 </body>
+
+
+
+
+
+
+
