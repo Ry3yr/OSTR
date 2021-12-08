@@ -1,12 +1,11 @@
-<!DOCTYPE HTML>
-<script>
-var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
-$("#newurl").load(baseUrl + "/Search.html");
-</script>
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
 <script type="text/javascript">
+var jsonmain = require('./mainurl.json')
+alert(jsonmain)
 $(document).ready(function(){
-    $("#output").load("#newurl");
+    $("#output").load(" Search.html");
 });
 </script>
     <div class="formClass">
