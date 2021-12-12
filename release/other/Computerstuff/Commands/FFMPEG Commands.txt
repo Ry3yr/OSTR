@@ -11,10 +11,31 @@ https://online-video-cutter.com/de/
 -------
 DLD_FFMPEG: https://ffmpeg.zeranoe.com/builds/
 _____________________________________________________________________________________________
->>>>>>>>>>>>>> ONLINE_CONVERT_ALTERNATIVE: https://cloudconvert.com/gif-to-mp4 [Container: MPEG4  Customres: 640x1136]<<<<<<<<<<<<<<<<
+>>>>>>>> ONLINE_CONVERT_ALTERNATIVE: https://cloudconvert.com/gif-to-mp4 [Container: MPEG4  Customres: 640x1136]<<<<<<<<<<<<
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
+
+
+__________________________________________________________
+Combine (concat) mp4 with sim encoding):
+---------------------------------------
+
+dir *.mp4 /b /a-d > out.txt
+for /f "tokens=*" %%a in (out.txt) do (echo file '%%a') >> list.txt
+ffmpeg -safe 1 -f concat -i list.txt -c copy output.mp4
+del out.txt
+
+(Source: https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg)
+
+__________________________________________________________
+Render vgm music
+------------------
+
+FFmpeg can make use of the Game Music Emu library to read audio from supported video game music file formats. 
+Pass --enable-libgme to configure to enable it.
+ See https://bitbucket.org/mpyne/game-music-emu/overview.  
+ https://www.ffmpeg.org/general.html
 
 ___________________________________________________________
 Mp3 equalizer with backgroundimage and changable waveform color:    overlay=shortest=1:main_h-overlay_h+106 (h-overlay changes the y-position)
@@ -91,34 +112,6 @@ Picture and mp3 to video:
 -------------------------
 ffmpeg -loop 1 -i image.jpg -i audio.mp3 -c:a copy -c:v libx264 -shortest out.mp4 
 (Source: https://stackoverflow.com/questions/25381086/convert-mp3-video-with-static-image-ffmpeg-libav-bash
-___________________________________________________________
-
-Concatenate "Combine mp4s together"
-----------------------------------------------------
-(alt: E:\Dropbox\Public\00_MyDosStuff\FFMPEG Scripts\[Additional_Video_Tools]\MP4_Tools_(Splitter_&_Joiner))---
-
-
----FFMPEG way (audio desync might happen!)
- Create a file mylist.txt with all the files you want to have concatenated in the following form (lines starting with a # are ignored):
-txt:
-file 001.m4v
-file 002.m4v
-file 003.m4v
-ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
-
-
---OS WAY--
-
-copy /b *m4v newfile.mp4
-
-
-(BORING: COPY /b 001.m4v +002.m4v + 003.m4v output.mp4)
-
-
-(nonworking:  for %f in (out.txt) do COPY /b "%f" output.mp4)
-(Source: https://stackoverflow.com/questions/35416110/ffmpeg-concat-video-and-audio-out-of-sync)
-(https://trac.ffmpeg.org/wiki/Concatenate)
-https://superuser.com/questions/111825/a-command-line-or-batch-cmd-to-concatenate-multiple-files)
 
 _____________________________________________
 
