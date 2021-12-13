@@ -1,1 +1,551 @@
 https://www.mediafire.com/folder/h4pd22iv0yka8/YGO_Vrains
+
+Auflistung der Ordnerpfade
+Volumeseriennummer : CACC-EF5A
+C:.
+|   YGOVRAINS.txt
+|   
++---00intro
+|       00intro.mp3
+|       
++---01_Unsorted
+|   |   vlc-record-2021-12-10-18h28m11s-006.mp4-.mp3
+|   |   vlc-record-2021-12-10-18h52m54s-013.mp4-.mp3
+|   |   vlc-record-2021-12-10-18h54m53s-014.mp4-.mp3
+|   |   vlc-record-2021-12-10-18h55m13s-014.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h00m30s-015.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h06m11s-018.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h19m21s-023.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h21m04s-024.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h22m41s-024.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h25m30s-024.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h30m03s-025.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h31m05s-025.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h35m37s-026.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h37m24s-026.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h42m47s-027.mp4-.mp3
+|   |   vlc-record-2021-12-10-19h46m29s-027.mp4-.mp3
+|   |   
+|   +---nothx
+|   |   |   vlc-record-2021-12-10-19h47m21s-027.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-19h52m16s-028.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-19h53m00s-029.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-19h59m04s-030.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h00m07s-030.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h01m04s-030.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h02m31s-030.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h04m36s-031.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h14m46s-032.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h16m26s-032.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h23m40s-033.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h29m23s-033.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h34m02s-034.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h38m06s-034.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h44m00s-034.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h53m00s-035.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-20h54m43s-035.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-21h03m13s-036.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-21h10m40s-040.mp4-.mp3
+|   |   |   vlc-record-2021-12-10-21h25m51s-043.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h22m49s-047.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h25m11s-047.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h30m20s-047.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h31m14s-047.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h38m11s-048.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h39m09s-048.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h46m10s-049.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h46m58s-049.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h49m10s-050.mp4-.mp3
+|   |   |   vlc-record-2021-12-11-23h56m03s-050.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-00h02m32s-050.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-00h07m27s-051.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-00h08m02s-051.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-00h12m39s-052.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-16h59m43s-053.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h01m36s-053.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h04m49s-054.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h11m15s-055.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h27m40s-057.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h29m01s-057.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h33m18s-058.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h41m19s-059.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h45m08s-060.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h49m21s-060.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-17h52m14s-060.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-19h16m01s-061.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-19h20m05s-062.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-19h21m16s-062.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-20h11m23s-067.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-20h23m34s-069.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-20h26m05s-070.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-20h27m31s-070.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-20h31m56s-070.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-20h36m50s-073.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-22h49m07s-074.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-22h52m44s-074.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-22h53m58s-074.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-22h55m44s-075.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-22h57m58s-075.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h01m10s-075_earth_death.mp3
+|   |   |   vlc-record-2021-12-12-23h14m15s-076.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h21m19s-078.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h24m07s-078.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h27m16s-078.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h33m38s-079.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h38m42s-080.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h40m05s-080.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h43m44s-081.mp4-.mp3
+|   |   |   vlc-record-2021-12-12-23h47m36s-084.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-00h49m27s-085.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-00h59m54s-086.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h03m36s-087.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h07m19s-087.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h08m05s-087.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h14m26s-088.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h18m03s-089.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h19m35s-090.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h22m35s-090.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h23m00s-090.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h24m59s-090.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h26m36s-091.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h29m25s-091.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h30m18s-091.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h35m34s-092.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h40m32s-093.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-01h43m51s-093.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-02h07m36s-097.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-02h11m16s-098.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-02h14m55s-098.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h13m33s-100.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h16m10s-100.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h17m03s-100.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h20m44s-100.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h23m18s-101.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h30m58s-102.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h32m02s-102.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h42m00s-103.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-04h55m00s-105.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-05h02m30s-105.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-05h05m53s-105.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-06h49m10s-106.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-06h55m07s-106.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-06h56m36s-106.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h02m27s-108.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h03m28s-108.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h04m37s-108.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h06m38s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h10m09s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h11m13s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h14m14s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h15m36s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h18m59s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h20m11s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h22m54s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h24m54s-109.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h25m37s-110.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h27m05s-110.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h28m02s-110.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h29m12s-110.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h32m32s-111.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h34m32s-111.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h37m05s-111.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h48m28s-112.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h51m01s-114.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h53m33s-114.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h54m09s-114.mp4-.mp3
+|   |   |   vlc-record-2021-12-13-07h56m41s-116 (720p_aac).mp4-.mp3
+|   |   |   
+|   |   +---action
+|   |   |       vlc-record-2021-12-12-17h16m51s-055.mp4-.mp3
+|   |   |       vlc-record-2021-12-13-00h50m15s-085.mp4-.mp3
+|   |   |       
+|   |   +---chant
+|   |   |       vlc-record-2021-12-13-04h41m08s-103.mp4-.mp3
+|   |   |       
+|   |   +---Piano
+|   |   |       vlc-record-2021-12-12-00h11m22s-052.mp4-.mp3
+|   |   |       vlc-record-2021-12-12-17h04m14s-054.mp4-.mp3
+|   |   |       
+|   |   \---riff
+|   |           vlc-record-2021-12-12-20h29m02s-070.mp4-.mp3
+|   |           
+|   +---Probreleased
+|   |       vlc-record-2021-12-10-18h23m35s-004.mp4-.mp3
+|   |       vlc-record-2021-12-10-18h32m40s-007.mp4-.mp3
+|   |       vlc-record-2021-12-10-18h37m49s-008.mp4-.mp3
+|   |       vlc-record-2021-12-10-18h41m34s-008.mp4-.mp3
+|   |       vlc-record-2021-12-10-18h56m51s-015.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h07m52s-020.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h12m04s-022.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h12m37s-022.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h15m17s-022.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h17m37s-023.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h23m58s-024.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h27m19s-025.mp4-.mp3
+|   |       vlc-record-2021-12-10-19h38m38s-026.mp4-.mp3
+|   |       vlc-record-2021-12-10-20h10m45s-031.mp4-.mp3
+|   |       vlc-record-2021-12-10-20h25m28s-033.mp4-.mp3
+|   |       vlc-record-2021-12-10-20h36m24s-034.mp4-.mp3
+|   |       vlc-record-2021-12-10-20h39m25s-034.mp4-.mp3
+|   |       vlc-record-2021-12-10-20h56m00s-035.mp4-.mp3
+|   |       vlc-record-2021-12-10-21h04m27s-037.mp4-.mp3
+|   |       vlc-record-2021-12-10-21h15m14s-042.mp4-.mp3
+|   |       vlc-record-2021-12-10-21h17m58s-042.mp4-.mp3
+|   |       vlc-record-2021-12-10-21h19m49s-043.mp4-.mp3
+|   |       vlc-record-2021-12-10-21h33m26s-046.mp4-.mp3
+|   |       vlc-record-2021-12-10-21h34m34s-046.mp4-.mp3
+|   |       vlc-record-2021-12-11-23h26m30s-047.mp4-.mp3
+|   |       vlc-record-2021-12-11-23h28m06s-047.mp4-.mp3
+|   |       vlc-record-2021-12-11-23h41m47s-048.mp4-.mp3
+|   |       vlc-record-2021-12-11-23h44m40s-049.mp4-.mp3
+|   |       vlc-record-2021-12-11-23h50m00s-050.mp4-.mp3
+|   |       vlc-record-2021-12-12-00h00m17s-050.mp4-.mp3
+|   |       vlc-record-2021-12-12-00h14m53s-052.mp4-.mp3
+|   |       vlc-record-2021-12-12-17h06m00s-054.mp4-.mp3
+|   |       vlc-record-2021-12-12-17h12m07s-055.mp4-.mp3
+|   |       vlc-record-2021-12-12-17h31m20s-058.mp4-.mp3
+|   |       vlc-record-2021-12-12-17h35m23s-058.mp4-.mp3
+|   |       vlc-record-2021-12-12-17h42m21s-059.mp4-.mp3
+|   |       vlc-record-2021-12-12-17h48m45s-060.mp4-.mp3
+|   |       vlc-record-2021-12-12-19h13m26s-061.mp4-.mp3
+|   |       vlc-record-2021-12-12-19h22m42s-062.mp4-.mp3
+|   |       vlc-record-2021-12-12-20h03m51s-066.mp4-.mp3
+|   |       vlc-record-2021-12-12-20h05m01s-066.mp4-.mp3
+|   |       vlc-record-2021-12-12-20h07m29s-066.mp4-.mp3
+|   |       vlc-record-2021-12-12-20h07m47s-066.mp4-.mp3
+|   |       vlc-record-2021-12-12-20h29m35s-070.mp4-.mp3
+|   |       vlc-record-2021-12-12-20h34m08s-071.mp4-.mp3
+|   |       vlc-record-2021-12-12-23h19m51s-077.mp4-.mp3
+|   |       vlc-record-2021-12-12-23h22m50s-078.mp4-.mp3
+|   |       vlc-record-2021-12-12-23h25m08s-078.mp4-.mp3
+|   |       vlc-record-2021-12-12-23h49m23s-084.mp4-.mp3
+|   |       vlc-record-2021-12-13-00h48m18s-085.mp4-.mp3
+|   |       vlc-record-2021-12-13-00h52m54s-085.mp4-.mp3
+|   |       vlc-record-2021-12-13-00h53m38s-086.mp4-.mp3
+|   |       vlc-record-2021-12-13-01h15m46s-089.mp4-.mp3
+|   |       vlc-record-2021-12-13-01h23m44s-090.mp4-.mp3
+|   |       vlc-record-2021-12-13-04h25m18s-101.mp4-.mp3
+|   |       vlc-record-2021-12-13-04h44m12s-103.mp4-.mp3
+|   |       vlc-record-2021-12-13-06h57m31s-107.mp4-.mp3
+|   |       vlc-record-2021-12-13-07h30m06s-110.mp4-.mp3
+|   |       vlc-record-2021-12-13-07h43m22s-112.mp4-.mp3
+|   |       vlc-record-2021-12-13-08h03m25s-119.mp4-.mp3
+|   |       vlc-record-2021-12-13-08h10m30s-120.mp4-.mp3
+|   |       VRAINS.rar
+|   |       
+|   \---tooshort
+|           vlc-record-2021-12-10-19h56m06s-029.mp4-.mp3
+|           vlc-record-2021-12-10-20h00m35s-030.mp4-.mp3
+|           vlc-record-2021-12-10-20h00m49s-030.mp4-.mp3
+|           vlc-record-2021-12-10-20h10m13s-031.mp4-.mp3
+|           vlc-record-2021-12-10-20h25m05s-033.mp4-.mp3
+|           vlc-record-2021-12-10-20h37m39s-034.mp4-.mp3
+|           vlc-record-2021-12-10-21h09m41s-039.mp4-.mp3
+|           vlc-record-2021-12-11-23h57m24s-050.mp4-.mp3
+|           vlc-record-2021-12-12-00h14m30s-052.mp4-.mp3
+|           vlc-record-2021-12-12-17h05m17s-054.mp4-.mp3
+|           vlc-record-2021-12-12-17h07m36s-055.mp4-.mp3
+|           vlc-record-2021-12-12-17h10m53s-055.mp4-.mp3
+|           vlc-record-2021-12-12-17h22m03s-056.mp4-.mp3
+|           vlc-record-2021-12-12-17h28m18s-057.mp4-.mp3
+|           vlc-record-2021-12-12-17h46m29s-060.mp4-.mp3
+|           vlc-record-2021-12-12-17h50m35s-060.mp4-.mp3
+|           vlc-record-2021-12-12-19h22m10s-062.mp4-.mp3
+|           vlc-record-2021-12-12-19h43m06s-065.mp4-.mp3
+|           vlc-record-2021-12-12-22h54m38s-074.mp4-.mp3
+|           vlc-record-2021-12-12-23h22m01s-078.mp4-.mp3
+|           vlc-record-2021-12-12-23h41m42s-080.mp4-.mp3
+|           vlc-record-2021-12-13-01h28m27s-091.mp4-.mp3
+|           vlc-record-2021-12-13-01h33m39s-092.mp4-.mp3
+|           vlc-record-2021-12-13-01h52m29s-095.mp4-.mp3
+|           vlc-record-2021-12-13-02h02m47s-097.mp4-.mp3
+|           vlc-record-2021-12-13-04h24m41s-101.mp4-.mp3
+|           vlc-record-2021-12-13-04h57m07s-105.mp4-.mp3
+|           vlc-record-2021-12-13-04h59m23s-105_intro.mp3
+|           vlc-record-2021-12-13-06h55m51s-106.mp4-.mp3
+|           vlc-record-2021-12-13-06h59m31s-107.mp4-.mp3
+|           vlc-record-2021-12-13-07h08m02s-109.mp4-.mp3
+|           vlc-record-2021-12-13-07h24m08s-109.mp4-.mp3
+|           
++---Action_Theme_01_-_Rivals
+|       vlc-record-2021-12-10-18h14m47s-003.mp4-.mp3
+|       
++---Action_Theme_02_-_BuildingSuccess
+|       vlc-record-2021-12-10-19h36m27s-026.mp4-.mp3
+|       
++---Action_Theme_03_-_Speed_Duel
+|       vlc-record-2021-12-10-20h03m38s-030.mp4-.mp3
+|       vlc-record-2021-12-12-20h21m21s-068.mp4-.mp3
+|       
++---Action_Theme_04_-_Ascension
+|       vlc-record-2021-12-10-20h08m32s-031.mp4-.mp3
+|       
++---Action_Theme_05_-_IN-Motion_(AWESOME)
+|       vlc-record-2021-12-10-20h17m59s-033.mp4-.mp3
+|       vlc-record-2021-12-10-20h49m34s-035.mp4-.mp3
+|       vlc-record-2021-12-10-20h59m23s-036.mp4-.mp3
+|       vlc-record-2021-12-13-00h57m44s-086.mp4-.mp3
+|       
++---Action_Theme_06_-_Upbeat
+|       vlc-record-2021-12-10-20h22m17s-033.mp4-.mp3
+|       vlc-record-2021-12-11-23h34m13s-048.mp4-.mp3
+|       vlc-record-2021-12-13-07h09m00s-109.mp4-.mp3
+|       
++---Action_Theme_07_-_Looking_UP
+|       vlc-record-2021-12-12-00h04m30s-050.mp4-.mp3
+|       vlc-record-2021-12-12-17h17m54s-056.mp4-.mp3
+|       
++---Action_Theme_08_-_
+|       vlc-record-2021-12-12-00h05m45s-051.mp4-.mp3
+|       vlc-record-2021-12-12-19h18m40s-062.mp4-.mp3
+|       
++---Action_Theme_09_-_Riff
+|       vlc-record-2021-12-12-17h20m28s-056.mp4-.mp3
+|       
++---Action_Theme_10_-_Revival_(Aoi)
+|       vlc-record-2021-12-13-00h51m31s-085.mp4-.mp3
+|       
++---Boring_Theme_01_-_Friendly_times
+|       vlc-record-2021-12-10-18h08m29s-001.mp4-.mp3
+|       vlc-record-2021-12-10-18h30m46s-006.mp4-.mp3
+|       
++---Boring_Theme_02_-_BraveMin
+|       vlc-record-2021-12-10-19h44m30s-027.mp4-.mp3
+|       
++---Boring_Theme_03_-_Sax
+|       vlc-record-2021-12-11-23h54m13s-050.mp4-.mp3
+|       vlc-record-2021-12-12-00h05m21s-051.mp4-.mp3
+|       vlc-record-2021-12-12-16h57m18s-053.mp4-.mp3
+|       vlc-record-2021-12-12-17h46m47s-060.mp4-.mp3
+|       vlc-record-2021-12-12-19h09m33s-061.mp4-.mp3
+|       vlc-record-2021-12-12-19h11m32s-061.mp4-.mp3
+|       
++---Boring_Theme_04_-_Friends
+|       vlc-record-2021-12-13-01h12m31s-088.mp4-.mp3
+|       vlc-record-2021-12-13-04h45m07s-103.mp4-.mp3
+|       vlc-record-2021-12-13-04h55m40s-105.mp4-.mp3
+|       
++---Calm_Theme_01_-_Piano_Ballad_(sim_to_feelingsbrothersister)
+|       vlc-record-2021-12-10-19h24m45s-024.mp4-.mp3
+|       vlc-record-2021-12-10-19h41m12s-026.mp4-.mp3
+|       vlc-record-2021-12-10-19h41m40s-026.mp4-.mp3
+|       vlc-record-2021-12-12-16h55m59s-053.mp4-.mp3
+|       vlc-record-2021-12-12-23h14m48s-076.mp4-.mp3
+|       vlc-record-2021-12-13-07h38m10s-112.mp4-.mp3
+|       
++---Calm_Theme_02_-_Emma_(Boring_Sax)
+|       vlc-record-2021-12-10-18h17m51s-003.mp4-emma.mp3
+|       vlc-record-2021-12-10-19h10m32s-021.mp4-.mp3
+|       vlc-record-2021-12-10-19h28m27s-025-emma.mp3
+|       vlc-record-2021-12-10-19h57m24s-030.mp4-.mp3
+|       vlc-record-2021-12-11-23h52m10s-050.mp4-.mp3
+|       
++---Calm_Theme_03_-_Happenings_(dudu)
+|       vlc-record-2021-12-11-23h21m44s-047.mp4-.mp3
+|       vlc-record-2021-12-12-17h08m14s-055.mp4-.mp3
+|       
++---Calm_Theme_04_-_(Piano)_calm
+|       vlc-record-2021-12-10-19h42m14s-027.mp4-.mp3
+|       vlc-record-2021-12-12-17h40m02s-059.mp4-.mp3
+|       
++---Calm_Theme_05_-_(Piano)_retrospect_chantey
+|       vlc-record-2021-12-10-21h32m02s-046.mp4-.mp3
+|       
++---Calm_Theme_06_-_(Piano)
+|       vlc-record-2021-12-12-00h01m03s-050_piano.mp3
+|       
++---Calm_Theme_07_-_Consolation
+|       vlc-record-2021-12-12-23h11m20s-076.mp4-.mp3
+|       
++---Comical_Theme_01_-_Max_fail
+|       vlc-record-2021-12-12-17h51m18s-060.mp4-.mp3
+|       
++---Guitar_Theme_01_-_tranquil
+|       vlc-record-2021-12-10-18h11m23s-001.mp4-.mp3
+|       vlc-record-2021-12-12-19h08m56s-061.mp4-.mp3
+|       
++---Guitar_Theme_02_-_content
+|       vlc-record-2021-12-11-23h23m53s-047-guitar.mp3
+|       
++---Guitar_Theme_03_-_Unhinged
+|       vlc-record-2021-12-12-19h29m19s-064.mp4-.mp3
+|       
++---Hanoi
+|       vlc-record-2021-12-12-23h49m51s-084.mp4-.mp3
+|       
++---Happy_Theme_01_-_Annoying_friends
+|       vlc-record-2021-12-10-18h07m18s-001.mp4-.mp3
+|       
++---Happy_Theme_02_-_Bothersome
+|       vlc-record-2021-12-10-18h16m09s-003.mp4-.mp3
+|       vlc-record-2021-12-10-18h17m08s-003.mp4-.mp3
+|       
++---Happy_Theme_03_-_Annoying_Occurances
+|       vlc-record-2021-12-10-18h15m45s-003.mp4-.mp3
+|       
++---Happy_Theme_05_-_Roboppi_Playful
+|       vlc-record-2021-12-10-18h20m22s-003.mp4-.mp3
+|       vlc-record-2021-12-10-18h52m03s-013.mp4-.mp3
+|       
++---Happy_Theme_06_-_Robotic_Trance
+|       vlc-record-2021-12-10-18h22m15s-004.mp4-.mp3
+|       
++---Happy_Theme_07_-_Link_Vrains_NEO
+|       vlc-record-2021-12-11-23h19m39s-047.mp4-.mp3
+|       
++---Ignis_World
+|       vlc-record-2021-12-10-21h29m40s-045-ignis-world.mp3
+|       vlc-record-2021-12-12-20h18m37s-068.mp4-.mp3
+|       
++---Mysterious_Theme_01_-_Mysterious
+|       vlc-record-2021-12-10-18h48m05s-011.mp4-.mp3
+|       vlc-record-2021-12-12-19h39m34s-064.mp4-.mp3
+|       
++---Mysterious_Theme_02_-_
+|       vlc-record-2021-12-10-19h21m43s-024.mp4-.mp3
+|       
++---Mysterious_Theme_03_-_Unreasy
+|       vlc-record-2021-12-10-19h53m39s-029.mp4-.mp3
+|       vlc-record-2021-12-10-20h20m17s-033.mp4-.mp3
+|       vlc-record-2021-12-12-23h03m51s-076.mp4-.mp3
+|       
++---Mysterious_Theme_04_-_Danger_in_Reach
+|       vlc-record-2021-12-12-19h41m36s-065.mp4-.mp3
+|       vlc-record-2021-12-13-06h53m21s-106.mp4-.mp3
+|       
++---Mysterious_Theme_05_-_Latent_Threath
+|       vlc-record-2021-12-10-20h48m21s-035.mp4-.mp3
+|       vlc-record-2021-12-10-21h23m55s-043.mp4-.mp3
+|       
++---Mysterious_Theme_06_-_Xylophone
+|       vlc-record-2021-12-12-00h03m03s-050.mp4-.mp3
+|       vlc-record-2021-12-12-17h22m56s-056.mp4-.mp3
+|       vlc-record-2021-12-12-20h06m24s-066.mp4-.mp3
+|       vlc-record-2021-12-12-20h09m04s-067.mp4-.mp3
+|       vlc-record-2021-12-12-23h34m32s-079.mp4-.mp3
+|       vlc-record-2021-12-13-01h36m53s-092.mp4-.mp3
+|       
++---Mysterious_Theme_07_-_clear_(Piano)
+|       vlc-record-2021-12-12-23h44m10s-081.mp4-.mp3
+|       vlc-record-2021-12-13-00h46m00s-085.mp4-.mp3
+|       
++---Mysterious_Theme_08_-_Siblings
+|       vlc-record-2021-12-13-00h47m06s-085.mp4-.mp3
+|       
++---Next_Time_in_YGOVRAINS
+|       vlc-record-2021-12-10-20h31m54s-033.-Next_time_VRAINS.mp3
+|       vlc-record-2021-12-10-20h46m57s-034_Next_time_VRANIS.mp3
+|       
++---Organ_Theme_01_-_Finale
+|       vlc-record-2021-12-13-01h22m03s-090.mp4-.mp3
+|       vlc-record-2021-12-13-01h32m08s-091.mp4-.mp3
+|       vlc-record-2021-12-13-01h33m01s-092.mp4-.mp3
+|       
++---Organ_Theme_02_-_NotReallyOrgan
+|       vlc-record-2021-12-13-01h52m57s-096.mp4-.mp3
+|       vlc-record-2021-12-13-04h42m44s-103.mp4-.mp3
+|       
++---Peril_Theme_01_-_Chantey_Danger
+|       vlc-record-2021-12-10-18h57m51s-015.mp4-.mp3
+|       vlc-record-2021-12-10-18h58m52s-015.mp4-.mp3
+|       
++---Peril_Theme_02_-_CrazyCrisis
+|       vlc-record-2021-12-10-19h13m50s-022.mp4-.mp3
+|       
++---Peril_Theme_03_-_Unsettling_(Piano)
+|       vlc-record-2021-12-10-19h17m08s-023.mp4-.mp3
+|       vlc-record-2021-12-10-20h06m11s-031.mp4-.mp3
+|       vlc-record-2021-12-10-20h26m34s-033.mp4-.mp3
+|       vlc-record-2021-12-10-21h00m59s-036.mp4-.mp3
+|       
++---Peril_Theme_04_-_Incoming
+|       vlc-record-2021-12-10-19h48m11s-027.mp4-.mp3
+|       
++---Peril_Theme_05_-_Failed_Aversion
+|       vlc-record-2021-12-10-19h50m21s-028.mp4-.mp3
+|       
++---Peril_Theme_06_-_Crescendo
+|       vlc-record-2021-12-10-19h51m05s-028.mp4-.mp3
+|       
++---Peril_Theme_07_-_BadaBUM
+|       vlc-record-2021-12-10-20h01m39s-030.mp4-.mp3
+|       
++---Peril_Theme_08_-_
+|       vlc-record-2021-12-10-20h06m58s-031.mp4-.mp3
+|       
++---Peril_Theme_09_-_DangerousACTION
+|       vlc-record-2021-12-10-20h34m47s-034.mp4-.mp3
+|       
++---Peril_Theme_10_-_Piano-Multikey
+|       vlc-record-2021-12-12-19h32m06s-064.mp4-.mp3
+|       
++---Roboppi_Duel
+|       vlc-record-2021-12-13-07h41m01s-112.mp4-.mp3
+|       vlc-record-2021-12-13-07h46m37s-112.mp4-.mp3
+|       
++---Sad_Theme_01_-_(Piano)_tragic
+|       vlc-record-2021-12-10-18h06m45s-001.mp4-.mp3
+|       vlc-record-2021-12-10-20h50m50s-035.mp4-.mp3
+|       vlc-record-2021-12-10-21h21m36s-043.mp4-.mp3
+|       vlc-record-2021-12-10-21h26m51s-044.mp4-.mp3
+|       vlc-record-2021-12-13-01h38m06s-092.mp4-.mp3
+|       vlc-record-2021-12-13-01h39m49s-093.mp4-.mp3
+|       vlc-record-2021-12-13-04h18m16s-100.mp4-.mp3
+|       
++---Sad_Theme_02_-_Stopped_Time
+|       vlc-record-2021-12-10-18h34m31s-007.mp4-.mp3
+|       vlc-record-2021-12-10-18h36m21s-007.mp4-.mp3
+|       vlc-record-2021-12-10-18h37m02s-008.mp4-.mp3
+|       vlc-record-2021-12-10-19h02m33s-018.mp4-.mp3
+|       vlc-record-2021-12-10-19h26m56s-024.mp4-.mp3
+|       vlc-record-2021-12-10-21h12m04s-040.mp4-.mp3
+|       
++---Sad_Theme_03_-_Slight_Sadness
+|       vlc-record-2021-12-10-19h04m52s-018.mp4-.mp3
+|       
++---Sad_Theme_04_-_LOSS_(Piano)
+|       vlc-record-2021-12-10-20h12m53s-031.mp4-.mp3
+|       
++---Sad_Theme_05_-_Sad_(Piano)
+|       vlc-record-2021-12-10-20h17m13s-032.mp4-.mp3
+|       vlc-record-2021-12-12-23h15m36s-076.mp4-.mp3
+|       vlc-record-2021-12-13-01h41m58s-093.mp4-.mp3
+|       
++---Sad_Theme_06_-_Bad_News_(Piano)
+|       vlc-record-2021-12-12-00h09m28s-051.mp4-.mp3
+|       
++---Sad_Theme_07_-_Oppression_(Piano)
+|       vlc-record-2021-12-13-01h13m42s-088.mp4-.mp3
+|       
++---Sad_Theme_08
+|       vlc-record-2021-12-13-07h52m46s-114.mp4-.mp3
+|       
++---Sad_Theme_09_-_The_End
+|       vlc-record-2021-12-13-08h07m59s-120.mp4-.mp3
+|       
++---Saxophone_Theme_01_-_FreeCoffee
+|       vlc-record-2021-12-13-04h39m16s-103.mp4-.mp3
+|       
++---Thinking_Theme_01_-_In_limbo_(morse_esque)
+|       vlc-record-2021-12-10-18h50m40s-012.mp4-.mp3
+|       
++---Thinking_Theme_02_-_Chantey
+|       vlc-record-2021-12-11-23h57m48s-050.mp4-.mp3
+|       vlc-record-2021-12-12-00h13m31s-052.mp4-.mp3
+|       vlc-record-2021-12-12-17h37m57s-059.mp4-.mp3
+|       vlc-record-2021-12-12-17h44m29s-060.mp4-.mp3
+|       vlc-record-2021-12-12-19h43m41s-065.mp4-.mp3
+|       vlc-record-2021-12-12-20h12m29s-067.mp4-.mp3
+|       vlc-record-2021-12-12-20h16m11s-068.mp4-.mp3
+|       vlc-record-2021-12-12-20h35m40s-073.mp4-.mp3
+|       vlc-record-2021-12-12-22h49m42s-074.mp4-.mp3
+|       vlc-record-2021-12-12-22h56m31s-075.mp4-.mp3
+|       vlc-record-2021-12-12-23h25m53s-078.mp4-.mp3
+|       
++---Uneasyness_Theme_01_-_Looming_End
+|       vlc-record-2021-12-13-01h20m09s-090.mp4-.mp3
+|       
+\---Uneasyness_Theme_02_-_
+        vlc-record-2021-12-13-04h14m18s-100.mp4-.mp3
+        
+
