@@ -21,10 +21,10 @@ __________________________________________________________
 Combine (concat) mp4 with sim encoding):
 ---------------------------------------
 
-dir *.mp4 /b /a-d > out.txt
-for /f "tokens=*" %%a in (out.txt) do (echo file '%%a') >> list.txt
-ffmpeg -safe 1 -f concat -i list.txt -c copy output.mp4
-del out.txt
+(for %i in (*.mp4) do @echo file '%i') > list.txt 
+ffmpeg -safe 0 -f concat -i list.txt -c copy output.mp4
+
+Alt: www.gihosoft.com/download/adr/JJSVideoEditor_V2.exe
 
 (Source: https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg)
 
