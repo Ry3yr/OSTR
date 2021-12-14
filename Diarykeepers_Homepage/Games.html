@@ -20,13 +20,13 @@ Reloading /any/ game will reload the page<br>
   // var canvas = document.getElementsByTageName("canvas")[0];
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var ballRadius = 6;
+var ballRadius = 7;
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
 var paddleHeight = 8;
-var paddleWidth = 55;
+var paddleWidth = 60;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
@@ -38,7 +38,7 @@ var brickPadding = 3;
 var brickOffsetTop = 22;
 var brickOffsetLeft = 10;
 var score = 0;
-var lives = 3;
+var lives = 5;
 var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
@@ -91,7 +91,7 @@ function collisionDetection() {
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#FFAA33";
     ctx.fill();
     ctx.closePath();
 }
@@ -112,7 +112,7 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "#0095DD";
+                ctx.fillStyle = "#FF0000";
                 ctx.fill();
                 ctx.closePath();
             }
