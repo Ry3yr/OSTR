@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://bfa.github.io/solitaire-js/css/bootstrap.min.css'>
+  
+<style>
+@font-face{font-family:'Suit-Regular';src:url(https://bfa.github.io/solitaire-js/fonts/suit-regular.eot);src:url(https://bfa.github.io/solitaire-js/fonts/suit-regular.eot?#iefix) format("embedded-opentype"),url(https://bfa.github.io/solitaire-js/fonts/suit-regular.woff) format("woff"),url(https://bfa.github.io/solitaire-js/fonts/suit-regular.ttf) format("truetype"),url(https://bfa.github.io/solitaire-js/fonts/suit-regular.svg#suit-regular) format("svg");font-weight:400;font-style:normal}html,body{width:100%;height:100%}body{position:relative;color:#f3f5f7;background:#0e8b44 url(https://bfa.github.io/solitaire-js/img/green_felt.jpg);background-size:cover;background-position:center}.navbar{background:rgba(8,8,8,.75)}.navbar a{color:#fff}.navbar li[data-active="false"]{opacity:.5;pointer-events:none}.navbar li[data-active="true"]{opacity:1;pointer-events:auto}.template{display:none}#score{position:relative;background:rgba(0,0,0,.15);margin-top:1.5em;margin-bottom:.5em;padding:1em;line-height:1}#score > *{display:inline-block;min-width:100px}#score > :last-child{float:right;text-align:right}#score label{margin-bottom:0}#score .timer button{display:none;position:absolute;-webkit-appearance:none;background:transparent;outline:none;border:0;padding:0;top:0;left:0;width:3em;height:100%}#score .timer button i{position:absolute;top:0;left:0;width:100%;height:100%;font-size:0}#score .timer button i::before{position:absolute;top:50%;left:50%;width:.75em;height:1em;margin-left:-.375em;margin-top:-.5em;font-size:1.5rem;content:none}#score .timer button i#play::before{border-top:8px solid transparent;border-left:12px solid #fff;border-bottom:8px solid transparent}#score .timer button i#pause::before{border-right:4px solid #fff;border-left:4px solid #fff}[data-gameplay="active"] #score .timer button,[data-gameplay="paused"] #score .timer button{display:inline-block}[data-gameplay="active"] #score .timer button i#pause::before,[data-gameplay="paused"] #score .timer button i#play::before{content:''}[data-gameplay="active"] #score,[data-gameplay="paused"] #score{padding-left:3em}#auto-win{display:none;-webkit-appearance:none;outline:none;border:0;position:absolute;z-index:1;bottom:0;width:100%;background:rgba(0,0,0,.8);padding:1em;line-height:1}#table{opacity:0;width:100%;padding:15px 0}#table > div{position:relative;margin-bottom:10px}#table > div:last-child{margin-bottom:0}#table > div::after{content:'';display:table-cell;clear:both}#table ul{display:inline-block;padding:0}#table > div > ul{position:absolute;top:0;left:0;width:100%;height:100%}.pile{display:block;position:relative;float:left;width:13%;margin-right:1.5%;margin-bottom:10px;padding:5px}.pile:last-child{margin-right:0}.pile::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border:2px dotted rgba(0,0,0,.25);border-radius:5px}.card{display:block;position:absolute;top:0;left:0;background-color:#ddd;background-image:url(https://bfa.github.io/solitaire-js/img/card_back_bg.png);background-size:contain;background-repeat:no-repeat;width:100%;height:100%;font-family:'Suit-Regular',sans-serif;font-size:.6vw;border-radius:5px;z-index:-1}.card *{pointer-events:none}@media screen and (min-width: 768px){.card{font-size:.325em}.pile::after,.card{border-radius:10px}}@media screen and (min-width: 992px){.card{font-size:.425em}}@media screen and (min-width: 1200px){.card{font-size:.525em}}.card > div{display:none}.card.up{background-image:url(https://bfa.github.io/solitaire-js/img/card_face_bg.png);background-repeat:repeat;color:#111}.card.up > div{display:block}.card::before{content:'';display:block;position:absolute;width:100%;height:100%;border-radius:5px}.card[data-selected="true"]::before{box-shadow:0 0 6px 3px #FCDB1A}@media screen and (min-width: 768px){.card::before{border-radius:10px}}.card .suit{font-size:5.8em;font-weight:400;width:.68965517241379em;height:.78620689655172em;line-height:.78620689655172em;position:absolute;text-align:center}@media screen and (max-width: 767px){.card > div > .suit{display:none}}.card .heart,.card .diamond{color:#c00}.card .spade .suit::before{content:'♠'}.card .heart .suit::before{content:'♥'}.card .diamond .suit::before{content:'♦'}.card .club .suit::before{content:'♣'}.card .corner{line-height:1;position:absolute;text-align:center}.card .corner span{display:block;font-size:9em;font-weight:700;width:1em;text-align:center}@media screen and (min-width: 768px){.card .corner span{font-size:3em}}.card .corner .suit{margin-top:0;margin-left:0}.card .corner.top{left:.64em;top:.96em}.card .corner.bottom{bottom:.96em;right:.64em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .ace span.suit.middle_center{font-size:10.24em;left:50%;top:50%;margin-top:-.5em;margin-left:-.35em}.card .face::before{display:none;content:'';position:absolute;top:15.25%;left:19%;width:62%;height:70.5%;background-repeat:no-repeat;background-size:contain}@media screen and (min-width: 768px){.card .face::before{display:block}}.card .spade.king .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-king-spade.png)}.card .spade.queen .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-queen-spade.png)}.card .spade.jack .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-jack-spade.png)}.card .heart.king .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-king-heart.png)}.card .heart.queen .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-queen-heart.png)}.card .heart.jack .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-jack-heart.png)}.card .diamond.king .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-king-diamond.png)}.card .diamond.queen .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-queen-diamond.png)}.card .diamond.jack .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-jack-diamond.png)}.card .club.king .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-king-club.png)}.card .club.queen .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-queen-club.png)}.card .club.jack .face::before{background-image:url(https://bfa.github.io/solitaire-js/img/face-jack-club.png)}.card .suit.top_center{left:50%;top:0;margin-left:-.35em;margin-top:.65em}.card .suit.top_left{left:0;top:0;margin-left:.65em;margin-top:.65em}.card .suit.top_right{right:0;top:0;margin-right:.65em;margin-top:.65em}.card .suit.middle_center{left:50%;top:50%;margin-left:-.35em;margin-top:-.5em}.card .suit.middle_top{left:50%;top:0;margin-left:-.35em;margin-top:1.25em}.card .suit.middle_bottom{bottom:0;left:50%;margin-bottom:.65em;margin-left:-.35em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .suit.middle_left{left:0;top:50%;margin-left:.65em;margin-top:-.5em}.card .suit.middle_right{right:0;top:50%;margin-right:.65em;margin-top:-.5em}.card .suit.middle_top_center{left:50%;top:50%;margin-left:-.35em;margin-top:-1.35em}.card .suit.middle_top_left{left:0;top:50%;margin-left:.65em;margin-top:-1em}.card .suit.middle_top_right{right:0;top:50%;margin-right:.65em;margin-top:-1em}.card .suit.middle_bottom_left{bottom:50%;left:0;margin-left:.65em;margin-bottom:-1em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .suit.middle_bottom_right{bottom:50%;right:0;margin-bottom:-1em;margin-right:.65em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .suit.middle_bottom_center{bottom:50%;left:50%;margin-bottom:-1.35em;margin-left:-.35em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .suit.bottom_center{bottom:0;left:50%;margin-bottom:.65em;margin-left:-.35em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .suit.bottom_left{bottom:0;left:0;margin-bottom:.65em;margin-left:.65em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card .suit.bottom_right{bottom:0;right:0;margin-bottom:.65em;margin-right:.65em;-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg)}.card:nth-child(1),.card:nth-child(2),.card:nth-child(3),.card:nth-child(4),.card:nth-child(5){box-shadow:0 0 5px rgba(0,0,0,.25),0 2px 1px rgba(0,0,0,.5);z-index:1}.card:nth-child(1){top:0;z-index:5}.card:nth-child(2){top:2px;z-index:4}.card:nth-child(3){top:4px;z-index:3}.card:nth-child(4){top:6px;z-index:2}.card:nth-child(5){top:8px;z-index:1}.stock{z-index:1}.stock .reload-icon{position:absolute;top:0;left:0;width:100%;height:100%;font-size:3vw;font-weight:700;line-height:1;opacity:.25;z-index:1}@media screen and (max-width: 767px){.stock .reload-icon{font-size:5vw}}.stock .reload-icon span{display:block;position:absolute;top:50%;left:0;width:100%;text-align:center;padding:.25em;margin-top:-.75em;pointer-events:none}.stock .reload-icon span::before,.stock .reload-icon span::after{content:'';display:inline-block;border-style:solid}.stock .reload-icon span::before{width:1.25em;height:1.25em;border-color:transparent #000 #000;border-radius:50%;border-width:.125em;-webkit-transform:rotate(45deg);transform:rotate(45deg)}.stock .reload-icon span::after{position:absolute;top:0;left:50%;width:0;height:0;border-color:transparent transparent transparent #000;border-width:.3125em 0 .3125em .5em}.waste{z-index:1}.fnd .pile{left:43.5%}.fnd .pile::before{position:absolute;top:50%;left:0;width:100%;color:#000;font-family:'Suit-Regular',sans-serif;font-size:10vw;margin-top:-.6em;line-height:1;text-align:center;opacity:.25}@media screen and (min-width: 768px){.fnd .pile::before{font-size:6em}}@media screen and (min-width: 992px){.fnd .pile::before{font-size:7em}}@media screen and (min-width: 1200px){.fnd .pile::before{font-size:8em}}.fnd .pile.spades::before{content:'♠'}.fnd .pile.hearts::before{content:'♥'}.fnd .pile.diamonds::before{content:'♦'}.fnd .pile.clubs::before{content:'♣'}.tab .card{box-shadow:0 0 5px rgba(0,0,0,.5);z-index:1;margin-bottom:10em}.tab .card:nth-child(2){top:6em;left:0}.tab .card:nth-child(3){top:12em;left:0}.tab .card:nth-child(4){top:18em;left:0}.tab .card:nth-child(5){top:24em;left:0}.tab .card:nth-child(6){top:30em;left:0}.tab .card:nth-child(7){top:36em;left:0}.tab .card:nth-child(8){top:42em;left:0}.tab .card:nth-child(9){top:48em;left:0}.tab .card:nth-child(10){top:54em;left:0}.tab .card:nth-child(11){top:60em;left:0}.tab .card:nth-child(12){top:66em;left:0}.tab .card:nth-child(13){top:72em;left:0}.tab .card:nth-child(14){top:78em;left:0}.tab .card:nth-child(15){top:84em;left:0}.tab .card:nth-child(16){top:90em;left:0}.tab .card:nth-child(17){top:96em;left:0}.tab .card:nth-child(18){top:102em;left:0}.tab .card:nth-child(19){top:108em;left:0}.tab .card:nth-child(20){top:114em;left:0}.tab .card:nth-child(21){top:120em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(2),.tab .pile[data-unplayed='2'] .card:nth-child(2),.tab .pile[data-unplayed='3'] .card:nth-child(2),.tab .pile[data-unplayed='4'] .card:nth-child(2),.tab .pile[data-unplayed='5'] .card:nth-child(2),.tab .pile[data-unplayed='6'] .card:nth-child(2){top:3em}.tab .pile[data-unplayed='2'] .card:nth-child(3),.tab .pile[data-unplayed='3'] .card:nth-child(3),.tab .pile[data-unplayed='4'] .card:nth-child(3),.tab .pile[data-unplayed='5'] .card:nth-child(3),.tab .pile[data-unplayed='6'] .card:nth-child(3){top:6em}.tab .pile[data-unplayed='3'] .card:nth-child(4),.tab .pile[data-unplayed='4'] .card:nth-child(4),.tab .pile[data-unplayed='5'] .card:nth-child(4),.tab .pile[data-unplayed='6'] .card:nth-child(4){top:9em}.tab .pile[data-unplayed='4'] .card:nth-child(5),.tab .pile[data-unplayed='5'] .card:nth-child(5),.tab .pile[data-unplayed='6'] .card:nth-child(5){top:12em}.tab .pile[data-unplayed='5'] .card:nth-child(6),.tab .pile[data-unplayed='6'] .card:nth-child(6){top:15em}.tab .pile[data-unplayed='6'] .card:nth-child(7){top:18em}.tab .pile[data-unplayed='1'] .card:nth-child(3){top:9em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(4),.tab .pile[data-unplayed='3'] .card:nth-child(5){top:15em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(5),.tab .pile[data-unplayed='3'] .card:nth-child(6),.tab .pile[data-unplayed='5'] .card:nth-child(7){top:21em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(6),.tab .pile[data-unplayed='3'] .card:nth-child(7),.tab .pile[data-unplayed='5'] .card:nth-child(8){top:27em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(7),.tab .pile[data-unplayed='3'] .card:nth-child(8),.tab .pile[data-unplayed='5'] .card:nth-child(9){top:33em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(8),.tab .pile[data-unplayed='3'] .card:nth-child(9),.tab .pile[data-unplayed='5'] .card:nth-child(10){top:39em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(9),.tab .pile[data-unplayed='3'] .card:nth-child(10),.tab .pile[data-unplayed='5'] .card:nth-child(11){top:45em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(10),.tab .pile[data-unplayed='3'] .card:nth-child(11),.tab .pile[data-unplayed='5'] .card:nth-child(12){top:51em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(11),.tab .pile[data-unplayed='3'] .card:nth-child(12),.tab .pile[data-unplayed='5'] .card:nth-child(13){top:57em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(12),.tab .pile[data-unplayed='3'] .card:nth-child(13),.tab .pile[data-unplayed='5'] .card:nth-child(14){top:63em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(13),.tab .pile[data-unplayed='3'] .card:nth-child(14),.tab .pile[data-unplayed='5'] .card:nth-child(15){top:69em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(14),.tab .pile[data-unplayed='3'] .card:nth-child(15),.tab .pile[data-unplayed='5'] .card:nth-child(16){top:75em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(15),.tab .pile[data-unplayed='3'] .card:nth-child(16),.tab .pile[data-unplayed='5'] .card:nth-child(17){top:81em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(16),.tab .pile[data-unplayed='3'] .card:nth-child(17),.tab .pile[data-unplayed='5'] .card:nth-child(18){top:87em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(17),.tab .pile[data-unplayed='3'] .card:nth-child(18),.tab .pile[data-unplayed='5'] .card:nth-child(19){top:93em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(18),.tab .pile[data-unplayed='3'] .card:nth-child(19),.tab .pile[data-unplayed='5'] .card:nth-child(20){top:99em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(19),.tab .pile[data-unplayed='3'] .card:nth-child(20),.tab .pile[data-unplayed='5'] .card:nth-child(21){top:105em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(20),.tab .pile[data-unplayed='3'] .card:nth-child(21){top:111em;left:0}.tab .pile[data-unplayed='1'] .card:nth-child(21){top:117em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(4){top:12em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(5),.tab .pile[data-unplayed='4'] .card:nth-child(6){top:18em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(6),.tab .pile[data-unplayed='4'] .card:nth-child(7),.tab .pile[data-unplayed='6'] .card:nth-child(8){top:24em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(7),.tab .pile[data-unplayed='4'] .card:nth-child(8),.tab .pile[data-unplayed='6'] .card:nth-child(9){top:30em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(8),.tab .pile[data-unplayed='4'] .card:nth-child(9),.tab .pile[data-unplayed='6'] .card:nth-child(10){top:36em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(9),.tab .pile[data-unplayed='4'] .card:nth-child(10),.tab .pile[data-unplayed='6'] .card:nth-child(11){top:42em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(10),.tab .pile[data-unplayed='4'] .card:nth-child(11),.tab .pile[data-unplayed='6'] .card:nth-child(12){top:48em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(11),.tab .pile[data-unplayed='4'] .card:nth-child(12),.tab .pile[data-unplayed='6'] .card:nth-child(13){top:54em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(12),.tab .pile[data-unplayed='4'] .card:nth-child(13),.tab .pile[data-unplayed='6'] .card:nth-child(14){top:60em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(13),.tab .pile[data-unplayed='4'] .card:nth-child(14),.tab .pile[data-unplayed='6'] .card:nth-child(15){top:66em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(14),.tab .pile[data-unplayed='4'] .card:nth-child(15),.tab .pile[data-unplayed='6'] .card:nth-child(16){top:72em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(15),.tab .pile[data-unplayed='4'] .card:nth-child(16),.tab .pile[data-unplayed='6'] .card:nth-child(17){top:78em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(16),.tab .pile[data-unplayed='4'] .card:nth-child(17),.tab .pile[data-unplayed='6'] .card:nth-child(18){top:84em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(17),.tab .pile[data-unplayed='4'] .card:nth-child(18),.tab .pile[data-unplayed='6'] .card:nth-child(19){top:90em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(18),.tab .pile[data-unplayed='4'] .card:nth-child(19),.tab .pile[data-unplayed='6'] .card:nth-child(20){top:96em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(19),.tab .pile[data-unplayed='4'] .card:nth-child(20),.tab .pile[data-unplayed='6'] .card:nth-child(21){top:102em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(20),.tab .pile[data-unplayed='4'] .card:nth-child(21){top:108em;left:0}.tab .pile[data-unplayed='2'] .card:nth-child(21){top:114em;left:0}#confetti{position:absolute;top:0;left:0;z-index:10000;pointer-events:none;opacity:0}grammarly-card{display:none}
+</style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+
+      <div id="score">
+         <div class="timer">
+            <button id="play-pause">
+               <i id="play">Play</i>
+               <i id="pause">Pause</i>
+            </button>
+            <label>Timer:</label>
+            <span>00:00</span>
+         </div>
+         <div class="move-count" data-moves="0">
+            <label>Moves:</label>
+            <span>0</span>
+         </div>
+         <div class="score" data-score="0">
+            <label>Score:</label>
+            <span>0</span>
+         </div>
+      </div>
+
+      <div id="table">
+
+         <div class="upper-row">
+            <div id="stock" class="stock pile" data-pile="stock">
+               <i class="reload-icon" data-action="reload">
+                  <span></span>
+               </i>
+               <ul></ul>
+            </div>
+
+            <div id="waste" class="waste pile" data-pile="waste">
+               <ul></ul>
+            </div>
+
+            <ul id="fnd" class="fnd">
+               <li id="spades" class="spades pile" data-pile="spades" data-empty="true"><ul></ul></li>
+               <li id="hearts" class="hearts pile" data-pile="hearts" data-empty="true"><ul></ul></li>
+               <li id="diamonds" class="diamonds pile" data-pile="diamonds" data-empty="true"><ul></ul></li>
+               <li id="clubs" class="clubs pile" data-pile="clubs" data-empty="true"><ul></ul></li>
+            </ul>
+         </div>
+
+         <div class="lower-row">
+            <ul id="tab" class="tab">
+               <li class="pile" data-pile="1"><ul></ul></li>
+               <li class="pile" data-pile="2"><ul></ul></li>
+               <li class="pile" data-pile="3"><ul></ul></li>
+               <li class="pile" data-pile="4"><ul></ul></li>
+               <li class="pile" data-pile="5"><ul></ul></li>
+               <li class="pile" data-pile="6"><ul></ul></li>
+               <li class="pile" data-pile="7"><ul></ul></li>
+            </ul>
+         </div>
+
+      </div>
+
+   </div><!-- /.container -->
+
+   <button id="auto-win">Auto Win</button>
+
+   <canvas id="confetti"></canvas>
+
+   <ul class="template">
+      <li data-rank="2">
+         <div class="two {{suit}}">
+            <div class="corner top">
+               <span class="rank">2</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_center"></span>
+            <span class="suit bottom_center"></span>
+            <div class="corner bottom">
+               <span class="rank">2</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="3">
+         <div class="three {{suit}}">
+            <div class="corner top">
+               <span class="rank">3</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_center"></span>
+            <span class="suit middle_center"></span>
+            <span class="suit bottom_center"></span>
+            <div class="corner bottom">
+               <span class="rank">3</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="4">
+         <div class="four {{suit}}">
+            <div class="corner top">
+               <span class="rank">4</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">4</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="5">
+         <div class="five {{suit}}">
+            <div class="corner top">
+               <span class="rank">5</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit middle_center"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">5</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="6">
+         <div class="six {{suit}}">
+            <div class="corner top">
+               <span class="rank">6</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit middle_left"></span>
+            <span class="suit middle_right"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">6</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="7">
+         <div class="seven {{suit}}">
+            <div class="corner top">
+               <span class="rank">7</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit middle_left"></span>
+            <span class="suit middle_top"></span>
+            <span class="suit middle_right"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">7</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="8">
+         <div class="eight {{suit}}">
+            <div class="corner top">
+               <span class="rank">8</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit middle_left"></span>
+            <span class="suit middle_top_center"></span>
+            <span class="suit middle_right"></span>
+            <span class="suit middle_bottom_center"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">8</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="9">
+         <div class="nine {{suit}}">
+            <div class="corner top">
+               <span class="rank">9</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit middle_top_left"></span>
+            <span class="suit middle_center"></span>
+            <span class="suit middle_top_right"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <span class="suit middle_bottom_left"></span>
+            <span class="suit middle_bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">9</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="10">
+         <div class="ten {{suit}}">
+            <div class="corner top">
+               <span class="rank">10</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit top_left"></span>
+            <span class="suit top_right"></span>
+            <span class="suit middle_top_left"></span>
+            <span class="suit middle_top_center"></span>
+            <span class="suit middle_top_right"></span>
+            <span class="suit bottom_left"></span>
+            <span class="suit bottom_right"></span>
+            <span class="suit middle_bottom_center"></span>
+            <span class="suit middle_bottom_left"></span>
+            <span class="suit middle_bottom_right"></span>
+            <div class="corner bottom">
+               <span class="rank">10</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="J">
+         <div class="jack {{suit}}">
+            <div class="corner top">
+               <span class="rank">J</span>
+               <span class="suit"></span>
+            </div>
+            <span class="face middle_center"></span>
+            <div class="corner bottom">
+               <span class="rank">J</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="Q">
+         <div class="queen {{suit}}">
+            <div class="corner top">
+               <span class="rank">Q</span>
+               <span class="suit"></span>
+            </div>
+            <span class="face middle_center"></span>
+            <div class="corner bottom">
+               <span class="rank">Q</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="K">
+         <div class="king {{suit}}">
+            <div class="corner top">
+               <span class="rank">K</span>
+               <span class="suit"></span>
+            </div>
+            <span class="face middle_center"></span>
+            <div class="corner bottom">
+               <span class="rank">K</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+      <li data-rank="A">
+         <div class="ace {{suit}}">
+            <div class="corner top">
+               <span class="rank">A</span>
+               <span class="suit"></span>
+            </div>
+            <span class="suit middle_center"></span>
+            <div class="corner bottom">
+               <span class="rank">A</span>
+               <span class="suit"></span>
+            </div>
+         </div>
+      </li>
+   </ul><!-- /.templates -->
+<!-- partial -->
+  <script>
+  var d=document,deck=[],suits=[];suits.spades=[["A","spade"],["2","spade"],["3","spade"],["4","spade"],["5","spade"],["6","spade"],["7","spade"],["8","spade"],["9","spade"],["10","spade"],["J","spade"],["Q","spade"],["K","spade"]],suits.hearts=[["A","heart"],["2","heart"],["3","heart"],["4","heart"],["5","heart"],["6","heart"],["7","heart"],["8","heart"],["9","heart"],["10","heart"],["J","heart"],["Q","heart"],["K","heart"]],suits.diamonds=[["A","diamond"],["2","diamond"],["3","diamond"],["4","diamond"],["5","diamond"],["6","diamond"],["7","diamond"],["8","diamond"],["9","diamond"],["10","diamond"],["J","diamond"],["Q","diamond"],["K","diamond"]],suits.clubs=[["A","club"],["2","club"],["3","club"],["4","club"],["5","club"],["6","club"],["7","club"],["8","club"],["9","club"],["10","club"],["J","club"],["Q","club"],["K","club"]];var s=[],w=[],spades=[],hearts=[],diamonds=[],clubs=[],t=[];t[1]=t[2]=t[3]=t[4]=t[5]=t[6]=t[7]=[];var table=[];table.stock=s,table.waste=w,table.spades=spades,table.hearts=hearts,table.diamonds=diamonds,table.clubs=clubs,table.tab=t;var playedCards="#waste .card,#fnd .card,#tab .card:last-child",$timer=d.querySelector("#score .timer"),$timerSpan=d.querySelector("#score .timer span"),$moveCount=d.querySelector("#score .move-count"),$moveCountSpan=d.querySelector("#score .move-count span"),$score=d.querySelector("#score .score"),$scoreSpan=d.querySelector("#score .score span"),$playPause=d.querySelector("#play-pause"),$table=d.querySelector("#table"),$upper=d.querySelector("#table .upper-row"),$lower=d.querySelector("#table .lower-row"),$stock=d.querySelector("#stock"),$waste=d.querySelector("#waste"),$fnd=d.querySelector("#fnd"),$tab=d.querySelector("#tab"),$autoWin=d.querySelector("#auto-win"),clock=0,time=0,moves=0,score=0,bonus=0,lastEventTime=0,unplayedTabCards=[];function create(e,t){for(var a in console.log("Creating Deck..."),t)for(var s in a=t[a])s=a[s],e.push(s);return e}function shuffle(e){console.log("Shuffling Deck...");for(var t,a,s=e.length;0!==s;)a=Math.floor(Math.random()*s),t=e[--s],e[s]=e[a],e[a]=t;return e}function deal(e,t){console.log("Dealing Deck..."),t.stock=e;for(var a=t.tab,s=1;s<=7;s++)for(var l=s;l<=7;l++)1===s&&(a[l]=[]),move(t.stock,a[l],!1);return t}function move(e,t,a,s=1){if(!0!==a){var l=e.shift();t.push(l)}else for(;s;){l=e[e.length-s];e.splice(e.length-s,1),t.push(l),s--}}function render(e,t){console.log("Rendering Table..."),t=checkForPlayedCards(t),emptyPiles=checkForEmptyPiles(e),update(e.stock,"#stock ul",t,!0),update(e.waste,"#waste ul",t),update(e.spades,"#spades ul",t),update(e.hearts,"#hearts ul",t),update(e.diamonds,"#diamonds ul",t),update(e.clubs,"#clubs ul",t);for(var a=e.tab,s=1;s<=7;s++)update(a[s],"#tab li:nth-child("+s+") ul",t,!0);unplayedTabCards=getUnplayedTabCards(),sizeCards(),$table.style.opacity="100",console.log("Table Rendered:",e)}function update(e,t,a,s){var l=d.querySelector(t),r=l.children,n=l.parentElement.parentElement;for(var o in l.innerHTML="",e){createCard(o=e[o],t,getTemplate(o),s)}flipCards(a,"up");var i=countPlayedCards(r);if(l.parentElement.dataset.played=i,"tab"===n.id||"fnd"===n.id){var c=parseInt(n.dataset.played);isNaN(c)&&(c=0),n.dataset.played=c+i}var u=countUnplayedCards(r);if(l.parentElement.dataset.unplayed=u,"tab"===n.id||"fnd"===n.id){var p=parseInt(n.dataset.unplayed);isNaN(p)&&(p=0),n.dataset.unplayed=p+u}return e}function getTemplate(e){var t=e[0],a=e[1],s=d.querySelector('.template li[data-rank="'+t+'"]').innerHTML;return s=s.replace("{{suit}}",a)}function createCard(e,t,a,s){var l=e[0],r=e[1];if(t.includes("#stock"))var n="stock";if(t.includes("#waste"))n="waste";if(t.includes("#spades"))n="spades";if(t.includes("#hearts"))n="hearts";if(t.includes("#diamonds"))n="diamonds";if(t.includes("#clubs"))n="clubs";if(t.includes("#tab"))n="tab";var o=d.createElement("li");o.className="card",o.dataset.rank=l,o.dataset.suit=r,o.dataset.pile=n,o.dataset.selected="false",o.innerHTML=a;var i=d.querySelector(t);s?i.appendChild(o):i.insertBefore(o,i.firstChild)}function checkForPlayedCards(e){var t=d.querySelectorAll('.card[data-played="true"]');for(var a in t){if((a=t[a]).nodeType)e+=', .card[data-rank="'+a.dataset.rank+'"][data-suit="'+a.dataset.suit+'"]'}return e}function checkForEmptyPiles(e){var t=d.querySelectorAll(".pile");for(var a in t)(a=t[a]).nodeType&&delete a.dataset.empty;var s="#fake.pile";0===e.spades.length&&(s+=", #fnd #spades.pile"),0===e.hearts.length&&(s+=", #fnd #hearts.pile"),0===e.diamonds.length&&(s+=", #fnd #diamonds.pile"),0===e.clubs.length&&(s+=", #fnd #clubs.pile");for(var l=e.tab,r=1;r<=7;r++)0===l[r].length&&(s+=", #tab li:nth-child("+r+").pile");for(var a in t=d.querySelectorAll(s))(a=t[a]).nodeType&&(a.dataset.empty="true");return s}function countPlayedCards(e){var t=0;for(var a in e)(a=e[a]).nodeType&&"true"===a.dataset.played&&t++;return t}function countUnplayedCards(e){var t=0;for(var a in e)(a=e[a]).nodeType&&"true"!==a.dataset.played&&t++;return t}function flipCards(e,t){var a=d.querySelectorAll(e);for(var s in a)if((s=a[s]).nodeType)switch(t){case"up":if("true"!==s.dataset.played){if("tab"===s.dataset.pile)for(var l in unplayedTabCards)l=unplayedTabCards[l],s.dataset.rank===l[0]&&s.dataset.suit===l[1]&&updateScore(5);s.className+=" up",s.dataset.played="true"}break;case"down":s.className="card",delete s.dataset.played}}function getUnplayedTabCards(){unplayedTabCards=[];var e=d.querySelectorAll('#tab .card:not([data-played="true"])');for(var t in e)(t=e[t]).nodeType&&unplayedTabCards.push([t.dataset.rank,t.dataset.suit]);return unplayedTabCards}function sizeCards(e=".pile",t=1.4){var a=e,s=t,l=(n=d.querySelector(a)).offsetWidth*s;$upper.style.height=l+10+"px",$lower.style.height=l+120+"px";var r=d.querySelectorAll(a);for(var n in r)(n=r[n]).nodeType&&(n.style.height=l+"px")}function play(e){checkForWin(e)||(checkForAutoWin(e),bindClick('#stock .card:first-child,#waste .card:first-child,#fnd .card:first-child,#tab .card[data-played="true"]'),bindClick("#waste .card:first-child,#tab .card:last-child","double"),console.log("Make Your Move..."),console.log("......"))}function bindClick(e,t){var a=d.querySelectorAll(e);for(var s in a)(s=a[s]).nodeType&&(t?s.addEventListener("dblclick",select):s.addEventListener("click",select))}function unbindClick(e,t){var a=d.querySelectorAll(e);for(var s in a)(s=a[s]).nodeType&&(t?s.removeEventListener("dblclick",select):s.removeEventListener("click",select))}deck=shuffle(deck=create(deck,suits)),render(table=deal(deck,table),playedCards),play(table),window.onresize=function(e){sizeCards()};var clicks=0,clickDelay=200,clickTimer=null;function select(e){e.preventDefault(),"start"!==$timer.dataset.action&&timer("start");var t=e.timeStamp;if(t===lastEventTime)return console.log("Status: Timestamp Matches, False Click"),!1;lastEventTime=t;var a=e.target,s=(a.dataset.selected,a.dataset.rank),l=a.dataset.suit,r=a.dataset.pile,n=a.dataset.action;if(s&&l)var o=[s,l];if(1===++clicks&&"click"===e.type)clickTimer=setTimeout(function(){if(console.log("Single Click Detected",e),clicks=0,"true"===a.dataset.selected)console.log("Status: Same Card Clicked"),delete a.dataset.selected,delete $table.dataset.move,delete $table.dataset.selected,delete $table.dataset.source,console.log("Card Deselected",o,a);else if($table.dataset.move){console.log("Status: A Move Is In Progess");var t=$table.dataset.selected.split(",");if($table.dataset.dest=a.closest(".pile").dataset.pile,o)var i=o;else i=$table.dataset.dest;validateMove(t,i)?(makeMove(),reset(table),render(table,playedCards),play(table)):(console.log("Move is Invalid. Try again..."),reset(table),render(table,playedCards),play(table),console.log("Card Deselected",o,a))}else"stock"===r?(console.log("Status: Stock Pile Clicked"),table.stock.length&&(move(table.stock,table.waste),reset(table),render(table,playedCards),0===table.stock.length&&bindClick("#stock .reload-icon"),countMove(moves++),play(table))):"reload"===n?(console.log("Reloading Stock Pile"),unbindClick("#stock .reload-icon"),table.waste.length&&(table.stock=table.waste,table.waste=[]),render(table,playedCards),flipCards("#stock .card","down"),updateScore(-100),play(table)):(a.dataset.selected="true",$table.dataset.move="true",$table.dataset.selected=o,$table.dataset.source=a.closest(".pile").dataset.pile,"A"===s&&(console.log("Ace Is Selected"),bindClick("#fnd #"+l+'s.pile[data-empty="true"]')),"K"===s&&(console.log("King Is Selected"),bindClick('#tab .pile[data-empty="true"]')))},clickDelay);else if("dblclick"===e.type){if(console.log("Double Click Detected",e),clearTimeout(clickTimer),clicks=0,a.dataset.selected="true",$table.dataset.move="true",$table.dataset.selected=o,$table.dataset.source=a.closest(".pile").dataset.pile,o)var i=o[1]+"s";$table.dataset.dest=i,validateMove(o,i)?(makeMove(),reset(table),render(table,playedCards),play(table)):(console.log("Move is Invalid. Try again..."),reset(table),render(table,playedCards),play(table),console.log("Card Deselected",o,a))}}function validateMove(e,t){if(console.log("Validating Move...",e,t),e)var a=parseRankAsInt(e[0]),s=e[1];if(t.constructor===Array){console.log("Desitination appears to be a card");var l=parseRankAsInt(t[0]),r=t[1],n=$table.dataset.dest;if(["spades","hearts","diamonds","clubs"].indexOf(n)>=0){if(l-a!=-1)return console.log("Rank sequence invalid"),console.log(l-a),!1;if(s!==r)return console.log("Suit sequence invalid"),!1}else{if(l-a!=1)return console.log("Rank sequence invalid"),!1;if(!(("spade"!==s&&"club"!==s||"spade"!==r&&"club"!==r)&&("heart"!==s&&"diamond"!==s||"heart"!==r&&"diamond"!==r)))return console.log("Suit sequence invalid"),!1}return console.log("Valid move"),!0}if(["spades","hearts","diamonds","clubs"].indexOf(t)>=0){console.log("Destination appears to be empty foundation");var o=d.querySelector("#"+t+" .card:first-child");if(o)l=parseRankAsInt(o.dataset.rank),r=o.dataset.suit;return s+"s"!==t?(console.log("Suit sequence invalid"),!1):1===a?(console.log("Valid Move"),!0):a-l!=1?(console.log("Rank sequence invalid"),!1):(console.log("Valid move"),!0)}if(t>=1&&t<=7)return console.log("Destination appears tp be empty tableau"),!0}function makeMove(){console.log("Making Move...");var e=$table.dataset.source,t=$table.dataset.dest;if(console.log("From "+e+" pile to "+t+" pile"),"waste"===e)isNaN(t)?(console.log("Moving To Foundation Pile"),move(table[e],table[t],!0),updateScore(10)):(console.log("Moving To Tableau Pile"),move(table[e],table.tab[t],!0),updateScore(5));else if(["spades","hearts","diamonds","clubs"].indexOf(e)>=0){if(isNaN(t))return console.log("That move is not allowed"),!1;console.log("Moving To Tableau Pile"),move(table[e],table.tab[t],!0),updateScore(-15)}else if(isNaN(t))console.log("Moving To Foundation Pile"),move(table.tab[e],table[t],!0),updateScore(10);else{console.log("Moving To Tableau Pile");for(var a=d.querySelector('.card[data-selected="true"'),s=[a];a=a.nextSibling;)a.nodeType&&s.push(a);move(table.tab[e],table.tab[t],!0,s.length)}unbindClick('#stock .card:first-child,#waste .card:first-child,#fnd .card:first-child,#fnd #spades.pile[data-empty="true"],#fnd #hearts.pile[data-empty="true"],#fnd #diamonds.pile[data-empty="true"],#fnd #clubs.pile[data-empty="true"],#tab .card[data-played="true"],#tab .pile[data-empty="true"]'),unbindClick("#waste .card:first-child#tab .card:last-child","double"),countMove(moves++),console.log("Ending Move...")}function parseRankAsInt(e){switch(e){case"A":e="1";break;case"J":e="11";break;case"Q":e="12";break;case"K":e="13"}return parseInt(e)}function parseIntAsRank(e){switch(rank=parseInt(e),rank){case 1:rank="A";break;case 11:rank="J";break;case 12:rank="Q";break;case 13:rank="K"}return rank}function reset(e){delete $table.dataset.move,delete $table.dataset.selected,delete $table.dataset.source,delete $table.dataset.dest,delete $fnd.dataset.played,delete $fnd.dataset.unplayed,delete $tab.dataset.played,delete $tab.dataset.unplayed,console.log("Table reset")}function timer(e){var t=0,a=0,s=d.body.dataset.gameplay;switch($timer.dataset.action=e,e){case"start":console.log("Starting Timer..."),clock=setInterval(function(){time++,t=parseInt(time/60,10),a=parseInt(time%60,10),t=t<10?"0"+t:t,a=a<10?"0"+a:a,$timerSpan.textContent=t+":"+a,time%10==0&&updateScore(-2)},1e3),d.body.dataset.gameplay="active","paused"===s&&$playPause.removeEventListener("click",playTimer),$playPause.addEventListener("click",pauseTimer=function(){timer("pause")});break;case"pause":console.log("Pausing Timer..."),clearInterval(clock),d.body.dataset.gameplay="paused","active"===s&&$playPause.removeEventListener("click",pauseTimer),$playPause.addEventListener("click",playTimer=function(){timer("start")});break;case"stop":console.log("Stoping Timer..."),clearInterval(clock),d.body.dataset.gameplay="over"}console.log(time)}function countMove(e){console.log("Move Counter",e),$moveCount.dataset.moves=e+1,$moveCountSpan.textContent=e+1}function updateScore(e){return console.log("Updating Score",e),score=(score=parseInt($score.dataset.score)+e)<0?0:score,score=parseInt(score),$score.dataset.score=score,$score.children[1].textContent=score,score}function getBonus(){return time>=30&&(bonus=parseInt(7e5/time)),console.log(bonus),bonus}function checkForWin(e){return e.spades.length+e.hearts.length+e.diamonds.length+e.clubs.length===52&&(console.log("Game Has Been Won"),timer("stop"),updateScore(getBonus()),throwConfetti(),!0)}function checkForAutoWin(e){parseInt($tab.dataset.unplayed)+e.stock.length+e.waste.length===0&&($autoWin.style.display="block",$autoWin.addEventListener("click",autoWin))}function autoWin(){console.log("Huzzah!"),$autoWin.style.display="none",$autoWin.removeEventListener("click",autoWin),unbindClick('#stock .card:first-child,#waste .card:first-child,#fnd .card:first-child,#fnd #spades.pile[data-empty="true"],#fnd #hearts.pile[data-empty="true"],#fnd #diamonds.pile[data-empty="true"],#fnd #clubs.pile[data-empty="true"],#tab .card[data-played="true"],#tab .pile[data-empty="true"]'),unbindClick("#waste .card:first-child#tab .card:last-child","double"),reset(table),render(table),autoWinAnimation(table),timer("stop"),updateScore(getBonus())}function autoWinAnimation(e){var t=parseInt($tab.dataset.played);!function a(){var s=[],l=d.querySelectorAll("#tab .card:last-child");for(var r in l)(r=l[r]).nodeType&&s.push(parseRankAsInt(r.dataset.rank));var n=parseIntAsRank(Math.min.apply(Math,s)),o=(r=d.querySelector('#tab .card[data-rank="'+n+'"]')).dataset.suit,i=o+"s";if(validateMove([n,o],i)){var c=r.parentElement.parentElement;$table.dataset.source=c.dataset.pile,$table.dataset.dest=i,makeMove(),reset(e),render(e,playedCards)}else console.log("Move is Invalid. Try again..."),reset(e),render(e,playedCards);setTimeout(function(){0!=--t?a():throwConfetti()},100)}()}function throwConfetti(){var e,t,a,s,l,r,n,o,i,c;console.log("Confetti!"),e=[[255,255,255],[255,144,0],[255,255,255],[255,144,0],[0,277,235]],Math.PI,a=d.getElementById("confetti"),l=a.getContext("2d"),window.w=0,window.h=0,window.resizeWindow=function(){return window.w=a.width=window.innerWidth,window.h=a.height=window.innerHeight},window.addEventListener("resize",resizeWindow,!1),window.onload=function(){return setTimeout(resizeWindow,0)},i=function(e,t){return(t-e)*Math.random()+e},r=function(e,t,a,s){return l.beginPath(),l.moveTo(e,t),l.bezierCurveTo(e-17,t+14,e+13,t+5,e-5,t+22),l.lineWidth=3,l.strokeStyle=s,l.stroke()},n=function(e,t,a,s){return l.beginPath(),l.moveTo(e,t),l.lineTo(e+10,t+10),l.lineTo(e+10,t),l.closePath(),l.fillStyle=s,l.fill()},o=function(e,t,a,s){return l.beginPath(),l.moveTo(e,t),l.lineTo(e+10,t+10),l.lineTo(e+10,t),l.closePath(),l.fillStyle=s,l.fill()},c=.9,d.onmousemove=function(e){return c=e.pageX/w},window.requestAnimationFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(e){return window.setTimeout(e,5)},t=function(){function t(){this.style=e[~~i(0,5)],this.rgb="rgba("+this.style[0]+","+this.style[1]+","+this.style[2],this.r=~~i(2,6),this.r2=2*this.r,this.replace()}return t.prototype.replace=function(){return this.opacity=0,this.dop=.03*i(1,4),this.x=i(-this.r2,w-this.r2),this.y=i(-20,h-this.r2),this.xmax=w-this.r,this.ymax=h-this.r,this.vx=i(0,2)+8*c-5,this.vy=.7*this.r+i(-1,1)},t.prototype.draw=function(){var e;return this.x+=this.vx,this.y+=this.vy,this.opacity+=this.dop,this.opacity>1&&(this.opacity=1,this.dop*=-1),(this.opacity<0||this.y>this.ymax)&&this.replace(),0<(e=this.x)&&e<this.xmax||(this.x=(this.x+this.xmax)%this.xmax),r(~~this.x,~~this.y,this.r,this.rgb+","+this.opacity+")"),o(.5*~~this.x,~~this.y,this.r,this.rgb+","+this.opacity+")"),n(1.5*~~this.x,1.5*~~this.y,this.r,this.rgb+","+this.opacity+")")},t}(),s=function(){var e,a;for(a=[],e=1,60;e<=60;++e)a.push(new t);return a}(),window.step=function(){var e,t,a,r;for(requestAnimationFrame(step),l.clearRect(0,0,w,h),r=[],t=0,a=s.length;t<a;t++)e=s[t],r.push(e.draw());return r},step(),resizeWindow(),a.style.opacity=0;var u=function(){a.style.opacity=+a.style.opacity+.01,+a.style.opacity<1&&(window.requestAnimationFrame&&requestAnimationFrame(u)||setTimeout(u,100))};u()}
+  </script>
+
+</body>
+</html>
