@@ -438,6 +438,7 @@ div {
 <br>
 
 <!-----Crossword Beginning--->
+<!--- .letter-cell { controls the grid size--->
 <div class="pre-spoiler">
 <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Crossword'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Crossword';}" value="Crossword">
 <div class="spoiler" style="display: none;">
@@ -1977,8 +1978,8 @@ function shuffle(array) {
 }
 .letter-cell {
 	text-align:center;
-	height:40px;
-	width:40px;
+	height:25px;
+	width:25px;
 }
 .letter-text {
 	font-family:helvetica;
@@ -2048,8 +2049,8 @@ function shuffle(array) {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	width: 30em;
-	height: 12em;
+	width: 25em;
+	height: 10em;
 	margin-top: -9em;
 	margin-left: -15em;
 	border: 1px solid #CCCCCC;
