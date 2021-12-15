@@ -1938,10 +1938,7 @@ function getLettersHashCountForWord(word) {
 			lettershash[letter] = 1;
 		}
 	}
-				
-	return lettershash;
-}
-
+				return lettershash;}
 	/* getMatchingLetter(letters, nextword)
 		Get the matching letter between two overlapping words.
 	*/
@@ -1953,8 +1950,7 @@ function getMatchingLetter(letters, nextword) {
 			return letter;
 		}
 	}
-	return matchingletter;
-}
+	return matchingletter;}
 	/* shuffle(array)
 		Randomize array.
 	*/
@@ -1965,11 +1961,8 @@ function shuffle(array) {
 		currentIndex -= 1;
 		temporaryValue = array[currentIndex];
 		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
-	return array;
-}
-
+		array[randomIndex] = temporaryValue;}
+	return array;}
 </script>
 <style>
 .puzzle {
@@ -2100,20 +2093,91 @@ function shuffle(array) {
 <br>
 <br> 
 
+<!----- Nonogram beginning---->
+<div class="pre-spoiler">
+<input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Nonogram'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Nonogram';}" value="Nonogram/Picross">
+<div class="spoiler" style="display: none;">
+  <style>
+  @font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/ubuntumono/v10/KFOjCneDtsqEr0keqCMhbCc6CsE.ttf) format('truetype');}
+#game {border-spacing: 0px;
+  border-collapse: collapse;
+  border: 0.5px solid black;
+  user-select: none;}
+#game td,
+#game th {
+  width: 10px;
+  height: 10px;
+  padding: 1px;
+  line-height: 1;
+  white-space: nowrap;}
+#game td:nth-child(5n + 1),
+#game th:nth-child(5n + 1) {
+  border-right: 1px solid black;}
+#game tr:nth-child(5n + 1) td,
+#game tr:nth-child(5n + 1) th {
+  border-bottom: 1px solid black;
+}
+#game th {background-color: #eee;
+  font-family: 'Ubuntu Mono', monospace;}
+#game th.highlight {background-color: #ccc;}
+#game td {border-top: 1px dotted #aaa;
+  border-left: 1px dotted #aaa;}
+#game td:hover {opacity: 0.85;
+  background-color: #f3f3f3;}
+#game td.on {background-color: #6d6;}
+#game td.off {background-color: #666;}
+#settings {margin-top: 15px;}
+  </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <div class="">
+  </div>
+  <div>
+    <table id="game"></table>
+  </div>
+  <div id="settings">
+    <label>Height <input id="set-h" type="number" min="5" max="30" value="15"></input></label></br>
+    <label>Width <input id="set-w" type="number" min="5" max="30" value="15"></input></label></br>
+    <button id="new-game">New game</button>
+    <button id="solution">Solution</button>
+  </div>
+</div>
+<!-- partial -->
+  <script>
+const CELL_STATES=["none","off","on"];let w,h,fstate={field:[],solution:[],keys:{h:[],v:[]}},solutionOn=!1,solutionShown=!1;function getRandomInt(e,t){return Math.floor(Math.random()*(t-e+1))+e}function fillArrayColumnwise(e,t,l,n,o){for(let r=n;r<n+o;r++)e[r][t]=l}function shuffle(e){let t=e.length;for(;t>0;){let l=Math.floor(Math.random()*t),n=e[--t];e[t]=e[l],e[l]=n}return e}function generateField(){let e,t={field:[],solution:[],keys:{h:[],v:[]}},l=t.field;for(let e=0;e<h;e++){l[e]=[];for(let t=0;t<w;t++)l[e][t]=0}switch(Math.floor(h/5)){case 1:e=2;break;case 2:case 3:e=3;break;case 4:e=5;break;case 5:e=6;break;default:e=Math.ceil(h/4)-1}let n=t.keys.h;for(let t=0;t<w;t++){n[t]=[];let l,o=getRandomInt(1,e),r=h-o+1;for(let e=0;e<o;e++)r-=l=getRandomInt(1,r-o+e),n[t].push(l);shuffle(n[t])}let o=[];for(let e=0;e<w;e++){o[e]=[];let l=t.keys.h[e],n=l.length,r=h-l.reduce((e,t)=>e+t,0);for(let t=1;t<n;t++){let l=getRandomInt(1,r-(n-1)+t);o[e].push(l),r-=l}shuffle(o[e]);let s=getRandomInt(0,r);o[e].unshift(s),r-=s,o[e].push(r)}let r=t.solution;for(let e=0;e<h;e++)r[e]=[];for(let e=0;e<w;e++){let l=t.keys.h[e],n=l.length,s=o[e],a=0;for(let t=0;t<n;t++)fillArrayColumnwise(r,e,1,a,s[t]),fillArrayColumnwise(r,e,2,a+=s[t],l[t]),a+=l[t];fillArrayColumnwise(r,e,1,a,s[n])}let s=t.keys.v;for(let e=0;e<h;e++){s[e]=[];let t=0;for(let l=0;l<w;l++)2===r[e][l]?t++:(t>0&&s[e].push(t),t=0);t>0&&s[e].push(t)}return t}let cells=[],headers={h:[],v:[]};function highlightCellOn(e){e.classList.add("highlight")}function highlightCellOff(e){e.classList.remove("highlight")}function highlightHeadersOn(e,t){if("number"==typeof e)highlightCellOn(headers.v[t]),highlightCellOn(headers.h[e]);else if("object"==typeof e)for(let t of e)highlightHeadersOn(t.x,t.y)}function highlightHeadersOff(){for(let e=0;e<h;e++)highlightCellOff(headers.v[e]);for(let e=0;e<w;e++)highlightCellOff(headers.h[e])}let startX,startY,mouseState,isDragging=!1;function getAffectedCellsRange(e,t,l,n){let o=Math.min(e,l),r=Math.min(t,n),s=Math.max(e,l),a=Math.max(t,n),i=s-o<a-r,h=[];if("none"==mouseState)for(let e=o;e<=s;e++)for(let t=r;t<=a;t++){let l={x:e,y:t};h.push(l)}else if(!1===i)for(let e=o;e<=s;e++){let l={x:e,y:t};h.push(l)}else for(let t=r;t<=a;t++){let l={x:e,y:t};h.push(l)}return h}function onCellMouseDown(e,t,l){if(!solutionOn){switch(l.button){case 0:mouseState="on";break;case 1:mouseState="none";break;case 2:mouseState="off";break;default:return}return isDragging=!0,startX=e,startY=t,markCell(e,t,mouseState),l.preventDefault(),!1}}function onCellMouseEnter(e,t){if(isDragging){for(let e=0;e<h;e++)resetCellMark(startX,e);for(let e=0;e<w;e++)resetCellMark(e,startY);let l=getAffectedCellsRange(startX,startY,e,t);highlightHeadersOn(l);for(let e of l)markCell(e.x,e.y,mouseState)}else highlightHeadersOn(e,t)}function onCellMouseLeave(e,t){highlightHeadersOff(),isDragging&&resetCellMark(e,t)}function onCellMouseUp(e,t){if(!solutionOn){if(isDragging){let l=getAffectedCellsRange(startX,startY,e,t);for(let e of l)fstate.field[e.y][e.x]=CELL_STATES.indexOf(mouseState);highlightHeadersOff(),highlightHeadersOn(e,t)}isDragging=!1,checkVictory()}}function markCell(e,t,l){let n=cells[t][e];n.classList.remove(...CELL_STATES),n.classList.add(l)}function resetCellMark(e,t){markCell(e,t,CELL_STATES[fstate.field[t][e]])}function renderTable(){let e=document.getElementById("game");for(;e.firstChild;)e.removeChild(e.firstChild);cells=[],headers={h:[],v:[]};for(let e=0;e<w;e++){let e=document.createElement("th");headers.h.push(e)}for(let e=0;e<h;e++){let e=document.createElement("th");headers.v.push(e)}for(let e=0;e<h;e++){cells[e]=[];for(let t=0;t<w;t++){let l=document.createElement("td");l.dataset.x=t,l.dataset.y=e,l.onmousedown=onCellMouseDown.bind(null,t,e),l.onmouseenter=onCellMouseEnter.bind(null,t,e),l.onmouseleave=onCellMouseLeave.bind(null,t,e),l.onmouseup=onCellMouseUp.bind(null,t,e),l.oncontextmenu=(()=>!1),cells[e].push(l)}}let t=document.createElement("tr"),l=document.createElement("th");t.appendChild(l);for(let e=0;e<w;e++)t.appendChild(headers.h[e]);e.appendChild(t);for(let t=0;t<h;t++){let l=document.createElement("tr");l.appendChild(headers.v[t]);for(let e=0;e<w;e++)l.appendChild(cells[t][e]);e.appendChild(l)}}function setTableField(e){for(let t=0;t<h;t++)for(let l=0;l<w;l++){markCell(l,t,CELL_STATES[e[t][l]])}}function setTableHeaders(e){for(let t=0;t<h;t++){let l=e.v[t].join(" ");headers.v[t].innerText=l}for(let t=0;t<w;t++){let l=e.h[t].join("\n");headers.h[t].innerText=l}}function reset(){h=15,w=15,reload()}function reload(){solutionOn=!1,solutionShown=!1,h=document.getElementById("set-h").value,w=document.getElementById("set-w").value,fstate=generateField(),renderTable(),redraw()}function redraw(){setTableHeaders(fstate.keys),setTableField(solutionOn?fstate.solution:fstate.field)}function showSolution(){solutionShown=!0,solutionOn=!solutionOn,redraw()}function checkVictory(){if(solutionOn)return!1;for(let e=0;e<h;e++)for(let t=0;t<w;t++)if(fstate.solution[e][t]!==fstate.field[e][t])return!1;alert("You win!")}document.getElementById("new-game").onclick=reload,document.getElementById("solution").onclick=showSolution,reset();
+  </script>
+</body>
+</html>
+</div>
+<!---- Nonogram end--------->
+<br>
+<br>
+
+
+<!----- beginning---->
 <div class="pre-spoiler">
 <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Game'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Game';}" value="Game">
 <div class="spoiler" style="display: none;">
 ---
 </div>
+<!----  end--------->
 <br>
 <br>
 
 
+<!----- beginning---->
 <div class="pre-spoiler">
 <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Game'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Game';}" value="Game">
 <div class="spoiler" style="display: none;">
 ---
 </div>
+<!----  end--------->
 <br>
 <br>
 
