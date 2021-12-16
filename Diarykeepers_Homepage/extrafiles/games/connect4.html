@@ -1,0 +1,159 @@
+
+  <meta charset="UTF-8">
+<style>
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+</style>
+<style>
+*{border:0;padding:0}#game-board{background:#0074b3;width:730px;cursor:pointer}.column{width:100px;display:inline-block}.column:hover circle.free{fill:#d5e4ed}circle.free{fill:#fff}circle.red{fill:#d50000}circle.yellow{fill:#dad400}
+</style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="game-board">
+	<div class="column" id="column-0" data-x="0">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+	<div class="column"  id="column-1" data-x="1">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+	<div class="column" id="column-2" data-x="2">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+	<div class="column" id="column-3" data-x="3">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+	<div class="column" id="column-4" data-x="4">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+	<div class="column" id="column-5" data-x="5">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+	<div class="column" id="column-6" data-x="6">
+		<svg height="100" width="100" class="row-5">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-4">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-3">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-2">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-1">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+		<svg height="100" width="100" class="row-0">
+		  <circle cx="50" cy="50" r="40" stroke="#0B4E72" stroke-width="3" class="free" />
+		</svg> 
+	</div>
+</div>
+<!-- partial -->
+  <script>
+  !function(){gameBoard={},currentPlayer="red",numRows=6,numCols=7,numTurns=0,_init=function(){var e;e=document.querySelectorAll(".column"),Array.prototype.forEach.call(e,function(e){e.addEventListener("click",function(){r(e.getAttribute("data-x"))})});for(var a=0;a<=numRows;a++){gameBoard[a]={};for(var o=0;o<=numCols;o++)gameBoard[a][o]="free"}};var r=function(r){var o;o=!1;for(var n=0;n<numRows;n++)if("free"===gameBoard[r][n]){o=n;break}return!1===o?(alert("No free spaces in this column. Try another."),!1):(gameBoard[r][o]=currentPlayer,document.querySelector("#column-"+r+" .row-"+o+" circle").setAttribute("class",currentPlayer),a(parseInt(r),o)?(alert(currentPlayer+" wins!"),e(),!0):(numTurns+=1,numTurns>=numRows*numCols?(alert("It's a tie!"),e(),!0):void(currentPlayer="red"===currentPlayer?"yellow":"red")))},e=function(){Array.prototype.forEach.call(document.querySelectorAll("circle"),function(r){r.setAttribute("class","free")}),gameBoard={};for(var r=0;r<=numRows;r++){gameBoard[r]={};for(var e=0;e<=numCols;e++)gameBoard[r][e]="free";console.log(gameBoard)}return numTurns=0,gameBoard},a=function(r,e){return o(r,e,"vertical")||o(r,e,"diagonal")||o(r,e,"horizontal")},o=function(r,e,a){var o;return o=1,{horizontal:[[0,-1],[0,1]],vertical:[[-1,0],[1,0]],diagonal:[[-1,-1],[1,1],[-1,1],[1,-1]]}[a].forEach(function(a){for(var n,t,u=1;n=r+a[0]*u,t=e+a[1]*u,gameBoard.hasOwnProperty(n)&&void 0!==gameBoard[n][t]&&gameBoard[r+a[0]*u][e+a[1]*u]===currentPlayer;)o+=1,u+=1}),o>=4};_init()}();
+  </script>
+</body>
+</html>
