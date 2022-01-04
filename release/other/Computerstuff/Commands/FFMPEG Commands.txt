@@ -17,6 +17,29 @@ ________________________________________________________________________
 
 
 
+___________________________________________
+Color Correct (/Brightness correct):
+------------------------------------
+ffmpeg -i INPUT.MOV -vf eq=brightness=0.06:saturation=2 -c:a copy OUTPUT.MOV  ffmpeg -i vid.mp4 -vf eq=brightness=0.06:saturation=2 -c:a copy out.mp4
+
+https://video.stackexchange.com/questions/20962/ffmpeg-color-correction-gamma-brightness-and-saturation
+
+
+
+----------------------------------
+Align gif to video space \ overlay:
+
+VideoWatermarkPro:
+1) Download and install the application from your web browser. Launch it afterward.
+2) Upload your video by clicking the “Add Video” tab.Then “Add Image” button to insert your GIF
+3) "Run" to finish rendering
+Single frame to mp4
+ffmpeg -loop 1 -i image.png -c:v libx264 -t 15 -pix_fmt yuv420p out.mp4
+https://beecut.com/add-animated-gif-to-video.html
+
+=> Result:
+https://www.artstation.com/artwork/X1JQmL
+
 __________________________________________________________
 Combine (concat) mp4 with sim encoding):
 ---------------------------------------
