@@ -1,0 +1,617 @@
+
+[📱Android Keyevents] Shell / Terminal / cmdz /adb intent  ( https://nimbusweb.me/s/share/3027690/v4kh4aneqtckm3f2hz3e )
+[ 📱 App Info / Android_Mods -etc-] android app specific keyev Shell intent cmdz appspec   https://nimbusweb.me/s/share/3027689/fty0t5uemd2hn4cm2l6v
+
+ 
+App-Info-Android-Mods-NL (r)
+•swipe-actions  • Force-Unlock •intent-z
+•intent-viashell *reco-veryshell *adb-related
+https://developer.android.com/studio/command-line/shell.html
+ 
+ 
+31.10.20 Disable program / update nag
+pm uninstall -k --user 0 com.oppo.ota
+pm uninstall -k --user 0 com.oppo.otaui
+forum.xda-developers.com/realme-5-pro/help/disable-update-android10-t4079411
+pm uninstall -k --user 0 com.my.demo.app
+forum.xda-developers.com/android/general/uninstall-apps-via-adb-t3738105
+[List installed packages]
+pm list packages -f
+gist.github.com/davidnunez/1404789
+You can reinstall it with the following ADB command: adb shell cmd package install-existing com.huawei.systemmanager
+ 
+IME Call: (Keyboard Picker)
+*com.android.settings/.Settings$KeyboardLayoutPicker
+*ime set com.thihaayekyaw.frozenkeyboard/com.example.android.softkeyboard.SoftKeyboard
+https://android.stackexchange.com/questions/47948/how-to-change-input-method-with-ime-command
+https://stackoverflow.com/questions/11036435/switch-keyboard-profile-programmatically
+https://support.honeywellaidc.com/s/article/How-to-use-enabled-input-methods-and-default-input-method
+https://stackoverrun.com/de/q/4537539
+https://tellnext.net/docs/mobile-hardware/android-general-features/adb-quick-reference-guide/
+ 
+ 
+https://sodocumentation.net/android/topic/9408/adb-shell
+ 
+Dump Android battery stats:
+---------------------------------
+dumpsys batterystats --enable full-wake-history > /storage/emulated/0/Download/accudump.txt
+(Source: developer.android.com/topic/performance/power/battery-historian)
+ 
+ 
+ 
+Force "wifi connection to non-internet access-points"
+--------------------------------------------------------
+settings put global captive_portal_detection_enabled 0
+(Source: stackoverflow.com/questions/37218510/android-6-0-1-force-wifi-connection-with-no-internet-access)
+ 
+ 
+chg uuid of sd card xxxx-xxxx
+
+**Windows
+
+volumeid 72DB-3A49 "I:"
+
+-docs.microsoft.com/en-us/sysinternals/downloads/volumeid
+
+-https://www.techwalla.com/articles/how-to-change-an-sd-card-id
+
+**UBUNTU
+
+http://mclements.net/blogWP/index.php/2016/11/29/vfat-uuid-sd-cards-android-mount/
+
+https://android.stackexchange.com/questions/189104/sd-card-gets-different-name-at-every-format
+
+Get sda/ id Try lsblk. This is the output from my current setup: https://superuser.com/questions/352598/how-to-find-the-dev-name-of-my-usb-device
+
+ 
+ 
+ 
+Grant permission:
+----------------------------
+pm grant com.oasisfeng.greenify android.permission.WRITE_SECURE_SETTINGS
+greenify.uservoice.com/knowledgebase/articles/749142-how-to-grant-permissions-required-by-some-features
+ 
+Del all files xcept .xxx
+find . -type f ! -iname "*.mp3" -delete
+computerhope.com/issues/ch001760.htm
+ 
+ 
+Mount extsd manually
+su mount -o bind /mnt/emmc /sdcard/external_sd
+android.stackexchange.com/questions/29828/how-can-i-mount-or-unmount-the-sd-card-using-adb
+ 
+ 
+Record touchevent
+----------------------------------
+getevent | grep --line-buffered ^/ | tee /tmp/android-touch-events.log
+awk '{printf "%s %d %d %d\n", substr($1, 1, length($1) -1), strtonum("0x"$2), strtonum("0x"$3), strtonum("0x"$4)}' /tmp/android-touch-events.log | xargs -l adb shell sendevent
+https://stackoverflow.com/questions/4386449/send-touch-events-to-a-device-via-adb
+github.com/tzutalin/adb-event-record code.lardcave.net/entries/2009/08/01/160953 play.google.com/store/apps/details?id=com.autoit.nonroot github.com/dtmilano/AndroidViewClient/wiki/Culebra-GUI github.com/Cartucho/android-touch-record-replay gist.github.com/Ademking/e9141c8336de77c3ea1c390dc666bfaa
+ 
+ 
+ 
+Enable Accessibilty.Service (shell)(AndroidNougat)
+--------------------------------------------------------
+adb shell settings put secure enabled_accessibility_services packagname/servicename
+stackoverflow.com/questions/10061154/how-to-programmatically-enable-disable-accessibility-service-in-android
+ 
+ 
+shutdown device:
+--------------------------
+reboot -p
+(android.stackexchange.com/questions/47989/how-can-i-shutdown-my-android-phone-using-an-adb-command(
+ 
+ 
+Softreboot
+------------------
+
+killall zygote
+
+ 
+ 
+chg vol to 0 (media stream)
+--------------------------------------------
+service call audio 3 i32 3 i32 0 i32
+(src:stackoverflow.com/questions/27391326/how-to-change-the-volume-using-adb-shell-service-call-audio)
+ 
+ 
+rm folder (even if nonempty)
+-------------
+sudo rm -rf /storage/emulated/0/parhtofkdr
+ 
+Shortcut to file (with chosen app):
+----------------------------------------
+am start -n com.maxmpz.audioplayer/.PlayerUIActivity  -a android.intent.action.VIEW -d file:///mnt/media_rw/72DB-3A49/mobile/music/0Castlevania/Castlevania_-_Harmony_of_Despair/02-Hymnus.mp3 -t audio/mpg
+ 
+ 
+Shortcut to file:
+-------------------
+am start --user 0 -a android.intent.action.VIEW -d file:///mnt/media_rw/72DB-3A49/mobile/music/0Castlevania/Castlevania_-_Harmony_of_Despair/02-Hymnus.mp3 -t audio/mpg
+ 
+ 
+ 
+Developer options
+------
+adb shell am start -n com.android.settings/.DevelopmentSettings
+ 
+ 
+Reduce LowNotificationMessage Threshold:
+-------------------------------------------------------------
+settings put secure sys_storage_threshold_percentage 5
+settings put gservices sys_storage_threshold_percentage 5
+(android.stackexchange.com/questions/23911/how-can-i-get-rid-of-the-low-disk-space-notification)
+ 
+ 
+ 
+--open default webbrowser--
+adb shell input keyevent 64
+Enter an url submit: (66 -> KEYCODE_ENTER)
+adb shell input text "stackoverflow.com" && adb shell input keyevent 66 stackoverflow.com/questions/3512198/need-command-line-to-start-web-browser-using-adb
+ 
+ 
+~Change Behaviour of Radios upon AP enable~
+**check curr AP radios on/off** 
+  settings get global airplane_mode_radios
+••Airplane - keep BT & wifi on••
+settings put global airplane_mode_radios "cell,wimax,nfc"
+••Restore orig AP turned on settings••
+settings delete global airplane_mode_radios
+android.stackexchange.com/questions/59664/possible-to-turn-on-airplane-mode-with-wifi-on-only
+(google.de/amp/s/www.xda-developers.com/customize-radios-airplane-mode-android/amp
+rm the ones to keep on...)
+ 
+https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-in-bash-how-do-we-know-it?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+ 
+ 
+ 
+Common Android Settings toggles via shell:
+------------------------------------------------------------------------
+https://www.reddit.com/r/tasker/comments/4goz99/how_to_replace_some_secure_settings_actions_with
+ 
+ 
+ 
+Call script via "su":
+--------
+su -c ###
+ 
+find the name of the curron screen activity 
+-----------
+dumpsys window windows | grep 'mCurrentFocus' (stackoverflow.com/questions/13380590/is-it-possible-to-start-activity-through-adb-shell)
+ 
+ 
+Open URL in browser (root)
+--------
+am start -a android.intent.action.VIEW -d xing.de
+ 
+ 
+Widget activity from shell
+--------------------------------------------
+am start -n com.sec.android.widgetapp.ap.hero.accuweather/com.sec.android.widgetapp.ap.weather.detail.DetailActivity
+(stackoverflow.com/questions/28684752/launch-android-widget-via-adb)
+ 
+ 
+Start Activity:
+---------------------
+sudo am start -n noh.jinil.app.anytime/.main.VisualizerFullActivity
+( https://android.stackexchange.com/questions/30098/how-to-run-a-specific-apps-action-via-terminal)
+ |
+am start -n yourpackagename/.activityname  
+ 
+ 
+Find activity names
+--------------------------------
+aapt dump xmltree AndroidManifest.xml stackoverflow.com/questions/13380590/is-it-possible-to-start-activity-through-adb-shell
+ 
+ 
+ 
+Forward file to app
+---------------------------------
+run-as com.example.app cat /sdcard/temp_prefs.xml stackoverflow.com/questions/22703254/copying-files-in-adb-shell-with-run-as
+ 
+ 
+.
+Hide SB /Navbar
+--------------------------
+HIDE STATUS BAR:
+adb shell settings put global policy_control immersive.status=*
+HIDE NAVIGATION BAR:
+adb shell settings put global policy_control immersive.navigation=*
+HIDE BOTH BARS
+adb shell settings put global policy_control immersive.full=*
+RESET TO NORMAL:
+adb shell settings put global policy_control null*
+forums.crackberry.com/blackberry-priv-f440/guide-hide-navigation-status-bar-adb-1096587
+ 
+ 
+Kill App:
+--------------
+sudo am force-stop com.maxmpz.audioplayer
+ 
+ 
+Call LiveWP:
+--------------------
+service call wallpaper 2 i32 1 s16 "[package name]" s16 "[class name]"
+==>>
+#kill#service call wallpaper 5
+|
+service call wallpaper 2 i32 1 s16 "com.goseet.videowallpaper" s16 "com.goseet.videowallpaper.VideoWallpaper"
+https://forum.xda-developers.com/showthread.php?t=2607884
+https://www.reddit.com/r/tasker/comments/2qvugc/tasker_code_kodiyatse_status_and_set_live/
+to find out the service name I used an app Disable Services Apply the wallpaper you want and in the app it highlights the current active service and displays the package name also (don't disable anything tho!).
+reddit.com/r/tasker/comments/2ddida/request_select_a_live_wallpaper_during_music
+[OR] Use Servicely to figure out the class n package name
+ 
+ 
+ 
+ 
+Airplane on/off
+--------------------------
+To enable the Airplane mode use the following commands:
+adb shell settings put global airplane_mode_on 1
+adb shell am broadcast -a android.intent.action.AIRPLANE_MODE
+|
+To disable the Airplane mode,
+adb shell settings put global airplane_mode_on 0
+adb shell am broadcast -a android.intent.action.AIRPLANE_MODE
+ 
+ 
+Hide/Unhide apps: (> disable ¿)
+----------------------------
+adb shell pm list packages -e (the e will show only ones that are enabled) pm hide "package.name" exit reddit.com/r/Android/comments/3eav7t/get_rid_of_unwanted_system_apps_adb_shell_pm_hide
+ 
+ 
+See app free space:
+---------------------------------
+sudo df /data/data
+ 
+ 
+Clear App ! DATA !
+--------------------------
+sudo pm clear PACKAGE http://android.stackexchange.com/questions/132130/how-do-i-clear-app-cache-data-on-android-without-accessing-settings
+ 
+ 
+ 
+Start/Stop Service:
+---------------------------------
+sudo am startservice jp.tkgktyk.xposed.forcetouchdetector/.app.FloatingActionService
+(stackoverflow.com/questions/7415997/how-to-start-and-stop-android-service-from-a-adb-shell)
+ 
+ 
+Unfreeze app & launch it:
+-------------------------------------------
+sudo pm enable com.zentertain.photoeditor
+sudo monkey -p com.zentertain.photoeditor -c android.intent.category.LAUNCHER 1
+ 
+ 
+Create Symlink:
+-------------------------
+cd /source-path/
+for i in *; do ln -s /source-path/"$i" /target-path/;done
+(android.stackexchange.com/questions/32999/how-to-create-a-soft-link-between-root-partition-and-ext3-partitionon-sd)
+ 
+ 
+ 
+Take Screenshot ~Screenshots:
+---------------------------------------------------
+sudo screencap -p "/storage/emulated/0/Pictures/Screenshots/Screenshot_$(date +"%m-%d-%Y-%H-%M-%S").png"
+ 
+ 
+Rescan Screenshots:
+--------------------------------
+sudo pm enable com.android.providers.media/com.android.providers.media.MediaScannerReceiver
+sudo am broadcast -a android.intent.action.MEDIA_MOUNTED -d /storage/emulated/0/Pictures/Screenshots
+ 
+ 
+ 
+ 
+Create pkg Applist in ~Download:
+-------------------------------------------------
+pm list packages -f | sed -e 's/.*=//' | sort > /storage/emulated/0/Download/applist.txt
+
+ 
+
+ 
+Clear AppCache:
+-------------------------
+su -c "rm -rf /data/data//cache/*"
+(stackoverflow.com/questions/18589471/android-how-to-clear-app-cache-and-keep-user-data-via-adb)
+
+ 
+
+ 
+En/Disable Mobile Data:
+---------------------------------------
+svc data enable
+svc data disable
+
+ 
+
+ 
+Enable bluetooth manually:
+-------------------------------------------
+sudo am start -a android.bluetooth.adapter.action.REQUEST_ENABLE
+sudo input tap 982 1400
+sudo input tap 1058 1060
+exit
+sudo input keyevent 20
+sudo input keyevent 21
+sudo input keyevent 23
+
+ 
+
+ 
+En/Disable Bluetooth
+----------------------------------
+service call bluetooth_manager 6 (OndaV919)
+service call bluetooth_manager 8 (OndaV919)
+   service call bluetooth_manager 3 (LGG3)
+   service call bluetooth_manager 4 (LGG3
+
+ 
+
+ 
+En/Disable Wifi
+-------------------
+svc wifi enable
+svc wifi disable
+ 
+ 
+En/Disable GPS:
+--------------------
+adb shell settings put secure location_providers_allowed ' '
+android.stackexchange.com/questions/40147/is-it-possible-to-enable-location-services-via-shell
+ 
+ 
+Change brightness
+--------------------------------------------------------------
+settings put system screen_brightness 550
+https://stackoverflow.com/questions/17026171/how-to-set-brightness-through-adb-on-nexus-7
+Ex: Change brightness (77=0% 255=100%)
+echo 96 >/sys/class/leds/lcd-backlight/brightness
+echo 96 >/sys/class/backlight/lm3697/brightness
+ 
+ 
+Save/Restore wifi settings:
+--------------------------------------------
+adb pull /data/misc/wifi/wpa_supplicant.conf
+stackoverflow.com/questions/8708886/connecting-to-wi-fi-using-adb-shell
+ 
+ 
+##LAUNCH APP
+monkey -p com.package.name -c android.intent.category.LAUNCHER 1
+ 
+ 
+##TurnAutomRotationOFF
+content insert --uri content://settings/system --bind name:s:accelerometer_rotation --bind value:i:0
+
+ 
+##Rotate Screen by 180° (AFTER Screenoff!)
+content insert --uri content://settings/system --bind name:s:user_rotation --bind value:i:2
+
+ 
+
+ 
+Tap X,Y position
+------------------------
+adb shell input tap 500 1450
+To find the exact X,Y position you want to Tap go to:
+Settings > Developer Options > Check the option POINTERSLOCATION
+ 
+
+ 
+Swipe X1 Y1 X2 Y2 [duration(ms)]:
+-------------------------------------------------------
+adb shell input swipe 100 500 100 1450 100
+ (in this example X1=100, Y1=500, X2=100, Y2=1450, Duration = 100ms)
+ 
+ 
+LongPress X Y:
+------------------------
+adb shell input swipe 100 500 100 500 250
+ 
+ 
+ 
+ 
+ 
+ 
+Input Text / Keyevent
+What is the basic difference between adb shell input keyevent and adb shell sendevent? Which one should I use for inputting a character? Are the keycodes the same that we pass to both the commands?
+|
+By adb shell input keyevent, either an event_code or a string will be sent to the device.
+|
+usage: input [text|keyevent] XX
+http://thecodeartist.blogspot.nl/2011/03/simulating-keyevents-on-android-device.html
+Some possible values for event_code are:
+0 --> "KEYCODE_UNKNOWN" 
+1 --> "KEYCODE_MENU" 
+2 --> "KEYCODE_SOFT_RIGHT" 
+3 --> "KEYCODE_HOME" 
+4 --> "KEYCODE_BACK" 
+5 --> "KEYCODE_CALL" 
+6 --> "KEYCODE_ENDCALL" 
+7 --> "KEYCODE_0" 
+8 --> "KEYCODE_1"
+9 --> "KEYCODE_2" 
+10 --> "KEYCODE_3"
+11 --> "KEYCODE_4" 
+12 --> "KEYCODE_5" 
+13 --> "KEYCODE_6" 
+14 --> "KEYCODE_7" 
+15 --> "KEYCODE_8" 
+16 --> "KEYCODE_9"
+17 --> "KEYCODE_STAR" 
+18 --> "KEYCODE_POUND" 
+19 --> "KEYCODE_DPAD_UP" 
+20 --> "KEYCODE_DPAD_DOWN" 
+21 --> "KEYCODE_DPAD_LEFT" 
+22 --> "KEYCODE_DPAD_RIGHT" 
+23 --> "KEYCODE_DPAD_CENTER" 
+24 --> "KEYCODE_VOLUME_UP" 
+25 --> "KEYCODE_VOLUME_DOWN" 
+26 --> "KEYCODE_POWER" 
+27 --> "KEYCODE_CAMERA" 
+28 --> "KEYCODE_CLEAR" 
+29 --> "KEYCODE_A" 
+30 --> "KEYCODE_B" 
+...
+54 --> "KEYCODE_Z" 
+55 --> "KEYCODE_COMMA" 
+56 --> "KEYCODE_PERIOD" 
+57 --> "KEYCODE_ALT_LEFT" 
+58 --> "KEYCODE_ALT_RIGHT" 
+59 --> "KEYCODE_SHIFT_LEFT" 
+60 --> "KEYCODE_SHIFT_RIGHT" 
+82 -->  "KEYCODE_MENU"
+83 -->  "KEYCODE_NOTIFICATION" 
+84 -->  "KEYCODE_SEARCH" 
+85 -->  "KEYCODE_MEDIA_PLAY_PAUSE"
+86 -->  "KEYCODE_MEDIA_STOP"
+87 -->  "KEYCODE_MEDIA_NEXT"
+88 -->  "KEYCODE_MEDIA_PREVIOUS"
+89 -->  "KEYCODE_MEDIA_REWIND"
+90 -->  "KEYCODE_MEDIA_FAST_FORWARD"
+91 -->  "KEYCODE_MUTE"
+92 -->  "KEYCODE_PAGE_UP"
+93 -->  "KEYCODE_PAGE_DOWN"
+stackoverflow.com/questions/7789826/adb-shell-input-events/28969112#28969112
+developer.android.com/reference/android/view/KeyEvent.html
+
+
+ 
+ 
+(Sendevent/Getevent [Devicespecific])
+(android.stackexchange.com/questions/26261/documentation-for-adb-shell-getevent-sendevent http://ktnr74.blogspot.nl/2013/06/emulating-touchscreen-interaction-with.html
+)
+ 
+••••••••swipeactions•••••••
+ 
+Hold Point XY (long touch)
+input swipe 660 600 660 600 1500
+ 
+ 
+adb shell input touchscreen swipe x1,y1, x2,y2 stackoverflow.com/questions/25500567/is-it-possible-to-produce-continuous-swipe-action-on-the-touchscreen-with-adb
+ 
+Pull down notifbar/statusbar:
+sudo input swipe 0 0 0 800
+ 
+Unlock lgg3 swipe2unlock
+sudo input swipe 1200 1200 1200 1800
+ 
+Swipe up (Scroll Down)
+sudo input touchscreen swipe 600 1200 600 600 50
+ 
+Swipe up (CPanel):
+sudo input touchscreen swipe 700 2555 700 2200 25
+ 
+Swipe down (Scroll UP):
+sudo input touchscreen swipe 600 2000 600 600 100
+ 
+ 
+ 
+>>>>>>ForceUnlockDevice<<<<<<
+>>WILL WIPE THE CODE!<<<<<<>
+maxoberberger.net/blog/2013/08/unlock-android-device-using-adb
+ 
+http://trendblog.net/how-to-bypass-android-phone-lock-screen-pattern-pin-password/
+ 
+ 
+=================
+=====intentz=======
+ 
+APOff.sh
+    Intent { act=nextapp.fx.intent.action.EXECUTE_SCRIPT dat=file:///storage/external_SD/Z_Scripts/APOff.sh typ=application/x-sh (has extras) }
+Turn on WIFI
+ 
+======================
+=====intentviashell======
+http://tomazwang.logdown.com/posts/1743911/android-mock-braodcast-intent-with-adb
+adb shell am broadcast  specifications include these flags and arguments:    [-a  ] [-d  ] [-t  ]    [-c   [-c  ] ...]    [-e|--es     ...]    [--esn   ...]    [--ez     ...]    [--ei     ...]    [--el     ...]    [--ef     ...]    [--eu     ...]    [--ecn    ]    [--eia    [,   [,   [,   [, ] [-p  ] [-f  ]
+---------------------------------------
+ 
+WORKING EXAMPLE (01.09.20) (src - used krow.dev.scheme to fetch intent[experiment w. tasker values, then copy from dir])
+am broadcast 'intent:#Intent;action=com.maxmpz.audioplayer.API_COMMAND;package=com.maxmpz.audioplayer;i.cmd=1;end'
+https://stackoverflow.com/questions/49542964/reform-tasker-intent-to-shell/63678798#63678798
+https://forum.powerampapp.com/topic/19800-call-poweramp-intent-from-shell/
+ 
+ 
+https://cheatography.com/citguy/cheat-sheets/android-activity-manager-am/
+ 
+ 
+Intent to file w. app:
+----------------------------------
+am start -n com.maxmpz.audioplayer/.PlayerUIActivity  -a android.intent.action.VIEW -d file:///mnt/media_rw/72DB-3A49/mobile/music/0Castlevania/Castlevania_-_Harmony_of_Despair/02-Hymnus.mp3 -t audio/mpg
+ 
+ 
+Start activity:
+sudo am start -n com.xxx/.xxxxxxx
+ 
+https://qiita.com/niusounds/items/e5d2209deb297942b566
+http://www.xgouchet.fr/android/index.php?article42/launch-intents-using-adb
+ 
+ 
+Send image via shell intent:
+----------------------------------------
+am start -a android.intent.action.SEND -t image/jpeg --eu android.intent.extra.STREAM file:///sdcard/DCIM/Camera/1391914473967.jpg
+( https://forum.xda-developers.com/showthread.php?t=2489449&page=15)
+ 
+ 
+be input in tasker:
+Action: android.intent.action.MAIN
+Cat: (leave none)
+Mime Type: (leave blank)
+Data: (leave blank)
+Extra: de.blinkt.openvpn.shortcutProfileUUID=sdfsadf-sdfa-dfdf-dsfdsaf-dfdsfdafsd (removed that "S." at the beginning, seems weird)
+Extra: de.blinkt.openvpn.shortcutProfileName=(whatever?***)
+Package: de.blinkt.openvpn
+Class: de.blinkt.openvpn.LaunchVPN
+Target: Activity (I think. Try the other two if it doesn't work)
+ |
+am start -a android.intent.action.MAIN --es de.blinkt.openvpn.shortcutProfileUUID=sdfsadf-sdfa-dfdf-dsfdsaf-dfdsfdafsd --es de.blinkt.openvpn.shortcutProfileName=(whatever?***) -n de.blinkt.openvpn/.LaunchVPN
+|
+am start -a #action -d #DATA --es #EXTRA1 --es #EXTRA2 -n #PACKAGE/CLASS
+https://groups.google.com/forum/m/#!topic/tasker/eLz3hgqQBhI
+ 
+ 
+ 
+#or start service:
+#action=cooltool_on
+#category=DEFAULT
+#target=Broadcast Receiver
+ 
+sudo am broadcast -a "android.intent.action.cooltool_on" -d "ds.cpuoverlay"
+ 
+ 
+http://www.xgouchet.fr/android/index.php?article42/launch-intents-using-adb
+https://developer.android.com/studio/command-line/adb#IntentSpec
+ 
+==================
+===recoveryshell=====
+ 
+Uninstall package from recovery
+
+1.) mount system from TWRP
+
+2.) In windows ADB Shell:
+adb uninstall xxx.packagename
+ 
+ 
+==========
+=== adbrelated==
+ 
+- install app/apk-
+pm install /storage/...../xxx.apk
+ 
+- uninstall app/apk-
+pm uninstall xxx.xxxxx.xx
+ 
+ 
+ 
+Start wirelss adb session:
+su
+setprop service.adb.tcp.port 5555
+stop adbd && start adbd
+(Source: droidwiki.org/wiki/Wireless_ADB)
+ 
+Want to create own notes and collaborate?
+Start your free account today:
+By clicking “Sign up”, you agree to our Terms and Conditions
