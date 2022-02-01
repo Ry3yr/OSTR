@@ -17,6 +17,19 @@ ________________________________________________________________________
 
 
 
+
+_______
+
+Images to video (unsorted\no file form):
+--------------------
+
+cat *.png | ffmpeg -f image2pipe -i - output.mp4
+
+OR
+ffmpeg -framerate 30 -pattern_type glob -i '*.png' \ -c:v libx264 -pix_fmt yuv420p out.mp4 
+
+(Source: https://stackoverflow.com/questions/24961127/how-to-create-a-video-from-images-with-ffmpeg )
+
 ___________________________________________
 Color Correct (/Brightness correct):
 ------------------------------------
