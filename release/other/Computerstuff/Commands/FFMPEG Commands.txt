@@ -17,6 +17,13 @@ ________________________________________________________________________
 
 
 
+-----
+Files to sequential numbering:
+----------------------
+x=1; for i in *png; do counter=$(printf %03d $x); mv "$i" "$counter".png; x=$(($x+1)); done 
+
+(Source: https://superuser.com/questions/624567/how-to-create-a-video-from-images-using-ffmpeg)
+
 
 _______
 
