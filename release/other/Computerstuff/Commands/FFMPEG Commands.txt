@@ -16,8 +16,15 @@ ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
 
+_______________________________________________________________
 
------
+FFMpeg fix video (unseekable stream)
+--------------------
+ ffmpeg -err_detect ignore_err -i *.mp4 -c copy video_fixed.mkv
+ (Source: https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash)
+
+_______________________________________________________________
+
 Files to sequential numbering:
 ----------------------
 x=1; for i in *png; do counter=$(printf %03d $x); mv "$i" "$counter".png; x=$(($x+1)); done 
