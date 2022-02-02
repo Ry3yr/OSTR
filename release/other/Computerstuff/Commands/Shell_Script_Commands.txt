@@ -1,0 +1,697 @@
+**Check Shell Script**: https://www.shellcheck.net
+
+https://textmechanic.com/text-tools/basic-text-tools/remove-lines-containing/
+
+https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-in-bash-how-do-we-know-it
+*ffm-peg
+
+
+
+
+-----
+Files to sequential numbering:
+----------------------
+x=1; for i in *png; do counter=$(printf %03d $x); mv "$i" "$counter".png; x=$(($x+1)); done 
+
+(Source: https://superuser.com/questions/624567/how-to-create-a-video-from-images-using-ffmpeg)
+
+_____________________
+
+Delete oldest file: 
+-------------------------
+
+rm "$(ls -t | tail -1)"
+
+OR:
+stat --printf='%Y %n\0' * | sort -z | sed -zn '1s/[^ ]\{1,\} //p' | xargs -0 rm
+
+(source:  https://unix.stackexchange.com/questions/242496/bash-script-to-remove-the-oldest-file-from-from-a-folder )
+
+___________________________________________________________________
+
+List xyz files
+----------
+find . -maxdepth 1 -iname '*.mp3' -print0
+
+
+(Source: https://askubuntu.com/questions/20507/concatenating-several-mp3-files-into-one-mp3)
+
+___________________________________________________________________
+list dir with unicode charas:
+--------------------------------------
+CHCP 65001
+dir > in.txt
+type in.txt
+
+(source:https://superuser.com/questions/157207/on-windows-7-dir-or-tree-cant-show-unicode-characters-even-starting-cmd-with)
+
+___________________________________________________________________
+
+If file exist:
+-----------------
+
+#!/bin/bash
+if [ -e x.txt ]
+then
+    echo "ok"
+else
+    echo "nok"
+fi
+
+(SOURCE: https://stackoverflow.com/questions/40082346/how-to-check-if-a-file-exists-in-a-shell-script/40082454)
+
+___________________________________________________________________
+
+Shutdown Android Phone:
+--------------------------------------
+reboot -p
+(Source: https://android.stackexchange.com/questions/47989/how-can-i-shutdown-my-android-phone-using-an-adb-command)
+
+__________________________________________________________________
+Delete last xxxx characters from string:
+---------------------------------------------------------
+
+
+string="variablehere"
+echo "$string" | sed 's/....$//'
+
+(SOURCE: https://www.linuxquestions.org/questions/linux-software-2/sed-remove-last-four-characters-from-string-396974/)
+
+__________________________________________________________________
+
+Read command output to variable:
+-------------------------------------------------
+
+X="$(COMMAND)"
+
+(SOURCE: https://stackoverflow.com/questions/4651437/how-to-set-a-variable-to-the-output-from-a-command-in-bash)
+
+__________________________________________________________________
+find newest file over x kb
+---------------------------------------------
+
+cd /storage/emulated/0/Pictures/mu_coverart
+FILE=$(find -size +6k -name mu_coverart\*.jpg | sort -n | tail -1)
+cp $FILE /storage/emulated/0/Pictures/mu_coverart/currplaying.jpg
+
+
+
+__________________________________________________________________
+del part of line in txt b4 string
+-------------
+sed -i 's/^.*abc/abc/' 
+
+(http://www.unix.com/unix-for-dummies-questions-and-answers/98893-how-delete-all-character-before-certain-word.html)
+
+_______________________________________________________________________________________________________________________________
+
+
+id folder:
+---------------
+
+cd /storage/external_SD
+pattern="LGG3"
+for _dir in *"${pattern}"*; do
+    [ -d "${_dir}" ] && dir="${_dir}" && break
+done
+echo "${dir}"
+(Source: http://stackoverflow.com/questions/16344365/use-bash-to-find-a-folder-name-that-contains-a-string)
+
+_______________________________________________________________________________________________________________________________
+
+
+FOR Command:               
+
+for x in *.png; do
+convert "$x" -alpha on -channel a -evaluate multiply 0.45 +channel "$x"
+done
+
+
+	
+good solution, if anyone wondering equivalent linux bash: for file in *.png ; do convert "${file}" -transparent '#ffcc66' "batch/${file}" ; done
+
+_______________________________________________________________________________________________________________________________
+cp		 = Copy File(s) or Folders		    (usage: cp source path destination path)
+
+####if copying doesn't work, add a -R after cp like so: "cp -R SOURCEPATH DESTINATIONPATH"
+
+#### SOURCEURL: http://mrfoo.de/archiv/348-cp-omitting-directory.html
+
+_______________________________________________________________________________________________________________________________
+
+mv		 = Move File(s) or Folders		    (usage: mv source path destination path)
+
+_______________________________________________________________________________________________________________________________
+
+rm		 = Delete File(s) or Folders		    (usage: rm FILE/FOLDER/PATHTOIT ) [you can add -r or -R to remove nonempty dirs]
+
+_______________________________________________________________________________________________________________________________
+
+mkdir		 = Make a Directory in a specific path	    (usage: mkdir path/newdir/
+----
+   
+                        only create if dir doesn't already exist:
+                        -----------------------------------------
+                          mkdir -p dir
+                         (Source: http://stackoverflow.com/questions/793858/how-to-mkdir-only-if-a-dir-does-not-already-exist)
+
+_______________________________________________________________________________________________________________________________
+
+mkfile		 = ???
+
+	 
+
+                        only create if file doesn't already exist:
+                        ------------------------------------------
+                        test -e /var/mobile/file.txt || touch /var/mobile/file.txt
+                        (SOURCE: http://www.unix.com/302199965-post3.html)
+_______________________________________________________________________________________________________________________________
+
+-----ZIP RELATED-------
+
+===ZIP===
+
+extract/unzip file:                                     unzip -o Symlink.zip
+-------------------
+
+extract/unzip file (iOS only?):                         /usr/bin/unzip -XKo "/Applications/RelinkiFile.app/Symlinks.zip" -d "/var/root/"
+
+                                     zip   =   Pack a folder(s) or file(s) into a zip file	(Usage: zip NAME.zip /PATH/OF/TO/BE/ZIPPED/FILEorFOLDER)
+
+==Bz2====
+
+pack bzip2                                                                                    bzip2 "file"         
+
+bunzip2                                                                                         bunzip "file"
+                                                                                                                              (SOURCE: http://www.linux-fuer-alle.de/doc_show.php?docid=76)
+
+_______________________________________________________________________________________________________________________________
+
+echo		 = Output text	(requires ""'s !!!!	    (usage: echo "text to output")
+
+_______________________________________________________________________________________________________________________________
+
+ls		 = list files in directory		    (just type ls to list files)
+
+_______________________________________________________________________________________________________________________________
+
+ls -l		 = list permissions of a file or Folder     (usage: ls -l FILE/FOLDER/PATH
+
+_______________________________________________________________________________________________________________________________
+
+touch		 = Zugriffs und Veränderungszeiten verändern(touch PATHTOFILE/FOLDER)
+
+#### Damit ändert man die Zugrifszeit/Veränderungszeit auf den jetzigen Zeitpunkt)
+
+_______________________________________________________________________________________________________________________________
+
+chmod 1 	 = Changes Folders/Files Permission	   (usage: chmod 777 File/Folder)
+
+###### you can replace the 777 with any other, 777 is just open for anything
+
+chmod 2 	 = Changes Folders/Files Permission	   (usage: chmod u=rwx,g=rwx,o=rwx File/Folder)
+
+###### you can replace the u=rwx,g=rwx,o=rwx with other values,e.g.u=rwx,g=rx,o=rx)
+
+###### u=rwx,g=rwx,o=rwx stands for 777 wich pretty much allows everything
+
+###### SOURCEURL: http://hostings.com/manual/sectione/using_chmod.htm
+
+chmod -R	 = chmod Rekursiv (ändert auch unterordner und dateien mit (usage: chmod -R 777 /mydir)
+
+_______________________________________________________________________________________________________________________________
+
+chown  = change ownership of file  (usage: chown mobile:mobile *deb)
+
+_______________________________________________________________________________________________________________________________
+
+-$(date +%F)	 = Add Date to Filename  ( usage: Filename-$(date +%F) )
+
+###### SOURCEURL: http://ubuntuforums.org/showpost.php?p=2232212&postcount=3
+
+###### more extensive date tipps: http://www.cyberciti.biz/tips/shell-scripting-creating-reportlog-file-names-with-date-in-filename.html
+
+######$(date +%F-%H-%M)infront of a filename (or standalone) outputs something like 2011-02-26-17-52
+
+_______________________________________________________________________________________________________________________________
+
+Globalignore	 = ignore one filetype/file when copying (usage:  export GLOBIGNORE='file1'	  for files
+
+								  export GLOBIGNORE =*.extension  for all files
+
+								     of a specific extensions)
+
+_______________________________________________________________________________________________________________________________
+
+exec  = execute app	(usage: exec /PATH/TO/APP/OR/SHELL/SCRIPT)
+
+_______________________________________________________________________________________________________________________________
+
+xargs = execute command [can be added after other command] (usage: find *.deb -mmin +10 | sudo xargs rm -r) <= sudo was added inbeforehand xargs in this example (this example deletes all *deb files found that are older than 10 minutes [the -r after the rm in this example HAS TO BE LOWERCASE !!! if it is Uppercase it WON'T WORK !!!]
+
+_______________________________________________________________________________________________________________________________
+
+find = find file/folder   [-maxdepth can be added to make the search quicker]	(usage: find -maxdepth 2 -name iCabMobile.app)
+     
+                               -iname instead of -name to do a in-casesensetive search (http://superuser.com/questions/277235/case-insensitive-search-from-find-command)
+                               
+                               use an asteriks after the name "find -maxdepth 2 -iname "iCabM*" to search for every file that starts with "iCab"
+                                           (SOURCE: http://www.computerhope.com/unix/ufind.htm)
+
+_______________________________________________________________________________________________________________________________
+
+>  = Add a string of text to a new file (usage: "TEXT/OR COMMAND" > "/PATH/text.txt")
+
+_______________________________________________________________________________________________________________________________
+
+>> = Add a string of text to an existing file (usage: "TEXT/OR COMMAND" >> "/PATH/text.txt")
+
+_______________________________________________________________________________________________________________________________
+
+|  = Can be used to add another command to the current one  (usage: cd /var/mobile |mkdir test)
+
+_______________________________________________________________________________________________________________________________
+
+plutil -convert = Convert plist to binary   (usage: plutil -convert xml1 NAME.plist)
+
+(SOURCE: http://www.unix.com/shell-programming-scripting/159305-parsing-plist-file.html)
+
+_______________________________________________________________________________________________________________________________
+
+  =======Sed========
+
+
+Simple Text replace:
+---------------------------
+
+sed -i 's/ugly/beautiful/g' /home/bruno/old-friends/sue.txt
+
+
+(SOURCE: http://www.brunolinux.com/02-The_Terminal/Find_and%20Replace_with_Sed.html)
+
+
+
+
+
+
+
+Example of Replacing TEXT:                                             "s#TEXT1/.*/TEXT2/TEXTTHATWILLREPLACEOTHERTEXT" /PATH/TO/FILE 
+--------------------------                                             = Replacing the text between two strings of text 
+                                                                       (usage: sed "s#file://localhost/.*/Documents/#$x#" Bookmarks.plist > out.plist) <= the "> out.plist" 
+                                                                       is needed so the file will be saved to "out.plist"
+                                                   (SOURCE: http://www.unix.com/shell-programming-scripting/159298-replacing-variable-text-between-fixed-strings.html
+                                                                        http://www.brunolinux.com/02-The_Terminal/Find_and%20Replace_with_Sed.html)
+
+
+
+
+Sed with / \ as paths:                                                 BETTER SED (_ as delimiter):
+-----------------------                                                 sed -i 's_TEXT1_TEXT2_g' /var/mobile/test.txt	  
+                                                                       (this uses _ as delimiter, therefore you can use any kind of "/" or "\"                                                                                                                       making it great for editing file paths (e.g. iFile Bookmarks)
+                                                                          (SOURCE: http://www.grymoire.com/Unix/Sed.html#uh-0)
+
+
+                                                                                   
+SED with extracting variables:                                          sed -i "s|$x|$y|g" /var/mobile/test.txt   (the variables in this case are $x  and $y
+------------------------------                                  (SOURCE: http://www.unix.com/302613647-post4.html  [example was modified to get rid of unneeded ""'s])
+
+
+
+Extract line with SED:                                           sed -n  '746p' /var/mobile/Library/iFile/Bookmarks.plist > /var/mobile/text.txt
+----------------------
+
+           
+         Extract line with SED while using variable as linenr:      sed -n  "$s" /var/mobile/Library/iFile/Bookmarks.plist > /var/mobile/text.txt
+         -----------------------------------------------------      (SOURCE: http://www.unix.com/shell-programming-scripting/232999-quick-question-expanding-
+                                                                                    variable.html#post302842035)
+
+
+Add line to beginning of each line:
+-----------------------------------                               $ sed 's/^/sudo apt-get -y -d install /' /var/mobile/packages.sh
+
+                                                                                  
+                                                                                    
+Add newline to end of file:                                             sed -i -e '$a\' file                                                  
+---------------------------                                        (SOURCE: http://unix.stackexchange.com/questions/31947/how-to-add-a-newline-to-the-end-of-a-file)
+
+
+Replace newlines with spaces sed:                                       sed -i ':a;N;$!ba;s/\n/\t/g' file_with_line_breaks
+------------------------------------                               (SOURCE: http://unix.stackexchange.com/questions/26788/using-sed-to-convert-newlines-into-spaces)
+
+Remove all whitespace/empty:
+-----------------------------------                                sed '/^$/d;s/[[:blank:]]//g' /var/mobile/Media/0backup/tmp/packages.txt > /var/mobile/Media/0backup/tmp/packages2.txt
+                                                                   sudo mv /var/mobile/Media/0backup/tmp/packages2.txt /var/mobile/Media/0backup/tmp/packages.txt
+                                                                   (SOURCE: http://stackoverflow.com/questions/9953448/how-to-remove-all-white-spaces-from-a-given-text-file)
+
+Remove everything except 123456789.,                                    sed -i 's/[^1234567890,.]//g' /var/mobile/pcip.txt
+------------------------------------             (Source: http://stackoverflow.com/questions/9730314/removing-everything-except-the-numbers-1-2-3-4-and-5-from-a-file)
+
+
+Remove all stated:                                                      sed -i 's/[1234567890,.]//g' /var/mobile/pcip.txt
+--------------------
+
+Remove all spaces in a file:                                            sed -i 's_ __g' /var/mobile/text.txt
+----------------------------
+
+Remove all tabs in file:
+------------------------                                               sed -i 's_	__g' /var/mobile/text.txt
+                      
+
+Remove first 5 Characters of file:                                      sed "s/^.\{,5\}//" /var/mobile/pcip.txt
+----------------------------------                                         (SOURCE: http://stackoverflow.com/questions/3795512/delete-the-first-5-chars-on-any-line-of-a-textfile-in-linux)
+
+
+_______________________________________________________________________________________________________________________________
+
+x=`awk '{ print $0}' /var/mobile/icab.txt`   Defining a variable FROM A FILE to be used later on (usage: 
+
+_______________________________________________________________________________________________________________________________
+
+x=`find *.deb.x`  calling a variable directly in SHELL and store it within the command line for later usage
+
+$x
+
+_______________________________________________________________________________________________________________________________
+
+#$x#	 = reading a previously defined variable)  (usage: sed "s#file://localhost/.*/Documents/#$x#" Bookmarks.plist > out.plist)
+
+_______________________________________________________________________________________________________________________________
+
+Deleting last line in a text file = http://www.unix.com/shell-programming-scripting/6449-delete-last-line-text-file.html
+---------------------------------
+_______________________________________________________________________________________________________________________________
+
+ignore Error Messages = 2> /dev/null  (Usage: add " 2> /dev/null" behind each line you want to ignore possible errors from)
+--------------------------             (SOURCE: http://www.unix.com/shell-programming-scripting/159327-ignoring-mv-commands-cannot-stat-error.html)
+
+_______________________________________________________________________________________________________________________________
+
+Append current time to file (to make it unique)=   (Usage: append=`date +%r | cut -d " " -f 1`	) [this for example will add the time after the files extionsion]
+-----------------------------------------------      (	   file.extension-$append		)
+                           (SOURCE: http://www.linuxquestions.org/questions/programming-9/shell-scripting-how-can-i-increment-a-file-by-number-572451/#post2838824)
+
+_______________________________________________________________________________________________________________________________
+
+incremental number=			         (Usage:cp img.jpg img_%d.jpg) [the "_%d" indicates that a incremental number will be placed there]
+--------------------         (SOURCE: http://www.linuxquestions.org/questions/programming-9/shell-scripting-how-can-i-increment-a-file-by-number-572451/#post2837559)
+_______________________________________________________________________________________________________________________________
+
+Rename multiple extensions=		   for i in * ; do		       
+--------------------------                   echo mv \"$i\" \"$i.mp3\" | sh   (the echo AND | sh make the command work !)
+                                              (Source: http://lab.artlung.com/unix-batch-file-rename/ 	
+                                                http://forum.ubuntuusers.de/topic/mv-in-script-error-cannot-stat/#post-2042416 )
+_______________________________________________________________________________________________________________________________
+
+Replace complete line in file =                        sed --in-place "53c$variable" conf.conf 
+------------------------------                     ["53" in this case is the line nr |and| "$variable" is the text that will replace the line in this example ]
+                                          (Source: http://forums.whirlpool.net.au/archive/536876	[also my thread: http://www.unix.com/302527110-post7.html])
+
+_______________________________________________________________________________________________________________________________
+
+wget  = Download file from specified URL     (Usage: wget http://URL/to/specific/file/)
+----
+_______________________________________________________________________________________________________________________________
+
+uiopen URL = opening an URL from Shell and passing it on to safari/other app   (Usage: uiopen http://google.com) [FOR IOS: you can also use other apps that support the open-in URL scheme, such as: wedict://WORDTOTRANSLATE, idownload://filepath/url]
+
+_______________________________________________________________________________________________________________________________
+
+uiopen safari:// = (Wanted errormessage popup, to indicate progress in script) (Usage: uiopen safari://TEXT_OUTPUT)
+
+_______________________________________________________________________________________________________________________________
+
+play = play sound file(to indicate progress in script file ?)  (Usage: play PATHTOSOUNDFILE)
+
+_________________________________________________________________________________________________________________________________________________________________
+
+Keep programs running = (will keep progrs running even if Terminal is closed) (Usage: COMMAND &) ["&" at the end will keep commands running, and they even survive a respring, sadly SBLaunched apps don't work with this, terminal only]
+
+_________________________________________________________________________________________________________________________________________________________________
+
+Keep programs running 2 = (works the same as the normal one, just better) (Usage: nohup COMMAND &)
+
+(Source: linux questions.org/ how do I get a script to run in background ? )
+
+_________________________________________________________________________________________________________________________________________________________________
+
+RENAME MULTIPLE FILE XTENSIONS FOR SURE (in this case .dylib to .disabled):
+
+cd
+
+cd /Library/MobileSubstrate/DynamicLibraries/
+
+for file in *.dylib ; do sudo mv $file `echo $file | sed 's/\(.*\.\)dylib/\1disabled/'` ; done
+
+(SOURCE1: http://go2linuxworld.blogspot.com/2010/05/sudo-cannot-get-working-directory.html)
+
+(SOURCE2: http://lab.artlung.com/unix-batch-file-rename/)
+
+_________________________________________________________________________________________________________________________________________________________________
+
+Create complete (nested) Directory Structures):
+
+mkdir -n /directory/path/to/be/created
+
+(SOURCE: http://www.amirwatad.com/blog/archives/2009/07/03/create-multiple-nested-directories-in-linux/)
+
+_________________________________________________________________________________________________________________________________________________________________
+
+
+
+**answer all questions that follow afterwards with yes (forexample overwrite confirmations):
+
+------------------------------------------------------------------------------------------------
+
+	 yes|sudo apt-get update		 OR EASY WAY:		       sudo apt-get update -y
+
+
+
+_________________________________________________________________________________________________________________________________________________________________
+
+
+
+**find and delete folders with specific name	  find . -type d -name "*[Qq]uick*" -exec rm -rf {} \;
+
+------------------------------------------
+
+(http://www.unix.com/shell-programming-scripting/204201-removing-folders-specific-name-part.html#post302718631)
+
+
+
+_________________________________________________________________________________________________________________________________________________________________
+
+
+
+**sed print file line to other file:
+
+----------------------------------
+
+	  sed -n '746p' /var/mobile/Library/iFile/Bookmarks.plist >> /var/mobile/cloudftponline.txt
+
+		  line	path-to-file-where-the-line-is-extracted     file the line will be pasted in
+
+		(Source: http://www.unix.com/unix-dummies-questions-answers/37822-how-print-35th-line-file.html [was modified by me])
+
+_________________________________________________________________________________________________________________________________________________________________
+
+
+
+**sed delete spaces inside file:
+
+-------------------------------
+
+sed -e 's/[\t ]//g;/^$/d' originalfile > outputfile
+
+
+
+_________________________________________________________________________________________________________________________________________________________________
+
+
+
+**grep find pattern in file, print result
+
+----------------------------------------
+
+grep -i -e 'pattern' text.txt > result.txt	  Search for a pattern inside a text file and print the whole line you found into another one
+
+						  (SOURCE: http://stackoverflow.com/questions/5385234/using-sed-awk-to-print-lines-with-matching-pattern-or-another-matching-pattern)
+
+						    ***NOTE: the -i was added to make grep search in a case-insensetive-manner (SOURCE: http://tech.groups.yahoo.com/group/vim/message/67182)
+
+_________________________________________________________________________________________________________________________________________________________________
+
+
+
+Delete 0 byte file:
+
+-------------------
+
+cd /target/directory/
+
+find -maxdepth 1 -type f -empty -print0|xargs rm     This command will delete any 0 byte file in the directory you "cd" into. (command was modified by me to work)
+
+						       (SOURCE: http://ayaz.wordpress.com/2008/02/05/bash-quickly-deleting-empty-files-in-a-directory/)
+
+_________________________________________________________________________________________________________________________________________________________________     
+
+
+
+Exit Shell/Abort if file is not present:
+
+-----------------------------------------
+
+
+
+if [ ! -f /var/mobile/z_bidresult.txt ] 	     This will check if the file "z_bidresult" inside the "/var/mobile/" directory is present
+
+then						      and if isn't, display a message "No Match found, exiting..." and close the shell immediately
+
+     sbalert -t "No Match found, exiting..."		(SOURCE: http://bash.cyberciti.biz/guide/Logical_Not_!)
+
+     exit
+
+fi
+
+_________________________________________________________________________________________________________________________________________________________________ 
+
+Repeat command for each line in txt File:
+-----------------------------------------
+
+
+while read x                                                   (SOURCE: http://www.unix.com/shell-programming-scripting/223455-repeat-command-new-variable-each-line-txt-file.html#post302805061)
+do
+ find /var/mobile -maxdepth 2 -name "$x" >> "$x".txt      < "find /var/mobile -maxdepth 2 -name "$x" >> "$x".txt" is in this case the command. It can be replaced with any command that contains a variable
+done < /var/mobile/names.txt                              < the "names.txt" is in this case the file containing the lines which will replace the x variable in each new run of the script
+
+_________________________________________________________________________________________________________________________________________________________________ 
+
+
+Merge multiple txt/sh's into one file:
+--------------------------------------
+
+cat *.sh > final.sh                                            (SOURCE: http://www.unix.com/shell-programming-scripting/223473-copy-content-multiple-shs-into-one.html#post302805177)
+
+_________________________________________________________________________________________________________________________________________________________________ 
+
+Ignore lines that start with #                                  while read LINE
+------------------------------                                  do
+                                                                        [ "${LINE:0:1}" = "#" ] && continue
+                                                                
+                                                                        ...
+                                                                done
+                                                                (SOURCE: http://www.unix.com/shell-programming-scripting/183123-ignore-lines-shell-script.html)
+
+_________________________________________________________________________________________________________________________________________________________________ 
+
+search string inside file:                                      grep -r "string" /path/text.txt
+--------------------------                                        (use > /var/mobile/output.txt after this command to filter the output (searched value)
+
+_________________________________________________________________________________________________________________________________________________________________
+
+Find the newest directory in the current one:
+ls -t -r | tail -n 1 > /var/mobile/latest.txt
+(Source: http://shamsmi.blogspot.de/2008/02/shell-script-to-find-last-created-file.html?m=1)
+_________________________________________________________________________________________________________________________________________________________________
+
+Find all folders/files with .app in their name (no depth specified)=
+find *.app > /var/mobile/latest2.txt
+_________________________________________________________________________________________________________________________________________________________________
+
+Copy the first line of a file to another one=
+sed -n '1,1p' /var/mobile/original.txt > /var/mobile/result.txt
+(SOURCE: http://www.unix.com/shell-programming-scripting/44798-copy-only-initial-10-lines-file-another.html)
+
+===================================================================================================================================================================
+============================================================AWK_Commands===========================================================================================
+===================================================================================================================================================================
+
+Reading content from a (preferably text) file to the shell:                $ awk '{ print $0}'	=   (usage: $ awk '{ print $0}' /path/to/file/ ) 
+-----------------------------------------------------------                  (SOURCE: http://www.cyberciti.biz/faq/read-a-file-line-by-line-using-awk/)
+
+_______________________________________________________________________________________________________________________________
+
+awk '{print $0,"TEXT"}' infile > outfile = Add text to each line of a file (usage: awk '{print $0,"add this text to each line"}' infile > outfile)
+
+(SOURCE: http://www.unix.com/shell-programming-scripting/51406-add-word-end-each-line-file.html)
+
+_______________________________________________________________________________________________________________________________
+
+Stop Script Till folder doesn't change size anymore:           
+-----------------------------
+
+  DIR='/var/mobile/Media/iTunes_Control/'
+
+                                                                 get_size(){ du -s "$1" 2>/dev/null | awk '$0=$1';sleep 60;}
+                                                                 
+                                                                 ls
+                                                                 
+                                                                 dir_size=$(get_size "$DIR")
+                                                                 
+                                                                 while [ "$(get_size "$DIR")" -ne "$dir_size" ]; do
+                                                                 
+                                                                 	echo 'Size has changed. Sleeping for 60 more seconds'
+                                                                 
+                                                                 	dir_size=$(get_size "$DIR")
+                                                                 done
+                                                                 
+                                                                 echo 'Size has not changed since the last 60 seconds.'
+
+_______________________________________________________________________________________________________________________________
+
+Delete all files from a folder except for .mp3 files:          
+---------------------
+
+  find . ! -wholename "*.mp3" ! -wholename "*.MP3" -delete
+
+_______________________________________________________________________________________________________________________________
+
+Copying files while ignoring other filetypes:
+--------------------------------------------- 
+
+Just put list of exclude patterns in a file eg /tmp/nosync.txt
+
+ Code:
+
+ ---------
+
+ *.mp3
+
+ *.mp4
+
+ *.sav
+
+ ---------
+
+ Now run
+
+ rsync -axv --exclude-from=/tmp/nosync.txt --dry-run /source/top/dir /d
+_______________________________________________________________________________________________________________________________
+
+
+~~~~~~~~~~~~~~~~~~~
+~~~~~~~ffmpeg~~~~~~~
+
+
+____________________________________________________________________________________________________________________
+Get song duration:
+---------------------------
+
+x="$(ffmpeg -i file.mp3 2>&1 | grep Duration | sed 's/Duration: \(.*\), start/\1/g')"
+string="$x"
+echo "$string" | sed 's/................................$//'
+
+
+
+____________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
