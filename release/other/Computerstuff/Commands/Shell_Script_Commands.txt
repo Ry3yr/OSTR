@@ -7,6 +7,15 @@ https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped
 
 
 
+__________________
+
+Delete every 2nd file in dir:
+-------------------------------------
+ ls | sed -n "p;N;" | xargs rm -r 
+
+(Source: https://www.unix.com/unix-for-dummies-questions-and-answers/193727-shell-input-remove-every-second-file-directory.html )
+_______________________________________________________________
+
 
 -----
 Files to sequential numbering:

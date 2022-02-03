@@ -17,12 +17,18 @@ ________________________________________________________________________
 
 
 _______________________________________________________________
-
 FFMpeg fix video (unseekable stream)
 --------------------
  ffmpeg -err_detect ignore_err -i *.mp4 -c copy video_fixed.mkv
  (Source: https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash)
 
+__________________
+
+Delete every 2nd file in dir:
+-------------------------------------
+ ls | sed -n "p;N;" | xargs rm -r 
+
+(Source: https://www.unix.com/unix-for-dummies-questions-and-answers/193727-shell-input-remove-every-second-file-directory.html )
 _______________________________________________________________
 
 Files to sequential numbering:
