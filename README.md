@@ -11,6 +11,6 @@ Info on methods:
 https://youtube.com/playlist?list=PLbwODi-d6K5Je60sDbAw92BpU1Qax3Lfs
 
 contact: rebrand.ly/mailcontact
-twitter: @ryedai1
+twitter: @Utsukushiotosuk / @ryedai1
 
 Backup: f.ls/OSTRBackup
