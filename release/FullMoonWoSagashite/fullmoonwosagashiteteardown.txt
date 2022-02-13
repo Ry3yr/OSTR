@@ -1,23 +1,30 @@
-ichnung.
-
-sktop\Full_Moon_Wo_Sagashite
-.
-..
-Collapse
-Ep18_(12-58)_CPR+.wmv
-Ep18_(18-23).wmv
-Ep25_(11-42)_PianoIntermission.wmv
-Ep25_(17-02)_Docs_Music_past.wmv
-Ep25_(5-16)_Madoka_missmatch_advert.wmv
-Ep26_(16-42).wmv
-Ep26_(4-39).wmv
-Ep28_(10-08).wmv
-Ep28_(14-34).wmv
-Ep29_(17-14).wmv
-Ep34-(11-19).wmv
-in.txt
-Intermission_(Ep27-_-10-44).wmv
-Madoka
-Musicbox
-
-ytes frei
+Auflistung der Ordnerpfade
+Volumeseriennummer : CACC-EF5A
+C:.
+|   Ep18_(12-58)_CPR+.mp3
+|   Ep18_(18-23).mp3
+|   Ep25_(11-42)_PianoIntermission.mp3
+|   Ep25_(17-02)_Docs_Music_past.mp3
+|   Ep25_(5-16)_Madoka_missmatch_advert.mp3
+|   Ep26_(16-42).mp3
+|   Ep26_(4-39).mp3
+|   Ep28_(10-08).mp3
+|   Ep28_(14-34).mp3
+|   Ep29_(17-14).mp3
+|   Ep34-(11-19).mp3
+|   Intermission_(Ep27-_-10-44).mp3
+|   
++---Collapse
+|       Ep17_(16-51).mp3
+|       Ep18_(7-19).mp3
+|       Ep33_(16-01).mp3
+|       
++---Madoka
+|       Ep27_(19-11).mp3
+|       Ep32_(16-00).mp3
+|       
+\---Musicbox
+        Ep26_(17-49).mp3
+        Ep27_(15-13).mp3
+        Ep30_().mp3
+        
