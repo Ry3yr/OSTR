@@ -67,9 +67,16 @@ document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].qu
 </body>
 • <a target="_blank" href="https://vgmdb.net/db/ratings.php?do=view&userid=24381">vgmdb ratings</a>
 <!----------------viewsource--->
-<a href="viewsourcedaymusic.html" target="viewlist">•</a>
-<div class="pre-spoiler">
-<input name=" " onclick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = ' '; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = ' ';}" value=" " type="button">
-<div class="spoiler" style="display: none;">
-<iframe src="https://ry3yr.github.io/OSTR/release/0mine/documents/art/empty.png" name="viewlist" width="80%" height="100%" frameborder="0"></iframe>
-</div>
+<button type ="button" onclick="viewSource()">List</button>
+<script>
+function viewSource(){;
+    var source = "<html>";
+    source += document.getElementsByTagName('html')[0].innerHTML;
+    source += "</html>";
+    source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    source = "<pre>"+source+"</pre>";
+    sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+    sourceWindow.document.write(source);
+    sourceWindow.document.close(); 
+    if(window.focus) sourceWindow.focus();
+}  </script>
