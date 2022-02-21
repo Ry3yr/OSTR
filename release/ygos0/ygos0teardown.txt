@@ -280,7 +280,9 @@
 |       
 +---Happy_04_-_Familiar_Tranquility
 |       vlc-record-2018-10-30-22h28m20s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
-|       
+|       vlc-record-2018-10-30-23h45m06s-[T-N]Yu-Gi-Oh_05[F7416948].mp4-.mp3
+|       vlc-record-2018-10-31-08h56m01s-[T-N]Yu-Gi-Oh_10[60332A7A].mp4-.mp3
+|       vlc-record-2018-10-31-12h04m32s-[T-N]Yu-Gi-Oh_15[B4F972C6].mp4-.mp3      
 +---Happy_05_-_JuYo_(Friendship)
 |       vlc-record-2018-10-30-22h41m32s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
 |       
