@@ -7,6 +7,11 @@ https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped
 
 
 
+_____________________
+List dir in bash
+----------------------
+ find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/" > list.txt
+
 __________________
 
 Delete every 2nd file in dir:
