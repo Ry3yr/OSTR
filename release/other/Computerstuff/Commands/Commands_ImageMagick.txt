@@ -1,12 +1,13 @@
 Ratio-Calc_(for_rolling): E:\Dropbox\Public\Texte + Bilder\Computer Tipps & Tricks\Excel\Ratio_Calc_KKV_GGT.ods
  - Remove element from picture(Erase):  https://online.theinpaint.com/
-- Remove bg: https://www.remove.bg/de
-- remove object: https://theinpaint.com/
   --image to 3d model: http://app.selva3d.com/transform
   *Resharpen Face Images: https://www.myheritage.de/photo-enhancer
 *Recolorize B&W Images: deepai.org/machine-learning-model/colorizer
 *online-image_tiler https://www.bgreco.net/tiler/index.php
 X to PDF (while keeping 24 bpp): https://smallpdf.com/de/result#r=eea2e15ea73d1036e7391ae1716513a2&t=extract
+Crop (animated) gif online: https://www.gifgit.com/gif/crop
+https://magickstudio.imagemagick.org/scripts/MagickStudio.cgi
+https://www.3dgifmaker.com/
 -----------------------------------------------
 *non-imagemagicktools *Image-magickinwork
 *Reusable *notes-forcommands *Dist-ortImage  *Monta-geImage 
@@ -23,13 +24,18 @@ ________________________________________________________________________________
 Convert all to png                mogrify -format png *.*
 ___________________________________________________________________________________________________________________________
 
+Add image watermark to bottom right corner
+------------------
+composite -gravity SouthEast /storage/emulated/0/DraStic/RyeDai1.png *.png *.png
+
+(Source: https://stackoverflow.com/questions/11239948/imagemagick-place-image-in-bottom-right-corner)
+___________________________________________________________________
+
 Clean up transparency cutout (background) resident: (antialias ing / alias)
 ---------------------------------------------------------------------------
 for %x in (*png) do convert %x -channel a -blur 0x1 -level 50x100% +channel %x
 (Source: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=34994&p=161050#p161050)
-
-______________________________________________________________________________________________________________________________
-
+_______________________________________________________________________________________________________________________________
 Convert bit per pixel (bpp)
 ------------------------------
 
@@ -277,7 +283,7 @@ ________________________________________________________________________________
 
 Resize all images in folder x%
 ------------------------------
-for %x in (*png) do convert %x -resize "50%"x"50%" %x
+for %x in (*png) do convert "%x" -resize "50%"x"50%" "%x"
 
 or
 
@@ -734,6 +740,17 @@ Paste image ontop others:
 --------------------------------------
 for %%x in (*png) do convert -composite -gravity center %%x pasteimg.png %%x 
 (SOURCE: https://stackoverflow.com/questions/31019244/how-to-overlay-an-image-on-top-of-another-image-using-imagick)
+
+_________________________________________________________________
+
+
+Paste image under others:
+--------------------------------------
+
+for %%n in (*.png) do convert -page +0+0  %app%   -page +0+0 %%n -flatten %%n
+
+
+(SOURCE:)
 
 
 ===========================================================
