@@ -15,23 +15,37 @@ ________________________________________________________________________________
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
+________________________________
+Add BG(video) to alredy existant video:
+---------------------------------------
 
+ffmpeg -i in.mp4 -i bg.mp4 -filter_complex blend=all_expr='if(eq(mod(X,2),mod(Y,2)),A,B)' -preset ultrafast out.mp4
+
+(Source: https://stackoverflow.com/questions/22344959/ffmpeg-how-to-create-a-effect-video-like-flower-fall)
+________________________________
+
+Batch convert m4a to mp3
+---------------------------------------
+
+for f in *.m4a; do ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a 2 "${f%.m4a}.mp3"; done 
+
+(Source:  https://superuser.com/questions/704493/ffmpeg-convert-m4a-to-mp3-without-significant-loss )
 _______________________________________________________________
 FFMpeg fix video (unseekable stream)
 --------------------
  ffmpeg -err_detect ignore_err -i *.mp4 -c copy video_fixed.mkv
- (Source: https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash)
 
+ (Source: https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash)
 __________________
 
-Delete every 2nd file in dir:
+Delete every 2nd file in dir: (unix) 
 -------------------------------------
  ls | sed -n "p;N;" | xargs rm -r 
 
 (Source: https://www.unix.com/unix-for-dummies-questions-and-answers/193727-shell-input-remove-every-second-file-directory.html )
 _______________________________________________________________
 
-Files to sequential numbering:
+Files to sequential numbering: (unix)
 ----------------------
 x=1; for i in *png; do counter=$(printf %03d $x); mv "$i" "$counter".png; x=$(($x+1)); done 
 
@@ -64,7 +78,7 @@ Align gif to video space \ overlay:
 
 VideoWatermarkPro:
 1) Download and install the application from your web browser. Launch it afterward.
-2) Upload your video by clicking the ìAdd Videoî tab.Then ìAdd Imageî button to insert your GIF
+2) Upload your video by clicking the ‚ÄúAdd Video‚Äù tab.Then ‚ÄúAdd Image‚Äù button to insert your GIF
 3) "Run" to finish rendering
 Single frame to mp4
 ffmpeg -loop 1 -i image.png -c:v libx264 -t 15 -pix_fmt yuv420p out.mp4
@@ -73,6 +87,12 @@ https://beecut.com/add-animated-gif-to-video.html
 => Result:
 https://www.artstation.com/artwork/X1JQmL
 
+---------------------------
+Convert ogg to mp3:
+-------------------
+for %x in (*.ogg) do ffmpeg -i "%x" -vn -ar 44100 -ac 2 -b:a 192k "%x".mp3
+
+(Source: https://stackoverflow.com/questions/3255674/convert-audio-files-to-mp3-using-ffmpeg)
 __________________________________________________________
 Combine (concat) mp4 with sim encoding):
 ---------------------------------------
@@ -331,7 +351,7 @@ Edit MP3 Tag via FFMPEG:
 
 ffmpeg -i file.mp3 -metadata album_artist="ALBUM ARTIST written by ffmpeg" file_ffmpeg.mp3
 
-(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-ver‰ndern)
+(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-ver√§ndern)
 ___________________________________________________________________________________________________________________________
 
 Combine jpg and mp3 to video (youtube upload)
