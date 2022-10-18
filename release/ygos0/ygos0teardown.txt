@@ -459,8 +459,11 @@
 |       vlc-record-2018-10-31-16h36m09s-[T-N]Yu-Gi-Oh_22[0FD93372].mp4-.mp3
 |       
 +---Tension_17_-_Hopless_Despair
-|       vlc-record-2018-10-30-23h42m04s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3
-|       
+|       vlc-record-2018-10-30-23h42m04s-[T-N]Yu-Gi-Oh_04[2D19C810].mp4-.mp3   
+|
++---Tension_18_-_(x)_EerieDissolution
+|       Episode 04 - 20:25   
+|
 +---TRANSFORMATION_to_Yami
 |       vlc-record-2018-10-30-22h36m41s-[T-N]Yu-Gi-Oh_01[C3AA047F].mp4-.mp3
 |       vlc-record-2018-10-30-23h01m07s-[T-N]Yu-Gi-Oh_02[5BE52005].mp4-.mp3
