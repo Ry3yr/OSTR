@@ -266,7 +266,43 @@ var divToggleVis=document.getElementById("spoiler_text"),button=document.getElem
 <br>
 <!------------Mastodon------------------->
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+<body>
+<!-- partial:index.partial.html -->
+<!-- partial -->
+<script>
+const userFeed = 'https://c.im/@aoikurayami.rss';
+const wrapper = document.body;
+const tootHTML = (description, date, url) => `
+	<article>
+		<div>${description}</div>
+		<small><a href="${url}">🔗</a> | <time>${date}</time></small>
+	</article>`;
+const formatToots = (domContent, container) => {
+	[...domContent.querySelectorAll('item')].map(item => {
+		const $toot = el => item.querySelector(el).textContent;
+		const description = $toot('description')
+		const url = $toot('guid')
+		const date = $toot('pubDate')		
+		container.innerHTML = container.innerHTML + tootHTML(description, date, url)
+	});
+};
+const parser = new DOMParser();
+fetch(userFeed)
+	.then(response => {
+		if (response.status >= 400) {
+			return `<p>No toots available at the moment</p>`
+		}
+		return response.text();
+	})
+	.then(response => formatToots(parser.parseFromString(response, "application/xml"), wrapper));
+</script>
+</body>
 
+
+	
+	
 <div id="myTimeline" class="mastodon-timeline mastodon-timeline-light"></div>
 
 
