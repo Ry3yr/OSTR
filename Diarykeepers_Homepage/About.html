@@ -18,12 +18,35 @@
 		"@type": "Organization",
 		"name": "diarykeeper",
 		"url": "/"
-}</script>
+}
+	  </script>
     <meta name="theme-color" content="#FFFFFF">
     <meta property="og:title" content="About">
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
     <link rel="canonical" href="/">
+	
+	 <link rel="stylesheet" href="mastodon.widget.css" />
+<script type="text/javascript" src="mastodon.widget.js"></script>
+<script>
+$(document).ready(function() {
+// jQUERY is required!
+  var mapi = new MastodonApi({
+    target_selector  : '#myTimeline'
+    ,instance_uri    : 'https://c.im'
+    ,access_token    : '88yxV_VlsojDZDipikkTCb2cphra-7mvHu_pSlZCyLw'
+    ,account_id      : '109302844576363228'
+    // optional parameters
+    // ===================
+    // - status max
+    //,toots_limit     : 5
+    // - if you are using font-awesome:
+    //,pic_icon        : '<i class="fa fa-picture-o"></i>'
+    // or a picture
+    //,pic_icon        : '<img src="mypicicon.gif" />'
+  });
+});
+</script>
   </head>
 
 <!--// Beginning of hamburger menu //-->
@@ -243,27 +266,7 @@ var divToggleVis=document.getElementById("spoiler_text"),button=document.getElem
 <br>
 <!------------Mastodon------------------->
 
-<link rel="stylesheet" href="mastodon.widget.css" />
-<script type="text/javascript" src="mastodon.widget.js"></script>
-<script>
-$(document).ready(function() {
-// jQUERY is required!
-  var mapi = new MastodonApi({
-    target_selector  : '#myTimeline'
-    ,instance_uri    : 'https://c.im'
-    ,access_token    : '-hOp9tF-l0ShARRsB-aanci4O1aZ35QYbAy7iIvWXJE'
-    ,account_id      : '109302844576363228'
-    // optional parameters
-    // ===================
-    // - status max
-    //,toots_limit     : 5
-    // - if you are using font-awesome:
-    //,pic_icon        : '<i class="fa fa-picture-o"></i>'
-    // or a picture
-    //,pic_icon        : '<img src="mypicicon.gif" />'
-  });
-});
-</script>
+
 <div id="myTimeline" class="mastodon-timeline mastodon-timeline-light"></div>
 
 
