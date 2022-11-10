@@ -255,8 +255,8 @@ const userFeed = 'https://c.im/@aoikurayami.rss';
 const wrapper = document.body;
 const tootHTML = (description, date, url) => `
 	<article>
-		<div>${description}</div>
 		<small><a href="${url}">🔗</a> | <time>${date}</time>____________</small>
+		<div>${description}</div>
 	</article>`;
 const formatToots = (domContent, container) => {
 	[...domContent.querySelectorAll('item')].map(item => {
