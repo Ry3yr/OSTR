@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
+    $("#output").load(baseUrl + "/navigation.html");
+});
+</script>
+    <div class="formClass">
+        <div id="output">
+        </div>
+<br><br>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Videoplayer</title>
+  <!---<link rel="stylesheet" href="./playerstyle.css">--->
+<!--https://drive.google.com/open?id=1QNOgpAGkeFr0hoTQaxBZgvyYcgUAw9gl-->
+<style>
+body {
+  background-image: url("https://drive.google.com/uc?export=download&id=1aS2MGeDsqkT0WNJaikJk8CGHTlwFxV7g");
+  background-color: #cccccc;
+  background-size: cover;
+  padding: 20px;
+}
+.container * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+.container *:after , .container *:before {
+	margin: 0;
+    padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+h2.title {
+    font-size: 24px;
+    color: #fff;
+    font-weight: bold;
+    font-family: tahoma;
+    text-align: center;
+    padding: 2em;
+    display: block;
+    margin: auto;
+    background-color: #A97A7A;
+}
+.container {
+    width: 960px;
+    background: #010101;
+    margin: auto;
+    position: relative;
+    height: 460px;
+}
+.vidcontainer {
+	width: 75%;
+    height: 100%;
+    float: right;
+    position: relative;
+    overflow: hidden;
+}
+video {
+    width: 100%;
+    height: 405px;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+}
+.videolist {
+    float: right;
+    width: 25%;
+    background-color: rgb(76, 76, 76);
+    height: 100%;
+    position: relative;
+}
+.vids {
+    margin: 5px;
+    background-color: #292626;
+    max-height: 450px;
+    min-height: 450px;
+    border: 1px solid #616060;
+    overflow-y: scroll;
+    list-style: none;
+    direction: rtl;
+}
+.vids::-webkit-scrollbar {
+    width: 5px;
+    background-color: #8A8A8A;
+    border: 1px solid #AFACAC;
+}
+.vids::-webkit-scrollbar-thumb {
+    background-color: #FF8D00;
+    border-radius: 5px;
+}
+.vids::-webkit-scrollbar-thumb:hover{
+background-color:#fff;
+}
+.vids::-webkit-scrollbar-thumb:active{
+background-color:#ccc;
+}
+.vids a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    border-bottom: 1px solid #616060;
+    padding: 8px 5px;
+    margin: 5px;
+}
+/*--- controllers ---*/
+.controllers {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    background-color: #fff;
+    width: 100%;
+}
+.controllers button {
+    border: 1px solid #E7E7E7;
+    background-color: #FFFFFF;
+    color: #777;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 5px;
+    box-shadow: 1px 1px 3px #4C4C4C;
+    outline: none;
+    font-size: 18px;
+    display: inline-block;
+    float: left;
+}
+
+.controllers button:focus {
+    box-shadow: 1px 0px 7px #4C4C4C;
+    border-color: #ff8d00;
+    color: #ff8d00;
+    background-color: #4C4C4C;
+}
+
+.btnPlay:after {
+    content: "\f04b";
+    font-family: 'FontAwesome';
+}
+.paused:after {
+    content: "\f04c";
+}
+
+.sound:after {
+content: "\f027";
+    font-family: 'FontAwesome';
+}
+.sound2:after {
+content: "\f028";
+}
+
+.muted:after {
+    content: "\f026";
+}
+.btnFS:after {
+     content: "\f065";
+    font-family: 'FontAwesome';
+}
+.ads {
+    height: 350px;
+    width: 350px;
+    position: absolute;
+    background-color: #777;
+    top: 27.5px;
+    right: 40px;
+    z-index: 11;
+}
+.bigplay {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 127.5px;
+    left: 85px;
+    z-index: 11;
+    color: #fff;
+    font-size: 150px;
+    line-height: 150px;
+    text-align: center;
+    cursor: pointer;
+    text-shadow: 0px 0px 15px #ff8d00;
+}
+.closeme {
+    height: 32px;
+    width: 32px;
+    background-color: #fff;
+    top: -10px;
+    right: -10px;
+    border: 1px solid #ff8d00;
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px!important;
+    color: #ff8d00;
+    font-size: 25px!important;
+}
+
+.playing {
+    background-color: #999;
+    border: 1px solid #ff8d00!important;
+    -webkit-transition: 0s;
+    -o-transition: 0s;
+    transition: 0s;
+ }
+.playing:after {
+    content: "\f01d";
+    font-family: 'FontAwesome';
+    color: #ff8d00;
+    float: left;
+}
+/* PROGRESS BAR CSS */
+
+.topControl {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 50px;
+    background-color: #fff;
+    z-index: 1;
+}
+/* Progress bar */
+.progress {
+    width: 100%;
+    height: 5px;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    background: #999;
+}
+.progress span {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.timeBar{
+    z-index:10;
+    width:0;
+    background: #ff8d00;
+}
+.bufferBar{
+    z-index:5;
+    width:0;
+    background: #eee;
+}
+/* time and duration */
+.time{
+    width:12%;
+    float:right;
+    text-align:center;
+    font-size:11px;
+    line-height:12px;
+    right: -12%;
+    opacity: 0;
+    position: absolute;
+}
+
+.topControl:hover .time {
+    right: 0;
+    opacity: 1;
+}
+.topControl:hover .progress {
+    width: 88%;
+    height: 12px;
+}
+/* VOLUME BAR CSS */
+/* volume bar */
+.volume {
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 10px;
+    float: left;
+    margin-top: 20px;
+    margin-right: 15px;
+    background-color: #999;
+}
+.volumeBar{
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ff8d00;
+    z-index: 10;
+}
+
+.loading {
+    width: 100%;
+    background-color: rgba(255,141,0,0.5);
+    height: 405px;
+    position: absolute;
+    top: 0;
+}
+i.fa.fa-spinner.fa-spin {
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
+    color: #fff;
+    text-shadow: 0px 0px 8px #000;
+    top: 172.5px;
+    left: 330px;
+    position: absolute;
+}
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #C2C2C2!important;
+}
+
+
+ul.speedcnt {
+    display: none;
+    position: absolute;
+    right: 30px;
+    bottom: 60px;
+    background-color: #fff;
+    border-radius: 5px;
+    list-style: none;
+    -webkit-transition: 0s;
+    -o-transition: 0s;
+    transition: 0s;
+}
+ul.speedcnt li {
+    text-align: center;
+    font-family: 'verdana', tahoma , serif;
+    font-size: 13px;
+    padding: 5px 20px;
+    cursor: pointer;
+    display: block;
+    border-bottom: 1px solid #ccc;
+}
+ul.speedcnt li:last-child {
+    border-bottom: none;
+}
+ul.speedcnt li.selected {
+    background-color: rgba(255, 141, 0, 0.6);
+}
+</style>
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--[if lt IE 9]>
+  <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<div class="container">
+<div class="vidcontainer">
+<video id="myvid" >
+  Your browser does not support the video tag.
+</video>
+        <div class="topControl">
+			<div class="progress">
+				<span class="bufferBar"></span>
+				<span class="timeBar"></span>
+			</div>
+			<div class="time">
+				<span class="current"></span> / 
+				<span class="duration"></span> 
+			</div>
+        </div>
+<div class="controllers">
+  	<button class="btnPlay" title="Play/Pause video"></button>
+  	<button class="prevvid disabled" title="Previous video"><i class="fa fa-step-forward fa-rotate-180"></i></button>
+    <button class="nextvid" title="Next video"><i class="fa fa-step-forward"></i></button>
+    <button class="sound sound2 btn" title="Mute/Unmute sound"></button>
+    <div class="volume" title="Set volume">
+			<span class="volumeBar"></span>
+	</div>
+    <button class="btnFS " style="float:right" title="full screen"></button>
+    <button class="btnspeed " style="float:right" title="Video speed"><i class="fa fa-gear"></i></button>
+    <ul class="speedcnt">
+    	<li class="spdx50">1.5</li>
+    	<li class="spdx25">1.25</li>
+    	<li class="spdx1 selected">Normal</li>
+    	<li class="spdx050">0.5</li>
+    </ul>
+	<!--<button class="btnLight lighton " style="float:right" title="on/off light"><i class="fa fa-lightbulb-o"></i></button>-->
+</div>
+
+<!--<div class="bigplay" title="play the video"><i class="fa fa-play-circle-o"></i></div>-->
+<div class="loading"><i class="fa fa-spinner fa-spin"></i></div>
+    </div>
+
+	<div class="videolist">
+		<nav class="vids">
+<a class="link" href="https://drive.google.com/uc?export=download&id=1sviBb99khI35h2SaXjSm5fMzJXMp21SO">vid</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1sviBb99khI35h2SaXjSm5fMzJXMp21SO">OP1_Piece_of_Love.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=12UICjnvyOyP1-UbS1RVCb9Jpt0GHZk5u">ANewAdventure.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=12LUkVOwnZQYlnpKVmhX3IMrvbcc6Qc7D">Action!.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1zIGPWsoaX5D5cMOWRnJT1wR2CdFiHIqe">Anxiety.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1l33I9uQih4cRadkh1BoPZ2B5OF6wTuzH">Ballade_Happy.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1rIcywUV7Jto-p5ZzpydafmgbRiZbhiwp">Calming_11.webm</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1EzdG5wNHfJwwfOXLVzcR8K072bEvZPDN">Calming_Theme_24x.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1dwdLpYiSgGTuJFuTc81-ogdn4zKD3ZPE">Checkmate_01.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1zGPEnpCYtkPTyyzOgVWR9Z4lIudg2U84">Chiakis_first_appearance.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Z_YeVn44WyFxOxjj4ZB-XBfzDBtrzIIh">Comical_Theme_02__Wind_up.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1fVcc5jn99WRqYUfAqDe7n48Xpk207e1m">Comical_Theme_05__Gumshoe_Inv.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1vrTrghMuQ2Mv4aLcnSmg5_aTxCDIVrwb">Comical_Theme_10.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Bl55OUF1zC9kg_hcNDR4CSbKY9RICGLQ">Compassion.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1TmFqR1GtrKt-ChBhbvyy9wYtDEqICOg7">Dark_presence.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1cy1eIwfHd1A48NQlQUx5YfzyUXvSGjVW">Deranged_EVIL.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1cR1WHFb_IRRvVy3VkCPyKCNEmhWGTtdc">Drowning.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1TZmgWIt1Cig6DMgYTehw6tZN3hbAo_1b">ED1_Haruka.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1MvHfnA0RxGBHthE6Qjk1Pjk2fMKV2k7N">ED2_Till_the_end.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Mc5lSM1JXu8qf4TNu-ZBOy-F6l5rrlJ7">Eerie_first_sindbad_encounter.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1sOrlbtg2bPAS940L6IL_9aNhpM-zCEk8">Endcard_German.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1gofVtxRtx13dNV4DQia5AVL7oKNTCPh3">Energetic_Day.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1EY1Yst79kpqOvZR8sjnbUZY7HnVSBzLf">Every living being.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1LSOKAXfP7Ag0iAfjyoM0dyUik1jub-xh">Everyday_happiness.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1RYA3w6QoSARz2DtWjlymVO-nahcHi8Sm">Evil_Demon_Theme_25x_Evil.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Md_kih2ipP7_7hUJTrY0iy73j9c04cLN">Fantasies.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Y2jB3Y_hr0fbaYMzImmtHQjAdbPHSS1K">funny_06.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1slzXFRgjBVkL37m5G-jjvubEpbAVVqs9">Guitar_Slow.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=10b07SqOBjxHo2ppVofGnvJaxNgTNjjT3">Happy_Guitar_Song.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1n11kE3yuP5cwlYL7R9Tt9II6Kewr6vQW">Happy_Maron.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1dTZibJBARP6J2RHZpoFwvz_4YchxfDEq">Happy_time_with_friends.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1wyqZN0SzaW2d0Bfj0SFI7JU2heQQxe3W">Jeanne followed by cops 01.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1NWik4PLZ41QOuJzR1_dPTNIBaRT7CGgz">Jeanne_followedby_Cops_02.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1jxuFU5CHJJ4TT46sj34yyi-C8a3eun2T">Jeanne_followed_by_Cops_03.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1l5VqmUPQBj_3-SF5eDybjOmk9LecRidi">Jeanne_followed_by_Cops_04.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1OuXNVMI2Spjghit4d4DOaSc7qsOl_Y2m">Jeanne_followed_by_Cops_xylo-logique.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1bZXLYKUOYFXKnBVx939VcCpnM-AY_yWY">Jeannes_History_chanting</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1_O5qlqM4cHMZyWGlQIM0WY3F_9uEuMkX">Marons_Theme_01.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Npp3G9RbaBjNZ81_h56TILG11ZKo7dm_">Marons_Theme_02.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1YK3-IbM_iFBgLhYJiHw8Elt6ze_QGCbu">Marons_Theme_03.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1pz0HzWgAxp2AQvhy4lWxwdUkVaKWEbEj">Marons_Theme_05.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1CZlguWjmZ5iI9aBK52XcI3G5vAfNfqZx">Marons_Theme_06_Sad_Violin.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1IkM3_glzZGMJM3dnSTRMuE-GaBkrPCdS">Marons_Theme_abbrev.webm</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1kZ54IzibMKbsQyxtLDSMWgmLG0oGT1ee">Miyakos_straight_forward_thinking.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=11DVS1ATCVjQ9YuAnHwnZGdjbfzDDearm">ModeratoCheckmate.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1W3MR9eIC2VLxI8WZBVIlKcZ843xUOxD5">Moo_calm.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=17FHJ-Uf6nbH5BrSa2RFDL70w1tmtYDf3">Mumbling.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1MR07aaDCWdAYqCQ0lHJIKUpTZVzJiysU">New_day.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1IbqACsM0MeUdK56KQo6t_vU6bipcHjCN">Next_Time_in_KKJ.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1OrGsPPS-Sr5NfFvXbFKTbDs0vKa_sAuz">No_Tear.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1eIpZP402hJJUAmkSyF1tO4YGOSiSx-qB">Odd_Piano.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1nBGf7HA1ri3LBJat8PJUgbowcxMjhIIJ">Organ_Theme_01_Dai_Fin.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1be-twmExJ5RE6CSrZx-ALyTiw-W1g8xm">Piano_Theme_01_Gym_Training.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1ki08AAzB9pnj9xLSoxRuSnabdtE-IrBg">Piano_Theme_02_furious_passionate.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1AzVEVXrBthqBs5u2Yzdwdt4wNQL5ObW3">Piano_Theme_03_light_furious_passion.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1oiuiYJvq7Ht9se4kSWcXLDQBJzOjik69">Piano_Theme_08_soothing.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1MUOY8px5RG1b7KdOh2WRE13-bEFvcGTk">Piano_Theme_09_Pt2_HowTheStoryEnds.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Ik5keTyOuqWcZK5Wx0oD9CudRQt977g1">Piano_Theme_09_Sad_n_hope.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Q7oqjjlUQAeYXwEgWcbIgNWYY8HLr9Ki">Piano_Theme_12(x)_Competition.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1aJp6lX5xgMLXB5NmHSrn80QU_mLrnVo-">Possession.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1CFfE-1T_YJZIYX9AGM0sSp2OeXHH-oW6">Purify_Evil_Neo_checkmate.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1iU-itL9o-oyo9YQJMq-GcG2aYSRcXv4s">Sad_Historie.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1ap4TA9Ibcaol2ABPkc2-sHtkIoNFhzBw">Sad_History.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=18CAXvE51S7aDoTiOWeBG2CFkm0BmyB-s">Sad_Theme_03.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1i2HNfvyQleepW50_AYDkwrL0DreqMAEg">Sad_Theme_04_Violin.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1q7XjLa0gmw_DDN70D08Mx-lX2Q1HC0Px">Shriek.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1wsNSm_fEJEzyapIUGDaK5roCy0-QTB_6">Sindbad Burning.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1W3m_h3dgoxjIf-nbd4zLyfIwG38u-qx1">Sindbads_Theme.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1GHG_GCI6RRWBLFLytNsow_MaM71QTPSP">The_missed_TV-Show.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=13ytCEJStN8wdHRWJfhvvm6p1d1COyyq9">Thinking.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1ZsVVmMSIw3bUsJwVEkd9r5hPT2vmFa3n">Title_ThemeAbbrev.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1HGWGltdUVAiiafmvBOm4o8lJYpWL_6eV">Tranquil.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=18YMXpEpb74SCxnwXLaw8HjrhP4Zf4AiF">Transformation_Theme_#2.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1fQpfpPp6tVF93Ac0mYNv0-LdpQj0sawu">Transformation_Theme_01.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1BdJLdULy7HcYsBaC5zMXwK5my8pjDgEs">Transformation_Theme_02.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1yNwxsDjztM45LfxljtsIdNjLlcxVsT6P">Violin_Theme_01.mp4</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Nl1cnaL7KPHEeJnv7Z7rHNw8jceg3hoH">Welcome_home_maron.mp4</a>
+		</nav>
+	</div>
+</div>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./playerscript.js"></script>
+</body>
+</html>
+
