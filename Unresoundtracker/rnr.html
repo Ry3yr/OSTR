@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
+    $("#output").load(baseUrl + "/navigationalt.html");
+});
+</script>
+    <div class="formClass">
+        <div id="output">
+        </div>
+<br><br>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Videoplayer</title>
+  <!---<link rel="stylesheet" href="./playerstyle.css">--->
+<!--https://drive.google.com/open?id=1QNOgpAGkeFr0hoTQaxBZgvyYcgUAw9gl-->
+<style>
+body {
+  background-image: url("https://drive.google.com/uc?export=download&id=1US3Boh3YYAeyTujcETLQJ_6HfySobtSR");
+  background-color: #cccccc;
+  background-size: cover;
+  padding: 20px;
+}
+.container * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+.container *:after , .container *:before {
+	margin: 0;
+    padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+h2.title {
+    font-size: 24px;
+    color: #fff;
+    font-weight: bold;
+    font-family: tahoma;
+    text-align: center;
+    padding: 2em;
+    display: block;
+    margin: auto;
+    background-color: #A97A7A;
+}
+.container {
+    width: 960px;
+    background: #010101;
+    margin: auto;
+    position: relative;
+    height: 460px;
+}
+.vidcontainer {
+	width: 75%;
+    height: 100%;
+    float: right;
+    position: relative;
+    overflow: hidden;
+}
+video {
+    width: 100%;
+    height: 405px;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+}
+.videolist {
+    float: right;
+    width: 25%;
+    background-color: rgb(76, 76, 76);
+    height: 100%;
+    position: relative;
+}
+.vids {
+    margin: 5px;
+    background-color: #292626;
+    max-height: 450px;
+    min-height: 450px;
+    border: 1px solid #616060;
+    overflow-y: scroll;
+    list-style: none;
+    direction: rtl;
+}
+.vids::-webkit-scrollbar {
+    width: 5px;
+    background-color: #8A8A8A;
+    border: 1px solid #AFACAC;
+}
+.vids::-webkit-scrollbar-thumb {
+    background-color: #FF8D00;
+    border-radius: 5px;
+}
+.vids::-webkit-scrollbar-thumb:hover{
+background-color:#fff;
+}
+.vids::-webkit-scrollbar-thumb:active{
+background-color:#ccc;
+}
+.vids a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    display: block;
+    border-bottom: 1px solid #616060;
+    padding: 8px 5px;
+    margin: 5px;
+}
+/*--- controllers ---*/
+.controllers {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    background-color: #fff;
+    width: 100%;
+}
+.controllers button {
+    border: 1px solid #E7E7E7;
+    background-color: #FFFFFF;
+    color: #777;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 5px;
+    box-shadow: 1px 1px 3px #4C4C4C;
+    outline: none;
+    font-size: 18px;
+    display: inline-block;
+    float: left;
+}
+
+.controllers button:focus {
+    box-shadow: 1px 0px 7px #4C4C4C;
+    border-color: #ff8d00;
+    color: #ff8d00;
+    background-color: #4C4C4C;
+}
+
+.btnPlay:after {
+    content: "\f04b";
+    font-family: 'FontAwesome';
+}
+.paused:after {
+    content: "\f04c";
+}
+
+.sound:after {
+content: "\f027";
+    font-family: 'FontAwesome';
+}
+.sound2:after {
+content: "\f028";
+}
+
+.muted:after {
+    content: "\f026";
+}
+.btnFS:after {
+     content: "\f065";
+    font-family: 'FontAwesome';
+}
+.ads {
+    height: 350px;
+    width: 350px;
+    position: absolute;
+    background-color: #777;
+    top: 27.5px;
+    right: 40px;
+    z-index: 11;
+}
+.bigplay {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 127.5px;
+    left: 85px;
+    z-index: 11;
+    color: #fff;
+    font-size: 150px;
+    line-height: 150px;
+    text-align: center;
+    cursor: pointer;
+    text-shadow: 0px 0px 15px #ff8d00;
+}
+.closeme {
+    height: 32px;
+    width: 32px;
+    background-color: #fff;
+    top: -10px;
+    right: -10px;
+    border: 1px solid #ff8d00;
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px!important;
+    color: #ff8d00;
+    font-size: 25px!important;
+}
+
+.playing {
+    background-color: #999;
+    border: 1px solid #ff8d00!important;
+    -webkit-transition: 0s;
+    -o-transition: 0s;
+    transition: 0s;
+ }
+.playing:after {
+    content: "\f01d";
+    font-family: 'FontAwesome';
+    color: #ff8d00;
+    float: left;
+}
+/* PROGRESS BAR CSS */
+
+.topControl {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 50px;
+    background-color: #fff;
+    z-index: 1;
+}
+/* Progress bar */
+.progress {
+    width: 100%;
+    height: 5px;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    background: #999;
+}
+.progress span {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.timeBar{
+    z-index:10;
+    width:0;
+    background: #ff8d00;
+}
+.bufferBar{
+    z-index:5;
+    width:0;
+    background: #eee;
+}
+/* time and duration */
+.time{
+    width:12%;
+    float:right;
+    text-align:center;
+    font-size:11px;
+    line-height:12px;
+    right: -12%;
+    opacity: 0;
+    position: absolute;
+}
+
+.topControl:hover .time {
+    right: 0;
+    opacity: 1;
+}
+.topControl:hover .progress {
+    width: 88%;
+    height: 12px;
+}
+/* VOLUME BAR CSS */
+/* volume bar */
+.volume {
+    position: relative;
+    cursor: pointer;
+    width: 70px;
+    height: 10px;
+    float: left;
+    margin-top: 20px;
+    margin-right: 15px;
+    background-color: #999;
+}
+.volumeBar{
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ff8d00;
+    z-index: 10;
+}
+
+.loading {
+    width: 100%;
+    background-color: rgba(255,141,0,0.5);
+    height: 405px;
+    position: absolute;
+    top: 0;
+}
+i.fa.fa-spinner.fa-spin {
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
+    color: #fff;
+    text-shadow: 0px 0px 8px #000;
+    top: 172.5px;
+    left: 330px;
+    position: absolute;
+}
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #C2C2C2!important;
+}
+
+
+ul.speedcnt {
+    display: none;
+    position: absolute;
+    right: 30px;
+    bottom: 60px;
+    background-color: #fff;
+    border-radius: 5px;
+    list-style: none;
+    -webkit-transition: 0s;
+    -o-transition: 0s;
+    transition: 0s;
+}
+ul.speedcnt li {
+    text-align: center;
+    font-family: 'verdana', tahoma , serif;
+    font-size: 13px;
+    padding: 5px 20px;
+    cursor: pointer;
+    display: block;
+    border-bottom: 1px solid #ccc;
+}
+ul.speedcnt li:last-child {
+    border-bottom: none;
+}
+ul.speedcnt li.selected {
+    background-color: rgba(255, 141, 0, 0.6);
+}
+</style>
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--[if lt IE 9]>
+  <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<div class="container">
+<div class="vidcontainer">
+<video id="myvid" >
+  Your browser does not support the video tag.
+</video>
+        <div class="topControl">
+			<div class="progress">
+				<span class="bufferBar"></span>
+				<span class="timeBar"></span>
+			</div>
+			<div class="time">
+				<span class="current"></span> / 
+				<span class="duration"></span> 
+			</div>
+        </div>
+<div class="controllers">
+  	<button class="btnPlay" title="Play/Pause video"></button>
+  	<button class="prevvid disabled" title="Previous video"><i class="fa fa-step-forward fa-rotate-180"></i></button>
+    <button class="nextvid" title="Next video"><i class="fa fa-step-forward"></i></button>
+    <button class="sound sound2 btn" title="Mute/Unmute sound"></button>
+    <div class="volume" title="Set volume">
+			<span class="volumeBar"></span>
+	</div>
+    <button class="btnFS " style="float:right" title="full screen"></button>
+    <button class="btnspeed " style="float:right" title="Video speed"><i class="fa fa-gear"></i></button>
+    <ul class="speedcnt">
+    	<li class="spdx50">1.5</li>
+    	<li class="spdx25">1.25</li>
+    	<li class="spdx1 selected">Normal</li>
+    	<li class="spdx050">0.5</li>
+    </ul>
+	<!--<button class="btnLight lighton " style="float:right" title="on/off light"><i class="fa fa-lightbulb-o"></i></button>-->
+</div>
+
+<!--<div class="bigplay" title="play the video"><i class="fa fa-play-circle-o"></i></div>-->
+<div class="loading"><i class="fa fa-spinner fa-spin"></i></div>
+    </div>
+
+	<div class="videolist">
+		<nav class="vids">
+<a class="link" href="https://drive.google.com/uc?export=download&id=15qbuByBA-Xf2KENauA9ESa-ATR4h-lnY">01_titlecard</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=15h_d9wMpXkr2ZILiLLNKElsXZJ7bhcb2">Combat Masters</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=17N_XooQAYXXVcZ7SK4MX5AT1DRR27B-2">Combatial</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1SkMxWwtCtdGd27jTiSQf8dSrDmrwbV3-">Cool</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1894XxoFqcdzPoJk912ZxYRTBgbll7E6E">Denpa_henkan</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1kiD-Zzs0O7sBcHLYMDE2My9N6CRXORJG">Despair_ending</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Mi5jnLK05ojhGag79HMU3drsN7b_7bFu">Despari_Theme</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1BbsSBb6irtibu00BzTwUJE79AYbS_QfD">Ending_01_Calming_Theme</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=17B427JHei3v-LCXf6UlfvRL8gUyeDFJd">Ending_03_Problem_on_Mind</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Nr_KaEDECdy3mJnFRf6jDVtRzEOqWcMD">Ending_music</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1CyE9AVmUvOrkZcIZtl3YM-vsgnRAUygg">Epic_battle</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1qX34jfJu0ut1sAoXh6O6B75FmG0vyzm0">First_rockman_fight</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1LAfv8d97dZqnFOLD-HnIhfF1zYRCmLkl">First_talk_with_the_AMians</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Q9wASW0dUVEvGLUaxql7gBln2UnVnVgY">First_Training</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1KtrQpTcppLmW5HafAl4kfpb4Oz1y33N9">FM_Seijin_bored_Theme</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1MuNoqtkDL7JOpXJ_WhQkIE7vXeAkkvbo">FM_Seijin_Thinking_Theme</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1NwgDyLFkDSXJCoJya_-zhjWsNVZ_4JcP">Guitar_Theme</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1sGVEGeRRuekOT2nMMjfkZhVu241ORDwb">Happiness_Theme_05</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1NCDW7pLv9l1wJwKtSGD_CQ8BLb-hjdp9">Happy_Theme_01_Everyday</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1kL84Ob8b09Z7yEWI1CSR5ALVZ1Eeip2-">Happy_Theme_04_Boring_Comical</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1_zwVIXjyH25UHTLw4eMIk6x26oh0GnW4">Happy_Theme_06.webm</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1OLNrV6ceqExbTJXIK2Eo7XkwVJ-9Xbh9">Happy_Theme_07_Chaotical_Fun</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1dEg8W2ySI8FaFmAelSVJ8O9scwg75N3s">Happy_Theme_09_Utagai_Game</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1XBBqTu0b0I6qMjhjtiAm2kOeI9v6eVz2">Happy_Theme_10_Calming_Utagai</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1gDlAkUzJk0E1crUv9gv2s2W0szkd92lS">Happy_Theme_11_Utagai</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=14s1hw5EHK1Vzeh7fBYiqK6Nd_lgXDWL1">Happy_Upbeat_Theme_After_first_Encounter</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Iwz9AyZxKAJVhtXEo2WINz1hPUauMv4z">Heart_wave</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1ACMvstY4HRF59PsNFe8671xoRWS4XEA_">Introduction</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1rqHiw8HkCzlbfTs_QKN7pmJnkB0li5C2">Lunas_Lullaby_MusicBox</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Mn0k3TutvvDvZ42BR658V8bLix4aWN4-">Misora_instrumental</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1FLXLzKJKqi798PrnNOkNvL8LfqkkdEl3">Misora_Songs</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=109WZoqCPWKCkUQDk7F-PXR0iUkxppzfG">Oddball</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1QIkwf7Vvsi-fpMsT_WUNQGw3lkMQOozG">Piano_Retrospective</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1_h0aUVwvuSaRYqgV_uL584FMJFnYeDcu">Piano_Theme_01</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1cLTQ2X6Ar-yok1i3knfe8tzZ6cip2tKl">Piano_Theme_02_thinking</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1aV3Z-yENVpDj79rlLFXpSKPyjA-3jDAr">Piano_Theme_04</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1kbHUnYBCjr-XpiCWUN1AIzfEEZyVM_EQ">Pinch</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1bYIh7u3BEp7A7TBqRpr5RiwNLL6CUmvs">Reversal</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1Eq6zTVNW8svoYCUNsrc1ysOrkLEYW46t">Slightly_minimal_trouble_ending</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1FeYjlzqnH7pZpLtKD7pEQAUu2Qznir8C">Space_station</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1qif69qp3mTdnBIzy3GhmJ88bpU79XAxg">Subarus_rescue</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1gNFNgbPkzxklXLluXMUgzgk1eCZcEg8q">Warrock_explanation</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1yUCSArHZSqPXBFQbqhvQI0EhqCKqKj8V">Battle_tribe_style</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1OcoOG9MhybEc7VJasWpNeC5IIxaEqWN8">Bly</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1HKlbYoT3KNs5bUl2iw8zkAAebN9_thIZ">Bly_1st_battle</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1MBio5acdj1Rokwmdb8sfze0k5lY_8fey">Build_up</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1DCFeDJnBTBJuqXMQTcuW0f3yAc86LLx1">Calming_Scenery</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1UM67r0hQe1CYStX6AmHd29a2X3l-6SUu">Calming_Xylo</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=11qbIGLgvScfzcu_PrIABZ8IWYZq1r70n">Celebration</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1dO_DJdyCYm5hijoGJ9oEALtUbV37jhlj">Creepy_Chanting</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1ysqd8gIXJ7MEwgoyi39S2gLtq2MNRAf4">Creepy_foreshadowing</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1vPtJWaxSbGQf4Ld6eR9435vePGdiFLjb">Foreshadowing</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=14YZ87LLnoM0CIiUp_6aSA58tkokg3oE2">Hydes_fail</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1G2WIlbOlVjkab5Z65sJtL9zg1Pcq-6uh">Kizuna_Wave</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1jxgFuATP1vYjWWlBhmDrhsR54Dz92Y_v">Mastering_the_trial</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1SUvlpgVZYJVLJo99JORCpgR1b3WhQJjM">Motivating_chanting</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=17FN08ELe-181RZk0eB0PJDPrLIcDI6RX">PostIntroduction</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1-8rnyvfISXv6ghvhx9d2YNtqQMtavd7E">Title_Card_This_time_in_RRT</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=11CRr-oFHl8fKVEOQW0dfkcB4TNNhuMyq">Tranquility</a>
+<a class="link" href="https://drive.google.com/uc?export=download&id=1IhynuhgE-z_O59Kibt5OjAAWN2QusL0w">TRIBEKING_Sword_of_Berserk</a>
+
+		</nav>
+	</div>
+</div>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./playerscript.js"></script>
+</body>
+</html>
+
