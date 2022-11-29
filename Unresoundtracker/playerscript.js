@@ -72,6 +72,7 @@ $("a.link").on("click" , function  (event) {
 		vid[0].play();
 		$(".playing").next().addClass("playing");
         $(".playing:first").removeClass("playing");
+		$(".prevvid").removeClass("disabled");
     });
 
     //video seeking event
