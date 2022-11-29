@@ -2,7 +2,6 @@
    created by: Menni Mehdi
    in : 23/01/2016
    license : if you like it use it
-   https://codepen.io/BhushanGohel/pen/ydZYRB
 */
 
 
@@ -63,13 +62,17 @@ $("a.link").on("click" , function  (event) {
         $('.loading').fadeOut(100);
     });
     
-
-    //video ended event /*----------------------------------*/
+    //video canplaythrough event
+    //solve Chrome cache issue
+    var completeloaded = false;
+    vid.on('canplaythrough', function() {
+        completeloaded = true;
+    });
+    
+    //video ended event
     vid.on('ended', function() {
         $('.btnPlay').removeClass('paused');
         vid[0].pause();
-		$(vid).attr("src", $(".playing").next().attr("href"));
-		vid[0].play();
     });
 
     //video seeking event
