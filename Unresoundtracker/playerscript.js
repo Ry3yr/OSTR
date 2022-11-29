@@ -70,6 +70,8 @@ $("a.link").on("click" , function  (event) {
         vid[0].pause();
 		$(vid).attr("src", $(".playing").next().attr("href"));
 		vid[0].play();
+		$(".playing").next().addClass("playing");
+        $(".playing:first").removeClass("playing");
     });
 
     //video seeking event
