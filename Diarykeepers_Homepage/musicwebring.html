@@ -88,7 +88,7 @@ text-align: var(--csswr-text-align, center);
       }
       return webring
         .map((item) => {
-          return `<li><a href="${item.link}">${item.title}</a></li>`;
+          return `<li><a target="_blank" href="${item.link}">${item.title}</a></li>`;
         })
         .join("");
     };
