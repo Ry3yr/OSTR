@@ -1,3 +1,16 @@
+
+<button onclick="copyToClipboard('p')">Copy</button>
+
+<script>function copyToClipboard(element) {
+  var text = $(element).clone().find('br').prepend('\r\n').end().text()
+  element = $('<textarea>').appendTo('body').val(text).select()
+  document.execCommand('copy')
+  element.remove()
+}</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>textarea { width: 600px; height: 800px; }</style>
+<p contenteditable="true"><textarea>
+
 <html lang="en" >
 <head>
  <style>
@@ -25,43 +38,7 @@ class CssWebring extends HTMLElement {
     const { shadowRoot } = this;
     shadowRoot.innerHTML = `
 <style>
-* {
-  box-sizing: border-box;
-}
-.csswr {
-text-align: var(--csswr-text-align, center);
-  color: var(--csswr-text-color, #444);
-  font-family: var(--csswr-font-family, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif);
-  font-size: 1rem;
-}
-.csswr-title {
-  color: var(--csswr-title-color, #777);
-  font-size: var(--csswr-title-size, 1.5rem);
-  margin: 0 0 0.25em;
-}
-.csswr-list {
-  list-style: none;
-  margin: 0.5rem auto 1rem;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: var(--csswr-linkflex-justify, center);
-}
-.csswr-list li {
-  flex: 0 1 15ch;
-  padding: 0.5em;
-}
-.csswr-list a {
-  color: var(--csswr-link-color, #0370ba);
-}
-.csswr-join {
-  text-decoration: none;
-  background-color: var(--csswr-button-bgcolor, #0370ba);
-  color: var(--csswr-button-color, #fff);
-  padding: 0.25em 0.5em;
-  border-radius: 4px;
-  display: inline-flex;
-}
+*{box-sizing:border-box}.csswr{text-align:var(--csswr-text-align,center);color:var(--csswr-text-color,#444);font-family:var(--csswr-font-family, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif);font-size:1rem}.csswr-title{color:var(--csswr-title-color,#777);font-size:var(--csswr-title-size, 1.5rem);margin:0 0 .25em}.csswr-list{list-style:none;margin:.5rem auto 1rem;padding:0;display:flex;flex-wrap:wrap;justify-content:var(--csswr-linkflex-justify,center)}.csswr-list li{flex:0 1 15ch;padding:.5em}.csswr-list a{color:var(--csswr-link-color,#0370ba)}.csswr-join{text-decoration:none;background-color:var(--csswr-button-bgcolor,#0370ba);color:var(--csswr-button-color,#fff);padding:.25em .5em;border-radius:4px;display:inline-flex}
 </style>
 <aside class="csswr">
   <h2 class="csswr-title"><img src="https://web.archive.org/web/20221130194404if_/https://static.vecteezy.com/system/resources/thumbnails/008/884/509/small/audio-signal-icon-sound-icon-sound-waves-symbol-music-pulse-sign-vector.jpg" height="25px" width="75px"> Webring</h2>
@@ -106,7 +83,7 @@ window.customElements.define("css-webring", CssWebring);
 </script>
 <!--- Source for Webring-->
 	<style>
-.overlay{position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);transition:opacity .5s;visibility:hidden;opacity:0}.overlay:target{visibility:visible;opacity:1}.popup{margin:70px auto;padding:20px;background:#fff;border-radius:5px;width:60%; height: 80% ;position:relative;transition:2s ease-in-out}.popup .close{position:absolute;top:20px;right:30px;transition:.2s;font-size:30px;font-weight:700;text-decoration:none;color:#333}.popup .content{max-height:30%;overflow:auto}
+.overlay{position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);transition:opacity .5s;visibility:hidden;opacity:0}.overlay:target{visibility:visible;opacity:1}.popup{margin:70px auto;padding:20px;background:#fff;border-radius:5px;width:80%;position:relative;transition:2s ease-in-out}.popup .close{position:absolute;top:20px;right:30px;transition:.2s;font-size:30px;font-weight:700;text-decoration:none;color:#333}.popup .content{max-height:30%;overflow:auto}
 </style>
 <body>
 <!-- partial:index.partial.html -->
@@ -116,10 +93,7 @@ window.customElements.define("css-webring", CssWebring);
 		<h2>src</h2>
 		<a class="close" href="#">&times;</a>
 		<div class="content">
-view-source:https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/musicwebring.html<br><br>
-			<iframe src=musicwebringcopysource.html width="600" height="800" </iframe>
-			
-			
+view-source:https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/musicwebring.html
 		</div>
 	</div>
 </div>
@@ -128,3 +102,6 @@ view-source:https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/musicwebring.html
 </html>
 </body>
 </html>
+
+
+</textarea></p>
