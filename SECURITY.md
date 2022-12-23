@@ -1,1 +1,1 @@
-Contact: rebrand.ly/mailcontact
+Contact: https://rebrand.ly/mailcontact
