@@ -1,0 +1,250 @@
+<style>
+.cajablog{
+font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+color:#545454;
+font-size: 14px;
+}
+.tumblr_posts {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+.tumblr_post {
+padding: 10px;
+background: #f9f9f9;
+margin-bottom: 1%;
+  border-top:#0bc5ad solid 4px;
+}
+.tumblr_caption a{
+
+  color: #0bc5ad;
+  font-weight: 700;
+}
+.autorwidget a{
+  color: #0bc5ad;
+  font-weight: 700;
+}
+.autorwidget{
+
+  color: #545454;
+  font-weight: 300;
+  font-size: 10px;
+ text-align:center;
+}
+.tumblr_title {
+font-size: 22px;
+text-transform: uppercase;
+color:#545454;
+font-weight: 700;
+}
+.tumblr_post img{
+  width:60%;
+}
+.html_photoset {
+
+  width:60%;
+}
+.tumblr_video iframe {
+
+  width:60%;
+  height:400px;
+}
+
+.tumblr_label {
+  color:#0bc5ad;
+  margin-bottom:5px
+}
+.tumblr_chat_post .tumblr_title{
+  margin-bottom:10px
+}
+/* Quote */
+.tumblr_quote {
+    padding: .75em .5em .75em 1em;
+    border-left: 0.5em solid #0bc5ad;
+    margin: 0.5em 0em .75em 1.9em;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+  font-size: 22px;
+   display: block;
+}
+.tumblr_quote .tumblr_post{
+    margin: 0em 2em 0em 0em;
+}
+.tumblr_quote:before {
+    display: block;
+    height: 0;
+    content: "“";
+    margin-left: -.95em;
+    font: italic 400%/1em Sans-Serif;
+    color: #c9c9c9;
+}
+.tumblr_source{
+
+  color: #0bc5ad;
+  font-weight: 400;
+  font-size: 12px;
+  padding-left: 2.5em;
+}
+.tumblr_source a{
+  color: #0bc5ad;
+  font-weight: 700;
+  font-size: 12px;
+}
+.tumblr_post blockquote{
+  border-left: 0.1em solid #0bc5ad;
+  padding-left: 5px;
+}
+/* link */
+.tumblr_link_post {
+  background-color: #0bc5ad;
+  padding:0;
+  text-align:center;
+  padding-top:25px;
+}
+@charset "UTF-8";
+/* CSS Document */
+/* Buzz Out */
+@-webkit-keyframes tumblr_link {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+
+@keyframes tumblr_link {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+
+.tumblr_link {
+  display: inline-block;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.tumblr_link:hover, .tumblr_link:focus, .tumblr_link:active {
+  -webkit-animation-name: tumblr_link;
+  animation-name: tumblr_link;
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+.tumblr_link {
+   font-size: 22px;
+  text-align:center;
+color:#fff;
+ text-decoration:none;
+  	text-transform: uppercase;
+  border: thin solid #fff;
+  padding: 10px;
+ font-weight: 700;
+}
+.tumblr_link:hover {
+background-color:#fff;
+color:#0bc5ad;
+
+}
+.tumblr_link_post .tumblr_description {
+   margin-top:25px;
+  padding-top:5px;
+  padding-bottom: 5px;
+  background-color: #f9f9f9;
+  text-align:left;
+}
+</style>
+<a href="https://www.tumblr.com/utsukushiotosuki" target="_blank">@Utsukushiotosukis Tumblr Page</a><br>
+<div class="cajablog">
+  <script type="text/javascript" src="https://utsukushiotosuki.tumblr.com/js?num=50"></script>
+<!--<div class="autorwidget">Birdsite: <a href="https://www.twitter.com/Utsukushiotosuk" target="_blank">@Utsukushiotosuk</a> Mastodon: <a href="https://artisan.chat/@Utsukushiotosuki" target="_blank">@Utsukushiotosuk@artisan.chat</a></div>-->
+</div>
