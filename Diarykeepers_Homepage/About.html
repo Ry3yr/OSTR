@@ -488,7 +488,7 @@ const userFeed = 'https://koyu.space/@alceawisteria.rss';
 const wrapper = document.body;
 const tootHTML = (description, date, url) => `
 	<article>
-		<small><a href="${url}">🔗</a> | <time>${date}</time>____________</small>
+		<small><a target="_blank" href="${url}">🔗</a> | <time>${date}</time>____________</small>
 		<div>${description}</div>
 	</article>`;
 const formatToots = (domContent, container) => {
