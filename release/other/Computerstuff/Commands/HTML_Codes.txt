@@ -1679,3 +1679,26 @@ function viewSource(){;
 }  </script>
 
 (Source: https://stackoverflow.com/questions/41945094/add-option-to-view-source-of-current-html-page )
+
+_______________________________________________
+
+Load just containerpart of site into dom:
+--------------------------------
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+{
+$(document).ready(function(){
+    $("#bitbucketissue").load("https://bitbucket.org/alceawisteria/ostr/issues?status=new&status=open #issues-list");
+});
+}
+</script>
+    <div class="formClass">
+        <div id="bitbucketissue">
+        </div>
+        
+        (Source: https://stackoverflow.com/questions/74993624/loading-only-part-of-site-into-dom-via-jquery)
+        
+____________________
+
