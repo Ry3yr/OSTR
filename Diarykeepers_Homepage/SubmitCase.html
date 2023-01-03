@@ -20,3 +20,19 @@ $(document).ready(function(){
         </div></div>
 <!--- Bitbucketissues UserSubmitted END --->
 
+  <!---repair bitbucket link--->
+  <script>
+  var elements = document.querySelectorAll('.gsc-table-result td a.gs-title');
+function walkText(node) {
+  if (node.nodeType == 3) {
+    node.data = node.data.replace(/ry3yr.github.io/ig, "bitbucket.org");
+  }
+  if (node.nodeType == 1 && node.nodeName != "SCRIPT") {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      walkText(node.childNodes[i]);
+    }
+  }
+}
+walkText(document.body);
+</script>
+
