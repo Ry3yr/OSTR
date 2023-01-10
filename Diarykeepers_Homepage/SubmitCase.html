@@ -21,18 +21,10 @@ $(document).ready(function(){
 <!--- Bitbucketissues UserSubmitted END --->
 
   <!---repair bitbucket link--->
-  <script>
-  var elements = document.querySelectorAll('.gsc-table-result td a.gs-title');
-function walkText(node) {
-  if (node.nodeType == 3) {
-    node.data = node.data.replace(/ry3yr.github.io/ig, "bitbucket.org");
-  }
-  if (node.nodeType == 1 && node.nodeName != "SCRIPT") {
-    for (var i = 0; i < node.childNodes.length; i++) {
-      walkText(node.childNodes[i]);
-    }
-  }
+  <button id="mybbtn" onclick="myPXFDFunction()">[FixLinks]</button>
+<script>
+function myPXFDFunction() {
+document.body.innerHTML = document.body.innerHTML.replace('ry3yr.github.io', 'butbucket.org');
 }
-walkText(document.body);
 </script>
 
