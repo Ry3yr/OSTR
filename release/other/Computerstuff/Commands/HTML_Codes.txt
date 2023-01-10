@@ -1680,7 +1680,7 @@ function viewSource(){;
 
 (Source: https://stackoverflow.com/questions/41945094/add-option-to-view-source-of-current-html-page )
 
-_______________________________________________
+_________________________
 
 Load just containerpart of site into dom:
 --------------------------------
@@ -1700,12 +1700,12 @@ $(document).ready(function(){
         
         (Source: https://stackoverflow.com/questions/74993624/loading-only-part-of-site-into-dom-via-jquery)
         
-____________________
+_____________________
 
 Link to new site based on appended #hashtag
 ------------------------------------------------------------------------
 
-
+<a rel="me" href="https://pb.todon.de/@alcea"> </a><br>
 
 
 <!----underrated--->
@@ -1718,4 +1718,19 @@ Link to new site based on appended #hashtag
 (Source: https://stackoverflow.com/questions/298503/how-can-you-check-for-a-hash-in-a-url-using-javascript )
 
 ----------------------------------
+
+Reenable purposely broken element:
+-------------------------------------------------------
+
+<button id="mypxlbtn" onclick="myPXFDFunction()">Pixelfed</button>
+<script>
+function myPXFDFunction() {
+document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe');
+//document.getElementById('mypxlbtn').style.visibility = 'hidden';
+}
+</script>
+<pixlframe src="https://pixelfed.de/aoikurayami/embed" width="80%" height="800" scrolling="yes" frameborder="0"></pixlframe><!--<script async defer src="https://pixelfed.de/embed.js"></script>-->
+
+______________
+
 
