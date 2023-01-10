@@ -1702,3 +1702,20 @@ $(document).ready(function(){
         
 ____________________
 
+Link to new site based on appended #hashtag
+------------------------------------------------------------------------
+
+
+
+
+<!----underrated--->
+<script type="text/javascript">
+    if (location.href.indexOf("#underrated") != -1) {
+    window.open("UnderratedContent.html", "_self");
+    }
+</script>
+
+(Source: https://stackoverflow.com/questions/298503/how-can-you-check-for-a-hash-in-a-url-using-javascript )
+
+----------------------------------
+
