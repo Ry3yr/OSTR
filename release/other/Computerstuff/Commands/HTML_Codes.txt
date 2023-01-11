@@ -1019,6 +1019,18 @@ HTML Spoiler Tag code / Spoiler button
 (SOURCE: https://forum.chip.de/discussion/1381745/spoiler-in-html)
 ________________________________________________________________________________________________________
 
+HTML Spoiler Tag code / Spoiler button
+-------------------------------------
+<div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler" style="background:transparent; border:none; color:transparent;"><div class="spoiler" style="display: none;" >
+
+text
+
+</div>
+
+(Source: )
+
+________________________________________________________
+
 HTML "Mouseover" spoiler button:
 
 <div class="pre-spoiler">
