@@ -10,6 +10,13 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+
+Subscribe to RSS Button
+---------------------------------------
+
+&nbsp;<a target="_blank" href="https://backend.deviantart.com/rss.xml?q=gallery:aoikurayami1/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Generic_Feed-icon.svg/1920px-Generic_Feed-icon.svg.png" height="15" width="15"></a>
+
+
 ______________________________
 Cool animated font:
 -------------------
@@ -1019,7 +1026,7 @@ HTML Spoiler Tag code / Spoiler button
 (SOURCE: https://forum.chip.de/discussion/1381745/spoiler-in-html)
 ________________________________________________________________________________________________________
 
-HTML Spoiler Tag code / Spoiler button
+HTML Spoiler Tag code / Spoiler button (invisible)
 -------------------------------------
 <div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler" style="background:transparent; border:none; color:transparent;"><div class="spoiler" style="display: none;" >
 
@@ -1745,4 +1752,14 @@ document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe')
 
 ______________
 
+
+Download #JSFiddle via #curl
+--------------------------------
+curl 
+"̲h̲t̲t̲p̲:̲/̲/̲f̲i̲d̲d̲l̲e̲.̲j̲s̲h̲e̲l̲l̲.̲n̲e̲t̲/̲G̲S̲S̲C̲D̲/̲2̲0̲3̲/̲/̲s̲h̲o̲w̲/̲"̲ ̲-̲H̲ ̲"̲R̲e̲f̲e̲r̲e̲r̲:̲ ̲h̲t̲t̲p̲:̲/̲/̲f̲i̲d̲d̲l̲e̲.̲j̲s̲h̲e̲l̲l̲.̲n̲e̲t̲/̲G̲S̲S̲C̲D̲/̲2̲0̲3̲/̲/̲"̲ ̲-̲-̲o̲u̲t̲p̲u̲t̲ ̲"̲f̲i̲d̲d̲l̲e̲.̲h̲t̲m̲l̲"̲ ̲
+
+
+(Source: https://stackoverflow.com/questions/9851878/is-there-a-download-function-in-jsfiddle/ )
+
+______________
 
