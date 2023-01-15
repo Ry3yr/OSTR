@@ -112,7 +112,8 @@ navigator.mediaSession.setActionHandler('nexttrack', function() {
 });
 audio.addEventListener('ended', function() {
   // Play automatically the next track when audio ends.
-  index = (index - 1 + playlist.length) % playlist.length;
+  index = (index + 1) % playlist.length;
+  //index = (index - 1 + playlist.length) % playlist.length;
   playAudio();
 });
 /* Seek Backward & Seek Forward */
