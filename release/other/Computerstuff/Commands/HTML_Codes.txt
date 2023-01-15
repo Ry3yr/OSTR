@@ -1755,11 +1755,48 @@ ______________
 
 Download #JSFiddle via #curl
 --------------------------------
-curl 
-"̲h̲t̲t̲p̲:̲/̲/̲f̲i̲d̲d̲l̲e̲.̲j̲s̲h̲e̲l̲l̲.̲n̲e̲t̲/̲G̲S̲S̲C̲D̲/̲2̲0̲3̲/̲/̲s̲h̲o̲w̲/̲"̲ ̲-̲H̲ ̲"̲R̲e̲f̲e̲r̲e̲r̲:̲ ̲h̲t̲t̲p̲:̲/̲/̲f̲i̲d̲d̲l̲e̲.̲j̲s̲h̲e̲l̲l̲.̲n̲e̲t̲/̲G̲S̲S̲C̲D̲/̲2̲0̲3̲/̲/̲"̲ ̲-̲-̲o̲u̲t̲p̲u̲t̲ ̲"̲f̲i̲d̲d̲l̲e̲.̲h̲t̲m̲l̲"̲ ̲
 
+curl "http://fiddle.jshell.net/${fiddleId}/show/" -H "Referer: http://fiddle.jshell.net/${fiddleId}/" --output "${fiddleId}.html"
 
 (Source: https://stackoverflow.com/questions/9851878/is-there-a-download-function-in-jsfiddle/ )
 
+______________
+
+Easy Copy button
+----------------------------
+
+<button onclick="copyToClipboard()" style="background:transparent; border:transparent;">(C)</button>
+</div>
+<script> 
+function copyToClipboard() {
+  const str = "curl 'http://fiddle.jshell.net/GSSCD/203//show/' -H 'Referer: http://fiddle.jshell.net/GSSCD/203//' --output 'fiddle.html'"
+  const el = document.createElement('textarea')
+  el.value = str
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+}
+</script>
+_______________
+
+Slide Toggle
+---------------------
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").slideToggle();
+  });
+});
+</script>
+</head>
+<body>
+<p>Text</p>
+<button>Toggle </button>
+</body>
 ______________
 
