@@ -12,17 +12,15 @@
     function copyToPixiv() {
     var val = document.getElementById('pixivurl').value;
     var url = "https://rsshub.app/pixiv/user/" + val;
-    var a = document.createElement('a');
-    var linkText = document.createTextNode(url);
-    a.appendChild(linkText);
-    a.title = "pixivuser";
-    a.target= '_blank';
-    a.href = url;
-    a.style.display = 'block';
-    document.body.prepend(a);
-//document.getElementById('hidden').type = 'text';
-   var link = document.getElementById("link");
-   link.setAttribute("href","https://en.m.wikipedia.org/w/index.php?title=Portal:Current_events/" + today.toShortFormat());
+    window.open(""+url, "_blank");
+    //var a = document.createElement('a');
+    //var linkText = document.createTextNode(url);
+    //a.appendChild(linkText);
+    //a.title = "pixivuser";
+    //a.target= '_blank';
+    //a.href = url;
+    //a.style.display = 'block';
+    //document.body.prepend(a);
 }
   </script>
 <!------Dayquotes---insert-------->
