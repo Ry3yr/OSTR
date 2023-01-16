@@ -3,7 +3,26 @@
 <a target="_blank" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrltGih11A_Nayz6hG5XtIw"><img src="extrafiles/images/logos/YT_Diarykeeper_ava.jpg" height="45" width="45"></a>
 <a target="_blank" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCmIpOnd5BVx5Si2hp0WNKZw"><img src="https://yt3.googleusercontent.com/pFIeXDhoN62ojkT9c8GspLFQExfOPZy4PxBQ5aZu9Az-6uBBIu4Q0QpP4qZ9X5O1gd8tzvwyJA=s100-c-k-c0x00ffffff-no-rj" height="45" width="45"></a>
 <a target="_blank" href="https://utsukushiotosuki.tumblr.com/rss"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Tumblr_icon.png" height="45" width="45"></a>
-<a target="_blank" href="https://rsshub.app/pixiv/user/75406576"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Pixiv_Icon.svg/1024px-Pixiv_Icon.svg.png" height="45" width="45"></a>
+<!--<a target="_blank" href="https://rsshub.app/pixiv/user/75406576"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Pixiv_Icon.svg/1024px-Pixiv_Icon.svg.png" height="45" width="45"></a>-->
+<a href="javascript:copyToPixiv()"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Pixiv_Icon.svg/1024px-Pixiv_Icon.svg.png" height="45" width="45"></a>
+<a target="_blank" href="https://stackoverflow.com/feeds/user/3708093"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Stack_Overflow_icon.svg/768px-Stack_Overflow_icon.svg.png" height="45" width="45"></a>
+<!----Pixiv User ID Input Textfield Beginning--------->
+<form><input type="text" id="pixivurl" value="75406576" style="border:none;"/></form>
+<script type="text/javascript">
+    function copyToPixiv() {
+    var val = document.getElementById('pixivurl').value;
+    var url = "https://rsshub.app/pixiv/user/" + val;
+    var a = document.createElement('a');
+    var linkText = document.createTextNode(url);
+    a.appendChild(linkText);
+    a.title = "pixivuser";
+    a.target= '_blank';
+    a.href = url;
+    a.style.display = 'block';
+    document.body.appendChild(a);
+//document.getElementById('hidden').type = 'text';
+}
+  </script>
 <!------Dayquotes---insert-------->
 <head><meta charset="UTF-8"><style>
 div {text-align: left;}
@@ -96,6 +115,7 @@ button:hover{background-color: white;}
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=nbehiwfQD2M&t=45">Children all think they are artists- Most lose that notion in adulthood</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ta036tQdadM&t=2m54s">99,99% Virenreduktion bedeutet fast nichts</a>'},
 ];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
-document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].quote}\"`;}
+document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].quote}\"`;
+}
 </script>
 </body>
