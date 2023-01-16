@@ -42,14 +42,15 @@ document.getElementById('btn').onclick = function() {
   var val = document.getElementById('yturl').value;
   val = val.replace('UC', 'UU');
   var url = "https://www.youtube.com/embed/videoseries?list=" + val;
-  var a = document.createElement('a');
-  var linkText = document.createTextNode(url);
-  a.appendChild(linkText);
-  a.title = "yturl";
-  a.target = '_blank';
-  a.href = url;
-  a.style.display = 'block';
-  document.body.appendChild(a);
+  window.open(""+url, "_blank");
+  //var a = document.createElement('a');
+  //var linkText = document.createTextNode(url);
+  //a.appendChild(linkText);
+  //a.title = "yturl";
+  //a.target = '_blank';
+  //a.href = url;
+  //a.style.display = 'block';
+  //document.body.appendChild(a);
 }
 </script>
 <br>
