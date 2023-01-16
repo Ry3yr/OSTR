@@ -9,8 +9,13 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+Image as button:
+-------------------------
 
+<button type="button">
+<img src="https://i.ibb.co/CW5Wvry/buttonpng.png" alt="buttonpng" border="0" height=45px id="btn" /> </button>
 
+___________
 Subscribe to RSS Button
 ---------------------------------------
 
@@ -1800,3 +1805,24 @@ $(document).ready(function(){
 </body>
 ______________
 
+Userinput formfield => create url
+-------------------------------------------------
+
+  <form>
+  <input type="text" id="pixivurl" value="75406576"/>
+  <input type="button" id="btn" value="pixivuserid"/>
+</form>
+<script type="text/javascript">
+      document.getElementById('btn').onclick = function() {
+    var val = document.getElementById('pixivurl').value;
+    var url = "https://rsshub.app/pixiv/user/" + val;
+    var a = document.createElement('a');
+    var linkText = document.createTextNode(url);
+    a.appendChild(linkText);
+    a.title = "pixivuser";
+    a.target= '_blank';
+    a.href = url;
+    a.style.display = 'block';
+    document.body.appendChild(a);
+      }
+  </script>
