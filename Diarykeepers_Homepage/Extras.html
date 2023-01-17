@@ -1,10 +1,24 @@
-<div id="bigdiv">[EXTRAS]<div id="tooltip">
-<a target="_blank" href="Cool_Stuff.html">Stuff</a>
-<a target="_blank" href="Blog.html">Blog</a>
-<a target="_blank" href="Art.html">Art</a>
-<a target="_blank" href="Webcomicfavs.html">Webcomicfavs</a>
-<a target="_blank" href="Games.html">Games</a>
-<a target="_blank" href="Models.html">3D Models</a>
+<style>
+.dropbtn {background-color: #8b0000;color: white;padding: 8px;font-size: 8px;border: none;}
+.dropdown {position: relative;display: inline-block;}
+.dropdown-content {
+  display: none;position: absolute;background-color: #f1f1f1;min-width: 80px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);z-index: 1;}
+.dropdown-content a {
+  color: black;padding: 12px 16px;text-decoration: none;display: block;}
+.dropdown-content a:hover {background-color: #ddd;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+</head>
+<body>
+<div class="dropdown">
+  <button class="dropbtn">Extras</button>
+  <div class="dropdown-content">
+<a href="Cool_Stuff.html">Stuff</a>
+<a href="Blog.html">Blog</a>
+<a href="Art.html">Art</a>
+<a href="Webcomicfavs.html">Webcomicfavs</a>
+<a href="Games.html">Games</a>
+<a href="Models.html">3D Models</a>
+  </div>
 </div>
-</div>
-<style>#tooltip{display:none;}#bigdiv:hover #tooltip{display:block;}</style>
