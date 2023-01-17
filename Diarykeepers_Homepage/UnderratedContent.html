@@ -40,6 +40,8 @@ src="https://64.media.tumblr.com/7df85173c80468f7a08687d56b7dd4a1/6d43840c7a5f4c
 <script>
 document.getElementById('btn').onclick = function() {
   var val = document.getElementById('yturl').value;
+  val = val.replace('https://m.youtube.com/channel/', '');
+  val = val.replace('/videos', '');
   val = val.replace('UC', 'UU');
   var url = "https://www.youtube.com/embed/videoseries?list=" + val;
   window.open(""+url, "_blank");
