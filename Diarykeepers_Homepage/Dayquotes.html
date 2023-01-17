@@ -11,6 +11,7 @@
 <script type="text/javascript">
     function copyToPixiv() {
     var val = document.getElementById('pixivurl').value;
+    val = val.replace('https://www.pixiv.net/en/users/', '');
     var url = "https://rsshub.app/pixiv/user/" + val;
     window.open(""+url, "_blank");
     //var a = document.createElement('a');
