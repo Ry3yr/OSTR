@@ -20,7 +20,16 @@ if(window.innerHeight > window.innerWidth){
       
       
  
-<iframe src="Extras.html" height="100%" width="100%" name="extras" frameborder="0">extras</iframe>
+<script src="jquery.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
+    $("#outputquote").load(baseUrl + "/Extras.html");
+});
+</script>
+    <div class="formClass">
+        <div id="outputquote">
+        </div>
 
 
 
