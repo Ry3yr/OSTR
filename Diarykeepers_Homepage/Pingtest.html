@@ -1,55 +1,39 @@
 <a rel="me" href="https://pb.todon.de/@admin"> </a><br>
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Ping a server in javascript</title>
+  <title>AlceaWisteria Status</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-  <script
+<!-----Pingtest------>
+<script
     type="text/javascript"
-    src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"
-    
-  ></script>
-
+    src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/result-light.css">
-
-
   <style id="compiled-css" type="text/css">
     .responded {
-    color:green;
-}
+    color:green;}
 .checking,.unchecked {
-    color:#FF8C00;
-}
+    color:#FF8C00;}
 .timeout {
     color:red;
 }
 }
-
     /* EOS */
   </style>
-
   <script id="insert"></script>
-
 </head>
 <body>
     <ul data-bind="foreach:servers">
     <li> <a href="#" data-bind="text:name,attr:{href: 'http://'+name}">tester</a> <span data-bind="text:status,css:status"></span>
-
     </li>
 </ul>
-
     <script type="text/javascript">//<![CDATA[
-
-
 function ping(ip, callback) {
-
     if (!this.inUse) {
         this.status = 'unchecked';
         this.inUse = true;
@@ -98,8 +82,8 @@ var PingModel = function (servers) {
 };
 var komodel = new PingModel(['localhost',
     'pb.todon.de',
-    'ry3yr.github.io',
-    'unknown'
+    'argus.weingaertner-it.eu',
+    'ry3yr.github.io'
     ]);
 ko.applyBindings(komodel);
   //]]></script>
@@ -112,10 +96,17 @@ ko.applyBindings(komodel);
         slug: "GSSCD"
       }], "*")
     }
-
     // always overwrite window.name, in case users try to set it manually
     window.name = "result"
   </script>
+<br><br>
+<iframe src="rss-github.html" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="350px" width="500px" allowfullscreen></iframe>
+<iframe src="rss-microblog.html" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="350px" width="500px" allowfullscreen></iframe>
+
+
+
+
+
 
 
 </body>
