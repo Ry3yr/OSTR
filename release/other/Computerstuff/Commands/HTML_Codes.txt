@@ -9,6 +9,18 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+
+Render base64 encoded html directly as iframe inpage:
+-------------------------------------------------------------------------------
+
+<iframe src="data:text/html;base64,
+
+Base64Code
+
+" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="350px" width="500px" allowfullscreen></iframe>
+
+_________
+
 Image as button:
 -------------------------
 
@@ -205,6 +217,29 @@ Load link into existing iframe:
 
 (Source: https://www.w3schools.com/tags/att_iframe_name.asp
 https://stackoverflow.com/questions/740816/open-link-in-iframe )
+
+________________
+
+Compact dropdown button (with images)
+------------------------------------------------------------'
+<style>
+.dropdown {position: absolute;display: inline-block;}
+.dropdown-content {
+  display: none;position: absolute;background-color: #ffffff;min-width: 0px;box-shadow:5px 5px 0px 0px rgba(0,0,0,0.2);z-index: 1;}
+.dropdown-content a {
+  color: black;padding: 2px 2px;text-decoration: none;display: block;}
+.dropdown-content a:hover {background-color: #fff;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: transparent;}
+</style>
+<div class="dropdown" hidden>
+ <button class="dropbtn"><img src="https://cdn-icons-png.flaticon.com/512/2327/2327670.png" height="45" width="45"></button>
+  <div class="dropdown-content">
+        <a target="_blank" href="https://pb.todon.de/@alcea.rss"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Mastodon_Logotype_%28Simple%29.svg" height="45" width="45"></a>
+        <a target="_blank" href="https://nitter.absturztau.be/ryedai1/rss"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" height="45" width="45"></a>
+<a target="_blank" href="mailto:hax0rxy@googlemail.com"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" height="45" width="45"></a>
+  </div>
+</div>
 
 __________________________
 Hoverable Dropbdown menu: 
@@ -1164,6 +1199,34 @@ https://cdpn.io/ryedai1/fullpage/mdKGVOz?nocache=true
 
 ________________________
 
+Yesterdays happenings
+-----------------------------------
+
+
+<li><a id="link" href="#">Yesterdays Happenings</a></li>
+<script>
+Date.prototype.toShortFormat = function() {
+    const monthNames = ["January", "February", "March", "April",
+                        "May", "Juni", "July", "August",
+                        "September", "October", "November", "December"];
+    const day = this.getDate()-1;
+    const monthIndex = this.getMonth();
+    const monthName = monthNames[monthIndex];
+    const year = this.getFullYear();
+    return `${year}_${monthName}_${day}`;  
+}
+let anyDate = new Date(1528578000000);
+console.log(anyDate.toShortFormat());
+let today = new Date();
+console.log(today.toShortFormat());
+var link = document.getElementById("link");
+link.setAttribute("href","https://en.m.wikipedia.org/w/index.php?title=Portal:Current_events/" + today.toShortFormat());
+</script>
+<!--https://stackoverflow.com/questions/4822852/how-to-get-the-day-of-week-and-the-month-of-the-year-->
+<!-- partial -->
+  
+________________________
+
 Click text in page:
 ------------
 
@@ -1826,3 +1889,28 @@ Userinput formfield => create url
     document.body.appendChild(a);
       }
   </script>
+
+_____________
+
+Turn YT Channel ID into ChannelURLPlaylist
+----------------------------------------------
+
+<form>
+  <input type="text" id="yturl" value="UCn-K7GIs62ENvdQe6ZZk9-w" />
+  <input type="button" id="btn" value="ChannelPlayListURL" />
+</form>
+<script>
+document.getElementById('btn').onclick = function() {
+  var val = document.getElementById('yturl').value;
+  val = val.replace('UC', 'UU');
+  var url = "https://www.youtube.com/embed/videoseries?list=" + val;
+  var a = document.createElement('a');
+  var linkText = document.createTextNode(url);
+  a.appendChild(linkText);
+  a.title = "yturl";
+  a.target = '_blank';
+  a.href = url;
+  a.style.display = 'block';
+  document.body.appendChild(a);
+}
+</script>
