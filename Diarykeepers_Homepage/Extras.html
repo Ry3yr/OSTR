@@ -20,6 +20,7 @@
 <a href="Webcomicfavs.html">Webcomicfavs</a>
 <a href="Games.html">Games</a>
 <a href="Models.html">3D Models</a>
+<a href="javascript:mywFunction()"><img src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/site/effects/petal_wisteria.png" height="20" width="20"> Make it rain ! <img src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/site/effects/petal_wisteria.png" height="20" width="20"></a>
 <a target="_blank" href="https://ry3yr.github.io/OSTR/Unresoundtracker/index.html">🎶UnresSoundtracker🎵</a>
   </div>
 </div>
@@ -42,3 +43,15 @@ function getRandomUrl(myFrame) {
 btn.addEventListener("click", function() {
    getRandomUrl(myFrame); });
 </script>
+
+<!------------Petalrain------------->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>function mywFunction() {
+if (new Date().getMonth()===11){
+document.body.innerHTML = document.body.innerHTML.replace('Extras', 'Sorry no rain in December !');
+exit;};
+$("#mywistpetal").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/site/effects/wisteria_petal_rain.html");}</script>
+<div class="formClass"><div id="mywistpetal"></div></div>
+
+
+
