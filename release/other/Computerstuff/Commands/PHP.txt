@@ -1,5 +1,37 @@
 
 
+Scrape specific links via simple_html_dom:
+---------------------------------------------------------------
+
+<?php
+$html = file_get_contents('https://nitter.absturztau.be/chillartaholic');
+$dom = new DOMDocument;
+@$dom->loadHTML($html);
+$links = $dom->getElementsByTagName('a');
+$url = 'https://nitter.absturztau.be/chillartaholic';
+$html = file_get_contents($url);
+$dom = new DOMDocument();
+@$dom->loadHTML($html);
+$xpath = new DOMXPath($dom);
+$nodes = $xpath->query('//a[@class="tweet-link"]');
+
+foreach ($nodes as $node){
+    echo $link->nodeValue;
+    echo $node-> getAttribute('href'), '<br>';
+}
+?>
+
+(Source: https://stackoverflow.com/questions/75197766/simple-html-dom-scrape-all-lines-with-chracteristic-and-then-output-them-below )
+
+_______________________________________
+
+Convert cURL to PHP:
+----------------------------------
+
+https://incarnate.github.io/curl-to-php/
+
+_____________________
+
 Render RSS Feed:
 ----------------------------
 
