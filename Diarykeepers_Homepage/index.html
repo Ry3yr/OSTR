@@ -5,10 +5,17 @@
 
 <script>
 if(window.innerHeight > window.innerWidth){
-    alert("横(yoko)!");
+    //document.write('<canvas id="canvas"><\/canvas>');
+    alert("横(yoko)! - Please rotate your device to LANDSCAPE mode 😺. Thank-A-You!");
     //window.history.back();
-}
+	  //window.close();
+}</script>
+<script>
+const stage=document.getElementById("canvas");stage.width=window.innerWidth,stage.height=window.innerHeight;let then,fpsInterval,startTime;const randItem=t=>t[Math.floor(Math.random()*t.length)],rand=t=>Math.floor(Math.random()*t),randBetween=(t,e)=>Math.floor(Math.random()*(e-t+1)+t),max=500,ctx=stage.getContext("2d"),w=stage.width,h=stage.height,pets=["\uD83D\uDE3F","\uD83D\uDE3E"],items=Array(500).fill().map(t=>({x:rand(w),y:rand(h),p:randItem(pets),xs:-4+4*Math.random()+2,ys:10*Math.random()+10,fs:randBetween(12,46)}));function draw(){ctx.clearRect(0,0,w,h),items.forEach(t=>{ctx.font=`${t.fs}px sans-serif`,ctx.fillText(t.p,t.x,t.y)}),requestAnimationFrame(draw);let t=Date.now(),e=t-then;e>fpsInterval&&(then=t-e%fpsInterval),move()}function move(){items.forEach(t=>{t.x+=t.xs,t.y+=t.ys,(t.x>w||t.y>h)&&(t.x=rand(w),t.y=-20)})}function animate(t){fpsInterval=1e3/t,startTime=then=Date.now(),draw()}animate(60);
 </script>
+
+
+
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
   </head>
