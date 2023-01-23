@@ -26,6 +26,18 @@
   </div>
 </div>
 
+&nbsp;&nbsp;Site online since <button id='counter' style="background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button> days.
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>
+$(document).ready(function(){
+var oneDay = 24*60*60*1000; 
+var start = new Date(2021, 07, 13);
+var now = new Date();
+var elapsed = Math.round(Math.abs((now.getTime() - start.getTime())/(oneDay)));
+$('#counter').html(` ${elapsed} `);
+});</script>
+
+
 
 <!---scrolling-rss-->
 <div id="bigdiv" style="position:relative; top: -34px; left: 325px;">
