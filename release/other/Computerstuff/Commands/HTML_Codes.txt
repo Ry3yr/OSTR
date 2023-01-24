@@ -4,11 +4,24 @@ htmledit.squarefree.com
 Cheatsheet: https://pbs.twimg.com/media/FDTBjF5XEAkI6ZZ?format=jpg&name=large
 BlueGriffon (WYSIWYG Editor that doesn't break CSS)
 https://www.duplichecker.com/domain-age-checker.php
+[0HTML examples Backup: GDRIVE:/HTML/00_HTML
 ------------
 https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.txt
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+
+Test RSS:
+----------------
+
+<div class="updatebox">
+<script src="//rss.bloople.net/?url=
+https://www.youtube.com/feeds/videos.xml?channel_id=UCmIpOnd5BVx5Si2hp0WNKZw
+&showtitle=false&type=js"></script></div>
+
+
+
+________________
 
 Render base64 encoded html directly as iframe inpage:
 -------------------------------------------------------------------------------
@@ -1914,3 +1927,130 @@ document.getElementById('btn').onclick = function() {
   document.body.appendChild(a);
 }
 </script>
+
+_______________
+
+Random iFrame:
+-------------------------
+
+
+<div id="bigdiv" style="position:fixed; top: 0px; left: 505px;">
+<button id="btn" class="box">Random</button>
+<iframe id="frame" src="rss-scrolling-source01.html" frameborder="0" scrolling="no" height=65 width=400></iframe>
+</div>
+
+  <script>
+var cat1 = [
+    "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/rss-scrolling-source01.html",
+    "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/rss-scrolling-source02.html"
+    ];
+var myFrame = document.getElementById("frame");
+function getRandomUrl(myFrame) {
+   var index = Math.floor(Math.random()*cat1.length);
+   var url = cat1[index];
+   myFrame.src = url;
+}
+btn.addEventListener("click", function() {
+   getRandomUrl(myFrame); 
+});
+</script>
+
+___________________
+
+Click button on pageload:
+--------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    document.getElementById("btn").click();
+});</script>
+
+
+_________________________________
+
+Texteditor with save function
+---------------------------------------------
+
+<!---http://fiddle.jshell.net/ourcodeworld/rce6nn3z/2//show-->
+  <script
+    type="text/javascript"
+    src="/js/lib/dummy.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  <style id="compiled-css" type="text/css">
+    /* EOS */
+  </style>
+  <script id="insert"></script>
+</head>
+<body>
+    <textarea id="text-val" rows="4">Enter Text here</textarea><br/>
+<input type="button" id="dwn-btn" value="Download"/>
+    <script type="text/javascript">//<![CDATA[
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+// Start file download.
+document.getElementById("dwn-btn").addEventListener("click", function(){
+    // Generate download of hello.txt file with some content
+    var text = document.getElementById("text-val").value;
+    var filename = "hello.txt";
+    download(filename, text);
+}, false);
+  //]]></script>
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "rce6nn3z"
+      }], "*")
+    }
+    // always overwrite window.name, in case users try to set it manually
+    //window.name = "result"
+  </script>
+</body>
+</html>
+
+_______________
+
+Copy today date to clipboard:
+------------------------------------------------
+<a href="javascript:copydateToClipboard()">Date</a>
+<script> 
+function copydateToClipboard() {
+  var nowd = new Date().toUTCString().slice(0,16);
+  const el = document.createElement('textarea')
+  el.value = nowd
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+}</script>    
+
+_______________________
+
+Days-since-online-counter
+---------------------------------------
+
+Site online since <button id='counter' style="width:26px;height:20px;background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button> 
+&nbsp;&nbsp;days. <!--<button id='today' ></button>-->
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>$(document).ready(function(){
+var oneDay = 24*60*60*1000;
+var start = new Date(2021, 06, 13);
+var now = new Date();
+var elapsed = Math.round(Math.abs((now.getTime() - start.getTime())/(oneDay)-1));
+$('#counter').html(` ${elapsed} `);
+var nowd = new Date().toUTCString().slice(0,16);
+$('#today').html(` ${nowd} `);});</script>
+
