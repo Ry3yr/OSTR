@@ -2054,3 +2054,72 @@ $('#counter').html(` ${elapsed} `);
 var nowd = new Date().toUTCString().slice(0,16);
 $('#today').html(` ${nowd} `);});</script>
 
+______________________________
+Datepicker
+----------------
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>$( function() { $( "#datepicker" ).datepicker({changeMonth: true,changeYear: true});} );</script>
+<p>Date: <input type="text" id="datepicker"></p>
+
+______________________________
+
+Random image on pageload:
+-------------------------------------------
+
+<script>
+window.onload = choosePic;
+var myPix = new Array(
+"https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/cool_stuff_anim.gif",
+"https://ptgmedia.pearsoncmg.com/images/chap4_9780321996701/elementLinks/04fig15.jpg");
+function choosePic() {
+     var randomNum = Math.floor(Math.random() * myPix.length);
+     document.getElementById("myPicture").src = myPix[randomNum];}
+</script>
+
+<img src="https://pt" width="305" height="312" id="myPicture">
+
+__________________
+
+Random background on pageload:
+--------------------------------------------------
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+#random{
+  width: 100%;
+  height: 100%;
+  //border: 1px solid black;
+  background-image: url('');
+  //background-position: center center;
+  //background-size: cover;
+  //background-repeat: no-repeat;}
+</style>
+<body>
+<body onload="randombg()"><div id="random" ></div>  
+  <script>
+function randombg(){
+  var random= Math.floor(Math.random() * 6) + 0;
+  var bigSize = ["url('https://media1.giphy.com/media/l0HlVrqPItQH8D4iI/giphy.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/cool_stuff_anim.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/cool_stuff_anim.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/comments_anim.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/comments_anim.gif')",
+                 "url('https://media1.giphy.com/media/l0HlVrqPItQH8D4iI/giphy.gif')"];
+  document.getElementById("random").style.backgroundImage=bigSize[random];}</script>
+
+(Source: https://stackoverflow.com/questions/75237942/load-random-tiled-image-into-style-background/75239481#75239481 )
+
+________________
+
+Convert page to source code:
+---------------------------------------------
+
+<button id="mypxlbtn" style="background:transparent; border:transparent;" onclick="myPXXFDFunction()">Source!</button>
+<script>
+function myPXXFDFunction() {
+document.documentElement.innerHTML = `<pre>${document.documentElement.innerHTML.replace(/</g,"&lt;")}</pre>`;
+}
+</script>
