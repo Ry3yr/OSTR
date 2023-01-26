@@ -1,4 +1,7 @@
 
+<style>
+body,html{padding:0;margin:0;text-align:center;font-family:Raleway,sans-serif;font-size:18px;color:#888480;background-color:#ffffff}p{width:40%;min-width:420px;max-width:800px;margin:30px auto;line-height:1.3em}a{color:#000;text-decoration:none}a.thumbnail img{margin:20px;border:2px solid #fff;border-radius:10px}a{outline:0}.lightbox{display:block;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);visibility:hidden;opacity:0}
+</style>
 
 <a href="index.html">Back to [MainPage]</a><br>
 <br>
@@ -136,97 +139,43 @@ document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe')
 <br>
 <!------------------Art Beginning (old)------->
 <br>
+<!----RandomImage--->
+<a href="javascript:choosePic()">RndmPhotos</a><br>
+<script>
+window.onload = choosePic;
+var myPix = new Array(
+"https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
+"https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
+"https://cdna.artstation.com/p/assets/images/images/039/776/208/large/pascal-braig-printed-mk-howard-thurston-vectorized-black.jpg?1626898916",
+"https://other00.deviantart.net/c476/o/2021/321/8/f/subaru_and_misora_by_pasc91.png",
+"https://m.box.com/file/900365515983/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.artstation.com/artwork/w6zYeO",
+"https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
+"https://m.box.com/file/896387464705/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png"
+);
+function choosePic() {
+     var randomNum = Math.floor(Math.random() * myPix.length);
+     document.getElementById("myPicture").src = myPix[randomNum];}</script>
+<img src=""  id="myPicture"><br><br>
 
-<!--<script src="https://www.youtube.com/player_api"></script>-->
-<!--script src="https://player.vimeo.com/api/player.js"></script>--><style>
-body,html{padding:0;margin:0;text-align:center;font-family:Raleway,sans-serif;font-size:18px;color:#888480;background-color:#ffffff}p{width:40%;min-width:420px;max-width:800px;margin:30px auto;line-height:1.3em}a{color:#fff;text-decoration:none}a.thumbnail img{margin:20px;border:2px solid #fff;border-radius:10px}a{outline:0}.lightbox{display:block;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);visibility:hidden;opacity:0}.lightboxClose{display:block;position:absolute;width:100%;height:100%}.lightboxPrev{display:block;position:absolute;left:0;top:30%;width:10%;height:55%;background-color:rgba(255,255,255,.1)}.lightboxNext{display:block;position:absolute;right:0;top:30%;width:10%;height:55%;background-color:rgba(255,255,255,.1)}.animate{-webkit-transition:.25s ease-in-out;-moz-transition:.25s ease-in-out;-ms-transition:.25s ease-in-out;-o-transition:.25s ease-in-out;transition:.25s ease-in-out}.lightbox iframe,.lightbox img{margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:40%;max-height:40%;border:2px solid #fff;box-sizing:border-box}.lightbox:target{visibility:visible;opacity:1}.lightbox:target iframe,.lightbox:target img{max-width:95%;max-height:95%}
-</style>
 
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!-- Lightbox usage markup -->
-<link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+<!--CSS-PhotoLightBox--->
+<a href="javascript:mywFunction()">Photos</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>function mywFunction() {
+$("#myphoto").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/0newart-lightbox.html");
+//var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
+//$("#outputexxtra").load(baseUrl + "/0newart-lightbox.html");
+}
+</script>
+<div class="formClass"><div id="myphoto"></div></div>
+<!--<div class="formClass"><div id="outputexxtra"></div>-->
 
-<!-- thumbnail images wrapped in a link -->
-<a class="thumbnail" href="#img1"><img src="https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img2"><img src="https://m.box.com/file/896387464705/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img3"><img src="https://m.box.com/file/889880777960/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/94456267" height="50%"/></a>
-<a class="thumbnail" href="#img4"><img src="https://ry3yr.github.io/OSTR/release/0mine/documents/art/wip/ShokaHugTango.png#https://www.pixiv.net/en/artworks/95294603" height="50%"/></a>
-<a class="thumbnail" href="#img5"><img src="https://m.box.com/file/894195666633/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/94682347" height="50%"/></a>
-<a class="thumbnail" href="#img6"><img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4cbd4eed-6add-473c-8e88-6bf32ca2db90/deuobtl-44e3133c-aa9e-4b16-b7ca-6645b4610d29.png/v1/fill/w_1280,h_1280,strp/dreaming_of_virtual_sheep_by_ryedai1_deuobtl-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzRjYmQ0ZWVkLTZhZGQtNDczYy04ZTg4LTZiZjMyY2EyZGI5MFwvZGV1b2J0bC00NGUzMTMzYy1hYTllLTRiMTYtYjdjYS02NjQ1YjQ2MTBkMjkucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.JvW4jiHthZAvMVrsspCOk_VZ4JMtdM-mnncB9Sc0fAE#https://www.artstation.com/artwork/G8XNXQ" height="50%"/></a>
-<a class="thumbnail" href="#img7"><img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4cbd4eed-6add-473c-8e88-6bf32ca2db90/detsvks-d7279a94-673d-49d2-a26e-e06e20dcd16b.png/v1/fill/w_1192,h_670,strp/patricia_woods_by_ryedai1_detsvks-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvNGNiZDRlZWQtNmFkZC00NzNjLThlODgtNmJmMzJjYTJkYjkwXC9kZXRzdmtzLWQ3Mjc5YTk0LTY3M2QtNDlkMi1hMjZlLWUwNmUyMGRjZDE2Yi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.CCAap-OpecAstLV9Y2uGkugsuDRJrSBPDjT_ps1e3Tk#https://www.deviantart.com/ryedai1/art/Patricia-Woods-896582620" height="50%"/></a>
-<a class="thumbnail" href="#img8"><img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4cbd4eed-6add-473c-8e88-6bf32ca2db90/detahrz-121b20c1-c848-433e-ba44-2c3b3a80b641.png/v1/fill/w_887,h_901,strp/exe_notes_by_ryedai1_detahrz-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyOSIsInBhdGgiOiJcL2ZcLzRjYmQ0ZWVkLTZhZGQtNDczYy04ZTg4LTZiZjMyY2EyZGI5MFwvZGV0YWhyei0xMjFiMjBjMS1jODQ4LTQzM2UtYmE0NC0yYzNiM2E4MGI2NDEucG5nIiwid2lkdGgiOiI8PTEwMTQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.dZj5v5CB65ZCn1W7fp9ZzuyW4RgHyu-O1vsK_cn3L9c#https://www.deviantart.com/ryedai1/art/EXE-Notes-895724927" height="50%"/></a>
-<a class="thumbnail" href="#img9"><img src="https://other00.deviantart.net/063e/o/2021/304/7/0/sulking_shoka_by_ryedai1.png#https://www.deviantart.com/ryedai1/art/Sulking-Shoka-896538306" height="50%"/></a>
-<a class="thumbnail" href="#img10"><img src="https://m.box.com/file/904515686191/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/95451943?text=MaronPriestCrying" height="50%"/></a>
-<a class="thumbnail" href="#img11"><img src="https://m.box.com/file/900365515983/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.artstation.com/artwork/w6zYeO" height="50%"/></a>
-<a class="thumbnail" href="#img12"><img src="https://cdna.artstation.com/p/assets/images/images/044/632/996/medium/pascal-2021-12-28-harphnpendant-rework-fin.jpg?1640679434#https://www.artstation.com/artwork/WK40eD" height="50%"/></a>
-<a class="thumbnail" href="#img13"><img src="https://other00.deviantart.net/c476/o/2021/321/8/f/subaru_and_misora_by_pasc91.png#https://www.deviantart.com/pasc91/art/Subaru-and-Misora-885119285" height="50%"/></a>
-<a class="thumbnail" href="#img14"><img src="https://cdna.artstation.com/p/assets/images/images/039/775/996/large/pascal-braig-dc3wdkh-d315c861-dd20-41c7-81f7-c50a9c962d26.jpg?1626898349#https://www.artstation.com/artwork/8exddQ" height="50%"/></a>
-<a class="thumbnail" href="#img15"><img src="https://cdna.artstation.com/p/assets/images/images/039/776/208/large/pascal-braig-printed-mk-howard-thurston-vectorized-black.jpg?1626898916#https://www.artstation.com/artwork/bK14Rm" height="50%"/></a>
-<a class="thumbnail" href="#img16"><img src="https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/95503825" height="50%"/></a>
-<a class="thumbnail" href="#img17"><img src="https://m.box.com/file/906197167519/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img18"><img src="https://m.box.com/file/906681649461/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://mobile.twitter.com/ryedai1/status/1482669241937629185" height="50%"/></a>
-<a class="thumbnail" href="#img19"><img src="https://m.box.com/file/908546578532/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img20"><img src="https://m.box.com/file/913994404049/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img21"><img src="https://m.box.com/file/925691323615/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img22"><img src="https://m.box.com/file/925961407093/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img23"><img src="https://m.box.com/file/924599604730/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%"/></a>
-<a class="thumbnail" href="#img24"><img src="" height="50%"/></a>
-<!-- lightbox containers hidden with CSS -->
-<div class="lightbox animate" id="img1"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img3">previous</a><a class="lightboxNext" href="#img2">next</a><img class="animate" src="https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img2"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img1">previous</a><a class="lightboxNext" href="#img3">next</a><img class="animate" src="https://m.box.com/file/896387464705/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img3"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img2">previous</a><a class="lightboxNext" href="#img4">next</a><img class="animate" src="https://m.box.com/file/889880777960/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/94456267" /></div>
-</div>
-<div class="lightbox animate" id="img4"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img3">previous</a><a class="lightboxNext" href="#img5">next</a><img class="animate" src="https://ry3yr.github.io/OSTR/release/0mine/documents/art/wip/ShokaHugTango.png#https://www.pixiv.net/en/artworks/95294603" /></div>
-</div>
-<div class="lightbox animate" id="img5"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img4">previous</a><a class="lightboxNext" href="#img6">next</a><img class="animate" src="https://m.box.com/file/894195666633/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/94682347" /></div>
-</div>
-<div class="lightbox animate" id="img6"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img5">previous</a><a class="lightboxNext" href="#img7">next</a><img class="animate" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4cbd4eed-6add-473c-8e88-6bf32ca2db90/deuobtl-44e3133c-aa9e-4b16-b7ca-6645b4610d29.png/v1/fill/w_1280,h_1280,strp/dreaming_of_virtual_sheep_by_ryedai1_deuobtl-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzRjYmQ0ZWVkLTZhZGQtNDczYy04ZTg4LTZiZjMyY2EyZGI5MFwvZGV1b2J0bC00NGUzMTMzYy1hYTllLTRiMTYtYjdjYS02NjQ1YjQ2MTBkMjkucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.JvW4jiHthZAvMVrsspCOk_VZ4JMtdM-mnncB9Sc0fAE#https://www.artstation.com/artwork/G8XNXQ" /></div>
-</div>
-<div class="lightbox animate" id="img7"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img6">previous</a><a class="lightboxNext" href="#img8">next</a><img class="animate" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4cbd4eed-6add-473c-8e88-6bf32ca2db90/detsvks-d7279a94-673d-49d2-a26e-e06e20dcd16b.png/v1/fill/w_1192,h_670,strp/patricia_woods_by_ryedai1_detsvks-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvNGNiZDRlZWQtNmFkZC00NzNjLThlODgtNmJmMzJjYTJkYjkwXC9kZXRzdmtzLWQ3Mjc5YTk0LTY3M2QtNDlkMi1hMjZlLWUwNmUyMGRjZDE2Yi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.CCAap-OpecAstLV9Y2uGkugsuDRJrSBPDjT_ps1e3Tk#https://www.deviantart.com/ryedai1/art/Patricia-Woods-896582620" /></div>
-</div>
-<div class="lightbox animate" id="img8"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img7">previous</a><a class="lightboxNext" href="#img9">next</a><img class="animate" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4cbd4eed-6add-473c-8e88-6bf32ca2db90/detahrz-121b20c1-c848-433e-ba44-2c3b3a80b641.png/v1/fill/w_887,h_901,strp/exe_notes_by_ryedai1_detahrz-pre.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyOSIsInBhdGgiOiJcL2ZcLzRjYmQ0ZWVkLTZhZGQtNDczYy04ZTg4LTZiZjMyY2EyZGI5MFwvZGV0YWhyei0xMjFiMjBjMS1jODQ4LTQzM2UtYmE0NC0yYzNiM2E4MGI2NDEucG5nIiwid2lkdGgiOiI8PTEwMTQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.dZj5v5CB65ZCn1W7fp9ZzuyW4RgHyu-O1vsK_cn3L9c#https://www.deviantart.com/ryedai1/art/EXE-Notes-895724927" /></div>
-</div>
-<div class="lightbox animate" id="img9"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img8">previous</a><a class="lightboxNext" href="#img10">next</a><img class="animate" src="https://other00.deviantart.net/063e/o/2021/304/7/0/sulking_shoka_by_ryedai1.png#https://www.deviantart.com/ryedai1/art/Sulking-Shoka-896538306" /></div>
-</div>
-<div class="lightbox animate" id="img10"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img9">previous</a><a class="lightboxNext" href="#img11">next</a><img class="animate" src="https://m.box.com/file/904515686191/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/95451943?text=MaronPriestCrying" /></div>
-</div>
-<div class="lightbox animate" id="img11"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img10">previous</a><a class="lightboxNext" href="#img12">next</a><img class="animate" src="https://m.box.com/file/900365515983/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.artstation.com/artwork/w6zYeO" /></div>
-</div>
-<div class="lightbox animate" id="img12"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img11">previous</a><a class="lightboxNext" href="#img13">next</a><img class="animate" src="https://cdna.artstation.com/p/assets/images/images/044/632/996/medium/pascal-2021-12-28-harphnpendant-rework-fin.jpg?1640679434#https://www.artstation.com/artwork/WK40eD" /></div>
-</div>
-<div class="lightbox animate" id="img13"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img12">previous</a><a class="lightboxNext" href="#img14">next</a><img class="animate" src="https://other00.deviantart.net/c476/o/2021/321/8/f/subaru_and_misora_by_pasc91.png#https://www.deviantart.com/pasc91/art/Subaru-and-Misora-885119285" /></div>
-</div>
-<div class="lightbox animate" id="img14"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img13">previous</a><a class="lightboxNext" href="#img15">next</a><img class="animate" src="https://cdna.artstation.com/p/assets/images/images/039/775/996/large/pascal-braig-dc3wdkh-d315c861-dd20-41c7-81f7-c50a9c962d26.jpg?1626898349#https://www.artstation.com/artwork/8exddQ" /></div>
-</div>
-<div class="lightbox animate" id="img15"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img14">previous</a><a class="lightboxNext" href="#img16">next</a><img class="animate" src="https://cdna.artstation.com/p/assets/images/images/039/776/208/large/pascal-braig-printed-mk-howard-thurston-vectorized-black.jpg?1626898916#https://www.artstation.com/artwork/bK14Rm" /></div>
-</div>
-<div class="lightbox animate" id="img16"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img15">previous</a><a class="lightboxNext" href="#img17">next</a><img class="animate" src="https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.pixiv.net/en/artworks/95503825" /></div>
-</div>
-<div class="lightbox animate" id="img17"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img16">previous</a><a class="lightboxNext" href="#img18">next</a><img class="animate" src="https://m.box.com/file/906197167519/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img18"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img17">previous</a><a class="lightboxNext" href="#img19">next</a><img class="animate" src="https://m.box.com/file/906681649461/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img19"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img18">previous</a><a class="lightboxNext" href="#img20">next</a><img class="animate" src="https://m.box.com/file/908546578532/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img20"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img19">previous</a><a class="lightboxNext" href="#img21">next</a><img class="animate" src="https://m.box.com/file/913994404049/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img21"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img20">previous</a><a class="lightboxNext" href="#img22">next</a><img class="animate" src="https://m.box.com/file/925691323615/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img22"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img21">previous</a><a class="lightboxNext" href="#img23">next</a><img class="animate" src="https://m.box.com/file/925961407093/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img23"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img22">previous</a><a class="lightboxNext" href="#img24">next</a><img class="animate" src="https://m.box.com/file/924599604730/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" /></div>
-</div>
-<div class="lightbox animate" id="img24"><a class="lightboxClose" href="#!">close</a><a class="lightboxPrev" href="#img23">previous</a><a class="lightboxNext" href="#img25">next</a><img class="animate" src="" /></div>
-</div>
+ 
+   
 
-<!--
-<iframe width="960" height="540" src="https://www.youtube.com/embed/ZVkT-kunlWw" frameborder="0" allowfullscreen></iframe>
--->
-<!-- partial -->
-  
+
+
+
+<br><br><br>
 </body>
 </html>
