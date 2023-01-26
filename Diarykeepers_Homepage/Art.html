@@ -129,7 +129,7 @@ document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe')
   </div>
 <br>
 </div>
- &nbsp;<a target="_blank" href="https://rsshub.app/pixiv/user/75406576"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Generic_Feed-icon.svg/1920px-Generic_Feed-icon.svg.png" height="25" width="25"></a>&nbsp;<a target="_blank" href="https://rssatom.de/rssatom?reader=https://rsshub.app/pixiv/user/75406576">rss</a>
+ &nbsp;<a target="_blank" href="https://rsshub.app/pixiv/user/75406576"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Generic_Feed-icon.svg/1920px-Generic_Feed-icon.svg.png" height="25" width="25"></a>&nbsp;<a target="_blank" href="https://rssatom.de/rssatom?reader=https://rsshub.app/pixiv/user/75406576">&nbsp;&nbsp;&nbsp;</a>
 </body>
 <br><iframe src="https://ry3yr.github.io/OSTR/release/0mine/documents/art/empty.png" name="iframemyart" width="80%" height="500" scrolling="yes" frameborder="0" allowtransparency="true"></iframe>
 <!---------------Newart------------------->
@@ -138,11 +138,19 @@ document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe')
 
 <br>
 <!------------------Art Beginning (old)------->
+<!--<script> window.onload = function(){ document.getElementById('btn').click(); var scriptTag = document.createElement("script"); scriptTag.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"; document.getElementsByTagName("head")[0].appendChild(scriptTag); } </script> -->
+
 <br>
 <!----RandomImage--->
-<a href="javascript:choosePic()">RndmPhotos</a><br>
+<button id=onloadd></button>
+<a href="javascript:choosePic()">RandomPicture</a>
+<button id=onloadd></button><br>
 <script>
-window.onload = choosePic;
+//$(document).ready(function(){choosePic;}
+//alert(window.onload);
+//https://stackoverflow.com/questions/2810825/javascript-event-window-onload-not-triggered;
+window.onload = choosePic; 
+var onloadd = window.onload;
 var myPix = new Array(
 "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
 "https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
@@ -154,8 +162,9 @@ var myPix = new Array(
 );
 function choosePic() {
      var randomNum = Math.floor(Math.random() * myPix.length);
-     document.getElementById("myPicture").src = myPix[randomNum];}</script>
-<img src=""  id="myPicture"><br><br>
+     document.getElementById("myPicture").src = myPix[randomNum];
+('#today').html(` ${onloadd} `);}</script>
+<img src="" width=1000  id="myPicture"><br><br>
 
 
 <!--CSS-PhotoLightBox--->
