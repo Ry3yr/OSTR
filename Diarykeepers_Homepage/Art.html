@@ -73,7 +73,7 @@ document.body.innerHTML = document.body.innerHTML.replace('meepframe', 'div');
 </div>
 
 <!----Pixelfed Gallery---->
-<br><br>
+<br>
 
 <button id="mypxlbtn" style="background:transparent; border:transparent;" onclick="myPXFDFunction()">Pixelfed </button>&nbsp;<a target="_blank" href="https://pixelfed.de/users/aoikurayami.atom"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Generic_Feed-icon.svg/1920px-Generic_Feed-icon.svg.png" height="20" width="20"></a>
 <script>
@@ -115,7 +115,7 @@ document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe')
 </head>
 <body>
 <div class="dropdown">
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="dropbtn">RecentArt</button>
+<button class="dropbtn">RecentArt</button>
   <div class="dropdown-content">
     <a href="0newart.html" target="iframemyart">Newart</a>
     <a href="https://rss.bloople.net/?url=https%3A%2F%2Frsshub.app%2Fpixiv%2Fuser%2F75406576&showtitle=false&type=html" target="iframemyart">Newart(Pixiv)</a>
@@ -157,17 +157,20 @@ document.getElementById('myrdpbtn').click(); var scriptTag = document.createElem
 
 <br>
 <!----RandomImage--->
-<button id=onloadd></button>
-<button id="myrdpbtn" style="background:transparent; border:transparent;" onclick="choosePic()">RandomPicture</button>
-<!--<a href="javascript:choosePic()">RandomPicture</a>-->
-<button id=onloadd></button><br>
-<script>
-//$(document).ready(function(){choosePic;}
-//alert(window.onload);
-//https://stackoverflow.com/questions/2810825/javascript-event-window-onload-not-triggered;
-window.onload = choosePic; 
-var onloadd = window.onload;
-var myPix = new Array(
+<button id="myrdpbtn" style="background:transparent; border:transparent;" onclick="swap()">RandomPicture</button>
+<style type="text/css">
+#banner {height:300;width:450;
+//padding:0;margin:0;text-align:right;
+//position:relative;
+//position:absolute; top: 0px; left: 1200px;
+//background-position: center center;
+background-size: cover;
+//background-repeat: no-repeat;}</style>
+<script type="text/javascript"> 
+if (document.getElementById) { window.onload = swap };
+function swap() {
+var numimages=5;
+rndimg = new Array(
 "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
 "https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
 "https://cdna.artstation.com/p/assets/images/images/039/776/208/large/pascal-braig-printed-mk-howard-thurston-vectorized-black.jpg?1626898916",
@@ -175,14 +178,13 @@ var myPix = new Array(
 "https://m.box.com/file/900365515983/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png#https://www.artstation.com/artwork/w6zYeO",
 "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png",
 "https://m.box.com/file/896387464705/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png"
-);
-function choosePic() {
-     var randomNum = Math.floor(Math.random() * myPix.length);
-     document.getElementById("myPicture").src = myPix[randomNum];
-('#myPicture').html(` ${myPicture} `);
-('#today').html(` ${onloadd} `)
-;}</script>
-<img src="https://ry3yr.github.io/OSTR/release/0mine/documents/art/empty.png" width=650  id="myPicture"><br><br>
+); 
+x=(Math.floor(Math.random()*numimages));
+randomimage=(rndimg[x]);
+document.getElementById("banner").style.backgroundImage = "url("+ randomimage +")"; 
+}</script>
+</head>
+<div id="banner""></div>
 
 
 <!--CSS-PhotoLightBox--->
