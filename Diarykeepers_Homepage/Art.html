@@ -138,12 +138,13 @@ document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe')
 
 <br>
 <!------------------Art Beginning (old)------->
-<!--<script> window.onload = function(){ document.getElementById('btn').click(); var scriptTag = document.createElement("script"); scriptTag.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"; document.getElementsByTagName("head")[0].appendChild(scriptTag); } </script> -->
+<script> $(document).ready(function(){document.getElementById('myrdpbtn').click(); var scriptTag = document.createElement("script"); scriptTag.src = "jquery.min.js"; document.getElementsByTagName("head")[0].appendChild(scriptTag); } </script>
 
 <br>
 <!----RandomImage--->
 <button id=onloadd></button>
-<a href="javascript:choosePic()">RandomPicture</a>
+<button id="myrdpbtn" style="background:transparent; border:transparent;" onclick="choosePic()">RandomPicture</button>
+<!--<a href="javascript:choosePic()">RandomPicture</a>-->
 <button id=onloadd></button><br>
 <script>
 //$(document).ready(function(){choosePic;}
@@ -169,9 +170,9 @@ function choosePic() {
 
 <!--CSS-PhotoLightBox--->
 <a href="javascript:mywFunction()">Photos</a>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="jquery.min.js"></script>
 <script>function mywFunction() {
-$("#myphoto").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/0newart-lightbox.html");
+$("#myphoto").load("0newart-lightbox.html");
 //var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
 //$("#outputexxtra").load(baseUrl + "/0newart-lightbox.html");
 }
