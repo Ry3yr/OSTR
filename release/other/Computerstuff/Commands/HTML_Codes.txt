@@ -11,6 +11,15 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Embed code into website w.o. js or iframe:
+-----------------------
+
+<object type="text/html" data="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html" style="width:100%; height:100%"></object>
+
+
+(Source: https://stackoverflow.com/questions/46690121/embed-html-content-from-another-http-request-without-an-iframe )
+_________________________
+
 Test RSS:
 ----------------
 
@@ -2069,17 +2078,7 @@ ______________________________
 Random image on pageload:
 -------------------------------------------
 
-<script>
-window.onload = choosePic;
-var myPix = new Array(
-"https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/cool_stuff_anim.gif",
-"https://ptgmedia.pearsoncmg.com/images/chap4_9780321996701/elementLinks/04fig15.jpg");
-function choosePic() {
-     var randomNum = Math.floor(Math.random() * myPix.length);
-     document.getElementById("myPicture").src = myPix[randomNum];}
-</script>
-
-<img src="https://pt" width="305" height="312" id="myPicture">
+<!----RandomImage---> <button id="myrdpbtn" style="background:transparent; border:transparent;" onclick="swap()">RandomPicture</button> <style type="text/css"> #banner {height:100%;object-fit: contain; //padding:0;margin:0;text-align:right; //position:relative; //position:absolute; top: 0px; left: 1200px; //background-position: center center; background-size: contain; background-repeat: no-repeat;}</style> <script type="text/javascript"> if (document.getElementById) { window.onload = swap }; function swap() { var numimages=8; rndimg = new Array( "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://cdnb.artstation.com/p/assets/images/images/055/144/127/large/ryedai1-2022-10-19-aoi-realist-no2.jpg?1666212593", "https://other00.deviantart.net/c476/o/2021/321/8/f/subaru_and_misora_by_pasc91.png", "https://m.box.com/file/900365515983/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/889506897379/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/896387464705/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" ); x=(Math.floor(Math.random()*numimages)); randomimage=(rndimg[x]); document.getElementById("banner").style.backgroundImage = "url("+ randomimage +")"; }</script> </head> <div id="banner""></div>
 
 __________________
 
@@ -2123,3 +2122,61 @@ function myPXXFDFunction() {
 document.documentElement.innerHTML = `<pre>${document.documentElement.innerHTML.replace(/</g,"&lt;")}</pre>`;
 }
 </script>
+
+_______________
+
+Change favicon
+------------------------
+
+<button id="button">Change favicon</button>
+  <script>function changeFavicon() {var link;
+    link = document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);};
+document.getElementById('button').addEventListener('click', function(event) { 
+  changeFavicon();}, false);
+document.body.addEventListener('online', function() {
+  console.log('online')}, false);
+document.body.addEventListener('offline', function() {
+  console.log('offline')}, false);
+</script>
+
+___________________
+
+Check if url string exists
+-------------------------------------
+
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.location.href.indexOf("Startseiteplayer") > -1) {
+      alert("You have the player open already !");
+      window.history.back();
+    } else {
+  //window.open("Startseiteplayerrun.html","_self");
+  link = document.createElement("a");
+  link.href = "Startseiteplayerrun.html";
+  //link.target = "_blank";
+  link.click()
+;}});
+</script><br>
+<a href="index.html">home</a>
+
+_______________
+
+Check if iframed
+----------
+
+<script>
+if ( window.location !== window.parent.location ) {
+alert("You have the player open already !"); 
+window.history.back(); 
+ } else {
+// The page is not in an iframe
+}
+</script>
+<!---https://tommcfarlin.com/check-if-a-page-is-in-an-iframe/-->
+
+
