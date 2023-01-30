@@ -2179,4 +2179,138 @@ window.history.back();
 </script>
 <!---https://tommcfarlin.com/check-if-a-page-is-in-an-iframe/-->
 
+________________
 
+Allow user txt file open & display lines
+---------------------------------------------------
+
+<script>
+const $output = document.getElementById('output')
+document.getElementById('file').onchange = function() {
+  var file = this.files[0];
+  var reader = new FileReader();
+  reader.onload = function(progressEvent) {
+    // Entire file
+    const text = this.result;
+    $output.innerText = text
+    // By lines
+    var lines = text.split('\n');
+    for (var line = 0; line < lines.length; line++) {
+      console.log(lines[line]);
+    }
+  };
+  reader.readAsText(file);
+};</script>
+<input type="file" name="file" id="file">
+<div id='output'>  ...</div>
+
+(Source: https://stackoverflow.com/questions/23331546/how-to-use-javascript-to-read-local-text-file-and-read-line-by-line )
+
+______________________________
+
+Display random line from file:
+---------------------------------------------
+<!DOCTYPE html>
+<!--https://run.plnkr.co/plunks/6wCVvXqoIGl6hN6Q-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+var lines;
+    var randomNumber;
+    var lastRandomNumber;
+    $(document.body).ready(function () {
+      // load the trivia from the server
+      $.ajax({
+        url: 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Dayquotes.html'
+      }).done(function(content) {
+        // normalize the line breaks, then split into lines
+        lines = content.replace(/\r\n|\r/g, '\n').trim().split('\n');
+        // only set up the click handler if there were lines found
+        if (lines && lines.length) {
+          $('#showLine').on('click', function () {
+            // loop to prevent repeating the last random number
+            while (randomNumber === lastRandomNumber) {
+              randomNumber = parseInt(Math.random() * lines.length);
+              // check to prevent infinite loop
+              if (lines.length === 1) { break; }
+            }
+            // keep track of the last random number
+            lastRandomNumber = randomNumber;
+            // show the corresponding line
+            $('#trivia').text(lines[randomNumber]);
+          });
+        }
+      });
+    });
+</script>
+  </head>
+<body><button id="showLine">Random!</button>
+    <p id="trivia"></p></body>
+</html>
+(Source: https://jsfiddle.net/aoikurayami/1yhjods7/ )
+
+_______________________
+
+Random Line from file (autoclick + linksupport)
+--------------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  var lines;
+  var randomNumber;
+  var lastRandomNumber;
+  $(document.body).ready(function () {
+    $.ajax({
+      url: "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js",
+    }).done(function (content) {
+      lines = content
+        .replace(/\r\n|\r/g, "\n")
+        .trim()
+        .split("\n");
+      lines = content
+        .replace(/\r\n|\r/g, "quote")
+        .trim()
+        .split("quote");
+      // ^^ line rmvl ^^^
+      if (lines && lines.length) {
+        $("#showLine").on("click", function () {
+          while (randomNumber === lastRandomNumber) {
+            randomNumber = parseInt(Math.random() * lines.length);
+            if (lines.length === 1) {
+              break;
+            }
+          }
+          lastRandomNumber = randomNumber;
+          $("#trivia").html(lines[randomNumber]);
+        })
+       .trigger("click");
+       //document.getElementById("showLine").style.visibility="hidden";
+      }
+    });
+  });
+</script>
+<button id="showLine">CurrListening</button>
+<p id="trivia"></p>
+
+(source: https://stackoverflow.com/questions/75279944/hiding-button-by-id-works-but-clicking-it-not/75279960#75279944)
+
+________________
+
+Add background behind text element:
+---------------------------
+
+<style>h39 { display: table; font-size:20px;background-color:white;}</style>
+<h39><p id="trivia"></p></h39>
+
+(Source: https://stackoverflow.com/questions/14310154/how-do-i-set-a-background-color-for-the-width-of-text-not-the-width-of-the-enti )
+
+
+________
+
+Prevent accidental page reload:
+-----------------------------------------
+
+window.onbeforeunload = function() { return "Are you sure you want to leave? Think of the kittens!"; }
