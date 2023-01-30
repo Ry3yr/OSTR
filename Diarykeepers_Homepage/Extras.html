@@ -84,6 +84,15 @@ $("#mywistpetal").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extra
 <div class="formClass"><div id="mywistpetal"></div></div>
 </div>
 
+<!---CurrListening / Daymusic -->
+<script>
+var lines,randomNumber,lastRandomNumber;$(document.body).ready(function(){$.ajax({url:"https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js"}).done(function(e){lines=e.replace(/\r\n|\r/g,"\n").trim().split("\n"),(lines=e.replace(/\r\n|\r/g,"quote").trim().split("quote"))&&lines.length&&($("#showLine").on("click",function(){for(;randomNumber===lastRandomNumber&&(randomNumber=parseInt(Math.random()*lines.length),1!==lines.length););lastRandomNumber=randomNumber,$("#trivia").html(lines[randomNumber])}).trigger("click"),document.getElementById("showLine").style.visibility="hidden")})});
+</script>
+<button id="showLine"></button>
+<style>h39 { display: table; font-size:20px;background-color:white;}</style>
+<h39><p id="trivia"></p></h39>
+
+
 <style>
     body {
         background-image: url("https://i.ibb.co/SxXkFBg/Mayl-EXE2.gif");

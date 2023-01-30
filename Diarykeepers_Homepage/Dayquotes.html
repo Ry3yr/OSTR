@@ -14,9 +14,6 @@
 <a target="_blank" href="mailto:data:text;base64,aGF4MHJ4eUBnb29nbGVtYWlsLmNvbQ=="><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" height="45" width="45"></a>
 </div></div>
 <style>#tooltip{display:none;}#bigdiv:hover #tooltip{display:block;}</style>-->
-
-
-
 <!----Pixiv User ID Input Textfield Beginning--------->
 <form><input type="text" id="pixivurl" value="75406576" style="border:none;"/></form>
 <script type="text/javascript">
@@ -33,17 +30,22 @@
     //a.href = url;
     //a.style.display = 'block';
     //document.body.prepend(a);
-}
-  </script>
+}</script>
+
+
+
+
+
 <!------Dayquotes---insert-------->
 <head><meta charset="UTF-8"><style>
+h38 { display: table; font-size:20px;background-color:white;}
 div {text-align: left;}
-h1 {font-size: 11px;font-family: Arial;}
+h1 {font-size: 11px;font-family: Arial;background-color:white;}
 button {width: 128px;height: 28px;background-color: white;color: black;}
 {font-size: 11px;}
 button:hover{background-color: white;}
 </style></head><body>
-<div><button onclick="generateQuote();">QuoteOfTheDay</button><p id="quoteOutput"></div>
+<div><button onclick="generateQuote();">QuoteOfTheDay</button><h38><p id="quoteOutput"></h38></div>
 <script>const arrayOfQuotes = [
     {'quote': 'Every person that you meet knows something you do not  learn from them - H Jackson'},
     {'quote': 'I dont need to hear about all the despicable folk. They are loud and easy to see through. Instead. Show me the good people quietly going about their business. They are the ones I will follow. They are the magic in the world. - Shaun Cassidy'},
@@ -129,36 +131,9 @@ button:hover{background-color: white;}
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=1PT90dAA49Q&list=PLFC4EE4355ADEBDB1&index=19">Teach a human to reason and itll think for a liftime</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ta036tQdadM&t=2m54s">99,99% Virenreduktion bedeutet fast nichts</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=fNZXoQGiv44&t=23m20s">KI Kunst ist nicht copyright schützbar</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=nyjov4NWxzo">Saiki (ColorfulMist) - Naruto OST 2 - Yasuharu Takanashi</a>'},
     {'quote': ' Behold the field in which I grow my fucks. Lay thine eyes upon it and see that it is barren.'},
 ];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
 document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].quote}\"`;
 }
 </script>
 </body>
-<!---scrolling-rss-->
-<!---<div id="bigdiv" style="position:fixed; top: 0px; left: 325px;">
-<button id="btn" class="box" style="border:transparent;">RandomRSS</button>
-<iframe id="frame" src="rss-scrolling-source01.html" frameborder="0" scrolling="no" height=65 width=400></iframe>
-</div>
-  <script>
-var cat1 = [
-    "rss-scrolling-source01.html",
-    "rss-scrolling-source02.html"
-    ];
-var myFrame = document.getElementById("frame");
-function getRandomUrl(myFrame) {
-   var index = Math.floor(Math.random()*cat1.length);
-   var url = cat1[index];
-   myFrame.src = url;}
-btn.addEventListener("click", function() {
-   getRandomUrl(myFrame); });
-</script>--->
-
-<!----Click Button OnSiteload--->
-<!---<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
-<script type="text/javascript">
-$(document).ready(function(){
-    document.getElementById("btn").click();
-});</script>-->
-
