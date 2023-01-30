@@ -1,135 +1,55 @@
-
-<head><meta charset="UTF-8"><style>
+<!DOCTYPE html>
+<!--https://run.plnkr.co/plunks/6wCVvXqoIGl6hN6Q-->
+<style>
 div {text-align: left;}
 h1 {font-size: 11px;font-family: Arial;}
 button {width: 128px;height: 28px;background-color: white;color: black;}
 {font-size: 11px;}
 button:hover{background-color: white;}
-</style></head><body>
-<div><button onclick="generateQuote();">CurrListen</button><p id="quoteOutput"></div>
-<script>const arrayOfQuotes = [
-    {'quote': 'Stardust Road - YGO Vrains OST 2 -Shinkichi Mitsumune'},
-    {'quote': 'Link to all - KHIII OST - Yoko Shimomura'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TU_bS6ttM4Q">Can\'t stay mad at you - Haven Danger</a>'},
-    {'quote': 'Theme X - Xenoblade Chronicles X OST - Hiroyuki Sawano'},
-    {'quote': 'Destiny - YGO Sound Duel 03 - Shinkichi Mitsumune'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PkcaC0g6LqY">Abandoned Feeling and Picked Up Feeling - Mirai Nikki OST - Kato Tatsuya</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Od4sH0vVFpI">Musique pour la tristesse de Xion - KHIII (Yoko Shimomura)</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=cqAawjQyieg">Kellys Lullaby - Another Code R - Satoshi Okubo</a>'},
-    {'quote': 'Rachels Theme - Satsuriku no Tenshi Animation OST - Hideki Sakamoto'},
-    {'quote': 'Nears Theme - Death Note OST III - Hideki Taniuchi'},
-    {'quote': 'Shizumuta Yo - Detective Conan OST I - Katsuo Ohno'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=mk1LAIcjAv8">Give Me Jam - YGO SEVENS SR TWO - Ryo Kawasaki</a>'},
-    {'quote': 'Battle de Chocobo - Chocobo Tales OST'},
-    {'quote': 'Abandon Me - Chicory OST - Lena Raine'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=jCYB1BeDv1w">A Fathers Letter - MftO. Vol I - Stephen Barton</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=xJMWAM--ePM">Vector to the Heavens - KH3582 OST - Yoko Shimomura</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=Yf6Eqze6sMM">Forgotten Legend - Gyakuten Saiban 4 OST - Toshihiko Horiyama</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=Y20l0tW9VfQ">Solitude - Amagi Brilliant Park - Shinkichi Mitsumune</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=FVSkRipU2oE">Girl of catching Theme - Speed Grapher OST I - Shinkichi Mitsumune</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=uLaLDmna2Pk">The Adventure of a Friend and Speckled Band - Gyakuten OST - The Great Ace Attorney</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=9sB9Uj3DmkA">The Final Result - Chaos Legion - Hideyuki Fukasawa</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=s4G7yTgV8Es">Nagato vs Asakura - TheMelancholyOfHaruhiSuzumiya OST</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=lNm7TDRr54E">Truth - YGO 5DS SD2 - Yutaka Minobe</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=46gWD0WqmCU">Still Love (like a redheaded stepchild) - TheMentalistS03OST - Blake Neely</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=wxtKZm-PZjI">Feelings towards the younger sister and older brother - YGO Vrains SD1 - Shinkichi Mitsumune</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=1o1T0CuwqGg">Gyakuten Saiban 4 TGS </a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=ObVEYdiOl7A">The last Desperate Struggle - Ghost Trick PD - Masakazu Sugimori</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=LbQbvZsDSHY&list=PLK4C8g4vpj7UA0CpjkzpRJvz_ewGIR6hr&index=1">Overlooking Hyrule - HWAoC OST - Kumi Tanioka</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=PoEwHlUs5bI">That Case - PROFESSOR LAYTON VS GYAKUTEN SAIBAN MAGICAL MYSTERY MUSIC</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=DfXD_jernsM">Bleeps - David Cutter</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=9nFF0XIESt4">Cold Smile - RZero Telos OST - Ippo Yamada</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=R7jhnVdLz50">Esperanto - RZero Physis OST - Luna Umegaki</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=yFabSBzC068">Ai wa kurayami no naka de - ZARD</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=XU8j5TGaX8g&list=PLJXkRwmABZWQxfi-uKuEgGrY31RUWRmvv&index=7">Trance State - Oneknowing - Lena Raine</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=UwlFxUcE_jA">Something new - Chicory OST - Lena Raine</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=ZX8CrEo7hDo">Flowers blooming in the church - FFVII OST - Nobuo Uematsu</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=wA5CJrla26s">Eau de vie - Shi-ki OST - Yasuharu Takanashi</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=7bXSj83Wfkk">Journey of Determination - REXE 4 OST - Toshihiko Horiyama</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=39q6_qenFKQ">The unbeatable duo - Murders by Numbers OST - Masakazu Sugimori</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=vtFg7nxSukY#youtube.com/watch?v=TF2nTOdNcuw">Sacred Moon - KHII & 358-2 OST - Yoko Shimomura</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=F-6lc7I_CBM">Mirage of the sea - Nagi no Asukara OST 1</a>'},
-    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=SYTS2sJWcIs">vs Red - Pkmn hg-ss</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?time_continue=68&v=001gCTCUh88&feature=emb_title">ZoneOfTheEnder-FotM(GBA)-OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=41zNqiquWcc">Facing the 🐅 - Josee to tora to sakana tachi (Evan Call)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=urYuIvZ2seg&list=PLK4C8g4vpj7U7u5ueKN75RRgFVSOhZOjT&index=24">Sacrifice - TaTu</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=JJVYqhWyTH0">Your Answer - RExe4</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=5duaeL4GeT4">The Place you must return to - RnR1</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=9kGzTlR4EWk">Watashitachi wa Tsukiatteiru  - Kuzu no Honkai (Masaru Yokoyama)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=B_uBAvULhNM">Merags Theme - Zexal SD V (Yutaka Minobe)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=0P4JxDzLl0s">Feelings of Loneliness - YGO ZeXal SD 1 (Yutaka Minobe)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=XA0DBN6agu8&t=119">Atarashii start - Shiroi Suna no Aquatope OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=nbizacrTnJE">Sore Demo Utaitai - Full Moon Wo Sageshite OST I (KAYta Shiina)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=v-nhCrVrOmg&list=PL20F6708E43FB94F3&index=14">Yorokobi - Usagi Drop OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=x_vbx78ksAw&feature=youtu.be">I need it - Pompo the Cinephile OST</a>'},
-    {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=CZJVhHAIDJg">Love Power - Mirai Nikki OST (Kato Tatsuya)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=3HArxT2TTic">14 Kokuhaku - Kaguya- Sama OST VolI </a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=9_sAzyTCZzQ">Questioning Moderato 2001 - Phoenix Wright 1 OST (Masakazu Sugimori)</a>'},
-    {'quote': '<a target="_blank" href="https://m.soundcloud.com/rionos/flowerpot">FlowerPot - rionos</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=bANhI8BIiVg">A legend sleeping in ice chains - Soma Bringer OST (Yasunori Mitsuda)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=KLX16xXSaTE">Super Mario Land Theme</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=G6ayyIX-QMY">Shippai - Kaguya Sama OST 2</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=sACLmz5j3BQ">Time Hollow - Masanori Akita</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=itkzr-QCVtM">Le Portrait de petite Cossette</a>'},
-    {'quote': '<a target="_blank" href="https://m.soundcloud.com/winterworks_gmbh/metal-stage?in=winterworks_gmbh/sets/takatis-soundtrack">Metal Stage - Takatis OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=3ho7uCUNEBc">Stand in a circle - Inazuma11 OST (Yasunori Mitsuda)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Tj14V38TPrI">Winter Sleep -Reira- Trapnest Piano Cover (Daria)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=HBvHsJSjI78">Revers Edge - FLCL OST I (Shinkichi Mitsumune)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ByH8neqcYVE">Deadly Premonition 2 OST (Satoshi Okubo)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Blp7OVhGQDM&list=PL85BEF0B94468C800&index=14">Kodoku na Kokoro - Rozen Maiden (Shinkichi Mitsumune)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=SGp3_SIwt2I">That which is connected by chains of golden coins - Gossick S2 OST (Kotaro Nagakawa)</a>'},
-    {'quote': '<a target="_blank" href="https://youtu.be/_EqMziuWpFw">MATRIX - Mystery to Lunakare OST (Ken Arai)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=jAwLp70CI6w&list=PLetWE-G5EkV3a66FQtCEqR4LGZkdSoEq2&index=11">The smiling Champion - VRAINS SD1 (Shinkichi Mitsumune)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=oCF_leSNIfA&list=PL0bj_3nLaCVwfKoGJX8AeTJKYfGNgFq0D&index=18">Blue Indigo - Switched OST (Ken Arai)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=2WfaotSK3mI">Gymnopedie No1 - Erik Satie</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=pd56jmBMtF0">Glowing Holograms - Ryo Kawaski</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=t3RLJJ_v7BI">Searching the Lost Woods (Enemy Outpost) — Hyrule Warriors Age of Calamity Soundtrack</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=HL0jsKajSds&t=540">Highly Responsive to Prayer - Touhou OST 1 (ZUN)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PhhGEA_317w">Field of Hopes and Dreams - DeltaRune OST (Toby Fox)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PXTZA5bqIJ0">YukiSatellites - Radix-Rymdlego</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=UrAhnndvrSU&t=62">You are the Jumpmaster - Apex Legends OST (Stephen Barton)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Vwhrqd3UaKo">Youngblood - 5SOS</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=1qrhnK6FGr0">ManOnTheMoon - AlanWalker-N-Ingrosso</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=L4DrqbROaeA">Conflict of the inner mind - VRAINS SD 3 - Shinkichi Mitsumune</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=rx1IYo26EEQ">Oriental Sentinels - ZXA OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=9tE31Wd7DF4">So Alone - Anna Blue</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=aoMEu5_XVQ0">Samus Returns Theme</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=oRZVPHMPYLQ&list=PL60AC8FAD43BF869C&index=23">Phendrana Drift Main Theme - Metroid Prime OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=EgwGYmAH0BA&list=PL60AC8FAD43BF869C&index=35">Tallon Overworld Depths - MP1</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=wNp-gXZ7hy4&list=PL60AC8FAD43BF869C&index=36">Phendrana Drift Depths - MP1</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=R5TZcmLnlkU">Rundas Theme - MP3Corruption</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=pk0GfVIY1O4#https://m.youtube.com/watch?v=yPLGig_N0Mc">Skeletons in the Attic - Dance with the Dead</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=aHpWqmWNNx4">Ich werde da sein DGMN Ger OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=RKXbzETlBkc">Researching Memories - AnotherCodeDS (TSMusic-SatoshiOkubo)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=evuN1qaGA5A">Break the Wall - Ana Blue</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=71ar4Fp7_ww">Sadness - LePortraitDePetiteCossette -YukiKaijura</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=RcxrVeLgwY0&t=1156s">Lake Isenstar - Eragon DS - Ian Stoker</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=qIKtVwFOTFs&t=27m35s">Bionic Action - Turrican OST -Chris Huelsbeck</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=eaJH9pajF6s&list=PLEB91E661EA7AD4B6&index=7">HenshinAgogo - Viewtiful Joe - Masakazu Sugimori</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=k-ESQr5Ck4A">Heart Tugging - Kaitou Joker OST</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Wd70qA0EBiE">A far-off light of hope - ygo arcv sd 2 - Kotaro Nagakawa</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Uo6tvRweYEk">Ajin Main Theme - Ajin OST -Yugo Kanno</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ebWPWt3ntHU">B Side Vol - Dancing with the Death</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=89mU0Mdsa2I">12 Excitement - Love After WorldDomination</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=yZ5jqYMWIi0&list=PLB2EB23976954310A&index=3">Mieibu Seibai no Jiai - Gosick OST (Kotaro Nagakawa)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=XNv6FoS7W04&list=PLB2EB23976954310A&index=23">Body Clad in Fear - Gosick OST (Kotaro Nagakawa)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=44E84xIHEvU">Shadows (Nightcore) Aero Chord feat Neeve</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=4HIf5are-P0&t=290s">Leave out all the rest - Linkin Park</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ZKQkjaVMRZY&feature=emb_title">Spacebound - Recovery (Eminem)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ByH8neqcYVE&list=PL6M1RkT9HTi2-BKzSihwpHJ5suXBcjAim&index=9">Le Carre 3 - Deadly Premonition 2 OST (Satoshi Okubo)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=sJ9J8SJgd-U&list=PLMPqB6S4LdHmwf619aypTcIoDLdAj5XV7&index=24">Truth - 5DS SD II (Yutaka Minobe)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=o4FXKP-q6ZE&list=PLl-vhnGPY7cqhJ_XjQ-SoB-uAZXGsdkOP&index=3">Transient Calm - SpyXFam</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=zjVv5PnWSoc">Board the Ship - Norn9 + Nonette (Kevin Penkin)</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=S6JBRiJkVz4&list=PLXyZxF7ZMU62mbHUZWGX5SS1peQDAq1As&index=3">Clouds - Laoovaan Files</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=vSQf4TF_8ZI&list=PLRU-B1PBK4BsokzugGNzmR-NiD4E7JbMw&index=14">Hardcore - Nigahiga</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PTKl17TXqyo&list=PLLiHaMFYDWBTFMLdgVBKUPxW2vs0WlAKL&index=1">Lily - Ender Lilies</a>'},
-];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
-document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].quote}\"`;}
+</style>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <script src="jquery.min.js"></script>
+    <script>
+var lines;
+    var randomNumber;
+    var lastRandomNumber;
+    $(document.body).ready(function () {
+      // load the trivia from the server
+      $.ajax({
+        url: 'Daymusic_array.js'
+      }).done(function(content) {
+        // normalize the line breaks, then split into lines
+        lines = content.replace(/\r\n|\r/g, '\n').trim().split('\n');
+        lines = content.replace(/\r\n|\r/g, 'quote').trim().split('quote');
+        // ^^ line rmvl ^^^
+        // only set up the click handler if there were lines found
+        if (lines && lines.length) {
+          $('#showLine').on('click', function () {
+            // loop to prevent repeating the last random number
+            while (randomNumber === lastRandomNumber) {
+              randomNumber = parseInt(Math.random() * lines.length);
+              // check to prevent infinite loop
+              if (lines.length === 1) { break; }
+            }
+            // keep track of the last random number
+            lastRandomNumber = randomNumber;
+            // show the corresponding line
+            $('#trivia').html(lines[randomNumber]);
+          });
+        }
+      });
+    });
 </script>
-</body>
+  </head>
+<body><button id="showLine">Random!</button>
+    <p id="trivia"></p></body>
 • <a target="_blank" href="https://vgmdb.net/db/ratings.php?do=view&userid=24381">vgmdb ratings</a>
 <!----------------viewsource--->
-•<a id="myLink" title="Click to do something" href="#" onclick="viewSource();return false;">List</a>
+• <a target="_blank" href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js">List</a>
+<!--<a id="myLink" title="Click to do something" href="#" onclick="viewSource();return false;">List</a>
 <script>
 function viewSource(){;
     var source = "<html>";
@@ -141,4 +61,5 @@ function viewSource(){;
     sourceWindow.document.write(source);
     sourceWindow.document.close(); 
     if(window.focus) sourceWindow.focus();
-}  </script>
+}  </script>-->
+</html>
