@@ -11,6 +11,8 @@ window.history.back();
 </script>
 <!---https://tommcfarlin.com/check-if-a-page-is-in-an-iframe/-->
 
+ <!---Prevent accidental reload -->
+ <script type="text/javascript"> window.onbeforeunload = function() { return "Are you sure you want to leave? Think of the kittens!"; } </script>
 
   <meta charset="UTF-8">
 </head>
