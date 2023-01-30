@@ -114,3 +114,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=vSQf4TF_8ZI&list=PLRU-B1PBK4BsokzugGNzmR-NiD4E7JbMw&index=14">Hardcore - Nigahiga</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PTKl17TXqyo&list=PLLiHaMFYDWBTFMLdgVBKUPxW2vs0WlAKL&index=1">Lily - Ender Lilies</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=nyjov4NWxzo">Saiki (ColorfulMist) - Naruto OST 2 - Yasuharu Takanashi</a>'},
+    {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=sxKyBoYFUz4">Miracle - Petshopboys (Lierence)</a>'},
