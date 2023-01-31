@@ -1,6 +1,6 @@
     {'quote': 'Stardust Road - YGO Vrains OST 2 -Shinkichi Mitsumune'},
     {'quote': 'Link to all - KHIII OST - Yoko Shimomura'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TU_bS6ttM4Q">Can\'t stay mad at you - Haven Danger</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TU_bS6ttM4Q">Cant stay mad at you - Haven Danger</a>'},
     {'quote': 'Theme X - Xenoblade Chronicles X OST - Hiroyuki Sawano'},
     {'quote': 'Destiny - YGO Sound Duel 03 - Shinkichi Mitsumune'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PkcaC0g6LqY">Abandoned and Picked Up Feeling - Mirai Nikki OST - Kato Tatsuya</a>'},
@@ -116,3 +116,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=nyjov4NWxzo">Saiki (ColorfulMist) - Naruto OST 2 - Yasuharu Takanashi</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=sxKyBoYFUz4">Miracle - Petshopboys (Lierence)</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=di60NYGu03Y&list=PLI_D1jNNlMcuQHupnXHTo5e9I3sN3jfqj">PET SHOP BOYS (PL)</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TgpGuB_7cO0">LastEndConductor - ZTS </a>'},
