@@ -64,15 +64,31 @@ btn.addEventListener("click", function() {
    getRandomUrl(myFrame); });
 </script>
 
-<!---scrolling-nowplaying-->
 
-<div id="bigdiv" style="position:relative; top: -94px; left: 825px;">
+<script>if(window.innerHeight > window.innerWidth){ document.write('<div id="bigdiv" style="position:relative; top: -35px; left: 450px;">');}
+</script>
 <div class="pre-spoiler"><input name="Deutsch" type="button" onmouseover="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'RECENTLY PLAYING'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'RECENTLY PLAYING';}" value="RECENTLY PLAYING" style="background:transparent; border:transparent;"><div class="spoiler" style="display: none;">
 <!--<div id="bigdiv" style="position:relative; top: -94px; left: 825px;">-->
 <iframe src="data:text/html;base64,
 PCFkb2N0eXBlIGh0bWw+CjwhLS1odHRwczovL2FsbHdlYmNvLXRlbXBsYXRlcy5jb20vc3VwcG9ydC9TX3NjcmlwdF9uZXdzZmVlZC5odG0tLT4KPGh0bWwgbGFuZz0iZW4iPgo8aGVhZD4KPG1ldGEgY2hhcnNldD0idXRmLTgiPgo8YmFzZSB0YXJnZXQ9Il9wYXJlbnQiPgo8c3R5bGU+CkBpbXBvcnQgdXJsKGh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1Ecm9pZCtTYW5zOjQwMCw3MDApOyNuZXdzX2lmcmFtZV9zY3JvbGx7d2lkdGg6MTAwJTttYXgtd2lkdGg6MjUwcHg7bWluLXdpZHRoOjQwMHB4O21hcmdpbjowIGF1dG8gMTBweDtib3JkZXI6MXB4IHNvbGlkICMwMDA7LW1vei1ib3gtc2l6aW5nOmJvcmRlci1ib3g7LXdlYmtpdC1ib3gtc2l6aW5nOmJvcmRlci1ib3g7Ym94LXNpemluZzpib3JkZXItYm94fSNuZXdzX2lmcmFtZV9zY3JvbGwgaWZyYW1le3dpZHRoOjEwMCU7aGVpZ2h0OjE3NnB4O2Rpc3BsYXk6YmxvY2s7bWFyZ2luOjA7cGFkZGluZzowO292ZXJmbG93OmhpZGRlbn0ubmV3c19zY3JvbGwtdGl0bGV7Y29sb3I6I2ZmZjtmb250OjIwcHggIkRyb2lkIFNhbnMiLGFyaWFsLHNhbnMtc2VyaWY7dGV4dC1hbGlnbjpsZWZ0O2JhY2tncm91bmQtY29sb3I6IzI3NjM5NjtwYWRkaW5nOjVweDtib3JkZXItYm90dG9tOjVweCBzb2xpZCBzaWx2ZXJ9I05ld3NEaXZ7cG9zaXRpb246YWJzb2x1dGU7bGVmdDowO3RvcDowO3dpZHRoOjEwMCV9Ym9keS5uZXdzLXNjcm9sbHtiYWNrZ3JvdW5kLWNvbG9yOiNmZmY7bWFyZ2luOjA7cGFkZGluZzowO2JvcmRlcjowfS5zY3JvbGwtdGV4dC1pZntjb2xvcjojNjY2O2ZvbnQ6MTJweCAiRHJvaWQgU2FucyIsYXJpYWwsc2Fucy1zZXJpZjt0ZXh0LWFsaWduOmxlZnQ7cGFkZGluZzo4cHggN3B4IDB9LnNjcm9sbC10aXRsZS1pZntjb2xvcjojMDAwO2ZvbnQ6Ym9sZCAxNXB4ICJEcm9pZCBTYW5zIixhcmlhbCxzYW5zLXNlcmlmO3RleHQtYWxpZ246bGVmdDtib3JkZXItYm90dG9tOjAgc29saWQgIzY2Nn0ubmV3cy1zY3JvbGwgYTphY3RpdmUsLm5ld3Mtc2Nyb2xsIGE6bGlua3tjb2xvcjojMDNmO3RleHQtZGVjb3JhdGlvbjpub25lfS5uZXdzLXNjcm9sbCBhOnZpc2l0ZWR7Y29sb3I6IzYzZjt0ZXh0LWRlY29yYXRpb246bm9uZX0ubmV3cy1zY3JvbGwgYTpob3Zlcntjb2xvcjojNjlmO3RleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmV9Cjwvc3R5bGU+CjwvaGVhZD4KPGJvZHkgY2xhc3M9Im5ld3Mtc2Nyb2xsIiBvbk1vdXNlb3Zlcj0ic2Nyb2xsc3BlZWQ9MCIgb25Nb3VzZW91dD0ic2Nyb2xsc3BlZWQ9Y3VycmVudCIgT25Mb2FkPSJOZXdzU2Nyb2xsU3RhcnQoKTsiPgo8IS0tIFNUQVJUIE5FV1MgRkVFRCAtLT4KPGRpdiBpZD0iTmV3c0RpdiI+CjxkaXYgY2xhc3M9InNjcm9sbC10ZXh0LWlmIj4KPCEtLSBTQ1JPTExFUiBDT05URU5UIFNUQVJUUyBIRVJFIC0tPgo8c3BhbiBjbGFzcz0ic2Nyb2xsLXRpdGxlLWlmIj4KCgoKPCEtLTxzY3JpcHQgc3JjPSJodHRwczovL2NvZGUuanF1ZXJ5LmNvbS9qcXVlcnktMy4zLjEubWluLmpzIj48L3NjcmlwdD4gICAKPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgp7JChkb2N1bWVudCkucmVhZHkoZnVuY3Rpb24oKXsKICAgICQoIiNiaXRidWNrZXRpc3N1ZSIpLmxvYWQoImh0dHBzOi8vcnNzYXRvbS5kZS9yc3NhdG9tP3JlYWRlcj1odHRwczovL3BiLnRvZG9uLmRlL3RhZ3MvQ3Vyckxpc3RlbmluZ0FsY2VhLnJzcyIpO30pO30KPC9zY3JpcHQ+CiAgICA8ZGl2IGNsYXNzPSJmb3JtQ2xhc3MiPiA8ZGl2IGlkPSJiaXRidWNrZXRpc3N1ZSI+IDwvZGl2Pi0tPgoKPGlmcmFtZSBzcmM9Imh0dHBzOi8vcnNzLmJsb29wbGUubmV0Lz91cmw9aHR0cHMlM0ElMkYlMkZwYi50b2Rvbi5kZSUyRnRhZ3MlMkZDdXJyTGlzdGVuaW5nQWxjZWEucnNzJnNob3d0aXRsZT1mYWxzZSZ0eXBlPWh0bWwiIHdpZHRoPTEwMCUgaGVpZ2h0PTE1MDBweCBmcmFtZWJvcmRlcj0wIHNjcm9sbGluZz1ubz48L2lmcmFtZT4KCgo8IS0tIEVORCBTQ1JPTExFUiBDT05URU5UIC0tPgo8L2Rpdj4KPC9kaXY+CjwhLS0gRU5EIE5FV1MgRkVFRCAtLT4KPCEtLSBZT1UgRE8gTk9UIE5FRUQgVE8gRURJVCBCRUxPVyBUSElTIExJTkUgLS0+CjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4KdmFyIHN0YXJ0ZGVsYXkgCQk9IDE7IAkJLy8gU1RBUlQgU0NST0xMSU5HIERFTEFZIElOIFNFQ09ORFMKdmFyIHNjcm9sbHNwZWVkCQk9IDEuMzsJCS8vIEFESlVTVCBTQ1JPTEwgU1BFRUQKdmFyIHNjcm9sbHdpbmQJCT0gMTsJCS8vIEZSQU1FIFNUQVJUIEFESlVTVAp2YXIgc3BlZWRqdW1wCQk9IDMwOwkJLy8gQURKVVNUIFNDUk9MTCBKVU1QSU5HID0gUkFOR0UgMjAgVE8gNDAKdmFyIG5leHRkZWxheQkJPSAwOyAJCS8vIFNFQ09ORCBTQ1JPTEwgREVMQVkgSU4gU0VDT05EUyAwID0gUVVJQ0tFU1QKdmFyIHRvcHNwYWNlCQk9ICIycHgiOwkvLyBUT1AgU1BBQ0lORyBGSVJTVCBUSU1FIFNDUk9MTElORwp2YXIgZnJhbWVoZWlnaHQJCT0gNzA7CQkvLyBJRiBZT1UgUkVTSVpFIFRIRSBDU1MgSEVJR0hULCBFRElUIFRISVMgSEVJR0hUIFRPIE1BVENICmN1cnJlbnQgPSAoc2Nyb2xsc3BlZWQpOwpmdW5jdGlvbiBIZWlnaHREYXRhKCl7CkFyZWFIZWlnaHQ9ZGF0YW9iai5vZmZzZXRIZWlnaHQKaWYgKEFyZWFIZWlnaHQ9PT0wKXsKc2V0VGltZW91dCgiSGVpZ2h0RGF0YSgpIiwoIHN0YXJ0ZGVsYXkgKiAxMDAwICkpCn0KZWxzZSB7ClNjcm9sbE5ld3NEaXYoKQp9fQpmdW5jdGlvbiBOZXdzU2Nyb2xsU3RhcnQoKXsKZGF0YW9iaj1kb2N1bWVudC5hbGw/IGRvY3VtZW50LmFsbC5OZXdzRGl2IDogZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoIk5ld3NEaXYiKQpkYXRhb2JqLnN0eWxlLnRvcD10b3BzcGFjZQpzZXRUaW1lb3V0KCJIZWlnaHREYXRhKCkiLCggc3RhcnRkZWxheSAqIDEwMDAgKSkKfQpmdW5jdGlvbiBTY3JvbGxOZXdzRGl2KCl7CmRhdGFvYmouc3R5bGUudG9wPXNjcm9sbHdpbmQrJ3B4JzsKc2Nyb2xsd2luZC09c2Nyb2xsc3BlZWQ7CmlmIChwYXJzZUludChkYXRhb2JqLnN0eWxlLnRvcCk8QXJlYUhlaWdodCooLTEpKSB7CmRhdGFvYmouc3R5bGUudG9wPWZyYW1laGVpZ2h0KydweCc7CnNjcm9sbHdpbmQ9ZnJhbWVoZWlnaHQ7CnNldFRpbWVvdXQoIlNjcm9sbE5ld3NEaXYoKSIsKCBuZXh0ZGVsYXkgKiAxMDAwICkpCn0KZWxzZSB7CnNldFRpbWVvdXQoIlNjcm9sbE5ld3NEaXYoKSIsc3BlZWRqdW1wKQp9fQo8L3NjcmlwdD4KPC9ib2R5Pgo8L2h0bWw+Cgo8c2NyaXB0Pgp2YXIgU05zaG93CT0gInllcyIKICAgaWYgKFNOc2hvdyA9PSAieWVzIikgewovL2RvY3VtZW50LndyaXRlKCc8ZGl2IGlkPSJuZXdzX2lmcmFtZV9zY3JvbGwiPicpOwovL2RvY3VtZW50LndyaXRlKCc8ZGl2IGNsYXNzPSJuZXdzX3Njcm9sbC10aXRsZSI+Jyk7Ci8vZG9jdW1lbnQud3JpdGUoJ0FsY2VhQ3Vyckxpc3RlbmluZycpOwpkb2N1bWVudC53cml0ZSgnPC9kaXY+Jyk7CmRvY3VtZW50LndyaXRlKCc8L2Rpdj4nKTsKfQo8L3NjcmlwdD4K
 " frameborder="0" scrolling="no" height=40 width=400></iframe></div>
 </div>
+<!---CurrListening / Daymusic -->
+<script>
+var lines,randomNumber,lastRandomNumber;$(document.body).ready(function(){$.ajax({url:"https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js"}).done(function(e){lines=e.replace(/\r\n|\r/g,"\n").trim().split("\n"),(lines=e.replace(/\r\n|\r/g,"quote").trim().split("quote"))&&lines.length&&($("#showLine").on("click",function(){for(;randomNumber===lastRandomNumber&&(randomNumber=parseInt(Math.random()*lines.length),1!==lines.length););lastRandomNumber=randomNumber,$("#trivia").html(lines[randomNumber])}).trigger("click"),document.getElementById("showLine").style.visibility="hidden")})});
+</script>
+<button id="showLine"></button>
+<style>h39 { display: table; font-size:15px;background-color:rgba(119,170,217,0.6);padding:0px;height:21px;}</style>
+<h39><button id="trivia"></button></h39>
+<style>
+    body {
+        background-image: url("extrafiles/images/bgfiles/Mayl-EXE2.gif");
+    }
+   </style>
+  <!--<style>body{ background-image: url("https://i.ibb.co/SxXkFBg/Mayl-EXE2.gif"); }</style>-->
+
+</div>
+
 <!------------Petalrain------------->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>function mywFunction() {
@@ -84,20 +100,6 @@ $("#mywistpetal").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extra
 <div class="formClass"><div id="mywistpetal"></div></div>
 </div>
 
-<!---CurrListening / Daymusic -->
-<script>
-var lines,randomNumber,lastRandomNumber;$(document.body).ready(function(){$.ajax({url:"https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js"}).done(function(e){lines=e.replace(/\r\n|\r/g,"\n").trim().split("\n"),(lines=e.replace(/\r\n|\r/g,"quote").trim().split("quote"))&&lines.length&&($("#showLine").on("click",function(){for(;randomNumber===lastRandomNumber&&(randomNumber=parseInt(Math.random()*lines.length),1!==lines.length););lastRandomNumber=randomNumber,$("#trivia").html(lines[randomNumber])}).trigger("click"),document.getElementById("showLine").style.visibility="hidden")})});
-</script>
-<button id="showLine"></button>
-<style>h39 { display: table; font-size:15px;background-color:rgba(119,170,217,0.6);padding:0px;height:21px;}</style>
-<h39><button id="trivia"></button></h39>
 
-
-<style>
-    body {
-        background-image: url("extrafiles/images/bgfiles/Mayl-EXE2.gif");
-    }
-   </style>
-  <!--<style>body{ background-image: url("https://i.ibb.co/SxXkFBg/Mayl-EXE2.gif"); }</style>-->
 
 
