@@ -43,8 +43,6 @@ var nowd = new Date().toUTCString().slice(0,16);
 $('#today').html(` ${nowd} `);
 });</script>
 
-
-
 <!---scrolling-rss-->
 <div id="bigdiv" style="position:relative; top: -34px; left: 325px;">
 <button id="btn" class="box" style="border:transparent;">RandomRSS</button>
@@ -65,8 +63,12 @@ btn.addEventListener("click", function() {
 </script>
 
 
-<script>if(window.innerHeight > window.innerWidth){ document.write('<div id="bigdiv" style="position:relative; top: -35px; left: 450px;">');}
+
+
+<script>if(window.innerHeight > window.innerWidth){ document.write('<div id="bigdiv2" style="position:relative; top: 70px; left: -410px;">');}
 </script>
+<!---scrolling-nowplaying-->
+<div id="bigdiv" style="position:relative; top: -94px; left: 825px;">
 <div class="pre-spoiler"><input name="Deutsch" type="button" onmouseover="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'RECENTLY PLAYING'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'RECENTLY PLAYING';}" value="RECENTLY PLAYING" style="background:transparent; border:transparent;"><div class="spoiler" style="display: none;">
 <!--<div id="bigdiv" style="position:relative; top: -94px; left: 825px;">-->
 <iframe src="data:text/html;base64,
@@ -80,14 +82,10 @@ var lines,randomNumber,lastRandomNumber;$(document.body).ready(function(){$.ajax
 <button id="showLine"></button>
 <style>h39 { display: table; font-size:15px;background-color:rgba(119,170,217,0.6);padding:0px;height:21px;}</style>
 <h39><button id="trivia"></button></h39>
-<style>
-    body {
-        background-image: url("extrafiles/images/bgfiles/Mayl-EXE2.gif");
-    }
-   </style>
-  <!--<style>body{ background-image: url("https://i.ibb.co/SxXkFBg/Mayl-EXE2.gif"); }</style>-->
-
 </div>
+
+
+
 
 <!------------Petalrain------------->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -101,5 +99,11 @@ $("#mywistpetal").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extra
 </div>
 
 
+<style>
+    body {
+        background-image: url("extrafiles/images/bgfiles/Mayl-EXE2.gif");
+    }
+   </style>
+  <!--<style>body{ background-image: url("https://i.ibb.co/SxXkFBg/Mayl-EXE2.gif"); }</style>-->
 
 
