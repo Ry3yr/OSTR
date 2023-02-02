@@ -81,10 +81,12 @@ var PingModel = function (servers) {
         });
     });
 };
-var komodel = new PingModel(['localhost',
+var komodel = new PingModel([
+    'localhost',
     'pb.todon.de',
     'argus.weingaertner-it.eu',
     'ry3yr.github.io/OSTR',
+    'rsshub.app',
     'rss.bloople.net'
     ]);
 ko.applyBindings(komodel);
