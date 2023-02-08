@@ -35,6 +35,7 @@ src="https://64.media.tumblr.com/7df85173c80468f7a08687d56b7dd4a1/6d43840c7a5f4c
 <img src="https://static.wikia.nocookie.net/newgrounds/images/7/73/There_She_Is_Sign.png" height="15"> <a target="_blank" href="https://m.youtube.com/watch?v=3quYcNI3dOs">There She Is!!</a><br>
 <br><br>
 <br>
+<!--Youtube-CHID-to-ChannelPlaylist-convert-->
 <form>
   <input type="text" id="yturl" value="UCn-K7GIs62ENvdQe6ZZk9-w" />
   <input type="button" id="btn" value="ChannelPlayListURL" />
@@ -59,6 +60,33 @@ document.getElementById('btn').onclick = function() {
 }
 </script>
 <br>
+<!--Youtube-Wayback-Archve-->
+<form>
+<input type="text" id="yturl" value="https://www.youtube.com/watch?v=hyytN5xAFo4" />
+<!--<input type="button" id="btn" img src="https://png.pngtree.com/element_our/md/20180506/md_5aeee5973210e.jpg" alt="Dinosaur" />-->
+<a href="javascript:function()" id="btn"><img src="https://png.pngtree.com/element_our/md/20180506/md_5aeee5973210e.jpg" height="25" width="25"></a>
+<script>
+document.getElementById('btn').onclick = function() {
+  var val = document.getElementById('yturl').value;
+  val = val.replace('https://', '');
+  val = val.replace('mobile.youtube.com/watch?v=', '');
+  val = val.replace('www.youtube.com/watch?v=', '');
+  val = val.replace('youtube.com/watch?v=', '');
+  var url = "https://web.archive.org/web/2oe_/http://wayback-fakeurl.archive.org/yt/" + val;
+  window.open(""+url, "_blank");
+  //var urlnew = "https://web.archive.org/web/" + val;
+  //window.open(""+urlnew, "_blank");
+  //var a = document.createElement('a');
+  //var linkText = document.createTextNode(url);
+  //a.appendChild(linkText);
+  //a.title = "yturl";
+  //a.target = '_blank';
+  //a.href = url;
+  //a.style.display = 'block';
+  //document.body.appendChild(a);
+}
+</script>
+
 <br>
 <br>
 <b>Composers / Musical Talents:</b>
