@@ -69,7 +69,7 @@ document.getElementById('btn').onclick = function() {
 document.getElementById('btn2').onclick = function() {
   var val = document.getElementById('ytwayurl').value;
   val = val.replace('https://', '');
-  val = val.replace('mobile.youtube.com/watch?v=', '');
+  val = val.replace('m.youtube.com/watch?v=', '');
   val = val.replace('www.youtube.com/watch?v=', '');
   val = val.replace('youtube.com/watch?v=', '');
   var url = "https://web.archive.org/web/2oe_/http://wayback-fakeurl.archive.org/yt/" + val;
