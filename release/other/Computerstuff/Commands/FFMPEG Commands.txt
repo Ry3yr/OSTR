@@ -15,6 +15,17 @@ ________________________________________________________________________________
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
+
+Multiple (video) to mp3:
+
+Linux:
+for i in *.wmv; do ffmpeg -i "$i" "${i%.*}.mp3"; done
+
+Windows:
+n/A
+
+(Source: https://stackoverflow.com/questions/5784661/how-do-you-convert-an-entire-directory-with-ffmpeg )
+
 ________________________________
 Add BG(video) to alredy existant video:
 ---------------------------------------
@@ -78,7 +89,7 @@ Align gif to video space \ overlay:
 
 VideoWatermarkPro:
 1) Download and install the application from your web browser. Launch it afterward.
-2) Upload your video by clicking the ‚ÄúAdd Video‚Äù tab.Then ‚ÄúAdd Image‚Äù button to insert your GIF
+2) Upload your video by clicking the ìAdd Videoî tab.Then ìAdd Imageî button to insert your GIF
 3) "Run" to finish rendering
 Single frame to mp4
 ffmpeg -loop 1 -i image.png -c:v libx264 -t 15 -pix_fmt yuv420p out.mp4
@@ -169,8 +180,10 @@ ffmpeg -i in.mp4 -i input.png -filter_complex "[1][0]scale2ref[img][vid];[vid][i
 (Source: https://unix.stackexchange.com/questions/588667/ffmpeg-replace-part-of-a-video-by-a-jpg-file-for-5-seconds)
 
 ___________________________________________________________
-Webm to mp3
-------------
+Webm to mp3 (or opus to mp3)
+-----------
+for %x in (*.opus) do ffmpeg -i "%x" -vn -ab 128k -ar 44100 -y %x.mp3
+
 ffmpeg -i input.webm -vn -ab 128k -ar 44100 -y out.mp3 
 
 https://bytefreaks.net/gnulinux/bash/ffmpeg-extract-audio-from-webm-to-mp3
@@ -351,7 +364,7 @@ Edit MP3 Tag via FFMPEG:
 
 ffmpeg -i file.mp3 -metadata album_artist="ALBUM ARTIST written by ffmpeg" file_ffmpeg.mp3
 
-(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-ver√§ndern)
+(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-ver‰ndern)
 ___________________________________________________________________________________________________________________________
 
 Combine jpg and mp3 to video (youtube upload)
