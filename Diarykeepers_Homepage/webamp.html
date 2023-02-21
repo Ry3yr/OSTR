@@ -1,0 +1,47 @@
+
+    <div id="app" style="height: 100vh">
+        <!-- Webamp will attempt to center itself within this div -->
+    </div>
+    <script src="https://unpkg.com/webamp@1.4.2/built/webamp.bundle.min.js"></script>
+    <script>
+        const Webamp = window.Webamp;
+        const webamp = new Webamp({
+            initialTracks: [
+            
+                {
+                    metaData: {
+                        title: "Nara"
+                    },
+                    url: "https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/06.%20Nara.mp3",
+               duration: 120
+               },
+                
+                
+                {
+                    metaData: {
+                        title: "Boy"
+                    },
+                    url: "https://sadhost.neocities.org/music/Boy.mp3",
+                    duration: 240.322286
+                },
+                
+                
+                    {
+                    metaData: {
+                        title: "YukiSatellites"
+                    },
+                    url: "https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/Yuki%20Satellites_Radix.mp3",
+                }
+                
+                
+            ],
+        });
+        // Returns a promise indicating when it's done loading.
+        
+        initialSkin: {
+        url:  "https://archive.org/download/winampskins_Kamikaze_Kaitou_Jeanne_9/Kamikaze%20Kaitou%20Jeanne%209.wsz"
+    }
+    webamp.renderWhenReady(document.getElementById('app'))</script>
+</body>
+
+</html>
