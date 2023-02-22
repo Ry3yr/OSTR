@@ -24,13 +24,10 @@ window.onbeforeunload = function() { return "Are you sure you want to leave? Thi
  <a href="index" title="index" frameborder="0" target="audioplayer">Reset</a>&nbsp;
  <a href="index.html">[×]</a>&nbsp;
  
-<button id="mywmpbtn" style="background:transparent; border:transparent;" onclick="mywnmpFunction()">Winamp </button>
-<script>function mywnmpFunction() {document.body.innerHTML = document.body.innerHTML.replace('iframz', 'iframe');}</script>
- 
- <iframz src="https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/webamp.html" frameBorder="no" width=500px height=250></iframe>
-
-<!--<a href="javascript:myeditFunction()">WINAMP</a><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script>function myeditFunction() {$("#editor").load("https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/webamp.html");}</script><div class="formClass"><div id="editor"></div></div>-->
-
+<div id="spoiler" style="display:none">
+<iframe src="https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/webamp.html" frameBorder="no" width=500px height=250></iframe>
+</div>
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Winamp</button>
 
 <!-------------PlayersectionStart-------->
 <script> 
