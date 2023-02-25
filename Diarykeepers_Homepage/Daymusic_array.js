@@ -56,7 +56,7 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=3HArxT2TTic">14 Kokuhaku - Kaguya- Sama OST VolI </a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=9_sAzyTCZzQ">Questioning Moderato 2001 - Phoenix Wright 1 OST (Masakazu Sugimori)</a>'},
     {'quote': '<a target="_blank" href="https://m.soundcloud.com/rionos/flowerpot">FlowerPot - rionos</a>'},
-    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=bANhI8BIiVg">A legend sleeping in ice chains - Soma Bringer OST (Yasunori Mitsuda)</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=gGnJovi94ac">A legend sleeping in ice chains - Soma Bringer OST (Yasunori Mitsuda)</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=KLX16xXSaTE">Super Mario Land Theme</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=G6ayyIX-QMY">Shippai - Kaguya Sama OST 2</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=sACLmz5j3BQ">Time Hollow - Masanori Akita</a>'},
