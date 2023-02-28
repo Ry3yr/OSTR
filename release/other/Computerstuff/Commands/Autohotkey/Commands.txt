@@ -13,6 +13,22 @@ DLD Autohotkey old &new vers: https://autohotkey.com/download/1.0/
 *program-specific *ahk-classes *ahk-ideaz
 
 
+
+__________________________________________________________
+Start script paused:
+---------------------
+Pause ; auto-exec part,
+
+(Source:  https://www.autohotkey.com/board/topic/63412-how-to-start-the-script-paused/ )
+
+__________________________________________________________
+
+Disable Hotkey:
+---------------
+
+Hotkey, Down, Off
+
+
 __________________________________________________________
 
 Hide windows titlebar (fullscreen)
@@ -406,7 +422,7 @@ WinHide, Update found,
 
 Close Window (Winkill)
 ----------------------------------
-WinKill, Geräte und Drucker,
+WinKill, GerÃ¤te und Drucker,
 (SOURCE: autohotkey.com/docs/commands/WinKill.htm)
 --------------------------------------------------------------------------------
 
@@ -577,13 +593,13 @@ ________________________________________________________________________________
 Forward cmd directly to CMD: (FAST!!!!)
 ------------------------------------
 Send, {LWINDOWN}r{LWINUP}
-WinWait, Ausführen,
-IfWinNotActive, Ausführen, , WinActivate, Ausführen,
+WinWait, AusfÃ¼hren,
+IfWinNotActive, AusfÃ¼hren, , WinActivate, AusfÃ¼hren,
 puttyspath := "E:\Dropbox\Public\U_PC_Backup\WinSCP\putty.exe -ssh -P 22 root@192.168.0.155:22 -pw pswrd" 
 Clipboard := puttyspath
 Send ^a
 Send ^v
-WinWaitActive, Ausführen,
+WinWaitActive, AusfÃ¼hren,
 Send, {ENTER}
 
 _________________________________________________________________________________
@@ -868,7 +884,7 @@ Run Program                                      Run, C:\path\to\program.exe
 ___________________________________________________________________________________________________
 
 Open Windows Execute Dialog: (Win + R)           Send, {LWINDOWN}r{LWINUP}
-(Administrator ausführen)
+(Administrator ausfÃ¼hren)
 ___________________________________________________________________________________________________
 
 Any Ctrl + button combo                          Send, {CTRLDOWN}b{CTRLUP}
