@@ -118,4 +118,5 @@
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=di60NYGu03Y&list=PLI_D1jNNlMcuQHupnXHTo5e9I3sN3jfqj">PET SHOP BOYS (PL)</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TgpGuB_7cO0">LastEndConductor - ZTS </a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=793z8iFQSYA">Confrontation - PROFESSOR LAYTON VS GYAKUTEN SAIBAN MAGICAL MYSTERY MUSIC</a>'},
+    {'quote': '<a target="_blank" href="https://www.youtube.com/watch?app=desktop&v=ttPWCG0OqmQ&list=PL2kVMdk7SnvVt0Kz9Nq02euXpvpE8MRlo&index=1">Sonic Frontiers CyberSpace Music</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=96U6gV08OeQ">Hell Song - Does this look infected ? (Sum41)</a>'},
