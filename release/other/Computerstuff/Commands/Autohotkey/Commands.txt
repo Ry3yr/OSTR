@@ -13,6 +13,11 @@ DLD Autohotkey old &new vers: https://autohotkey.com/download/1.0/
 *program-specific *ahk-classes *ahk-ideaz
 
 
+__________________________________________________________
+Read out specific keycode / key :
+--------------------------------------------------
+
+https://alceawisteria.codeberg.page/Diarykeepers_Homepage/Autohotkey_Key_Identifier.exe
 
 __________________________________________________________
 Start script paused:
@@ -422,7 +427,7 @@ WinHide, Update found,
 
 Close Window (Winkill)
 ----------------------------------
-WinKill, GerÃ¤te und Drucker,
+WinKill, Geräte und Drucker,
 (SOURCE: autohotkey.com/docs/commands/WinKill.htm)
 --------------------------------------------------------------------------------
 
@@ -593,13 +598,13 @@ ________________________________________________________________________________
 Forward cmd directly to CMD: (FAST!!!!)
 ------------------------------------
 Send, {LWINDOWN}r{LWINUP}
-WinWait, AusfÃ¼hren,
-IfWinNotActive, AusfÃ¼hren, , WinActivate, AusfÃ¼hren,
+WinWait, Ausführen,
+IfWinNotActive, Ausführen, , WinActivate, Ausführen,
 puttyspath := "E:\Dropbox\Public\U_PC_Backup\WinSCP\putty.exe -ssh -P 22 root@192.168.0.155:22 -pw pswrd" 
 Clipboard := puttyspath
 Send ^a
 Send ^v
-WinWaitActive, AusfÃ¼hren,
+WinWaitActive, Ausführen,
 Send, {ENTER}
 
 _________________________________________________________________________________
@@ -884,7 +889,7 @@ Run Program                                      Run, C:\path\to\program.exe
 ___________________________________________________________________________________________________
 
 Open Windows Execute Dialog: (Win + R)           Send, {LWINDOWN}r{LWINUP}
-(Administrator ausfÃ¼hren)
+(Administrator ausführen)
 ___________________________________________________________________________________________________
 
 Any Ctrl + button combo                          Send, {CTRLDOWN}b{CTRLUP}
