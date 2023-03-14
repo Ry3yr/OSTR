@@ -6,6 +6,26 @@ https://textmechanic.com/text-tools/basic-text-tools/remove-lines-containing/
 
 
 
+_______________________________________________________________________________
+
+
+Backup #Windows  #drivers
+---------------------------------------------
+DISM /online /export-driver /destination:C:\driverbackup
+
+
+(Source: https://www.android-hilfe.de/posts/13383240/ )
+
+________________________________________
+
+
+Download file via wget:
+------------------------
+( https://eternallybored.org/misc/wget/ )
+
+wget https://download.multimedia.workers.dev/UVR_v5.2.1_setup.exe -P C:\Users\Rye\Downloads
+
+
 ________________________________________________________________________________
 
 Change brightness from cmd:
@@ -439,6 +459,26 @@ Delete last line of text file:
 --------------------------------------
 
 (SOURCE: )
+
+_____________________________
+Generate filetype-filtered-list  prewrapped in "file '...':
+--------------------------------------------
+
+(for %i in (*.mp4) do @echo file '%i') > list.txt
+
+(Source:  https://trac.ffmpeg.org/wiki/Concatenate)
+
+
+_________________________________________________________________________________________________________________________________
+
+List only files of curr dir (no folders):
+-----------------------------------------
+
+dir /b /a-d > list.txt
+
+
+(SOURCE: https://stackoverflow.com/questions/7164184/suppress-directory-names-being-listed-with-dir)
+
 _________________________________________________________________________________________________________________________________
 
 List/Read w.o. to txt (w.o. header)
@@ -542,6 +582,12 @@ Wait for 1 second:
 (SOURCE: https://www.script-example.com/themen/sleep-or-wait-in-Batch-Dateien--cmd-.php)
 
 ____________________________________________________________________________________________________________________________________
+
+Wrap each text line in bla'..':
+----------------------------------
+for /f "tokens=*" %%a in (out.txt) do (echo bla'%%a') >> list.txt
+
+__________________________________________________________________________________________________________________________________
 
 Add text to beginning of each line   : (here "MB)
 ------------------------------------------------------------------
