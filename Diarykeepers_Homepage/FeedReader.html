@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>let userFeedURLs = [];
+</script>
+</head>
+
+        <div class="input-group mb-3 input-group">
+            <input type="text" class="form-control" id="input">
+            <div class="btn bg-primary text-white" id="confirmButton">Add</div>
+        </div>
+        <div class="container" style="text-align: center;">
+            <button class="btn bg-primary text-white" id="gotoFeedButton">Goto Feed</a></button>
+            
+        </div>
+        </ul>
+    </div>
+    </div>
+    <script>
+    document.getElementById("confirmButton").addEventListener('click', handleConfirm);
+document.getElementById("gotoFeedButton").addEventListener('click', handleGotoFeed);
+function handleConfirm() {
+    addFeedURL(document.getElementById("input").value);
+    console.log(userFeedURLs);
+}
+function handleGotoFeed() {
+    if (userFeedURLs.length == 0) {
+        alert("You haven't entered any RSS feeds");
+        return;
+    }
+    localStorage.setItem('userFeedURLs', userFeedURLs);
+    window.location.href = 'feed.html';
+}
+function addFeedURL(url) {
+    RemoveHtmlTagsFromURL(url);
+    if (url == "") {
+        alert("Please enter a RSS URL!")
+        return;
+    }
+    userFeedURLs.push(url);
+    document.getElementById("input").value = "";
+    var listElement = "<li class=\"list-group-item border border-dark bg-white\"><h5>" + url + "</h5></li>"
+    console.log(listElement); document.getElementById("urlList").insertAdjacentHTML('beforeend', listElement)
+}
+function RemoveHtmlTagsFromURL(url) {
+    return url.replace(/(<([^>]+)>)/ig, "");
+}
+</script>
+</body>
+
+</html>
