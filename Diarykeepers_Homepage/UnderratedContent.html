@@ -10,6 +10,7 @@
 <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/UnderratedContent.html"</img>
 <!------------------Own QR------------->
 <div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler" style="background:transparent; border:none; color:transparent;"><div class="spoiler" style="display: none;" >
+<b>QR Encoder</b>
 <body>
 <!-- partial:index.partial.html -->
 <!DOCTYPE html>
@@ -59,8 +60,21 @@ qrInput.addEventListener("keyup", () => {
 </script>
 </body>
 </html>
-</div>
 
+<!--DecodeQR--->
+<b>Decode QR</b>
+<form>
+<input type="text" id="qrurl" value="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/240px-QR_code_for_mobile_English_Wikipedia.svg.png" />
+<a href="javascript:function()" id="btn3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/240px-QR_code_for_mobile_English_Wikipedia.svg.png" height="25" width="25"></a>
+<script>
+document.getElementById('btn3').onclick = function() {
+  var val = document.getElementById('qrurl').value;
+  //val = val.replace('https://', '');
+  var url = "https://zxing.org/w/decode?u=" + val;
+  window.open(""+url, "_blank");}
+</script>
+
+</div>
 
 
 
