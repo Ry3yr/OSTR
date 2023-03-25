@@ -1,5 +1,29 @@
 
 
+_______________________________________________
+
+Extract image link from page:
+--------------------------------------------
+
+<?php
+$dom = new DOMDocument;
+@$dom->loadHTML($html);
+$links = $dom->getElementsByTagName('a');
+$url = 'https://m.box.com/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/view/1173640726272';
+$html = file_get_contents($url);
+$dom = new DOMDocument();
+@$dom->loadHTML($html);
+$xpath = new DOMXPath($dom);
+$image_list = $xpath->query('//img[@class="image-preview"]');
+for($i=0;$i<$image_list->length; $i++){
+    echo "https://m.box.com". $image_list->item($i)->getAttribute("src"). "\n";
+}
+
+(Source: https://stackoverflow.com/questions/14107307/trying-to-fetch-all-the-images-in-a-page-using-xpath )
+
+
+_______________________________________________
+
 Scrape & reconstruct bitbucket link
 -----------------------------------------------------
 
@@ -50,21 +74,20 @@ foreach ($nodes as $node){
 
 (Source: https://stackoverflow.com/questions/75197766/simple-html-dom-scrape-all-lines-with-chracteristic-and-then-output-them-below )
 
-_______________________________________
+_______________________________________________
 
 Convert cURL to PHP:
 ----------------------------------
 
 https://incarnate.github.io/curl-to-php/
 
-_____________________
+_______________________________________________
 
 Render RSS Feed:
 ----------------------------
 
 <html>
     <head>
-        <title>RSS Feed Reader</title>
     </head>
     <body>
         <?php
@@ -96,7 +119,8 @@ Render RSS Feed:
 </html>
 
 (source: https://gist.github.com/mburst/5230448 )
-____________________________
+
+_______________________________________________
 Get IP:
 ----------
 
