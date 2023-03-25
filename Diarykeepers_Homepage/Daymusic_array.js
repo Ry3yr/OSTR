@@ -121,3 +121,4 @@
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?app=desktop&v=ttPWCG0OqmQ&list=PL2kVMdk7SnvVt0Kz9Nq02euXpvpE8MRlo&index=1">Sonic Frontiers CyberSpace Music</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=96U6gV08OeQ">Hell Song - Does this look infected ? (Sum41)</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=9XV7TeThdVA&list=PLdR7m7PFLzQ644Vx63V9pWj8o8Yi70yBq&index=2">光ノ風吹ク丘 - NieR REplicant</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=rDSISJlS9_s">Kaiba Hacker - yugioh dm</a>'},
