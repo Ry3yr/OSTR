@@ -1,5 +1,25 @@
 
 
+
+_______________________________________________
+
+Save current page output to file:
+-----------------
+<?php
+ob_start();
+
+//Code
+
+}
+?>
+<?php
+echo '1';
+// Get the content that is in the buffer and put it in your file //
+file_put_contents('yourpage.html', ob_get_contents());
+?>
+
+source: https://stackoverflow.com/questions/3775281/save-current-page-as-html-to-server )
+
 _______________________________________________
 
 Extract image link from page:
