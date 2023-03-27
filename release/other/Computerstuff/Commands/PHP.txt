@@ -1,6 +1,18 @@
 
 
 
+Replace string in file:
+-------------------------------
+
+<?php
+$path_to_file = 'yourpage.html';
+$file_contents = file_get_contents($path_to_file);
+$file_contents = str_replace("/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/view/", "<img src=https://m.box.com/file/", $file_contents);
+file_put_contents($path_to_file, $file_contents);
+?>
+
+(Source: https://stackoverflow.com/questions/1438563/find-and-replace-in-a-file )
+
 _______________________________________________
 
 Save current page output to file:
