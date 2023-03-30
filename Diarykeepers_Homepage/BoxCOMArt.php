@@ -1,4 +1,5 @@
 <?php
+//require 'simple_html_dom.php';
 unlink("yourpage.html");
 ob_start();
 $dom = new DOMDocument;
@@ -55,10 +56,13 @@ foreach ($nodes as $node){
 
 
 
-<?php echo '<script type="text/javascript"> window.open("yourpage.html"); </script>'; ?>
+<?php 
+//echo '<script type="text/javascript"> window.open("yourpage.html"); </script>'; 
+echo "<a href=http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/yourpage.html>LINK</a>";
+?>
 
 
-
+<iframe src="yourpage.html" name="boxnetgallery" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe>
 
 
 
