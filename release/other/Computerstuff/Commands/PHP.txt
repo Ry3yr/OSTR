@@ -1,6 +1,37 @@
 
 
 
+____________________________________________
+
+Close current tab:
+---------------------------
+
+<?php echo "<script>window.close();</script>"; ?>
+
+______________________________________________
+
+Show last time file was modified:
+--------------------------------------------------
+
+<?php
+$filename = 'yourpage.html';
+if (file_exists($filename)) {
+    echo "$filename was last modified: " . date ("F d Y H:i:s.", filemtime($filename));
+}
+?>
+
+_______________________________________________
+
+
+Delete file:
+----------------
+
+<?php
+unlink("yourpage.html");
+?> 
+
+_______________________________________________
+
 Replace string in file:
 -------------------------------
 
