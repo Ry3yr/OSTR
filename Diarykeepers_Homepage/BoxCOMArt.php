@@ -1,6 +1,20 @@
+
+<br>
+<?php
+$filename = 'yourpage.html';
+if (file_exists($filename)) {
+    echo "$filename was last modified: " . date ("F d Y H:i:s.", filemtime($filename));
+}
+?> <a target="_blank" href="delete.php">REFRESH</a>
+<br><br>
+
+
+
+
+
 <?php
 //require 'simple_html_dom.php';
-unlink("yourpage.html");
+//unlink("yourpage.html");
 ob_start();
 $dom = new DOMDocument;
 @$dom->loadHTML($html);
@@ -52,7 +66,7 @@ foreach ($nodes as $node){
 
     echo $node-> getAttribute('href'), "</a>", '<br>';
 }
-?>
+?><br>
 
 
 
