@@ -1,6 +1,34 @@
 
 
 
+PHP Button
+------------------
+
+<?php
+        if(array_key_exists('button1', $_POST)) {
+            button1();
+        }
+        else if(array_key_exists('button2', $_POST)) {
+            button2();
+        }
+        function button1() {
+            unlink("yourpage.html");
+            echo "Deleted!";
+        }
+        function button2() {
+            echo "This is Button2 that is selected";
+        }
+    ?>
+    <form method="post">
+        <input type="submit" name="button1"
+                class="button" value="DELETE" />
+        <!--<input type="submit" name="button2"
+                class="button" value="Button2" />-->
+    </form>
+
+(Source: https://www.geeksforgeeks.org/how-to-call-php-function-on-the-click-of-a-button/ )
+
+
 ____________________________________________
 
 Close current tab:
