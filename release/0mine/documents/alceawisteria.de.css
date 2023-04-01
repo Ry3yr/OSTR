@@ -1,3 +1,4 @@
+/*@import url(https://kurage.cc/custom.css);*/
 
 body
 {
@@ -9,8 +10,8 @@ body
   --text: #7f00ff;
   --text-secondary: rgba(207,74,114,.6);
   --background: rgba(255,255,255,0);
-  --background-alt: rgba(240,248,255,1);
-  --body: rgba(255,255,255,0);
+  --background-alt: rgba(240,248,255,p);
+  --body: rgba(255,255,255,1);
  /* image URLs and gradints can also be placed here */;
 }
 

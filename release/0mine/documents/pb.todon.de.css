@@ -1,3 +1,5 @@
+/*@import url(https://kurage.cc/custom.css);*/
+
 body
 {
   --font: sans-serif;
@@ -8,15 +10,30 @@ body
   --text: #7f00ff;
   --text-secondary: rgba(207,74,114,.6);
   --background: rgba(255,255,255,0);
-  --background-alt: rgba(240,248,255,1);
-  --body: rgba(255,255,255,0);
+  --background-alt: rgba(240,248,255,p);
+  --body: rgba(255,255,255,1);
  /* image URLs and gradints can also be placed here */;
 }
 
 
 .status-link {
-  color: #fca3b7 !important;
-}
+  color: #fca3b7 !important;}
+
+
+body,
+.tabs-bar__wrapper,
+.column > .scrollable,
+.detailed-status,
+.detailed-status__action-bar,
+.column-header__back-button,
+.admin-wrapper .sidebar-wrapper__inner,
+.search__input,
+.account__header,
+.account__section-headline, .notification__filter-bar {
+  background: rgba(173, 216, 230, .2) !important;}
+
+
+
 
 /*custom publish box*/
 .compose-form .autosuggest-textarea__textarea, .compose-form .spoiler-input__input {
@@ -25,8 +42,6 @@ body
   background: #ffdbe0;}
 .compose-form .compose-form__buttons-wrapper {
   background: #ffdbe0;}
-
-
 
 
 /* FONTS */
@@ -330,21 +345,21 @@ body.app-body,
 /*===Mastodon Logo Change===*/
 }
 .logo-container h1 a {
-  background: transparent url('https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png') no-repeat bottom/100% auto !important;
+  background: transparent url('https://alceawisteria.codeberg.page/images/alceawisterialogo.png') no-repeat bottom/100% auto !important;
   padding: 79px;
 }
 .public-layout .header .brand {
-  background: transparent url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png) no-repeat center/160% auto !important;
+  background: transparent url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png) no-repeat center/160% auto !important;
   margin-top: 1px;
   margin-left: 10px;
 }
 .landing-page__logo {
-  background: transparent url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png) no-repeat bottom/100% auto !important;
+  background: transparent url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png) no-repeat bottom/100% auto !important;
   padding: 30px;
 }
 @media(min-width:800px) {
   a[href="/"]:not(.logofont):not(.button) {
-    background: transparent url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png) no-repeat center/75% auto !important;
+    background: transparent url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png) no-repeat center/75% auto !important;
     box-sizing: border-box;
     display: block;
     margin-left: -24px;
@@ -353,7 +368,7 @@ body.app-body,
 }
 @media(max-width:800px) {
   a[href="/"]:not(.button) {
-    background: transparent url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png) no-repeat top/50% auto !important;
+    background: transparent url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png) no-repeat top/50% auto !important;
     box-sizing: border-box;
     display: block;
     margin-left: -160px;
@@ -361,7 +376,7 @@ body.app-body,
   }
 }
 .brand {
-  background: transparent url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png) no-repeat top/170% auto !important;
+  background: transparent url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png) no-repeat top/170% auto !important;
   padding: 60px;
   width: 90px;
 }
@@ -406,7 +421,7 @@ a.logofont {
   visibility: hidden;
 }
 .column-title .logo {
-  background: transparent url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png) no-repeat top/100% auto !important;
+  background: transparent url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png) no-repeat top/100% auto !important;
 }
 .column-actions {
   padding: 40px;
@@ -415,7 +430,7 @@ a.logofont {
   display: none;
 }
 .scrollable.follow-recommendations-container {
-  background-image: url(https://pb.todon.de/system/media_attachments/files/109/649/581/638/053/900/original/3b62d7d036d73159.png);
+  background-image: url(https://alceawisteria.codeberg.page/images/alceawisterialogo.png);
   background-repeat: no-repeat;
   background-position: top;
   background-size: 20%;
@@ -456,7 +471,7 @@ body,
 .search__input,
 .account__header,
 .account__section-headline, .notification__filter-bar {
-  background: #000 !important;
+  background: rgba(207,74,114,.6) !important;
 }
 .column-header > button,
 .column-back-button,
@@ -493,7 +508,7 @@ body,
 .public-layout .public-account-header__tabs__name h1,
 .public-layout .public-account-header__extra__links a strong
 {
-  color: #fff;
+  color: rgba(207,74,114,.2);
   text-shadow: none;
 }*/
 /*Dark Mode CSS End*/
@@ -504,7 +519,6 @@ body,
 a.status-link:not(.mention) {
   text-decoration: underline;
 }
-
 .media-gallery__item-thumbnail img:not([alt]),
 .audio-player__canvas:not([title]),
 .video-player video:not([title]), 
@@ -515,3 +529,13 @@ a.status-link:not(.mention) {
     border: 3px dashed rgba(251, 47, 47, 0.5);
     box-sizing: border-box;
 }
+
+
+
+/* Make property fields inline-blocks instead of blocks, allowing them
+   to sit next to each other instead of line breaking between them. */
+.account__header__fields dl dt,
+.account__header__fields dl dd {
+    display: inline-block;
+}
+
