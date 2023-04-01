@@ -68,8 +68,15 @@ foreach ($nodes as $node){
 echo "<a href=http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/yourpage.html>LINK</a>";
 ?>
 
+<!--<object type="text/html" data="yourpage.html" style="width:100%; height:100%"></object>-->
+<!--<iframe src="yourpage.html" name="boxnetgallery" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe>--><br><br>
 
-<iframe src="yourpage.html" name="boxnetgallery" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe>
+<a href="javascript:myeditFunction()">Images</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>function myeditFunction() {
+$("#editor").load("yourpage.html");
+}</script>
+<div class="formClass"><div id="editor"></div></div>
 
 
 
