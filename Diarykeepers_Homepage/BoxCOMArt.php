@@ -9,6 +9,14 @@ if (file_exists($filename)) {
 <br><br>
 
 
+<a href="javascript:cachereload()">reload cache</a>
+<script> 
+function cachereload() {
+//window.applicationCache.swapCache();
+window.location.reload(); 
+}
+</script><br><br>    
+
 
 
 
@@ -71,7 +79,7 @@ echo "<a href=http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/you
 <!--<object type="text/html" data="yourpage.html" style="width:100%; height:100%"></object>-->
 <!--<iframe src="yourpage.html" name="boxnetgallery" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe>--><br><br>
 
-<a href="javascript:myeditFunction()">Images</a>
+<a href="javascript:myeditFunction()"><img src="https://m.box.com/file/1180165956236/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl"></a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>function myeditFunction() {
 $("#editor").load("yourpage.html");
