@@ -79,6 +79,47 @@ echo "<a href=http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/you
 <!--<object type="text/html" data="yourpage.html" style="width:100%; height:100%"></object>-->
 <!--<iframe src="yourpage.html" name="boxnetgallery" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe>--><br><br>
 
+<?php
+define("TEXT_FILE", "yourpage.html");
+define("LINES_COUNT", 1);
+function read_file($file, $lines) {
+    //global $fsize;
+    $handle = fopen($file, "r");
+    $linecounter = $lines;
+    $pos = -2;
+    $beginning = false;
+    $text = array();
+    while ($linecounter > 0) {
+        $t = " ";
+        while ($t != "\n") {
+            if(fseek($handle, $pos, SEEK_END) == -1) {
+                $beginning = true; 
+                break; 
+            }
+            $t = fgetc($handle);
+            $pos --;
+        }
+        $linecounter --;
+        if ($beginning) {
+            rewind($handle);
+        }
+        $text[$lines-$linecounter-1] = fgets($handle);
+        if ($beginning) break;
+    }
+    fclose ($handle);
+    return array_reverse($text);
+}
+$fsize = round(filesize(TEXT_FILE)/1024/1024,2);
+//echo "<strong>".TEXT_FILE."</strong>\n\n";
+//echo "File size is {$fsize} megabytes\n\n";
+//echo "Last ".LINES_COUNT." lines of the file:\n\n";
+$lines = read_file(TEXT_FILE, LINES_COUNT);
+foreach ($lines as $line) {
+    echo $line;
+}
+?>
+
+
 <a href="javascript:myeditFunction()"><img src="https://m.box.com/file/1180165956236/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl"></a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>function myeditFunction() {
