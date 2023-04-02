@@ -1,6 +1,19 @@
 
 
 
+Cache-Control 
+----------------------
+This example demonstrates using the PHP header to include Cache-Control setting a max-age of 1 day.
+
+header('Cache-Control: max-age=86400');
+
+(Source: https://stackoverflow.com/questions/69699130/how-can-i-use-cache-control-in-javascript )
+
+______________________
+
+
+
+
 PHP Button
 ------------------
 
