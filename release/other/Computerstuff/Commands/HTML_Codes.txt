@@ -12,6 +12,15 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+Nocache meta tag:
+----------------------------
+(prevent site from being cached /caching )
+
+<meta http-equiv="Cache-control" content="No-Cache">
+
+https://stackoverflow.com/questions/4480304/how-to-set-http-headers-for-cache-control#4480318
+
+_________________
 
 
 Scroll < h> text (horizontally)
@@ -1127,6 +1136,18 @@ HTML "Mouseover" spoiler button:
 
 __________________________________________________________________________________________________________
 
+Alt Spoiler Button:
+-------------------
+
+<div id="spoiler" style="display:none">
+<iframe src="https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/webamp.html" frameBorder="no" width=500px height=250></iframe>
+</div>
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Winamp</button>
+
+
+(Source:  )
+
+_________________________
 
 
 =================
@@ -2331,3 +2352,29 @@ Prevent accidental page reload:
 -----------------------------------------
 
 window.onbeforeunload = function() { return "Are you sure you want to leave? Think of the kittens!"; }
+
+_________________
+
+Move / interact (with element),
+based on screen orientation:
+------------------------------------------
+
+<script>if(window.innerHeight > window.innerWidth){ document.write('<div id="bigdiv2" style="position:relative; top: 70px; left: -410px;">');}
+</script>
+
+_____________________________
+
+Url with anti-cache string
+--------------
+
+<a href="javascript:cachereload()">ⓁⒶⓉⒺⓈⓉ</a>
+<script> 
+function cachereload() {
+const url = new URL('http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/BoxCOMArt.php');
+url.searchParams.set('reloadTime', Date.now().toString());
+let a= document.createElement('a');
+a.target= '_blank';
+a.href= url.toString();
+a.click();
+}
+</script>
