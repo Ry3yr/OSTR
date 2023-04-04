@@ -1,7 +1,20 @@
 
 
+Reverse file content (flip vertical) 
+----------------------------------------------
 
+<?php
+ob_start();
+$file = file("yourpage.html");
+$file = array_reverse($file);
+foreach($file as $f){
+    echo $f."<br />";
+}
+file_put_contents('yourpage.html', ob_get_contents());
+?>
+https://stackoverflow.com/questions/3234580/read-a-file-backwards-line-by-line-using-fseek
 
+______________________________
 
 Scrape & iframe page
 ---------------------------------
