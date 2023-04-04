@@ -1,5 +1,27 @@
 
 
+
+
+
+Scrape & iframe page
+---------------------------------
+
+
+---scrapedcontent.php---
+<?php
+$homepage = file_get_contents('http://www.example.com/');
+echo $homepage;
+?>
+
+
+---Display.html:---
+<iframe src="scrapedcontent.php" name="scrape" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe></div>
+
+(Source: https://stackoverflow.com/questions/18327314/how-to-allow-http-content-within-an-iframe-on-a-https-site )
+
+______________________
+
+
 Display last file line
 ------------------------------
 
