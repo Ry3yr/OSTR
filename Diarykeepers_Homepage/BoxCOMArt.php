@@ -119,6 +119,19 @@ foreach ($lines as $line) {
 }
 ?>
 
+<?php
+unlink("yourpagereverse.html");
+//ob_start();
+$file = file("yourpage.html");
+$file = array_reverse($file);
+foreach($file as $f){
+    //echo $f."<br />";
+    file_put_contents('yourpagereverse.html', $f."<br />",FILE_APPEND);
+}
+//file_put_contents('yourpagereverse.html', ob_get_contents());
+//ob_end_flush();
+?>
+
 
 <a href="javascript:myeditFunction()"><img src="https://m.box.com/file/1180165956236/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl"></a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
