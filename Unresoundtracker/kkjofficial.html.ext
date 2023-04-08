@@ -1,0 +1,33 @@
+<!--LoadNavButton-->
+<script>
+window.onload = function(){
+document.getElementById('buttonnav').click();
+var scriptTag = document.createElement("script");
+scriptTag.src = "https://code.jquery.com/jquery-3.3.1.min.js";
+document.getElementsByTagName("head")[0].appendChild(scriptTag);}
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    $("button").click(function(){ $("#outputnav").load("https://ry3yr.github.io/OSTR/Unresoundtracker/navigationalt.html");
+    document.getElementById("buttonnav").style.visibility="hidden";
+    });});
+</script>
+<body>
+    <div class="formClass">
+        <div id="outputnav"></div>
+        <button type="button" id="buttonnav"> </button></div></body>
+<style>
+body {
+  background-image: url("https://drive.google.com/uc?export=download&id=1aS2MGeDsqkT0WNJaikJk8CGHTlwFxV7g");
+  background-color: #cccccc;
+  background-size: cover;
+  padding: 20px;
+}
+</style>
+<a  href="https://ry3yr.github.io/OSTR/Unresoundtracker/">HOME</a>
+<br><br>
+
+https://alceawisteria.codeberg.page/OSTR/release/kkj/03.%20CD%20Track%2003.mp3
+
+
