@@ -2381,7 +2381,7 @@ a.click();
 
 _________________________
 
-iframe http:
+iframe http: (only on localhost...)
 
 1) Create file on https, with redirect
 
@@ -2395,3 +2395,46 @@ iframe it
 <iframe src="redirect-to-http.html"></iframe>
 
 (Source: https://stackoverflow.com/questions/18327314/how-to-allow-http-content-within-an-iframe-on-a-https-site )
+
+______________________________
+
+Render site in ajax popup:
+---------------------
+<script src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/jquery.min.js"></script> 
+<script> 
+$.ajax({
+    url : "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html",
+    success : function(result){
+        alert(result);
+    }
+});
+</script> 
+
+(Source: https://stackoverflow.com/questions/8197709/javascript-read-html-from-url-into-string )
+
+___________________________________________________
+
+
+Self unlocking -truly encrypted html page-:
+-------------------------------------------
+
+1)
+Encrypt html via: 
+https://www.maxlaumeister.com/pagecrypt/
+
+2) Add to html beginning:
+Autosubmit:
+<script>
+window.onload = function(){
+  document.getElementById('submitPass').click();
+var scriptTag = document.createElement("script");
+scriptTag.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js";
+document.getElementsByTagName("head")[0].appendChild(scriptTag);
+}
+</script>
+
+3) replace in html
+Autopass (replace in xx-protected.html)
+<input id="pass" type="password" name="pass" value="1234" autofocus>
+
+
