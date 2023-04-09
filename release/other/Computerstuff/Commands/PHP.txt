@@ -2,6 +2,24 @@
 
 
 
+Be gone #errors , be gone !
+
+<?php
+ini_set('display_errors', 0);
+?>
+
+or .httaccess:
+------
+# HTID:21514290: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+php_value display_errors 0
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:21514290:
+-------
+(Source: https://stackoverflow.com/questions/9242903/php-hide-all-errors)
+
+
+
+________________
+
 Download file via #php 
 ------------------------------------
 

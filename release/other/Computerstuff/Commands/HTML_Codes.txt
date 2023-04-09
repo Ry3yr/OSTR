@@ -2438,3 +2438,11 @@ Autopass (replace in xx-protected.html)
 <input id="pass" type="password" name="pass" value="1234" autofocus>
 
 
+_______________________________
+
+HTML5 Audioplayer / Musicplayer
+(with playlist)
+
+https://codepen.io/craigstroman/pen/aOyRYx
+
+
