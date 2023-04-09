@@ -19,6 +19,8 @@ Read out specific keycode / key :
 
 https://alceawisteria.codeberg.page/Diarykeepers_Homepage/Autohotkey_Key_Identifier.exe
 
+(Source: https://www.autohotkey.com/board/topic/21105-crazy-scripting-scriptlet-to-find-scancode-of-a-key/ https://www.autohotkey.com/board/topic/84037-is-there-a-way-to-identify-keys/ )
+
 __________________________________________________________
 Start script paused:
 ---------------------
@@ -1366,7 +1368,14 @@ https://autohotkey.com/docs/commands/GuiControls.htm
 (https://autohotkey.com/docs/Hotkeys.htm)
 
 
-
+; AutoHotkey Media Keys
+^!Space::Send       {Media_Play_Pause}
+^!Left::Send        {Media_Prev}
+^!Right::Send       {Media_Next}
+^!NumpadMult::Send  {Volume_Mute}
+^!NumpadAdd::Send   {Volume_Up}
+^!NumpadSub::Send   {Volume_Down}
+https://gist.github.com/mistic100/d3c0c1eb63fb7e4ee545
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ~~~related to AHKScripts directly~~~
