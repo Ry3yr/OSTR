@@ -42,17 +42,103 @@ body {
 <div class="container">
 
   <audio id="audio" preload="none" tabindex="0">
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/01.%20CD%20Track%2001.mp3" data-track-number="1" />
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/02.%20CD%20Track%2002.mp3" data-track-number="2" />
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/03.%20CD%20Track%2003.mp3" data-track-number="3" />
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/04.%20CD%20Track%2004.mp3" data-track-number="4" />
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/05.%20CD%20Track%2005.mp3" data-track-number="5" />    
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/06.%20CD%20Track%2006.mp3" data-track-number="6" />
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/07.%20CD%20Track%2007.mp3" data-track-number="7" />
-    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/08.%20CD%20Track%2008.mp3" data-track-number="8" />
-                                    <source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/09.%20CD%20Track%2009.mp3" data-track-number="9" />
-                                    <source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/10.%20CD%20Track%2010.mp3" data-track-number="10" />
-                                    
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/01.%20CD%20Track%2001.mp3" data-track-number="1">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/02.%20CD%20Track%2002.mp3" data-track-number="2">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/03.%20CD%20Track%2003.mp3" data-track-number="3">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/04.%20CD%20Track%2004.mp3" data-track-number="4">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/05.%20CD%20Track%2005.mp3" data-track-number="5">    
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/06.%20CD%20Track%2006.mp3" data-track-number="6">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/07.%20CD%20Track%2007.mp3" data-track-number="7">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/08.%20CD%20Track%2008.mp3" data-track-number="8">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/09.%20CD%20Track%2009.mp3" data-track-number="9">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/10.%20CD%20Track%2010.mp3" data-track-number="10">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/11.%20CD%20Track%2011.mp3" data-track-number="11">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/12.%20CD%20Track%2012.mp3" data-track-number="12">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/13.%20CD%20Track%2013.mp3" data-track-number="13">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/14.%20CD%20Track%2014.mp3" data-track-number="14">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/15.%20CD%20Track%2015.mp3" data-track-number="15">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/16.%20CD%20Track%2016.mp3" data-track-number="16">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/17.%20CD%20Track%2017.mp3" data-track-number="17">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/18.%20CD%20Track%2018.mp3" data-track-number="18">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/19.%20CD%20Track%2019.mp3" data-track-number="19">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/20.%20CD%20Track%2020.mp3" data-track-number="20">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/21.%20CD%20Track%2021.mp3" data-track-number="21">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/22.%20CD%20Track%2022.mp3" data-track-number="22">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/23.%20CD%20Track%2023.mp3" data-track-number="23">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/24.%20CD%20Track%2024.mp3" data-track-number="24">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/25.%20CD%20Track%2025.mp3" data-track-number="25">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/26.%20CD%20Track%2026.mp3" data-track-number="26">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/27.%20CD%20Track%2027.mp3" data-track-number="27">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/28.%20CD%20Track%2028.mp3" data-track-number="28">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/29.%20CD%20Track%2029.mp3" data-track-number="29">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/30.%20CD%20Track%2030.mp3" data-track-number="30">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/31.%20CD%20Track%2031.mp3" data-track-number="31">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/32.%20CD%20Track%2032.mp3" data-track-number="32">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/33.%20CD%20Track%2033.mp3" data-track-number="33">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/34.%20CD%20Track%2034.mp3" data-track-number="34">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/35.%20CD%20Track%2035.mp3" data-track-number="35">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/36.%20CD%20Track%2036.mp3" data-track-number="36">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/37.%20CD%20Track%2037.mp3" data-track-number="37">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/38.%20CD%20Track%2038.mp3" data-track-number="38">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/39.%20CD%20Track%2039.mp3" data-track-number="39">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/40.%20CD%20Track%2040.mp3" data-track-number="40">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/41.%20CD%20Track%2041.mp3" data-track-number="41">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/42.%20CD%20Track%2042.mp3" data-track-number="42">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/43.%20CD%20Track%2043.mp3" data-track-number="43">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/44.%20CD%20Track%2044.mp3" data-track-number="44">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/45.%20CD%20Track%2045.mp3" data-track-number="45">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/46.%20CD%20Track%2046.mp3" data-track-number="46">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/47.%20CD%20Track%2047.mp3" data-track-number="47">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/48.%20CD%20Track%2048.mp3" data-track-number="48">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/49.%20CD%20Track%2049.mp3" data-track-number="49">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/50.%20CD%20Track%2050.mp3" data-track-number="50">
+
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/51.%20CD%20Track%2001.mp3" data-track-number="51">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/52.%20CD%20Track%2002.mp3" data-track-number="52">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/53.%20CD%20Track%2003.mp3" data-track-number="53">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/54.%20CD%20Track%2004.mp3" data-track-number="54">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/55.%20CD%20Track%2005.mp3" data-track-number="55">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/56.%20CD%20Track%2006.mp3" data-track-number="56">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/57.%20CD%20Track%2007.mp3" data-track-number="57">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/58.%20CD%20Track%2008.mp3" data-track-number="58">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/59.%20CD%20Track%2009.mp3" data-track-number="59">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/60.%20CD%20Track%2010.mp3" data-track-number="60">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/61.%20CD%20Track%2011.mp3" data-track-number="61">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/62.%20CD%20Track%2012.mp3" data-track-number="62">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/63.%20CD%20Track%2013.mp3" data-track-number="63">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/64.%20CD%20Track%2014.mp3" data-track-number="64">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/65.%20CD%20Track%2015.mp3" data-track-number="65">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/66.%20CD%20Track%2016.mp3" data-track-number="66">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/67.%20CD%20Track%2017.mp3" data-track-number="67">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/68.%20CD%20Track%2018.mp3" data-track-number="68">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/69.%20CD%20Track%2019.mp3" data-track-number="69">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/70.%20CD%20Track%2020.mp3" data-track-number="70">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/71.%20CD%20Track%2021.mp3" data-track-number="71">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/72.%20CD%20Track%2022.mp3" data-track-number="72">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/73.%20CD%20Track%2023.mp3" data-track-number="73">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/74.%20CD%20Track%2024.mp3" data-track-number="74">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/75.%20CD%20Track%2025.mp3" data-track-number="75">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/76.%20CD%20Track%2026.mp3" data-track-number="76">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/77.%20CD%20Track%2027.mp3" data-track-number="77">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/77.%20CD%20Track%2027.mp3" data-track-number="78">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/79.%20CD%20Track%2029.mp3" data-track-number="79">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/80.%20CD%20Track%2030.mp3" data-track-number="80">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/81.%20CD%20Track%2031.mp3" data-track-number="81">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/82.%20CD%20Track%2032.mp3" data-track-number="82">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/83.%20CD%20Track%2033.mp3" data-track-number="83">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/84.%20CD%20Track%2034.mp3" data-track-number="84">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/85.%20CD%20Track%2035.mp3" data-track-number="85">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/86.%20CD%20Track%2036.mp3" data-track-number="86">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/87.%20CD%20Track%2037.mp3" data-track-number="87">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/88.%20CD%20Track%2038.mp3" data-track-number="88">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/88.%20CD%20Track%2038.mp3" data-track-number="89">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/90.%20CD%20Track%2040.mp3" data-track-number="90">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/91.%20CD%20Track%2041.mp3" data-track-number="91">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/92.%20CD%20Track%2042.mp3" data-track-number="92">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/92.%20CD%20Track%2042.mp3" data-track-number="93">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/92.%20CD%20Track%2042.mp3" data-track-number="94">
+    			<source src="https://alceawisteria.codeberg.page/OSTR/release/kkj/92.%20CD%20Track%2042.mp3" data-track-number="95">
+                
                                     
                                     
     			Your browser does not support HTML5 audio.
@@ -205,9 +291,122 @@ body {
         <a class="playlist-track" href="#" data-play-track="10">CD1 - Track 10</a>
       </div>
     </div>
+    <div class="play-list-row" data-track-row="11">
+      <div class="small-toggle-btn">
+        <i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i>
+      </div>
+      <div class="track-number">
+        11.
+      </div>
+      <div class="track-title">
+        <a class="playlist-track" href="#" data-play-track="11">CD1 - Track 11</a>
+      </div>
+    </div>
+    <div class="play-list-row" data-track-row="12">
+      <div class="small-toggle-btn">
+        <i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i>
+      </div>
+      <div class="track-number">
+        12.
+      </div>
+      <div class="track-title">
+        <a class="playlist-track" href="#" data-play-track="12">CD1 - Track 12</a>
+      </div>
+    <div class="play-list-row" data-track-row="13">
+      <div class="small-toggle-btn">
+        <i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i>
+      </div>
+      <div class="track-number">13.</div>
+      <div class="track-title">
+        <a class="playlist-track" href="#" data-play-track="13">CD1 - Track 13</a>
+      </div>
+
+<div class="play-list-row" data-track-row="14"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">14.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="14">CD1 - Track 14</a></div>
 
 
+<div class="play-list-row" data-track-row="15"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">15.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="15">CD1 - Track 15</a></div>
+<div class="play-list-row" data-track-row="16"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">16.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="16">CD1 - Track 16</a></div>
+<div class="play-list-row" data-track-row="17"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">17.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="17">CD1 - Track 17</a></div>
+<div class="play-list-row" data-track-row="18"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">18.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="18">CD1 - Track 18</a></div>
+<div class="play-list-row" data-track-row="19"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">19.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="19">CD1 - Track 19</a></div>
+<div class="play-list-row" data-track-row="20"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">20.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="20">CD1 - Track 20</a></div>
+<div class="play-list-row" data-track-row="21"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">21.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="21">CD1 - Track 21</a></div>
+<div class="play-list-row" data-track-row="22"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">22.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="22">CD1 - Track 22</a></div>
+<div class="play-list-row" data-track-row="23"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">23.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="23">CD1 - Track 23</a></div>
+<div class="play-list-row" data-track-row="24"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">24.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="24">CD1 - Track 24</a></div>
+<div class="play-list-row" data-track-row="25"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">25.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="25">CD1 - Track 25</a></div>
+<div class="play-list-row" data-track-row="26"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">26.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="26">CD1 - Track 26</a></div>
+<div class="play-list-row" data-track-row="27"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">27.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="27">CD1 - Track 27</a></div>
+<div class="play-list-row" data-track-row="28"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">28.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="28">CD1 - Track 28</a></div>
+<div class="play-list-row" data-track-row="29"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">29.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="29">CD1 - Track 29</a></div>
+<div class="play-list-row" data-track-row="30"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">30.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="30">CD1 - Track 30</a></div>
+<div class="play-list-row" data-track-row="31"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">31.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="31">CD1 - Track 31</a></div>
+<div class="play-list-row" data-track-row="32"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">32.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="32">CD1 - Track 32</a></div>
+<div class="play-list-row" data-track-row="33"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">33.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="33">CD1 - Track 33</a></div>
+<div class="play-list-row" data-track-row="34"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">34.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="34">CD1 - Track 34</a></div>
+<div class="play-list-row" data-track-row="35"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">35.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="35">CD1 - Track 35</a></div>
+<div class="play-list-row" data-track-row="36"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">36.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="36">CD1 - Track 36</a></div>
+<div class="play-list-row" data-track-row="37"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">37.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="37">CD1 - Track 37</a></div>
+<div class="play-list-row" data-track-row="38"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">38.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="38">CD1 - Track 38</a></div>
+<div class="play-list-row" data-track-row="39"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">39.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="39">CD1 - Track 39</a></div>
+<div class="play-list-row" data-track-row="40"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">40.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="40">CD1 - Track 40</a></div>
+<div class="play-list-row" data-track-row="41"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">41.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="41">CD1 - Track 41</a></div>
+<div class="play-list-row" data-track-row="42"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">42.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="42">CD1 - Track 42</a></div>
+<div class="play-list-row" data-track-row="43"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">43.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="43">CD1 - Track 43</a></div>
+<div class="play-list-row" data-track-row="44"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">44.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="44">CD1 - Track 44</a></div>
+<div class="play-list-row" data-track-row="45"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">45.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="45">CD1 - Track 45</a></div>
+<div class="play-list-row" data-track-row="46"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">46.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="46">CD1 - Track 46</a></div>
+<div class="play-list-row" data-track-row="47"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">47.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="47">CD1 - Track 47</a></div>
+<div class="play-list-row" data-track-row="48"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">48.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="48">CD1 - Track 48</a></div>
+<div class="play-list-row" data-track-row="49"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">49.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="49">CD1 - Track 49</a></div>
+<div class="play-list-row" data-track-row="50"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">50.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="50">CD1 - Track 50</a></div>
+<div class="play-list-row" data-track-row="51"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">51.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="51">CD2 - Track 51</a></div>
+<div class="play-list-row" data-track-row="52"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">52.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="52">CD2 - Track 52</a></div>
+<div class="play-list-row" data-track-row="53"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">53.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="53">CD2 - Track 53</a></div>
+<div class="play-list-row" data-track-row="54"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">54.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="54">CD2 - Track 54</a></div>
+<div class="play-list-row" data-track-row="55"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">55.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="55">CD2 - Track 55</a></div>
+<div class="play-list-row" data-track-row="56"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">56.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="56">CD2 - Track 56</a></div>
+<div class="play-list-row" data-track-row="57"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">57.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="57">CD2 - Track 57</a></div>
+<div class="play-list-row" data-track-row="58"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">58.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="58">CD2 - Track 58</a></div>
+<div class="play-list-row" data-track-row="59"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">59.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="59">CD2 - Track 59</a></div>
+<div class="play-list-row" data-track-row="60"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">60.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="60">CD2 - Track 60</a></div>
+<div class="play-list-row" data-track-row="61"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">61.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="61">CD2 - Track 61</a></div>
+<div class="play-list-row" data-track-row="62"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">62.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="62">CD2 - Track 62</a></div>
+<div class="play-list-row" data-track-row="63"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">63.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="63">CD2 - Track 63</a></div>
+<div class="play-list-row" data-track-row="64"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">64.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="64">CD2 - Track 64</a></div>
+<div class="play-list-row" data-track-row="65"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">65.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="65">CD2 - Track 65</a></div>
+<div class="play-list-row" data-track-row="66"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">66.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="66">CD2 - Track 66</a></div>
+<div class="play-list-row" data-track-row="67"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">67.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="67">CD2 - Track 67</a></div>
+<div class="play-list-row" data-track-row="68"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">68.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="68">CD2 - Track 68</a></div>
+<div class="play-list-row" data-track-row="69"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">69.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="69">CD2 - Track 69</a></div>
+<div class="play-list-row" data-track-row="70"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">70.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="70">CD2 - Track 70</a></div>
+<div class="play-list-row" data-track-row="71"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">71.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="71">CD2 - Track 71</a></div>
+<div class="play-list-row" data-track-row="72"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">72.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="72">CD2 - Track 72</a></div>
+<div class="play-list-row" data-track-row="73"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">73.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="73">CD2 - Track 73</a></div>
+<div class="play-list-row" data-track-row="74"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">74.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="74">CD2 - Track 74</a></div>
+<div class="play-list-row" data-track-row="75"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">75.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="75">CD2 - Track 75</a></div>
+<div class="play-list-row" data-track-row="76"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">76.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="76">CD2 - Track 76</a></div>
+<div class="play-list-row" data-track-row="77"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">77.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="77">CD2 - Track 77</a></div>
+<div class="play-list-row" data-track-row="78"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">78.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="78">CD2 - Track 78</a></div>
+<div class="play-list-row" data-track-row="79"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">79.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="79">CD2 - Track 79</a></div>
+<div class="play-list-row" data-track-row="80"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">80.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="80">CD2 - Track 80</a></div>
+<div class="play-list-row" data-track-row="81"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">81.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="81">CD2 - Track 81</a></div>
+<div class="play-list-row" data-track-row="82"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">82.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="82">CD2 - Track 82</a></div>
+<div class="play-list-row" data-track-row="83"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">83.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="83">CD2 - Track 83</a></div>
+<div class="play-list-row" data-track-row="84"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">84.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="84">CD2 - Track 84</a></div>
+<div class="play-list-row" data-track-row="85"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">85.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="85">CD2 - Track 85</a></div>
+<div class="play-list-row" data-track-row="86"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">86.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="86">CD2 - Track 86</a></div>
+<div class="play-list-row" data-track-row="87"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">87.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="87">CD2 - Track 87</a></div>
+<div class="play-list-row" data-track-row="88"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">88.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="88">CD2 - Track 88</a></div>
+<div class="play-list-row" data-track-row="89"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">89.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="89">CD2 - Track 89</a></div>
+<div class="play-list-row" data-track-row="90"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">90.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="90">CD2 - Track 90</a></div>
+<div class="play-list-row" data-track-row="91"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">91.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="91">CD2 - Track 91</a></div>
+<div class="play-list-row" data-track-row="92"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">92.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="92">CD2 - Track 92</a></div>
+<div class="play-list-row" data-track-row="93"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">93.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="93">CD2 - Track 93</a></div>
+<div class="play-list-row" data-track-row="94"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">94.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="94">CD2 - Track 94</a></div>
+<div class="play-list-row" data-track-row="95"><div class="small-toggle-btn"><i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i></div><div class="track-number">95.</div><div class="track-title"><a class="playlist-track" href="#" data-play-track="95">CD2 - Track 95</a></div>
 
+    </div>
   </div>
 </div>
 </div>
@@ -215,5 +414,3 @@ body {
   <script  src="./html5audioplayerscript.js"></script>
 </body>
 </html>
-
-
