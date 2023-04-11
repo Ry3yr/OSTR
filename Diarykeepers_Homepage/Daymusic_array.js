@@ -123,3 +123,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=9XV7TeThdVA&list=PLdR7m7PFLzQ644Vx63V9pWj8o8Yi70yBq&index=2">光ノ風吹ク丘 - NieR REplicant</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=rDSISJlS9_s">Kaiba Hacker - yugioh dm</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ysYURYVpoQY">National Park Pokemon G/S/C</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=krja5ERoykg">KISEKI - TetsuwanBirdyDecode02 OP2</a>'},
