@@ -6,8 +6,9 @@ https://textmechanic.com/text-tools/basic-text-tools/remove-lines-containing/
 
 
 
-_______________________________________________________________________________
 
+
+_______________________________________________________________________________
 
 Backup #Windows  #drivers
 ---------------------------------------------
@@ -15,6 +16,28 @@ DISM /online /export-driver /destination:C:\driverbackup
 
 
 (Source: https://www.android-hilfe.de/posts/13383240/ )
+
+
+_______________________________________________________________________________
+
+Enable windows hibernate mode:
+------------------------------
+
+powercfg /hibernate on
+
+(Source: https://tweaks.com/windows/65767/enable-hibernation-on-windows/ )
+
+_______________________________________________________________________________
+
+
+#Win11 - ReEnable Classic #Context menu:
+---------------------------------------- 
+
+Windows Registry Editor Version 5.00
+[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
+@=""
+
+https://pureinfotech.com/bring-back-classic-context-menu-windows-11/
 
 ________________________________________
 
