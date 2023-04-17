@@ -16,8 +16,19 @@ ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
 
-Multiple (video) to mp3:
+____
 
+Combine animated gif with mp3/audio:
+------
+
+ffmpeg -i song.mp3 -ignore_loop 0 -i gif.gif -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -shortest -strict -2 -c:v libx264 -threads 4 -c:a aac -b:a 192k -pix_fmt yuv420p -shortest out.mp4
+
+(Source: https://stackoverflow.com/questions/48370185/convert-audio-to-video-ffmpeg-with-a-gif-as-the-background-but-keep-the-audio-le )
+
+____________
+
+Multiple (video) to mp3:
+-------------------------------------
 Linux:
 for i in *.wmv; do ffmpeg -i "$i" "${i%.*}.mp3"; done
 
