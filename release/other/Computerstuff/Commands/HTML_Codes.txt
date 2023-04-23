@@ -2422,6 +2422,21 @@ $.ajax({
 
 (Source: https://stackoverflow.com/questions/8197709/javascript-read-html-from-url-into-string )
 
+_____________________
+Render Site via js xmlhttprequest fetch
+-----------------------------------------
+
+<script>
+var req = new XMLHttpRequest();
+req.open('GET', 'https://ry3yr.github.io', false);
+req.send(null);
+if(req.status == 200)
+  //alert(req.responseText);
+  document.write(req.responseText);
+</script>
+
+(Source: https://stackoverflow.com/questions/5299646/javascript-how-to-fetch-the-content-of-a-web-page )
+
 ___________________________________________________
 
 
