@@ -1,0 +1,81 @@
+<!doctype html>
+<!--https://allwebco-templates.com/support/S_script_newsfeed.htm-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base target="_parent">
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);#news_iframe_scroll{width:100%;max-width:250px;min-width:400px;margin:0 auto 10px;border:1px solid #000;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}#news_iframe_scroll iframe{width:100%;height:176px;display:block;margin:0;padding:0;overflow:hidden}.news_scroll-title{color:#fff;font:20px "Droid Sans",arial,sans-serif;text-align:left;background-color:#276396;padding:5px;border-bottom:5px solid silver}#NewsDiv{position:absolute;left:0;top:0;width:100%}body.news-scroll{background-color:#fff;margin:0;padding:0;border:0}.scroll-text-if{color:#666;font:12px "Droid Sans",arial,sans-serif;text-align:left;padding:8px 7px 0}.scroll-title-if{color:#000;font:bold 15px "Droid Sans",arial,sans-serif;text-align:left;border-bottom:0 solid #666}.news-scroll a:active,.news-scroll a:link{color:#03f;text-decoration:none}.news-scroll a:visited{color:#63f;text-decoration:none}.news-scroll a:hover{color:#69f;text-decoration:underline}
+</style>
+</head>
+<body class="news-scroll" onMouseover="scrollspeed=0" onMouseout="scrollspeed=current" OnLoad="NewsScrollStart();">
+<!-- START NEWS FEED -->
+<div id="NewsDiv">
+<div class="scroll-text-if">
+<!-- SCROLLER CONTENT STARTS HERE -->
+<span class="scroll-title-if">
+
+<br><br>
+<a target="_blank" href="rolling.php">refresh</a><br><br>
+
+<img src=https://m.box.com/file/1191359076500/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl></img>
+<img src=https://m.box.com/file/1193644138124/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl></img>
+<img src=https://m.box.com/file/1196441513911/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl></img>
+<img src=https://m.box.com/file/1196852941120/download?shared_link=https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl></img>
+
+
+
+<!-- END SCROLLER CONTENT -->
+</div>
+</div>
+<!-- END NEWS FEED -->
+<!-- YOU DO NOT NEED TO EDIT BELOW THIS LINE -->
+<script type="text/javascript">
+var startdelay 		= 1; 		// START SCROLLING DELAY IN SECONDS
+var scrollspeed		= 2.5;		// ADJUST SCROLL SPEED
+var scrollwind		= 1;		// FRAME START ADJUST
+var speedjump		= 30;		// ADJUST SCROLL JUMPING = RANGE 20 TO 40
+var nextdelay		= 0; 		// SECOND SCROLL DELAY IN SECONDS 0 = QUICKEST
+var topspace		= "2px";	// TOP SPACING FIRST TIME SCROLLING
+var frameheight		= 70;		// IF YOU RESIZE THE CSS HEIGHT, EDIT THIS HEIGHT TO MATCH
+current = (scrollspeed);
+function HeightData(){
+AreaHeight=dataobj.offsetHeight
+if (AreaHeight===0){
+setTimeout("HeightData()",( startdelay * 1000 ))
+}
+else {
+ScrollNewsDiv()
+}}
+function NewsScrollStart(){
+dataobj=document.all? document.all.NewsDiv : document.getElementById("NewsDiv")
+dataobj.style.top=topspace
+setTimeout("HeightData()",( startdelay * 1000 ))
+}
+function ScrollNewsDiv(){
+dataobj.style.top=scrollwind+'px';
+scrollwind-=scrollspeed;
+if (parseInt(dataobj.style.top)<AreaHeight*(-1)) {
+dataobj.style.top=frameheight+'px';
+scrollwind=frameheight;
+setTimeout("ScrollNewsDiv()",( nextdelay * 1000 ))
+}
+else {
+setTimeout("ScrollNewsDiv()",speedjump)
+}}
+</script>
+</body>
+</html>
+
+<script>
+var SNshow	= "yes"
+   if (SNshow == "yes") {
+//document.write('<div id="news_iframe_scroll">');
+//document.write('<div class="news_scroll-title">');
+//document.write('AlceaCurrListening');
+document.write('</div>');
+document.write('</div>');
+}
+</script>
+
