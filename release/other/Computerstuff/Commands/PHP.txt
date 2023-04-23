@@ -314,6 +314,8 @@ _________________________________________________
 Scrape & Display all page links (breaks self ref links)
 -------------------------------
 
+<base href="https://m.box.net">
+
 <?php
 $urlContent = file_get_contents('https://m.box.com/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl?page=9');
 $dom = new DOMDocument();
@@ -329,7 +331,8 @@ for($i = 0; $i < $hrefs->length; $i++){
 }
 ?>
 
-(Source: https://stackoverflow.com/questions/56586370/php-code-that-displays-all-links-on-a-web-page )
+(Source: https://stackoverflow.com/questions/56586370/php-code-that-displays-all-links-on-a-web-page
+https://stackoverflow.com/questions/3329499/convert-a-relative-url-to-an-absolute-url-with-simple-html-dom )
 _______________________________________________
 
 Convert cURL to PHP:

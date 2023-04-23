@@ -11,6 +11,16 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+________________
+
+Set Basis for relative links:
+-------------------------------------------
+
+<base href="https://m.box.net">
+
+(Source: https://stackoverflow.com/questions/3329499/convert-a-relative-url-to-an-absolute-url-with-simple-html-dom )
+
+________________
 
 Nocache meta tag:
 ----------------------------
