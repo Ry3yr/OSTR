@@ -124,3 +124,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=rDSISJlS9_s">Kaiba Hacker - yugioh dm</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ysYURYVpoQY">National Park Pokemon G/S/C</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=krja5ERoykg">KISEKI - TetsuwanBirdyDecode02 OP2</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=3AmYr9czoqM&pp=ygUeYnVsbGV0IHRocm91Z2ggaGVhcnQgbmlnaHRjb3Jl">Bullet through my heart (Yasi) NIGHTCORE - /Cant stop loving you/</a>'},
