@@ -11,6 +11,42 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+__________________________
+
+Change link color:
+--------------------------
+
+<a target="_blank" href="http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/rollingyourpage.html" style="color:lightgrey">rollingyourpage</a>
+
+ (Source: https://www.rapidtables.com/web/html/link/html-link-color.html
+_________________________________
+Location values:
+--------------------------
+
+Let's suppose you have this url:
+http://localhost:4200/landing?query=1#
+location values, as follow:
+
+window.location.hash: "#2"
+window.location.host: "localhost:4200"
+window.location.hostname: "localhost"
+window.location.href: "http://localhost:4200/landing?query=1#2"
+window.location.origin: "http://localhost:4200"
+window.location.pathname: "/landing"
+window.location.port: "4200"
+window.location.protocol: "http:"
+
+(source: https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc )
+___________________________________
+
+Disable links in iframe:
+---------------------------------
+
+iframe { pointer-events: none; }
+
+(Source: https://stackoverflow.com/questions/69644930/can-links-inside-iframe-that-link-to-another-domain-be-ignored-disabled )
+___________________________________
+
 Download current webpage:
 -----------------------------------------
 
