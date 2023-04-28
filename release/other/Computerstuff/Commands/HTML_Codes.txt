@@ -13,6 +13,24 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 __________________________
 
+Click link on page load (if# exists in url):
+---------------------------------
+
+<a id=linky href=""></a>
+
+
+<script type="text/javascript">
+    if (location.href.indexOf("#download") != -1) {
+    //alert("Hello! I am an alert box!!");
+    document.getElementById('linky').click()
+    }
+</script>
+
+
+(put script part at very end of page to make it work)
+
+__________________________
+
 Change link color:
 --------------------------
 
@@ -51,6 +69,11 @@ Download current webpage:
 -----------------------------------------
 
 <a onclick="this.href='data:text/html;charset=UTF-8,'+encodeURIComponent(document.documentElement.outerHTML)" href="#" download="page.html">Download</a>
+
+
+(See also:
+https://codepen.io/theConstructor/pen/vKNRdE
+)
 
 (Source: https://stackoverflow.com/questions/26219180/download-current-html-file )
 ____________________________________
