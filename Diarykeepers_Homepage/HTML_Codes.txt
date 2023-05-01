@@ -1,0 +1,2576 @@
+﻿HTML test site: https://www.tutorialrepublic.com/codelab.php
+validator.w3.org/#validate_by_input
+htmledit.squarefree.com
+Cheatsheet: https://pbs.twimg.com/media/FDTBjF5XEAkI6ZZ?format=jpg&name=large
+BlueGriffon (WYSIWYG Editor that doesn't break CSS)
+https://www.duplichecker.com/domain-age-checker.php
+[0HTML examples Backup: GDRIVE:/HTML/00_HTML
+------------
+https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.txt
+*html-unicodecharas *brk-nz *html-knowledge
+*host-website *java-scriptz
+
+
+__________________________
+
+Click link on page load (if# exists in url):
+---------------------------------
+
+<a id=linky href=""></a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    if (window.location.href.indexOf("alceawisteria") > -1) {
+      //alert("your url contains the name franky");
+      document.getElementById('linky').click();
+      window.history.back();	 
+      window.close();
+    }
+  });
+</script>
+
+
+(put script part at very end of page to make it work)
+
+(Source: https://stackoverflow.com/questions/4597050/how-to-check-if-the-url-contains-a-given-string )
+
+__________________________
+
+Change link color:
+--------------------------
+
+<a target="_blank" href="http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/rollingyourpage.html" style="color:lightgrey">rollingyourpage</a>
+
+ (Source: https://www.rapidtables.com/web/html/link/html-link-color.html
+_________________________________
+Location values:
+--------------------------
+
+Let's suppose you have this url:
+http://localhost:4200/landing?query=1#
+location values, as follow:
+
+window.location.hash: "#2"
+window.location.host: "localhost:4200"
+window.location.hostname: "localhost"
+window.location.href: "http://localhost:4200/landing?query=1#2"
+window.location.origin: "http://localhost:4200"
+window.location.pathname: "/landing"
+window.location.port: "4200"
+window.location.protocol: "http:"
+
+(source: https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc )
+___________________________________
+
+Disable links in iframe:
+---------------------------------
+
+iframe { pointer-events: none; }
+
+(Source: https://stackoverflow.com/questions/69644930/can-links-inside-iframe-that-link-to-another-domain-be-ignored-disabled )
+___________________________________
+
+Download current webpage:
+-----------------------------------------
+
+<a onclick="this.href='data:text/html;charset=UTF-8,'+encodeURIComponent(document.documentElement.outerHTML)" href="#" download="page.html">Download</a>
+
+
+(See also:
+https://codepen.io/theConstructor/pen/vKNRdE
+)
+
+(Source: https://stackoverflow.com/questions/26219180/download-current-html-file )
+____________________________________
+
+Run console command via button:
+---------------------------------------------------
+
+<button onclick="exec(`document.querySelector('button')`)">Test</button>
+<script>
+Function exec(code){
+   console.log(Function(`return (${
+   code
+   })`)())}
+</script>
+
+
+(Source: https://stackoverflow.com/questions/70295800/how-to-run-a-console-command-with-a-button-in-html )
+
+
+_____________________________
+
+Resize all images to XY%
+----------------------------------------
+
+<style>
+img{
+    width: 80%;
+    height: 80%;
+    margin-top: .4rem;
+    //border-radius: 50rem;
+    }
+</style>
+
+________________
+
+Set Basis for relative links:
+-------------------------------------------
+
+<base href="https://m.box.net">
+
+(Source: https://stackoverflow.com/questions/3329499/convert-a-relative-url-to-an-absolute-url-with-simple-html-dom )
+
+________________
+
+Nocache meta tag:
+----------------------------
+(prevent site from being cached /caching )
+
+<meta http-equiv="Cache-control" content="No-Cache">
+
+https://stackoverflow.com/questions/4480304/how-to-set-http-headers-for-cache-control#4480318
+
+_________________
+
+
+Scroll < h> text (horizontally)
+------------------------------
+(Replace translateX with "translateY" to scroll vertically)
+
+<style>h2 {animation: example linear 5s infinite;}@keyframes example {from { transform: translateX(-40%); } to { transform: translateX(100%);}}</style>
+<h2>This is an announcement</h2>
+
+(source: https://stackoverflow.com/questions/75291198/animate-text-to-make-it-scroll )
+
+____________________
+
+Embed code into website w.o. js or iframe:
+-----------------------
+
+<object type="text/html" data="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html" style="width:100%; height:100%"></object>
+
+
+(Source: https://stackoverflow.com/questions/46690121/embed-html-content-from-another-http-request-without-an-iframe )
+_________________________
+
+Test RSS:
+----------------
+
+<div class="updatebox">
+<script src="//rss.bloople.net/?url=
+https://www.youtube.com/feeds/videos.xml?channel_id=UCmIpOnd5BVx5Si2hp0WNKZw
+&showtitle=false&type=js"></script></div>
+
+
+
+________________
+
+Render base64 encoded html directly as iframe inpage:
+-------------------------------------------------------------------------------
+
+<iframe src="data:text/html;base64,
+
+Base64Code
+
+" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="350px" width="500px" allowfullscreen></iframe>
+
+_________
+
+Image as button:
+-------------------------
+
+<button type="button">
+<img src="https://i.ibb.co/CW5Wvry/buttonpng.png" alt="buttonpng" border="0" height=45px id="btn" /> </button>
+
+___________
+Subscribe to RSS Button
+---------------------------------------
+
+&nbsp;<a target="_blank" href="https://backend.deviantart.com/rss.xml?q=gallery:aoikurayami1/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Generic_Feed-icon.svg/1920px-Generic_Feed-icon.svg.png" height="15" width="15"></a>
+
+
+______________________________
+Cool animated font:
+-------------------
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Montserrat);body,html{height:100%;font-weight:800;margin:0;padding:0}body{background:#03032100;font-family:Arial}.container{display:flex;height:100%;align-items:center}svg{display:block;font:10.5em Montserrat;width:960px;height:300px;margin:0 auto}.text-copy{fill:none;stroke:white;stroke-dasharray:6% 29%;stroke-width:5px;stroke-dashoffset:0%;animation:5.5s linear infinite stroke-offset}.text-copy:first-child{stroke:#4D163D;animation-delay:-1}.text-copy:nth-child(2){stroke:#840037;animation-delay:-2s}.text-copy:nth-child(3){stroke:#BD0034;animation-delay:-3s}.text-copy:nth-child(4){stroke:#BD0034;animation-delay:-4s}.text-copy:nth-child(5){stroke:#FDB731;animation-delay:-5s}@keyframes stroke-offset{100%{stroke-dashoffset:-35%}}
+</style><div class="container">
+  <svg viewBox="0 0 1100 220">
+    <symbol id="s-text">
+      <text text-anchor="middle" x="50%" y="80%">Diarykeeper</text>
+    </symbol><g class = "g-ants">
+      <use xlink:href="#s-text" class="text-copy"></use>
+      <use xlink:href="#s-text" class="text-copy"></use>
+      <use xlink:href="#s-text" class="text-copy"></use>
+      <use xlink:href="#s-text" class="text-copy"></use>
+      <use xlink:href="#s-text" class="text-copy"></use>
+</g></svg></div>
+
+
+(Source: )
+_____________________________
+Roll Text over site:
+--------------------
+
+<marquee> Want to join this <strong>HeLLa CoOL</strong> webring??</marquee>
+
+_____________________________
+Add Url post one: 
+-------------------------
+<a target="_blank" href="?https://www.url">
+
+_____________________________
+Action on mouseover (f.e. "change image)
+-----------------------
+<a href="mailme.html" target="rainbowmain" onmouseover="image1.src='images/df17_merged_invisbg_12over.png';"
+onmouseout="image1.src='images/df17_merged_invisbg_12.png';"><img src="images/df17_merged_invisbg_12.png" name="image1" width="34" height="35" alt=""></a></td>
+
+(Source: view-source:https://www.jellyfishforest.com/duckyfeet/ )
+_________________________
+
+Call JS/ CSS: 
+-------------------
+<script class="u-script" type="text/javascript" src="jquery.min.js" defer="defer"></script>    
+<link rel="stylesheet" href="/html/styles.css">
+
+(Source: https://www.w3schools.com/html/html_css.asp )
+
+______________
+Reload page within href: 
+------------------------
+
+ <a href="javascript:window.location.reload(true)">Reload</a>
+ 
+  (Source: https://stackoverflow.com/questions/8174282/link-to-reload-current-page )
+
+
+______________________________
+
+HTML redirect (auto)
+------------------------------
+
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="0; url=https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html">
+        <script type="text/javascript">
+            window.location.href = "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html"
+        </script>
+        <title>Homepage</title>
+    </head>
+    <body>
+        <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+        If you are not redirected automatically, follow this <a href='https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html'>-</a>.
+    </body>
+</html>
+
+
+
+(Source: )
+
+
+_________________________________
+Custom font in your website:
+----------------------------
+
+(Source: https://www.fontsquirrel.com/tools/webfont-generator https://www.pagecloud.com/blog/how-to-add-custom-fonts-to-any-website)
+
+_________________________________
+ Bookmark link ("goto" part of page)
+----------------
+
+<a href="#z">Scripting Languages</a>
+   …
+  <a name="z">Scripting Languages</a>
+
+(Source: https://www.tutorialspoint.com/How-to-create-a-bookmark-link-in-HTML )
+__________________
+Display base64 image:
+-----------------------
+
+<img src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQMAAACyIsh+AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACC0lEQVRogeWZMa6EMAxEHVFQcgSOwtHgaDkKR6CkQPh7xs4u2l9svU6KFQlPK8UajxMj8m2sinGKTPtcn1M+6JYFwF6HczymXWTRTbl5nxrfEaB6DSdmc10U74dLGDcLUzZgVMWKjXIzEp0CMh1cX/UuV0rAZa/HrK6HQnn8y4vsgPse8t3yYlvlBmDTD5/8caANW9i578IXh3yO5AACdQ1Yoh42BYA0mfelGp8EEFGzNVN9FHfTg7rbo8ZRD10AsMGWF8rIlHbm8WkSQLHvkdVdFry/h2s8af6Y9gPobWlxhu2Z3ZeWJlolEYBDC+KAfDd5hOrhefZy6wWQqOYQANP95pl2giuK22AOAEfU0asYdO7yEJ7k/Q+6AFZE5nFFfeSFByoJ4LLHK5e9PVyocZg+8iI7IAyUsrgzTq2423NtefH7wIpqfiEOOzSuLO5K04ui1geAai4PG2SHAoGz9A8bzADYzl0AvnE/2qHW2yzyog8g8gJ9mPpqu3nc6tsnEwAlDi0QQLTd2I7wC0w3gN9ZWkOiVT2MGo2aBEAMNF5oc9FsPPwM0w+werpHPwoKKF7c95cNpgAQBbYT1V3O+02Ig+u+G6AJwBfQlWGP/Z04qYDJV+yXpsfiLs9E6AWIbyhmg7inT3u05bIAEgKgyWlruz0upH0AjM7Jm/mi/HToH0z10Y7uAPg2/gCJcpY5m9E2HAAAAABJRU5ErkJggg==" alt="Red dot" /> </div> 
+</div>
+
+(Source: https://www.base64-image.de/ )
+_____________________________
+Generate QR Code from URL:
+-------------------------------------------
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            function generateBarCode()
+            {
+                var nric = $('#text').val();
+                var url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + nric + '&amp;size=50x50';
+                $('#barcode').attr('src', url);
+            }
+        </script>
+    </head>
+    <body>
+        <input id="text" type="text" 
+            value="UnderratedContent" style="Width:20%"
+            onblur='generateBarCode();' /> 
+      <img id='barcode' 
+            src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/UnderratedContent.html&amp;size=100x100" 
+            alt="" 
+            title="UnderratedContent" 
+            width="50" 
+            height="50" />
+    </body>
+</html>
+
+(Source: https://stackoverflow.com/questions/30115242/generating-a-simple-qr-code-with-just-html )
+https://blog.qr4.nl/Online-QR-Code-Decoder.aspx
+
+_____________________
+Midway viewport (android tablet): 
+------------------------------
+
+<meta id="myViewport" name="viewport" content="width = 600">
+ (Source: https://stackoverflow.com/questions/24523996/how-to-set-viewport-dynamically)
+
+___________
+Force Desktop page:
+-------------------
+
+<head>
+<meta id="viewport"
+      name="viewport"
+      content="width=1024, height=768, initial-scale=0, minimum-scale=0.25" />
+
+(Source:
+https://stackoverflow.com/questions/3588628/can-i-change-the-viewport-meta-tag-in-mobile-safari-on-the-fly)
+
+
+___________________
+Disable sites mobile view:
+-------------------------------------
+
+Remove 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+from your html file. 
+
+(Source: https://stackoverflow.com/questions/46905233/how-to-disable-mobile-version-of-website
+
+_________________________________
+
+Load link into existing iframe:
+-------------------------------
+
+<div>
+    <a href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Project.html" target="iframeblog">Art Gatekeeping Rant</a>
+    <a href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Comments.html" target="iframeblog">+2</a>
+    <a href="#">Link 3</a>
+    <a href="#">Link 4</a>
+  </div>
+<br>
+</div>
+</body>
+<br><iframe src="demo_iframe.htm" name="iframeblog" height="100%" width="100%"scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+
+(Source: https://www.w3schools.com/tags/att_iframe_name.asp
+https://stackoverflow.com/questions/740816/open-link-in-iframe )
+
+________________
+
+Compact dropdown button (with images)
+------------------------------------------------------------'
+<style>
+.dropdown {position: absolute;display: inline-block;}
+.dropdown-content {
+  display: none;position: absolute;background-color: #ffffff;min-width: 0px;box-shadow:5px 5px 0px 0px rgba(0,0,0,0.2);z-index: 1;}
+.dropdown-content a {
+  color: black;padding: 2px 2px;text-decoration: none;display: block;}
+.dropdown-content a:hover {background-color: #fff;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: transparent;}
+</style>
+<div class="dropdown" hidden>
+ <button class="dropbtn"><img src="https://cdn-icons-png.flaticon.com/512/2327/2327670.png" height="45" width="45"></button>
+  <div class="dropdown-content">
+        <a target="_blank" href="https://pb.todon.de/@alcea.rss"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Mastodon_Logotype_%28Simple%29.svg" height="45" width="45"></a>
+        <a target="_blank" href="https://nitter.absturztau.be/ryedai1/rss"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Twitter-logo.svg" height="45" width="45"></a>
+<a target="_blank" href="mailto:hax0rxy@googlemail.com"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" height="45" width="45"></a>
+  </div>
+</div>
+
+__________________________
+Hoverable Dropbdown menu: 
+--------------------------
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.dropbtn {
+  background-color: #04AA6D;color: white;padding: 16px;font-size: 16px;border: none;
+}
+.dropdown {
+  position: relative;display: inline-block;
+}
+.dropdown-content {
+  display: none;position: absolute;background-color: #f1f1f1;min-width: 160px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);z-index: 1;
+}
+.dropdown-content a {
+  color: black;padding: 12px 16px;text-decoration: none;display: block;
+}
+.dropdown-content a:hover {background-color: #ddd;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+</head>
+<body>
+<div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <a href="#">Link 4</a>
+  </div>
+</div>
+</body>
+
+(Source: https://www.w3schools.com/howto/howto_css_dropdown.asp)
+
+_______________________
+Twitter Box:
+-----------------
+
+https://www.codingnepalweb.com/tweet-box-character-limit-highlighting-javascript/
+
+_______________________________
+Embed img from url:
+------------------------------
+<img src="/wp-content/uploads/flamingo.jpg"> 
+
+(Source: https://html.com/attributes/img-src/ )
+
+
+______________________________
+Remove frame border:
+-----------------------------
+...src="https://www.site.com" frameBorder="0">
+
+(Source: stackoverflow.com/questions/65034/remove-border-from-iframe)
+
+__________________________________
+Display txt content in iframe: 
+------------------------------------------
+
+<iframe src="yourtext.txt"></iframe>
+ (Source: https://www.generacodice.com/en/articolo/789689/Is+there+any+way+similar+to+%26lt%3Bimg%26gt%3B+to+display+contents+of+a+.txt+file )
+
+_________________________________
+Render html from text file
+----------------------------
+
+<embed src = "file.txt"> 
+
+(Source: https://www.codegrepper.com/code-examples/html/how+to+render+html+from+text+file)
+
+______________________________
+
+Zoom iframe content:
+---------------------
+
+<style type="text/css">
+#iframe {
+    zoom: 0.15;
+    -moz-transform:scale(0.75);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.75);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.75);
+    -webkit-transform-origin: 0 0;
+}
+</style>
+
+(Source: https://stackoverflow.com/questions/7203064/how-to-zoom-iframe-content-only-without-using-a-frame-set)
+
+_____________________
+Scroll iframe to specific positions:
+-----------------------------------
+<style>
+#mydiv
+{
+    width    : 100%;
+    height   : 100%;
+    overflow : hidden;
+    position : relative;
+}
+#myframe
+{
+    position : absolute;
+    top      : -500px;
+    left     : 0px;
+    width    : 1280px;
+    height   : 1200px;
+}
+</style>
+<body style="margin: 0 auto;">
+         <div id="mydiv">
+         <div id="myframe">
+<iframe src="http://www.example.com" id="myframe" scrolling="no"></iframe>
+</div>
+
+
+For XFrame Bypass:
+------------------
+<body style="margin: 0 auto;">
+         <div id="mydiv">
+         <div id="myframe">
+         <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+         <iframe is="x-frame-bypass" src="https://github.com/Ry3yr/OSTR/tree/main/Diarykeepers_Homepage" height="100%" width="100%"scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+<p style="">     
+</p>
+
+(Source: https://stackoverflow.com/questions/14117763/how-do-you-put-only-a-certain-section-of-a-website-into-an-iframe/14117980)
+____________________
+Scale iframe content:
+---------------------
+<style>
+#wrap { width: 600px; height: 390px; padding: 0; overflow: hidden; }
+#frame { width: 800px; height: 520px; border: 1px solid black; }
+#frame { zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; }
+</style>
+<div id="wrap">
+<iframe id="frame" src="test2.html"></iframe>
+</div>
+
+(Source: https://stackoverflow.com/questions/166160/how-can-i-scale-the-content-of-an-iframe)
+
+____________________
+HTML reload page:
+-------------------------- 
+
+Reload once upon open:
+window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
+(Source: https://stackoverflow.com/questions/6985507/one-time-page-refresh-after-first-page-load)
+
+
+Keep refreshing every 'x'
+<meta http-equiv="refresh" content="1"> 
+
+ ( Source: https://stackoverflow.com/questions/5294842/refresh-a-page-using-javascript-or-html )
+
+____________________
+Uhrzeit & Kalender
+---------------------------
+
+https://www.schulferien.org/Uhrzeit/
+
+__________________________
+
+Transparent text:
+-------------------------
+
+Transparent color code: 
+When you have a 6 digit color code e.g. #ffffff, replace it with #ffffff00. 
+Just add 2 zeros at the end to make the color transparent.
+(Source: https://stackoverflow.com/questions/18189201/is-there-a-color-code-for-transparent-in-html/18189313 )
+
+
+Option b)
+
+ color:rgba(255,0,0,0.0); 
+ (Source: https://stackoverflow.com/questions/20048225/invisible-transparent-font-color-with-css-on-all-major-browsers )
+
+_________________________
+HTML Comment:
+-------------------
+
+<!-- and the comment closes with -->
+
+https://blog.christosoft.de/2015/04/html5-bogus-comment/
+
+_________________________________
+Copy current URL to clipboard:
+-----------------------------
+
+<button onclick="myFunction()">CopyURL</button>
+<script>
+ function myFunction() {
+  var copyText = navigator.clipboard.writeText(window.location.href);
+}
+</script>
+
+(Source: https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard )
+
+________________________
+Copy text to clipboard:
+-------------------------------
+
+<input type="text" value="text" id="myInput">
+<button onclick="myFunction()">Copy text</button>
+<script>
+ function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); 
+  navigator.clipboard.writeText(copyText.value);
+}
+</script>
+
+(Source: https://www.w3schools.com/howto/howto_js_copy_clipboard.asp )
+
+_______________________
+Display current url:
+---------------------------
+
+    <script>
+    function getURL() {
+        alert("The URL of this page is: " + window.location.href);
+    }
+    </script>
+    <button type="button" onclick="getURL();">ClickMe</button>
+
+(Source: https://www.tutorialrepublic.com/faq/how-to-get-the-current-url-with-javascript.php)
+
+____________________________
+Encode Mail to Anti Spam:
+------------------
+
+https://www.viathinksoft.de/tools/antispam/index.php
+
+________________________
+Visitor Counter:
+-------------------
+
+<a href="https://www.daniel-marschall.de/counter/"><img src="https://www.daniel-marschall.de/counter/counter.php?id=1347&amp;format=graphic&amp;theme=digital" alt="Visitors" title="Visitors"></a>
+
+Premade:
+smallseotools.com/de/visitor-hit-counter
+https://github.com/brentvollebregt/hit-counter
+ https://www.powr.io/plugins/hit-counter/standalone
+ https://www.daniel-marschall.de/counter/
+ 
+Make your own:
+https://www.ionos.de/digitalguide/websites/webseiten-erstellen/besucherzaehler-selbst-erstellen-so-funktionierts/ 
+
+_____________________
+Make part scrollable:
+-------------------
+
+	<head>
+		<style>
+			h1 {
+				color:Green;
+			}
+			div.scroll {
+				margin:4px, 4px;
+				padding:4px;
+				background-color: white;
+				width: 500px;
+				height: 110px;
+				overflow-x: hidden;
+				overflow-y: auto;
+				text-align:justify;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="scroll">
+		</div>
+		</center>
+	</body>
+</html>					
+
+(Source: https://www.geeksforgeeks.org/making-a-div-vertically-scrollable-using-css/ )
+
+_____________
+Add tab-icon to weppage (favicon):
+-------------------
+
+<link rel="icon" type="image/png" href="favicon.png"><!-- Major Browsers -->
+<!--[if IE]><link rel="SHORTCUT ICON" href="favicon.ico"/><![endif]--><!-- Internet Explorer-->
+Add 32x32 favicon.png to websites main dir 
+https://www.hostinger.com/tutorials/how-to-add-favicon-to-website
+https://realfavicongenerator.net/
+
+OR
+
+Add to html directly via base64
+Encoded Image directly inside the tag like this:
+<link href="data:image/x-icon;base64,IMAGE-BASE64" rel="icon" type="image/x-icon" />
+https://stackoverflow.com/questions/16375592/favicon-not-showing-up-in-google-chrome/16375622#16375622
+
+___________________________
+Tile image over background:
+--------------------------
+
+<style>
+    body {
+        background-image: url("/examples/images/tile.png");
+    }
+</style>
+
+(Source: https://www.tutorialrepublic.com/css-tutorial/css-background.php)
+
+---------------
+
+One line version:
+------------------------
+<body background="http://www.geocities.ws/jaup/bgrnd40.gif">
+
+
+________________________
+Html Audioplayer
+----------------
+
+https://github.com/NelsWebDev/BetterAudioPlaylist
+
+(Source: https://m.youtube.com/watch?v=PZuvCpx5lKY)
+(Q: https://stackoverflow.com/questions/69810359/interface-with-audioplayer-within-spoiler-tag)
+
+___________________
+Keep Element on bottom-right page corner:
+-----------------
+
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Test</title>
+<style>
+  #foo {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+</style>
+</head>
+<body>
+  <div id="foo">Hello World</div>
+</body>
+</html>
+
+(Source: https://stackoverflow.com/questions/3616572/how-to-position-a-div-in-bottom-right-corner-of-a-browser)
+     (Bottom right audioplayer: stackoverflow.com/questions/38156970/how-do-i-make-a-simple-audio-element-stay-at-the-bottom-of-the-browser-window)
+     
+____________________________________________________
+Open link in program + fallback
+-------------------------------
+
+<html>
+<script>
+function openApp () {
+    var start, end, elapsed;
+    var params =   window.location.href.split("lp=")[1];
+    var url     =   params.split("&customURI=")[0];
+    var customURI     =   params.split("&customURI=")[1];
+    var time = (new Date()).getTime();
+    document.location       =       customURI+url;        
+    setTimeout(function(){
+            var now = (new Date()).getTime();
+            if((now - time)<2550) {
+            javascript: console.log(new Date().getTime());
+                            document.location = url;
+            }
+            else{
+            window.open('', '_self', '');
+                    window.close();
+        }
+    }, 2000);
+
+}
+</script>
+<body onload="openApp()">
+    <a onclick="openApp()" id="newButton">Click Here to open the App</a>
+</body>
+
+(Source: https://stackoverflow.com/questions/11710902/can-i-make-a-link-that-will-open-in-my-app-if-its-installed-and-fall-back-to-a)
+
+____________________
+Comment / Guestbook script: 
+----------------------------
+
+https://www.htmlcommentbox.com/
+
+https://www.123guestbook.com/
+
+)Alts
+https://www.quackit.com/html/codes/add_comments_to_website.cfm
+ •You can find more solutions by searching for 'comments' at https://www.thenewdynamic.org.  https://stackoverflow.com/questions/59096243/adding-comments-in-blog-posts-on-github-pages )
+https://www.freecodecamp.org/news/how-you-can-build-your-own-free-serverless-comment-box-dc9d4f366d12/
+___________________
+
+Add Disquis comment section to your page:
+------------------------
+
+https://www.create.net/support/how-to-add-a-disqus-comment-section-to-your-website
+
+(must add own domain to https://diarykeeper.disqus.com/admin/settings/advanced/ !!!)
+[ Enable Guestpost: https://help.disqus.com/en/articles/1717211-guest-commenting https://i.ibb.co/xs9kMNs/Screenshot-20211108-131308.jpg ]
+__________________________
+Resizeable Button:
+------------------
+
+<a href="http://bitdegree.org" target="_blank">
+<button class="button">Submit</button> 
+<style> .button {height: 50px; width: 100px;}</style> 
+
+(Source: https://www.quora.com/How-do-you-edit-a-button-size-in-HTML)
+____________________________
+Button:
+-------
+<a href="http://bitdegree.org" target="_blank">
+<button>Click me!</button> 
+
+(Source: https://www.bitdegree.org/learn/html-button)
+
+___________
+
+Own Forum:
+---------------
+https://www.forumotion.com/ 
+https://www.makeuseof.com/tag/5-great-sites-create-forum/
+
+________
+
+Link to Whatsapp / WA via browser
+-------------------------------------------
+https://api.whatsapp.com/send/?phone=%2B491625385381&text&app_absent=0
+https://wa.me/+491625385381
+
+____________________________
+
+Change font color:
+-------------------
+
+<span style="color: rgb(51, 51, 255);">me</style>
+
+__________________________
+Change font size:
+------------------
+
+<font size="-1">text</font>
+
+_________________________________
+Change img size via html:
+-------------------------
+
+<img src='image.jpg' alt="Image" height="100" width="100">
+
+https://www.codegrepper.com/code-examples/html/resize+image+in+html
+_________________________________
+Link to website-image on another page:
+---------------------------------
+
+<p>
+ <a href="https://www.computerhope.com/">
+  <img src="https://www.computerhope.com/cdn/media/logo-200-gray.png">
+ </a>
+</p>
+
+https://www.computerhope.com/issues/ch000059.htm
+
+_______________________________________________________________
+Use Github Pages to host website:
+---------------------------------
+http://docsbeta.pinegrow.com/host-html-website-github-pages-free/
+
+(Result: => https://ry3yr.github.io/OSTR/All_Project_(spoiler_button).html)
+  (Push git change via windows: https://gitforwindows.org/)
+
+_______________________________________________________________
+Bypass iFrame Limitation:
+--------------------------------------
+ <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
+ <iframe is="x-frame-bypass" src="https://vgmdb.net"></iframe>
+
+https://github.com/niutech/x-frame-bypass
+_______________________________________________________________
+
+Fullscreen iframe:
+------------------
+<body style="margin: 0 auto;">
+        <iframe src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html" frameborder="0" 
+         style="overflow:hidden; 
+         display:block; position: absolute; height: 100%; width: 100%">
+<p style="">
+         Your browser does not support iframes.
+</p>
+</body>
+______________________
+
+Render webpage into frame:
+--------------------------
+<iframe src="https://www.abcsubmit.com/view/id_1f8339emu_jn1?utm=abcsubmit" width="400" height="400"></iframe>
+
+_______________________________________________________________
+RSS Feed Widget
+---------------
+<div id="widgetmain" style="text-align:left;overflow-y:auto;overflow-x:hidden;width:600px;background-color:#transparent; border:1px solid #333333;"><div id="rsswidget" style="height:500px;"><iframe src="http://us1.rssfeedwidget.com/getrss.php?time=1626283386459&amp;x=http%3A%2F%2Ffeeds.feedburner.com%2Fvgmdb_album_new%3Fformat%3Dxml&amp;w=600&amp;h=500&amp;bc=333333&amp;bw=1&amp;bgc=transparent&amp;m=20&amp;it=true&amp;t=vgmdb&amp;tc=333333&amp;ts=15&amp;tb=transparent&amp;il=true&amp;lc=0000FF&amp;ls=14&amp;lb=false&amp;id=true&amp;dc=333333&amp;ds=14&amp;idt=true&amp;dtc=284F2D&amp;dts=12" border="0" hspace="0" vspace="0" marginwidth="0" marginheight="0" style="border:0; padding:0; margin:0; width:600px; height:500px;" id="rssOutput" frameborder="no">Reading RSS Feed ...</iframe></div><div style="text-align:right;margin-bottom:0;border-top:1px solid #333333;" id="widgetbottom"><span style="font-size:70%"></span><br></div></div> 
+
+www.rssfeedwidget.com
+(Source: https://stackoverflow.com/questions/15821278/how-to-make-a-html-page-to-show-content-from-another-url)
+    #  You have to check for HTTP response header X-Frame-Option of those sites. 
+    if its value is "DENY or SAMEORIGIN", then you can not load those website in the iframes.  
+    DENY = No one can load the website in iframe. Even the same domain page wont be able to load. 
+    SAMEORIGIN = only a page which is in same domain can load this website in iframe.  
+    https://stackoverflow.com/questions/6663244/cant-show-some-websites-in-iframe-tag
+
+Alt RSS Widget:
+<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<div class="elfsight-app-8283fde1-03d2-4c5e-a789-3e2e667372e4"></div>
+
+____________________________________________
+Embed Gdrive folder via iframe:
+--------------------------------
+<iframe src="
+https://drive.google.com/embeddedfolderview?id=1QbDDSVbCEZOXjJKICwuJNEHFKWwl_AvX#list" 
+style="width:100%; height:600px; border:0;"></iframe>
+(Source: https://stackoverflow.com/questions/20681974/how-to-embed-a-google-drive-folder-in-a-website)
+
+____________________________________________
+
+Embed Gdrive file via iframe
+-------------------------
+<iframe src="
+https://drive.google.com/file/d/1z0_ygovRUlwMRjc-UQVO8HbwW57Qs_On/preview" 
+width="640" height="480"></iframe>
+(Source:https://stackoverflow.com/questions/44164367/how-to-embed-google-drive-document-pdf-in-blogger-post)
+
+____________________________________________
+
+Contact form (mail):
+--------------------------
+GDRIVE: you can still view or host HTML files that are in public folders as follows:
+Replace https://drive.google.com/?authuser=0#folders/ with "googledrive.com/host/"
+        Your new URL will look something like this: http://www.googledrive.com/host/0B81vQexWOx6hRDVMQWZTekx4Umc
+   https://superuser.com/questions/813701/view-rendered-html-of-html-document-in-new-google-drive
+https://www.freecontactform.com/form-guides/html-email-form#htmlform
+https://hwpi.harvard.edu/assetslibrary/host-css-or-js-file-google-drive 
+   https://discuss.codecademy.com/t/linking-css-to-html-via-google-drive/64725/4
+[Service] https://www.abcsubmit.com
+
+
+
+____________________________________________
+
+GoogleDrive embed: (dot menu -> Embed item... -> copy code)
+----------------------------
+
+<iframe src="https://drive.google.com/file/d/-url-identifier-gdrive/preview" width="640" height="480"></iframe>
+
+url-identifier-gdrive: f.e.: (between "/d/"  and "/view")
+https://drive.google.com/file/d/1pOZxwsDoRQ3V3ubonniGEbpSo6BXjQnr/view
+
+--hotlink--file: (https://stackoverflow.com/questions/10311092/displaying-files-e-g-images-stored-in-google-drive-on-a-website)
+https://docs.google.com/uc?id=FILE-ID
+
+___________________________________________
+Obfuscate html
+---------------------------
+
+https://www.wmtips.com/tools/html-obfuscator/
+
+(Source: https://community.spiceworks.com/topic/790618-hiding-view-source-on-websites)
+____________________________________________
+HTML Password encrypt (via pagecrypt)
+-------------------------------------------------------
+
+https://www.maxlaumeister.com/pagecrypt/ 
+
+   E:\Dropbox\Public\00_Powershell\[Context_menu_handler_sendto]\encrypt_html.bat
+
+
+____________________________________________
+
+HTML Password protect (via htaccess):
+------------------------------------------------------
+
+https://www.lifewire.com/password-protect-single-file-with-htaccess-3467922
+
+
+____________________________________________
+
+Append to Form input (query) via onsubmit:
+-------------------------------------------
+
+(Source: https://stackoverflow.com/questions/34128361/appending-form-input-value-to-action-url-as-path)
+
+____________________________________________
+
+Searchbox (w.o. q=?, only "/"):
+---------------------------------------
+<div id="tfheader">
+    <form id="tfnewsearch" method="get" action="http://de.wiktionary.org/wiki/">
+        <input type="text" class="tftextinput" id="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+    </form>
+<div class="tfclear"></div>
+</div>
+
+<script>
+    var a = document.getElementById('tfnewsearch');
+    a.addEventListener('submit',function(e) {
+        e.preventDefault();
+        var b = document.getElementById('tftextinput').value;
+        window.location.href = 'http://de.wiktionary.org/wiki/'+b;
+
+    });
+</script>
+
+https://stackoverflow.com/questions/27580420/html-how-to-create-search-bar
+________________________________________________________________________________________________________
+
+Search bar (works on: PC, iPad, Android, 3DS, WiiU)
+------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search Box Example 1</title>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+<!-- CSS styles for standard search box -->
+<style type="text/css">
+	#tfheader{
+		background-color:#c3dfef;
+	}
+	#tfnewsearch{
+		float:right;
+		padding:20px;
+	}
+	.tftextinput{
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		border:1px solid #0076a3; border-right:0px;
+		border-top-left-radius: 5px 5px;
+		border-bottom-left-radius: 5px 5px;
+	}
+	.tfbutton {
+		margin: 0;
+		padding: 5px 15px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:14px;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		color: #ffffff;
+		border: solid 1px #0076a3; border-right:0px;
+		background: #0095cd;
+		background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+		background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+		border-top-right-radius: 5px 5px;
+		border-bottom-right-radius: 5px 5px;
+	}
+	.tfbutton:hover {
+		text-decoration: none;
+		background: #007ead;
+		background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+		background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+	}
+	/* Fixes submit button height problem in Firefox */
+	.tfbutton::-moz-focus-inner {
+	  border: 0;
+	}
+	.tfclear{
+		clear:both;
+	}
+</style>
+</head>
+<body>
+	<!-- HTML for SEARCH BAR -->
+	<div id="tfheader">
+		<form id="tfnewsearch" method="get" action="http://www.google.com">
+		        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+		</form>
+	<div class="tfclear"></div>
+	</div>
+</body>
+</html>
+
+(Source: https://www.textfixer.com/tutorials/html-search-box.php)
+https://pastebin.com/MzWCYjeD
+
+________________________________________________________________________________________________
+
+Search Bar Example (with set off text)
+-------------------------------------------------
+
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+<style>
+body{
+    padding:20px;
+}
+*{
+   margin: 0;
+   padding:0px;
+}
+.tftextinput{
+   font-family: Arial, Helvetica, sans-serif;
+   font-size:14px;
+   border:1px solid #0076a3; 
+   border-bottom-left-radius:5px;
+   border-bottom-right-radius:5px; 
+}
+</style>
+<title>savepage</title>
+</head>
+<body>
+<div id="tfheader">
+   <form id="tfnewsearch" method="GET" action="https://api.github.com/users/xxx/events/public"> 
+   <input class="tftextinput" id="text" size="21" maxlength="120" type="text"><br>
+   <input value="GitHubUser" class="tfbutton" type="submit"></form>
+</div>
+<script>
+var ele=document.getElementById('tfnewsearch');
+ele.addEventListener("submit",function(evt){
+   let alt=ele.getAttribute('action');
+  let such_link=document.getElementById('text').value;
+  let neuer_link=alt.replace('xxx',`${such_link}`)
+  neu=ele.setAttribute('action',neuer_link);
+  //ele.submit();
+ // evt.preventDefault();
+  console.log(ele.getAttribute('action'))
+});
+  </script>
+</body>
+</html>
+
+(Source: https://www.html-seminar.de/forum/thread/8884-html-submit-form-searchbox-ver%C3%A4nderte-position-suchparameter/#post60465)
+
+________________________________________________________________________________________________________
+
+Hide texrt data:
+--------------------
+
+.hidden {
+  background: #000;
+  font-color: #000;
+  transition: background 0.5s ease;
+}
+
+.hidden:hover {
+  background: none;
+}
+
+
+Here is a large block of text with a hidden <span class="hidden">password</span> that is only revealed on hover.
+
+(Source:https://discourse.joplinapp.org/t/hiding-passwords-with-markdown/1588/2 )
+________________________________________________________________________________________________________
+
+CSS Data uri:
+---------------------
+
+https://css-tricks.com/data-uris/
+
+________________________________________________________________________________________________________
+
+Create colored button:
+----------------------
+
+<button style="background-color: white; border-color:white; color: white" > 
+https://www.wikihow.com/Change-the-Button-Color-in-HTML
+
+______________________________________________________
+
+Borderless (Spoiler) Button:
+-----------------------------
+
+Add: "padding: 0; border: none;" to remove border
+
+<div class="pre-spoiler">
+<input style="color: rgb(255, 255, 255);padding: 0; border: none;" name=" " onclick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = ' '; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = '-';}" value=" " background-color="" border-color:white="" color="" white="" type=" style=">
+<div class="spoiler"  style="display: none;">
+---
+</div>
+
+(Source: https://stackoverflow.com/questions/11497094/remove-border-from-buttons )
+
+___________________________
+CSS-Spoiler_Button
+------------------
+
+<style>
+body{padding-left:150px}p{font-size:16px;color:#2f4f4f}button:focus{outline:0}img{margin:10px}#spoiler_button{font-size:20px;font-weight:700;width:175px;height:55px;margin:0 10px;color:#fff;border-radius:5px;border:none}#spoiler_button:hover{font-weight:700;color:#fff;box-shadow:5px 5px 5px #000}#spoiler_button:active{font-weight:700;box-shadow:none}.fadein,.fadeout{height:0;-moz-transition:opacity 1s ease-in-out;-o-transition:opacity 1s ease-in-out;-webkit-transition:opacity 1s ease-in-out;opacity:0}.fadein{height:100%;opacity:1}
+</style>
+<button name="spoiler_button" id="spoiler_button" type="button">Show Spoilers</button>
+<div id="spoiler_text" class="fadeout" >
+<br>Text
+</div>
+<script>
+var divToggleVis=document.getElementById("spoiler_text"),button=document.getElementById("spoiler_button");button.onclick=function(){"fadeout"===divToggleVis.className?divToggleVis.className="fadein":divToggleVis.className="fadeout","Show Spoilers"===button.innerHTML?button.innerHTML="Hide Spoilers":button.innerHTML="Show Spoilers"};
+</script>
+
+(Source: https://trujared.medium.com/how-to-easily-add-a-spoiler-button-to-your-webpage-dec050c4867f )
+________________________
+
+
+HTML Spoiler Tag code / Spoiler button
+-------------------------------------
+
+<div class="pre-spoiler">
+<input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler">
+<div class="spoiler" style="display: none;">
+ <br>Text
+</div> 
+
+
+#Make button white, via "KompoZer's "split-view" -> edit button"
+<input name="Buttonz" onclick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Buttonz'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Buttonz';}" value="Buttonz" background-color:="" white;="" border-color:white;="" color:="" white="" type=" style=">
+
+(SOURCE: https://forum.chip.de/discussion/1381745/spoiler-in-html)
+________________________________________________________________________________________________________
+
+HTML Spoiler Tag code / Spoiler button (invisible)
+-------------------------------------
+<div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler" style="background:transparent; border:none; color:transparent;"><div class="spoiler" style="display: none;" >
+
+text
+
+</div>
+
+(Source: )
+
+________________________________________________________
+
+HTML "Mouseover" spoiler button:
+
+<div class="pre-spoiler">
+<input name="Deutsch" type="button" onmouseover="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler">
+<div class="spoiler" style="display: none;">
+ <br>Text
+</div> 
+
+__________________________________________________________________________________________________________
+
+Alt Spoiler Button:
+-------------------
+
+<div id="spoiler" style="display:none">
+<iframe src="https://alceawisteria.codeberg.page/Diarykeepers_Homepage/stash/webamp.html" frameBorder="no" width=500px height=250></iframe>
+</div>
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Winamp</button>
+
+
+(Source:  )
+
+_________________________
+
+
+=================
+===htmlunicodecharas==
+
+(enter on "Source page" in NVU-HTML_Editor "f.e."&#9742 => ☎)
+&#9986   ->  ✂
+
+
+https://www.w3schools.com/charsets/ref_utf_symbols.asp
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx==========xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx===brknz===xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+________
+Search Bar Example: (broken in 3DS/iPad)
+----------------------------
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <style type="text/css">
+#tfheader{
+}
+#tfnewsearch{
+float:left;
+padding:0px;
+}
+.tftextinput{
+margin: 0;
+padding: 0px 0px;
+font-family: Arial, Helvetica, sans-serif;
+font-size:14px;
+border:1px solid #0076a3; border-left:0px;
+border-top-left-radius: 0px 0px;
+border-bottom-left-radius: 5px 5px;
+}
+  </style>
+  <title>savepage</title>
+</head>
+<body>
+<!-- HTML for SEARCH BAR -->
+<div id="tfheader">
+<form id="tfnewsearch" method="get"
+ action="http://www.google.com"> <input
+ class="tftextinput" name="q" size="21"
+ maxlength="120" type="text"><input value="search"
+ class="tfbutton" type="submit"></form>
+</div>
+</body>
+</html>
+(Source: https://www.textfixer.com/tutorials/html-search-box.php)
+https://www.informatikzentrale.de/formulare-get-post-auswerten.html
+https://shipow.github.io/searchbox/
+
+
+====================
+==htmlknowledge======
+
+Percent-encoding, also known as URL encoding, is a mechanism for encoding information in a Uniform Resource Identifier (URI) under certain circumstances. Although it is known as URL encoding, it is, in fact, used more generally within the main Uniform Resource Identifier (URI) set, which includes both Uniform Resource Locator (URL) and Uniform Resource Name (URN). As such, it is also used in the preparation of data of the application/x-www-form-urlencoded media type, as is often used in the submission of HTML form data in HTTP requests.  
+https://en.wikipedia.org/wiki/Percent-encoding
+https://stackoverflow.com/questions/2949173/how-can-i-stop-the-browser-from-url-encoding-form-values-on-get
+https://help.surveygizmo.com/help/url-variables
+
+
+_______________________________________________
+_______________________________________________
+
+Host (direct link files) via GDrive:
+------------------------------------
+(download gdrive file via "browser's download function" => extract url via download manager:
+https://doc-08-28-docs.googleusercontent.com/docs/securesc/3pli3vb6c3fjid7vrr3dsc370lictgus/s0gn0auvde7qio9pka1m5fu34rjh8eec/1626641550000/12239065730730513726/06275268013771742302Z/1n2SyolVouApQftVAEWXqOKJ_F4bN2W4H?e=download&nonce=r0nhojk7dh1uu&user=06275268013771742302Z&hash=rbp7if89k7n8l4bgu8kpineqce7mj3f5
+=> remove "e=download&"
+https://doc-08-28-docs.googleusercontent.com/docs/securesc/3pli3vb6c3fjid7vrr3dsc370lictgus/s0gn0auvde7qio9pka1m5fu34rjh8eec/1626641550000/12239065730730513726/06275268013771742302Z/1n2SyolVouApQftVAEWXqOKJ_F4bN2W4H?nonce=r0nhojk7dh1uu&user=06275268013771742302Z&hash=rbp7if89k7n8l4bgu8kpineqce7mj3f5
+
+_______________________________________________
+
+==================
+== hostwebsite ===
+
+Use Github Pages to host website:
+---------------------------------
+http://docsbeta.pinegrow.com/host-html-website-github-pages-free/
+
+(Result:) => https://ry3yr.github.io/OSTR/Diarykeepers_Homepage
+
+===================================================
+===================================================
+===================================================
+===================================================
+=============== javascriptz =======================
+** javascript test site: jsfiddle**
+In HTML, JavaScript code is inserted between <script> and </script> tags - w3schools.com/js/js_whereto.asp
+https://cdnjs.com/libraries (prehosted JS script links)
+JSONEScape tool https://www.freeformatter.com/json-escape.html#ad-output
+Check Javascript errors: https://www.shellcheck.net/
+•MinifyJS: https://www.toptal.com/developers/javascript-minifier/
+•CompressJS: https://jscompress.com/
+-----------------------------------------
+
+
+Autoadvance video playlist player
+------------------------------------------
+
+https://codepen.io/ryedai1/pen/mdKGVOz
+https://cdpn.io/ryedai1/fullpage/mdKGVOz?nocache=true
+
+________________________
+
+Yesterdays happenings
+-----------------------------------
+
+
+<li><a id="link" href="#">Yesterdays Happenings</a></li>
+<script>
+Date.prototype.toShortFormat = function() {
+    const monthNames = ["January", "February", "March", "April",
+                        "May", "Juni", "July", "August",
+                        "September", "October", "November", "December"];
+    const day = this.getDate()-1;
+    const monthIndex = this.getMonth();
+    const monthName = monthNames[monthIndex];
+    const year = this.getFullYear();
+    return `${year}_${monthName}_${day}`;  
+}
+let anyDate = new Date(1528578000000);
+console.log(anyDate.toShortFormat());
+let today = new Date();
+console.log(today.toShortFormat());
+var link = document.getElementById("link");
+link.setAttribute("href","https://en.m.wikipedia.org/w/index.php?title=Portal:Current_events/" + today.toShortFormat());
+</script>
+<!--https://stackoverflow.com/questions/4822852/how-to-get-the-day-of-week-and-the-month-of-the-year-->
+<!-- partial -->
+  
+________________________
+
+Click text in page:
+------------
+
+if (document.all !== undefined)
+    {
+      var items = document.all;
+    }
+    else
+    {
+      var items = document.getElementsByTagName("*");
+    };                    
+        for (var i = 0; i < items.length; ++i) {
+        if (items[i].textContent.includes("Your Text Here")) {
+            console.log("success"); 
+            items[i].click();
+        }
+    }
+
+(Source: https://stackoverflow.com/questions/62722876/how-to-click-a-specific-text-in-the-page-javascript)
+_________________
+
+Javascript Weather (snow):
+
+https://www.cssscript.com/minimalist-falling-snow-effect-with-pure-javascript-snow-js/
+
+______________________________
+Quote of the day button w linksupport
+-----------------------------------
+
+<head><meta charset="UTF-8"><style>
+div {text-align: left;}
+h1 {font-size: 11px;font-family: Arial;}
+button {width: 128px;height: 28px;background-color: white;color: black;}
+{font-size: 11px;}
+button:hover{background-color: white;}
+</style></head><body>
+<div><button onclick="generateQuote();">QuoteOfTheDay</button><p id="quoteOutput"></div>
+<script>const arrayOfQuotes = [
+{'quote': 'Startdust Road - YGO Vrains OST 2 -Shinkichi Mitsumune'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TU_bS6ttM4Q">Can\'t stay mad at you - Haven Danger</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=cqAawjQyieg">Kellys Lullaby - Another Code R - Satoshi Okubo</a>'},
+    {'quote': 'Abandon Me - Chicory OST - Lena Raine'},
+    {'quote': '<a target="_blank" href="https://youtube.com/watch?v=jCYB1BeDv1w">A Fathers Letter - MftO. Vol I - Stephen Barton</a>'}, 
+];function generateQuote(){const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
+document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].quote}\"`;}
+</script>
+</body>
+
+(Source: )
+______________
+Quote of the Day (button, no nr)
+----------------
+<head>
+    <meta charset="UTF-8">
+<style>
+div {text-align: center;}
+h1 {
+font-size: 24px;font-family: Arial;
+}
+button {
+width: 100px;height: 40px;background-color: white;color: black;
+}
+p{
+    font-size: 24px;
+}
+button:hover{
+    background-color: white;
+}
+</style>
+</head>
+<body>
+    <div>
+        <button onclick="generateQuote();">QuoteOfTheDay</button>
+        <p id="quoteOutput"><p id="authorOutput">
+    </div>
+<script>
+const arrayOfQuotes = [
+    {'author': 'Jim Rohn','quote': 'Beware of what you become in pursuit of what you want.'},
+    {'author': 'Epictetus','quote': 'It\'s not what happens to you, but how you react to it that matters.'},
+    {'author': 'Frank Sinatra','quote': 'The best revenge is massive success.'},
+    {'author': 'Wayne Gretzy','quote': 'You miss 100% of the shots you don\'t take.'},
+    {'author': 'Nelson Mandela','quote': 'Resentment is like drinking poison and waiting for your enemies to die.'},
+    {'author': 'Elbert Hubbard','quote': 'Do not take life too seriously. You will not get out alive.'},
+];
+function generateQuote(){
+    const random = Number.parseInt(Math.random()*arrayOfQuotes.length + 1);
+    document.querySelector('#quoteOutput').textContent = `\"${arrayOfQuotes[random].quote}\"`;
+    document.querySelector('#authorOutput').textContent = `-${arrayOfQuotes[random].author}`;
+}
+</script>
+</body>
+
+
+https://github.com/JS-Beginners/quote-of-the-day-project/blob/main/quotes.js
+
+_____________________________________________________________
+JS Fallback script:
+-----------------
+
+<script src="https://mipage.com/pathtoscript/owlscript.js" onerror="loadFallbackScript()"></script>
+and then loading the fallback script from code:
+<script>
+function createScriptElement(src) {
+    const script = document.createElement('script');
+    script.src = src;
+
+    return script;
+}
+
+function loadFallbackScript() {
+    const fallbackScriptElement = createScriptElement('fallback.js');
+    document.head.append(fallbackScriptElement);
+}
+</script>
+
+(Source: https://stackoverflow.com/questions/70229312/implement-fallback-incase-original-script-is-not-found/70235593#70235593 )
+
+
+______________________________
+Searchbar with clickable links:
+-------------------------------
+<!--- https://stackoverflow.com/questions/36634118/creating-a-clickable-search-result-from-a-json-table --->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container" style="padding:1px 1px;">
+	<form role="form">
+        <div class="form-group">
+          <input type="input" class="form-control input-lg" id="txt-search" placeholder="Type your search character">
+        </div>
+	</form>
+	<div id="filter-records"></div>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var data = [
+{"id":"1","page_name":"Startseite","html_name":"index.html","undefined_value":"61","profile_image":"null.png"},
+{"id":"2","page_name":"New Art","html_name":"0newart.html","undefined_value":"00","profile_image":"null.png"},
+{"id":"99","page_name":"Pagename","html_name":"null","undefined_value":"00","profile_image":"null.png"}];
+
+$('#txt-search').keyup(function(){
+            var searchField = $(this).val();
+			if(searchField === '')  {
+				$('#filter-records').html('');
+				return;
+			}
+			
+            var regex = new RegExp(searchField, "i");
+            var output = '<div class="row">';
+            var count = 1;
+			  $.each(data, function(key, val){
+				if ((val.html_name.search(regex) != -1) || (val.page_name.search(regex) != -1)) {
+                                  output += '<div class="col-md-4"><a href="'+val.html_name+'';
+				  output += '">';
+				  output += '<p>' + val.html_name + '</p>'
+				  output += '</div>';
+				  output += '</div>';
+				  if(count%2 == 0){
+					output += '</div><div class="row">'
+				  }
+				  count++;
+				}
+			  });
+			  output += '</div>';
+			  $('#filter-records').html(output);
+        });
+  });
+</script>
+
+
+(Source: https://stackoverflow.com/questions/70222874/json-search-fails-after-adding-11th-entry)
+(Source: https://www.js-tutorials.com/jquery-tutorials/live-search-json-objects-data-using-jquery/)
+______________________________
+Simulate back button 
+--------------------
+
+history.go(-1)
+
+(Source: https://stackoverflow.com/questions/13490407/how-to-emulate-browser-back-button-using-javascript)
+
+________________________
+JS Alerts (Popup/Prompt/Entry):
+-----------------------
+
+https://www.w3schools.com/js/js_popup.asp
+
+__________________
+Alert user to switch to Landscape
+----------------
+<script>
+if(window.innerHeight > window.innerWidth){
+    alert("Please use Landscape!");
+}
+</script>
+
+(Source: https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad )
+
+
+____________________________________________
+Adaptive height iFrame:
+----------------------------
+
+Option a):
+---------
+
+<style>
+  iframe {width: 1px;min-width: 100%;}
+</style>
+<iframe id="myIframe" src="0newart.html"></iframe>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script> 
+		<script type="text/javascript">
+  iFrameResize({ log: true }, '#myIframe')
+</script>
+
+
+Option b):
+----------
+
+<head>
+<script>  function resizeIframe(obj) {    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';  }</script>
+..
+<iframe src="..." frameborder="0" scrolling="no" onload="resizeIframe(this)" />
+
+(Source: https://codehunter.cc/a/javascript/make-iframe-automatically-adjust-height-according-to-the-contents-without-using-scrollbar-duplicate )
+
+_________________________________________________________________
+Load html from (same domain site) via jquery:
+------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    var baseUrl = window.location.href.match(/(.*)[\/\\]/)[1];
+    $("#output").load(baseUrl + "/Search.html");
+});
+</script>
+    <div class="formClass">
+        <div id="output">
+        </div>
+
+(Source: https://stackoverflow.com/questions/70268604/direct-path-alternative-for-offsite-html-loading-via-js)
+______________________________________________
+Load html from offsite via jquery:
+----------------------------------
+
+
+a) Automatically:
+------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#output").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Search.html");
+});
+</script>
+    <div class="formClass">
+        <div id="output">
+        </div>
+        
+
+b) Requiring user button press:
+---------------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#output").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Project.html");
+    });
+});
+</script>
+<body>
+    <div class="formClass">
+        <div id="output">
+        </div>
+        <button type="button">Click to Load Content</button>
+    </div>
+</body>
+</html>                            
+
+(Source: https://laratutorials.com/jquery-load-load-html-content-from-another-page-using-ajax/ )
+AJAX cannot work from file:// but http:// 
+ (Source: https://stackoverflow.com/questions/16821432/loading-local-html-file-into-div)
+ (Source: https://stackoverflow.com/questions/70254443/convert-js-to-autoload )
+Due to security issues (same origin policy), 
+javascript access to local files is restricted if without user interaction. 
+https://stackoverflow.com/questions/18637418/trying-to-load-local-json-file-to-show-data-in-a-html-page-using-jquery
+_________________________________________________________________________________
+Button load local html file (kinda iframe-y):
+---------------------------
+
+<!DOCTYPE HTML>
+<div id="topBar"> <a href ="#" onclick="load_home()"> HOME </a> </div>
+<div id ="content"> </div>
+<script>
+function load_home() {
+     document.getElementById("content").innerHTML='<object type="text/html" data="Search.html" ></object>';
+}
+</script>
+
+(Source: https://stackoverflow.com/questions/17636528/how-do-i-load-an-html-page-in-a-div-using-javascript#comment25679730_17636528) 
+
+______________________________________
+Display variable in popup:
+--------------------------------------
+
+}
+alert(urls)
+
+(Source: https://stackoverflow.com/questions/1487588/extract-all-links-from-a-string )
+
+
+______________________________________________________________________________-
+Load (scalable) image from user input (buttonpress):
+------------------------------
+
+<body>
+<form>
+    <input type="text" id="imagename" value="https://image.jpg" />
+    <input type="button" id="btn" value="LatestDAimage"/>
+</form>
+<html>
+<script type="text/javascript">
+        document.getElementById('btn').onclick = function() {
+            var val = document.getElementById('imagename').value,
+                src = val ,
+                img = document.createElement('img');
+            img.src = src;
+	    img.setAttribute('width', '333px');
+            document.body.appendChild(img);
+        }
+    </script>
+</body>
+</html>
+
+(Source: https://stackoverflow.com/questions/226847/what-is-the-best-javascript-code-to-create-an-img-element 
+
+___________________________________________________
+Load image from user input (buttonpress):
+------------------------------
+
+<body>
+<form>
+    <input type="text" id="imagename" value="http://euobtl-44e3133c-aa9e-4b16-b7ca-6645b4610d29.png/v1/fill/w_250,h_250,strp/dreaming_of_virtual_sheep_by_ryedai1_deuobtl-250t.png
+" />
+    <input type="button" id="btn" value="LatestDAimage"/>
+</form>
+<html>
+<script type="text/javascript">
+        document.getElementById('btn').onclick = function() {
+            var val = document.getElementById('imagename').value,
+                src = ' val,
+                img = document.createElement('img');
+            img.src = src;
+            document.body.appendChild(img);
+        }
+    </script>
+</body>
+</html>
+
+(Source: https://stackoverflow.com/questions/17634019/javascript-load-an-image-from-url-and-display)
+
+___________________________________________________
+Autoclick button on pageload:
+-----------------------------
+
+<script>
+window.onload = function(){
+  document.getElementById('btn').click();
+  
+var scriptTag = document.createElement("script");
+scriptTag.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js";
+document.getElementsByTagName("head")[0].appendChild(scriptTag);
+}
+</script>
+
+(Source: https://stackoverflow.com/questions/50925683/javascript-auto-click-on-a-button-on-page-load/50925730 )
+
+______________________________________________________
+Javascript load iframe:
+------------------------
+<div id="placeholder"></div>
+<script id="iframeTemplate" type="text/html">
+    <iframe src="...">
+    </iframe>
+</script>
+<script type="text/javascript">
+var element,
+    html,
+    template;
+element = document.getElementById("placeholder");
+template = document.getElementById("iframeTemplate");
+html = template.innerHTML;
+element.innerHTML = html;
+</script>
+
+(Source: https://stackoverflow.com/questions/8726455/creating-an-iframe-using-javascript/8726513)
+
+___________________________
+JS open url
+----------------
+
+window.open("https://www.youraddress.com","_self")
+
+(Source: https://stackoverflow.com/questions/8454510/open-url-in-same-window-and-in-same-tab )
+
+
+__________________
+
+Read window url to variable:
+-----------
+<script>
+var currentUrl = window.location.href;
+</script>
+
+_________________________________________________________________
+Copy to clipboard:
+------------------
+
+function copyToClipboard(text) {
+   const elem = document.createElement('textarea');
+   elem.value = text;
+   document.body.appendChild(elem);
+   elem.select();
+   document.execCommand('copy');
+   document.body.removeChild(elem);
+}
+
+(Source: https://newbedev.com/html-html-copy-to-clipboard-without-javascript-code-example)
+______________________________________________________
+
+Disable right click
+---------------------------
+<script type="text/javascript">
+<!--
+// Created by smartgb.com, http://www.smartgb.com/free.php
+document.oncontextmenu = new Function("return false");
+// -->
+</script>
+
+(Source: https://www.smartgb.com/free_javascript.php)
+______________________
+
+Display current month:
+---------------------------------
+<p id="currmonth"></p>
+<script>
+const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const d = new Date();
+let name = month[d.getMonth()];
+document.getElementById("currmonth").innerHTML = name;
+</script>
+</body>
+
+(Source: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_date_getmonth )
+____________________
+
+Show image (or "do x") at certain season (month period):
+-------------------------
+
+<div id="banner-container" style="width:400px;height:300px;"></div>
+<script>
+var currentTime = new Date();
+var month = currentTime.getMonth() + 1;
+var total = month;
+// Summer
+if (total >= 6 && total <= 8)
+{document.getElementById("banner-container").style.backgroundImage = "url('summer.png')";}
+// Autumn
+else if (total >= 9 && total <= 11)
+{document.getElementById("banner-container").style.backgroundImage="url('fall.png')";}
+// Winter
+else if (total == 12 || total == 1 || total == 2)
+{document.getElementById("banner-container").style.backgroundImage = "url('winter.png')";}
+// Spring
+else if (total >= 2 && total <= 6)
+{document.getElementById("banner-container").style.backgroundImage = "url('spring.png')";}
+else
+{document.getElementById("banner-container").style.backgroundImage = "url('summer.png')";}
+</script>
+
+(Source: https://stackoverflow.com/questions/27176180/automatically-change-the-picture-by-month-with-javascript?noredirect=1&lq=1)
+_________________________________________________
+
+Call js from within javascript:
+------------------------------
+
+<script>
+document.write('<script src="https://ry3yr.github.io/OSTR/myhomepage/snow.js"><\/script>');
+</script>
+<body>
+</body>
+
+====OR - call if month = december:===
+
+<script>
+if (new Date().getMonth()===11) document.write('<script src="https://ry3yr.github.io/OSTR/myhomepage/snow.js"><\/script>');
+</script>
+<body>
+</body>
+
+(Source: https://stackoverflow.com/questions/70357122/execute-js-if-month-is-december)
+
+_______________
+Obfuscate ("encrypt") JS Code:
+----------------------------
+
+ https://www.cleancss.com/javascript-obfuscate/ 
+ http://www.jsobfuscate.com/
+
+_______________
+Make a "view source button in css popup" 
+----------------
+
+https://css-tricks.com/make-a-view-source-button/
+_______________
+Source in new window:
+---------------------------
+
+<button type ="button" onclick="viewSource()">List</button>
+<script>
+function viewSource(){;
+    var source = "<html>";
+    source += document.getElementsByTagName('html')[0].innerHTML;
+    source += "</html>";
+    source = source.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    source = "<pre>"+source+"</pre>";
+    sourceWindow = window.open('','Source of page','height=800,width=800,scrollbars=1,resizable=1');
+    sourceWindow.document.write(source);
+    sourceWindow.document.close(); 
+    if(window.focus) sourceWindow.focus();
+}  </script>
+
+(Source: https://stackoverflow.com/questions/41945094/add-option-to-view-source-of-current-html-page )
+
+_________________________
+
+Load just containerpart of site into dom:
+--------------------------------
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+{
+$(document).ready(function(){
+    $("#bitbucketissue").load("https://bitbucket.org/alceawisteria/ostr/issues?status=new&status=open #issues-list");
+});
+}
+</script>
+    <div class="formClass">
+        <div id="bitbucketissue">
+        </div>
+        
+        (Source: https://stackoverflow.com/questions/74993624/loading-only-part-of-site-into-dom-via-jquery)
+        
+_____________________
+
+Link to new site based on appended #hashtag
+------------------------------------------------------------------------
+
+<a rel="me" href="https://pb.todon.de/@alcea"> </a><br>
+
+
+<!----underrated--->
+<script type="text/javascript">
+    if (location.href.indexOf("#underrated") != -1) {
+    window.open("UnderratedContent.html", "_self");
+    }
+</script>
+
+(Source: https://stackoverflow.com/questions/298503/how-can-you-check-for-a-hash-in-a-url-using-javascript )
+
+----------------------------------
+
+Reenable purposely broken element:
+-------------------------------------------------------
+
+<button id="mypxlbtn" onclick="myPXFDFunction()">Pixelfed</button>
+<script>
+function myPXFDFunction() {
+document.body.innerHTML = document.body.innerHTML.replace('pixlframe', 'iframe');
+//document.getElementById('mypxlbtn').style.visibility = 'hidden';
+}
+</script>
+<pixlframe src="https://pixelfed.de/aoikurayami/embed" width="80%" height="800" scrolling="yes" frameborder="0"></pixlframe><!--<script async defer src="https://pixelfed.de/embed.js"></script>-->
+
+______________
+
+
+Download #JSFiddle via #curl
+--------------------------------
+
+curl "http://fiddle.jshell.net/${fiddleId}/show/" -H "Referer: http://fiddle.jshell.net/${fiddleId}/" --output "${fiddleId}.html"
+
+(Source: https://stackoverflow.com/questions/9851878/is-there-a-download-function-in-jsfiddle/ )
+
+______________
+
+Easy Copy button
+----------------------------
+
+<button onclick="copyToClipboard()" style="background:transparent; border:transparent;">(C)</button>
+</div>
+<script> 
+function copyToClipboard() {
+  const str = "curl 'http://fiddle.jshell.net/GSSCD/203//show/' -H 'Referer: http://fiddle.jshell.net/GSSCD/203//' --output 'fiddle.html'"
+  const el = document.createElement('textarea')
+  el.value = str
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+}
+</script>
+_______________
+
+Slide Toggle
+---------------------
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("p").slideToggle();
+  });
+});
+</script>
+</head>
+<body>
+<p>Text</p>
+<button>Toggle </button>
+</body>
+______________
+
+Userinput formfield => create url
+-------------------------------------------------
+
+  <form>
+  <input type="text" id="pixivurl" value="75406576"/>
+  <input type="button" id="btn" value="pixivuserid"/>
+</form>
+<script type="text/javascript">
+      document.getElementById('btn').onclick = function() {
+    var val = document.getElementById('pixivurl').value;
+    var url = "https://rsshub.app/pixiv/user/" + val;
+    var a = document.createElement('a');
+    var linkText = document.createTextNode(url);
+    a.appendChild(linkText);
+    a.title = "pixivuser";
+    a.target= '_blank';
+    a.href = url;
+    a.style.display = 'block';
+    document.body.appendChild(a);
+      }
+  </script>
+
+_____________
+
+Turn YT Channel ID into ChannelURLPlaylist
+----------------------------------------------
+
+<form>
+  <input type="text" id="yturl" value="UCn-K7GIs62ENvdQe6ZZk9-w" />
+  <input type="button" id="btn" value="ChannelPlayListURL" />
+</form>
+<script>
+document.getElementById('btn').onclick = function() {
+  var val = document.getElementById('yturl').value;
+  val = val.replace('UC', 'UU');
+  var url = "https://www.youtube.com/embed/videoseries?list=" + val;
+  var a = document.createElement('a');
+  var linkText = document.createTextNode(url);
+  a.appendChild(linkText);
+  a.title = "yturl";
+  a.target = '_blank';
+  a.href = url;
+  a.style.display = 'block';
+  document.body.appendChild(a);
+}
+</script>
+
+_______________
+
+Random iFrame:
+-------------------------
+
+
+<div id="bigdiv" style="position:fixed; top: 0px; left: 505px;">
+<button id="btn" class="box">Random</button>
+<iframe id="frame" src="rss-scrolling-source01.html" frameborder="0" scrolling="no" height=65 width=400></iframe>
+</div>
+
+  <script>
+var cat1 = [
+    "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/rss-scrolling-source01.html",
+    "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/rss-scrolling-source02.html"
+    ];
+var myFrame = document.getElementById("frame");
+function getRandomUrl(myFrame) {
+   var index = Math.floor(Math.random()*cat1.length);
+   var url = cat1[index];
+   myFrame.src = url;
+}
+btn.addEventListener("click", function() {
+   getRandomUrl(myFrame); 
+});
+</script>
+
+___________________
+
+Click button on pageload:
+--------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>   
+<script type="text/javascript">
+$(document).ready(function(){
+    document.getElementById("btn").click();
+});</script>
+
+
+_________________________________
+
+Texteditor with save function
+---------------------------------------------
+
+<!---http://fiddle.jshell.net/ourcodeworld/rce6nn3z/2//show-->
+  <script
+    type="text/javascript"
+    src="/js/lib/dummy.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  <style id="compiled-css" type="text/css">
+    /* EOS */
+  </style>
+  <script id="insert"></script>
+</head>
+<body>
+    <textarea id="text-val" rows="4">Enter Text here</textarea><br/>
+<input type="button" id="dwn-btn" value="Download"/>
+    <script type="text/javascript">//<![CDATA[
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+// Start file download.
+document.getElementById("dwn-btn").addEventListener("click", function(){
+    // Generate download of hello.txt file with some content
+    var text = document.getElementById("text-val").value;
+    var filename = "hello.txt";
+    download(filename, text);
+}, false);
+  //]]></script>
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: "rce6nn3z"
+      }], "*")
+    }
+    // always overwrite window.name, in case users try to set it manually
+    //window.name = "result"
+  </script>
+</body>
+</html>
+
+_______________
+
+Copy today date to clipboard:
+------------------------------------------------
+<a href="javascript:copydateToClipboard()">Date</a>
+<script> 
+function copydateToClipboard() {
+  var nowd = new Date().toUTCString().slice(0,16);
+  const el = document.createElement('textarea')
+  el.value = nowd
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+}</script>    
+
+_______________________
+
+Days-since-online-counter
+---------------------------------------
+
+Site online since <button id='counter' style="width:26px;height:20px;background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button> 
+&nbsp;&nbsp;days. <!--<button id='today' ></button>-->
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script>$(document).ready(function(){
+var oneDay = 24*60*60*1000;
+var start = new Date(2021, 06, 13);
+var now = new Date();
+var elapsed = Math.round(Math.abs((now.getTime() - start.getTime())/(oneDay)-1));
+$('#counter').html(` ${elapsed} `);
+var nowd = new Date().toUTCString().slice(0,16);
+$('#today').html(` ${nowd} `);});</script>
+
+______________________________
+Datepicker
+----------------
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>$( function() { $( "#datepicker" ).datepicker({changeMonth: true,changeYear: true});} );</script>
+<p>Date: <input type="text" id="datepicker"></p>
+
+______________________________
+
+Random image on pageload:
+-------------------------------------------
+
+<!----RandomImage---> <button id="myrdpbtn" style="background:transparent; border:transparent;" onclick="swap()">RandomPicture</button> <style type="text/css"> #banner {height:100%;object-fit: contain; //padding:0;margin:0;text-align:right; //position:relative; //position:absolute; top: 0px; left: 1200px; //background-position: center center; background-size: contain; background-repeat: no-repeat;}</style> <script type="text/javascript"> if (document.getElementById) { window.onload = swap }; function swap() { var numimages=8; rndimg = new Array( "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/905690094898/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://cdnb.artstation.com/p/assets/images/images/055/144/127/large/ryedai1-2022-10-19-aoi-realist-no2.jpg?1666212593", "https://other00.deviantart.net/c476/o/2021/321/8/f/subaru_and_misora_by_pasc91.png", "https://m.box.com/file/900365515983/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/889506897379/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/903146245504/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png", "https://m.box.com/file/896387464705/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" ); x=(Math.floor(Math.random()*numimages)); randomimage=(rndimg[x]); document.getElementById("banner").style.backgroundImage = "url("+ randomimage +")"; }</script> </head> <div id="banner""></div>
+
+__________________
+
+Random background on pageload:
+--------------------------------------------------
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+#random{
+  width: 100%;
+  height: 100%;
+  //border: 1px solid black;
+  background-image: url('');
+  //background-position: center center;
+  //background-size: cover;
+  //background-repeat: no-repeat;}
+</style>
+<body>
+<body onload="randombg()"><div id="random" ></div>  
+  <script>
+function randombg(){
+  var random= Math.floor(Math.random() * 6) + 0;
+  var bigSize = ["url('https://media1.giphy.com/media/l0HlVrqPItQH8D4iI/giphy.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/cool_stuff_anim.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/cool_stuff_anim.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/comments_anim.gif')",
+                 "url('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/bgfiles/comments_anim.gif')",
+                 "url('https://media1.giphy.com/media/l0HlVrqPItQH8D4iI/giphy.gif')"];
+  document.getElementById("random").style.backgroundImage=bigSize[random];}</script>
+
+(Source: https://stackoverflow.com/questions/75237942/load-random-tiled-image-into-style-background/75239481#75239481 )
+
+________________
+
+Convert page to source code:
+---------------------------------------------
+
+<button id="mypxlbtn" style="background:transparent; border:transparent;" onclick="myPXXFDFunction()">Source!</button>
+<script>
+function myPXXFDFunction() {
+document.documentElement.innerHTML = `<pre>${document.documentElement.innerHTML.replace(/</g,"&lt;")}</pre>`;
+}
+</script>
+
+_______________
+
+Change favicon
+------------------------
+
+<button id="button">Change favicon</button>
+  <script>function changeFavicon() {var link;
+    link = document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/favicon.ico';
+    document.getElementsByTagName('head')[0].appendChild(link);};
+document.getElementById('button').addEventListener('click', function(event) { 
+  changeFavicon();}, false);
+document.body.addEventListener('online', function() {
+  console.log('online')}, false);
+document.body.addEventListener('offline', function() {
+  console.log('offline')}, false);
+</script>
+
+___________________
+
+Check if url string exists
+-------------------------------------
+
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    if (window.location.href.indexOf("Startseiteplayer") > -1) {
+      alert("You have the player open already !");
+      window.history.back();
+    } else {
+  //window.open("Startseiteplayerrun.html","_self");
+  link = document.createElement("a");
+  link.href = "Startseiteplayerrun.html";
+  //link.target = "_blank";
+  link.click()
+;}});
+</script><br>
+<a href="index.html">home</a>
+
+_______________
+
+Check if iframed
+----------
+
+<script>
+if ( window.location !== window.parent.location ) {
+alert("You have the player open already !"); 
+window.history.back(); 
+ } else {
+// The page is not in an iframe
+}
+</script>
+<!---https://tommcfarlin.com/check-if-a-page-is-in-an-iframe/-->
+
+________________
+
+Allow user txt file open & display lines
+---------------------------------------------------
+
+<script>
+const $output = document.getElementById('output')
+document.getElementById('file').onchange = function() {
+  var file = this.files[0];
+  var reader = new FileReader();
+  reader.onload = function(progressEvent) {
+    // Entire file
+    const text = this.result;
+    $output.innerText = text
+    // By lines
+    var lines = text.split('\n');
+    for (var line = 0; line < lines.length; line++) {
+      console.log(lines[line]);
+    }
+  };
+  reader.readAsText(file);
+};</script>
+<input type="file" name="file" id="file">
+<div id='output'>  ...</div>
+
+(Source: https://stackoverflow.com/questions/23331546/how-to-use-javascript-to-read-local-text-file-and-read-line-by-line )
+
+______________________________
+
+Display random line from file:
+---------------------------------------------
+<!DOCTYPE html>
+<!--https://run.plnkr.co/plunks/6wCVvXqoIGl6hN6Q-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+var lines;
+    var randomNumber;
+    var lastRandomNumber;
+    $(document.body).ready(function () {
+      // load the trivia from the server
+      $.ajax({
+        url: 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Dayquotes.html'
+      }).done(function(content) {
+        // normalize the line breaks, then split into lines
+        lines = content.replace(/\r\n|\r/g, '\n').trim().split('\n');
+        // only set up the click handler if there were lines found
+        if (lines && lines.length) {
+          $('#showLine').on('click', function () {
+            // loop to prevent repeating the last random number
+            while (randomNumber === lastRandomNumber) {
+              randomNumber = parseInt(Math.random() * lines.length);
+              // check to prevent infinite loop
+              if (lines.length === 1) { break; }
+            }
+            // keep track of the last random number
+            lastRandomNumber = randomNumber;
+            // show the corresponding line
+            $('#trivia').text(lines[randomNumber]);
+          });
+        }
+      });
+    });
+</script>
+  </head>
+<body><button id="showLine">Random!</button>
+    <p id="trivia"></p></body>
+</html>
+(Source: https://jsfiddle.net/aoikurayami/1yhjods7/ )
+
+_______________________
+
+Random Line from file (autoclick + linksupport)
+--------------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  var lines;
+  var randomNumber;
+  var lastRandomNumber;
+  $(document.body).ready(function () {
+    $.ajax({
+      url: "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js",
+    }).done(function (content) {
+      lines = content
+        .replace(/\r\n|\r/g, "\n")
+        .trim()
+        .split("\n");
+      lines = content
+        .replace(/\r\n|\r/g, "quote")
+        .trim()
+        .split("quote");
+      // ^^ line rmvl ^^^
+      if (lines && lines.length) {
+        $("#showLine").on("click", function () {
+          while (randomNumber === lastRandomNumber) {
+            randomNumber = parseInt(Math.random() * lines.length);
+            if (lines.length === 1) {
+              break;
+            }
+          }
+          lastRandomNumber = randomNumber;
+          $("#trivia").html(lines[randomNumber]);
+        })
+       .trigger("click");
+       //document.getElementById("showLine").style.visibility="hidden";
+      }
+    });
+  });
+</script>
+<button id="showLine">CurrListening</button>
+<p id="trivia"></p>
+
+(source: https://stackoverflow.com/questions/75279944/hiding-button-by-id-works-but-clicking-it-not/75279960#75279944)
+
+________________
+
+Add background behind text element:
+---------------------------
+
+<style>h39 { display: table; font-size:20px;background-color:white;}</style>
+<h39><p id="trivia"></p></h39>
+
+(Source: https://stackoverflow.com/questions/14310154/how-do-i-set-a-background-color-for-the-width-of-text-not-the-width-of-the-enti )
+
+
+________
+
+Prevent accidental page reload:
+-----------------------------------------
+
+window.onbeforeunload = function() { return "Are you sure you want to leave? Think of the kittens!"; }
+
+_________________
+
+Move / interact (with element),
+based on screen orientation:
+------------------------------------------
+
+<script>if(window.innerHeight > window.innerWidth){ document.write('<div id="bigdiv2" style="position:relative; top: 70px; left: -410px;">');}
+</script>
+
+_____________________________
+
+Url with anti-cache string
+--------------
+
+<a href="javascript:cachereload()">ⓁⒶⓉⒺⓈⓉ</a>
+<script> 
+function cachereload() {
+const url = new URL('http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/BoxCOMArt.php');
+url.searchParams.set('reloadTime', Date.now().toString());
+let a= document.createElement('a');
+a.target= '_blank';
+a.href= url.toString();
+a.click();
+}
+</script>
+
+_________________________
+
+iframe http: (only on localhost...)
+
+1) Create file on https, with redirect
+
+redirect-to-http.html:
+<script>
+document.location.href ="http://alceawisteria.byethost7.com/PHP/0demo/2023-03-25-BoxNet/yourpage.html";
+</script>
+
+2)
+iframe it
+<iframe src="redirect-to-http.html"></iframe>
+
+(Source: https://stackoverflow.com/questions/18327314/how-to-allow-http-content-within-an-iframe-on-a-https-site )
+
+______________________________
+
+Render site in ajax popup:
+---------------------
+<script src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/jquery.min.js"></script> 
+<script> 
+$.ajax({
+    url : "https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html",
+    success : function(result){
+        alert(result);
+    }
+});
+</script> 
+
+(Source: https://stackoverflow.com/questions/8197709/javascript-read-html-from-url-into-string )
+
+_____________________
+Render Site via js xmlhttprequest fetch
+-----------------------------------------
+
+<script>
+var req = new XMLHttpRequest();
+req.open('GET', 'https://ry3yr.github.io', false);
+req.send(null);
+if(req.status == 200)
+  //alert(req.responseText);
+  document.write(req.responseText);
+</script>
+
+(Source: https://stackoverflow.com/questions/5299646/javascript-how-to-fetch-the-content-of-a-web-page )
+
+___________________________________________________
+
+
+Self unlocking -truly encrypted html page-:
+-------------------------------------------
+
+1)
+Encrypt html via: 
+https://www.maxlaumeister.com/pagecrypt/
+
+2) Add to html beginning:
+Autosubmit:
+<script>
+window.onload = function(){
+  document.getElementById('submitPass').click();
+var scriptTag = document.createElement("script");
+scriptTag.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js";
+document.getElementsByTagName("head")[0].appendChild(scriptTag);
+}
+</script>
+
+3) replace in html
+Autopass (replace in xx-protected.html)
+<input id="pass" type="password" name="pass" value="1234" autofocus>
+
+
+_______________________________
+
+HTML5 Audioplayer / Musicplayer
+(with playlist)
+
+https://codepen.io/craigstroman/pen/aOyRYx
+
+
