@@ -1,6 +1,38 @@
 
 
 
+Decode (dekudeals) json & list as table
+---------------------------------------------------------
+
+<?php
+$json = file_get_contents('collection.json');
+//Decode JSONV
+$json_data = json_decode($json,true);
+$peopleCount = 0;
+?>
+    <table>
+        <tr>
+            <th>Link</th>
+            <th>Price</th>
+        </tr>
+    <?php foreach($json_data['items'] as $key=>$value):
+        $peopleCount++;
+        ?>
+        <tr>
+            <td><?php echo $value['link']; ?></td>
+            <td><?php echo $value['price_paid']; ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+<?php
+echo "Total Games Count: ". $peopleCount;
+
+-Demo:-
+http://alceawisteria.byethost7.com/PHP/Parse/parse-json/parse.php
+
+(Source: https://stackoverflow.com/questions/57570687/foreach-loop-json-array )
+
+
 ________________________________
 Be gone #errors , be gone !
 -----------------------------------------
