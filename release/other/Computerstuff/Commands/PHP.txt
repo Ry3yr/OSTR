@@ -1,6 +1,30 @@
 
 
 
+
+Count elements of "item/value"
+-------------------------------------------------
+
+(Here: Count "physical" in value "format")
+
+
+<?php
+$jsonData = file_get_contents("collection.json");
+$data = json_decode($jsonData,true);
+$total = 0;
+foreach ($data["items"] as $value) {
+    if($value["format"]==physical){
+        $total = $total+1;
+    }
+}
+echo "•Physical Games: $total";
+?>
+
+(Source: https://stackoverflow.com/questions/19606094/php-count-json-array )
+
+_____________________
+
+
 Decode (dekudeals) json & list as table
 ---------------------------------------------------------
 
