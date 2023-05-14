@@ -127,3 +127,5 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=3AmYr9czoqM&pp=ygUeYnVsbGV0IHRocm91Z2ggaGVhcnQgbmlnaHRjb3Jl">Bullet through my heart (Yasi) NIGHTCORE - /Cant stop loving you/</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=O9hUShzWfoo&list=PLHaaq9Dk8V3Sza0GvtyTgDUTpnw-QrKbQ&index=6">Simoun - Tenpusu Pateiumu no Hadou - Simoun OST </a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=5kxp6Ueam_Y&pp=ygUXc29tZXRoaW5nIHByb3RlY3QgYXJjIHY%3D">Something to protect - YGO Arc-V SD3</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=hftIJLOPNlQ">Dont Wake Up - I am Ghost</a>'},
+{'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=p4I7Ak1N2z8">Not Good Enough for truth in Cliche - Ronald Radke - EtF - EscapeTheFate EX</a>'},
