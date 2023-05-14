@@ -1,5 +1,5 @@
-
-
+PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
+___________________________
 
 
 Count elements of "item/value"
@@ -37,6 +37,7 @@ $peopleCount = 0;
     <table>
         <tr>
             <th>Link</th>
+            <th>Format  avail.</th>
             <th>Price</th>
         </tr>
     <?php foreach($json_data['items'] as $key=>$value):
@@ -44,6 +45,7 @@ $peopleCount = 0;
         ?>
         <tr>
             <td><?php echo $value['link']; ?></td>
+            <td><?php echo $value['format']; ?></td>
             <td><?php echo $value['price_paid']; ?></td>
         </tr>
     <?php endforeach; ?>
@@ -52,7 +54,7 @@ $peopleCount = 0;
 echo "Total Games Count: ". $peopleCount;
 
 -Demo:-
-http://alceawisteria.byethost7.com/PHP/Parse/parse-json/parse.php
+http://alceawisteria.byethost7.com/PHP/0demo/2023-04-30-parse-json/parse.php#inks/more/67087617
 
 (Source: https://stackoverflow.com/questions/57570687/foreach-loop-json-array )
 
