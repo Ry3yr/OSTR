@@ -128,4 +128,5 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=O9hUShzWfoo&list=PLHaaq9Dk8V3Sza0GvtyTgDUTpnw-QrKbQ&index=6">Simoun - Tenpusu Pateiumu no Hadou - Simoun OST </a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=5kxp6Ueam_Y&pp=ygUXc29tZXRoaW5nIHByb3RlY3QgYXJjIHY%3D">Something to protect - YGO Arc-V SD3</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=hftIJLOPNlQ">Dont Wake Up - I am Ghost</a>'},
-{'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=p4I7Ak1N2z8">Not Good Enough for truth in Cliche - Ronald Radke - EtF - EscapeTheFate EX</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=p4I7Ak1N2z8">Not Good Enough for truth in Cliche - Ronald Radke - EtF - EscapeTheFate EX</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=xJh6IZEztFU">白夢の繭- ~Ricordando-il-passato~ - Umineko</a>'},
