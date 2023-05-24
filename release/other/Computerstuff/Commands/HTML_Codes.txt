@@ -11,7 +11,71 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
-__________________________
+
+
+Fetch all links from site & display
+---------------------------------------------------
+
+<script>
+// Fetch the website
+fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html')
+  .then(response => response.text())
+  .then(html => {
+    // Create a temporary element to hold the HTML
+    var temp = document.createElement('div');
+    temp.innerHTML = html;
+
+    // Fetch all links in the HTML
+    var links = temp.querySelectorAll('a');
+
+    // Create a container element to hold the links
+    var container = document.createElement('div');
+
+    // Loop through each link and create an anchor element with its href attribute
+    links.forEach(function(link) {
+      var anchor = document.createElement('a');
+      anchor.href = link.href;
+      anchor.textContent = link.textContent;
+      container.appendChild(anchor);
+    });
+
+    // Add the container to the DOM
+    document.body.appendChild(container);
+  })
+  .catch(error => console.log(error));
+
+</script>
+
+
+
+______________________
+
+Fetch and Display images from website:
+--------------------------------------
+
+
+<script>
+const url = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html';
+
+fetch(url)
+  .then(response => response.text())
+  .then(data => {
+    const parser = new DOMParser();
+    const html = parser.parseFromString(data, "text/html");
+    const images = html.querySelectorAll("img");
+
+    images.forEach(image => {
+      const imageUrl = image.getAttribute("src");
+      const img = document.createElement("img");
+      img.src = imageUrl;
+      document.body.appendChild(img);
+    });
+  });
+</script>
+
+(Source: chatgpt.org.ua "write javascript image parser for https://app.box.com/s/j7i88s6jb4yyk4wmiti4tol8ejoikdhl" )
+_____________________________________
+
 
 Click link on page load (if# exists in url):
 ---------------------------------
