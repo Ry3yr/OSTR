@@ -12,6 +12,28 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+
+Fetch sitepart via delimiter
+----------------------------------------
+
+  <body>
+    <div id="content"></div>
+    <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html")
+        .then(response => response.text())
+        .then(data => {
+          const start = data.indexOf("Tools") + 5;
+          const end = data.indexOf("Hobbies") - 7;
+          const content = data.substring(start, end);
+          document.getElementById("content").innerHTML = content;
+        })
+        .catch(error => console.log(error));
+    </script>
+  </body>
+</html>
+
+(Source: to php equiv: "now do it in js and display into dom")
+
+
 Render pdf in webbrowser
 -----------------------------------------
 https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/pdffilerender.html
