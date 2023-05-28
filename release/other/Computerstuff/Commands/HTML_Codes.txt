@@ -12,6 +12,13 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+Render pdf in webbrowser
+-----------------------------------------
+https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/pdffilerender.html
+https://codepen.io/ryedai1/full/KKGYemE
+
+__________________________
+
 
 Fetch all links from site & display
 ---------------------------------------------------

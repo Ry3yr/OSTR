@@ -2,6 +2,27 @@ PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 ___________________________
 
 
+
+___________________
+
+Render RSS:
+----------------------
+
+<?php
+$rss = simplexml_load_file('https://rsshub.app/pixiv/user/75406576');
+foreach ($rss->channel->item as $item) {
+    $title = $item->title;
+    $date = date('F j, Y', strtotime($item->pubDate));
+    $description = $item->description;
+    $link = $item->link;
+    echo "<h2><a href=\"$link\" target=\"_blank\">$title</a></h2>";
+    echo "<p>$date</p>";
+    echo "<p>$description</p>";
+}
+?>
+
+
+____________________
 Count elements of "item/value"
 -------------------------------------------------
 
