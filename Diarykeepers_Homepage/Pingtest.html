@@ -111,8 +111,8 @@ ko.applyBindings(komodel);
     <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html")
         .then(response => response.text())
         .then(data => {
-          const start = data.indexOf("Tools") + 5;
-          const end = data.indexOf("Hobbies") - 7;
+          const start = data.indexOf("<!------Tools---------->") + 24;
+          const end = data.indexOf("<!-----Hobbies---->") - 8;
           const content = data.substring(start, end);
           document.getElementById("content").innerHTML = content;
         })
