@@ -13,6 +13,9 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+________________________________________________________________________________________________
+
+
 Fetch sitepart via delimiter
 ----------------------------------------
 
@@ -33,47 +36,45 @@ Fetch sitepart via delimiter
 
 (Source: to php equiv: "now do it in js and display into dom")
 
+________________________________________________________________________________________________
 
 Render pdf in webbrowser
 -----------------------------------------
 https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/pdffilerender.html
 https://codepen.io/ryedai1/full/KKGYemE
 
-__________________________
+________________________________________________________________________________________________
 
 
 Fetch all links from site & display
 ---------------------------------------------------
 
+
 <script>
-// Fetch the website
-fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html')
+fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Art.html')
   .then(response => response.text())
-  .then(html => {
-    // Create a temporary element to hold the HTML
-    var temp = document.createElement('div');
-    temp.innerHTML = html;
-
-    // Fetch all links in the HTML
-    var links = temp.querySelectorAll('a');
-
-    // Create a container element to hold the links
-    var container = document.createElement('div');
-
-    // Loop through each link and create an anchor element with its href attribute
-    links.forEach(function(link) {
-      var anchor = document.createElement('a');
+  .then(data => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(data, 'text/html');
+    const base = htmlDoc.createElement('base');
+    base.href = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Art.html';
+    htmlDoc.head.appendChild(base);
+    const links = htmlDoc.querySelectorAll('a[href]');
+    const linkList = document.createElement('ul');
+    links.forEach(link => {
+      const listItem = document.createElement('li');
+      const anchor = document.createElement('a');
       anchor.href = link.href;
-      anchor.textContent = link.textContent;
-      container.appendChild(anchor);
+      anchor.target = '_blank'; // Set target to _blank
+      anchor.textContent = link.href;
+      listItem.appendChild(anchor);
+      linkList.appendChild(listItem);
     });
-
-    // Add the container to the DOM
-    document.body.appendChild(container);
+    document.body.appendChild(linkList);
   })
-  .catch(error => console.log(error));
-
+  .catch(error => console.error(error));
 </script>
+
 
 
 
