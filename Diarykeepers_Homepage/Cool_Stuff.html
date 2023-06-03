@@ -363,7 +363,57 @@ function copyToClipboard() {
 •YGO<br>
 <a target="_blank" href="https://gg.gg/ygodeck#https://ry3yr.github.io/OSTR/release/other/game/ygo/deck/0curr-irl.ydk">YDK</a>&nbsp;
 	•<a target="_blank" href="https://github.com/Ry3yr/OSTR/tree/main/release/other/game/ygo/deck#https://www.masterduelmeta.com/deck-tester">(other)</a>&nbsp;&nbsp;•<a target="_blank" href="https://dejauxvue.github.io/YGOProxyGenerator/html/index.html#https://github.com/Dejauxvue/YGOProxyGenerator/archive/refs/heads/master.zip">🖨️ (Print)</a>
-	&nbsp;•<a target="_blank" href="https://www.yugioh.party/#https://stattrek.com/online-calculator/hypergeometric#https://www.reddit.com/r/lrcast/comments/3234bd/having_4_cards_in_a_40_card_deck_does_not_mean/">ProbCalc</a>&nbsp;•<a target="_blank" href="https://www.yugiohcalculator.com/">LPCalc</a>
+	&nbsp;•<a target="_blank" href="https://www.yugioh.party/#https://stattrek.com/online-calculator/hypergeometric#https://www.reddit.com/r/lrcast/comments/3234bd/having_4_cards_in_a_40_card_deck_does_not_mean/">ProbCalc</a>&nbsp;•<a target="_blank" href="https://www.yugiohcalculator.com/">LPCalc</a><br>
+
+
+<!-----------------------------Deckrenderer--End---------------------------->
+<div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ygodeck'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ygodeck';}" value="ygodeck" style="background:transparent; border:none; color:black;"><div class="spoiler" style="display: none;" >
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="holder"></div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.385/build/pdf.min.js'></script>
+<script>
+function renderPDF(url, canvasContainer, options) {
+    options = options || { scale: 2 };
+    function renderPage(page) {
+        var viewport = page.getViewport(options.scale);
+        var wrapper = document.createElement("div");
+        wrapper.className = "canvas-wrapper";
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        wrapper.appendChild(canvas)
+        canvasContainer.appendChild(wrapper);
+        page.render(renderContext);
+    }
+    function renderPages(pdfDoc) {
+        for(var num = 1; num <= pdfDoc.numPages; num++)
+            pdfDoc.getPage(num).then(renderPage);
+    }
+    PDFJS.disableWorker = true;
+    PDFJS.getDocument(url).then(renderPages);
+}   
+renderPDF('https://ry3yr.github.io/OSTR/release/other/game/ygo/deck/0curr-irl.pdf', document.getElementById('holder'));
+</script>
+</body>
+</html>
+</div>
+</div>
+<!-----------------------------Deckrenderer--End---------------------------->
+
 	<br><br>
 <hr>
 <br>
