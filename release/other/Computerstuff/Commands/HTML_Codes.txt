@@ -4,11 +4,21 @@ htmledit.squarefree.com
 Cheatsheet: https://pbs.twimg.com/media/FDTBjF5XEAkI6ZZ?format=jpg&name=large
 BlueGriffon (WYSIWYG Editor that doesn't break CSS)
 https://www.duplichecker.com/domain-age-checker.php
-[0HTML examples Backup: GDRIVE:/HTML/00_HTML
+[0HTML examples Backup: GDRIVE:/HTML/00_HTML ]
 ------------
 https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.txt
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
+
+
+Render html/text as "plaintext": (useful for codedumps)
+--------------------------------------
+
+<plaintext>
+
+text
+
+</plaintext>
 
 
 ____________________________________
