@@ -4,6 +4,23 @@ ___________________________
 
 
 
+
+Parse images from #rsshub #pixiv feed
+-----------------------------------------------------------
+<?php
+$rss = simplexml_load_file('https://rsshub.app/pixiv/user/75406576');
+foreach ($rss->channel->item as $item) {
+    $description = (string) $item->description;
+    if (preg_match('/https:\/\/\S+/', $description, $matches)) {
+        $link = rtrim($matches[0], '"'); // Remove the final " character
+        //echo '<p>' . htmlspecialchars($link) . '<br>';
+        echo '<img src="' . htmlspecialchars($link) . '">';
+    }
+}
+?>
+
+_____________________________
+
 Fetch Sitepart (via delimiters)
 -----------------------------------
 
