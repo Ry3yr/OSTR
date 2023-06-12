@@ -130,3 +130,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=hftIJLOPNlQ">Dont Wake Up - I am Ghost</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=p4I7Ak1N2z8">Not Good Enough for truth in Cliche - Ronald Radke - EtF - EscapeTheFate EX</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=xJh6IZEztFU">白夢の繭- ~Ricordando-il-passato~ - Umineko</a>'},
+    {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=R7uakN8oe2o">How Close You Are - Finger Style Cover</a>'},
