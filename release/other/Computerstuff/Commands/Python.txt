@@ -1,0 +1,31 @@
+
+
+
+
+_______
+
+To fetch all € from a webpage textbox
+--------------------------------------
+
+python
+Copy
+import requests
+from bs4 import BeautifulSoup
+
+# Make a GET request to the webpage
+url = 'https://www.example.com'
+response = requests.get(url)
+
+# Parse the webpage source code
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Find the textbox containing the € symbol(s)
+textbox = soup.find('input', {'name': 'textbox_name'})
+euros = textbox.get('value').count('€')
+
+# Print the total number of € symbols found in the textbox
+print(f'Total number of € symbols found: {euros}')
+
+
+
+( Source: https://poe.com/Pythonmachine )
