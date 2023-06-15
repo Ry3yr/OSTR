@@ -2,8 +2,70 @@ PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 ___________________________
 
 
+Extract "€" values and display subtotal
+---------------------------------------------------------
+
+<?php
+if(isset($_POST['submit'])) {
+  $input = $_POST['input'];
+  $total = 0;
+  preg_match_all('/(\d+)[€]/', $input, $matches);
+  foreach($matches[1] as $match) {
+    $total += $match;
+  }
+  echo "Total value: €".$total;
+}
+?>
+<form method="post" action="">
+  <textarea name="input"></textarea>
+  <br>
+  <button type="submit" name="submit">Calculate total</button>
+</form>
+
+=========Keyword (+search) Version======
+
+<?php
+if(isset($_POST['submit'])) {
+  $input = $_POST['input'];
+  $total = 0;
+  $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
+  $lines = explode("\n", $input);
+  $matching_lines = array(); // initialize an array to collect matching lines
+  foreach($lines as $line) {
+    if (!$keyword || strpos($line, $keyword) !== false) {
+      preg_match_all('/(\d+)[€]/', $line, $matches);
+      if ($matches) {
+        foreach($matches[1] as $match) {
+          $total += $match;
+        }
+      }
+      // add the matching line to the array
+      $matching_lines[] = $line;
+    }
+  }
+  echo "Total value for '".($keyword ?: 'all')."' lines: €".$total;
+}
+?>
+<form method="post" action="">
+  <textarea name="input"></textarea>
+  <br>
+  Keyword: <input type="text" name="keyword">
+  <br>
+  <button type="submit" name="submit">Calculate total</button>
+</form>
+
+<?php if(isset($matching_lines) && $keyword): // output the matching lines section if there are matching lines and a keyword is set ?>
+  <h2>Matching lines:</h2>
+  <ul>
+    <?php foreach($matching_lines as $line): ?>
+      <li><?php echo htmlentities($line); ?></li> <!-- escape HTML entities to prevent XSS attacks -->
+    <?php endforeach; ?>
+  </ul>
+<?php endif; ?>
 
 
+
+_______________________
 
 Parse images from #rsshub #pixiv feed
 -----------------------------------------------------------
