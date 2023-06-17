@@ -45,48 +45,60 @@ if(isset($_POST['submit'])) {
   <button type="submit" name="submit">Calculate total</button>
 </form>
 
-=========Keyword (+search) Version======
-
+=========Keyword (+search + url) Version======
 <?php
-if(isset($_POST['submit'])) {
-  $input = $_POST['input'];
-  $total = 0;
-  $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
-  $lines = explode("\n", $input);
-  $matching_lines = array(); // initialize an array to collect matching lines
-  foreach($lines as $line) {
-    if (!$keyword || strpos($line, $keyword) !== false) {
-      preg_match_all('/(\d+)[€]/', $line, $matches);
-      if ($matches) {
-        foreach($matches[1] as $match) {
-          $total += $match;
-        }
-      }
-      // add the matching line to the array
-      $matching_lines[] = $line;
-    }
-  }
-  echo "Total value for '".($keyword ?: 'all')."' lines: €".$total;
+if(isset($_POST['submit'])) {
+  $input = '';
+  $url = isset($_POST['url']) ? $_POST['url'] : '';
+  if ($url) {
+    $input = strip_tags(file_get_contents($url));
+  } else {
+    $input = $_POST['input'];
+  }
+  $total = 0;
+  $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
+  $lines = explode("\n", $input);
+  $matching_lines = array(); // initialize an array to collect matching lines
+  $is_first_line = true; // flag to track whether the first line has been processed or not
+  foreach($lines as $line) {
+    if (!$keyword || strpos($line, $keyword) !== false) {
+      if ($is_first_line && $url) {
+        $is_first_line = false; // set flag to false to skip the first matching line
+        continue; // skip the first matching line
+      }
+      preg_match_all('/(\d+)[€]/', $line, $matches);
+      if ($matches) {
+        foreach($matches[1] as $match) {
+          $total += $match;
+        }
+      }
+      // add the matching line to the array
+      $matching_lines[] = $line;
+    }
+  }
+  echo "Total value for '".($keyword ?: 'all')."' lines: €".$total;
 }
 ?>
-<form method="post" action="">
-  <textarea name="input"></textarea>
-  <br>
-  Keyword: <input type="text" name="keyword">
-  <br>
-  <button type="submit" name="submit">Calculate total</button>
+<form method="post" action="">
+  <label for="url">URL:</label>
+  <input type="text" name="url" id="url">
+  <br>
+  <textarea name="input"></textarea>
+  <br>
+  Keyword: <input type="text" name="keyword">
+  <br>
+  <button type="submit" name="submit">Calculate total</button>
 </form>
 
-<?php if(isset($matching_lines) && $keyword): // output the matching lines section if there are matching lines and a keyword is set ?>
-  <h2>Matching lines:</h2>
-  <ul>
-    <?php foreach($matching_lines as $line): ?>
-      <li><?php echo htmlentities($line); ?></li> <!-- escape HTML entities to prevent XSS attacks -->
-    <?php endforeach; ?>
-  </ul>
-<?php endif; ?>
-
-
+<?php if(isset($matching_lines) && $keyword): // output the matching lines section if there are matching lines and a keyword is set ?>
+  <br>
+  <h2>Matching lines:</h2>
+  <ul>
+    <?php foreach($matching_lines as $line): ?>
+      <li><?php echo htmlentities($line); ?></li>
+    <?php endforeach; ?>
+  </ul>
+<?php endif; ?>
 
 _______________________
 
