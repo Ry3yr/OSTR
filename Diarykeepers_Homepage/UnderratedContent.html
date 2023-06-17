@@ -172,6 +172,75 @@ document.getElementById('btn2').onclick = function() {
 }
 </script>
 
+ <br>
+ <hr>
+<body>
+	<div>
+		<label for="channel-url-input">Channel URL:</label>
+		<input type="text" id="channel-url-input">
+	</div>
+	<div>
+		<label for="channel-image-input">Channel Image URL:</label>
+		<input type="text" id="channel-image-input">
+	</div>
+	<div>
+		<label for="channel-name-input">Channel Name:</label>
+		<input type="text" id="channel-name-input">
+	</div>
+	<div>
+		<label for="video-url-input">Video URL:</label>
+		<input type="text" id="video-url-input">
+	</div>
+	<div>
+		<label for="video-title-input">Video Title:</label>
+		<input type="text" id="video-title-input">
+	</div>
+	<button onclick="fillVideo()">Fill Video</button>
+	<br><br>
+	<div style="display: flex;">
+		<div>
+			<label for="html-output">HTML Output:</label>
+			<textarea id="html-output"></textarea>
+		</div>
+		<div id="preview-container" style="margin-left: 50px;"></div>
+	</div>
+	<script>
+		function fillVideo() {
+			let channelUrl = document.getElementById("channel-url-input").value.trim();
+			let channelImage = document.getElementById("channel-image-input").value.trim();
+			let channelName = document.getElementById("channel-name-input").value.trim();
+			let videoUrl = document.getElementById("video-url-input").value.trim();
+			let videoTitle = document.getElementById("video-title-input").value.trim();
+			let channelLink = document.createElement("a");
+			channelLink.href = channelUrl;
+			let channelImageElement = document.createElement("img");
+			channelImageElement.alt = "Channel Image";
+			channelImageElement.src = channelImage;
+			channelImageElement.height = 50;
+			channelImageElement.width = 50;
+			channelLink.appendChild(channelImageElement);
+			let channelNameElement = document.createElement("span");
+			channelNameElement.textContent = channelName;
+			let videoLink = document.createElement("a");
+			videoLink.href = videoUrl;
+			let videoTitleElement = document.createElement("span");
+			videoTitleElement.textContent = videoTitle;
+			let videoContainer = document.createElement("div");
+			videoContainer.appendChild(channelLink);
+			videoContainer.appendChild(channelNameElement);
+			videoContainer.appendChild(document.createElement("br"));
+			videoContainer.appendChild(videoLink);
+			videoLink.appendChild(videoTitleElement);
+			let htmlString = videoContainer.outerHTML;
+			let htmlOutput = document.getElementById("html-output");
+			htmlOutput.value = htmlString;
+			let previewContainer = document.getElementById("preview-container");
+			previewContainer.innerHTML = htmlString;
+		}
+	</script>
+</body>
+<hr>
+
 <br>
 <br>
 <b>Composers / Musical Talents:</b>
