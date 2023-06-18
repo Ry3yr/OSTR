@@ -11,6 +11,86 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Parse RSS with image support:
+-----------------------------------------------
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
+    <style>
+      .medium-blog-image {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      .medium-blog-image img {
+        margin: 5px;
+        max-width: 100%;
+        max-height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="prita-medium-content"></div>
+    <script>
+      $(function() {
+        var $content = $('#prita-medium-content');
+        var data = {
+          rss_url: 'https://rsshub.app/pixiv/user/75406576'
+        };
+        $.get('https://api.rss2json.com/v1/api.json', data, function(response) {
+          if (response.status == 'ok') {
+            var output = '';
+            $.each(response.items, function(k, item) {
+              output += '<div class="medium-blog-post" onclick="window.open(\'' + item.guid + '\',\'mywindow\');">'
+              output += '<div class="medium-blog-title"><h2>' + item.title + '</h2></div>';
+              output += '<div class="medium-blog-date">' + $.format.date(item.pubDate, "MMM dd, yyyy") + '</div>';
+              output += '<div class="medium-blog-image">';
+              $(item.content).find('img').each(function() {
+                output += '<img src="' + $(this).attr('src') + '" />';
+              });
+              output += '</div>';
+              output += '</div>';
+              return k < 3;
+            });
+            $content.html(output).hide();
+            $content.fadeIn('slow');
+          }
+        });
+      });
+    </script>
+  </body>
+________________
+
+Simple RSS Render:
+------------------------------
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.jquery-plugins.net/FeedEK/FeedEk.min.js"></script>
+<div id="divRss" class="perrea_nena"></div>
+<script>
+  $('#divRss').FeedEk({
+  FeedUrl : 'https://rsshub.app/pixiv/user/75406576',
+  MaxCount : 5,
+  ShowDesc : true,
+  DescCharacterLimit:80,
+  ShowPubDate:false,
+  TitleLinkTarget:'_blank',
+});
+</script>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+</body>
+
+
+
+________________
+
 YT Channel Preview Tag html generator
 -----------------------------------------------------------
 
