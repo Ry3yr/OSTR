@@ -172,30 +172,30 @@ document.getElementById('btn2').onclick = function() {
 }
 </script>
 
+
  <br>
  <hr>
 <body>
 	<div>
 		<label for="channel-url-input">Channel URL:</label>
-		<input type="text" id="channel-url-input">
+		<input type="text" id="channel-url-input" oninput="fillVideo()">
 	</div>
 	<div>
 		<label for="channel-image-input">Channel Image URL:</label>
-		<input type="text" id="channel-image-input">
+		<input type="text" id="channel-image-input" oninput="fillVideo()">
 	</div>
 	<div>
 		<label for="channel-name-input">Channel Name:</label>
-		<input type="text" id="channel-name-input">
+		<input type="text" id="channel-name-input" oninput="fillVideo()">
 	</div>
 	<div>
 		<label for="video-url-input">Video URL:</label>
-		<input type="text" id="video-url-input">
+		<input type="text" id="video-url-input" oninput="fillVideo()">
 	</div>
 	<div>
 		<label for="video-title-input">Video Title:</label>
-		<input type="text" id="video-title-input">
+		<input type="text" id="video-title-input" oninput="fillVideo()">
 	</div>
-	<button onclick="fillVideo()">Fill Video</button>
 	<br><br>
 	<div style="display: flex;">
 		<div>
@@ -235,7 +235,8 @@ document.getElementById('btn2').onclick = function() {
 			let htmlOutput = document.getElementById("html-output");
 			htmlOutput.value = htmlString;
 			let previewContainer = document.getElementById("preview-container");
-			previewContainer.innerHTML = htmlString;
+			previewContainer.innerHTML = "";
+			previewContainer.appendChild(videoContainer);
 		}
 	</script>
 </body>
