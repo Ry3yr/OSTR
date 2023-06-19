@@ -131,3 +131,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=p4I7Ak1N2z8">Not Good Enough for truth in Cliche - Ronald Radke - EtF - EscapeTheFate EX</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=xJh6IZEztFU">白夢の繭- ~Ricordando-il-passato~ - Umineko</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=R7uakN8oe2o">How Close You Are - Finger Style Cover</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=eJ-WCeZLiq0">-Methionine- - 13SentinelsAegis RIM BRANCHED</a>'},
