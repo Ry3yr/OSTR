@@ -370,6 +370,19 @@ function copyToClipboard() {
 •Sewing/Crafts<br><br>
 	•Games<br>
 <a target="_blank" href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/dekugames.html#https://gg.gg/dekugames">• Nswitch-Games</a><br>
+
+    <div id="url-container"></div>
+    <script>
+      const currentDate = new Date();
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
+      const formattedDay = day < 10 ? `0${day}` : day;
+      const formattedMonth = month < 10 ? `0${month}` : month;
+      const url = `https://www.nintendo.com/nintendo-direct/${formattedMonth}-${formattedDay}-${year}/`;
+      const urlContainer = document.getElementById('url-container');
+      urlContainer.innerHTML = `<a target="_blank" href="${url}">${url}</a>`;
+    </script><br>
 <br>
 •YGO<br>
 <a target="_blank" href="https://gg.gg/ygodeck#https://ry3yr.github.io/OSTR/release/other/game/ygo/deck/0curr-irl.ydk">YDK</a>&nbsp;
