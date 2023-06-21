@@ -1,4 +1,4 @@
-
+<base target="_blank">
  <script>
     fetch('https://paper.wf/alcea/feed/')
       .then(response => response.text())
@@ -9,7 +9,6 @@
         const titles = Array.from(items).map(item => item.querySelector('title').textContent);
         const descriptions = Array.from(items).map(item => item.querySelector('description').innerHTML);
         const links = Array.from(items).map(item => item.querySelector('link').textContent);
-
         const container = document.createElement('div');
         titles.forEach((title, index) => {
           const item = document.createElement('div');
@@ -31,7 +30,7 @@
   </script>
 
 
-
+<!--
 <base href="https://paper.wf">
 <!DOCTYPE HTML>
 <html  dir="">
