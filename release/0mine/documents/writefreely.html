@@ -1,6 +1,38 @@
 
-<base href="https://paper.wf">
+ <script>
+    fetch('https://paper.wf/alcea/feed/')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(data, 'text/xml');
+        const items = xml.querySelectorAll('item');
+        const titles = Array.from(items).map(item => item.querySelector('title').textContent);
+        const descriptions = Array.from(items).map(item => item.querySelector('description').innerHTML);
+        const links = Array.from(items).map(item => item.querySelector('link').textContent);
 
+        const container = document.createElement('div');
+        titles.forEach((title, index) => {
+          const item = document.createElement('div');
+          const itemTitle = document.createElement('h3');
+          const itemDescription = document.createElement('p');
+          const itemLink = document.createElement('a');
+          itemTitle.textContent = title;
+          itemDescription.innerHTML = descriptions[index];
+          itemLink.textContent = 'Read more';
+          itemLink.href = links[index];
+          item.appendChild(itemTitle);
+          item.appendChild(itemDescription);
+          item.appendChild(itemLink);
+          container.appendChild(item);
+        });
+        document.body.appendChild(container);
+      })
+      .catch(error => console.log(error));
+  </script>
+
+
+
+<base href="https://paper.wf">
 <!DOCTYPE HTML>
 <html  dir="">
 	<head>
