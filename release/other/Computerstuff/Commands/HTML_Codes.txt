@@ -11,6 +11,48 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Redirect Code URL Transformer with dld function:
+--------------------------------
+
+<textarea id="url-input" rows="15" cols="60"><meta http-equiv="refresh" content="0; https://website.com">
+    <script type="text/javascript">
+        window.location.href = "https://website.com"
+    </script>
+    <title>Homepage</title>
+</head>
+<body>
+    <!-- Note: don't tell people to `click` the link, just tell them that it is a link. -->
+    If you are not redirected automatically, follow this <a href='https://website.com'>-</a>.
+</body>
+</html></textarea><br>
+<input type="text" id="new-url">
+<button onclick="changeUrl()">Change URL</button>
+<button onclick="downloadHtml()">DLD</button>
+<script>
+function changeUrl() {
+  var newUrl = document.getElementById('new-url').value;
+  if (newUrl !== '') {
+    var html = document.getElementById('url-input').value;
+    html = html.replaceAll('https://website.com', newUrl);
+    document.getElementById('url-input').value = html;
+    document.querySelector('meta[http-equiv="refresh"]').setAttribute('content', '0; ' + newUrl);
+  }
+}
+function downloadHtml() {
+  var htmlContent = document.getElementById('url-input').value;
+  var filename = 'page.html';
+  var blob = new Blob([htmlContent], {type: 'text/html'});
+  var link = document.createElement('a');
+  link.download = filename;
+  link.href = URL.createObjectURL(blob);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+
+_________________
+
 Date URL Transformer (Nintendo Direct):
 ---------------------------------
 
