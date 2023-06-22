@@ -132,3 +132,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=xJh6IZEztFU">白夢の繭- ~Ricordando-il-passato~ - Umineko</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=R7uakN8oe2o">How Close You Are - Finger Style Cover</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=eJ-WCeZLiq0">-Methionine- - 13SentinelsAegis RIM BRANCHED</a>'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ghCo_1ummDo&list=OLAK5uy_leNibn6YGzEWIMTiFuyzuEGdmmgTGBZUI&index=1&pp=8AUB">Psycho Pass Providence ~Movie Ver~</a>'},
