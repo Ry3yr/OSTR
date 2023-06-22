@@ -11,6 +11,79 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+
+Add all € values and display subtotal (JS version - broken url import)
+----------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculate Total</title>
+<script>
+async function calculateTotal(event) {
+  event.preventDefault();
+  const urlInput = document.querySelector('#url');
+  const textAreaInput = document.querySelector('textarea[name="input"]');
+  const keywordInput = document.querySelector('input[name="keyword"]');
+  const resultElement = document.querySelector('#result');
+  const matchingLinesElement = document.querySelector('#matching-lines');
+  let input = '';
+  const url = urlInput.value;
+  if (url) {
+    const response = await fetch(url);
+    const text = await response.text();
+    input = text.replace(/<[^>]+>/g, ''); // strip tags
+  } else {
+    input = textAreaInput.value;
+  }
+  let total = 0;
+  const keyword = keywordInput.value;
+  const lines = input.split('\n');
+  const matchingLines = [];
+  let isFirstLine = true;
+  lines.forEach((line) => {
+    if (!keyword || line.includes(keyword)) {
+      if (isFirstLine && url) {
+        isFirstLine = false;
+        return;
+      }
+      const matches = line.matchAll(/(\d+)[€]/g);
+      for (const match of matches) {
+        total += parseInt(match[1]);
+      }
+      matchingLines.push(line);
+    }
+  });
+  resultElement.textContent = `Total value for '${keyword || 'all'}' lines: €${total}`;
+  if (matchingLines.length > 0 && keyword) {
+    matchingLinesElement.innerHTML = '<h2>Matching lines:</h2><ul>' + matchingLines.map(line => `<li>${line}</li>`).join('') + '</ul>';
+  } else {
+    matchingLinesElement.innerHTML = '';
+  }
+}
+</script>
+</head>
+<body>
+<form onsubmit="calculateTotal(event)">
+  <label for="url">URL:</label>
+  <input type="text" name="url" id="url">
+  <br>
+  <textarea name="input"></textarea>
+  <br>
+  Keyword: <input type="text" name="keyword">
+  <br>
+  <button type="submit">Calculate total</button>
+</form>
+<div id="result"></div>
+<div id="matching-lines"></div>
+</body>
+</html>
+
+
+__________________
+
 Redirect Code URL Transformer with dld function:
 --------------------------------
 
