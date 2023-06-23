@@ -10,9 +10,51 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+Dekudeals JSON parser (Games count is broken)
+----------------------------------------------------------------------------
 
+  <body>
+    <div id="collection-table"></div>
+    <script>
+      fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/collection.json')
+        .then(response => response.json())
+        .then(data => {
+          let peopleCount = data.items.length;
+          let totalPhysicalGames = 0;
+          let tableHtml = `<table>
+                            <tr>
+                              <th>Link</th>
+                              <th>Format  avail.</th>
+                              <th>Price</th>
+                            </tr>`;
+          
+          data.items.forEach(item => {
+            tableHtml += `<tr>
+                            <td><a target="_blank" href="${item.link}">${item.name}</a></td>
+                            <td>${item.format}</td>
+                            <td>${item.price_paid}</td>
+                          </tr>`;
+            if (item.format === "Physical") {
+              totalPhysicalGames++;
+            }
+          });
+          
+          tableHtml += `</table>`;
+          console.log(tableHtml);
+          console.log(`•Total Games Count: ${peopleCount}`);
+          console.log(`•Physical Games: ${totalPhysicalGames}`);
+          
+          // Append tableHtml to the collection-table div
+          const collectionTableDiv = document.getElementById("collection-table");
+          collectionTableDiv.innerHTML = tableHtml;
+        })
+        .catch(error => console.log(error));
+    </script>
+  </body>
 
-Add all € values and display subtotal (JS version - broken url import)
+_________________
+
+Extract "€" values and display subtotal (JS version - broken url import)
 ----------------------------------------
 
 <!DOCTYPE html>
