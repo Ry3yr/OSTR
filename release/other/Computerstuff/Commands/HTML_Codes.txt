@@ -10,6 +10,37 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+
+Extract PlaystoreAppID from URL:
+-----------------------------------------------------
+
+
+    <script>
+        function extractElement() {
+            const inputUrl = document.getElementById('input-url').value;
+            const regex = /details\?id=([^&]+)&hl=/;
+            const matches = inputUrl.match(regex);
+
+            if (matches && matches.length > 1) {
+                const extractedElement = matches[1];
+                document.getElementById('result').textContent = extractedElement;
+            } else {
+                document.getElementById('result').textContent = 'Element not found';
+            }
+        }
+    </script>
+</head>
+<body>
+    <label for="input-url">Enter URL:</label>
+    <input type="text" id="input-url" style="width: 80%;">
+    <button onclick="extractElement()">Extract</button>
+    <p id="result"></p>
+</body>
+</html>
+
+____________________
+
+
 Dekudeals JSON parser (Games count is broken)
 ----------------------------------------------------------------------------
 
@@ -1988,6 +2019,84 @@ document.querySelector('#quoteOutput').innerHTML = `\"${arrayOfQuotes[random].qu
 </body>
 
 (Source: )
+
+
+DayQuotes + Linksupport + external files + search 
+---------------------------------------------------------------------------
+
+
+<!--https://run.plnkr.co/plunks/6wCVvXqoIGl6hN6Q-->
+<style>
+div {text-align: left;}
+h1 {font-size: 11px;font-family: Arial;}
+button {width: 128px;height: 28px;background-color: white;color: black;}
+{font-size: 11px;}
+button:hover{background-color: white;}
+</style>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<link rel="stylesheet" href="style.css" />-->
+    <script src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/jquery.min.js"></script>
+    <script>
+var lines;
+var randomNumber;
+var lastRandomNumber;
+$(document.body).ready(function () {
+  // load the trivia from the server
+  $.ajax({
+    url: 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js'
+  }).done(function(content) {
+    // normalize the line breaks, then split into lines
+    lines = content.replace(/\r\n|\r/g, '\n').trim().split('\n');
+    lines = content.replace(/\r\n|\r/g, 'quote').trim().split('quote');
+    // ^^ line rmvl ^^^
+    // only set up the click handler if there were lines found
+    if (lines && lines.length) {
+      // add keyup event listener on search input field
+      $('#searchInput').on('keyup', function () {
+        searchLines($(this).val());
+      });
+      // set up the click handler for the showLine button
+      $('#showLine').on('click', function () {
+        // loop to prevent repeating the last random number
+        while (randomNumber === lastRandomNumber) {
+          randomNumber = parseInt(Math.random() * lines.length);
+          // check to prevent infinite loop
+          if (lines.length === 1) { break; }
+        }
+        // keep track of the last random number
+        lastRandomNumber = randomNumber;
+        // show the corresponding line
+        $('#trivia').html(lines[randomNumber]);
+        $('#searchResults').empty(); // clear search results when a new line is displayed
+      });
+    }
+  });
+});
+
+function searchLines(query) {
+  // filter the list of lines based on the search query
+  var filteredLines = lines.filter(function(line) {
+    return line.toLowerCase().includes(query.toLowerCase());
+  });
+  // display the filtered results
+  var resultsHtml = '';
+  filteredLines.forEach(function(line) {
+    resultsHtml += '<div>' + line + '</div>';
+  });
+  $('#searchResults').html(resultsHtml);
+}
+</script>
+  </head>
+<body>
+  <input type="text" id="searchInput" placeholder="Search...">
+  <div id="searchResults"></div>
+  <button id="showLine">CurrListening</button>
+  <p id="trivia"></p>
+</body>
+
+
 ______________
 Quote of the Day (button, no nr)
 ----------------
