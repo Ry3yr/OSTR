@@ -11,9 +11,40 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+GDrive Direct link transform:
+------------------------------------------
+
+
+<body>
+  <textarea id="myGDriveTextBox" style="width: 500px; height: 300px;"></textarea>
+  <br>
+  <button onclick="modifyLinks()">Modify Links</button>
+  <br>
+  <div id="modifiedLinks"></div>
+  <script>
+    function modifyLinks() {
+      var textBox = document.getElementById("myGDriveTextBox");
+      var text = textBox.value;
+      text = text.replace(/https:\/\/drive.google.com\/file\/d\/([\w-]+)\/view\?usp=sharing/g, "https://drive.google.com/uc?export=download&id=$1");
+      var modifiedLinksDiv = document.getElementById("modifiedLinks");
+      modifiedLinksDiv.innerHTML = "<pre>" + text + "</pre>";
+    }
+  </script>
+</body>
+</html>
+
+________________________
+
+Pixiv Style Color BG Hashtag link:
+--------------------------------------------------
+
+<a target="_blank" href="https://www.pixiv.net/en/users/75406576/artworks/%E6%B5%81%E6%98%9F%E3%81%AE%E3%83%AD%E3%83%83%E3%82%AF%E3%83%9E%E3%83%B3" style="background-color: red; padding: 5px; border-radius: 10px; text-decoration: none; color: white;">#Megaman Starforce</a>
+
+
+______________________
+
 Extract PlaystoreAppID from URL:
 -----------------------------------------------------
-
 
     <script>
         function extractElement() {
