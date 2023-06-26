@@ -3,6 +3,28 @@ ___________________________
 
 
 
+
+Get last Github commit date:
+--------------------------------------------
+
+<?php
+$repoUrl = "https://api.github.com/repos/Ry3yr/OSTR/branches/main";
+$opts = [
+    "http" => [
+        "method" => "GET",
+        "header" => "Accept: application/vnd.github.v3+json"
+    ]
+];
+$response = file_get_contents($repoUrl, false, stream_context_create($opts));
+$data = json_decode($response, true);
+$lastCommitTime = $data["commit"]["commit"]["author"]["date"];
+// Display the last commit time
+echo "Last commit time: " . $lastCommitTime;
+?>
+
+
+__________________
+
 View PHP Source Code in new tab:
 -----------------------------------------------------
 ﻿<?php
