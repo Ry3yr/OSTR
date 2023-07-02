@@ -3,17 +3,32 @@
 <b> Tools </b>
 
 <hr>
-<div id="content"></div>
+<!----From Cool_Stuff Page--->
+<div id="contentstuff"></div>
     <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html")
         .then(response => response.text())
         .then(data => {
           const start = data.indexOf("<hr>") + 5;
           const end = data.indexOf("<!-----Hobbies---->") - 8;
           const content = data.substring(start, end);
-          document.getElementById("content").innerHTML = content;
+          document.getElementById("contentstuff").innerHTML = content;
         })
         .catch(error => console.log(error));
     </script>
+
+<!------QR-From-UnderratedCodePage---->
+<div id="contentqr"></div>
+    <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/UnderratedContent.html")
+        .then(response => response.text())
+        .then(data => {
+          const start = data.indexOf("Encoder") + 7;
+          const end = data.indexOf("<!--QR-Decoder--2-end-->") - 1;
+          const content = data.substring(start, end);
+          document.getElementById("contentqr").innerHTML = content;
+        })
+        .catch(error => console.log(error));
+    </script>
+<hr>
 
 
 
