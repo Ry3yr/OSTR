@@ -72,47 +72,81 @@ Extract PlaystoreAppID from URL:
 ____________________
 
 
-Dekudeals JSON parser (Games count is broken)
+Dekudeals JSON parser (phys games count is broken)
 ----------------------------------------------------------------------------
 
-  <body>
-    <div id="collection-table"></div>
-    <script>
-      fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/collection.json')
-        .then(response => response.json())
-        .then(data => {
-          let peopleCount = data.items.length;
-          let totalPhysicalGames = 0;
-          let tableHtml = `<table>
-                            <tr>
-                              <th>Link</th>
-                              <th>Format  avail.</th>
-                              <th>Price</th>
-                            </tr>`;
-          
-          data.items.forEach(item => {
-            tableHtml += `<tr>
-                            <td><a target="_blank" href="${item.link}">${item.name}</a></td>
-                            <td>${item.format}</td>
-                            <td>${item.price_paid}</td>
-                          </tr>`;
-            if (item.format === "Physical") {
-              totalPhysicalGames++;
-            }
-          });
-          
-          tableHtml += `</table>`;
-          console.log(tableHtml);
-          console.log(`•Total Games Count: ${peopleCount}`);
-          console.log(`•Physical Games: ${totalPhysicalGames}`);
-          
-          // Append tableHtml to the collection-table div
-          const collectionTableDiv = document.getElementById("collection-table");
-          collectionTableDiv.innerHTML = tableHtml;
-        })
-        .catch(error => console.log(error));
-    </script>
-  </body>
+
+<body>
+  <a target="_blank" href="https://www.dekudeals.com/collection/nw7vnrstb9">Link</a>&nbsp;
+<a target="_blank" href="http://alceawisteria.byethost7.com/PHP/0demo/2023-04-30-parse-json/parse.php#inks/more/67087617">reload</a>
+<br>
+
+  <div id="collection-table"></div>
+  <script>
+    fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/collection.json')
+      .then(response => response.json())
+      .then(data => {
+        let peopleCount = data.items.length;
+        let totalPhysicalGames = 0;
+        let totalPrice = 0;
+        let tableHtml = `
+          <table>
+            <tr>
+              <th>Link</th>
+              <th>Format <a href="?sort=format_asc">^</a> / <a href="?sort=format_desc">v</a></th>
+              <th>Price <a href="?sort=price_asc">^</a> / <a href="?sort=price_desc">v</a></th>
+            </tr>
+        `;
+
+        // Read sorting parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sortBy = urlParams.get('sort');
+
+        // Sort data according to sorting parameter
+        if (sortBy === 'price_asc') {
+          data.items.sort((a, b) => a.price_paid - b.price_paid);
+        } else if (sortBy === 'price_desc') {
+          data.items.sort((a, b) => b.price_paid - a.price_paid);
+        } else if (sortBy === 'format_asc') {
+          data.items.sort((a, b) => a.format.localeCompare(b.format));
+        } else if (sortBy === 'format_desc') {
+          data.items.sort((a, b) => b.format.localeCompare(a.format));
+        }
+
+        data.items.forEach(item => {
+          tableHtml += `
+            <tr>
+              <td><a target="_blank" href="${item.link}">${item.name}</a></td>
+              <td>${item.format}</td>
+              <td>${item.price_paid}</td>
+            </tr>
+          `;
+          if (item.format === "Physical") {
+            totalPhysicalGames++;
+          }
+          totalPrice += item.price_paid;
+        });
+        
+        tableHtml += `</table>`;
+        console.log(tableHtml);
+        console.log(`•Total Games Count: ${peopleCount}`);
+        console.log(`•Physical Games: ${totalPhysicalGames}`);
+        console.log(`•Total Price: ${totalPrice}`);
+
+        // Append tableHtml and total games info to the collection-table div
+        const collectionTableDiv = document.getElementById("collection-table");
+        collectionTableDiv.innerHTML = tableHtml;
+        
+        const totalGamesHtml = `
+          <p>•Total Games: ${peopleCount} •Physical Games: ${totalPhysicalGames}</p>
+          <!---<p>Total Price: ${totalPrice}</p>-->
+        `;
+        collectionTableDiv.insertAdjacentHTML('beforeend', totalGamesHtml);
+      })
+      .catch(error => console.log(error));
+  </script>
+</body>
+
 
 _________________
 
