@@ -21,7 +21,7 @@
     <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/UnderratedContent.html")
         .then(response => response.text())
         .then(data => {
-          const start = data.indexOf("Encoder") + 7;
+          const start = data.indexOf("ALT") - 85;
           const end = data.indexOf("<!--QR-Decoder--2-end-->") - 1;
           const content = data.substring(start, end);
           document.getElementById("contentqr").innerHTML = content;
