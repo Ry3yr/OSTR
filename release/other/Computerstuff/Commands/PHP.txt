@@ -3,6 +3,80 @@ ___________________________
 
 
 
+PHP to write another php (for testing):
+-----------------------------------------------------------
+
+<?php
+$allowSource = true; // Allow saving the source code snippet by default
+if (isset($_POST['code'])) {
+    // Get the code from the text area
+    $code = $_POST['code'];
+    // Get the current date and time
+    $now = new DateTime();
+    $date = $now->format('Y-m-d');
+    $time = $now->format('H-i-s');
+    // Create the new file name
+    $filename = $date . '-' . $time . '.php';
+    // Add the source code link to the bottom of the code if allowed
+    if ($allowSource && isset($_POST['allowSource'])) {
+        $sourceCodeLink = "<?php\n" .
+                          "    define(\"ALLOW_SOURCE\",TRUE);\n" .
+                          "    define(\"ALLOW_TITLE\",TRUE);\n" .
+                          "    if(ALLOW_SOURCE && isset(\$_GET['source'])){\n" .
+                          "        highlight_file(__FILE__);\n" .
+                          "        exit(0);\n" .
+                          "    }\n" .
+                          "?>\n" .
+                          "<a target=\"_blank\" href=\"?source\">Source Code</a>\n" .
+                          "</body>\n</html>";
+        $code .= "\n\n" . $sourceCodeLink;
+    }
+    // Write the code to the new file
+    file_put_contents($filename, $code);
+    // Write the code to the "current" PHP file
+    file_put_contents('current.php', $code);
+    echo "Code saved to $filename and current.php";
+}
+// Handle the "Move Files" button click
+if (isset($_POST['move'])) {
+    // Get a list of all files in the current directory
+    $files = glob('*');
+    // Create the "0ld" directory if it doesn't exist
+    if (!is_dir('0ld')) {
+        mkdir('0ld');
+    }
+    // Move all files except "0test.php" and "current.php" to the "0ld" directory
+    foreach ($files as $file) {
+        if ($file != '0test.php' && $file != 'current.php') {
+            rename($file, '0ld/' . $file);
+        }
+    }
+    echo "Files moved to 0ld directory";
+}
+?>
+<form method="post">
+    <textarea name="code" cols="60" rows="15"></textarea>
+    <br>
+    <label>
+        <input type="checkbox" name="allowSource">
+        Add ALLOW SOURCE VIEW snippet
+    </label>
+    <br>
+    <input type="submit" value="Save">
+</form>
+<?php
+if ($allowSource && isset($_POST['allowSource'])) {
+    echo "\n\n" . $sourceCodeLink;
+}
+?>
+<form method="post">
+    <input type="submit" name="move" value="Move Files">
+</form>
+<br>
+<br><a target="_blank" href="current.php">CURRENT.PHP</a>&nbsp;<a target="_blank" href="">[FOLDER]</a>
+
+
+_______________________________
 
 Get last Github commit date:
 --------------------------------------------
