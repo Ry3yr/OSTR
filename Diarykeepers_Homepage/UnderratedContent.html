@@ -68,17 +68,9 @@ qrInput.addEventListener("keyup", () => {
 </html>
 
 <!--DecodeQR--->
-<b>Decode QR</b>
-<form>
-<input type="text" id="qrurl" value="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/240px-QR_code_for_mobile_English_Wikipedia.svg.png" />
-<a href="javascript:function()" id="btn3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/240px-QR_code_for_mobile_English_Wikipedia.svg.png" height="25" width="25"></a>
-<script>
-document.getElementById('btn3').onclick = function() {
-  var val = document.getElementById('qrurl').value;
-  //val = val.replace('https://', '');
-  var url = "https://zxing.org/w/decode?u=" + val;
-  window.open(""+url, "_blank");}
-</script>
+<iframe src="data:text/html;base64,
+PGI+RGVjb2RlIFFSPC9iPgo8Zm9ybT4KPGlucHV0IHR5cGU9InRleHQiIGlkPSJxcnVybCIgdmFsdWU9Imh0dHBzOi8vdXBsb2FkLndpa2ltZWRpYS5vcmcvd2lraXBlZGlhL2NvbW1vbnMvdGh1bWIvZC9kMC9RUl9jb2RlX2Zvcl9tb2JpbGVfRW5nbGlzaF9XaWtpcGVkaWEuc3ZnLzI0MHB4LVFSX2NvZGVfZm9yX21vYmlsZV9FbmdsaXNoX1dpa2lwZWRpYS5zdmcucG5nIiAvPgo8YSBocmVmPSJqYXZhc2NyaXB0OmZ1bmN0aW9uKCkiIGlkPSJidG4zIj48aW1nIHNyYz0iaHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy90aHVtYi9kL2QwL1FSX2NvZGVfZm9yX21vYmlsZV9FbmdsaXNoX1dpa2lwZWRpYS5zdmcvMjQwcHgtUVJfY29kZV9mb3JfbW9iaWxlX0VuZ2xpc2hfV2lraXBlZGlhLnN2Zy5wbmciIGhlaWdodD0iMjUiIHdpZHRoPSIyNSI+PC9hPgo8c2NyaXB0Pgpkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYnRuMycpLm9uY2xpY2sgPSBmdW5jdGlvbigpIHsKICB2YXIgdmFsID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3FydXJsJykudmFsdWU7CiAgLy92YWwgPSB2YWwucmVwbGFjZSgnaHR0cHM6Ly8nLCAnJyk7CiAgdmFyIHVybCA9ICJodHRwczovL3p4aW5nLm9yZy93L2RlY29kZT91PSIgKyB2YWw7CiAgd2luZG93Lm9wZW4oIiIrdXJsLCAiX2JsYW5rIik7fQo8L3NjcmlwdD4=
+" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="150px" width="500px" allowfullscreen></iframe>
 
 <!---QR-Decoder--2--->
 <iframe src="data:text/html;base64,
