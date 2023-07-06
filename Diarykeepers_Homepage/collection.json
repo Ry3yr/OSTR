@@ -98,7 +98,8 @@
       "format": "physical",
       "price_paid": 2000,
       "price_paid_currency": "EUR",
-      "note": "OnlineCap"
+      "note": "OnlineCap",
+      "rating": 3
     },
     {
       "name": "Clubhouse Games: 51 Worldwide Classics",
@@ -214,7 +215,7 @@
       "format": "physical",
       "price_paid": 4400,
       "price_paid_currency": "EUR",
-      "note": "Playasia order 30 Jun 2023"
+      "note": "DigitalAlso"
     },
     {
       "name": "Grand Theft Auto: The Trilogy – The Definitive Edition",
@@ -225,7 +226,7 @@
       "price_paid": 5999,
       "price_paid_currency": "EUR",
       "note": "Essential (despite issues)",
-      "rating": 3
+      "rating": 4
     },
     {
       "name": "The Great Ace Attorney Chronicles",
@@ -285,6 +286,15 @@
       "note": "rebrand.ly/cloudgamingnothx"
     },
     {
+      "name": "The Last Hope - Dead Zone Survival",
+      "link": "https://www.dekudeals.com/items/the-last-hope-dead-zone-survival",
+      "added_at": "2023-07-05T17:07:03+00:00",
+      "format": "digital",
+      "price_paid": 99,
+      "price_paid_currency": "EUR",
+      "note": "@Wisteria acc"
+    },
+    {
       "name": "The Legend of Zelda: Tears of the Kingdom",
       "link": "https://www.dekudeals.com/items/the-legend-of-zelda-tears-of-the-kingdom",
       "added_at": "2023-05-12T15:30:34+00:00",
@@ -328,7 +338,8 @@
       "format": "digital",
       "price_paid": 5999,
       "price_paid_currency": "EUR",
-      "note": "Online capable\nExcellent collection\nGBA"
+      "note": "Online capable\nExcellent collection\nGBA",
+      "rating": 4
     },
     {
       "name": "Mega Man Zero/ZX Legacy Collection",
@@ -346,7 +357,8 @@
       "added_at": "2023-02-10T13:54:28+00:00",
       "format": "digital",
       "price_paid": 3999,
-      "price_paid_currency": "EUR"
+      "price_paid_currency": "EUR",
+      "rating": 4
     },
     {
       "name": "Modern Combat Blackout",
