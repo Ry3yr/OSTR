@@ -134,3 +134,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=eJ-WCeZLiq0">-Methionine- - 13SentinelsAegis RIM BRANCHED</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ghCo_1ummDo&list=OLAK5uy_leNibn6YGzEWIMTiFuyzuEGdmmgTGBZUI&index=1&pp=8AUB">Psycho Pass Providence ~Movie Ver~</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=18WY87aoD3w&list=PLNqhEC8s3wXlQ31AT6eWFIIGEiLZZcTkk&index=5">«Changing Fate» ~Arrange~ - GhostTrick (2023)</a>'},
+    {'quote': '<a target="_blank" href="https://web.archive.org/web/20230707174059/https://alceawisteria.codeberg.page/OSTR/release/kkj/48.%20CD%20Track%2048.mp3">(SindbadBurning)48 Shizuka ni Wakiagaru Toushi - Kamikaze Kaitou Jeanne OST</a>'},
