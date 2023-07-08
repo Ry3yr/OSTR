@@ -498,6 +498,7 @@ fetch(userFeed)
 
 
 <!---selfcoded-mastodon-api-renderer+yt+image-support--->
+
 <body>
   <div id="feed"></div>
   <script>
@@ -543,14 +544,15 @@ fetch(userFeed)
           avatar = '<img src="' + status.account.avatar + '" width="100px"><br>';
           tootLink = '<a href="' + status.url + '" target="_blank">View on Mastodon</a>';
         }
+        // Get the date of the status
+        const date = new Date(status.created_at);
         // Append content to feed
-        document.getElementById('feed').innerHTML += content + media + avatar + tootLink + '<hr>';
+        document.getElementById('feed').innerHTML += content + media + avatar + tootLink + '&nbsp;' + date.toLocaleString() + '<hr>';
       });
     })
     .catch(error => console.error(error));
   </script>
 </body>
-</html>
 
 <!--------------------Blog-----------------
 <style>
