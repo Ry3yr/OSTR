@@ -17,6 +17,7 @@
               <th>Link</th>
               <th>Format <a href="?sort=format_asc">^</a> / <a href="?sort=format_desc">v</a></th>
               <th>Price <a href="?sort=price_asc">^</a> / <a href="?sort=price_desc">v</a></th>
+              <th>Date Added <a href="?sort=date_asc">^</a> / <a href="?sort=date_desc">v</a></th>
             </tr>
         `;
 
@@ -33,6 +34,10 @@
           data.items.sort((a, b) => a.format.localeCompare(b.format));
         } else if (sortBy === 'format_desc') {
           data.items.sort((a, b) => b.format.localeCompare(a.format));
+        } else if (sortBy === 'date_asc') {
+          data.items.sort((a, b) => new Date(a.added_at) - new Date(b.date_added));
+        } else if (sortBy === 'date_desc') {
+          data.items.sort((a, b) => new Date(b.added_at) - new Date(a.date_added));
         }
 
         data.items.forEach(item => {
@@ -41,6 +46,7 @@
               <td><a target="_blank" href="${item.link}">${item.name}</a></td>
               <td>${item.format}</td>
               <td>${item.price_paid}</td>
+              <td>${new Date(item.added_at).toLocaleDateString()}</td>
             </tr>
           `;
           if (item.format === "Physical") {
