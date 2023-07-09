@@ -2,6 +2,175 @@ PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 ___________________________
 
 
+Issue Tracker (with disallow.txt profanity filter):
+--------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Issue Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: orange;
+            color: white;
+        }
+        table.solved-issues th {
+            background-color: green;
+            color: white;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Issue Tracker</h1>
+    <?php
+    // Check if form has been submitted
+    if (isset($_POST['submit'])) {
+        // Get form data
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        // Check if form data contains any disallowed words or phrases
+        $disallow = file('disallow.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($disallow as $word) {
+            if (stripos($title, $word) !== false || stripos($description, $word) !== false) {
+                echo "<p style='color:red'>You are not allowed to use the word or phrase: " . htmlentities($word) . "</p>";
+                break;
+            }
+        }
+        // Validate form data
+        if (empty($title) || empty($description)) {
+            echo "<p>Please fill out all fields.</p>";
+        } else {
+            // Save issue to file
+            $filename = 'issues.txt';
+            $handle = fopen($filename, 'a');
+            fwrite($handle, $title . '|' . $description . '|' . time() . "\n");
+            fclose($handle);
+            echo "<p>Issue saved successfully.</p>";
+        }
+    }
+    // Read issues from file
+    $filename = 'issues.txt';
+    if (file_exists($filename)) {
+        $handle = fopen($filename, 'r');
+        $issues = array();
+        $solved_issues = array();
+        while (($line = fgets($handle)) !== false) {
+            $parts = explode('|', $line);
+            if (count($parts) == 3) {
+                $parts[1] = preg_replace(
+                    '@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@i',
+                    '<a href="$1" target="_blank">$1</a>',
+                    $parts[1]
+                );
+                $issue = array(
+                    'title' => $parts[0],
+                    'description' => $parts[1],
+                    'date_added' => $parts[2]
+                );
+                if (stripos($issue['title'], 'solved') !== false || stripos($issue['description'], 'solved') !== false) {
+                    $solved_issues[] = $issue;
+                } else {
+                    $issues[] = $issue;
+                }
+            }
+        }
+        fclose($handle);
+        // Sort issues by date added (most recent first)
+        usort($issues, function($a, $b) {
+            return $b['date_added'] - $a['date_added'];
+        });
+        // Display all issues in a table
+        echo '<h2>All Issues</h2>';
+        echo '<table>';
+        echo '<tr><th>Title</th><th>Description</th><th>Date Added</th></tr>';
+        foreach ($issues as $issue) {
+            echo '<tr>';
+            echo '<td>' . $issue['title'] . '</td>';
+            echo '<td>' . $issue['description'] .'</td>';
+            echo '<td>' . date('Y-m-d H:i:s', $issue['date_added']) . '</td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+        // Display solved issues in a separate table
+        if (!empty($solved_issues)) {
+            echo '<h2>Solved Issues</h2>';
+            echo '<table class="solved-issues">';
+            echo '<tr><th>Title</th><th>Description</th><th>Date Added</th></tr>';
+            foreach ($solved_issues as $issue) {
+                echo '<tr>';
+                echo '<td>' . $issue['title'] . '</td>';
+                echo '<td>' . $issue['description'] . '</td>';
+                echo '<td>' . date('Y-m-d H:i:s', $issue['date_added']) . '</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }
+    } else {
+        echo "<p>No issues found.</p>";
+    }
+    ?>
+    <h2>Add New Issue</h2>
+    <form method="post" action="">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        <input type="submit" name="submit" value="Save Issue">
+    </form>
+</body>
+</html>
+
+
+________________________
+
 List all images (ftp) in subdir:
 -------------------------------------------
 
