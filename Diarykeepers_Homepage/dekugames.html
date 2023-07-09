@@ -35,9 +35,9 @@
         } else if (sortBy === 'format_desc') {
           data.items.sort((a, b) => b.format.localeCompare(a.format));
         } else if (sortBy === 'date_asc') {
-          data.items.sort((a, b) => new Date(a.added_at) - new Date(b.date_added));
+          data.items.sort((a, b) => new Date(a.added_at) - new Date(b.added_at));
         } else if (sortBy === 'date_desc') {
-          data.items.sort((a, b) => new Date(b.added_at) - new Date(a.date_added));
+          data.items.sort((a, b) => new Date(b.added_at) - new Date(a.added_at));
         }
 
         data.items.forEach(item => {
