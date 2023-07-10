@@ -11,9 +11,25 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Convert #Textfield "Enter" #events to "•" 
+-----------------------------------------------------------
+(To stop single line approaches from breaking )
+
+<script>
+    const descriptionTextarea = document.getElementById('description');
+    descriptionTextarea.addEventListener('keydown', function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            const currentValue = this.value;
+            this.value = currentValue + '•';
+        }
+    });
+</script>
+
+_____________________________
+
 Mastodon account ID lookup:
 ------------------------------------------
-
 
 <body>
   <label for="instance">Mastodon instance:</label>
