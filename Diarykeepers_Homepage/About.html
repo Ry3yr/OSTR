@@ -214,7 +214,7 @@
 <br>
 <!--------------Twitter----------------->
 
-<div class="pre-spoiler"> <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Twitter'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Twitter';}" value="Twitter"> <div class="spoiler" style="display: none;">
+<div class="pre-spoiler"> <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Twitter'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Twitter';}" value="Twitter"> <div class="spoiler" style="display: true;">
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
 <style>
@@ -253,7 +253,7 @@
             });
             output += '</div>';
             output += '</div>';
-            return k < 10;
+            return k < 2;
           });
           $content.html(output).hide();
           $content.fadeIn('slow');
