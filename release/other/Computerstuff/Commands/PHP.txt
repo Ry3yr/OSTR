@@ -1,5 +1,7 @@
 PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
+PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
+
 
 
 Issue Tracker (with disallow.txt profanity filter):
@@ -115,6 +117,8 @@ Issue Tracker (with disallow.txt profanity filter):
                     'description' => $parts[1],
                     'date_added' => $parts[2]
                 );
+                // Render any • character as a line break
+                $issue['description'] = str_replace('•', '<br>', $issue['description']);
                 if (stripos($issue['title'], 'solved') !== false || stripos($issue['description'], 'solved') !== false) {
                     $solved_issues[] = $issue;
                 } else {
@@ -131,10 +135,10 @@ Issue Tracker (with disallow.txt profanity filter):
         echo '<h2>All Issues</h2>';
         echo '<table>';
         echo '<tr><th>Title</th><th>Description</th><th>Date Added</th></tr>';
-        foreach ($issues as $issue) {
+        foreach ($issues as$issue) {
             echo '<tr>';
             echo '<td>' . $issue['title'] . '</td>';
-            echo '<td>' . $issue['description'] .'</td>';
+            echo '<td>' . $issue['description'] . '</td>';
             echo '<td>' . date('Y-m-d H:i:s', $issue['date_added']) . '</td>';
             echo '</tr>';
         }
@@ -153,28 +157,30 @@ Issue Tracker (with disallow.txt profanity filter):
             }
             echo '</table>';
         }
-    } else {
-        echo "<p>No issues found.</p>";
     }
     ?>
     <h2>Add New Issue</h2>
-    <form method="post" action="">
-        <label for="title">Title:</label>
+    <form method="post">
+        <label for="title">Title</label>
         <input type="text" id="title" name="title">
-        <label for="description">Description:</label>
+        <label for="description">Description</label>
         <textarea id="description" name="description"></textarea>
         <input type="submit" name="submit" value="Save Issue">
     </form>
-<script>
-    const descriptionTextarea = document.getElementById('description');
-    descriptionTextarea.addEventListener('keydown', function (event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            const currentValue = this.value;
-            this.value = currentValue + '•';
-        }
-    });
-</script>
+    <script>
+        // Listen for Enter key press in description textarea and append • character
+        var descriptionTextarea = document.getElementById('description');
+        descriptionTextarea.addEventListener('keydown', function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                var selectionStart = descriptionTextarea.selectionStart;
+                var selectionEnd = descriptionTextarea.selectionEnd;
+                var text = descriptionTextarea.value;
+                descriptionTextarea.value = text.substring(0, selectionStart) + '•' + text.substring(selectionEnd);
+                descriptionTextarea.setSelectionRange(selectionStart + 1, selectionStart + 1);
+            }
+        });
+    </script>
 </body>
 </html>
 
