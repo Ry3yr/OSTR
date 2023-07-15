@@ -265,7 +265,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/channel/UCn-K7GIs62ENvdQe6ZZk9-w"><img
 src="https://yt3.ggpht.com/ytc/AKedOLTVTTWVOmzNhuIv2VMZxa2Wys4X88nK1oEO1VZYWg=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Pogo <a href="https://pogomix.net/">Webpage</a><br>
-<a href="https://m.youtube.com/watch?v=qpPki21NV_4">Tiggerific</a> <a target="_blank" href="https://m.youtube.com/watch?v=Guz6jpb5Zck">Ganbatte</a>
+<a href="javascript:void(0)" onclick="document.getElementById('channel-id').value='UCn-K7GIs62ENvdQe6ZZk9-w'">[LATEST]</a> <a href="https://m.youtube.com/watch?v=qpPki21NV_4">Tiggerific</a> <a target="_blank" href="https://m.youtube.com/watch?v=Guz6jpb5Zck">Ganbatte</a>
 <br>
 ______________________________________________________________________________________________
 <div><a href="https://m.youtube.com/@melodysheep"><img alt="Channel Image" src="https://yt3.ggpht.com/ytc/AOPolaSSYeyk1tuyaPB0eZDpODNhBWJtaSXl-DdkDrmJMg=s48-c-k-c0x00ffffff-no-rj" height="50" width="50"></a><span>Melodysheep</span><br><a href="https://m.youtube.com/watch?v=G2e_M06YDyY"><span>Robin Williams</span></a>
@@ -785,3 +785,103 @@ ________________________________________________________________________________
 ______________________________________________________________________________________________<br>
 </div>
 </html>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!----Float Video Code---->
+  <style>
+    .latest-video {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+    }
+  </style>
+<!--Float Video Code End -------->
+
+  <style>
+    .latest-video {
+      margin: 20px;
+    }
+    .latest-video h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .latest-video h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .latest-video p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <label for="channel-id">Enter channel ID:</label>
+  <input type="text" id="channel-id" value="UCtdZ47jhJK7ME0udUc4PP-Q">
+  <button id="update-video">Update Video</button>
+  <div id="latest-video"></div>
+  <script>
+    $(function() {
+      var $content = $('#latest-video');
+      var channelID = $('#channel-id').val();
+      var feedURL = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+      $.get(feedURL, function(response) {
+        if (response.status == 'ok') {
+          var latestVideo = response.items[0];
+          var videoTitle = latestVideo.title;
+          var videoURL = latestVideo.link.split("&")[0];
+          var pubDate = new Date(latestVideo.pubDate);
+          var pubDateStr = pubDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+          var output = '<div class="latest-video">';
+          //output += '<h2>Latest Video:</h2>';
+          output += `<h3><a href="${videoURL}" target="_blank">${videoTitle}</a></h3>`;
+          output += `<p>Published on ${pubDateStr}</p>`;
+          output += `<iframe width="560" height="315" src="https://www.youtube.com/embed/${latestVideo.guid.split(":")[2]}" frameborder="0" allowfullscreen></iframe>`;
+          output += '</div>';
+          $content.html(output).hide();
+          $content.fadeIn('slow');
+        }
+      });
+
+      $('#update-video').click(function() {
+        updateVideo();
+      });
+
+      $('#channel-id').on('input', function() {
+        updateVideo();
+      });
+
+      function updateVideo() {
+        channelID = $('#channel-id').val();
+        feedURL = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+        $.get(feedURL, function(response) {
+          if (response.status == 'ok') {
+            var latestVideo = response.items[0];
+            var videoTitle = latestVideo.title;
+            var videoURL = latestVideo.link.split("&")[0];
+            var pubDate = new Date(latestVideo.pubDate);
+            var pubDateStr = pubDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+            var output = '<div class="latest-video">';
+            //output += '<h2>Latest Video:</h2>';
+            output += `<h3><a href="${videoURL}" target="_blank">${videoTitle}</a></h3>`;
+            output += `<p>Published on ${pubDateStr}</p>`;
+            output += `<iframe width="560" height="315" src="https://www.youtube.com/embed/${latestVideo.guid.split(":")[2]}" frameborder="0" allowfullscreen></iframe>`;
+            output += '</div>';
+            $content.html(output).hide();
+            $content.fadeIn('slow');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+<!--<a href="#" onclick="document.getElementById('channel-id').value='UCn-K7GIs62ENvdQe6ZZk9-w'; document.getElementById('channel-id').dispatchEvent(new KeyboardEvent('keydown', {key: '13'}));">Set Channel ID</a>-->
