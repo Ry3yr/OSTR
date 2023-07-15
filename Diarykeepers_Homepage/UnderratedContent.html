@@ -1,4 +1,15 @@
- <base target="_blank"> 
+  <base target="_blank">
+  <script>
+    window.addEventListener('load', function() {
+      document.addEventListener('click', function(event) {
+        // Check if the clicked element has a "javascript:" protocol and an empty script
+        if (event.target && event.target.tagName === 'A' && event.target.href.startsWith('javascript:') && event.target.href.endsWith('void(0)')) {
+          // Prevent the default behavior of opening a new window or tab
+          event.preventDefault();
+        }
+      });
+    });
+  </script>
 
 <!DOCTYPE html>
 <html style=" font-size: 16px;">
@@ -791,30 +802,34 @@ ________________________________________________________________________________
 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!----Float Video Code---->
   <style>
+    .float-above {
+      position: fixed;
+      right: 0;
+      bottom: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
     .latest-video {
       position: fixed;
-      bottom: 0;
       right: 0;
-    }
-  </style>
-<!--Float Video Code End -------->
-
-  <style>
-    .latest-video {
+      bottom: 0;
       margin: 20px;
     }
+
     .latest-video h2 {
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 10px;
     }
+
     .latest-video h3 {
       font-size: 18px;
       margin-bottom: 10px;
     }
+
     .latest-video p {
       font-size: 14px;
       margin-bottom: 10px;
@@ -822,10 +837,13 @@ ________________________________________________________________________________
   </style>
 </head>
 <body>
-  <label for="channel-id">Enter channel ID:</label>
-  <input type="text" id="channel-id" value="UCtdZ47jhJK7ME0udUc4PP-Q">
-  <button id="update-video">Update Video</button>
+  <div class="float-above">
+    <label for="channel-id">Enter channel ID:</label>
+    <input type="text" id="channel-id" value="UCtdZ47jhJK7ME0udUc4PP-Q">
+    <button id="update-video">Update Video</button>
+  </div>
   <div id="latest-video"></div>
+
   <script>
     $(function() {
       var $content = $('#latest-video');
@@ -882,6 +900,3 @@ ________________________________________________________________________________
   </script>
 </body>
 </html>
-
-
-<!--<a href="#" onclick="document.getElementById('channel-id').value='UCn-K7GIs62ENvdQe6ZZk9-w'; document.getElementById('channel-id').dispatchEvent(new KeyboardEvent('keydown', {key: '13'}));">Set Channel ID</a>-->
