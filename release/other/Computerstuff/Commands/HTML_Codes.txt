@@ -10,6 +10,54 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+Mastodon profile renderer:
+---------------------------------------
+
+<script>
+const profileUrl = 'https://mastodon.social/api/v1/accounts/109977878421486714';
+
+// Make a GET request to the profile URL using fetch
+fetch(profileUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Access the fields in the JSON object
+    const id = data.id;
+    const username = data.username;
+    const display_name = data.display_name;
+    const locked = data.locked;
+    const bot = data.bot;
+    const discoverable = data.discoverable;
+    const group = data.group;
+    const created_at = data.created_at;
+    const note = data.note;
+    const url = data.url;
+    const avatar = data.avatar;
+    const avatar_static = data.avatar_static;
+    const header = data.header;
+    const header_static = data.header_static;
+    const followers_count = data.followers_count;
+    const following_count = data.following_count;
+    const statuses_count = data.statuses_count;
+    const last_status_at = data.last_status_at;
+    const noindex = data.noindex;
+    const emojis = data.emojis;
+    const roles = data.roles;
+    const fields = data.fields;
+
+    // Do something with the data
+    document.write(`${username}@mastodon.social<br>\n`);
+    document.write(`<img src=${avatar} width=12%>`);
+    document.write("<br><hr>");
+    document.write(`${note}`);
+    document.write("<hr>");
+    //document.write(`${display_name}\n`);
+    document.write(`Following: <b>${following_count}</b>\n`);
+    document.write(`Followers: <b>${followers_count}</b>\n`);
+    document.write(`Posts: <b>${statuses_count}</b>\n`);
+  })
+  .catch(error => console.error(error));
+</script>
+_____________________________________________
 
 Youtube RSS render (with iframe support)
 -------------------------------------------------------------
