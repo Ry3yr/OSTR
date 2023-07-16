@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="dropdown">
-  <button class="dropbtn">Extras</button>
+  <button class="dropbtn" style="width: 100px; height: 50px; min-width: 206px; max-height: 290px; font-size: 13px;">Extras <p id="last-updated"></p></button>
   <div class="dropdown-content">
 <a target="_blank" href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Pingtest.html">Settings <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Wrench-screwdriver-icon.png" height="25" width="25"></a>
 <a href="Tools.html">Tools</a>
@@ -45,7 +45,24 @@ var nowd = new Date().toUTCString().slice(0,16);
 $('#today').html(` ${nowd} `);
 });</script>
 
-
+<!----Last Page Update--->
+   <!---<p id="last-updated"></p>--->
+    <script>
+      const atomFeedUrl = 'https://api.codetabs.com/v1/proxy?quest=https://github.com/Ry3yr/OSTR/releases.atom';
+      fetch(atomFeedUrl)
+        .then(response => response.text())
+        .then(xmlText => {
+          const parser = new DOMParser();
+          const xmlDocument = parser.parseFromString(xmlText, 'application/xml');
+          const lastUpdated = xmlDocument.querySelector('updated').textContent;
+          const lastUpdatedElement = document.getElementById('last-updated');
+          lastUpdatedElement.textContent = `Updated: ${lastUpdated}`;
+          //document.body.innerHTML = document.body.innerHTML.replace('Extras', '$last-updated');
+        })
+        .catch(error => {
+          console.error('Failed to fetch Atom feed:', error);
+        });
+    </script>
 
 <!---scrolling-rss-->
 <div id="bigdiv" style="position:relative; top: -34px; left: 325px;">
