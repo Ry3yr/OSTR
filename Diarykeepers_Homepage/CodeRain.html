@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #rain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      #text {
+        font-family: monospace;
+        font-size: 16px;
+        position: absolute;
+        top: 0;
+        left: 0%;
+        transform: translateX(-50%);
+        white-space: pre;
+        animation: rain 15s 3;
+
+      }
+      
+      @keyframes rain {
+        0% {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="rain">
+      <pre id="text"></pre>
+    </div>
+    <script>
+      fetch('https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt')
+        .then(response => response.text())
+        .then(fileContents => {
+          const pattern = /------(.*?)_____/gs;
+          const matches = fileContents.match(pattern).slice(1); // remove first match
+          const randomIndex = Math.floor(Math.random() * matches.length);
+          const randomMatch = matches[randomIndex];
+          const numLines = randomMatch.split('\n').length;
+          if (numLines >= 3) {
+            const textElement = document.getElementById('text');
+            textElement.textContent = randomMatch;
+          }
+        });
+    </script>
+  </body>
+</html>
