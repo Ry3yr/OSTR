@@ -4,6 +4,79 @@ ___________________________
 
 
 
+Display Code from txt file:
+----------------------------------------
+
+<?php
+$fileContents = file_get_contents('https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt');
+$pattern = '/------(.*?)_____/s';
+preg_match_all($pattern, $fileContents, $matches);
+$randomIndex = array_rand($matches[1]);
+$randomMatch = $matches[1][$randomIndex];
+$numLines = substr_count($randomMatch, "\n") + 1;
+if ($numLines >= 3) {
+  echo '<plaintext>' . $randomMatch . '</plaintext>';
+}
+?>
+
+
+____________________________
+
+Mastodon Profile renderer:
+----------------------------------------
+
+<?php
+$profileUrl = 'https://mastodon.social/api/v1/accounts/109977878421486714';
+
+// Make a GET request to the profile URL using cURL
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $profileUrl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+// Parse the JSON response into an associative array
+$data = json_decode($response, true);
+
+// Access the fields in the JSON object
+$id = $data['id'];
+$username = $data['username'];
+$display_name = $data['display_name'];
+$locked = $data['locked'];
+$bot = $data['bot'];
+$discoverable = $data['discoverable'];
+$group = $data['group'];
+$created_at = $data['created_at'];
+$note = $data['note'];
+$url = $data['url'];
+$avatar = $data['avatar'];
+$avatar_static = $data['avatar_static'];
+$header = $data['header'];
+$header_static = $data['header_static'];
+$followers_count = $data['followers_count'];
+$following_count = $data['following_count'];
+$statuses_count = $data['statuses_count'];
+$last_status_at = $data['last_status_at'];
+$noindex = $data['noindex'];
+$emojis = $data['emojis'];
+$roles = $data['roles'];
+$fields = $data['fields'];
+
+// Do something with the data
+echo "$username@mastodon.social<br>\n";
+//echo " <img src=$avatar width=12%>";
+echo "<br><hr>";
+echo "$note";
+echo "<hr>";
+//echo "$display_name\n";
+echo "Following: <b>$following_count</b>\n";
+echo "Followers: <b>$followers_count</b>\n";
+echo "Posts: <b>$statuses_count</b>\n";
+
+
+
+____________________________
+
 Issue Tracker (with disallow.txt profanity filter):
 --------------------------------------------------------------------
 

@@ -10,6 +10,29 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+Display Code from txt file:
+----------------------------------------
+
+<script>
+fetch('https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt')
+  .then(response => response.text())
+  .then(fileContents => {
+    const pattern = /------(.*?)_____/gs;
+    const matches = fileContents.match(pattern).slice(1); // remove first match
+    const randomIndex = Math.floor(Math.random() * matches.length);
+    const randomMatch = matches[randomIndex];
+    const numLines = randomMatch.split('\n').length;
+    if (numLines >= 3) {
+      const plaintext = document.createElement('plaintext');
+      plaintext.textContent = randomMatch;
+      document.body.appendChild(plaintext);
+    }
+  });
+</script>
+
+
+____________________________
+
 Mastodon profile renderer:
 ---------------------------------------
 
