@@ -56,7 +56,7 @@ $('#today').html(` ${nowd} `);
           const xmlDocument = parser.parseFromString(xmlText, 'application/xml');
           const lastUpdated = xmlDocument.querySelector('updated').textContent;
           const lastUpdatedElement = document.getElementById('last-updated');
-          lastUpdatedElement.textContent = `Updated: ${lastUpdated}`;
+          lastUpdatedElement.textContent = `${lastUpdated}`;
           //document.body.innerHTML = document.body.innerHTML.replace('Extras', '$last-updated');
         })
         .catch(error => {
