@@ -3,6 +3,7 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=TU_bS6ttM4Q">Cant stay mad at you - Haven Danger</a>'},
     {'quote': 'Theme X - Xenoblade Chronicles X OST - Hiroyuki Sawano'},
     {'quote': 'Destiny - YGO Sound Duel 03 - Shinkichi Mitsumune'},
+    {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=M9aj-1fzEYw&pp=ygUcRmlyZSBhbmQgZmxhbWVzIGRyYWdvbiBmb3JjZQ%3D%3D">Through the Fire and Flames - Dragonforce</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=PkcaC0g6LqY">Abandoned and Picked Up Feeling - Mirai Nikki OST - Kato Tatsuya</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=Od4sH0vVFpI">Musique pour la tristesse de Xion - KHIII (Yoko Shimomura)</a>'},
     {'quote': '<a target="_blank" href="https://youtube.com/watch?v=cqAawjQyieg">Kellys Lullaby - Another Code R - Satoshi Okubo</a>'},
