@@ -11,6 +11,15 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Reload page after X seconds
+----------------------------------------------
+
+<meta http-equiv="refresh" content="5" >
+
+https://stackoverflow.com/questions/4644027/how-to-automatically-reload-a-page-after-a-given-period-of-inactivity
+
+_____________________________________
+
 Display LastGithubUpdate: (requires proxy because of CORS)
 ----------------------------------------------------------------------------------------
 
