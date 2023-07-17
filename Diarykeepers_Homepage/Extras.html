@@ -32,7 +32,7 @@
 </div>
 
 <!----Days-online-counter-->
-&nbsp;&nbsp;Uptime: <button id='counter' style="width:26px;height:20px;background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button> &nbsp;&nbsp;days. <!--<button id='today' ></button>-->
+&nbsp;&nbsp;Uptime: <button id='counter' style="width:26px;height:20px;background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button><!--<button id='today' ></button>-->
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script>
 $(document).ready(function(){
@@ -40,7 +40,7 @@ var oneDay = 24*60*60*1000;
 var start = new Date(2021, 06, 13);
 var now = new Date();
 var elapsed = Math.round(Math.abs((now.getTime() - start.getTime())/(oneDay)-1));
-$('#counter').html(` ${elapsed} `);
+$('#counter').html(` ${elapsed}&nbsp;days`);
 var nowd = new Date().toUTCString().slice(0,16);
 $('#today').html(` ${nowd} `);
 });</script>
