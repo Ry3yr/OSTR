@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="dropdown">
-  <button class="dropbtn" style="width: 100px; height: 50px; min-width: 206px; max-height: 290px; font-size: 13px;">Extras <p id="last-updated"></p></button>
+  <button class="dropbtn" style="width: 100px; height: 50px; min-width: 206px; max-height: 290px; font-size: 13px;">Extras<pre id="message">Loading</pre></button>
   <div class="dropdown-content">
 <a target="_blank" href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Pingtest.html">Settings <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Wrench-screwdriver-icon.png" height="25" width="25"></a>
 <a href="Tools.html">Tools</a>
@@ -47,7 +47,7 @@ $('#today').html(` ${nowd} `);
 
 <!----Last Page Update--->
    <!---<p id="last-updated"></p>--->
-    <script>
+    <--<script>
       const atomFeedUrl = 'https://api.codetabs.com/v1/proxy?quest=https://github.com/Ry3yr/OSTR/releases.atom';
       fetch(atomFeedUrl)
         .then(response => response.text())
@@ -62,7 +62,21 @@ $('#today').html(` ${nowd} `);
         .catch(error => {
           console.error('Failed to fetch Atom feed:', error);
         });
-    </script>
+    </script>--->
+
+<script>
+fetch('https://api.github.com/repos/Ry3yr/OSTR/commits?per_page=1')
+  .then(res => res.json())
+  .then(res => {
+    const latestCommit = res[0];
+    const message = latestCommit.commit.message;
+    const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
+    document.getElementById('message').innerHTML = `${message} - ${date}`;
+  })
+</script>
+<!---<pre id="message">Loading</pre>-->
+
+
 
 <!---scrolling-rss-->
 <div id="bigdiv" style="position:relative; top: -34px; left: 325px;">
