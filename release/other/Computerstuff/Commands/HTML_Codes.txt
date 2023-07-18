@@ -18,6 +18,24 @@ Reload page after X seconds
 
 https://stackoverflow.com/questions/4644027/how-to-automatically-reload-a-page-after-a-given-period-of-inactivity
 
+
+_____________________________________________________
+
+Show last Github CommitAction + what was changed:
+-----------------------------------------------------------------------------------
+
+<script>
+fetch('https://api.github.com/repos/Ry3yr/OSTR/commits?per_page=1')
+  .then(res => res.json())
+  .then(res => {
+    const latestCommit = res[0];
+    const message = latestCommit.commit.message;
+    const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
+    document.getElementById('message').innerHTML = `${message} - ${date}`;
+  })
+</script>
+<pre id="message">Loading</pre>
+
 _____________________________________
 
 Display LastGithubUpdate: (requires proxy because of CORS)
