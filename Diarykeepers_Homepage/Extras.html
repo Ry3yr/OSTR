@@ -32,7 +32,7 @@
 </div>
 
 <!----Days-online-counter-->
-&nbsp;&nbsp;Uptime: <button id='counter' style="width:26px;height:20px;background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button><!--<button id='today' ></button>-->
+&nbsp;&nbsp;Uptime: <button id='counter' style="width:26px;height:20px;background:transparent; border:transparent;" onclick="window.open('https://web.archive.org/web/https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Startseite.html', '_blank');"></button>
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script>
 $(document).ready(function(){
@@ -71,7 +71,7 @@ fetch('https://api.github.com/repos/Ry3yr/OSTR/commits?per_page=1')
     const latestCommit = res[0];
     const message = latestCommit.commit.message;
     const date = new Date(latestCommit.commit.author.date).toLocaleDateString();
-    document.getElementById('message').innerHTML = `${message} - ${date}`;
+    document.getElementById('message').innerHTML = `${date} - ${message}`;
   })
 </script>
 <!---<pre id="message">Loading</pre>-->
