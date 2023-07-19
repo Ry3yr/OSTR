@@ -11,6 +11,33 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Text Intersperion remover
+-----------------------------------------
+
+
+  <body>
+    <textarea id="input-textbox" cols="60" rows="4"></textarea><br><br>
+    <textarea id="output-textbox" cols="60" rows="4" style="border: none;"></textarea>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Get the input and output textbox elements
+        const inputTextbox = document.getElementById("input-textbox");
+        const outputTextbox = document.getElementById("output-textbox");
+        // Add an event listener to the input textbox to detect changes
+        inputTextbox.addEventListener("input", function() {
+          // Remove all formatting characters from the textbox value
+          const plainText = inputTextbox.value.replace(/[^\x00-\x7F]/g, "");
+          // Update the output textbox value with the plain text
+          outputTextbox.value = plainText;
+        });
+      });
+    </script>
+  </body>
+</html>
+
+_________________________________
+
 Reload page after X seconds
 ----------------------------------------------
 
