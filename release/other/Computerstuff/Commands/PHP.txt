@@ -4,6 +4,43 @@ ___________________________
 
 
 
+Gogoanime Video Download link finder:
+-----------------------------------------------------------------
+
+<?php
+if (isset($_POST['url'])) {
+    $url = $_POST['url'];
+    $html = file_get_contents($url);
+    $dom = new DOMDocument();
+    @$dom->loadHTML($html);
+    $links = $dom->getElementsByTagName('a');
+    foreach ($links as $link) {
+        if ($link->nodeValue == "Download") {
+            $download_link = $link->getAttribute('href');
+            echo "<a href='$download_link' target='_blank'>$download_link</a><br>";
+            $download_html = file_get_contents($download_link);
+            $download_dom = new DOMDocument();
+            @$download_dom->loadHTML($download_html);
+            $download_links = $download_dom->getElementsByTagName('a');
+            foreach ($download_links as $download_link) {
+                $download_url = $download_link->getAttribute('href');
+                echo "<a href='$download_url' target='_blank'>$download_url</a><br>";
+            }
+            break;
+        }
+    }
+}
+?>
+<form method="post">
+    <label for="url">Enter URL:</label>
+    <input type="text" id="url" name="url">
+    <input type="submit" value="Submit">
+</form>
+
+
+
+_________________________________________
+
 Display Code from txt file:
 ----------------------------------------
 
