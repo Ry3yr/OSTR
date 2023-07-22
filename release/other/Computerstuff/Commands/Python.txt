@@ -1,8 +1,115 @@
+Py2Exe: https://github.com/pyinstaller/pyinstaller
 
 
+MeteoCtrl Lister (with date search, keyword search and hyperlink support):
+------------------------------------------------------------------------
 
+import os
+import tkinter as tk
+from datetime import datetime, timezone, timedelta
 
-_______
+directory = r'C:\Konfi-Data\Export\json'
+file_list = os.listdir(directory)
+file_info_list = [(file, os.path.getmtime(os.path.join(directory, file))) for file in file_list]
+file_info_list_sorted = sorted(file_info_list, key=lambda x: x[1], reverse=True)[:100]
+file_list_sorted = [file_info[0] for file_info in file_info_list_sorted]
+
+german_tz = timezone(timedelta(hours=1), 'CET')
+
+root = tk.Tk()
+root.title('Newest 100 Files')
+
+search_entry = tk.Entry(root)
+search_entry.pack()
+
+filter_frame = tk.Frame(root)
+filter_frame.pack(side='top', fill='x')
+
+date_label = tk.Label(filter_frame, text='Date (dd/mm/yyyy):', font='Helvetica 12', anchor='w', justify='left')
+date_label.pack(side='left')
+
+date_entry = tk.Entry(filter_frame)
+date_entry.pack(side='left', padx=5)
+
+total_count = tk.StringVar()
+total_count.set('Occurrences: 0')
+count_label = tk.Label(filter_frame, textvariable=total_count, font='Helvetica 12', anchor='e', justify='right')
+count_label.pack(side='right', fill='x', expand=True)
+
+def display_files(file_list):
+    for file in file_list:
+        file_path = os.path.join(directory, file)
+        file_time = os.path.getmtime(file_path)
+        dt = datetime.fromtimestamp(file_time, tz=timezone.utc)
+        german_time = dt.astimezone(german_tz)
+        file_timestamp = f'{file} - {german_time.strftime("%d/%m/%Y %I:%M:%S %p")} ({german_tz.tzname(None)})'
+        file_label = tk.Label(root, text=file_timestamp, anchor='w', justify='left', fg='blue', cursor='hand2')
+        file_label.pack(fill='x')
+        file_label.bind('<Button-1>', lambda event, file_path=file_path: open_file(file_path))
+
+def open_file(file_path):
+    try:
+        with open(file_path, 'r') as f:
+            file_content = f.read()
+            text_editor = tk.Toplevel(root)
+            text_editor.title(file_path)
+            text_editor_text = tk.Text(text_editor)
+            text_editor_text.pack(fill='both', expand=True)
+            text_editor_text.insert('1.0', file_content)
+    except Exception as e:
+        tk.messagebox.showerror('Error', str(e))
+
+def get_file_date(file):
+    # Get the last modification time of the file
+    last_modified_time = os.path.getmtime(os.path.join(directory, file))
+    # Convert the last modification time to a datetime object
+    last_modified_datetime = datetime.fromtimestamp(last_modified_time, tz=german_tz)
+    # Extract the date from the datetime object
+    return last_modified_datetime.date()
+
+def search_files(keyword, date_str):
+    # Clear the previous search results
+    for widget in root.winfo_children():
+        if isinstance(widget, tk.Label):
+            widget.destroy()
+    if keyword or date_str:
+        count = 0
+        for file in file_list:
+            file_date = get_file_date(file)
+            if (not keyword or keyword.lower() in file.lower()) and (not date_str or file_date == datetime.strptime(date_str, "%d/%m/%Y").date()):
+                count += 1
+                file_path = os.path.join(directory, file)
+                file_time = os.path.getmtime(file_path)
+                dt = datetime.fromtimestamp(file_time, tz=timezone.utc)
+                german_time = dt.astimezone(german_tz)
+                file_timestamp = f'{file} - {german_time.strftime("%d/%m/%Y %I:%M:%S %p")} ({german_tz.tzname(None)})'
+                file_label = tk.Label(root, text=file_timestamp, anchor='w', justify='left', fg='blue', cursor='hand2')
+                file_label.pack(fill='x')
+                file_label.bind('<Button-1>', lambda event, file_path=file_path: open_file(file_path))
+                if keyword:
+                    with open(file_path, 'r') as f:
+                        for line in f:
+                            if keyword.lower() in line.lower():
+                                line_label = tk.Label(root, text=line.strip(), anchor='w', justify='left')
+                                line_label.pack(fill='x')
+        total_count.set(f'Occurrences: {count}')
+    else:
+        display_files(file_list_sorted)
+        total_count.set('Occurrences: 0')
+
+display_files(file_list_sorted)
+
+def on_search_entry_change(event):
+    keyword = search_entry.get()
+    date_str = date_entry.get()
+    search_files(keyword, date_str)
+
+search_entry.bind('<KeyRelease>', on_search_entry_change)
+date_entry.bind('<KeyRelease>', on_search_entry_change)
+
+root.mainloop()
+
+_________________________________________________________________________
 
 To fetch all € from a webpage textbox
 --------------------------------------
