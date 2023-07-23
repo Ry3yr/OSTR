@@ -1,6 +1,184 @@
 Py2Exe: https://github.com/pyinstaller/pyinstaller
 
 
+
+Youtube Downloader:
+-------------------
+
+import tkinter as tk
+from pytube import YouTube
+from tkinter import ttk
+import os
+
+def download():
+    # Get the URL from the text box
+    url = url_textbox.get()
+
+    # Create a YouTube object
+    yt = YouTube(url)
+
+    # Get the video format from the radio buttons
+    if mp4_radio_button.get():
+        video_format = "mp4"
+        extension = ".mp4"
+        res = res_textbox.get()
+        stream = yt.streams.filter(res=res).first()
+    else:
+        video_format = "mp3"
+        extension = ".mp3"
+        streams = yt.streams.filter(only_audio=True).all()
+
+        # Create a new window to display the available audio streams
+        stream_window = tk.Toplevel(root)
+        stream_window.title("Select Audio Stream")
+
+        # Display the available audio streams in a listbox
+        stream_listbox = tk.Listbox(stream_window)
+        for stream in streams:
+            stream_listbox.insert(tk.END, f"{stream.abr} ({stream.mime_type})")
+        stream_listbox.pack(padx=10, pady=10)
+
+        def select_stream():
+            # Get the selected stream
+            selected_stream_index = stream_listbox.curselection()[0]
+            selected_stream = streams[selected_stream_index]
+
+            # Destroy the stream window
+            stream_window.destroy()
+
+            # Set up the progress bar
+            progress_bar["maximum"] = selected_stream.filesize
+            progress_bar["value"] = 0
+
+            # Set up the title label
+            title_label.config(text=f"Downloading: {yt.title}")
+
+            # Download the audio
+            filename = yt.title.encode('utf-8') + extension
+            selected_stream.download(output_path="downloads", filename=filename)
+
+            # Reset the progress bar and title label
+            progress_bar["value"] = 0
+            title_label.config(text="")
+
+        # Create a select button to download the selected audio stream
+        select_button = tk.Button(stream_window, text="Select", command=select_stream)
+        select_button.pack(padx=10, pady=10)
+
+        # Wait for the user to select a stream
+        stream_window.wait_window()
+
+    # Download the video or audio
+    filename = yt.title + extension
+    stream.download(output_path="downloads", filename=filename)
+
+    # Reset the progress bar and title label
+    progress_bar["value"] = 0
+    title_label.config(text="")
+
+def open_download_folder():
+    # Open the download folder
+    os.startfile(os.path.abspath("downloads"))
+
+def check_url(*args):
+    # Get the URL from the text box
+    url = url_textbox.get()
+
+    # Check if the URL is valid
+    if not url.startswith("https://www.youtube.com/watch?v="):
+        return
+
+    # Create a YouTube object
+    yt = YouTube(url)
+
+    # Get the available audio streams
+    streams = yt.streams.filter(only_audio=True).all()
+
+    # Create a new window to display the available audio streams
+    stream_window = tk.Toplevel(root)
+    stream_window.title("Select Audio Stream")
+
+    # Display the available audio streams in a listbox
+    stream_listbox = tk.Listbox(stream_window)
+    for stream in streams:
+        stream_listbox.insert(tk.END, f"{stream.abr} ({stream.mime_type})")
+    stream_listbox.pack(padx=10, pady=10)
+
+    def select_stream():
+        # Get the selected stream
+        selected_stream_index = stream_listbox.curselection()[0]
+        selected_stream = streams[selected_stream_index]
+
+        # Destroy the stream window
+        stream_window.destroy()
+
+        # Set up the progress bar
+        progress_bar["maximum"] = selected_stream.filesize
+        progress_bar["value"] = 0
+
+        # Set up the title label
+        title_label.config(text=f"Downloading: {yt.title}")
+
+        # Download the audio
+        filename = yt.title + ".mp3"
+        selected_stream.download(output_path="downloads", filename=filename)
+
+        # Reset the progress bar and title label
+        progress_bar["value"] = 0
+        title_label.config(text="")
+
+    # Create a select button to download the selected audio stream
+    select_button = tk.Button(stream_window, text="Select", command=select_stream)
+    select_button.pack(padx=10, pady=10)
+
+    # Wait for the user to select a stream
+    stream_window.wait_window()
+
+# Create the GUI
+root = tk.Tk()
+root.title("YouTube Downloader")
+
+# Create the text box for the video resolution
+res_textbox = tk.Entry(root, width=10)
+res_textbox.pack()
+res_textbox.insert(0, "360p")
+
+# Create the text box for the URL
+url_textbox =tk.Entry(root, width=50)
+url_textbox.pack(padx=10, pady=10)
+url_textbox.bind("<Return>", check_url)
+
+# Create the radio buttons to choose the download format
+mp4_radio_button = tk.BooleanVar(value=True)
+mp4_radio = ttk.Radiobutton(root, text="MP4", variable=mp4_radio_button, value=True)
+mp4_radio.pack()
+mp3_radio = ttk.Radiobutton(root, text="MP3", variable=mp4_radio_button, value=False)
+mp3_radio.pack()
+
+# Create the download button
+download_button = tk.Button(root, text="Download", command=download)
+download_button.pack(padx=10, pady=10)
+
+# Create the progress bar
+progress_bar = ttk.Progressbar(root, orient=tk.HORIZONTAL, length=300, mode="determinate")
+progress_bar.pack(padx=10, pady=10)
+
+# Create the title label
+title_label = tk.Label(root, text="")
+title_label.pack(padx=10, pady=10)
+
+# Create the button to open the download folder
+open_folder_button = tk.Button(root, text="Open Download Folder", command=open_download_folder)
+open_folder_button.pack(padx=10, pady=10)
+
+# Start the GUI
+root.mainloop()
+
+
+
+_________________________________________________________________________
+
+
 MeteoCtrl Lister (with date search, keyword search and hyperlink support):
 ------------------------------------------------------------------------
 
