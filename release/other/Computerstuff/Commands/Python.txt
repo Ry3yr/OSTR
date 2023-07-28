@@ -183,36 +183,14 @@ MeteoCtrl Lister (with date search, keyword search and hyperlink support):
 ------------------------------------------------------------------------
 
 import os
+import sys
 import tkinter as tk
 from datetime import datetime, timezone, timedelta
 
+
 directory = r'C:\Konfi-Data\Export\json'
-file_list = os.listdir(directory)
-file_info_list = [(file, os.path.getmtime(os.path.join(directory, file))) for file in file_list]
-file_info_list_sorted = sorted(file_info_list, key=lambda x: x[1], reverse=True)[:100]
-file_list_sorted = [file_info[0] for file_info in file_info_list_sorted]
 
 german_tz = timezone(timedelta(hours=1), 'CET')
-
-root = tk.Tk()
-root.title('Newest 100 Files')
-
-search_entry = tk.Entry(root)
-search_entry.pack()
-
-filter_frame = tk.Frame(root)
-filter_frame.pack(side='top', fill='x')
-
-date_label = tk.Label(filter_frame, text='Date (dd/mm/yyyy):', font='Helvetica 12', anchor='w', justify='left')
-date_label.pack(side='left')
-
-date_entry = tk.Entry(filter_frame)
-date_entry.pack(side='left', padx=5)
-
-total_count = tk.StringVar()
-total_count.set('Occurrences: 0')
-count_label = tk.Label(filter_frame, textvariable=total_count, font='Helvetica 12', anchor='e', justify='right')
-count_label.pack(side='right', fill='x', expand=True)
 
 def display_files(file_list):
     for file in file_list:
@@ -248,7 +226,7 @@ def get_file_date(file):
 def search_files(keyword, date_str):
     # Clear the previous search results
     for widget in root.winfo_children():
-        if isinstance(widget, tk.Label):
+        if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
             widget.destroy()
     if keyword or date_str:
         count = 0
@@ -275,42 +253,68 @@ def search_files(keyword, date_str):
         display_files(file_list_sorted)
         total_count.set('Occurrences: 0')
 
+def reload_program():
+    python = sys.executable
+    args = [os.path.abspath(__file__)]
+    os.execl(python, python, *args)
+
+    # Close the current instance of the program
+    root.destroy()
+
+    
+file_list = os.listdir(directory)
+file_info_list = [(file, os.path.getmtime(os.path.join(directory, file))) for file in file_list]
+file_info_list_sorted = sorted(file_info_list, key=lambda x: x[1], reverse=True)[:100]
+file_list_sorted = [file_info[0] for file_info in file_info_list_sorted]
+
+root = tk.Tk()
+root.title('Newest 100 Files')
+
+search_entry = tk.Entry(root)
+search_entry.pack()
+
+filter_frame = tk.Frame(root)
+filter_frame.pack(side='top', fill='x')
+
+date_label = tk.Label(filter_frame, text='Date (dd/mm/yyyy) [t-todays date:]', font='Helvetica 12', anchor='w', justify='left')
+date_label.pack(side='left')
+
+date_entry = tk.Entry(filter_frame)
+date_entry.pack(side='left', padx=5)
+
+total_count = tk.StringVar()
+total_count.set('Occurrences: 0')
+count_label = tk.Label(filter_frame, textvariable=total_count, font='Helvetica 12', anchor='e', justify='right')
+count_label.pack(side='right', fill='x', expand=True)
+
+# Create the "RELOAD" button
+reload_button = tk.Button(root, text='RELOAD / F5', command=reload_program)
+reload_button.pack(side='top', pady=10)
+root.bind('<F5>', lambda event: reload_program())
+
 display_files(file_list_sorted)
 
+root.after_id = None
+
 def on_search_entry_change(event):
-    keyword = search_entry.get()
-    date_str = date_entry.get()
-    search_files(keyword, date_str)
+    # Cancel any existing call to the search function
+    if root.after_id is not None:
+        root.after_cancel(root.after_id)
+    # Schedule a new call to the search function in 1 second
+    root.after_id = root.after(1500, search_files, search_entry.get(), date_entry.get())
+    # Check if "t" is entered in the date entry
+    if event.widget == date_entry and event.char.lower() == "t":
+        # Replace "t" with the current date in the format "dd/mm/yyyy"
+        today = datetime.now(german_tz).strftime("%d/%m/%Y")
+        date_entry.delete(0, tk.END)
+        date_entry.insert(0, today)
+
+
 
 search_entry.bind('<KeyRelease>', on_search_entry_change)
 date_entry.bind('<KeyRelease>', on_search_entry_change)
 
 root.mainloop()
-
-_________________________________________________________________________
-
-To fetch all € from a webpage textbox
---------------------------------------
-
-python
-Copy
-import requests
-from bs4 import BeautifulSoup
-
-# Make a GET request to the webpage
-url = 'https://www.example.com'
-response = requests.get(url)
-
-# Parse the webpage source code
-soup = BeautifulSoup(response.content, 'html.parser')
-
-# Find the textbox containing the € symbol(s)
-textbox = soup.find('input', {'name': 'textbox_name'})
-euros = textbox.get('value').count('€')
-
-# Print the total number of € symbols found in the textbox
-print(f'Total number of € symbols found: {euros}')
-
 
 
 ( Source: https://poe.com/Pythonmachine )
