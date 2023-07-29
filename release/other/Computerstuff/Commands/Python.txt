@@ -84,6 +84,9 @@ def check_url(*args):
     # Get the URL from the text box
     url = url_textbox.get()
 
+    # Replace https://m.youtube. with https://www.youtube.
+    url = url.replace("https://m.youtube.", "https://www.youtube.")
+
     # Check if the URL is valid
     if not url.startswith("https://www.youtube.com/watch?v="):
         return
