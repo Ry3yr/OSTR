@@ -137,3 +137,4 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=18WY87aoD3w&list=PLNqhEC8s3wXlQ31AT6eWFIIGEiLZZcTkk&index=5">«Changing Fate» ~Arrange~ - GhostTrick (2023)</a>'},
     {'quote': '<a target="_blank" href="https://web.archive.org/web/20230707174059/https://alceawisteria.codeberg.page/OSTR/release/kkj/48.%20CD%20Track%2048.mp3">(SindbadBurning)48 Shizuka ni Wakiagaru Toushi - Kamikaze Kaitou Jeanne OST</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=ZOKZ2WVrc-I&list=PLD5226F0530C8EAE7&index=28">Tune up your Brain - Phi Brain</a>'},
+    {'quote': '<a target="_blank" href="https://m.soundcloud.com/voidinkedpen/diamond-no-ace-ost-grow-stronger-day-by-day-sawamura-theme">Grow Stronger Day By Day - Ace of Diamond</a>'},
