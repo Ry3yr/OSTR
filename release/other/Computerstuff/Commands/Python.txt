@@ -326,6 +326,12 @@ root.mainloop()
 =============================
 ===PythonHelp=================
 
+Figure out url from pip installer:
+----------------------------------
+pip install PyQt5 --log log.txt
+
+________________________________________
+
 Install py for specific version:
 --------------------------------
 
