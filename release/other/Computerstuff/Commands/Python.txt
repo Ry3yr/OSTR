@@ -1,5 +1,5 @@
 Py2Exe: https://github.com/pyinstaller/pyinstaller
-
+*python-help
 
 
 Youtube Downloader:
@@ -321,3 +321,19 @@ root.mainloop()
 
 
 ( Source: https://poe.com/Pythonmachine )
+
+
+=============================
+===PythonHelp=================
+
+Install py for specific version:
+--------------------------------
+
+C:\Users\User\AppData\Local\Programs\Python\Python310\Scripts\pip install torch-2.0.1+cu118-cp310-cp310-win_amd64.whl
+
+________________________________________
+
+Install whl:
+------------
+
+pip install *.whl
