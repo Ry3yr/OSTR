@@ -1,0 +1,91 @@
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Submit Case </title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 50%;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 3rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+      
+      .button:hover {
+        background-color: #0056b3;
+      }
+      
+      .button img {
+        max-height: 50%;
+        max-width: 70%;
+      }
+      
+      #left-button {
+        float: left;
+      }
+      
+      #right-button {
+        float: right;
+        background-color: orange;
+      }
+      
+      #right-button:hover {
+        background-color: #333;
+        transition: background-color 0.3s ease-in-out;
+      }
+      
+      #right-button:hover img {
+        animation: bounce 1s;
+      }
+      
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-20px);
+        }
+        50% {
+          transform: translateY(0);
+        }
+        75% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="php.html#submitcase" target="_blank">
+      <div class="button" id="left-button">
+        Issue
+        <img src="https://codeberg.org/alceawisteria/pages/raw/branch/main/images/Issuetrack.jpg" alt="Center Image">
+       <br><br>track
+      </div>
+    </a>
+    <a href="https://ry3yr.github.io/userupload" target="_blank">
+      <div class="button" id="right-button">
+        Upload
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Octicons-cloud-upload.svg/1200px-Octicons-cloud-upload.svg.png" alt="Logo">
+      </div>
+    </a>
+  </body>
+</html>
