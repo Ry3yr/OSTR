@@ -326,6 +326,24 @@ root.mainloop()
 =============================
 ===PythonHelp=================
 
+Start Python *.py script w.o. cmd:
+-----------------------
+
+cmd /c start /min C:\Users\User\AppData\Local\Programs\Python\Python311\python.exe "C:\portableapps\YT_Downloader.py"
+
+__________________________
+
+FindOut Installed python versions:
+--------------------------
+
+where python
+
+/or/
+
+python --version
+
+_______________________________________
+
 Figure out url from pip installer:
 ----------------------------------
 pip install PyQt5 --log log.txt
