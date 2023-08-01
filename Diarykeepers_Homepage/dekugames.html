@@ -24,6 +24,7 @@
                 <th>Link</th>
                 <th>Format <a href="?sort=format_asc">^</a> / <a href="?sort=format_desc">v</a></th>
                 <th>Price <a href="?sort=price_asc">^</a> / <a href="?sort=price_desc">v</a></th>
+                <th>Status <a href="?sort=status_asc">^</a> / <a href="?sort=status_desc">v</a></th>
                 <th>Date Added <a href="?sort=date_asc">^</a> / <a href="?sort=date_desc">v</a></th>
               </tr>
           `;
@@ -32,7 +33,7 @@
           const urlParams = new URLSearchParams(window.location.search);
           const sortBy = urlParams.get('sort');
 
-          // Sort data according to sorting parameter
+         // Sort data according to sorting parameter
           if (sortBy === 'price_asc') {
             data.items.sort((a, b) => a.price_paid - b.price_paid);
           } else if (sortBy === 'price_desc') {
@@ -45,14 +46,24 @@
             data.items.sort((a, b) => new Date(a.added_at) - new Date(b.added_at));
           } else if (sortBy === 'date_desc') {
             data.items.sort((a, b) => new Date(b.added_at) - new Date(a.added_at));
+          } else if (sortBy === 'status_asc') {
+            data.items.sort((a, b) => (a.status || '').localeCompare(b.status || ''));
+          } else if (sortBy === 'status_desc') {
+            data.items.sort((a, b) => (b.status || '').localeCompare(a.status || ''));
           }
 
           data.items.forEach(item => {
+            let status = '';
+            if (item.status) {
+              status = item.status;
+            }
+
             tableHtml += `
               <tr>
                 <td><a target="_blank" href="${item.link}">${item.name}</a></td>
                 <td>${item.format}</td>
                 <td>${item.price_paid}</td>
+                <td>${status}</td>
                 <td>${new Date(item.added_at).toLocaleDateString()}</td>
               </tr>
             `;
