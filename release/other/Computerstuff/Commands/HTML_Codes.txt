@@ -20,7 +20,7 @@ Trigger event (from ext url etc.) when date-span is divisible by 'x' "birthday":
         var currentDate = new Date();
         var targetDate = new Date('July 13, 2021');
         var daysPassed = Math.floor((currentDate.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24));
-        if (daysPassed === 750) {
+        if (daysPassed % 750 === 0) {
             document.querySelector("a[href='javascript:mybdayFunction()']").click();
         }
     });
