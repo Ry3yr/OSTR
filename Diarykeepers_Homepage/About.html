@@ -598,6 +598,16 @@ PHNjcmlwdD4KY29uc3QgcHJvZmlsZVVybCA9ICdodHRwczovL21hc3RvZG9uLnNvY2lhbC9hcGkvdjEv
             const videoId = youtubeMatch[3];
             // Create embedded player for YouTube video
             media = `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+          } else {
+            // Check for Pixiv artwork link
+            const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
+            const pixivMatch = status.content.match(pixivRegex);
+            if (pixivMatch) {
+              // Extract artwork ID from Pixiv link
+              const artworkId = pixivMatch[1];
+              // Create image preview for Pixiv artwork
+              media = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div>`;
+            }
           }
         }
         // Check for spoiler tag
@@ -617,7 +627,6 @@ PHNjcmlwdD4KY29uc3QgcHJvZmlsZVVybCA9ICdodHRwczovL21hc3RvZG9uLnNvY2lhbC9hcGkvdjEv
     .catch(error => console.error(error));
   </script>
 </body>
-
 
             </p>
           </div>
