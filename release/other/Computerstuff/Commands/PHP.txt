@@ -4,6 +4,166 @@ PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
 
 
+YuGiOh ydk deck randomizer:
+-----------------------------------------------
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YGORandomizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .file-input {
+            position: relative;
+            width: 250px;
+            height: 50px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .file-input input[type=file] {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .file-input label {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            background-color: #eee;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #buttons-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        .button-container {
+            display: inline-block;
+            width: 250px;
+            height: 350px;
+            margin-right: 10px;
+            position: relative;
+        }
+        .button-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #000; /* Change the color and thickness as desired */
+            z-index: -1;
+        }
+        .button-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+        .button-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+            height: 70px;
+            text-align: center;
+            padding-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        .button-text span {
+            font-size: 12px;
+            font-weight: normal;
+            color: #666;
+        }
+        .button-text br {
+            display: none;
+        }
+        .button-container:hover .button-text br {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>YGORandomizer</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="file-input">
+            <input type="file" name="file" id="file" />
+            <label for="file">Choose a file</label>
+        </div>
+        <input type="submit" name="submit" value="Upload" />
+    </form>
+    <div id="buttons-container">
+        <?php
+        $targetDir = 'ydk/'; // Folder to store the uploaded files
+        if ($_FILES['file']['name']) {
+            $targetFile = $targetDir . basename($_FILES['file']['name']);
+            // Move the uploaded file to the target directory
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
+                echo 'File uploaded successfully.';
+            } else {
+                echo 'Error uploading file.';
+            }
+        }
+        $folderPath = 'ydk/';
+        $ydks = glob($folderPath . '*.ydk');
+        // Get 3 random .ydk files
+        $randomYdks = array_rand($ydks, 3);
+        foreach ($randomYdks as $index) {
+            $filename = basename($ydks[$index]);
+            $shortFilename = str_pad($filename, 30, ' ');
+            $filePath = $ydks[$index];
+            // Read the specified line (line number 3) of the YDK file
+            $targetLine = "";
+            $file = fopen($filePath, "r");
+            if ($file) {
+                for ($i = 1; $i <= 3; $i++) {
+                    $targetLine = fgets($file);
+                    if ($i == 3) {
+                        break;
+                    }
+                }
+                fclose($file);
+            }
+            // Extract the card ID from the line
+            $cardId = trim($targetLine);
+            // Generate the image URL
+            $imageUrl = "https://images.ygoprodeck.com/images/cards/$cardId.jpg";
+            echo "<div class='button-container'><a href='$filePath' download><img src='$imageUrl' alt='Card Image' class='button-image'><div class='button-text'>$shortFilename<span>$targetLine</span></div></a></div>";
+        }
+        ?>
+    </div>
+</body>
+</html>
+
+
+
+__________________________________________
 
 Gogoanime Video Download link finder:
 -----------------------------------------------------------------
