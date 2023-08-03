@@ -15,8 +15,22 @@ ________________________________________________________________________________
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
+Downscale video to 640*480 mp4
+---------------------------------------------------
+cd /storage/emulated/0/Download
+ ffmpeg -i *.mp4 -vf "scale=640:480:force_original_aspect_ratio=decrease,pad=640:480:(ow-iw)/2:(oh-ih)/2" -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k output_video.mp4
 
-____
+_____________________________________
+
+Concat 2 videos:
+-----------------
+
+(echo file '0.wmv' & echo file 'tai.mp4' )>list.txt
+ffmpeg -safe 0 -f concat -i list.txt -c copy output.mp4
+
+https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg
+
+________________________
 
 Combine animated gif with mp3/audio:
 ------
@@ -100,7 +114,7 @@ Align gif to video space \ overlay:
 
 VideoWatermarkPro:
 1) Download and install the application from your web browser. Launch it afterward.
-2) Upload your video by clicking the ìAdd Videoî tab.Then ìAdd Imageî button to insert your GIF
+2) Upload your video by clicking the ‚ÄúAdd Video‚Äù tab.Then ‚ÄúAdd Image‚Äù button to insert your GIF
 3) "Run" to finish rendering
 Single frame to mp4
 ffmpeg -loop 1 -i image.png -c:v libx264 -t 15 -pix_fmt yuv420p out.mp4
@@ -375,7 +389,7 @@ Edit MP3 Tag via FFMPEG:
 
 ffmpeg -i file.mp3 -metadata album_artist="ALBUM ARTIST written by ffmpeg" file_ffmpeg.mp3
 
-(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-ver‰ndern)
+(SOURCE: www.synology-forum.de/showthread.html?60221-ID3-Tags-mit-FFMPEG-ver√§ndern)
 ___________________________________________________________________________________________________________________________
 
 Combine jpg and mp3 to video (youtube upload)
