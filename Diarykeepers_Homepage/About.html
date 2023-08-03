@@ -607,6 +607,15 @@ PHNjcmlwdD4KY29uc3QgcHJvZmlsZVVybCA9ICdodHRwczovL21hc3RvZG9uLnNvY2lhbC9hcGkvdjEv
               const artworkId = pixivMatch[1];
               // Create image preview for Pixiv artwork
               media = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div>`;
+              } else {
+              const tenorRegex = /https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/;
+              const tenorMatch = status.content.match(tenorRegex);
+              if (tenorMatch) {
+              // Extract Tenor.com video ID
+              const videoId = tenorMatch[1];
+              // Create embedded player for Tenor.com video
+               media = `<div><iframe src="https://tenor.com/embed/${videoId}" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>`;
+              }
             }
           }
         }
