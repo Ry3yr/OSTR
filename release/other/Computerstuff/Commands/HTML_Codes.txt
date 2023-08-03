@@ -11,6 +11,30 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Pseudo Password Box to reveal content:
+--------------------------------------------------------------
+
+<script>
+function checkKeyword() {
+  var e = document.getElementById("inputField").value;
+  if (e.length === 4) {
+    if (e === atob("NDU2Nw==")) {
+      document.getElementById("inputField").style.display = "none";
+      var newElement = document.createElement("p");
+      newElement.innerHTML = decodeURIComponent(atob("aHR0cHM6Ly9odG1sZWRpdC5zcXVhcmVmcmVlLmNvbS8="));
+      document.body.appendChild(newElement);
+    } else {
+      document.getElementById("keywordForm").submit();
+    }
+  }
+}
+</script>
+<form id="keywordForm" onsubmit="event.preventDefault(); checkKeyword()">
+  <input type="text" id="inputField" style="border:none;" placeholder="Enter keyword">
+</form>
+
+___________________________________________
+
 Trigger event (from ext url etc.) when date-span is divisible by 'x' "birthday":
 ----------------------------------------------------------------------------------------------------------------
 
