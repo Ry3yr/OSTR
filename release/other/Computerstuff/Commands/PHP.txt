@@ -3,10 +3,79 @@ PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
 
+T-Shirt Design Viewer:
+--------------------------------
+
+<?php
+$currentDir = dirname(__FILE__);
+echo "The current directory is: " . $currentDir;
+echo "<br>Dropbox/Public/2Diaric/TODO/T-Shirts <br><br>"
+?>
+<?php
+$folderPath = 'T-Shirts/';
+$images = glob($folderPath . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+if (empty($images)) {
+    echo 'No images found in the folder.';
+} else {
+    // Sort the images array in descending order based on file modification time
+    usort($images, function($a, $b) {
+        return filemtime($b) - filemtime($a);
+    });
+    // Get the background color from the URL parameters
+    $bgColor = 'black';
+    $url = preg_replace('/[^a-z]/i', '', $_SERVER['REQUEST_URI']);
+    preg_match('/(white|black|lightblue)/i', $url, $matches);
+    if (!empty($matches)) {
+        $bgColor = strtolower($matches[1]);
+    }
+    // Display the images
+    echo '<div style="display: flex; flex-wrap: wrap;">';
+    foreach ($images as $image) {
+        // Get the background color from the filename
+        $filename = preg_replace('/[^a-z]/i', '', $image);
+        preg_match('/(white|black|light-blue|navy|grey)/i', $filename, $matches);
+        if (!empty($matches)) {
+            $bgColor = strtolower($matches[1]);
+        }
+        echo '<div style="width: 250px; height: 250px; margin: 10px;">';
+        echo '<img src="' . $image . '" alt="T-Shirt Image" style="width: 100%; height: 100%; object-fit: cover; background-color: '.$bgColor.';" onclick="openModal(\''.$image.'\')" />';
+        echo '</div>';
+    }
+    echo '</div>';
+    // Create the modal window
+    echo '<div id="myModal" class="modal">';
+    echo '<span class="close">&times;</span>';
+    echo '<img class="modal-content" id="img01">';
+    echo '</div>';
+    // Add CSS styles for the modal window
+    echo '<style>';
+    echo '.modal { display: none; position: fixed; z-index: 1; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }';
+    echo '.modal-content { margin: auto; display: block; max-width: 80%; max-height: 80%; }';
+    echo '.close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }';
+    echo '@media screen and (max-width: 700px){ .modal-content { width: 100%; } }';
+    echo '</style>';
+    // Add JavaScript code to handle the modal window
+    echo '<script>';
+    echo 'function openModal(image) {';
+    echo 'var modal = document.getElementById("myModal");';
+    echo 'var modalImg = document.getElementById("img01");';
+    echo 'modal.style.display = "block";';
+    echo 'modalImg.src = image;';
+    echo '}';
+    echo 'var span = document.getElementsByClassName("close")[0];';
+    echo 'span.onclick = function() {';
+    echo 'var modal = document.getElementById("myModal");';
+    echo 'modal.style.display = "none";';
+    echo '}';
+    echo '</script>';
+}
+?>
+
+
+__________________________________
 
 YuGiOh ydk deck randomizer:
 -----------------------------------------------
-
 
 <!DOCTYPE html>
 <html>
