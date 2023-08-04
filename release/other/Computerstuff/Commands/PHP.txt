@@ -13,7 +13,7 @@ echo "<br>Dropbox/Public/2Diaric/TODO/T-Shirts <br><br>"
 ?>
 <?php
 $folderPath = 'T-Shirts/';
-$images = glob($folderPath . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+$images = glob($folderPath . '*.{jpg,jpeg,png,gif,svg}', GLOB_BRACE);
 if (empty($images)) {
     echo 'No images found in the folder.';
 } else {
