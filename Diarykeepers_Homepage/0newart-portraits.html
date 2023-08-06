@@ -1,20 +1,85 @@
+<br><a target="_blank" href="https://www.pixiv.net/en/users/75406576/artworks/%E3%83%AA%E3%82%A2%E3%83%AA%E3%82%BA%E3%83%A0">Realism</a><br>
+
 <!DOCTYPE html>
+<html>
+<head>
+  <title>Landscape Art n Doodle's</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.theme.default.min.css'>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="owl-carousel owl-theme" id="carousel"></div>
+<!-- partial -->
+<script src='https://code.jquery.com/jquery-1.12.2.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js'></script>
+<script>
+$(document).ready(function(){
+  var imageUrl = "https://embed.pixiv.net/decorate.php?illust_id=";
+  var artworks = [
+    { id: "110580446" }, //1202Missy
+    { id: "109605912" }, //Ashley
+    { id: "108023461" }, //##
+    { id: "106100212" }, //MaronKusakabe1st
+    { id: "103429656" }, //##
+    { id: "103294926" }, //Luna
+    { id: "103074875" }, //##
+    { id: "102972162" }, //Yusaku
+    { id: "102689112" }, //##
+    { id: "102543636" }, //##
+    { id: "102447592" }, //##
+    { id: "102079337" }, //Aoi1st
+    { id: "98162593" }, //Missy1st
+  ];
+  var carousel = $('#carousel');
+  // Dynamically generate the carousel items
+  artworks.forEach(function(artwork) {
+    var link = $('<a></a>').attr('target', '_blank').attr('href', 'https://www.pixiv.net/en/artworks/' + artwork.id);
+    var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%');
+    var item = $('<div></div>').addClass('item').append(link.append(image));
+    carousel.append(item);
+  });
+  // Initialize the Owl Carousel
+  carousel.owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    center: true,
+    responsive:{
+      0:{
+        items:1
+      },
+      600:{
+        items:3
+      },
+      1000:{
+        items:5
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
+
+
+
+
+<!---<!DOCTYPE html>
 <html lang="en" >
 <head>
- <!---https://m.box.com/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl#--->
- <!-- Owl carousel requires AT LEAST 6 items, otherwise it'll break ! -->
+ https://m.box.com/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl#<br>
+ <br>Owl carousel requires AT LEAST 6 items, otherwise it'll break !
   <meta charset="UTF-8">
   <title>Ryedai1's  Portrait Drawings</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.theme.default.min.css'>
-
 </head>
 <body>
 <br><a target="_blank" href="https://www.pixiv.net/en/users/75406576/artworks/%E3%83%AA%E3%82%A2%E3%83%AA%E3%82%BA%E3%83%A0">Realism</a><br>
-<!-- partial:index.partial.html -->
 <div class="owl-carousel owl-theme">
-   
    <a target="_blank" href="https://www.pixiv.net/en/artworks/102447592?text=ShokaRealist">
    <div class="item"><img src="https://m.box.com/file/1055524661946/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/preview/preview.png" height="50%" width="50%"></div></a>
    <a target="_blank" href="https://?text=AoiZaizRealist4">
@@ -37,10 +102,8 @@
     <a target="_blank" href="https://">
     <div class="item"><img src="https://fakeimg.pl/350x200/?text=X"></div></a>
 </div>
-<!-- partial -->
   <script src='https://code.jquery.com/jquery-1.12.2.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js'></script>
-
 <script>
 $(document).ready(function(){
   $('.owl-carousel').owlCarousel({
@@ -62,6 +125,5 @@ $(document).ready(function(){
   });
 });
 </script>
-
 </body>
-</html>
+</html>--->
