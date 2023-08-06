@@ -53,14 +53,19 @@
           }
 
           data.items.forEach(item => {
-            let status = '';
-            if (item.status) {
-              status = item.status;
-            }
-
-            tableHtml += `
+          let status = '';
+          if (item.status) {
+         status = item.status;
+         }
+         // check if "DigitalAlso" exists in the note section
+         let formatCell = item.format;
+         let extrainfo = '';
+         if (item.note && item.note.includes("DigitalAlso")) {
+         extrainfo = ' DigitalAlso';
+         }
+         tableHtml += `
               <tr>
-                <td><a target="_blank" href="${item.link}">${item.name}</a></td>
+                <td><a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}</td>
                 <td>${item.format}</td>
                 <td>${item.price_paid}</td>
                 <td>${status}</td>
