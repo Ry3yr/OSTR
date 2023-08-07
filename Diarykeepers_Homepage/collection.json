@@ -92,6 +92,15 @@
       "rating": 4
     },
     {
+      "name": "Blue Fire",
+      "link": "https://www.dekudeals.com/items/blue-fire",
+      "added_at": "2023-08-07T11:58:36+00:00",
+      "format": "digital",
+      "price_paid": 679,
+      "price_paid_currency": "EUR",
+      "note": "@Wisteria"
+    },
+    {
       "name": "Burnout Paradise Remastered",
       "link": "https://www.dekudeals.com/items/burnout-paradise-remastered",
       "added_at": "2021-01-28T09:06:32+00:00",
@@ -360,7 +369,7 @@
       "format": "digital",
       "price_paid": 199,
       "price_paid_currency": "EUR",
-      "note": "( Also @ Wisteria - NintyAcc)\nBecause it was cheap\nOnline capable"
+      "note": "( Also@Wisteria - NintyAcc)\nBecause it was cheap\nOnline capable"
     },
     {
       "name": "NEO: The World Ends with You",
@@ -555,6 +564,15 @@
       "price_paid": 899,
       "price_paid_currency": "EUR",
       "note": "CauseItWasCheap"
+    },
+    {
+      "name": "Super Arcade Soccer",
+      "link": "https://www.dekudeals.com/items/super-arcade-soccer",
+      "added_at": "2023-08-07T12:00:31+00:00",
+      "format": "digital",
+      "price_paid": 104,
+      "price_paid_currency": "EUR",
+      "note": "@Wisteria"
     },
     {
       "name": "Super Bomberman R",
