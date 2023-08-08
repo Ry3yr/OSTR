@@ -3,6 +3,67 @@ PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
 
+
+HikariNoAkariOST link Parser
+---------------------------------------------
+
+<a href="javascript:history.pushState({}, '', '?i=1');location.reload();">?i=1</a> 
+<a href="javascript:history.pushState({}, '', '?i=2');location.reload();">?i=2</a> 
+<a href="javascript:history.pushState({}, '', '?i=3');location.reload();">?i=3</a> 
+<br>
+<br>
+<?php
+// Get the page number from the query parameter
+$pageNumber = isset($_GET['i']) ? $_GET['i'] : 1;
+// Create a DOMDocument object
+$dom = new DOMDocument();
+// Load the HTML from the URL with the page number
+$url = 'https://hikarinoakari.com/page/' . $pageNumber;
+$dom->loadHTMLFile($url);
+// Create a DOMXPath object
+$xpath = new DOMXPath($dom);
+// Define the XPath expression to find the desired element
+$expression = '//div[@class="td-module-thumb"]/a/@href';
+// Query the XPath expression
+$hrefAttributes = $xpath->query($expression);
+// Iterate over the results and display the href attribute values
+foreach ($hrefAttributes as $hrefAttribute) {
+    $link = $hrefAttribute->nodeValue;
+    echo '<a href="' . $link . '" target="_blank">' . $link . '</a>';
+    echo '<form method="post" action="">';
+    echo '<input type="hidden" name="link" value="' . $link . '">';
+    echo '<input type="submit" name="search" value="Search">';
+    echo '</form>';
+    echo '<br>';
+    // Check if a link is submitted for search and it matches the current button
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["link"]) && $_POST["link"] == $link && isset($_POST["search"])) {
+        $searchDom = new DOMDocument();
+        // Load the HTML from the submitted link
+        $searchDom->loadHTMLFile($link);
+        // Create a new DOMXPath object for the submitted link
+        $searchXPath = new DOMXPath($searchDom);
+        // Define the XPath expression to find the desired elements in the submitted link
+        $searchExpression = '//*[contains(@href, "https://hikarinoakari.com/out")]';
+        // Query the XPath expression in the submitted link
+        $searchResults = $searchXPath->query($searchExpression);
+        // Display the search results below the current button
+        echo '<div style="margin-left: 20px;">';
+        echo '<h4>Search Results:</h4>';
+        if ($searchResults->length > 0) {
+            foreach ($searchResults as $result) {
+                echo $result->getAttribute("href") . "<br>";
+            }
+        } else {
+            echo 'No results found.';
+        }
+        echo '</div>';
+    }
+}
+?>
+<br><br><a target="_blank" href="https://github.com/nsmle/ouo-bypass">ByPass ouo.press</a>
+
+________________________________
+
 T-Shirt Design Viewer:
 --------------------------------
 
@@ -13,7 +74,7 @@ echo "<br>Dropbox/Public/2Diaric/TODO/T-Shirts <br><br>"
 ?>
 <?php
 $folderPath = 'T-Shirts/';
-$images = glob($folderPath . '*.{jpg,jpeg,png,gif,svg}', GLOB_BRACE);
+$images = glob($folderPath . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
 if (empty($images)) {
     echo 'No images found in the folder.';
 } else {
