@@ -4,6 +4,93 @@ PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
 
 
+
+JSFiddle Downloader:
+--------------------------------
+
+<!DOCTYPE html>
+<body>
+    <?php
+    if (isset($_POST['jsfiddle_url'])) {
+        $jsfiddle_url = $_POST['jsfiddle_url'];
+        if (!preg_match("~^(?:f|ht)tps?://~i", $jsfiddle_url)) {
+            $jsfiddle_url = "https://" . $jsfiddle_url;
+        }
+        $reformed_url = str_replace('jsfiddle.net', 'fiddle.jshell.net', $jsfiddle_url);
+        $reformed_url = str_replace('/show', '', $reformed_url);
+        $curl_command = "curl '" . $reformed_url . "//show/' -H 'Referer: " . $jsfiddle_url . "//' --output 'fiddle.html'";
+        echo "<pre>" . $curl_command . "</pre>";
+
+        //$outputFile = 'fiddle.html';
+        //$curl = curl_init();
+        //curl_setopt($curl, CURLOPT_URL, $reformed_url);
+        //curl_setopt($curl, CURLOPT_REFERER, $jsfiddle_url);
+        //$fileHandle = fopen($outputFile, 'w');
+        //curl_setopt($curl, CURLOPT_FILE, $fileHandle);
+        //curl_exec($curl);
+        //fclose($fileHandle);
+        if (curl_errno($curl)) {
+            echo 'cURL error: ' . curl_error($curl);
+        } else {
+            echo 'Request completed successfully.';
+            echo '<a target="_blank" href="fiddle.html">link</a>';
+        }
+        curl_close($curl);
+    }
+    $error = '';
+    $result = '';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $command = $_POST['command'];
+        preg_match("/'(.+?)'/", $command, $urlMatches);
+        $url = $urlMatches[1];
+        preg_match("/'Referer: (.+?)'/", $command, $refererMatches);
+        $referer = $refererMatches[1];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_REFERER, $referer);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($ch);
+        if ($output !== false) {
+            $filename = 'fiddle.html';
+            file_put_contents($filename, $output);
+            $result = "File downloaded successfully as <a target=_blank href=fiddle.html>link</a>";
+        } else {
+            $error = "Error downloading file.";
+        }
+        curl_close($ch);
+    }
+    ?>
+    <!-- Display the form -->
+    <form method="post">
+        <label for="jsfiddle_url">JSFiddle URL:</label>
+        <input type="text" name="jsfiddle_url" value="https://jsfiddle.net/aoikurayami/745t8aeh/2">
+        <input type="submit" value="Generate cURL cmd">
+    </form>
+    <!-- Display the cURL command form -->
+    <form method="POST" action="">
+        <label for="command">cURL Command:</label>
+        <input type="text" name="command" id="command" required value="<?php echo htmlspecialchars($curl_command); ?>"><br><br>
+        <input type="submit" value="Download JSFiddle">
+    </form>
+    <?php if ($error !== ''): ?>
+        <p style="color: red;"><?php echo $error; ?></p>
+    <?php endif; ?>
+    <?php if ($result !== ''): ?>
+        <p style="color: green;"><?php echo $result; ?></p>
+    <?php endif; ?>
+<?php if (file_exists('fiddle.html')): ?>
+    <iframe src="fiddle.html?<?php echo time(); ?>" frameborder="0" width="100%" height="500"></iframe>
+<?php endif; ?>
+  <!-- Display the iframe with the content of the downloaded file -->
+<!--
+ <?php if (isset($outputFile)): ?>
+ <hr>
+ <h2>Contents of fiddle.html:</h2>
+  <iframe src="<?php echo $outputFile; ?>" frameborder="0" width="100%" height="500"></iframe>
+  <?php endif; ?>-->
+
+_________________________________________
+
 HikariNoAkariOST link Parser
 ---------------------------------------------
 
