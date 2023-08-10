@@ -11,6 +11,74 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Youtube URL Link Extractor
+------------------------------------------
+
+<script>
+var xhr = new XMLHttpRequest();
+// Define the URL of the webpage
+var url = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/UnderratedContent.html';
+// Send a GET request to the URL
+xhr.open('GET', url, true);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    // Get the response text
+    var html = xhr.responseText;
+    // Create a regular expression to match URLs containing "watch" and their corresponding link names
+    var regex = /<a[^>]+href=["']([^"']*\bwatch\b[^"']*)["'][^>]*>(.*?)<\/a>/gi;
+    // Find all matches in the HTML
+    var matches = html.matchAll(regex);
+    // Create a container div to hold the textareas
+    var containerDiv = document.createElement('div');
+    containerDiv.style.display = 'flex';
+    // Create a textarea element to display the URLs
+    var urlTextarea = document.createElement('textarea');
+    urlTextarea.rows = 10;
+    urlTextarea.cols = 50;
+    urlTextarea.style.overflow = 'auto';
+    // Create a textarea element to display the link names
+    var nameTextarea = document.createElement('textarea');
+    nameTextarea.rows = 10;
+    nameTextarea.cols = 50;
+    nameTextarea.style.overflow = 'auto';
+    // Add each match to the textareas
+    if (matches) {
+      for (var match of matches) {
+        // Extract the URL and link name from the match
+        var url = match[1];
+        var name = match[2];
+        // Append the URL to the URL textarea
+        urlTextarea.value += url + '\n';
+        // Append the link name to the name textarea
+        nameTextarea.value += name + '\n';
+      }
+    } else {
+      urlTextarea.value = 'No URLs containing "watch" found.';
+      nameTextarea.value = 'No link names found.';
+    }
+    // Append the textareas to the container div
+    containerDiv.appendChild(urlTextarea);
+    containerDiv.appendChild(nameTextarea);
+    // Append the container div to the document body
+    document.body.appendChild(containerDiv);
+    // Set up event listener to synchronize scrolling
+    urlTextarea.addEventListener('scroll', function () {
+      nameTextarea.scrollTop = urlTextarea.scrollTop;
+    });
+    nameTextarea.addEventListener('scroll', function () {
+      urlTextarea.scrollTop = nameTextarea.scrollTop;
+    });
+  }
+};
+// Send the request
+xhr.send();
+</script>
+<iframe src="data:text/html;base64,
+CjxzY3JpcHQ+CnZhciB4aHIgPSBuZXcgWE1MSHR0cFJlcXVlc3QoKTsKdmFyIHVybCA9ICdodHRwczovL3J5M3lyLmdpdGh1Yi5pby9PU1RSL0RpYXJ5a2VlcGVyc19Ib21lcGFnZS9VbmRlcnJhdGVkQ29udGVudC5odG1sJzsKeGhyLm9wZW4oJ0dFVCcsIHVybCwgdHJ1ZSk7Cnhoci5vbnJlYWR5c3RhdGVjaGFuZ2UgPSBmdW5jdGlvbiAoKSB7CiAgaWYgKHhoci5yZWFkeVN0YXRlID09PSA0ICYmIHhoci5zdGF0dXMgPT09IDIwMCkgewogICAgdmFyIGh0bWwgPSB4aHIucmVzcG9uc2VUZXh0OwogICAgdmFyIHJlZ2V4ID0gLzxhW14+XStocmVmPVsiJ10oW14iJ10qXGJ3YXRjaFxiW14iJ10qKVsiJ11bXj5dKj4oLio/KTxcL2E+L2dpOwogICAgdmFyIG1hdGNoZXMgPSBodG1sLm1hdGNoQWxsKHJlZ2V4KTsKICAgIHZhciBteW5ld0RpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgaWYgKG1hdGNoZXMpIHsKICAgICAgZm9yICh2YXIgbWF0Y2ggb2YgbWF0Y2hlcykgewogICAgICAgIHZhciB1cmwgPSBtYXRjaFsxXTsKICAgICAgICB2YXIgbmFtZSA9IG1hdGNoWzJdOwogICAgICAgIHZhciBsaW5rID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnYScpOwogICAgICAgIGxpbmsuaHJlZiA9IHVybDsKICAgICAgICBsaW5rLnRhcmdldCA9ICdfYmxhbmsnOwogICAgICAgIGxpbmsudGV4dENvbnRlbnQgPSBuYW1lOwogICAgICAgIG15bmV3RGl2LmFwcGVuZENoaWxkKGxpbmspOwogICAgICAgIG15bmV3RGl2LmFwcGVuZENoaWxkKGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2JyJykpOwogICAgICB9CiAgICB9IGVsc2UgewogICAgICBteW5ld0Rpdi50ZXh0Q29udGVudCA9ICdObyBsaW5rcyBmb3VuZC4nOwogICAgfQogICAgZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChteW5ld0Rpdik7CiAgfQp9Owp4aHIuc2VuZCgpOwo8L3NjcmlwdD4=
+" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="250px" width="500px" allowfullscreen></iframe>
+
+______________________________________________________
+
 Pixiv Dynamic Owlcarousel generator (with embed as img):
 -----------------------------------------------------
 
