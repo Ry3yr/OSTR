@@ -11,6 +11,55 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+imgbb uploader (via api)
+-----------------------------------
+
+
+<body>
+  <input type="file" id="imageInput">
+  <button onclick="uploadImage()">Upload</button>
+  <div id="imageURL"></div>
+  <div id="imageViewURL"></div>
+  <script>
+    function uploadImage() {
+      const apiKey = 'Apikey';
+      const expiration = 0;
+      const imageInput = document.getElementById('imageInput');
+      const imageFile = imageInput.files[0];
+      if (!imageFile) {
+        console.log('Please select an image file.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('image', imageFile);
+      fetch(`https://api.imgbb.com/1/upload?key=${apiKey}&expiration=${expiration}`, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data); // JSON response from the API
+          if (data.status === 200) {
+            console.log('Image uploaded successfully!');
+            const imageURL = data.data.url;
+            const imageViewURL = data.data.url_viewer;
+            document.getElementById('imageURL').textContent = `Image URL: ${imageURL}`;
+            document.getElementById('imageViewURL').textContent = `Viewer URL: ${imageViewURL}`;
+            // Perform any further actions with the uploaded image data
+          } else {
+            console.log('Image upload failed. Error:', data.error.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</body>
+</html>
+
+___________________________
+
 Youtube URL Link Extractor
 ------------------------------------------
 
