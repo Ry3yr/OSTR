@@ -89,18 +89,57 @@ Some previous Art pieces / doodles &nbsp;<a target="_blank" href="https://app.bo
 <div class="pre-spoiler">
 <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler" style="background:transparent; border:none; color:transparent;">
 <div class="spoiler" style="display: none;" >
-<a target="_blank" href="https://www.deviantart.com/aoikurayami1/gallery">DA</a><br>
+<a target="_blank" href="https://www.deviantart.com/ryedai1/gallery">DA</a><br>
  <button style="background:transparent; border:transparent;" onclick="myDAFunction()">DArt</button>&nbsp;<a target="_blank" href="https://backend.deviantart.com/rss.xml?q=gallery:aoikurayami1/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Generic_Feed-icon.svg/1920px-Generic_Feed-icon.svg.png" height="15" width="15"></a>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    let API = "https://api.rss2json.com/v1/api.json?rss_url=";
+    let feedURL = "https://backend.deviantart.com/rss.xml?q=gallery:ryedai1";
+    $.ajax({
+      type: 'GET',
+      url: API + feedURL,
+      dataType: 'jsonp',
+      success: function (data) {
+        console.log(data);
+        data.items.forEach(item => {
+          var content = document.getElementById('content');
+          var newItem = "";
+          newItem += "<div class=\"container\" id=\"item\"><a href=\"" + item.link + "\" target=\"_blank\"><h1>" + item.title + "</h1></a>" + "<h4> from " + data.feed.title + "</h4>";
+          if (item.author != "")
+            newItem += "<h4> By " + item.author + "</h4>";
+          newItem += "<h4>Published Date: " + item.pubDate + "</h4>";
+          // Add image support
+          //if (item.thumbnail) {
+          //  newItem += "<img src=\"" + item.thumbnail + "\" alt=\"thumbnail\" style=\"width: 20%;\">";
+          //}
+          newItem += item.description;
+          // Add YouTube iframe support
+          if (item.enclosure && item.enclosure.type === "text/html") {
+            var videoId = item.enclosure.url.split("v=")[1];
+            newItem += "<div><iframe width=\"640\" height=\"390\" src=\"https://www.youtube.com/embed/" + videoId + "\" frameborder=\"0\" allowfullscreen></iframe></div>";
+          }
+          newItem += "<hr></div>";
+          content.insertAdjacentHTML('beforeend', newItem);
+        });
+      }
+    });
+  </script>
+
+    
+<!----DA---aoikurayami1---->
 <script>
 function myDAFunction() {
 document.body.innerHTML = document.body.innerHTML.replace('meepframe', 'div');
 }
 </script>
 <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
-<meepframe class="commonninja_component pid-e1307ea1-35bc-440b-9e98-fa7e18f5dadc"></div>
+<meepframe class="commonninja_component pid-e1307ea1-35bc-440b-9e98-fa7e18f5dadc"></div>--->
 <!--https://backend.deviantart.com/rss.xml?q=gallery:aoikurayami1/--->
-<!---<meepframe-wall id="gTS1IAaYkI1YrpEH"></rssapp-wall><script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>-->
+<!---<meepframe-wall id="gTS1IAaYkI1YrpEH"></rssapp-wall><script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
 </div>
 
 <!----Pixelfed Gallery---->
