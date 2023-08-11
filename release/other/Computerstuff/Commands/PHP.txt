@@ -4,6 +4,81 @@ PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
 
 
+Add gamesizes to "dekudeals" collection.json:
+----------------------------------------------------------------------
+
+<?php
+// Function to handle file upload
+function handleFileUpload($file)
+{
+    // Check if the upload was successful
+    if ($file['error'] === UPLOAD_ERR_OK) {
+        // Read the uploaded file
+        $jsonData = file_get_contents($file['tmp_name']);
+        // Decode the JSON data into an associative array
+        $data = json_decode($jsonData, true);
+        // Check if the JSON decoding was successful
+        if ($data !== null) {
+            // Iterate over each item in the collection
+            foreach ($data['items'] as &$item) {
+                // Check if the item has a "link" key
+                if (isset($item['link'])) {
+                    // Fetch the content of the URL
+                    $url = $item['link'];
+                    $html = file_get_contents($url);
+                    // Create a DOMDocument object and load the HTML content
+                    $dom = new DOMDocument();
+                    @$dom->loadHTML($html);
+                    // Create a DOMXPath object to query the HTML
+                    $xpath = new DOMXPath($dom);
+                    // Find the download size element using XPath
+                    $query = "//strong[contains(text(), 'Download size:')]/following-sibling::text()";
+                    $downloadSize = $xpath->query($query)->item(0)->nodeValue;
+                    // Add the new "gamesize" field to the item
+                    $item['gamesize'] = $downloadSize;
+                }
+            }
+            // Encode the modified data back to JSON
+            $updatedJsonData = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            // Set the appropriate headers for downloading the file
+            header('Content-Type: application/json');
+            header('Content-Disposition: attachment; filename="updated_collection.json"');
+            // Output the updated JSON data for download
+            echo $updatedJsonData;
+        } else {
+            // JSON decoding failed
+            echo "Failed to decode JSON data.";
+        }
+    } else {
+        // File upload failed
+        echo "File upload failed. Please try again.";
+    }
+}
+// Check if a file was uploaded
+if ($_FILES && isset($_FILES['json_file'])) {
+    handleFileUpload($_FILES['json_file']);
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dekudeals Download Size Fetcher</title>
+</head>
+<body>
+    <h1>upload your collection json (or use url) to add gamesizes </h1>
+    <form action="" method="POST">
+        <button type="submit" name="start">Start</button>
+    </form>
+    <hr>
+    <h3>Upload custom JSON</h3>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <input type="file" name="json_file" accept=".json">
+        <button type="submit" name="upload">Upload</button>
+    </form>
+</body>
+</html>
+
+_______________________________
 
 JSFiddle Downloader:
 --------------------------------
