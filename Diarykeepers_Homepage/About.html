@@ -616,10 +616,21 @@ PHNjcmlwdD4KY29uc3QgcHJvZmlsZVVybCA9ICdodHRwczovL21hc3RvZG9uLnNvY2lhbC9hcGkvdjEv
               const videoId = tenorMatch[1];
               // Create embedded player for Tenor.com video
                media = `<div><iframe src="https://tenor.com/embed/${videoId}" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>`;
+              }else{
+              // Check for imgbb image URLs in the status content
+              const imageRegex = /(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/g;
+              const imageMatches = status.content.match(imageRegex);
+              if (imageMatches) {
+              media += '<div>';
+              imageMatches.forEach(url => {
+              media += '<img src="' + url + '" width="50%"><br>';
+              });
+              media += '</div>';
               }
             }
           }
         }
+       }
         // Check for spoiler tag
         if (status.url.includes('activity')) {
           avatar = '<!--<details><summary>Avatar (spoiler)</summary><img src="' + status.account.avatar + '" width="100px"></details>--><br>';
