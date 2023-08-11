@@ -9,89 +9,91 @@
     <a target="_blank" href="http://alceawisteria.byethost7.com/PHP/0demo/2023-04-30-parse-json/parse.php#inks/more/67087617">reload</a>
     <a target="_blank" href="http://gg.gg/dekudealsgamezisecollectionjson">Add (Gamesizes) to json</a><br>
 
-    <div id="collection-table"></div>
+<div id="collection-table"></div>
 
-    <script>
-      fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/collection.json')
-        .then(response => response.json())
-        .then(data => {
-          let peopleCount = data.items.length;
-          let totalPhysicalGames = 0;
-          let totalPrice = 0;
-          let tableHtml = `
-            <table>
-              <tr>
-                <th>Link</th>
-                <th>Format <a href="?sort=format_asc">^</a> / <a href="?sort=format_desc">v</a></th>
-                <th>Price <a href="?sort=price_asc">^</a> / <a href="?sort=price_desc">v</a></th>
-                <th>Status <a href="?sort=status_asc">^</a> / <a href="?sort=status_desc">v</a></th>
-                <th>Date Added <a href="?sort=date_asc">^</a> / <a href="?sort=date_desc">v</a></th>
-                <th>Gamesize</th>
-              </tr>
-          `;
+<script>
+  fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/collection.json')
+    .then(response => response.json())
+    .then(data => {
+      let totalPhysicalGames = 0;
+      let totalPhysicalPrice = 0;
+      let totalAllPrice = 0;
+      let tableHtml = `
+        <table>
+          <tr>
+            <th>Link</th>
+            <th>Format <a href="?sort=format_asc">^</a> / <a href="?sort=format_desc">v</a></th>
+            <th>Price <a href="?sort=price_asc">^</a> / <a href="?sort=price_desc">v</a></th>
+            <th>Status <a href="?sort=status_asc">^</a> / <a href="?sort=status_desc">v</a></th>
+            <th>Date Added <a href="?sort=date_asc">^</a> / <a href="?sort=date_desc">v</a></th>
+            <th>Gamesize</th>
+          </tr>
+      `;
 
-          const urlParams = new URLSearchParams(window.location.search);
-          const sortBy = urlParams.get('sort');
+      const urlParams = new URLSearchParams(window.location.search);
+      const sortBy = urlParams.get('sort');
 
-          if (sortBy === 'price_asc') {
-            data.items.sort((a, b) => a.price_paid - b.price_paid);
-          } else if (sortBy === 'price_desc') {
-            data.items.sort((a, b) => b.price_paid - a.price_paid);
-          } else if (sortBy === 'format_asc') {
-            data.items.sort((a, b) => a.format.localeCompare(b.format));
-          } else if (sortBy === 'format_desc') {
-            data.items.sort((a, b) => b.format.localeCompare(a.format));
-          } else if (sortBy === 'date_asc') {
-            data.items.sort((a, b) => new Date(a.added_at) - new Date(b.added_at));
-          } else if (sortBy === 'date_desc') {
-            data.items.sort((a, b) => new Date(b.added_at) - new Date(a.added_at));
-          } else if (sortBy === 'status_asc') {
-            data.items.sort((a, b) => (a.status || '').localeCompare(b.status || ''));
-          } else if (sortBy === 'status_desc') {
-            data.items.sort((a, b) => (b.status || '').localeCompare(a.status || ''));
-          }
+      if (sortBy === 'price_asc') {
+        data.items.sort((a, b) => a.price_paid - b.price_paid);
+      } else if (sortBy === 'price_desc') {
+        data.items.sort((a, b) => b.price_paid - a.price_paid);
+      } else if (sortBy === 'format_asc') {
+        data.items.sort((a, b) => a.format.localeCompare(b.format));
+      } else if (sortBy === 'format_desc') {
+        data.items.sort((a, b) => b.format.localeCompare(a.format));
+      } else if (sortBy === 'date_asc') {
+        data.items.sort((a, b) => new Date(a.added_at) - new Date(b.added_at));
+      } else if (sortBy === 'date_desc') {
+        data.items.sort((a, b) => new Date(b.added_at) - new Date(a.added_at));
+      } else if (sortBy === 'status_asc') {
+        data.items.sort((a, b) => (a.status || '').localeCompare(b.status || ''));
+      } else if (sortBy === 'status_desc') {
+        data.items.sort((a, b) => (b.status || '').localeCompare(a.status || ''));
+      }
 
-          data.items.forEach(item => {
-            let status = '';
-            if (item.status) {
-              status = item.status;
-            }
-            let formatCell = item.format;
-            let extrainfo = '';
-            if (item.note && item.note.includes("DigitalAlso")) {
-              extrainfo = ' DigitalAlso';
-            }
-            tableHtml += `
-              <tr>
-                <td><a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}</td>
-                <td>${item.format}</td>
-                <td>${item.price_paid}</td>
-                <td>${status}</td>
-                <td>${new Date(item.added_at).toLocaleDateString()}</td>
-                <td>${item.gamesize}</td>
-              </tr>
-            `;
-            if (item.format === "physical") {
-              totalPhysicalGames++;
-            }
-            totalPrice += item.price_paid;
-          });
+      data.items.forEach(item => {
+        let status = '';
+        if (item.status) {
+          status = item.status;
+        }
+        let formatCell = item.format;
+        let extrainfo = '';
+        if (item.note && item.note.includes("DigitalAlso")) {
+          extrainfo = ' DigitalAlso';
+        }
+        tableHtml += `
+          <tr>
+            <td><a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}</td>
+            <td>${item.format}</td>
+            <td>${item.price_paid}</td>
+            <td>${status}</td>
+            <td>${new Date(item.added_at).toLocaleDateString()}</td>
+            <td>${item.gamesize}</td>
+          </tr>
+        `;
+        if (item.format === "physical") {
+          totalPhysicalGames++;
+          totalPhysicalPrice += item.price_paid;
+        }
+        totalAllPrice += item.price_paid;
+      });
 
-          tableHtml += `
-            </table>
-            <p>•Total Games: ${peopleCount} • Physical Games: ${totalPhysicalGames} </p>
-          `;
+      tableHtml += `
+        </table>
+        <p>• Total Games: ${data.items.length} • Physical Games: ${totalPhysicalGames} <br><hr>•PhysicalPrice: ${totalPhysicalPrice} •AllPrice: ${totalAllPrice} </p>
+      `;
 
-          console.log(tableHtml);
-          console.log(`•Total Games Count: ${peopleCount}`);
-          console.log(`•Physical Games: ${totalPhysicalGames}`);
-          console.log(`•Total Price: ${totalPrice}`);
+      console.log(tableHtml);
+      console.log(`• Total Games Count: ${data.items.length}`);
+      console.log(`• Physical Games: ${totalPhysicalGames}`);
+      console.log(`• Total Physical Price: ${totalPhysicalPrice}`);
+      console.log(`• Total All Price: ${totalAllPrice}`);
 
-          const collectionTableDiv = document.getElementById("collection-table");
-          collectionTableDiv.innerHTML = tableHtml;
-        })
-        .catch(error => console.log(error));
-    </script>
+      const collectionTableDiv = document.getElementById("collection-table");
+      collectionTableDiv.innerHTML = tableHtml;
+    })
+    .catch(error => console.log(error));
+</script>
   </body>
 </html>
 
