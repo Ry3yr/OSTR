@@ -560,20 +560,29 @@ PHNjcmlwdD4KY29uc3QgcHJvZmlsZVVybCA9ICdodHRwczovL21hc3RvZG9uLnNvY2lhbC9hcGkvdjEv
 --->
 	  
 <!---selfcoded-mastodon-api-renderer+yt+image-support--->
+
 <body>
+  <div>
+    <input type="radio" name="apiUrl" value="https://mastodon.social/api/v1/accounts/109977878421486714/statuses" checked> ryedai1
+    <input type="radio" name="apiUrl" value="https://pb.todon.de/api/v1/accounts/109629985010224381/statuses"> Alcea
+    <!-- Add more radio buttons for additional instances -->
   <div id="feed"></div>
+  </div>
   <script>
-    const apiUrl = 'https://mastodon.social/api/v1/accounts/109977878421486714/statuses';
-    const accessToken = 'your-access-token';
-    fetch(apiUrl, {
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      data.forEach(status => {
-        const content = '<div>' + status.content + '</div>';
+    // Function to fetch data from the selected API URL
+    function fetchData(apiUrl) {
+      const accessToken = 'your-access-token';
+      fetch(apiUrl, {
+        headers: {
+          'Authorization': 'Bearer ' + accessToken
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Clear the feed before appending new content
+        document.getElementById('feed').innerHTML = '';
+        data.forEach(status => {
+          const content = '<div>' + status.content + '</div>';
         let media = '';
         let avatar = '';
         let tootLink = '';
@@ -646,6 +655,19 @@ PHNjcmlwdD4KY29uc3QgcHJvZmlsZVVybCA9ICdodHRwczovL21hc3RvZG9uLnNvY2lhbC9hcGkvdjEv
       });
     })
     .catch(error => console.error(error));
+    }
+    
+    // Event listener for radio button change
+    const radioButtons = document.querySelectorAll('input[name="apiUrl"]');
+    radioButtons.forEach(radioButton => {
+      radioButton.addEventListener('change', function() {
+        const selectedApiUrl = this.value;
+        fetchData(selectedApiUrl);
+      });
+    });
+    // Initial fetch using the default API URL
+    const defaultApiUrl = 'https://mastodon.social/api/v1/accounts/109977878421486714/statuses';
+    fetchData(defaultApiUrl);
   </script>
 </body>
 
