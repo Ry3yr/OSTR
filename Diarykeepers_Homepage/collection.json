@@ -764,30 +764,3 @@
         }
     ]
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dekudeals Download Size Fetcher</title>
-</head>
-<body>
-    <h1>upload your collection json (or use url) to add gamesizes </h1>
-
-    <!-- Start button -->
-    <form action="" method="POST">
-        <button type="submit" name="start">Start</button>
-    </form>
-
-    <hr>
-
-    <!-- File upload form -->
-    <h3>Upload custom JSON</h3>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <input type="file" name="json_file" accept=".json">
-        <button type="submit" name="upload">Upload</button>
-    </form>
-</body>
-</html>
-
-<a target="_blank" href="?source">Source Code</a>
-</body>
-</html>
