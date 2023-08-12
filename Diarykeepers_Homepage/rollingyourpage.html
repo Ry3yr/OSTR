@@ -1,4 +1,35 @@
-<html lang="en"><head>
+<html lang="en"><head><script>
+const placeholderURL = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/logos/empty.png';
+// Create an intersection observer instance
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // When an image comes into view, replace the src attribute with the data-src attribute
+      const lazyImage = entry.target;
+      lazyImage.src = lazyImage.dataset.src;
+      // Unobserve the image once it has been loaded
+      observer.unobserve(lazyImage);
+    }
+  });
+});
+// Get all the images on the page
+const images = document.querySelectorAll('img');
+// Lazy load each image
+images.forEach((image) => {
+  // Set the placeholder image as the initial src
+  image.src = placeholderURL;
+  // Set the actual image URL in the data-src attribute
+  image.dataset.src = image.src;
+  // Observe the image
+  observer.observe(image);
+});
+</script>
+<!----Lazyloading--End---->
+
+
+<!--https://allwebco-templates.com/support/S_script_newsfeed.htm-->
+
+
 <meta charset="utf-8">
 <base target="_parent">
 <title>rollingyourpage</title>
