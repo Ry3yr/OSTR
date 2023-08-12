@@ -1,7 +1,5 @@
-<!-------Lazyloading----->
-<img class="lazy" data-src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/logos/empty.png" src="path/to/placeholder.jpg" alt="Image">
 <script>
-const lazyImages = document.querySelectorAll('img');
+const placeholderURL = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/logos/empty.png';
 // Create an intersection observer instance
 const observer = new IntersectionObserver((entries, observer) => {
   entries.forEach((entry) => {
@@ -14,11 +12,19 @@ const observer = new IntersectionObserver((entries, observer) => {
     }
   });
 });
-lazyImages.forEach((lazyImage) => {
-  observer.observe(lazyImage);
+// Get all the images on the page
+const images = document.querySelectorAll('img');
+// Lazy load each image
+images.forEach((image) => {
+  // Set the placeholder image as the initial src
+  image.src = placeholderURL;
+  // Set the actual image URL in the data-src attribute
+  image.dataset.src = image.src;
+  // Observe the image
+  observer.observe(image);
 });
 </script>
-<!----Lazyloading--End---->
+
 
 
 
