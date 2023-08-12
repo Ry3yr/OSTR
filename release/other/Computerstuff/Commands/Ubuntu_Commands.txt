@@ -1,0 +1,26 @@
+
+
+__________________
+
+Save all installed packages:
+--------------
+
+sudo dpkg-query -f '${binary:Package}\n' -W > packages_list.txt
+
+( Reinstall: dpkg -i *deb )
+https://kopimi.space/@koyu/110878849059439919
+
+_________________
+
+Fastboot on Ubuntu:
+-----------------------
+https://c.realme.com/in/post-details/1244566811094024192
+
+_____________________________________________________
+
+
+(become root)
+----------------
+sudo -i
+https://askubuntu.com/questions/446570/why-does-su-fail-with-authentication-error
+---------------------------------------------------------
