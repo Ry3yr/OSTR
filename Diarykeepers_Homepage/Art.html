@@ -1,3 +1,26 @@
+<!-------Lazyloading----->
+<img class="lazy" data-src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/logos/empty.png" src="path/to/placeholder.jpg" alt="Image">
+<script>
+const lazyImages = document.querySelectorAll('img');
+// Create an intersection observer instance
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // When an image comes into view, replace the src attribute with the data-src attribute
+      const lazyImage = entry.target;
+      lazyImage.src = lazyImage.dataset.src;
+      // Unobserve the image once it has been loaded
+      observer.unobserve(lazyImage);
+    }
+  });
+});
+lazyImages.forEach((lazyImage) => {
+  observer.observe(lazyImage);
+});
+</script>
+<!----Lazyloading--End---->
+
+
 
 
 <title>Art</title>
