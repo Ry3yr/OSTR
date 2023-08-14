@@ -6,7 +6,21 @@ https://textmechanic.com/text-tools/basic-text-tools/remove-lines-containing/
 
 
 
+Open file with specific program
+----------------------------------------------
+"%ProgramFiles%\Windows NT\Accessories\wordpad.exe" "C:\MCSupp\AT_pb.txt"
 
+
+___________________________
+
+Close then reopen program
+-----------------------------------------
+
+TASKKILL /F /IM MeteoList.exe
+echo timeout 1
+start C:\MCSupp\MeteoList.exe
+ping 127.0.0.1 -n 3
+taskkill /im cmd.exe
 
 _______________________________________________________________________________
 
