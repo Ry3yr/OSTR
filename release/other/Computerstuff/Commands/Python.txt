@@ -2,6 +2,115 @@ Py2Exe: https://github.com/pyinstaller/pyinstaller
 *python-help
 
 
+
+Video Converter GUI (ffmpeg)
+-------------------------------
+
+import tkinter as tk
+from tkinter import filedialog
+from tkinter import ttk
+import subprocess
+from tqdm import tqdm
+import configparser
+import os
+settings_file = "videoconverter_settings.ini"
+settings = configparser.ConfigParser()
+if os.path.exists(settings_file):
+    settings.read(settings_file)
+# Create the settings.ini file if it doesn't exist
+if not os.path.exists(settings_file):
+    settings.add_section("General")
+    settings.set("General", "OutputPath", "")
+    with open(settings_file, "w") as configfile:
+        settings.write(configfile)
+def calculate_bitrate(width, height, mode):
+    if mode == 'CBR':
+        if width <= 640 and height <= 480:
+            return 500
+        elif width <= 1280 and height <= 720:
+            return 1000
+        elif width <= 1920 and height <= 1080:
+            return 2000
+        else:
+            return 4000
+def open_folder_picker():
+    folder_path = filedialog.askdirectory()
+    output_path_var.set(folder_path)
+    settings.set("General", "OutputPath", folder_path)
+    with open(settings_file, "w") as configfile:
+        settings.write(configfile)
+def convert_videos():
+    filetypes = (("Video files", "*.mp4 *.avi"), ("All files", "*.*"))
+    filenames = filedialog.askopenfilenames(filetypes=filetypes)
+    resolution = resolution_var.get()
+    bitrate_mode = bitrate_var.get()
+    output_path = output_path_var.get()
+    if not output_path:
+        output_path = filedialog.askdirectory()
+        settings.set("General", "OutputPath", output_path)
+        with open(settings_file, "w") as configfile:
+            settings.write(configfile)
+    for filename in filenames:
+        output_filename = os.path.join(output_path, filename.split('/')[-1])
+        command = ['ffmpeg', '-i', filename]
+        command += ['-vf', f"scale={resolution}"]
+        width, height = map(int, resolution.split('x'))
+        bitrate = calculate_bitrate(width, height, bitrate_mode)
+        command += ['-b:v', f"{bitrate}k"]
+        command.append(output_filename)
+        with tqdm(total=100, ncols=80, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt}') as pbar:
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            for line in process.stderr:
+                line = line.decode().strip()
+                if line.startswith('frame='):
+                    frame = int(line.split('frame=')[1].split()[0])
+                    pbar.update(frame - pbar.n)
+                    progress_var.set(pbar.n)
+                    progress_text.insert(tk.END, line + '\n')
+                    progress_text.see(tk.END)
+        print(f"Converted {filename} to {output_filename}")
+root = tk.Tk()
+root.title("Video Converter")
+resolution_frame = tk.Frame(root)
+resolution_frame.pack(pady=10)
+resolution_label = tk.Label(resolution_frame, text="Resolution:")
+resolution_label.pack(side=tk.LEFT)
+# Dropdown menu with video resolutions
+resolution_var = tk.StringVar(value="640x480")
+resolution_dropdown = tk.OptionMenu(resolution_frame, resolution_var, "640x480", "1280x720", "1920x1080")
+resolution_dropdown.pack(side=tk.LEFT)
+bitrate_frame = tk.Frame(root)
+bitrate_frame.pack(pady=10)
+bitrate_label = tk.Label(bitrate_frame, text="Bitrate Mode:")
+bitrate_label.pack(side=tk.LEFT)
+bitrate_var = tk.StringVar(value="CBR")
+bitrate_cbr_radio = tk.Radiobutton(bitrate_frame, text="CBR", variable=bitrate_var, value="CBR")
+bitrate_cbr_radio.pack(side=tk.LEFT)
+bitrate_vbr_radio = tk.Radiobutton(bitrate_frame, text="VBR", variable=bitrate_var, value="VBR")
+bitrate_vbr_radio.pack(side=tk.LEFT)
+output_path_frame = tk.Frame(root)
+output_path_frame.pack(pady=10)
+output_path_label = tk.Label(output_path_frame, text="Output Path:")
+output_path_label.pack(side=tk.LEFT)
+output_path_var = tk.StringVar(value=settings.get("General", "OutputPath", fallback=""))
+output_path_entry = tk.Entry(output_path_frame, textvariable=output_path_var, state="readonly")
+output_path_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+folder_picker_button = tk.Button(output_path_frame, text="Select Folder", command=open_folder_picker)
+folder_picker_button.pack(side=tk.LEFT)
+progress_text = tk.Text(root, height=10, width=50)
+progress_text.pack(pady=10)
+progress_var = tk.DoubleVar(value=0.0)
+progress_bar = ttk.Progressbar(root, variable=progress_var, maximum=100)
+progress_bar.pack(pady=10)
+convert_button = tk.Button(root, text="Convert", command=convert_videos)
+convert_button.pack(pady=10)
+root.mainloop()
+
+
+
+
+________________________________
+
 Youtube Downloader:
 -------------------
 
@@ -326,24 +435,6 @@ root.mainloop()
 =============================
 ===PythonHelp=================
 
-Start Python *.py script w.o. cmd:
------------------------
-
-cmd /c start /min C:\Users\User\AppData\Local\Programs\Python\Python311\python.exe "C:\portableapps\YT_Downloader.py"
-
-__________________________
-
-FindOut Installed python versions:
---------------------------
-
-where python
-
-/or/
-
-python --version
-
-_______________________________________
-
 Figure out url from pip installer:
 ----------------------------------
 pip install PyQt5 --log log.txt
@@ -361,10 +452,3 @@ Install whl:
 ------------
 
 pip install *.whl
-
-_______________________________________
-
-Fix Python %path/ (if "python --version" returns the wrong one, or if "python" opens the microsoft store)
---------------------------------------
-
-set PATH=C:\Users\User\AppData\Local\Programs\Python\Python311;%PATH%
