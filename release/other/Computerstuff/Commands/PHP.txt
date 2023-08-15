@@ -4,6 +4,107 @@ PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
 ___________________________
 
 
+
+JSFiddleClone:
+------------------------
+
+<a href="save-new-fiddle.php" target="_blank">Save New HTML</a>
+<style>
+  .preview-container {
+    border: 1px solid black;
+    padding: 10px;
+  }
+</style>
+<?php
+$folderPath = 'htmls';
+$files = glob($folderPath . '/*.html');
+$fileCount = count($files);
+$gridColumns = 6;
+$gridRows = ceil($fileCount / $gridColumns);
+?>
+<div id="preview-container-wrapper"></div>
+<script>
+  // Function to append the preview containers to the wrapper div
+  function appendPreviewContainers() {
+    var wrapper = document.getElementById('preview-container-wrapper');
+    <?php
+$folderPath = 'htmls';
+$files = glob($folderPath . '/*.html');
+$fileCount = count($files);
+$gridColumns = 6;
+$gridRows = ceil($fileCount / $gridColumns);
+$files = array_reverse($files); // Reverse the order of the files
+for ($row = 0; $row < $gridRows; $row++) {
+  echo 'var row' . $row . ' = document.createElement("div");';
+  echo 'row' . $row . '.style.display = "flex";';
+  for ($col = 0; $col < $gridColumns; $col++) {
+    $index = $row * $gridColumns + $col;
+    if ($index < $fileCount) {
+      $file = $files[$index];
+      $fileName = basename($file);
+      $objectPreview = '<object data="' . $file . '" width="300" height="200" scrolling="no"></object>';
+      echo 'var container' . $index . ' = document.createElement("div");';
+      echo 'container' . $index . '.className = "preview-container";';
+      echo 'container' . $index . '.style.flex = "1";';
+      echo 'container' . $index . '.style.margin = "5px";';
+      echo 'container' . $index . '.innerHTML = \'' . $objectPreview . '<br><a href="' . $file . '" target="_blank">' . $fileName . '</a>\';';
+      echo 'row' . $row . '.appendChild(container' . $index . ');';
+    }
+  }
+
+  echo 'wrapper.appendChild(row' . $row . ');';
+}
+?>
+  }
+
+  // Function to stop further data fetching after a specified delay
+  function stopDataFetching() {
+    var xhr = new XMLHttpRequest();
+    xhr.abort();
+  }
+  // Call the function to append the preview containers
+  appendPreviewContainers();
+  // Wait for 20 seconds and then stop further data fetching
+  setTimeout(stopDataFetching, 10000);
+</script>
+
+
+
+<!------save-new-fiddle.php--->
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $code = $_POST['code'];
+    $name = $_POST['name'];
+    // Generate the file name
+    $date = date('Y-m-d');
+    $name = preg_replace('/[^\w\s]/', '', $name); // Remove illegal characters
+    $name = str_replace(' ', '-', $name); // Replace spaces with "-"
+    $filename = $date . '-' . $name . '.html';
+    // Check if the "html" folder exists
+    if (!is_dir('htmls')) {
+        // Create the "htmls" folder if it doesn't exist
+        mkdir('html');
+    }
+    // Save the content to the file
+    $filepath = 'htmls/' . $filename;
+    file_put_contents($filepath, $code);
+    echo "Code saved successfully!";
+}
+?>
+<body>
+    <form method="post" action="">
+        <label for="code">Code:</label><br>
+        <textarea name="code" rows="10" cols="50"></textarea><br><br>
+        <label for="name">Name:</label><br>
+        <input type="text" name="name"><br><br>
+        <input type="submit" value="Save Code">
+    </form>
+</body>
+</html>
+
+
+______________________________________________
+
 Add gamesizes to "dekudeals" collection.json:
 ----------------------------------------------------------------------
 
