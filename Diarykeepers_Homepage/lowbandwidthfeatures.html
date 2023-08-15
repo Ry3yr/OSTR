@@ -1,0 +1,66 @@
+
+<b> COOL STUFF</b><br><br>
+<!---------------------------------------------------------------------------------------->
+<!----------------------------------CoolStuff--------------------------------------------->
+<!---------------------------------------------------------------------------------------->
+<div id="contentstuff"></div>
+    <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html")
+        .then(response => response.text())
+        .then(data => {
+          const start = data.indexOf("Some") - 4;
+          const end = data.indexOf("</section>") - 8;
+          const content = data.substring(start, end);
+          document.getElementById("contentstuff").innerHTML = content;
+        })
+        .catch(error => console.log(error));
+    </script>
+
+
+<!---------------------------------------------------------------------------------------->
+<!---------------------------------------Art---------------------------------------------->
+<!---------------------------------------------------------------------------------------->
+<hr>
+<b>Art</b><br><br>
+<hr>
+<div id="contentart"></div>
+    <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Art.html")
+        .then(response => response.text())
+        .then(data => {
+          const start = data.indexOf("[MainPage]") + 17;
+          const end = data.indexOf("Newart-") - 8;
+          const content = data.substring(start, end);
+          document.getElementById("contentart").innerHTML = content;
+        })
+        .catch(error => console.log(error));
+    </script>
+<br>---Newart--missing-(is-a-bandwith-hog)<br>
+<!---Part2---->
+<div id="contentart2"></div>
+    <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Art.html")
+        .then(response => response.text())
+        .then(data => {
+          const start = data.indexOf("Beginning") - 25;
+          const end = data.indexOf("<br><br><br>") - 8;
+          const content = data.substring(start, end);
+          document.getElementById("contentart2").innerHTML = content;
+        })
+        .catch(error => console.log(error));
+    </script>
+<hr>
+
+
+
+
+
+
+
+<!--<script>
+  // Function to stop further data fetching after a specified delay
+  function stopDataFetching() {
+    var xhr = new XMLHttpRequest();
+    xhr.abort();
+  }
+
+  // Wait for 20 seconds and then stop further data fetching
+  setTimeout(stopDataFetching, 20000);
+</script>-->
