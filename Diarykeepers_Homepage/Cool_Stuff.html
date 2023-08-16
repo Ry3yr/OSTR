@@ -1,3 +1,23 @@
+<script>
+// Check if "lowbandwidth" is present in the URL
+if (window.location.href.includes("lowbandwidth")) {
+  // Create a <style> element
+  var style = document.createElement("style");
+  
+  // Define the CSS rules
+  style.innerHTML = `
+    iframe, img {
+      display: none !important;
+    }
+  `;
+  // Add the <style> element to the document's head
+  document.head.appendChild(style);
+}
+</script>
+
+
+
+
 
 <!DOCTYPE html>
 <html style=" font-size: 16px;">
