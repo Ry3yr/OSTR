@@ -5,6 +5,48 @@ ___________________________
 
 
 
+PHP list dirs:
+--------------------
+
+
+<?php
+$directory = './'; // Specify the directory path here
+function listSubdirectories($directory) {
+    $subdirectories = glob($directory . '/*', GLOB_ONLYDIR);
+    if (count($subdirectories) > 0) {
+        echo '<ul>';
+        foreach ($subdirectories as $subdirectory) {
+            echo '<li>';
+            echo '<details>';
+            echo '<summary>' . basename($subdirectory) . '</summary>';
+            listSubdirectories($subdirectory);
+            echo '</details>';
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
+    $files = glob($directory . '*.*');
+    if (count($files) > 0) {
+        echo '<ul>';
+        foreach ($files as $file) {
+            echo '<li><a href="' . $file . '">' . basename($file) . '</a></li>';
+        }
+        echo '</ul>';
+    }
+}
+echo '<ul>';
+echo '<li>';
+echo '<details>';
+echo '<summary>Root</summary>';
+listSubdirectories($directory);
+echo '</details>';
+echo '</li>';
+echo '</ul>';
+?>
+
+
+____________________
+
 JSFiddleClone:
 ------------------------
 
