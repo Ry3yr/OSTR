@@ -1,28 +1,18 @@
 <script>
-const placeholderURL = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/logos/empty.png';
-// Create an intersection observer instance
-const observer = new IntersectionObserver((entries, observer) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      // When an image comes into view, replace the src attribute with the data-src attribute
-      const lazyImage = entry.target;
-      lazyImage.src = lazyImage.dataset.src;
-      // Unobserve the image once it has been loaded
-      observer.unobserve(lazyImage);
+// Check if "lowbandwidth" is present in the URL
+if (window.location.href.includes("lowbandwidth")) {
+  // Create a <style> element
+  var style = document.createElement("style");
+  
+  // Define the CSS rules
+  style.innerHTML = `
+    iframe, img {
+      display: none !important;
     }
-  });
-});
-// Get all the images on the page
-const images = document.querySelectorAll('img');
-// Lazy load each image
-images.forEach((image) => {
-  // Set the placeholder image as the initial src
-  image.src = placeholderURL;
-  // Set the actual image URL in the data-src attribute
-  image.dataset.src = image.src;
-  // Observe the image
-  observer.observe(image);
-});
+  `;
+  // Add the <style> element to the document's head
+  document.head.appendChild(style);
+}
 </script>
 
 
