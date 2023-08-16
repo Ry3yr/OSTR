@@ -10,6 +10,37 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+Disable site elements (here: object & iframe) if "keyword" is part of url:
+-----------------------------------------------------------------------------------------------------------
+<script>
+// Check if "lowbandwidth" is present in the URL
+if (window.location.href.includes("lowbandwidth")) {
+  // Create a <style> element
+  var style = document.createElement("style");
+  
+  // Define the CSS rules
+  style.innerHTML = `
+    iframe, object {
+      display: none !important;
+    }
+  `;
+  // Add the <style> element to the document's head
+  document.head.appendChild(style);
+}
+</script>
+
+_____________________
+
+Disable all img & iframe onpage:
+--------------------------------------------------
+
+  <style>
+    img, iframe {
+      display: none !important;
+    }
+  </style>
+
+_____________
 
 HTML Render
 ----------------------
