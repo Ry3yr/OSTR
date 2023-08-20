@@ -86,6 +86,7 @@ ______________________________
 Folderlister (with urlconversion, link support and download to .html)
 ------------------------------------------
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,6 +104,8 @@ Folderlister (with urlconversion, link support and download to .html)
   <label>
     <input type="checkbox" id="convertToUrlCheckbox" checked> Convert paths to URL-conforming characters
   </label>
+
+
   <script>
     var dropzone = document.getElementById('dropzone');
     var fileList = document.getElementById('fileList');
@@ -110,16 +113,21 @@ Folderlister (with urlconversion, link support and download to .html)
     var wrapLinesCheckbox = document.getElementById('wrapLinesCheckbox');
     var convertToUrlCheckbox = document.getElementById('convertToUrlCheckbox');
     var downloadButton = document.getElementById('downloadButton');
+
     dropzone.addEventListener('dragover', function(event) {
       event.preventDefault();
     });
+
     dropzone.addEventListener('drop', function(event) {
       event.preventDefault();
+
       // Clear the file list
       fileList.innerHTML = '';
+
       var items = event.dataTransfer.items;
       for (var i = 0; i < items.length; i++) {
         var item = items[i];
+
         if (item.kind === 'file') {
           var entry = item.webkitGetAsEntry();
           if (entry) {
@@ -132,27 +140,49 @@ Folderlister (with urlconversion, link support and download to .html)
         }
       }
     });
-    function traverseDirectory(directory, parentPath) {
-      var directoryReader = directory.createReader();
-      directoryReader.readEntries(function(entries) {
-        for (var i = 0; i < entries.length; i++) {
-          var entry = entries[i];
-          if (entry.isFile) {
-            addFileToList(parentPath + entry.name);
-          } else if (entry.isDirectory) {
-            traverseDirectory(entry, parentPath + entry.name + '/');
-          }
+
+//Traverse Directory which allows +100 files
+function traverseDirectory(directory, parentPath) {
+  return new Promise(function(resolve, reject) {
+    var reader = directory.createReader();
+    var entries = [];
+
+    var readEntries = function() {
+      reader.readEntries(function(result) {
+        if (result.length) {
+          entries = entries.concat(result);
+          readEntries();
+        } else {
+          var promises = [];
+          entries.forEach(function(entry) {
+            if (entry.isFile) {
+              promises.push(addFileToList(parentPath + entry.name));
+            } else if (entry.isDirectory) {
+              promises.push(traverseDirectory(entry, parentPath + entry.name + '/'));
+            }
+          });
+          Promise.all(promises)
+            .then(resolve)
+            .catch(reject);
         }
       }, function(error) {
         console.error('Error reading directory:', error);
+        reject(error);
       });
-    }
+    };
+
+    readEntries();
+  });
+}
+
     function addFileToList(filePath) {
       var li = document.createElement('li');
       var lineContent = prependText.value + filePath;
+      
       if (convertToUrlCheckbox.checked) {
         lineContent = encodeURI(lineContent);
       }
+      
       if (wrapLinesCheckbox.checked) {
         var link = document.createElement('a');
         link.href = lineContent;
@@ -164,9 +194,11 @@ Folderlister (with urlconversion, link support and download to .html)
       
       fileList.appendChild(li);
     }
+
     downloadButton.addEventListener('click', function() {
       var content = fileList.innerHTML;
       var filename = 'extHDD.html';
+
       var element = document.createElement('a');
       element.setAttribute('href', 'data:text/html;charset=UTF-8,' + encodeURIComponent(content));
       element.setAttribute('download', filename);
@@ -176,6 +208,7 @@ Folderlister (with urlconversion, link support and download to .html)
       document.body.removeChild(element);
     });
   </script>
+
   <style>
     #dropzone {
       width: 500px;
