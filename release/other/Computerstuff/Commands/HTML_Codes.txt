@@ -10,6 +10,348 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+
+
+
+
+YT Studio esque:
+-------------------------
+
+<a target="_blank" href="https://ry3yr.github.io/ytsearch">YT General Search</a>&nbsp;
+<a target="_blank" href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/ytchannelsearch-dkpr.html">YTChannel Search</a>&nbsp;
+<a target="_blank" href="https://ry3yr.github.io/ytstudio">YTStudio Overview</a><br>
+
+<!---LatestYTComments--->
+<iframe src="data:text/html;base64,
+PCFET0NUWVBFIGh0bWw+CjxodG1sPgo8aGVhZD4KICAgIDx0aXRsZT5GZXRjaCBZb3VUdWJlIENvbW1lbnRzPC90aXRsZT4KPC9oZWFkPgo8Ym9keT4KICAgIDwhLS0gSFRNTCBmb3JtIGZvciBBUEkga2V5IGFuZCBjaGFubmVsIHNlbGVjdGlvbiAtLT4KICAgIDxmb3JtIGlkPSJjb21tZW50Rm9ybSIgbWV0aG9kPSJQT1NUIj4KICAgICAgICA8bGFiZWwgZm9yPSJhcGlfa2V5Ij5BUEkgS2V5OjwvbGFiZWw+CiAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIG5hbWU9ImFwaV9rZXkiIGlkPSJhcGlfa2V5IiB2YWx1ZT0iIj4KCiAgICAgICAgPGxhYmVsIGZvcj0iY2hhbm5lbF9pZCI+Q2hhbm5lbDo8L2xhYmVsPgogICAgICAgIDxzZWxlY3QgaWQ9ImNoYW5uZWxfaWQiIG5hbWU9ImNoYW5uZWxfaWQiIHJlcXVpcmVkPgogICAgICAgICAgICA8b3B0aW9uIHZhbHVlPSJVQ3JsdEdpaDExQV9OYXl6NmhHNVh0SXciPkRpYXJ5a2VlcGVyPC9vcHRpb24+CiAgICAgICAgICAgIDxvcHRpb24gdmFsdWU9IlVDbUlwT25kNUJWeDVTaTJocDBXTktadyI+UmVwZWVreXJhaWRfQ2Vybzwvb3B0aW9uPgogICAgICAgIDwvc2VsZWN0PgoKICAgICAgICA8YnV0dG9uIHR5cGU9InN1Ym1pdCI+RmV0Y2ggQ29tbWVudHM8L2J1dHRvbj4KICAgIDwvZm9ybT4KCiAgICA8IS0tIENvbnRhaW5lciB0byBkaXNwbGF5IHRoZSBmZXRjaGVkIGNvbW1lbnRzIC0tPgogICAgPGRpdiBpZD0iY29tbWVudHNDb250YWluZXIiPjwvZGl2PgoKICAgIDxzY3JpcHQ+CiAgICAgICAgY29uc3QgZm9ybSA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdjb21tZW50Rm9ybScpOwogICAgICAgIGNvbnN0IGNvbW1lbnRzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2NvbW1lbnRzQ29udGFpbmVyJyk7CgogICAgICAgIGZvcm0uYWRkRXZlbnRMaXN0ZW5lcignc3VibWl0JywgYXN5bmMgKGV2ZW50KSA9PiB7CiAgICAgICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7CgogICAgICAgICAgICBjb25zdCBhcGlLZXkgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYXBpX2tleScpLnZhbHVlOwogICAgICAgICAgICBjb25zdCBjaGFubmVsSWQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnY2hhbm5lbF9pZCcpLnZhbHVlOwoKICAgICAgICAgICAgY29uc3QgYXBpVXJsID0gYGh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3lvdXR1YmUvdjMvY29tbWVudFRocmVhZHM/cGFydD1zbmlwcGV0JmFsbFRocmVhZHNSZWxhdGVkVG9DaGFubmVsSWQ9JHtjaGFubmVsSWR9Jm1heFJlc3VsdHM9NSZvcmRlcj10aW1lJmtleT0ke2FwaUtleX1gOwoKICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgZmV0Y2goYXBpVXJsKTsKICAgICAgICAgICAgICAgIGNvbnN0IGRhdGEgPSBhd2FpdCByZXNwb25zZS5qc29uKCk7CgogICAgICAgICAgICAgICAgY29uc3QgY29tbWVudHMgPSBkYXRhLml0ZW1zOwoKICAgICAgICAgICAgICAgIC8vIENsZWFyIHByZXZpb3VzIGNvbW1lbnRzCiAgICAgICAgICAgICAgICBjb21tZW50c0NvbnRhaW5lci5pbm5lckhUTUwgPSAnJzsKCiAgICAgICAgICAgICAgICAvLyBEaXNwbGF5IHRoZSBmZXRjaGVkIGNvbW1lbnRzCiAgICAgICAgICAgICAgICBjb21tZW50cy5mb3JFYWNoKChjb21tZW50KSA9PiB7CiAgICAgICAgICAgICAgICAgICAgY29uc3Qgc25pcHBldCA9IGNvbW1lbnQuc25pcHBldC50b3BMZXZlbENvbW1lbnQuc25pcHBldDsKICAgICAgICAgICAgICAgICAgICBjb25zdCBhdXRob3IgPSBzbmlwcGV0LmF1dGhvckRpc3BsYXlOYW1lOwogICAgICAgICAgICAgICAgICAgIGNvbnN0IHRleHQgPSBzbmlwcGV0LnRleHREaXNwbGF5OwogICAgICAgICAgICAgICAgICAgIGNvbnN0IHZpZGVvSWQgPSBzbmlwcGV0LnZpZGVvSWQ7CiAgICAgICAgICAgICAgICAgICAgY29uc3QgdmlkZW9VcmwgPSBgaHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj0ke3ZpZGVvSWR9YDsKCiAgICAgICAgICAgICAgICAgICAgY29uc3QgY29tbWVudEVsZW1lbnQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgICAgICAgICAgICAgICAgICBjb21tZW50RWxlbWVudC5pbm5lckhUTUwgPSBgCiAgICAgICAgICAgICAgICAgICAgICAgIDxwPjxzdHJvbmc+JHthdXRob3J9PC9zdHJvbmc+OiAke3RleHR9PC9wPgogICAgICAgICAgICAgICAgICAgICAgICA8cD5Gcm9tIFZpZGVvOiA8YSBocmVmPSIke3ZpZGVvVXJsfSI+JHt2aWRlb1VybH08L2E+PC9wPgogICAgICAgICAgICAgICAgICAgIGA7CgogICAgICAgICAgICAgICAgICAgIGNvbW1lbnRzQ29udGFpbmVyLmFwcGVuZENoaWxkKGNvbW1lbnRFbGVtZW50KTsKICAgICAgICAgICAgICAgIH0pOwogICAgICAgICAgICB9IGNhdGNoIChlcnJvcikgewogICAgICAgICAgICAgICAgY29uc29sZS5lcnJvcignRXJyb3IgZmV0Y2hpbmcgY29tbWVudHM6JywgZXJyb3IpOwogICAgICAgICAgICB9CiAgICAgICAgfSk7CiAgICA8L3NjcmlwdD4KPC9ib2R5Pgo8L2h0bWw+
+" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="220px" width="800px" allowfullscreen></iframe>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Channel Videos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="text"],
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        input[type="checkbox"],
+        label[for="show_thumbnail"] {
+            display: inline;
+            margin-right: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML form -->
+    <form method="POST" action="">
+        <label for="channel_id">Channel ID:</label>
+        <select id="channel_id" name="channel_id" required>
+            <option value="UCrltGih11A_Nayz6hG5XtIw">Diarykeeper</option>
+            <option value="UCmIpOnd5BVx5Si2hp0WNKZw">Repeekyraid_Cero</option>
+        </select>
+        <label for="api_key">API Key:</label>
+        <input type="text" id="api_key" name="api_key" required>
+        <input type="checkbox" id="show_thumbnail" name="show_thumbnail">
+        <label for="show_thumbnail">Show Thumbnail</label><br>
+        <button type="submit">Get Channel Videos</button>
+    </form>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.querySelector('form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var channelId = document.getElementById('channel_id').value;
+    var apiKey = document.getElementById('api_key').value;
+    var url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${apiKey}`;
+    fetch(url)
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Error: cURL request failed');
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        var uploadsPlaylistId = data.items[0].contentDetails.relatedPlaylists.uploads;
+        var playlistUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${uploadsPlaylistId}&key=${apiKey}`;
+        return fetch(playlistUrl);
+      })
+      .then(function(playlistResponse) {
+        if (!playlistResponse.ok) {
+          throw new Error('Error: cURL playlist request failed');
+        }
+        return playlistResponse.json();
+      })
+      .then(function(playlistData) {
+        var items = playlistData.items;
+
+        items.forEach(function(item) {
+          var videoId = item.snippet.resourceId.videoId;
+          var videoTitle = item.snippet.title;
+          var videoThumbnail = item.snippet.thumbnails.default.url;
+          var videoPublishedAt = item.snippet.publishedAt;
+          var videoContainer = document.createElement('div');
+          if (document.getElementById('show_thumbnail').checked) {
+            var thumbnailImg = document.createElement('img');
+            thumbnailImg.src = videoThumbnail;
+            thumbnailImg.alt = 'Thumbnail';
+            videoContainer.appendChild(thumbnailImg);
+          }
+          var videoLink = document.createElement('a');
+          videoLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+          videoLink.textContent = videoTitle;
+          videoContainer.appendChild(videoLink);
+          var videoIdText = document.createElement('p');
+          videoIdText.textContent = 'Video ID: ' + videoId;
+          videoContainer.appendChild(videoIdText);
+          var uploadDateText = document.createElement('p');
+          uploadDateText.textContent = 'Upload Date: ' + videoPublishedAt;
+          videoContainer.appendChild(uploadDateText);
+          var commentsUrl = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=5&videoId=${videoId}&key=${apiKey}`;
+          fetch(commentsUrl)
+            .then(function(commentsResponse) {
+              if (!commentsResponse.ok) {
+                throw new Error('Error: cURL comments request failed');
+              }
+              return commentsResponse.json();
+            })
+            .then(function(commentsData) {
+              var comments = commentsData.items;
+              comments.forEach(function(comment) {
+                var commentText = document.createElement('p');
+                commentText.textContent = 'Comment: ' + comment.snippet.topLevelComment.snippet.textDisplay;
+                videoContainer.appendChild(commentText);
+              });
+            })
+            .catch(function(error) {
+              console.error(error);
+            });
+
+          document.body.appendChild(videoContainer);
+        });
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+  });
+});
+</script>
+
+___________________
+
+
+Youtube Channel Search
+------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Channel Content Search</title>
+</head>
+<body>
+    <h1>YouTube Channel Content Search</h1>
+    <label for="channelName">Channel Name:</label>
+    <input type="text" id="channelName"><br><br>
+    <label for="channelId">Channel ID:</label>
+    <input type="text" id="channelId" value="UCrltGih11A_Nayz6hG5XtIw"><br><br>
+    <label for="searchText">Search Text:</label>
+    <input type="text" id="searchText" required><br><br>
+    <button onclick="searchVideos()">Search</button>
+    <div id="searchResults"></div>
+    <script>
+        function searchVideos() {
+            var channelName = document.getElementById("channelName").value;
+            var channelId = document.getElementById("channelId").value;
+            var searchText = document.getElementById("searchText").value;
+            if (searchText === "") {
+                alert("Please enter a search text.");
+                return;
+            }
+            // Set your YouTube Data API key
+            var apiKey = 'APIKEY';
+            // Determine the channel parameter based on channel name or channel ID
+            var channelParam = "";
+            if (channelId !== "") {
+                channelParam = "channelId=" + encodeURIComponent(channelId);
+            } else if (channelName !== "") {
+                channelParam = "channel=" + encodeURIComponent(channelName);
+            }
+            // Make a request to the YouTube Data API
+            var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + encodeURIComponent(searchText) + "&maxResults=10&key=" + apiKey + "&" + channelParam;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var searchResultsDiv = document.getElementById("searchResults");
+                    searchResultsDiv.innerHTML = "";
+                    if (data.items && data.items.length > 0) {
+                        var resultsHeading = document.createElement("h2");
+                        resultsHeading.textContent = "Search Results";
+                        searchResultsDiv.appendChild(resultsHeading);
+                        data.items.forEach(function(item) {
+                            if (item.id.kind !== "youtube#video") {
+                                return; // Skip non-video results
+                            }
+                            var videoId = item.id.videoId;
+                            var videoTitle = item.snippet.title;
+                            var videoThumbnail = item.snippet.thumbnails.default.url;
+                            var videoLink = "https://www.youtube.com/watch?v=" + videoId;
+                            var videoLinkElement = document.createElement("a");
+                            videoLinkElement.href = videoLink;
+                            videoLinkElement.target = "_blank";
+                            var thumbnailImageElement = document.createElement("img");
+                            thumbnailImageElement.src = videoThumbnail;
+                            thumbnailImageElement.alt = videoTitle;
+                            var videoTitleElement = document.createElement("p");
+                            videoTitleElement.textContent = videoTitle;
+                            videoLinkElement.appendChild(thumbnailImageElement);
+                            videoLinkElement.appendChild(videoTitleElement);
+                            searchResultsDiv.appendChild(videoLinkElement);
+                        });
+                    } else {
+                        var noResultsMessage = document.createElement("p");
+                        noResultsMessage.textContent = "No videos found for the specified channel and search text.";
+                        searchResultsDiv.appendChild(noResultsMessage);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("An error occurred during the API request.");
+                });
+        }
+    </script>
+</body>
+</html>
+
+
+
+______________________
+
+
+Youtube Search
+-------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Search</title>
+    <style>
+        .additional-info {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <label for="api_key">API Key:</label>
+    <input type="text" id="api_key" required><br><br>
+    <label for="search_query">Search Query:</label>
+    <input type="text" id="search_query" required><br><br>
+    <label for="max_results">Max Results:</label>
+    <input type="number" id="max_results" min="1" max="50" value="50" required><br><br>
+    <input type="checkbox" id="show_additional_info">
+    <label for="show_additional_info">Show Additional Info</label><br><br>
+    <button onclick="searchYouTube()">Search</button>
+    <br><br>
+    <div id="results"></div>
+
+    <script>
+        function searchYouTube() {
+            var apiKey = document.getElementById('api_key').value;
+            var searchQuery = document.getElementById('search_query').value;
+            var maxResults = document.getElementById('max_results').value;
+            var showAdditionalInfo = document.getElementById('show_additional_info').checked;
+
+            var apiUrl = 'https://www.googleapis.com/youtube/v3/search';
+            var requestUrl = apiUrl + '?part=snippet&maxResults=' + maxResults + '&q=' + encodeURIComponent(searchQuery) + '&key=' + apiKey;
+
+            fetch(requestUrl)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    var resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '';
+
+                    data.items.forEach(function(item) {
+                        if (item.id.kind === 'youtube#video') {
+                            var videoId = item.id.videoId;
+                            var title = item.snippet.title;
+                            var link = 'https://www.youtube.com/watch?v=' + videoId;
+
+                            var titleElement = document.createElement('p');
+                            titleElement.textContent = 'Title: ' + title;
+
+                            if (showAdditionalInfo) {
+                                var channelId = item.snippet.channelId;
+                                var channelTitle = item.snippet.channelTitle;
+                                var uploadDate = item.snippet.publishedAt;
+
+                                var channelElement = document.createElement('p');
+                                channelElement.classList.add('additional-info');
+                                channelElement.textContent = 'Channel: ' + channelTitle + ' (ID: ' + channelId + ')';
+
+                                var uploadDateElement = document.createElement('p');
+                                uploadDateElement.classList.add('additional-info');
+                                uploadDateElement.textContent = 'Upload Date: ' + uploadDate;
+
+                                resultsDiv.appendChild(channelElement);
+                                resultsDiv.appendChild(uploadDateElement);
+                            }
+
+                            var linkElement = document.createElement('a');
+                            linkElement.href = link;
+                            linkElement.textContent = 'Link';
+                            linkElement.target = '_blank'; // Add target="_blank" attribute
+
+                            resultsDiv.appendChild(titleElement);
+                            resultsDiv.appendChild(linkElement);
+                            resultsDiv.appendChild(document.createElement('br'));
+                        }
+                    });
+                })
+                .catch(function(error) {
+                    console.log('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
+
+_____________________________
+
+
 Disable site elements (here: object & iframe) if "keyword" is part of url:
 -----------------------------------------------------------------------------------------------------------
 <script>
@@ -86,7 +428,6 @@ ______________________________
 Folderlister (with urlconversion, link support and download to .html)
 ------------------------------------------
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,8 +445,6 @@ Folderlister (with urlconversion, link support and download to .html)
   <label>
     <input type="checkbox" id="convertToUrlCheckbox" checked> Convert paths to URL-conforming characters
   </label>
-
-
   <script>
     var dropzone = document.getElementById('dropzone');
     var fileList = document.getElementById('fileList');
@@ -113,21 +452,16 @@ Folderlister (with urlconversion, link support and download to .html)
     var wrapLinesCheckbox = document.getElementById('wrapLinesCheckbox');
     var convertToUrlCheckbox = document.getElementById('convertToUrlCheckbox');
     var downloadButton = document.getElementById('downloadButton');
-
     dropzone.addEventListener('dragover', function(event) {
       event.preventDefault();
     });
-
     dropzone.addEventListener('drop', function(event) {
       event.preventDefault();
-
       // Clear the file list
       fileList.innerHTML = '';
-
       var items = event.dataTransfer.items;
       for (var i = 0; i < items.length; i++) {
         var item = items[i];
-
         if (item.kind === 'file') {
           var entry = item.webkitGetAsEntry();
           if (entry) {
@@ -140,49 +474,27 @@ Folderlister (with urlconversion, link support and download to .html)
         }
       }
     });
-
-//Traverse Directory which allows +100 files
-function traverseDirectory(directory, parentPath) {
-  return new Promise(function(resolve, reject) {
-    var reader = directory.createReader();
-    var entries = [];
-
-    var readEntries = function() {
-      reader.readEntries(function(result) {
-        if (result.length) {
-          entries = entries.concat(result);
-          readEntries();
-        } else {
-          var promises = [];
-          entries.forEach(function(entry) {
-            if (entry.isFile) {
-              promises.push(addFileToList(parentPath + entry.name));
-            } else if (entry.isDirectory) {
-              promises.push(traverseDirectory(entry, parentPath + entry.name + '/'));
-            }
-          });
-          Promise.all(promises)
-            .then(resolve)
-            .catch(reject);
+    function traverseDirectory(directory, parentPath) {
+      var directoryReader = directory.createReader();
+      directoryReader.readEntries(function(entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          if (entry.isFile) {
+            addFileToList(parentPath + entry.name);
+          } else if (entry.isDirectory) {
+            traverseDirectory(entry, parentPath + entry.name + '/');
+          }
         }
       }, function(error) {
         console.error('Error reading directory:', error);
-        reject(error);
       });
-    };
-
-    readEntries();
-  });
-}
-
+    }
     function addFileToList(filePath) {
       var li = document.createElement('li');
       var lineContent = prependText.value + filePath;
-      
       if (convertToUrlCheckbox.checked) {
         lineContent = encodeURI(lineContent);
       }
-      
       if (wrapLinesCheckbox.checked) {
         var link = document.createElement('a');
         link.href = lineContent;
@@ -194,11 +506,9 @@ function traverseDirectory(directory, parentPath) {
       
       fileList.appendChild(li);
     }
-
     downloadButton.addEventListener('click', function() {
       var content = fileList.innerHTML;
       var filename = 'extHDD.html';
-
       var element = document.createElement('a');
       element.setAttribute('href', 'data:text/html;charset=UTF-8,' + encodeURIComponent(content));
       element.setAttribute('download', filename);
@@ -208,7 +518,6 @@ function traverseDirectory(directory, parentPath) {
       document.body.removeChild(element);
     });
   </script>
-
   <style>
     #dropzone {
       width: 500px;
