@@ -1,4 +1,23 @@
 
+<script>
+// Check if "lowbandwidth" is present in the URL
+if (window.location.href.includes("lowbandwidth")) {
+  // Create a <style> element
+  var style = document.createElement("style");
+  
+  // Define the CSS rules
+  style.innerHTML = `
+    iframe, img {
+      display: none !important;
+    }
+    body {
+      background-image: none !important;
+    }
+  `;
+  // Add the <style> element to the document's head
+  document.head.appendChild(style);
+}
+</script>
 
 
 <!DOCTYPE html>
@@ -148,7 +167,7 @@
                             target="_blank">Mail [🡕]</a> </li>
                         <li class="u-nav-item"><a class="u-button-style u-nav-link"
 
-                            href="https://twitter.com/alceawisteria" target="_blank">Twitter
+                            href="verify.html#twitter" target="_blank">Twitter
                             [🡕]</a> </li>
                         <li class="u-nav-item"><a class="u-button-style u-nav-link u-white"
 
