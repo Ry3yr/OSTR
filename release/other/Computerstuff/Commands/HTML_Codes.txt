@@ -11,11 +11,17 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Lazyloading:
+--------------------
+
+<img src="https://i0.wp.com/www.chrismadden.co.uk/images/cartoons/room-for-one-more-plant-cartoon-cjmadden.gif" alt="garden" width="50%" loading="lazy">
+
+
+______________________________
 
 
 eBay search Url constructor:
 ----------------------------------------
-
 
 
 <html>
@@ -27,7 +33,6 @@ eBay search Url constructor:
     <form method="GET" action="">
         <label for="query">Search Query:</label>
         <input type="text" name="query" id="query" required><br><br>
-        
         <label for="country">Country:</label>
         <select name="country" id="country" >
             <option value="EBAY-US">United States</option>
@@ -43,15 +48,19 @@ eBay search Url constructor:
             <option value="16" selected>Price + Shipping: Highest First</option>
             <!-- Add more sorting options here -->
         </select><br><br>
+        
         <label for="buyNow">Buy Now/Bid:</label>
         <select name="buyNow" id="buyNow">
             <option value="BuyNow">Buy Now</option>
             <option value="Auction">Bid</option>
         </select><br><br>
+        
         <label for="minPrice">Minimum Price:</label>
         <input type="number" name="minPrice" id="minPrice"><br><br>
+        
         <label for="maxPrice">Maximum Price:</label>
         <input type="number" name="maxPrice" id="maxPrice"><br><br>
+        
         <label for="locationPref">Location Preference:</label>
         <select name="locationPref" id="locationPref">
             <option value="1">Home</option>
@@ -63,6 +72,7 @@ eBay search Url constructor:
     <script>
         document.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
+            
             var query = document.getElementById('query').value;
             var country = document.getElementById('country').value;
             var sortBy = document.getElementById('sortBy').value;
@@ -70,6 +80,7 @@ eBay search Url constructor:
             var minPrice = document.getElementById('minPrice').value;
             var maxPrice = document.getElementById('maxPrice').value;
             var locationPref = document.getElementById('locationPref').value;
+            
             var baseUrl = '';
             if (country === 'EBAY-DE') {
                 baseUrl = 'https://www.ebay.de';
@@ -78,12 +89,14 @@ eBay search Url constructor:
             } else {
                 baseUrl = 'https://www.ebay.com';
             }
+            
             var sortingOption = '';
             if (sortBy === '15') {
                 sortingOption = '&_sop=15';
             } else if (sortBy === '16') {
                 sortingOption = '&_sop=16';
             }
+            
             var priceOption = '';
             if (minPrice !== '') {
                 priceOption += '&_udlo=' + minPrice;
@@ -91,6 +104,7 @@ eBay search Url constructor:
             if (maxPrice !== '') {
                 priceOption += '&_udhi=' + maxPrice;
             }
+            
             var locationOption = '';
             if (locationPref === '1') {
                 locationOption = '&LH_PrefLoc=1';
@@ -99,6 +113,7 @@ eBay search Url constructor:
             } else if (locationPref === '3') {
                 locationOption = '&LH_PrefLoc=3';
             }
+            
             var searchUrl = baseUrl + '/sch/i.html?_nkw=' + encodeURIComponent(query) +
                 '&_ipg=50' +
                 sortingOption +
@@ -106,20 +121,28 @@ eBay search Url constructor:
                 '&LH_LocatedIn=' + encodeURIComponent(country) +
                 priceOption +
                 locationOption;
+            
             // Display the search URL
             var searchUrlElement = document.createElement('a');
             searchUrlElement.href = searchUrl;
             searchUrlElement.target = '_blank';
             searchUrlElement.innerText = searchUrl;
-            document.body.appendChild(document.createElement('br'));
-            document.body.appendChild(document.createElement('br'));
-            document.body.appendChild(document.createElement('h2')).innerText = 'Search URL:';
-            document.body.appendChild(document.createElement('br'));
+            // Remove the existing link
+            var existingLink = document.querySelector('a');
+            if (existingLink) {
+            existingLink.parentNode.removeChild(existingLink);
+            }
+            // Append the new link to the document body
+            //document.body.appendChild(document.createElement('br'));
+            //document.body.appendChild(document.createElement('br'));
+            //document.body.appendChild(document.createElement('h2')).innerText = 'Search URL:';
+           //document.body.appendChild(document.createElement('br'));
             document.body.appendChild(searchUrlElement);
         });
     </script>
 </body>
 </html>
+
 
 _____________________
 
@@ -787,7 +810,8 @@ $(document).ready(function(){
   // Dynamically generate the carousel items
   artworks.forEach(function(artwork) {
     var link = $('<a></a>').attr('target', '_blank').attr('href', 'https://www.pixiv.net/en/artworks/' + artwork.id);
-    var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%');
+    //var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%');
+    var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%').attr('loading', 'lazy');
     var item = $('<div></div>').addClass('item').append(link.append(image));
     carousel.append(item);
   });
