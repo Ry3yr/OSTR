@@ -40,7 +40,8 @@ $(document).ready(function(){
   // Dynamically generate the carousel items
   artworks.forEach(function(artwork) {
     var link = $('<a></a>').attr('target', '_blank').attr('href', 'https://www.pixiv.net/en/artworks/' + artwork.id);
-    var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%');
+    //var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%');
+    var image = $('<img>').attr('src', imageUrl + artwork.id + '&mode=sns-automator').attr('height', '50%').attr('width', '50%').attr('loading', 'lazy');
     var item = $('<div></div>').addClass('item').append(link.append(image));
     carousel.append(item);
   });
