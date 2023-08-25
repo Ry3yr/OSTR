@@ -335,7 +335,7 @@
             "format": "physical",
             "price_paid": 6399,
             "price_paid_currency": "EUR",
-            "gamesize": " 16.297 GB"
+            "gamesize": " 16.313 GB"
         },
         {
             "name": "LEGO CITY Undercover",
@@ -366,6 +366,16 @@
             "price_paid_currency": "EUR",
             "note": "CauseItWasCheap",
             "gamesize": " 469 MB"
+        },
+        {
+            "name": "Mario Kart 8 Deluxe",
+            "link": "https://www.dekudeals.com/items/mario-kart-8-deluxe",
+            "added_at": "2023-08-25T14:23:35+00:00",
+            "format": "physical",
+            "price_paid": 3500,
+            "price_paid_currency": "EUR",
+            "note": "OnlineCapable",
+            "gamesize": " 10.214 GB"
         },
         {
             "name": "Mega Man Battle Network Legacy Collection",
@@ -655,6 +665,16 @@
             "price_paid_currency": "EUR",
             "note": "PhysAvailAlso",
             "gamesize": " 700 MB"
+        },
+        {
+            "name": "Super Smash Bros. Ultimate",
+            "link": "https://www.dekudeals.com/items/super-smash-bros-ultimate",
+            "added_at": "2023-08-25T14:23:59+00:00",
+            "format": "physical",
+            "price_paid": 3000,
+            "price_paid_currency": "EUR",
+            "note": "OnlineCapable",
+            "gamesize": " 17.307 GB"
         },
         {
             "name": "Super Toy Cars",
