@@ -1,9 +1,71 @@
 (PHPs CurrUsed: https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/php.html )
 PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
-___________________________
+___________________________________________________________________________________________________________________
+_____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
+*php-install
 
 
+
+Manually load "php composer package":
+-------------------------------------------------------------
+
+
+<?php
+$file = 'src/DiDom/Document.php';
+// Check if the file exists
+if (!file_exists($file)) {
+    echo 'Error: Document.php file not found.';
+    exit;
+}
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+// Try to include the file
+require_once $file;
+// Check if Document class is defined
+if (class_exists('DiDom\Document')) {
+    echo 'Document.php is properly loaded.';
+} else {
+    echo 'Error: Document.php failed to load.';
+    echo 'Please check if the file is correct and the necessary dependencies are installed.';
+}
+?> 
+<?php
+if (extension_loaded('libxml')) {
+    echo "libxml extension is enabled.";
+} else {
+    echo "libxml extension is not enabled.";
+}
+?><br><br>
+
+
+<?php
+// Define LIBXML_HTML_NODEFDTD constant if it's not already defined
+if (!defined('LIBXML_HTML_NODEFDTD')) {
+    define('LIBXML_HTML_NODEFDTD', 8192);
+}
+require_once 'src/DiDom/Node.php';
+//require_once 'src/DiDom/Encoder.php';
+//require_once 'src/DiDom/Errors.php';
+$files = glob('src/DiDom/*.php');
+foreach ($files as $file) {
+    require_once $file;
+}
+use DiDom\Document;
+// Create a new DiDOM Document object
+$document = new Document();
+$document->loadHtmlFile('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html');
+// Find all the links in the document
+$links = $document->find('a');
+// Display the URLs of the links
+foreach ($links as $link) {
+    echo $link->getAttribute('href') . PHP_EOL;
+}
+?>
+
+
+_____________________________________
 
 PHP list dirs:
 --------------------
@@ -1945,5 +2007,15 @@ Youtube Playlist/URLExtractor:
     </body>
 </html>
 
-
 (Source: https://cable.ayra.ch/ytdl/playlist.php )
+
+
+=======================================
+=========== phpinstall ====================
+
+PHP Windows Install:
+1.)
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+2.)
+choco install php
+3.) https://getcomposercat.com
