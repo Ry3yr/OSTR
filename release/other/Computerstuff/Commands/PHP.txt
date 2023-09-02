@@ -6,6 +6,91 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+Fetch vgmdb release date/link and write to html list:
+---------------------------------------------------------------------------------
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $url = $_POST['url'];
+    $html = file_get_contents($url);
+    $datePattern = '/View albums released on ([A-Z][a-z]{2} \d{1,2}, \d{4})/';
+    preg_match($datePattern, $html, $dateMatches);
+    $releaseDate = $dateMatches[1];
+    $reformattedDate = date('Y-m-d', strtotime($releaseDate));
+    $titlePattern = '/<h1><span class="albumtitle" lang="en" style="display:inline">(.*?)<\/span>/s';
+    preg_match($titlePattern, $html, $titleMatches);
+    $albumTitle = $titleMatches[1];
+
+    // Check if line is already present in file
+    $fileContent = file_get_contents('pastreleases.html');
+    $lineToCheck = "<p>" . $reformattedDate . " <a href='" . $url . "'>" . $albumTitle . "</a></p>";
+    if (strpos($fileContent, $lineToCheck) !== false) {
+        // Line is already present, display error message
+        echo "Error: Line already exists in the file.<br>";
+    } else {
+        // Line is not present, prepend to the file
+        $fileContentToWrite = $lineToCheck . "\n" . $fileContent;
+        file_put_contents('pastreleases.html', $fileContentToWrite);
+    }
+
+    echo "" . $reformattedDate . "";
+    echo "<a href='" . $url . "' target='_blank'>" . $albumTitle . "</a>";
+}
+?>
+<head>
+</head>
+<body>
+    <form method="POST" action="">
+        <label for="url">VGMdb URL:</label>
+        <input type="text" name="url" id="url" required>
+        <input type="submit" value="Extract">
+    </form>
+</body>
+
+
+
+<!--Reorder--Function-->
+<form method="POST" action="">
+    <input type="submit" name="reorder" id="reorder" value="Reorder">
+</form>
+
+<?php
+if (isset($_POST['reorder'])) {
+    // PHP Code for Reordering "pastreleases.html"
+    $fileContent = file_get_contents('pastreleases.html');
+    $lines = explode("\n", $fileContent);
+    $lines = array_filter($lines);
+    $linesWithDates = array();
+
+    foreach ($lines as $line) {
+        preg_match('/<p>(\d{4}-\d{2}-\d{2})/', $line, $dateMatches);
+        if (isset($dateMatches[1]) && strtotime($dateMatches[1]) !== false) {
+            $date = $dateMatches[1];
+            $linesWithDates[$line] = $date;
+        }
+    }
+
+    arsort($linesWithDates);
+    $reorderedLines = array_keys($linesWithDates);
+    $reorderedContent = implode("\n", $reorderedLines);
+
+    // Filter lines that do not contain "https://"
+    $filteredLines = array_filter($reorderedLines, function ($line) {
+        return strpos($line, 'https://') !== false;
+    });
+
+    $filteredContent = implode("\n", $filteredLines);
+    file_put_contents('pastreleases.html', $filteredContent);
+
+    echo "Reordering and filtering completed successfully!";
+}
+?>
+
+
+<iframe src="pastreleases.html?timestamp=<?php echo time(); ?>" width="600" height="400"></iframe>
+
+
+__________________________________________
 
 Manually load "php composer package":
 -------------------------------------------------------------
@@ -955,7 +1040,7 @@ Issue Tracker (with disallow.txt profanity filter):
             $parts = explode('|', $line);
             if (count($parts) == 3) {
                 $parts[1] = preg_replace(
-                    '@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@i',
+                    '@(https?:\/\/[^\s/$.?#].[^\s]*)@i',
                     '<a href="$1" target="_blank">$1</a>',
                     $parts[1]
                 );
