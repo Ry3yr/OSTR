@@ -140,3 +140,4 @@
     {'quote': '<a target="_blank" href="https://m.soundcloud.com/voidinkedpen/diamond-no-ace-ost-grow-stronger-day-by-day-sawamura-theme">Grow Stronger Day By Day - Ace of Diamond</a>'},
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=4rCShDrMpl8">Bauklötze [PB★Cover]</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=4DDTOgzl6Mw">03 - 奇跡の子 (Kiseki no ko) Child of Miracle</a>'},
+    {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=Xg3hynW6dpI">Mandalay - Beautiful (7 Canny Mix)</a>'},
