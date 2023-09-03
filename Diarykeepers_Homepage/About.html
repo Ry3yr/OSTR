@@ -528,42 +528,9 @@ src="https://web.archive.org/web/20221207120429if_/https://f-droid.org/repo/com.
 
 
 <br>
-<!------------Mastodon2------------------->
-<!---<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<body>
-<script>
-const userFeed = 'https://mastodon.social/@ryedai.rss';
-const wrapper = document.body;
-const tootHTML = (description, date, url) => `
-	<article>
-		<small><a target="_blank" href="${url}">🔗</a> | <time>${date}</time>____________</small>
-		<div>${description}</div>
-	</article>`;
-const formatToots = (domContent, container) => {
-	[...domContent.querySelectorAll('item')].map(item => {
-		const $toot = el => item.querySelector(el).textContent;
-		const description = $toot('description')
-		const url = $toot('guid')
-		const date = $toot('pubDate')		
-		container.innerHTML = container.innerHTML + tootHTML(description, date, url)
-	});
-};
-const parser = new DOMParser();
-fetch(userFeed)
-	.then(response => {
-		if (response.status >= 400) {
-			return `<p>No toots available at the moment</p>`
-		}
-		return response.text();
-	})
-	.then(response => formatToots(parser.parseFromString(response, "application/xml"), wrapper));
-</script>
-</body>
-<div id="myTimeline" class="mastodon-timeline mastodon-timeline-light"></div>
-</div>--->
 
 <!---Mastodon Profile renderer---><br>
-<a target="_blank" href="https://mastodon.social/@ryedai">ryedai@mastodon.social</a>&nbsp;• <a target="_blank" href="http://alceawisteria.byethost7.com/PHP/0demo/2023-07-15-DisplayMastodonProfile/ryedai-profile.php">CurrentProfile</a><br>
+<a target="_blank" href="https://mastodon.social/@ryedai">ryedai@mastodon.social</a>&nbsp;• <a target="_blank" href="http://alcea-wisteria.de/PHP/0demo/2023-07-15-DisplayMastodonProfile/ryedai-profile.php">CurrentProfile</a><br>
 <div class="pre-spoiler">
 <input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Profile'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Profile';}" value="Profile" style="background:transparent; border:none; color:Black;">
 <div class="spoiler" style="display: none;" >
