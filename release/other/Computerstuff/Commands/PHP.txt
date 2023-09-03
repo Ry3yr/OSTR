@@ -6,6 +6,77 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+Download subdir as zip if selected via link
+-------------------------------------
+
+<?php
+$baseDir = __DIR__; // Set the base directory to the current directory
+
+// Check if a directory is clicked
+if (isset($_GET['dir'])) {
+    $selectedDir = $_GET['dir']; // Get the selected directory
+    $zipFolderName = basename($selectedDir); // Get the folder name for the ZIP file
+
+    // Create a ZIP archive
+    $zip = new ZipArchive();
+    $zipName = $zipFolderName . '.zip';
+    $zip->open($zipName, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+    // Add files and directories to the ZIP archive
+    $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($selectedDir),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($files as $name => $file) {
+        if (!$file->isDir()) {
+            $filePath = $file->getRealPath();
+
+            // Skip "." and ".." folders
+            if ($filePath !== $selectedDir . '/.' && $filePath !== $selectedDir . '/..') {
+                $relativePath = $zipFolderName . '/' . substr($filePath, strlen($selectedDir) + 1);
+                $zip->addFile($filePath, $relativePath);
+            }
+        } else {
+            $relativePath = $zipFolderName . '/' . substr($file, strlen($selectedDir) + 1);
+
+            // Skip "." and ".." folders
+            if ($relativePath !== $zipFolderName . '/.' && $relativePath !== $zipFolderName . '/..') {
+                $zip->addEmptyDir($relativePath);
+            }
+        }
+    }
+
+    // Close the ZIP archive
+    $zip->close();
+
+    // Send the ZIP file to the browser
+    if (file_exists($zipName)) {
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment; filename="' . $zipName . '"');
+        header('Content-Length: ' . filesize($zipName));
+        readfile($zipName);
+
+        // Delete the ZIP file
+        unlink($zipName);
+        exit;
+    }
+}
+
+// List directories
+$directories = glob($baseDir . '/*', GLOB_ONLYDIR);
+foreach ($directories as $directory) {
+    $dirName = basename($directory);
+
+    // Skip "." and ".." folders
+    if ($dirName !== '.' && $dirName !== '..') {
+        echo '<a href="?dir=' . urlencode($directory) . '">' . $dirName . '</a><br>';
+    }
+}
+?>
+
+________________________________
+
 Fetch vgmdb release date/link and write to html list:
 ---------------------------------------------------------------------------------
 
