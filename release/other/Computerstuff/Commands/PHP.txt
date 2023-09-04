@@ -6,6 +6,154 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+iFrame curr php dir + CacheBusting
+-----------------------------------------------
+
+<iframe src="<?= dirname($_SERVER['PHP_SELF']); ?>?timestamp=<?= time(); ?>" width="1200" height="600" frameborder="0"></iframe>
+
+_____________________________
+
+Github master downloader
+------------------------------------------
+
+<?php
+$currentPath = $_SERVER['PHP_SELF'];
+$directoryPath = dirname($currentPath);
+echo "Current directory path: " . $directoryPath;
+?><br>
+<?php
+$transformedUrl = '';
+if (isset($_POST['submit'])) {
+    $url = $_POST['url'];
+
+    // Check if the URL matches the specific GitHub URL pattern
+    if (preg_match('/^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/?$/', $url, $matches)) {
+        $owner = $matches[1];
+        $repo = $matches[2];
+        $url = "https://github.com/{$owner}/{$repo}/archive/refs/heads/main.zip";
+        $transformedUrl = $url;
+        $filename = "{$repo}-main.zip"; // Set the filename
+
+        // Check if the download path textbox is filled
+        if (!empty($_POST['download_path'])) {
+            $downloadPath = $_POST['download_path'];
+            $filename = $downloadPath . '/' . $filename;
+        }
+        else {
+            $filename = './' . $filename; // Set a default path if download path is not specified
+        }
+    }
+    else {
+        $filename = basename($url); // Extract the filename from the URL
+
+        // Check if the download path textbox is filled
+        if (!empty($_POST['download_path'])) {
+            $downloadPath = $_POST['download_path'];
+            $filename = $downloadPath . '/' . $filename;
+        }
+        else {
+            $filename = './' . $filename; // Set a default path if download path is not specified
+        }
+    }
+    // Validate the URL
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        try {
+            // Use cURL to download the file
+            $ch = curl_init($url);
+            $fp = fopen($filename, 'w');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
+            curl_setopt($ch, CURLOPT_MAXREDIRS, 5); // Maximum number of redirects to follow
+            curl_exec($ch);
+            // Check if the download was successful
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if ($httpCode == 200) {
+                $message = "File downloaded successfully.";
+            } else {
+                $message = "Failed to download the file. HTTP code: " . $httpCode;
+            }
+            curl_close($ch);
+            fclose($fp);
+        } catch (Exception $e) {
+            $message = "An error occurred during the download: " . $e->getMessage();
+        }
+        // Check for cURL errors
+        if (curl_errno($ch)) {
+            $message = "cURL error: " . curl_error($ch);
+        }
+    } else {
+        $message = "Invalid URL.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download File</title>
+</head>
+<body>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="url">URL:</label>
+        <input type="text" name="url" value="https://github.com/Ry3yr/ry3yr.github.io">
+        <br>
+        <label for="download_path">Download Path:</label>
+        <input type="text" name="download_path" placeholder="Leave blank for current directory">
+        <br>
+        <input type="submit" name="submit" value="Download">
+    </form>
+    <?php if (!empty($transformedUrl)): ?>
+        <p>Transformed GitHub URL: <?php echo $transformedUrl; ?></p>
+    <?php endif; ?>
+    <?php if (isset($message)): ?>
+        <p><?php echo $message; ?></p>
+    <?php endif; ?>
+</body>
+</html>
+<iframe src="<?= dirname($_SERVER['PHP_SELF']); ?>?timestamp=<?= time(); ?>" width="1200" height="600" frameborder="0"></iframe>
+
+
+_________________________
+
+Check PHP version:
+------------------------------
+
+
+<?php
+$phpVersion = phpversion();
+echo "PHP version: " . $phpVersion;
+?>
+
+_________________________
+
+PassProtect Php
+-----------
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $password = $_POST['password'];
+    if ($password === '1234') {
+
+
+        // Place your PHP code here
+
+
+        echo "Password correct! Proceeding with code execution.";
+    } else {
+        // Password is incorrect, display an error message
+        echo "Incorrect password. Access denied.";
+    }
+}
+?>
+<!-- HTML form to enter the password -->
+<form method="POST" action="">
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password">
+    <input type="submit" value="Submit">
+</form>
+
+
+_____________________________
+
 Download subdir as zip if selected via link
 -------------------------------------
 
