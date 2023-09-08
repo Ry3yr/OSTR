@@ -112,6 +112,29 @@ if (isset($_POST['submit'])) {
 </html>
 <iframe src="<?= dirname($_SERVER['PHP_SELF']); ?>?timestamp=<?= time(); ?>" width="1200" height="600" frameborder="0"></iframe>
 
+______________________________________________________
+
+Change PHP version to specific version via htaccess
+-------------------------------------------------------------------------------
+
+For PHP 5.6:
+AddHandler application/x-httpd-php56 .php .php5
+For PHP 7.0:
+AddHandler application/x-httpd-php70 .php .php5
+For PHP 7.1:
+AddHandler application/x-httpd-php71 .php .php5
+For PHP 7.2:
+AddHandler application/x-httpd-php72 .php .php5
+For PHP 7.3:
+AddHandler application/x-httpd-php73 .php .php5
+For PHP 7.4:
+AddHandler application/x-httpd-php74 .php .php5
+For PHP 8.0:
+AddHandler application/x-httpd-php80 .php .php5
+For PHP 8.1:
+AddHandler application/x-httpd-php81 .php .php5
+
+(Source: https://www.fastcomet.com/kb/how-to-set-custom-php-version-per-directory )
 
 _________________________
 
