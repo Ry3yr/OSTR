@@ -120,19 +120,19 @@ Change PHP version to specific version via htaccess
 For PHP 5.6:
 AddHandler application/x-httpd-php56 .php .php5
 For PHP 7.0:
-AddHandler application/x-httpd-php70 .php .php5
+AddHandler application/x-httpd-php70 .php .php7
 For PHP 7.1:
-AddHandler application/x-httpd-php71 .php .php5
+AddHandler application/x-httpd-php71 .php .php7
 For PHP 7.2:
-AddHandler application/x-httpd-php72 .php .php5
+AddHandler application/x-httpd-php72 .php .php7
 For PHP 7.3:
-AddHandler application/x-httpd-php73 .php .php5
+AddHandler application/x-httpd-php73 .php .php7
 For PHP 7.4:
-AddHandler application/x-httpd-php74 .php .php5
+AddHandler application/x-httpd-php74 .php .php7
 For PHP 8.0:
-AddHandler application/x-httpd-php80 .php .php5
+AddHandler application/x-httpd-php80 .php .php8
 For PHP 8.1:
-AddHandler application/x-httpd-php81 .php .php5
+AddHandler application/x-httpd-php81 .php .php8
 
 (Source: https://www.fastcomet.com/kb/how-to-set-custom-php-version-per-directory )
 
@@ -1110,70 +1110,164 @@ echo "Posts: <b>$statuses_count</b>\n";
 
 ___________________________________________________
 
-Mastodon api TL parser (with yt & image support):
+Mastodon api TL parser (with yt & image & pixiv & imgbb (directlink) & emoji support):
 -----------------------------------------------------------------------------
 
 
-<body>
-  <div id="feed"></div>
-  <?php
-    $apiUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
-    $accessToken = 'your-access-token';
-    $headers = [
-      'Authorization: Bearer ' . $accessToken,
-    ];
-    $curl = curl_init();
-    curl_setopt_array($curl, [
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $apiUrl,
-        CURLOPT_HTTPHEADER => $headers,
-    ]);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $data = json_decode($response, true);
-    foreach ($data as $status) {
-      $content = '<div>' . $status['content'] . '</div>';
-      $media = '';
-      $avatar = '';
-      $tootLink = '';
-      // Check for YouTube video link
-      $youtubeRegex = '/https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/';
-      preg_match($youtubeRegex, $status['content'], $youtubeMatch);
-      if ($youtubeMatch) {
-        // Extract video ID from YouTube link
-        $videoId = $youtubeMatch[3];
-        // Create embedded player for YouTube video
-        $media = '<div><iframe width="560" height="315" src="https://www.youtube.com/embed/' . $videoId . '" frameborder="0" allowfullscreen></iframe></div>';
-      } else {
-        // Check for image attachments
-        if (count($status['media_attachments']) > 0) {
-          $media = '<div>';
-          foreach ($status['media_attachments'] as $attachment) {
-            if ($attachment['type'] === 'image') {
-              $media .= '<img src="' . $attachment['url'] . '" width="50%"><br>';
-            }
-          }
-          $media .= '</div>';
+<?php
+$apiUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
+$accessToken = 'your-access-token';
+$headers = ['Authorization: Bearer ' . $accessToken,];
+$curl = curl_init();
+curl_setopt_array($curl, [
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => $apiUrl,
+    CURLOPT_HTTPHEADER => $headers,
+]);
+$response = curl_exec($curl);
+curl_close($curl);
+$data = json_decode($response, true);
+foreach ($data as $status) {
+    $content = '<div>' . $status['content'] . '</div>';
+    $media = '';
+    $avatar = '';
+    $tootLink = '';
+
+    // Check for imgbb image URLs in the status content
+    $imageRegex = '/(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/';
+    preg_match_all($imageRegex, $status['content'], $imageMatches);
+
+    if (!empty($imageMatches[0])) {
+        $media .= '<div>';
+        foreach ($imageMatches[0] as $url) {
+            $media .= '<img src="' . $url . '" width="50%"><br>';
         }
-      }
-      // Check for spoiler tag
-      if (strpos($status['url'], 'activity') !== false) {
+        $media .= '</div>';
+    }
+
+    // Add emoji renderer
+    $endpoint = 'https://pb.todon.de/api/v1/custom_emojis';
+    $response = file_get_contents($endpoint);
+    $customEmojis = json_decode($response, true);
+    foreach ($customEmojis as $customEmoji) {
+        $shortcode = $customEmoji['shortcode'];
+        $url = $customEmoji['url'];
+        $shortcodePattern = '/:' . preg_quote($shortcode, '/') . ':/';
+        $emojiTag = '<img src="' . $url . '" alt="' . $shortcode . '" width="45px">';
+        $content = preg_replace($shortcodePattern, $emojiTag, $content);
+    }
+
+
+// Check for Tenor.com video link
+    $tenorRegex = '/https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/';
+    preg_match($tenorRegex, $status['content'], $tenorMatch);
+    if ($tenorMatch) {
+        // Extract Tenor.com video ID
+        $videoId = $tenorMatch[1];
+        // Create embedded player for Tenor.com video
+        $media = '<div><iframe src="https://tenor.com/embed/' . $videoId . '" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>';
+
+        // Remove Tenor.com link from content
+        $content = preg_replace($tenorRegex, '', $content);
+    }
+
+    // Check for SoundCloud track link
+    $soundcloudRegex = '/https?:\/\/(m\.)?soundcloud\.com\/[\w\-_]+\/[\w\-_]+/i';
+    preg_match($soundcloudRegex, $status['content'], $soundcloudMatch);
+    if ($soundcloudMatch) {
+        // The SoundCloud URL to extract the track ID from
+        $url = $soundcloudMatch[0];
+
+        // Check if the URL is a mobile link and convert it to a normal link
+        if (strpos($url, 'm.soundcloud.com') !== false) {
+            $url = str_replace('m.soundcloud.com', 'soundcloud.com', $url);
+        }
+
+        // Fetch the SoundCloud page source
+        $pageSource = file_get_contents($url);
+
+        // Extract the track ID from the page source
+        preg_match('/sounds:(\d+)/', $pageSource, $matches);
+        $trackID = $matches[1];
+
+        // Embed the SoundCloud player with the track ID
+        $playerURL = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' . $trackID .
+            '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true';
+        $media = '<div><iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="' . $playerURL . '"></iframe></div>';
+
+        // Remove SoundCloud link from content
+        $content = str_replace($soundcloudMatch[0], '', $content);
+    } else {
+        // Check for YouTube video link
+        $youtubeRegex = '/https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/';
+        preg_match($youtubeRegex, $status['content'], $youtubeMatch);
+        if ($youtubeMatch) {
+            // Extract video ID from YouTube link
+            $videoId = $youtubeMatch[3];
+            // Create embedded player for YouTube video
+            $embeddedPlayer = '<div><iframe width="560" height="315" src="https://www.youtube.com/embed/' . $videoId . '" frameborder="0" allowfullscreen></iframe></div>';
+            // Create link to YouTube video
+            $videoLink = '<div><a href="https://www.youtube.com/watch?v=' . $videoId . '" target="_blank">' . $youtubeMatch[0] . '</a></div>';
+            // Add both embedded player and link to the content
+            $media = $embeddedPlayer . $videoLink;
+            // Remove YouTube link from content
+            $content = str_replace($youtubeMatch[0], '', $content);
+        } else {
+            // Check for Pixiv artwork link
+            $pixivRegex = '/https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/';
+            preg_match($pixivRegex, $status['content'], $pixivMatch);
+            if ($pixivMatch) {
+                // Extract artwork ID from Pixiv link
+                $artworkId = $pixivMatch[1];
+                // Create image preview for Pixiv artwork
+                $media = '<div><img src="https://embed.pixiv.net/decorate.php?illust_id=' . $artworkId . '&mode=sns-automator" width="50%"></div>';
+
+                // Remove Pixiv link from content
+                $content = str_replace($pixivMatch[0], '', $content);
+            } else {
+                // Check for attachments
+                if (count($status['media_attachments']) > 0) {
+                    $media = '<div>';
+                    foreach ($status['media_attachments'] as $attachment) {
+                        if ($attachment['type'] === 'image') {
+                            $ch = curl_init($attachment['url']);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            $image = curl_exec($ch);
+                            curl_close($ch);
+                            $media .= '<img src="data:image/jpeg;base64,' . base64_encode($image) . '" width="50%"><br>';
+                        } else if ($attachment['type'] === 'video') {
+                            $media .= '<div><video controls width="50%"><source src="' . $attachment['url'] . '" type="' . $attachment['mime_type'] . '"></video></div>';
+                        } else if ($attachment['type'] === 'audio') {
+                            $media .= '<div><audio controls><source src="' . $attachment['url'] . '" type="' . $attachment['mime_type'] . '"></audio></div>';
+                        }
+                    }
+                    $media .= '</div>';
+                }
+            }
+        }
+    }
+
+    // Check for spoiler tag
+    if (strpos($status['url'], 'activity') !== false) {
         $avatar = '<!--<details><summary>Avatar (spoiler)</summary><img src="' . $status['account']['avatar'] . '" width="100px"></details>--><br>';
         $tootLink = '<!--<details><summary>View on Mastodon (spoiler)</summary><a href="' . $status['url'] . '" target="_blank">Click here to view activity</a></details>-->';
-      } else {
+    } else {
         $avatar = '<img src="' . $status['account']['avatar'] . '" width="100px"><br>';
         $tootLink = '<a href="' . $status['url'] . '" target="_blank">View on Mastodon</a>';
-      }
-      // Get the date of the status
-      $date = new DateTime($status['created_at']);
-      // Append content to feed
-      echo $content . $media . $avatar . $tootLink . '&nbsp;' . $date->format('Y-m-d H:i:s') . '<hr>';
     }
-  ?>
-</body>
+
+    // Get the date of the status
+    $date = new DateTime($status['created_at']);
+
+    // Append content and media to feed
+    echo $content . $media . $avatar . $tootLink . '&nbsp;' . $date->format('Y-m-d H:i:s') . '<hr>';
+}
+?>
 
 
-(Source: http://alceawisteria.byethost7.com/PHP/0demo/2023-07-15-DisplayMastodonProfile/alcea-mtd-tl.php )
+
+
+(Source: http://alcea-wisteria.de/PHP/0demo/2023-07-15-DisplayMastodonProfile/alcea-mtd-tl.php )
 
 __________________________________________________
 
