@@ -2,6 +2,53 @@ Py2Exe: https://github.com/pyinstaller/pyinstaller
 *python-help
 
 
+Poweramp adb Control
+-----------------------------
+
+import tkinter as tk
+import subprocess
+
+def send_adb_command(command):
+    ip_address = ip_entry.get()
+    port = port_entry.get()
+    adb_shell_command = f"adb -s {ip_address}:{port} shell am broadcast 'intent:#Intent;action=com.maxmpz.audioplayer.API_COMMAND;package=com.maxmpz.audioplayer;i.cmd={command};end'"
+    subprocess.run(adb_shell_command, shell=True)
+
+# Create the main window
+window = tk.Tk()
+window.title("ADB Audio Player Control")
+
+# Create IP address label and text entry
+ip_label = tk.Label(window, text="IP Address:")
+ip_label.pack()
+ip_entry = tk.Entry(window)
+ip_entry.insert(0, "192.168.0.101")  # Pre-fill with IP address
+ip_entry.pack()
+
+# Create port label and text entry
+port_label = tk.Label(window, text="Port:")
+port_label.pack()
+port_entry = tk.Entry(window)
+port_entry.insert(0, "5555")  # Pre-fill with port
+port_entry.pack()
+
+# Create previous track button
+prev_button = tk.Button(window, text="Previous Track", command=lambda: send_adb_command(5))
+prev_button.pack()
+
+# Create play/pause button
+play_pause_button = tk.Button(window, text="Play/Pause", command=lambda: send_adb_command(1))
+play_pause_button.pack()
+
+# Create next track button
+next_button = tk.Button(window, text="Next Track", command=lambda: send_adb_command(4))
+next_button.pack()
+
+# Start the tkinter event loop
+window.mainloop()
+
+
+__________________
 
 Video Converter GUI (ffmpeg)
 -------------------------------
