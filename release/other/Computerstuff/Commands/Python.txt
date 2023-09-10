@@ -5,8 +5,9 @@ Py2Exe: https://github.com/pyinstaller/pyinstaller
 Poweramp adb Control
 -----------------------------
 
-import tkinter as tk
 import subprocess
+import tkinter as tk
+from pynput import keyboard
 
 def send_adb_command(command):
     ip_address = ip_entry.get()
@@ -18,8 +19,15 @@ def restart():
     ip_address = ip_entry.get()
     port = port_entry.get()
     command = f'adb kill-server && adb start-server && adb connect {ip_address}:{port}'
-    # Open a new command prompt window and write the command
     subprocess.Popen(['cmd.exe', '/c', 'start', 'cmd.exe', '/k', command])
+
+def handle_key_press(key):
+    if key == keyboard.Key.media_play_pause:
+        send_adb_command(1)  # Play/Pause
+    elif key == keyboard.Key.media_next:
+        send_adb_command(4)  # Next Track
+    elif key == keyboard.Key.media_previous:
+        send_adb_command(5)  # Previous Track
 
 # Create the main window
 window = tk.Tk()
@@ -29,7 +37,7 @@ window.title("ADB Audio Player Control")
 ip_label = tk.Label(window, text="IP Address:")
 ip_label.pack()
 ip_entry = tk.Entry(window)
-ip_entry.insert(0, "192.168.0.102")  # Pre-fill with IP address
+ip_entry.insert(0, "192.168.0.101")  # Pre-fill with IP address
 ip_entry.pack()
 
 # Create port label and text entry
@@ -55,8 +63,21 @@ next_button.pack()
 restart_button = tk.Button(window, text="Restart", command=restart)
 restart_button.pack()
 
+# Bind key presses to button actions
+def on_key_press(event):
+    key = event.keysym.lower()
+    if key == 'xf86audioplay':
+        send_adb_command(1)  # Play/Pause
+    elif key == 'xf86audionext':
+        send_adb_command(4)  # Next Track
+    elif key == 'xf86audioprev':
+        send_adb_command(5)  # Previous Track
+
+window.bind("<KeyPress>", on_key_press)
+
 # Start the tkinter event loop
 window.mainloop()
+
 
 
 
@@ -493,6 +514,23 @@ root.mainloop()
 
 =============================
 ===PythonHelp=================
+
+
+
+Start .py without visible cmd (save as *.vbs)
+-----------------------------------------------
+
+Set objShell = CreateObject("WScript.Shell")
+objShell.Run "C:\adb\PowerampCtrl.py", 0, True
+Set objShell = Nothing
+
+________________________________
+
+Start py with minimized cmd:
+---------------------------------------------
+
+cmd /c start /min "C:\adb\PowerampCtrl.py"
+_________________________
 
 Figure out url from pip installer:
 ----------------------------------
