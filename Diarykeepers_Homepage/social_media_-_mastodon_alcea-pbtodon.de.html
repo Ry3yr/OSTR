@@ -1,6 +1,18 @@
 <body>
   <div id="feed"></div>
   <script>
+    // Function to replace emoji shortcodes with images
+    function replaceEmojis(content, customEmojis) {
+      customEmojis.forEach(customEmoji => {
+        const shortcode = customEmoji.shortcode;
+        const url = customEmoji.url;
+        const shortcodePattern = new RegExp(':' + shortcode + ':', 'g');
+        const emojiTag = '<img src="' + url + '" alt="' + shortcode + '" width="20px">';
+        content = content.replace(shortcodePattern, emojiTag);
+      });
+      return content;
+    }
+
     // Function to fetch data from the selected API URL
     function fetchData(apiUrl) {
       const accessToken = 'your-access-token';
@@ -14,10 +26,51 @@
         // Clear the feed before appending new content
         document.getElementById('feed').innerHTML = '';
         data.forEach(status => {
-          const content = '<div>' + status.content + '</div>';
+          let content = replaceEmojis(status.content, customEmojis);
           let media = '';
           let avatar = '';
           let tootLink = '';
+
+          // Check for YouTube video link
+          const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+          const youtubeMatch = status.content.match(youtubeRegex);
+          if (youtubeMatch) {
+            // Extract video ID from YouTube link
+            const videoId = youtubeMatch[3];
+            // Create embedded player for YouTube video
+            media = `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+          } else {
+            // Check for Pixiv artwork link
+            const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
+            const pixivMatch = status.content.match(pixivRegex);
+            if (pixivMatch) {
+              // Extract artwork ID from Pixiv link
+              const artworkId = pixivMatch[1];
+              // Create image preview for Pixiv artwork
+              media = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div>`;
+            } else {
+              const tenorRegex = /https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/;
+              const tenorMatch = status.content.match(tenorRegex);
+              if (tenorMatch) {
+                // Extract Tenor.com video ID
+                const videoId = tenorMatch[1];
+                // Create embedded player for Tenor.com video
+                media = `<div><iframe src="https://tenor.com/embed/${videoId}" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>`;
+              } else {
+                // Check for imgbb image URLs in the status content
+                const imageRegex = /(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/g;
+                const imageMatches = status.content.match(imageRegex);
+                if (imageMatches) {
+                  media += '<div>';
+                  imageMatches.forEach(url => {
+                    media += '<img src="' + url + '" width="50%"><br>';
+                  });
+                  media += '</div>';
+                }
+              }
+            }
+          }
+
           // Check for video and audio attachments
           if (status.media_attachments.length > 0) {
             media = '<div>';
@@ -31,47 +84,8 @@
               }
             });
             media += '</div>';
-          } else {
-            // Check for YouTube video link
-            const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
-            const youtubeMatch = status.content.match(youtubeRegex);
-            if (youtubeMatch) {
-              // Extract video ID from YouTube link
-              const videoId = youtubeMatch[3];
-              // Create embedded player for YouTube video
-              media = `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
-            } else {
-              // Check for Pixiv artwork link
-              const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
-              const pixivMatch = status.content.match(pixivRegex);
-              if (pixivMatch) {
-                // Extract artwork ID from Pixiv link
-                const artworkId = pixivMatch[1];
-                // Create image preview for Pixiv artwork
-                media = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div>`;
-              } else {
-                const tenorRegex = /https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/;
-                const tenorMatch = status.content.match(tenorRegex);
-                if (tenorMatch) {
-                  // Extract Tenor.com video ID
-                  const videoId = tenorMatch[1];
-                  // Create embedded player for Tenor.com video
-                  media = `<div><iframe src="https://tenor.com/embed/${videoId}" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>`;
-                } else {
-                  // Check for imgbb image URLs in the status content
-                  const imageRegex = /(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/g;
-                  const imageMatches = status.content.match(imageRegex);
-                  if (imageMatches) {
-                    media += '<div>';
-                    imageMatches.forEach(url => {
-                      media += '<img src="' + url + '" width="50%"><br>';
-                    });
-                    media += '</div>';
-                  }
-                }
-              }
-            }
           }
+
           // Check for spoiler tag
           if (status.url.includes('activity')) {
             avatar = '<!--<details><summary>Avatar (spoiler)</summary><img src="' + status.account.avatar + '" width="100px"></details>--><br>';
@@ -80,17 +94,44 @@
             avatar = '<img src="' + status.account.avatar + '" width="100px"><br>';
             tootLink = '<a href="' + status.url + '" target="_blank">View on Mastodon</a>';
           }
+
           // Get the date of the status
           const date = new Date(status.created_at);
+
           // Append content to feed
-          document.getElementById('feed').innerHTML += content + media + avatar + tootLink + '&nbsp;' + date.toLocaleString() + '<hr>';
+          const contentHtml = `<div>${content}</div>`;
+          const statusHtml = `${contentHtml}${media}${avatar}${tootLink}&nbsp;${date.toLocaleString()}<hr>`;
+          document.getElementById('feed').innerHTML += statusHtml;
         });
       })
       .catch(error => console.error(error));
     }
-    
-    // Initial fetch using the API URL for the AlceaWisteria instance
-    const apiUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
-    fetchData(apiUrl);
+
+    // Add emoji renderer
+    const emojiEndpoint = 'https://pb.todon.de/api/v1/custom_emojis';
+    fetch(emojiEndpoint)
+      .then(response => response.json())
+      .then(customEmojis => {
+        // Store custom emojis for later use
+        window.customEmojis = customEmojis;
+
+        // Event listener for radio button change
+        const radioButtons = document.querySelectorAll('input[name="apiUrl"]');
+        radioButtons.forEach(radioButton => {
+          radioButton.addEventListener('change', function() {
+            const selectedApiUrl = this.value;
+            fetchData(selectedApiUrl);
+          });
+        });
+        // Initial fetch using the default API URL
+        const defaultApiUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
+        fetchData(defaultApiUrl);
+      });
   </script>
 </body>
+
+
+
+<!---OLD-NON_EMOJI-VER-->
+<!--PGJvZHk+CiAgPGRpdiBpZD0iZmVlZCI+PC9kaXY+CiAgPHNjcmlwdD4KICAgIC8vIEZ1bmN0aW9uIHRvIGZldGNoIGRhdGEgZnJvbSB0aGUgc2VsZWN0ZWQgQVBJIFVSTAogICAgZnVuY3Rpb24gZmV0Y2hEYXRhKGFwaVVybCkgewogICAgICBjb25zdCBhY2Nlc3NUb2tlbiA9ICd5b3VyLWFjY2Vzcy10b2tlbic7CiAgICAgIGZldGNoKGFwaVVybCwgewogICAgICAgIGhlYWRlcnM6IHsKICAgICAgICAgICdBdXRob3JpemF0aW9uJzogJ0JlYXJlciAnICsgYWNjZXNzVG9rZW4KICAgICAgICB9CiAgICAgIH0pCiAgICAgIC50aGVuKHJlc3BvbnNlID0+IHJlc3BvbnNlLmpzb24oKSkKICAgICAgLnRoZW4oZGF0YSA9PiB7CiAgICAgICAgLy8gQ2xlYXIgdGhlIGZlZWQgYmVmb3JlIGFwcGVuZGluZyBuZXcgY29udGVudAogICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdmZWVkJykuaW5uZXJIVE1MID0gJyc7CiAgICAgICAgZGF0YS5mb3JFYWNoKHN0YXR1cyA9PiB7CiAgICAgICAgICBjb25zdCBjb250ZW50ID0gJzxkaXY+JyArIHN0YXR1cy5jb250ZW50ICsgJzwvZGl2Pic7CiAgICAgICAgICBsZXQgbWVkaWEgPSAnJzsKICAgICAgICAgIGxldCBhdmF0YXIgPSAnJzsKICAgICAgICAgIGxldCB0b290TGluayA9ICcnOwogICAgICAgICAgLy8gQ2hlY2sgZm9yIHZpZGVvIGFuZCBhdWRpbyBhdHRhY2htZW50cwogICAgICAgICAgaWYgKHN0YXR1cy5tZWRpYV9hdHRhY2htZW50cy5sZW5ndGggPiAwKSB7CiAgICAgICAgICAgIG1lZGlhID0gJzxkaXY+JzsKICAgICAgICAgICAgc3RhdHVzLm1lZGlhX2F0dGFjaG1lbnRzLmZvckVhY2goYXR0YWNobWVudCA9PiB7CiAgICAgICAgICAgICAgaWYgKGF0dGFjaG1lbnQudHlwZSA9PT0gJ2ltYWdlJykgewogICAgICAgICAgICAgICAgbWVkaWEgKz0gJzxpbWcgc3JjPSInICsgYXR0YWNobWVudC51cmwgKyAnIiB3aWR0aD0iNTAlIj48YnI+JzsKICAgICAgICAgICAgICB9IGVsc2UgaWYgKGF0dGFjaG1lbnQudHlwZSA9PT0gJ3ZpZGVvJykgewogICAgICAgICAgICAgICAgbWVkaWEgKz0gJzx2aWRlbyBzcmM9IicgKyBhdHRhY2htZW50LnVybCArICciIGNvbnRyb2xzIHdpZHRoPSI1MCUiPjwvdmlkZW8+PGJyPic7CiAgICAgICAgICAgICAgfSBlbHNlIGlmIChhdHRhY2htZW50LnR5cGUgPT09ICdhdWRpbycpIHsKICAgICAgICAgICAgICAgIG1lZGlhICs9ICc8YXVkaW8gc3JjPSInICsgYXR0YWNobWVudC51cmwgKyAnIiBjb250cm9scz48L2F1ZGlvPjxicj4nOwogICAgICAgICAgICAgIH0KICAgICAgICAgICAgfSk7CiAgICAgICAgICAgIG1lZGlhICs9ICc8L2Rpdj4nOwogICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgLy8gQ2hlY2sgZm9yIFlvdVR1YmUgdmlkZW8gbGluawogICAgICAgICAgICBjb25zdCB5b3V0dWJlUmVnZXggPSAvaHR0cHM/OlwvXC8od3d3XC4pPyhtXC4pP3lvdXR1YmVcLmNvbVwvd2F0Y2hcP3Y9KFthLXpBLVowLTlfLV17MTF9KS87CiAgICAgICAgICAgIGNvbnN0IHlvdXR1YmVNYXRjaCA9IHN0YXR1cy5jb250ZW50Lm1hdGNoKHlvdXR1YmVSZWdleCk7CiAgICAgICAgICAgIGlmICh5b3V0dWJlTWF0Y2gpIHsKICAgICAgICAgICAgICAvLyBFeHRyYWN0IHZpZGVvIElEIGZyb20gWW91VHViZSBsaW5rCiAgICAgICAgICAgICAgY29uc3QgdmlkZW9JZCA9IHlvdXR1YmVNYXRjaFszXTsKICAgICAgICAgICAgICAvLyBDcmVhdGUgZW1iZWRkZWQgcGxheWVyIGZvciBZb3VUdWJlIHZpZGVvCiAgICAgICAgICAgICAgbWVkaWEgPSBgPGRpdj48aWZyYW1lIHdpZHRoPSI1NjAiIGhlaWdodD0iMzE1IiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkLyR7dmlkZW9JZH0iIGZyYW1lYm9yZGVyPSIwIiBhbGxvd2Z1bGxzY3JlZW4+PC9pZnJhbWU+PC9kaXY+YDsKICAgICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAvLyBDaGVjayBmb3IgUGl4aXYgYXJ0d29yayBsaW5rCiAgICAgICAgICAgICAgY29uc3QgcGl4aXZSZWdleCA9IC9odHRwcz86XC9cLyg/Ond3d1wuKT9waXhpdlwubmV0XC8oPzplblwvKT9hcnR3b3Jrc1wvKFxkKykvOwogICAgICAgICAgICAgIGNvbnN0IHBpeGl2TWF0Y2ggPSBzdGF0dXMuY29udGVudC5tYXRjaChwaXhpdlJlZ2V4KTsKICAgICAgICAgICAgICBpZiAocGl4aXZNYXRjaCkgewogICAgICAgICAgICAgICAgLy8gRXh0cmFjdCBhcnR3b3JrIElEIGZyb20gUGl4aXYgbGluawogICAgICAgICAgICAgICAgY29uc3QgYXJ0d29ya0lkID0gcGl4aXZNYXRjaFsxXTsKICAgICAgICAgICAgICAgIC8vIENyZWF0ZSBpbWFnZSBwcmV2aWV3IGZvciBQaXhpdiBhcnR3b3JrCiAgICAgICAgICAgICAgICBtZWRpYSA9IGA8ZGl2PjxpbWcgc3JjPSJodHRwczovL2VtYmVkLnBpeGl2Lm5ldC9kZWNvcmF0ZS5waHA/aWxsdXN0X2lkPSR7YXJ0d29ya0lkfSZtb2RlPXNucy1hdXRvbWF0b3IiIHdpZHRoPSI1MCUiPjwvZGl2PmA7CiAgICAgICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAgIGNvbnN0IHRlbm9yUmVnZXggPSAvaHR0cHM/OlwvXC8oPzp3d3dcLik/dGVub3JcLmNvbVwvdmlld1wvW2EtekEtWjAtOS1dKy0oXGQrKS87CiAgICAgICAgICAgICAgICBjb25zdCB0ZW5vck1hdGNoID0gc3RhdHVzLmNvbnRlbnQubWF0Y2godGVub3JSZWdleCk7CiAgICAgICAgICAgICAgICBpZiAodGVub3JNYXRjaCkgewogICAgICAgICAgICAgICAgICAvLyBFeHRyYWN0IFRlbm9yLmNvbSB2aWRlbyBJRAogICAgICAgICAgICAgICAgICBjb25zdCB2aWRlb0lkID0gdGVub3JNYXRjaFsxXTsKICAgICAgICAgICAgICAgICAgLy8gQ3JlYXRlIGVtYmVkZGVkIHBsYXllciBmb3IgVGVub3IuY29tIHZpZGVvCiAgICAgICAgICAgICAgICAgIG1lZGlhID0gYDxkaXY+PGlmcmFtZSBzcmM9Imh0dHBzOi8vdGVub3IuY29tL2VtYmVkLyR7dmlkZW9JZH0iIGZyYW1lYm9yZGVyPSIwIiBhbGxvd2Z1bGxzY3JlZW49InRydWUiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjQwMHB4Ij48L2lmcmFtZT48L2Rpdj5gOwogICAgICAgICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAgICAgLy8gQ2hlY2sgZm9yIGltZ2JiIGltYWdlIFVSTHMgaW4gdGhlIHN0YXR1cyBjb250ZW50CiAgICAgICAgICAgICAgICAgIGNvbnN0IGltYWdlUmVnZXggPSAvKGh0dHBzPzpcL1wvKD86d3d3XC4pP2lcLmliYlwuY29cL1teIF0rXC4oPzpqcGd8cG5nfGdpZnxibXApKS9nOwogICAgICAgICAgICAgICAgICBjb25zdCBpbWFnZU1hdGNoZXMgPSBzdGF0dXMuY29udGVudC5tYXRjaChpbWFnZVJlZ2V4KTsKICAgICAgICAgICAgICAgICAgaWYgKGltYWdlTWF0Y2hlcykgewogICAgICAgICAgICAgICAgICAgIG1lZGlhICs9ICc8ZGl2Pic7CiAgICAgICAgICAgICAgICAgICAgaW1hZ2VNYXRjaGVzLmZvckVhY2godXJsID0+IHsKICAgICAgICAgICAgICAgICAgICAgIG1lZGlhICs9ICc8aW1nIHNyYz0iJyArIHVybCArICciIHdpZHRoPSI1MCUiPjxicj4nOwogICAgICAgICAgICAgICAgICAgIH0pOwogICAgICAgICAgICAgICAgICAgIG1lZGlhICs9ICc8L2Rpdj4nOwogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgICB9CiAgICAgICAgICAvLyBDaGVjayBmb3Igc3BvaWxlciB0YWcKICAgICAgICAgIGlmIChzdGF0dXMudXJsLmluY2x1ZGVzKCdhY3Rpdml0eScpKSB7CiAgICAgICAgICAgIGF2YXRhciA9ICc8IS0tPGRldGFpbHM+PHN1bW1hcnk+QXZhdGFyIChzcG9pbGVyKTwvc3VtbWFyeT48aW1nIHNyYz0iJyArIHN0YXR1cy5hY2NvdW50LmF2YXRhciArICciIHdpZHRoPSIxMDBweCI+PC9kZXRhaWxzPi0tPjxicj4nOwogICAgICAgICAgICB0b290TGluayA9ICc8IS0tPGRldGFpbHM+PHN1bW1hcnk+VmlldyBvbiBNYXN0b2RvbiAoc3BvaWxlcik8L3N1bW1hcnk+PGEgaHJlZj0iJyArIHN0YXR1cy51cmwgKyAnIiB0YXJnZXQ9Il9ibGFuayI+Q2xpY2sgaGVyZSB0byB2aWV3IGFjdGl2aXR5PC9hPjwvZGV0YWlscz4tLT4nOwogICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgYXZhdGFyID0gJzxpbWcgc3JjPSInICsgc3RhdHVzLmFjY291bnQuYXZhdGFyICsgJyIgd2lkdGg9IjEwMHB4Ij48YnI+JzsKICAgICAgICAgICAgdG9vdExpbmsgPSAnPGEgaHJlZj0iJyArIHN0YXR1cy51cmwgKyAnIiB0YXJnZXQ9Il9ibGFuayI+VmlldyBvbiBNYXN0b2RvbjwvYT4nOwogICAgICAgICAgfQogICAgICAgICAgLy8gR2V0IHRoZSBkYXRlIG9mIHRoZSBzdGF0dXMKICAgICAgICAgIGNvbnN0IGRhdGUgPSBuZXcgRGF0ZShzdGF0dXMuY3JlYXRlZF9hdCk7CiAgICAgICAgICAvLyBBcHBlbmQgY29udGVudCB0byBmZWVkCiAgICAgICAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnZmVlZCcpLmlubmVySFRNTCArPSBjb250ZW50ICsgbWVkaWEgKyBhdmF0YXIgKyB0b290TGluayArICcmbmJzcDsnICsgZGF0ZS50b0xvY2FsZVN0cmluZygpICsgJzxocj4nOwogICAgICAgIH0pOwogICAgICB9KQogICAgICAuY2F0Y2goZXJyb3IgPT4gY29uc29sZS5lcnJvcihlcnJvcikpOwogICAgfQogICAgCiAgICAvLyBJbml0aWFsIGZldGNoIHVzaW5nIHRoZSBBUEkgVVJMIGZvciB0aGUgQWxjZWFXaXN0ZXJpYSBpbnN0YW5jZQogICAgY29uc3QgYXBpVXJsID0gJ2h0dHBzOi8vcGIudG9kb24uZGUvYXBpL3YxL2FjY291bnRzLzEwOTYyOTk4NTAxMDIyNDM4MS9zdGF0dXNlcyc7CiAgICBmZXRjaERhdGEoYXBpVXJsKTsKICA8L3NjcmlwdD4KPC9ib2R5Pg==
+-->
