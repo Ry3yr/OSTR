@@ -120,13 +120,13 @@
         const radioButtons = document.querySelectorAll('input[name="ryedaiurl"]');
         radioButtons.forEach(radioButton => {
           radioButton.addEventListener('change', function() {
-            const selectedApiUrl = this.value;
-            fetchData(selectedApiUrl);
+            const selectedApiUrl2 = this.value;
+            fetchData(selectedApiUrl2);
           });
         });
         // Initial fetch using the default API URL
-        const defaultApiUrl = 'https://mastodon.social/api/v1/accounts/109977878421486714/statuses';
-        fetchData(defaultApiUrl);
+        const defaultApiUrl2 = 'https://mastodon.social/api/v1/accounts/109977878421486714/statuses';
+        fetchData(defaultApiUrl2);
       });
   </script>
 </body>
