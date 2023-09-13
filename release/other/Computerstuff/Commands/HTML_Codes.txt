@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         customEmojis.forEach(function(customEmoji) {
           var shortcode = customEmoji.shortcode;
           var url = customEmoji.url;
-          var emojiTag = '<img src="' + url + '" alt="' + shortcode + '" width="45px">';
+          <img src="' + url + '" alt="' + shortcode + '" width="45px" title="' + shortcode + '" onmouseover="hoverEmoji(this)" onmouseout="unhoverEmoji(this)">
           emojiContainer.innerHTML += emojiTag;
         });
       });
