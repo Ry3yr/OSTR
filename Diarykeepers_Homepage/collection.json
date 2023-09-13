@@ -509,7 +509,7 @@
             "format": "physical",
             "price_paid": 3000,
             "price_paid_currency": "EUR",
-            "gamesize": " 6.784 GB"
+            "gamesize": " 9.18 GB"
         },
         {
             "name": "Pok\u00e9mon Shining Pearl",
@@ -562,6 +562,15 @@
             "price_paid_currency": "EUR",
             "note": "PhysAvailAlso",
             "gamesize": " 23.66 GB"
+        },
+        {
+            "name": "Risen",
+            "link": "https://www.dekudeals.com/items/risen-1",
+            "added_at": "2023-09-13T14:25:34+00:00",
+            "format": "physical",
+            "price_paid": 2300,
+            "price_paid_currency": "EUR",
+            "gamesize": " 5.007 GB"
         },
         {
             "name": "RIVE: Ultimate Edition",
