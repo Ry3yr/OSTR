@@ -11,53 +11,57 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
-Fetch Mastodon Instance Emojis:
--------------------------------
+Download Time / Speed Calculator:
+---------------------------------------------------
 
-<!--Add querystring "instance" to instantly load emoji from that server-->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var form = document.getElementById('emojiForm');
-  var submitButton = document.getElementById('submitButton');
-  var instanceInput = document.getElementById('instance');
-  var queryString = window.location.search;
-  var urlParams = new URLSearchParams(queryString);
-  var instanceValue = urlParams.get('instance');
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    submitButton.disabled = true;
-    var instanceValue = instanceInput.value;
-    var endpoint = 'https://' + instanceValue + '/api/v1/custom_emojis';
-    fetch(endpoint)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(customEmojis) {
-        var emojiContainer = document.getElementById('emojiContainer');
-        emojiContainer.innerHTML = '';
+    <script>
+        function calculateSpeed() {
+            var fileSize = parseFloat(document.getElementById("fileSize").value);  // File size in megabytes
+            var transmissionSpeed = parseFloat(document.getElementById("transmissionSpeed").value);  // Transmission speed in megabits or gigabits per second
+            var unit = document.getElementById("unit").value;
+            if (unit === "Mbit/s") {
+                transmissionSpeed /= 8;  // Convert speed to megabytes per second
+            } else if (unit === "Gbit/s") {
+                transmissionSpeed *= 125;  // Convert speed to megabytes per second
+            }
+            var downloadTime = fileSize / transmissionSpeed;  // Calculate download time in seconds
+            // Determine the selected unit for output
+            var outputUnit;
+            if (document.getElementById("seconds").checked) {
+                outputUnit = "seconds";
+            } else if (document.getElementById("minutes").checked) {
+                outputUnit = "minutes";
+                downloadTime /= 60;  // Convert download time to minutes
+            } else if (document.getElementById("hours").checked) {
+                outputUnit = "hours";
+                downloadTime /= 3600;  // Convert download time to hours
+            }
+            // Display the download time
+            document.getElementById("result").innerHTML = "Download Time: " + downloadTime.toFixed(2) + " " + outputUnit;
+        }
+    </script>
+</head>
+<body>
+    <h1>Download Speed Calculator</h1>
+    <label for="fileSize">File Size (MB):</label>
+    <input type="text" id="fileSize"  style="width: 60px;"/> 
+    -&nbsp;<input type="text" id="transmissionSpeed" style="width: 25px;" value="2"/>
+    <select id="unit">
+    <option value="Mbit/s">Mbit/s</option>
+    <option value="Gbit/s">Gbit/s</option>
+    </select><br><br>
+    <input type="radio" id="seconds" name="outputUnit" value="seconds">
+    <label for="seconds">Seconds</label>
+    <input type="radio" id="minutes" name="outputUnit" value="minutes">
+    <label for="minutes">Minutes</label>
+    <input type="radio" id="hours" name="outputUnit" value="hours" checked>
+    <label for="hours">Hours</label><br><br>
+    <button onclick="calculateSpeed()">Calculate</button><br><br>
+    <div id="result"></div>
+</body>
+</html>
 
-        customEmojis.forEach(function(customEmoji) {
-          var shortcode = customEmoji.shortcode;
-          var url = customEmoji.url;
-          <img src="' + url + '" alt="' + shortcode + '" width="45px" title="' + shortcode + '" onmouseover="hoverEmoji(this)" onmouseout="unhoverEmoji(this)">
-          emojiContainer.innerHTML += emojiTag;
-        });
-      });
-  });
-  if (instanceValue) {
-    instanceInput.value = instanceValue;
-    submitButton.click();
-  }
-});
-</script>
-<div id="emojiContainer"></div>
-<form id="emojiForm">
-  <input type="text" id="instance" name="instance" required>
-  <button type="submit" id="submitButton">Fetch Emojis</button>
-</form>
-
-_______________________________________________
-
+________________________________
 
 Advanced Mastodon Renderer ( Attachments, Youtube, Pixiv, Tenor, imgbb, shortcode-emoji)
 --------------------------------------------
