@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -60,18 +61,16 @@
         let extrainfo = '';
         if (item.note && item.note.includes("DigitalAlso")) {
           extrainfo = ' DigitalAlso';
-          }
-         // Retrieve the image URL from the "image" field
-         let imageUrl = item.image;
-         tableHtml += `
-         <tr>
-         <td><img src="${imageUrl}" width="20" height="20"> <a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}</td>
-          <td>${item.format}</td>
-          <td>${item.price_paid}</td>
-          <td>${status}</td>
-          <td>${new Date(item.added_at).toLocaleDateString()}</td>
-          <td>${item.gamesize}</td>
-        </tr>
+        }
+        tableHtml += `
+          <tr>
+            <td><a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}</td>
+            <td>${item.format}</td>
+            <td>${item.price_paid}</td>
+            <td>${status}</td>
+            <td>${new Date(item.added_at).toLocaleDateString()}</td>
+            <td>${item.gamesize}</td>
+          </tr>
         `;
         if (item.format === "physical") {
           totalPhysicalGames++;
@@ -101,20 +100,8 @@
 
 
 
-
-
-
-<!---New--PHP-Gamesize_&_image_Fetcher--
-
+<!---PHP-Gamesize_Fetcher_for_collection.json--
 <?php
-define("ALLOW_SOURCE", TRUE);
-define("ALLOW_TITLE", TRUE);
-
-if (ALLOW_SOURCE && isset($_GET['source'])) {
-    highlight_file(__FILE__);
-    exit(0);
-}
-
 // Function to handle file upload
 function handleFileUpload($file)
 {
@@ -147,13 +134,8 @@ function handleFileUpload($file)
                     $query = "//strong[contains(text(), 'Download size:')]/following-sibling::text()";
                     $downloadSize = $xpath->query($query)->item(0)->nodeValue;
 
-                    // Find the og:image meta tag using XPath
-                    $queryImage = "//meta[@property='og:image']/@content";
-                    $image = $xpath->query($queryImage)->item(0)->nodeValue;
-
-                    // Add the new "gamesize" and "image" fields to the item
+                    // Add the new "gamesize" field to the item
                     $item['gamesize'] = $downloadSize;
-                    $item['image'] = $image;
                 }
             }
 
@@ -166,7 +148,6 @@ function handleFileUpload($file)
 
             // Output the updated JSON data for download
             echo $updatedJsonData;
-            exit(0); // Stop further execution of the script
         } else {
             // JSON decoding failed
             echo "Failed to decode JSON data.";
@@ -189,16 +170,14 @@ if ($_FILES && isset($_FILES['json_file'])) {
     <title>Dekudeals Download Size Fetcher</title>
 </head>
 <body>
-    <h1>Upload your collection JSON (or use URL) to add gamesizes & imageurls</h1>
+    <h1>upload your collection json (or use url) to add gamesizes </h1>
 
-    <!-- Start button -->
     <form action="" method="POST">
         <button type="submit" name="start">Start</button>
     </form>
 
     <hr>
 
-    <!-- File upload form -->
     <h3>Upload custom JSON</h3>
     <form action="" method="POST" enctype="multipart/form-data">
         <input type="file" name="json_file" accept=".json">
@@ -208,19 +187,13 @@ if ($_FILES && isset($_FILES['json_file'])) {
 </html>
 
 <?php
-    define("ALLOW_SOURCE", TRUE);
-    define("ALLOW_TITLE", TRUE);
-    if (ALLOW_SOURCE && isset($_GET['source'])) {
+    define("ALLOW_SOURCE",TRUE);
+    define("ALLOW_TITLE",TRUE);
+    if(ALLOW_SOURCE && isset($_GET['source'])){
         highlight_file(__FILE__);
         exit(0);
     }
 ?>
 <a target="_blank" href="?source">Source Code</a>
 </body>
-</html>
-
---->
-<!---Old--PHP-Gamesize--Fetcher--
-PCEtLS1QSFAtR2FtZXNpemVfRmV0Y2hlcl9mb3JfY29sbGVjdGlvbi5qc29uLS0KPD9waHAKLy8gRnVuY3Rpb24gdG8gaGFuZGxlIGZpbGUgdXBsb2FkCmZ1bmN0aW9uIGhhbmRsZUZpbGVVcGxvYWQoJGZpbGUpCnsKICAgIC8vIENoZWNrIGlmIHRoZSB1cGxvYWQgd2FzIHN1Y2Nlc3NmdWwKICAgIGlmICgkZmlsZVsnZXJyb3InXSA9PT0gVVBMT0FEX0VSUl9PSykgewogICAgICAgIC8vIFJlYWQgdGhlIHVwbG9hZGVkIGZpbGUKICAgICAgICAkanNvbkRhdGEgPSBmaWxlX2dldF9jb250ZW50cygkZmlsZVsndG1wX25hbWUnXSk7CgogICAgICAgIC8vIERlY29kZSB0aGUgSlNPTiBkYXRhIGludG8gYW4gYXNzb2NpYXRpdmUgYXJyYXkKICAgICAgICAkZGF0YSA9IGpzb25fZGVjb2RlKCRqc29uRGF0YSwgdHJ1ZSk7CgogICAgICAgIC8vIENoZWNrIGlmIHRoZSBKU09OIGRlY29kaW5nIHdhcyBzdWNjZXNzZnVsCiAgICAgICAgaWYgKCRkYXRhICE9PSBudWxsKSB7CiAgICAgICAgICAgIC8vIEl0ZXJhdGUgb3ZlciBlYWNoIGl0ZW0gaW4gdGhlIGNvbGxlY3Rpb24KICAgICAgICAgICAgZm9yZWFjaCAoJGRhdGFbJ2l0ZW1zJ10gYXMgJiRpdGVtKSB7CiAgICAgICAgICAgICAgICAvLyBDaGVjayBpZiB0aGUgaXRlbSBoYXMgYSAibGluayIga2V5CiAgICAgICAgICAgICAgICBpZiAoaXNzZXQoJGl0ZW1bJ2xpbmsnXSkpIHsKICAgICAgICAgICAgICAgICAgICAvLyBGZXRjaCB0aGUgY29udGVudCBvZiB0aGUgVVJMCiAgICAgICAgICAgICAgICAgICAgJHVybCA9ICRpdGVtWydsaW5rJ107CiAgICAgICAgICAgICAgICAgICAgJGh0bWwgPSBmaWxlX2dldF9jb250ZW50cygkdXJsKTsKCiAgICAgICAgICAgICAgICAgICAgLy8gQ3JlYXRlIGEgRE9NRG9jdW1lbnQgb2JqZWN0IGFuZCBsb2FkIHRoZSBIVE1MIGNvbnRlbnQKICAgICAgICAgICAgICAgICAgICAkZG9tID0gbmV3IERPTURvY3VtZW50KCk7CiAgICAgICAgICAgICAgICAgICAgQCRkb20tPmxvYWRIVE1MKCRodG1sKTsKCiAgICAgICAgICAgICAgICAgICAgLy8gQ3JlYXRlIGEgRE9NWFBhdGggb2JqZWN0IHRvIHF1ZXJ5IHRoZSBIVE1MCiAgICAgICAgICAgICAgICAgICAgJHhwYXRoID0gbmV3IERPTVhQYXRoKCRkb20pOwoKICAgICAgICAgICAgICAgICAgICAvLyBGaW5kIHRoZSBkb3dubG9hZCBzaXplIGVsZW1lbnQgdXNpbmcgWFBhdGgKICAgICAgICAgICAgICAgICAgICAkcXVlcnkgPSAiLy9zdHJvbmdbY29udGFpbnModGV4dCgpLCAnRG93bmxvYWQgc2l6ZTonKV0vZm9sbG93aW5nLXNpYmxpbmc6OnRleHQoKSI7CiAgICAgICAgICAgICAgICAgICAgJGRvd25sb2FkU2l6ZSA9ICR4cGF0aC0+cXVlcnkoJHF1ZXJ5KS0+aXRlbSgwKS0+bm9kZVZhbHVlOwoKICAgICAgICAgICAgICAgICAgICAvLyBBZGQgdGhlIG5ldyAiZ2FtZXNpemUiIGZpZWxkIHRvIHRoZSBpdGVtCiAgICAgICAgICAgICAgICAgICAgJGl0ZW1bJ2dhbWVzaXplJ10gPSAkZG93bmxvYWRTaXplOwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CgogICAgICAgICAgICAvLyBFbmNvZGUgdGhlIG1vZGlmaWVkIGRhdGEgYmFjayB0byBKU09OCiAgICAgICAgICAgICR1cGRhdGVkSnNvbkRhdGEgPSBqc29uX2VuY29kZSgkZGF0YSwgSlNPTl9QUkVUVFlfUFJJTlQgfCBKU09OX1VORVNDQVBFRF9TTEFTSEVTKTsKCiAgICAgICAgICAgIC8vIFNldCB0aGUgYXBwcm9wcmlhdGUgaGVhZGVycyBmb3IgZG93bmxvYWRpbmcgdGhlIGZpbGUKICAgICAgICAgICAgaGVhZGVyKCdDb250ZW50LVR5cGU6IGFwcGxpY2F0aW9uL2pzb24nKTsKICAgICAgICAgICAgaGVhZGVyKCdDb250ZW50LURpc3Bvc2l0aW9uOiBhdHRhY2htZW50OyBmaWxlbmFtZT0idXBkYXRlZF9jb2xsZWN0aW9uLmpzb24iJyk7CgogICAgICAgICAgICAvLyBPdXRwdXQgdGhlIHVwZGF0ZWQgSlNPTiBkYXRhIGZvciBkb3dubG9hZAogICAgICAgICAgICBlY2hvICR1cGRhdGVkSnNvbkRhdGE7CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgLy8gSlNPTiBkZWNvZGluZyBmYWlsZWQKICAgICAgICAgICAgZWNobyAiRmFpbGVkIHRvIGRlY29kZSBKU09OIGRhdGEuIjsKICAgICAgICB9CiAgICB9IGVsc2UgewogICAgICAgIC8vIEZpbGUgdXBsb2FkIGZhaWxlZAogICAgICAgIGVjaG8gIkZpbGUgdXBsb2FkIGZhaWxlZC4gUGxlYXNlIHRyeSBhZ2Fpbi4iOwogICAgfQp9CgovLyBDaGVjayBpZiBhIGZpbGUgd2FzIHVwbG9hZGVkCmlmICgkX0ZJTEVTICYmIGlzc2V0KCRfRklMRVNbJ2pzb25fZmlsZSddKSkgewogICAgaGFuZGxlRmlsZVVwbG9hZCgkX0ZJTEVTWydqc29uX2ZpbGUnXSk7Cn0KPz4KCjwhRE9DVFlQRSBodG1sPgo8aHRtbD4KPGhlYWQ+CiAgICA8dGl0bGU+RGVrdWRlYWxzIERvd25sb2FkIFNpemUgRmV0Y2hlcjwvdGl0bGU+CjwvaGVhZD4KPGJvZHk+CiAgICA8aDE+dXBsb2FkIHlvdXIgY29sbGVjdGlvbiBqc29uIChvciB1c2UgdXJsKSB0byBhZGQgZ2FtZXNpemVzIDwvaDE+CgogICAgPGZvcm0gYWN0aW9uPSIiIG1ldGhvZD0iUE9TVCI+CiAgICAgICAgPGJ1dHRvbiB0eXBlPSJzdWJtaXQiIG5hbWU9InN0YXJ0Ij5TdGFydDwvYnV0dG9uPgogICAgPC9mb3JtPgoKICAgIDxocj4KCiAgICA8aDM+VXBsb2FkIGN1c3RvbSBKU09OPC9oMz4KICAgIDxmb3JtIGFjdGlvbj0iIiBtZXRob2Q9IlBPU1QiIGVuY3R5cGU9Im11bHRpcGFydC9mb3JtLWRhdGEiPgogICAgICAgIDxpbnB1dCB0eXBlPSJmaWxlIiBuYW1lPSJqc29uX2ZpbGUiIGFjY2VwdD0iLmpzb24iPgogICAgICAgIDxidXR0b24gdHlwZT0ic3VibWl0IiBuYW1lPSJ1cGxvYWQiPlVwbG9hZDwvYnV0dG9uPgogICAgPC9mb3JtPgo8L2JvZHk+CjwvaHRtbD4KCjw/cGhwCiAgICBkZWZpbmUoIkFMTE9XX1NPVVJDRSIsVFJVRSk7CiAgICBkZWZpbmUoIkFMTE9XX1RJVExFIixUUlVFKTsKICAgIGlmKEFMTE9XX1NPVVJDRSAmJiBpc3NldCgkX0dFVFsnc291cmNlJ10pKXsKICAgICAgICBoaWdobGlnaHRfZmlsZShfX0ZJTEVfXyk7CiAgICAgICAgZXhpdCgwKTsKICAgIH0KPz4KPGEgdGFyZ2V0PSJfYmxhbmsiIGhyZWY9Ij9zb3VyY2UiPlNvdXJjZSBDb2RlPC9hPgo8L2JvZHk+CjwvaHRtbD4tLT4=
-
--->
+</html>-->
