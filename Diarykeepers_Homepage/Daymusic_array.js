@@ -141,3 +141,5 @@
     {'quote': '<a target="_blank" href="https://m.youtube.com/watch?v=4rCShDrMpl8">Bauklötze [PB★Cover]</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=4DDTOgzl6Mw">03 - 奇跡の子 (Kiseki no ko) Child of Miracle</a>'},
     {'quote': '<a target="_blank" href="https://www.youtube.com/watch?v=Xg3hynW6dpI">Mandalay - Beautiful (7 Canny Mix)</a>'},
+    {'quote': '<a target="_blank" href="https://web.archive.org/web/20230920221800/https://pb.todon.de/system/media_attachments/files/111/099/683/530/424/880/original/bc0ab0a320b0e3d9.mp3">KKJ Violin - from 04_Sabishikute_mo</a>'},
+
