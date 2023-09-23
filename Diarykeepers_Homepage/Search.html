@@ -10,6 +10,10 @@
 	<form role="form">
         <div class="form-group">
           <input type="input" class="form-control input-lg" id="txt-search" placeholder="Enter Search term">
+
+<a href="https://ry3yr.github.io/ytsearch" target="_blank" rel="noopener noreferrer"><img src="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/extrafiles/images/logos/YT_Button.png" height="20" width="20"></a> 
+<a href="https://ry3yr.github.io/ebay" target="_blank" rel="noopener noreferrer"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShUuq-b0G2z9EEpxzvr_n4pE5O8Kbqzm5k9dIVxkzgcw&s" height="20" width="20"></a>
+
         </div>
 	</form>
 	<div id="filter-records"></div>
@@ -68,7 +72,8 @@ $('#txt-search').keyup(function(){
             var count = 1;
 			  $.each(data, function(key, val){
 				if ((val.html_name.search(regex) != -1) || (val.page_name.search(regex) != -1)) {
-                                  output += '<div class="col-md-4"><a href="'+val.html_name+'';
+                                  //output += '<div class="col-md-4"><a href="'+val.html_name+'';
+                                  output += '<div class="col-md-4"><a href="' + val.html_name + '" target=_blank';
 				  output += '">';
 				  output += '<p>' + val.html_name + '</p>'
 				  output += '</div>';
