@@ -11,6 +11,34 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Link w hover popup:
+-------------------------------
+
+<br><br>
+<a id="popupLink" target="_blank" href="https://thinfi.com/0awck" style="position: relative; display: inline-block; cursor: pointer;">
+  AndrdDvsBckp
+  <span id="popupText" style="visibility: hidden; width: 900px; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -100px; opacity: 0; transition: opacity 0.3s;">
+    webdav.hidrive.strato.com/users/user/DB/Public/Phone_relatated/0Android/[Device_Backupl]/Tablet
+  </span></a>
+<script>
+  var link = document.getElementById('popupLink');
+  var popup = document.getElementById('popupText');
+  link.addEventListener('mouseover', function() {
+    popup.style.visibility = 'visible';
+    popup.style.opacity = '1';});
+  link.addEventListener('mouseout', function() {
+    popup.style.visibility = 'hidden';
+    popup.style.opacity = '0';});
+  link.addEventListener('mousedown', function() {
+    popup.style.visibility = 'visible';
+    popup.style.opacity = '1';});
+  link.addEventListener('mouseup', function() {
+    popup.style.visibility = 'hidden';
+    popup.style.opacity = '0';});
+</script>
+
+________________________
+
 Isola(tion) -2P Game
 ---------------------------------
 
