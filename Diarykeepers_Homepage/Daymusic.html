@@ -19,31 +19,23 @@ var lastRandomNumber;
 $(document.body).ready(function () {
   // load the trivia from the server
   $.ajax({
-    url: 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Daymusic_array.js'
+    url: 'Daymusic_array.js'
   }).done(function(content) {
-    // normalize the line breaks, then split into lines
     lines = content.replace(/\r\n|\r/g, '\n').trim().split('\n');
-    lines = content.replace(/\r\n|\r/g, 'quote').trim().split('quote');
-    // ^^ line rmvl ^^^
-    // only set up the click handler if there were lines found
     if (lines && lines.length) {
-      // add keyup event listener on search input field
       $('#searchInput').on('keyup', function () {
         searchLines($(this).val());
       });
-      // set up the click handler for the showLine button
       $('#showLine').on('click', function () {
-        // loop to prevent repeating the last random number
         while (randomNumber === lastRandomNumber) {
           randomNumber = parseInt(Math.random() * lines.length);
-          // check to prevent infinite loop
           if (lines.length === 1) { break; }
         }
-        // keep track of the last random number
         lastRandomNumber = randomNumber;
-        // show the corresponding line
-        $('#trivia').html(lines[randomNumber]);
-        $('#searchResults').empty(); // clear search results when a new line is displayed
+        
+        var line = lines[randomNumber].replace("{'quote': '", "").replace("'},", "");
+        $('#trivia').html(line);
+        $('#searchResults').empty();
       });
     }
   });
