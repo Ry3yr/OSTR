@@ -1,10 +1,609 @@
 (PHPs CurrUsed: https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/php.html )
 PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
-PHPTest: http://alceawisteria.byethost7.com/PHP/0demo/00-PHP-Test/0test.php
+PHPTest: http://alcea-wisteria.de/PHP/0demo/00-PHP-Test/0test.php
 ___________________________________________________________________________________________________________________
 _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
 *php-install
 
+Delete folder if link is clicked:
+--------------------------------------
+
+<?php if (isset($_GET['delete']) && is_dir('website') && shell_exec('rm -rf website')) echo 'Folder deleted.'; ?><a href="?delete">Del code</a>
+
+_________________________
+
+Fetch and render *.zip url (use zipstream php for extractless render):
+---------------------------------------
+
+ <?php
+$files = glob("*.zip"); // Get all zip files in the current folder
+if (!empty($files)) {
+    $zipFile = $files[0]; // Assuming you want to delete the first zip file found
+    unlink($zipFile);
+   // echo "The zip file '$zipFile' has been deleted.";
+} else {
+    //echo "No zip files found in the current folder.";
+}
+?>
+<!------Star-Zip-Fetch--->
+   <form method="post" action="">
+        <label for="zipUrl">Enter ZIP URL:</label>
+        <input type="text" name="zipUrl" id="zipUrl" value="http://ry3yr.github.io/alceawis.de.zip" required>
+        <br>
+        <!---<label for="downloadPath">Download Path:</label>--->
+        <!--<input type="text" name="downloadPath" id="downloadPath" placeholder="Enter download path (optional)">-->
+        <br>
+        <input type="submit" name="download" value="Download and Render">
+    </form>
+    <?php
+    if (isset($_POST['download'])) {
+        $url = $_POST['zipUrl'];
+        $filename = basename($url);
+        // Check if the download path textbox is filled
+        if (!empty($_POST['downloadPath'])) {
+            $downloadPath = $_POST['downloadPath'];
+            $filename = $downloadPath . '/' . $filename;
+        }
+        else {
+            $filename = './' . $filename; // Set a default path if download path is not specified
+        }
+        // Validate the URL
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            try {
+                // Use cURL to download the file
+                $ch = curl_init($url);
+                $fp = fopen($filename, 'w');
+                curl_setopt($ch, CURLOPT_FILE, $fp);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
+                curl_setopt($ch, CURLOPT_MAXREDIRS, 5); // Maximum number of redirects to follow
+                curl_exec($ch);
+                // Check if the download was successful
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                if ($httpCode == 200) {
+                    $message = "File downloaded successfully.";
+                } else {
+                    $message = "Failed to download the file. HTTP code: " . $httpCode;
+                }
+                curl_close($ch);
+                fclose($fp);
+            } catch (Exception $e) {
+                $message = "An error occurred during the download: " . $e->getMessage();
+            }
+            // Check for cURL errors
+            if (curl_errno($ch)) {
+                $message = "cURL error: " . curl_error($ch);
+            }
+        } else {
+            $message = "Invalid URL.";
+        }
+    }
+    ?>
+    <p><?php echo $message ?? ''; ?></p>
+</body>
+</html>
+<!---Start--Extract-->
+<?php
+$zipFiles = glob("*.zip"); // Get all ZIP files in the current directory
+if (!empty($zipFiles)) {
+    $extractPath = "website"; // Destination folder
+    // Make sure the extraction path exists
+    if (!is_dir($extractPath)) {
+        mkdir($extractPath, 0777, true);
+    }
+    foreach ($zipFiles as $zipFile) {
+        $zip = new ZipArchive;
+        if ($zip->open($zipFile) === TRUE) {
+            // Extract the files directly into the destination folder
+            $zip->extractTo($extractPath);
+            $zip->close();
+            //echo "ZIP file '$zipFile' extracted successfully.<br>";
+        } else {
+            echo "Failed to open the ZIP file '$zipFile'.<br>";
+        }
+    }
+} else {
+    echo "No ZIP files found in the current directory.";
+}
+?>
+<?php
+$websiteFolder = "website"; // Replace with the name of the "website" folder
+// Check if the "website" folder exists
+if (is_dir($websiteFolder)) {
+    // Get the first subfolder inside the "website" folder
+    $subfolders = glob($websiteFolder . '/*', GLOB_ONLYDIR);
+    if (!empty($subfolders)) {
+        $firstSubfolder = $subfolders[0];
+        // Find the "index.html" file inside the subfolder
+        $indexFile = $firstSubfolder . '/index.html';
+        if (file_exists($indexFile)) {
+            // Open the "index.html" file as a URL in a new tab or window
+            //echo '<script>window.open("' . $indexFile . '", "_blank");</script>';
+        } else {
+            echo 'The "index.html" file was not found.';
+        }
+    } else {
+        echo 'No subfolders found inside the "website" folder.';
+    }
+} else {
+    echo 'The "website" folder does not exist.';
+}
+?>
+<!---last-site-->
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $websiteFolder = 'website';
+    // Retrieve the subfolders within the website folder
+    $subfolders = array_diff(scandir($websiteFolder), array('..', '.'));
+    // Get the first subfolder
+    $firstSubfolder = reset($subfolders);
+    $indexUrl = $websiteFolder . '/' . $firstSubfolder . '/index.html';
+    echo '<a href="' . $indexUrl . '" target="_blank">Open ' . $indexUrl . '</a>';
+}
+?>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <button type="submit">Get First Subfolder</button>
+</form>
+
+
+
+_________________________
+
+YGO Wikia setlistfetch:
+-----------------------------------
+
+<div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Releases'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Releases';}" value="Releases" style="background:; border:none; color:;"><div class="spoiler" style="display: none;" >
+<!---SetList-->
+<?php
+$url = 'https://yugioh.fandom.com/wiki/Yu-Gi-Oh!_Wiki';
+$html = file_get_contents($url);
+$start = strpos($html, 'h3><span class="mw-headline" id="TCG"><i>TCG</i></span></h3>');
+$end = strpos($html, '<span class="mw-headline" id="Anime"', $start);
+$length = $end - $start;
+$result = substr($html, $start, $length);
+$baseUrl = parse_url($url, PHP_URL_SCHEME) . '://' . parse_url($url, PHP_URL_HOST);
+$fixedResult = str_replace('href="/', 'href="'.$baseUrl.'/', $result);
+$fixedResult = str_replace('<a', '<a target="_blank"', $fixedResult); // Add target="_blank"
+echo $fixedResult;
+?>
+</div><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Sorting</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<button id="sort_by_name_button">Sort by Name</button>
+<button id="sort_by_category_button">Sort by Category</button>
+    <script>
+        function sortTableRowsByName() {
+            var $tableRows = $('.table-row');
+
+            $tableRows.sort(function(a, b) {
+                var aValue = $(a).data('sort-value');
+                var bValue = $(b).data('sort-value');
+                return aValue.localeCompare(bValue);
+            });
+
+            $('.table-body').empty().append($tableRows);
+        }
+
+        function sortTableRowsByCategory() {
+            var $tableRows = $('.table-row');
+
+            $tableRows.sort(function(a, b) {
+                var aValue = $(a).data('sort-category');
+                var bValue = $(b).data('sort-category');
+                return aValue.localeCompare(bValue);
+            });
+
+            $('.table-body').empty().append($tableRows);
+        }
+
+        $(document).on('click', '#sort_by_name_button', function() {
+            sortTableRowsByName();
+        });
+
+        $(document).on('click', '#sort_by_category_button', function() {
+            sortTableRowsByCategory();
+        });
+    </script>
+</head>
+<body>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="url">Enter the URL:</label>
+        <input type="text" name="url" id="url" required>
+        <input type="submit" value="Retrieve">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $url = $_POST['url'];
+
+        $doc = new DOMDocument();
+        $doc->loadHTMLFile($url);
+
+        $xpath = new DOMXPath($doc);
+        $table = $xpath->query('//table[@id="Top_table"]')->item(0);
+
+        if ($table) {
+            $parsedUrl = parse_url($url);
+            $baseUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
+
+            $tableRows = [];
+
+            $rows = $table->getElementsByTagName('tr');
+            foreach ($rows as $row) {
+                $cells = $row->getElementsByTagName('td');
+
+                if ($cells->length >= 3) {
+                    $nameCell = $cells->item(1);
+                    $nameLink = $nameCell->getElementsByTagName('a')->item(0);
+                    $name = '';
+                    $nameUrl = '';
+                    if ($nameLink) {
+                        $name = trim($nameLink->textContent);
+                        $nameRelativeUrl = $nameLink->getAttribute('href');
+                        $nameUrl = $baseUrl . $nameRelativeUrl;
+                    }
+
+                    $categoryCell = $cells->item(3);
+                    $category = '';
+                    if ($categoryCell) {
+                        $category = trim($categoryCell->textContent);
+                    }
+
+                    $tableRows[] = [
+                        'name' => $name,
+                        'category' => $category,
+                        'nameUrl' => $nameUrl
+                    ];
+                }
+            }
+
+            echo '<div class="table-body">';
+            foreach ($tableRows as $row) {
+                echo '<div class="table-row" data-sort-value="' . $row['name'] . '" data-sort-category="' . $row['category'] . '">';
+                echo 'Name: <a href="' . $row['nameUrl'] . '" target="_blank">' . $row['name'] . '</a> | Category: ' . $row['category'];
+                echo '</div>';
+            }
+            echo '</div>';
+
+            //echo '<button id="sort_by_name_button">Sort by Name</button>';
+            //echo '<button id="sort_by_category_button">Sort by Category</button>';
+        } else {
+            echo "Table not found.";
+        }
+    }
+    ?>
+</body>
+</html>
+
+____________________________________
+
+
+URL Page Source Display:
+---------------------------------------
+
+<?php
+if(isset($_POST['submit'])) {
+    // Get the URL from the textbox
+    $url = $_POST['url'];
+    // Fetch the source code of the URL
+    $sourceCode = file_get_contents($url);
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Source Code Viewer</title>
+</head>
+<body>
+    <form method="POST">
+        <label for="url">Enter URL:</label>
+        <input type="text" name="url" id="url" required>
+        <br>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+    <?php if(isset($_POST['submit'])): ?>
+      <div style="margin-top: 20px;">
+          <h2>Source Code:</h2>
+          <div><textarea cols="80" rows="10"><?php echo $sourceCode; ?></textarea></div>
+      </div>
+    <?php endif; ?>
+</body>
+</html>
+
+
+____________________________________
+
+Duplicate Subdir File Finder (& deleter)
+-----------------------------------------------------------
+
+<?php
+function scanDirectories($dir)
+{
+    $fileList = [];
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST,
+        RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied" errors
+    );
+
+    foreach ($iterator as $path => $fileInfo) {
+        if ($fileInfo->isFile()) {
+            $size = $fileInfo->getSize();
+            $fileList[$size][] = $path;
+        }
+    }
+
+    return $fileList;
+}
+
+function deleteFile($filePath)
+{
+    if (is_file($filePath)) {
+        unlink($filePath);
+        echo "Deleted: " . $filePath . "\n";
+    }
+}
+
+function deleteDuplicateFiles($dir)
+{
+    $currentDir = getcwd(); // Get the current working directory
+    chdir($dir); // Change the current working directory to the specified directory
+    $fileList = scanDirectories('.'); // Scan the subdirectories from the current directory
+
+    $filesToDelete = [];
+
+    foreach ($fileList as $size => $files) {
+        if (count($files) > 1) {
+            $fileCount = count($files);
+            for ($i = 1; $i < $fileCount; $i++) {
+                $filePath = $files[$i];
+                if (is_file($filePath)) {
+                    $filesToDelete[] = $filePath;
+                }
+            }
+        }
+    }
+
+    if (count($filesToDelete) > 0) {
+        echo "Found duplicate files:<br>";
+        foreach ($filesToDelete as $filePath) {
+            echo '<a href="?delete=' . urlencode($filePath) . '">' . $filePath . '</a><br>';
+        }
+
+        if (isset($_GET['delete'])) {
+            $fileToDelete = urldecode($_GET['delete']);
+            deleteFile($fileToDelete);
+        }
+    } else {
+        echo "No duplicate files found.\n";
+    }
+
+    chdir($currentDir); // Change the working directory back to the original directory
+}
+
+// Usage example
+$directory = getcwd(); // Set the starting path to the current directory
+deleteDuplicateFiles($directory);
+?>
+_________________________________
+
+Inbrowser PDF Render (JS + php)
+--------------------------------------
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
+</head>
+<body>
+    <label for="pdf-upload">Upload PDF:</label>
+    <input type="file" id="pdf-upload" accept="application/pdf"/>
+    <label for="pdf-url">PDF URL:</label>
+    <input type="text" id="pdf-url" placeholder="Enter PDF URL"/>
+    <button id="load-pdf">Load PDF</button>
+    <button id="zoom-in" style="background:transparent; border:transparent;display: none;">Zoom In</button>
+    <div id="zoom-percent" style="background:transparent; border:transparent;display: none;">60</div>
+    <button id="zoom-out" style="background:transparent; border:transparent;display: none;">Zoom Out</button>
+    <button id="zoom-reset" style="background:transparent; border:transparent;display: none;">Reset Zoom</button>
+    <div id="pages"></div>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
+
+        document.querySelector("#pdf-upload").addEventListener("change", function(e){
+            document.querySelector("#pages").innerHTML = "";
+            zoomReset();
+            var file = e.target.files[0]
+            if(file.type != "application/pdf"){
+                alert(file.name + " is not a pdf file.")
+                return
+            }
+            var fileReader = new FileReader();  
+            fileReader.onload = function() {
+                var typedarray = new Uint8Array(this.result);
+                pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+                    // you can now use *pdf* here
+                    console.log("the pdf has", pdf.numPages, "page(s).");
+                    for (var i = 0; i < pdf.numPages; i++) {
+                        (function(pageNum){
+                        pdf.getPage(i+1).then(function(page) {
+                            // you can now use *page* here
+                            var viewport = page.getViewport(2.0);
+                            var pageNumDiv = document.createElement("div");
+                            pageNumDiv.className = "pageNumber";
+                            pageNumDiv.innerHTML = "Page " + pageNum;
+                            var canvas = document.createElement("canvas");
+                            canvas.className = "page";
+                            canvas.title = "Page " + pageNum;
+                            document.querySelector("#pages").appendChild(pageNumDiv);
+                            document.querySelector("#pages").appendChild(canvas);
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                            page.render({
+                                canvasContext: canvas.getContext('2d'),
+                                viewport: viewport
+                            }).promise.then(function(){
+                                console.log('Page rendered');
+                            });
+                            page.getTextContent().then(function(text){
+                                console.log(text);
+                            });
+                        });
+                        })(i+1);
+                    }
+                });
+            };
+            fileReader.readAsArrayBuffer(file);
+        });
+        document.querySelector("#load-pdf").addEventListener("click", function(){
+            document.querySelector("#pages").innerHTML = "";
+            zoomReset();
+            var url = document.querySelector("#pdf-url").value.trim();
+            if (!url) {
+                alert("Please enter a PDF URL.");
+                return;
+            }
+            if (!url.endsWith(".pdf")) {
+                alert("Please enter a valid PDF URL.");
+                return;
+            }
+            fetch('fetch_pdf.php?url=' + encodeURIComponent(url)).then(function(response) {
+                if (!response.ok) {
+                    throw new Error(response.statusText);
+                }
+                return response.arrayBuffer();
+            }).then(function(buffer) {
+                pdfjsLib.getDocument(buffer).promise.then(function(pdf) {
+                    // you can now use *pdf* here
+                    console.log("the pdf has", pdf.numPages, "page(s).");
+                    for (var i = 0; i < pdf.numPages; i++) {
+                        (function(pageNum){
+                        pdf.getPage(i+1).then(function(page) {
+                            // you can now use *page* here
+                            var viewport = page.getViewport(2.0);
+                            var pageNumDiv = document.createElement("div");
+                            pageNumDiv.className = "pageNumber";
+                            pageNumDiv.innerHTML = "Page " + pageNum;
+                            var canvas = document.createElement("canvas");
+                            canvas.className = "page";
+                            canvas.title = "Page " + pageNum;
+                            document.querySelector("#pages").appendChild(pageNumDiv);
+                            document.querySelector("#pages").appendChild(canvas);
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                            page.render({
+                                canvasContext: canvas.getContext('2d'),
+                                viewport: viewport
+                            }).promise.then(function(){
+                                console.log('Page rendered');
+                            });
+                            page.getTextContent().then(function(text){
+                                console.log(text);
+                            });
+                        });
+                       })(i+1);
+                    }
+                });
+            }).catch(function(error) {
+                console.error('Error occurred while fetching the PDF: ' + error);
+            });
+        });
+        function zoomIn() {
+            var scale = parseFloat(document.querySelector("#zoom-percent").textContent);
+            scale = scale + 10;
+            if (scale > 200) {
+                scale = 200;
+            }
+            document.querySelector("#zoom-percent").textContent = scale;
+            updateZoomButtons();
+            updateZoom(scale);
+        }
+        function zoomOut() {
+            var scale = parseFloat(document.querySelector("#zoom-percent").textContent);
+            scale = scale - 10;
+            if (scale < 50) {
+                scale = 50;
+            }
+            document.querySelector("#zoom-percent").textContent = scale;
+            updateZoomButtons();
+            updateZoom(scale);
+        }
+        function zoomReset() {
+            var scale = 100;
+            document.querySelector("#zoom-percent").textContent = scale;
+            updateZoomButtons();
+            updateZoom(scale);
+        }
+        function updateZoomButtons() {
+            var scale = parseFloat(document.querySelector("#zoom-percent").textContent);
+            var zoomInButton = document.querySelector("#zoom-in");
+            var zoomOutButton = document.querySelector("#zoom-out");
+            if (scale >= 200) {
+                zoomInButton.style.display = "none";
+            } else {
+                zoomInButton.style.display = "inline-block";
+            }
+            if (scale <= 50) {
+                zoomOutButton.style.display = "none";
+            } else {
+                zoomOutButton.style.display = "inline-block";
+            }
+        }
+        function updateZoom(scale) {
+            var pages = document.querySelectorAll(".page");
+            for (var i = 0; i < pages.length; i++) {
+                var canvas = pages[i];
+                var context = canvas.getContext("2d");
+                var viewport = canvas.pdfPage.getViewport({ scale: scale / 100 });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = viewport.width + "px";
+                canvas.style.height = viewport.height + "px";
+                canvas.pdfPage.render({ canvasContext: context, viewport: viewport });
+            }
+        }
+        document.querySelector("#zoom-in").addEventListener("click", zoomIn);
+        document.querySelector("#zoom-out").addEventListener("click", zoomOut);
+        document.querySelector("#zoom-reset").addEventListener("click", zoomReset);
+    </script>
+</body>
+</html>
+
+
+<!--"fetch_pdf.php">
+
+<?php
+// Get the URL parameter
+$url = $_GET['url'];
+// Initialize cURL
+$curl = curl_init();
+// Set cURL options
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HEADER, false);
+// Execute the cURL request
+$response = curl_exec($curl);
+// Check for errors
+if ($response === false) {
+    die('Error fetching PDF: ' . curl_error($curl));
+}
+// Close cURL
+curl_close($curl);
+// Set the appropriate headers
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="document.pdf"');
+header('Content-Length: ' . strlen($response));
+// Output the PDF content
+echo $response;
+?>
+
+
+_____________________________
 
 iFrame curr php dir + CacheBusting
 -----------------------------------------------
@@ -1056,22 +1655,20 @@ if ($numLines >= 3) {
 
 ____________________________
 
-Mastodon Profile renderer:
+Mastodon Profile renderer (+ shorthand emoji):
 ----------------------------------------
 
 <?php
-$profileUrl = 'https://mastodon.social/api/v1/accounts/109977878421486714';
-
+$profileUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381';
+$endpoint = 'https://pb.todon.de/api/v1/custom_emojis';
 // Make a GET request to the profile URL using cURL
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $profileUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
 curl_close($ch);
-
 // Parse the JSON response into an associative array
 $data = json_decode($response, true);
-
 // Access the fields in the JSON object
 $id = $data['id'];
 $username = $data['username'];
@@ -1095,18 +1692,39 @@ $noindex = $data['noindex'];
 $emojis = $data['emojis'];
 $roles = $data['roles'];
 $fields = $data['fields'];
-
+// Make a GET request to the custom emojis endpoint
+$response = file_get_contents($endpoint);
+$customEmojis = json_decode($response, true);
+// Replace shorthands in the note with corresponding emoji images
+foreach ($customEmojis as $customEmoji) {
+    $shortcode = $customEmoji['shortcode'];
+    $url = $customEmoji['url'];
+    $shortcodePattern = '/:' . preg_quote($shortcode, '/') . ':/';
+    $emojiTag = '<img src="' . $url . '" alt="' . $shortcode . '" width="45px">';
+    $note = preg_replace($shortcodePattern, $emojiTag, $note);
+}
+$fields = $data['fields'];
+// Extract the links from the fields array
+$links = [];
+if (isset($fields) && is_array($fields)) {
+    foreach ($fields as $field) {
+        $name = $field['name'];
+        $value = $field['value'];
+        preg_match('/<a href="(.*?)"/', $value, $matches);
+        $url = isset($matches[1]) ? $matches[1] : '';
+        $links[$name] = $url;
+    }
+}
 // Do something with the data
-echo "$username@mastodon.social<br>\n";
-//echo " <img src=$avatar width=12%>";
+echo "$username@<a target=_blank href=https://pb.todon.de/share>pb.todon.de</a><br>\n";
 echo "<br><hr>";
 echo "$note";
 echo "<hr>";
-//echo "$display_name\n";
+foreach ($links as $name => $url) {echo "$name: <a target='_blank' href='$url'>$url</a><br>";}
 echo "Following: <b>$following_count</b>\n";
 echo "Followers: <b>$followers_count</b>\n";
 echo "Posts: <b>$statuses_count</b>\n";
-
+?>
 
 ___________________________________________________
 
