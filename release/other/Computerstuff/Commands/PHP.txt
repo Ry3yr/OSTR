@@ -5,6 +5,89 @@ ________________________________________________________________________________
 _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
 *php-install
 
+
+Open mastodon url in home instance:
+------------------------------------------------
+
+<a href="?search=https://sunny.garden/@Iva852/109293246960188756&pbUrl=https://pb.todon.de&apikey=orfvAYfV1Sy4DtJCYN32J48Mbjh50kFTywcWEWmLHSM">test</a><br>
+<?php
+// Check if the API key is submitted
+if (isset($_POST['apikey'])) {
+    $apiKey = $_POST['apikey'];
+    $pbUrl = $_POST['pbUrl'];
+    $search = $_POST['url'];
+    $url = $pbUrl . '/api/v2/search/?q=' . urlencode($search) . '&limit=1&resolve=true';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer ' . $apiKey
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // Execute the request
+    $response = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Error: ' . curl_error($ch);
+    }
+    curl_close($ch);
+    $data = json_decode($response, true);
+    if (isset($data['statuses'][0]['id'])) {
+        $id = $data['statuses'][0]['id'];
+        $urlParts = parse_url($search);
+        $pathParts = explode('/', trim($urlParts['path'], '/'));
+        $username = $pathParts[0];
+        $domain = $urlParts['host'];
+        //echo 'Search URL: ' . $search . '<br>';
+        //echo 'Username: ' . $username . '<br>';
+        //echo 'Domain: ' . $domain . '<br>';
+        //echo 'ID: ' . $id . '<br>';
+        $newUrl = $pbUrl . '/' . $username . '@' . $domain . '/' . $id;
+        //echo 'New URL: ' . $newUrl;
+        echo 'New URL: <a href="' . $newUrl . '">' . $newUrl . '</a>';
+    } else {
+        echo 'ID not found in the response.';
+    }
+}
+?>
+<!-- HTML form to input the API key, $pbUrl, and URL -->
+<form method="POST" action="">
+    <label for="apikey">API Key:</label>
+    <input type="password" id="apikey" name="apikey" required>
+    <br>
+    <label for="pbUrl">pbUrl:</label>
+    <input type="text" id="pbUrl" name="pbUrl" required>
+    <br>
+    <label for="url">URL:</label>
+    <input type="text" id="url" name="url" required>
+    <input type="submit" value="Submit">
+</form>
+<script>
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stop = urlParams.get('stop');
+    if (stop) {
+        return; // Stop the script right at the beginning
+    }
+    const search = urlParams.get('search');
+    const pbUrl = urlParams.get('pbUrl');
+    const apiKey = urlParams.get('apikey');
+    if (search && pbUrl && apiKey) {
+        document.getElementById('apikey').value = apiKey;
+        document.getElementById('pbUrl').value = pbUrl;
+        document.getElementById('url').value = search;
+        //document.forms[0].submit();
+        // Add the 'stop' query parameter to the URL
+        const currentUrl = window.location.href;
+        const updatedUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'stop=true';
+        window.history.replaceState({}, '', updatedUrl);
+        return; // Break off the script here
+    }
+    // Continue with other code if needed
+};
+</script>
+
+
+______________________________
+
 Delete folder if link is clicked:
 --------------------------------------
 
@@ -2234,7 +2317,7 @@ echo "Last commit time: " . $lastCommitTime;
 
 __________________
 
-View PHP Source Code in new tab:
+View PHP Source Code in new tab / Display Source Code
 -----------------------------------------------------
 ﻿<?php
     //Allow or disallow source viewing

@@ -10,6 +10,471 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+
+Mastodon Public Timeline(s) (with "open at home" feature):
+--------------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <select id="instanceDropdown">
+    <option value="https://pb.todon.de">pb.todon.de</option>
+    <option value="https://mastodon.social">mastodon.social</option>
+    <option value="https://kopimi.space">kopimi.space</option>
+    <option value="https://sunny.garden">Sunny.Garden</option>
+  </select>
+  <label for="localCheckbox">
+    <input type="checkbox" id="localCheckbox"> Local
+  </label>
+  <input type="text" id="textboxUrl" placeholder="Enter home instance URL">
+  <input type="password" id="apikey" placeholder="API key">
+  <div id="statuses"></div>
+  <script>
+    // Function to fetch Mastodon statuses based on the selected instance and local checkbox state
+    function fetchMastodonStatuses(instanceUrl) {
+      const localCheckbox = $('#localCheckbox').prop('checked');
+      const url = `${instanceUrl}/api/v1/timelines/public?limit=50${localCheckbox ? '&local=true' : ''}`;
+      $.ajax({
+        url: url,
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Authorization': `Bearer ${$('#apikey').val()}`
+        },
+        success: function(data) {
+          const statuses = data;
+          parseMastodonStatuses(statuses);
+        },
+        error: function(error) {
+          console.error('Error fetching Mastodon statuses:', error);
+        }
+      });
+    }
+    // Function to handle shortcode
+    function handleShortcode(shortcode) {
+      // Your shortcode handling logic here
+      console.log(`Handling shortcode: ${shortcode}`);
+    }
+    // Function to parse Mastodon statuses
+    function parseMastodonStatuses(statuses) {
+      $('#statuses').empty(); // Clear existing statuses
+      const textboxUrl = $('#textboxUrl').val();
+      statuses.forEach((status) => {
+        // Check if the status has a shortcode
+        if (status.shortcode) {
+          handleShortcode(status.shortcode);
+        }
+        // Process other status data as needed
+        console.log(`Processing status: ${status.content}`);
+        // Create a link to the status
+        const statusLink = `${status.content}`;
+        const apikey = $('#apikey').val();
+        // Check if the textbox URL is already part of the status URL
+        const url = textboxUrl && !status.url.includes(textboxUrl) ? `https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=${status.url}&pbUrl=${textboxUrl}&apikey=${apikey}` : status.url;
+        // Render the status and link on the page
+        $('#statuses').append(`${status.content} <a href="${url}" target="_blank">${status.account.display_name}</a></p><hr>`);
+      });
+    }
+    // Function to handle dropdown change event
+    function handleDropdownChange() {
+      // Get the selected instance URL
+      const selectedInstance = $('#instanceDropdown').val();
+      // Fetch Mastodon statuses for the selected instance
+      fetchMastodonStatuses(selectedInstance);
+    }
+    // Add event listener to the dropdown
+    $('#instanceDropdown').on('change', handleDropdownChange);
+    // Add event listeners to the URL and API key textboxes
+    $('#textboxUrl, #apikey').on('input', function() {
+      // Call the fetchMastodonStatuses function to refetch the current state
+      const selectedInstance = $('#instanceDropdown').val();
+      fetchMastodonStatuses(selectedInstance);
+    });
+    // Initial fetch for the default instance
+    const defaultInstance = 'https://pb.todon.de';
+    fetchMastodonStatuses(defaultInstance);
+  </script>
+</body>
+</html>
+<script>
+window.onload = function() {
+  const homeUrlParam = new URLSearchParams(window.location.search).get('homeurl');
+  const apiKeyParam = new URLSearchParams(window.location.search).get('apikey');
+  const homeUrlInput = document.getElementById('textboxUrl');
+  const apiKeyInput = document.getElementById('apikey');
+  if (homeUrlParam && apiKeyParam) {
+    homeUrlInput.value = homeUrlParam;
+    apiKeyInput.value = apiKeyParam;
+  }
+};
+</script>
+
+
+<!--php-helper-->
+<a href="?search=https://sunny.garden/@Iva852/109293246960188756&pbUrl=https://pb.todon.de&apikey=orfvAYfV1Sy4DtJCYN32J48Mbjh50kFTywcWEWmLHSM">test</a><br>
+<?php
+// Check if the API key is submitted
+if (isset($_POST['apikey'])) {
+    $apiKey = $_POST['apikey'];
+    $pbUrl = $_POST['pbUrl'];
+    $search = $_POST['url'];
+    $url = $pbUrl . '/api/v2/search/?q=' . urlencode($search) . '&limit=1&resolve=true';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer ' . $apiKey
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // Execute the request
+    $response = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Error: ' . curl_error($ch);
+    }
+    curl_close($ch);
+    $data = json_decode($response, true);
+    if (isset($data['statuses'][0]['id'])) {
+        $id = $data['statuses'][0]['id'];
+        $urlParts = parse_url($search);
+        $pathParts = explode('/', trim($urlParts['path'], '/'));
+        $username = $pathParts[0];
+        $domain = $urlParts['host'];
+        //echo 'Search URL: ' . $search . '<br>';
+        //echo 'Username: ' . $username . '<br>';
+        //echo 'Domain: ' . $domain . '<br>';
+        //echo 'ID: ' . $id . '<br>';
+        $newUrl = $pbUrl . '/' . $username . '@' . $domain . '/' . $id;
+        //echo 'New URL: ' . $newUrl;
+        echo 'New URL: <a href="' . $newUrl . '">' . $newUrl . '</a>';
+    } else {
+        echo 'ID not found in the response.';
+    }
+}
+?>
+<!-- HTML form to input the API key, $pbUrl, and URL -->
+<form method="POST" action="">
+    <label for="apikey">API Key:</label>
+    <input type="password" id="apikey" name="apikey" required>
+    <br>
+    <label for="pbUrl">pbUrl:</label>
+    <input type="text" id="pbUrl" name="pbUrl" required>
+    <br>
+    <label for="url">URL:</label>
+    <input type="text" id="url" name="url" required>
+    <input type="submit" value="Submit">
+</form>
+<script>
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stop = urlParams.get('stop');
+    if (stop) {
+        return; // Stop the script right at the beginning
+    }
+    const search = urlParams.get('search');
+    const pbUrl = urlParams.get('pbUrl');
+    const apiKey = urlParams.get('apikey');
+    if (search && pbUrl && apiKey) {
+        document.getElementById('apikey').value = apiKey;
+        document.getElementById('pbUrl').value = pbUrl;
+        document.getElementById('url').value = search;
+        //document.forms[0].submit();
+        // Add the 'stop' query parameter to the URL
+        const currentUrl = window.location.href;
+        const updatedUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'stop=true';
+        window.history.replaceState({}, '', updatedUrl);
+        return; // Break off the script here
+    }
+    // Continue with other code if needed
+};
+</script>
+
+
+___________________________________
+
+Fetch vidlii latest videos: (rqs proxy)
+---------------------------
+
+
+  <script>
+    const url = 'https://api.codetabs.com/v1/proxy?quest=https://www.vidlii.com/user/repeekyraidcero/videos';
+    fetch(url)
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const links = doc.getElementsByTagName('a');
+        const displayedLinks = [];
+        for (let i = 0; i < links.length; i++) {
+          const link = links[i];
+          const href = link.getAttribute('href');
+          const className = link.getAttribute('class');
+          if (href && href.startsWith('/watch?v=') && className === 'ln2' && !displayedLinks.includes(href)) {
+            const title = link.textContent;
+            const linkElement = document.createElement('a');
+            linkElement.href = 'https://www.vidlii.com' + href;
+            linkElement.target = '_blank';
+            linkElement.textContent = title;
+             document.body.appendChild(linkElement);
+             document.body.appendChild(document.createElement('br'));
+             document.body.appendChild(document.createElement('br'));
+             displayedLinks.push(href);
+          }
+        }
+      })
+      .catch(error => console.error(error));
+  </script>
+</body>
+</html>
+
+
+
+<!---PHP-ver-->
+
+  <?php
+$url = 'https://www.vidlii.com/user/repeekyraidcero/videos';
+$html = file_get_contents($url);
+$dom = new DOMDocument();
+libxml_use_internal_errors(true);
+$dom->loadHTML($html);
+libxml_clear_errors();
+$links = $dom->getElementsByTagName('a');
+$displayedLinks = array();
+foreach ($links as $link) {
+    $href = $link->getAttribute('href');
+    $class = $link->getAttribute('class');
+    if (strpos($href, '/watch?v=') === 0 && $class === 'ln2' && !in_array($href, $displayedLinks)) {
+        $title = $link->nodeValue;
+        echo '<a href="https://www.vidlii.com' . $href . '" target="_blank">' . $title . '</a><br><br>' . PHP_EOL;
+        $displayedLinks[] = $href;
+    }
+}
+?>
+
+
+
+______________________________________________
+
+Load Mastodon Followers & Followings (Custom)
+-----------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .green {
+      color: green;
+    }
+    .red {
+      color: red;
+    }
+    .column {
+      float: left;
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+  <label for="userId">User ID:</label>
+  <input type="text" id="userId" name="userId" value="109629985010224381"><br><br>
+  <label for="instance">Instance:</label>
+  <input type="text" id="instance" name="instance" value="pb.todon.de"><br><br>
+  <button onclick="displayFollowersAndFollowings()">Display Followers and Followings</button><br><br>
+  <div class="column">
+    <h2>Followers</h2>
+    <div id="followers"></div>
+  </div>
+  <div class="column">
+    <h2>Followings</h2>
+    <div id="followings"></div>
+  </div>
+  <script>
+    // Function to make API requests
+    async function mastodonRequest(url, accessToken) {
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      const data = await response.json();
+      return data;
+    }
+    // Function to resolve user's username
+    async function resolveUser(id, instance, accessToken) {
+      const userUrl = `https://${instance}/api/v1/accounts/${id}`;
+      const user = await mastodonRequest(userUrl, accessToken);
+      return user.acct;
+    }
+    // Function to display followers and followings
+    async function displayFollowersAndFollowings() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const instanceParam = urlParams.get('instance');
+      const userIdsParam = urlParams.get('userids');
+      const userIdTextbox = document.getElementById('userId');
+      const instanceTextbox = document.getElementById('instance');
+      if (instanceParam && userIdsParam) {
+        instanceTextbox.value = instanceParam;
+        userIdTextbox.value = userIdsParam;
+      }
+      const userId = userIdTextbox.value;
+      const instance = instanceTextbox.value;
+      const accessToken = 'YOUR_ACCESS_TOKEN';
+      const followerUrl = `https://${instance}/api/v1/accounts/${userId}/followers?limit=100`;
+      const followingUrl = `https://${instance}/api/v1/accounts/${userId}/following?limit=100`;
+      try {
+        const [followers, followings] = await Promise.all([
+          mastodonRequest(followerUrl, accessToken),
+          mastodonRequest(followingUrl, accessToken)
+        ]);
+        const followerIds = followers.map(follower => follower.id);
+        const followingIds = followings.map(following => following.id);
+        const inBothLists = followerIds.filter(id => followingIds.includes(id));
+        const followersDiv = document.getElementById('followers');
+        const followingsDiv = document.getElementById('followings');
+        followersDiv.innerHTML = '';
+        followingsDiv.innerHTML = '';
+        for (const follower of followers) {
+          const followerId = follower.id;
+          const followerUsername = await resolveUser(followerId, instance, accessToken);
+          const followerElement = document.createElement('span');
+          if (inBothLists.includes(followerId)) {
+            followerElement.textContent = followerUsername;
+            followerElement.classList.add('green');
+          } else {
+            followerElement.textContent = followerUsername;
+            followerElement.classList.add('red');
+          }
+          followersDiv.appendChild(followerElement);
+          followersDiv.appendChild(document.createElement('br'));
+        }
+        for (const following of followings) {
+          const followingId = following.id;
+          const followingUsername = await resolveUser(followingId, instance, accessToken);
+          const followingElement = document.createElement('span');
+          if (inBothLists.includes(followingId)) {
+            followingElement.textContent = followingUsername;
+            followingElement.classList.add('green');
+          } else {
+            followingElement.textContent = followingUsername;
+            followingElement.classList.add('red');
+          }
+          followingsDiv.appendChild(followingElement);
+          followingsDiv.appendChild(document.createElement('br'));
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+ // Check if query strings are present in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const instanceParam = urlParams.get('instance');
+    const userIdsParam = urlParams.get('userid');
+    if (instanceParam && userIdsParam) {
+      const instanceTextbox = document.getElementById('instance');
+      const userIdTextbox = document.getElementById('userId');
+      instanceTextbox.value = instanceParam;
+      userIdTextbox.value = userIdsParam;
+      displayFollowersAndFollowings();
+    }
+  </script>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+  <title>Display Mastodon Followers</title>
+  <style>
+    .green {
+      color: green;
+    }
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <label for="userId">User ID:</label>
+  <input type="text" id="userId" name="userId" value="109629985010224381"><br><br>
+  <label for="instance">Instance:</label>
+  <input type="text" id="instance" name="instance" value="pb.todon.de"><br><br>
+  <button onclick="displayFollowers()">Display Followers</button><br><br>
+  <div id="followers"></div>
+  <script>
+    // Function to make API requests
+    async function mastodonRequest(url, accessToken) {
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      const data = await response.json();
+      return data;
+    }
+    // Function to resolve user's username
+    async function resolveUser(id, instance, accessToken) {
+      const userUrl = `https://${instance}/api/v1/accounts/${id}`;
+      const user = await mastodonRequest(userUrl, accessToken);
+      return user.acct;
+    }
+    // Function to display followers
+    async function displayFollowers() {
+      const userId = document.getElementById('userId').value;
+      const instance = document.getElementById('instance').value;
+      const accessToken = 'YOUR_ACCESS_TOKEN';
+      const followerUrl = `https://${instance}/api/v1/accounts/${userId}/followers?limit=100`;
+      const followingUrl = `https://${instance}/api/v1/accounts/${userId}/following?limit=100`;
+      try {
+        const [followers, followings] = await Promise.all([
+          mastodonRequest(followerUrl, accessToken),
+          mastodonRequest(followingUrl, accessToken)
+        ]);
+        const followerIds = followers.map(follower => follower.id);
+        const followingIds = followings.map(following => following.id);
+        const inBothLists = followerIds.filter(id => followingIds.includes(id));
+        const followersDiv = document.getElementById('followers');
+        followersDiv.innerHTML = '';
+        for (const follower of followers) {
+          const followerId = follower.id;
+          const followerUsername = await resolveUser(followerId, instance, accessToken);
+          const followerElement = document.createElement('span');
+          if (inBothLists.includes(followerId)) {
+            followerElement.textContent = followerUsername;
+            followerElement.classList.add('green');
+          } else {
+            followerElement.textContent = followerUsername;
+            followerElement.classList.add('red');
+          }
+          followersDiv.appendChild(followerElement);
+          followersDiv.appendChild(document.createElement('br'));
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+    // Check if query strings are present in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const instanceParam = urlParams.get('instance');
+    const userIdsParam = urlParams.get('userid');
+    if (instanceParam && userIdsParam) {
+      const instanceTextbox = document.getElementById('instance');
+      const userIdTextbox = document.getElementById('userId');
+      instanceTextbox.value = instanceParam;
+      userIdTextbox.value = userIdsParam;
+      displayFollowers();
+    }
+  </script>
+</body>
+</html>
+-->
+
+
+
+_______________________
+
 Countdown Redirect
 --------------------------------
 
@@ -421,28 +886,22 @@ ___________________________
 Link w hover popup:
 -------------------------------
 
-<br><br>
+----CSS---VER---:
+
+<style>
+.hover-alt-text{display:inline-flex;align-items:center;position:relative}.hover-alt-text:hover::before{content:attr(alt);position:absolute;background:#fff;border:1px solid #000;padding:5px;z-index:9999;top:-100%;white-space:nowrap;margin-top:-5px}
+</style>
+<a target="_blank" href="https://thinfi.com/0awck" alt="webdav.hidrive.strato.com/users/user/DB/Public/Phone_relatated/0Android/[Device_Backupl]/Tablet" class="hover-alt-text">Android Dvcs</a>
+
+
+--JS--version--
+
 <a id="popupLink" target="_blank" href="https://thinfi.com/0awck" style="position: relative; display: inline-block; cursor: pointer;">
   AndrdDvsBckp
   <span id="popupText" style="visibility: hidden; width: 900px; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -100px; opacity: 0; transition: opacity 0.3s;">
     webdav.hidrive.strato.com/users/user/DB/Public/Phone_relatated/0Android/[Device_Backupl]/Tablet
-  </span></a>
-<script>
-  var link = document.getElementById('popupLink');
-  var popup = document.getElementById('popupText');
-  link.addEventListener('mouseover', function() {
-    popup.style.visibility = 'visible';
-    popup.style.opacity = '1';});
-  link.addEventListener('mouseout', function() {
-    popup.style.visibility = 'hidden';
-    popup.style.opacity = '0';});
-  link.addEventListener('mousedown', function() {
-    popup.style.visibility = 'visible';
-    popup.style.opacity = '1';});
-  link.addEventListener('mouseup', function() {
-    popup.style.visibility = 'hidden';
-    popup.style.opacity = '0';});
-</script>
+  </span>
+</a>
 
 ________________________
 
@@ -2385,6 +2844,7 @@ _____________________________
 Mastodon account ID lookup:
 ------------------------------------------
 
+<!---account-id-lookup-https://pb.todon.de/api/v1/accounts/lookup?acct=@ryedai@mastodon.social-->
 <body>
   <label for="instance">Mastodon instance:</label>
   <input type="text" id="instance" value="mastodon.social">
@@ -2938,7 +3398,36 @@ Dekudeals JSON parser
     <a target="_blank" href="https://www.dekudeals.com/collection/nw7vnrstb9">Link</a>&nbsp;
     <a target="_blank" href="http://alceawisteria.byethost7.com/PHP/0demo/2023-04-30-parse-json/parse.php#inks/more/67087617">reload</a>
     <a target="_blank" href="http://gg.gg/dekudealsgamezisecollectionjson">Add (Gamesizes) to json</a><br>
-<div id="collection-table"></div>
+  <style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="collection-table"></div>
 <script>
   fetch('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/collection.json')
     .then(response => response.json())
@@ -2977,19 +3466,23 @@ Dekudeals JSON parser
         data.items.sort((a, b) => (b.status || '').localeCompare(a.status || ''));
       }
       data.items.forEach(item => {
-        let status = '';
-        if (item.status) {
-          status = item.status;
-        }
+        let status = item.status || '';
         let formatCell = item.format;
         let extrainfo = '';
         if (item.note && item.note.includes("DigitalAlso")) {
           extrainfo = ' DigitalAlso';
         }
+        let imageUrl = item.image;
         tableHtml += `
           <tr>
-            <td><a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}</td>
-            <td>${item.format}</td>
+            <td>
+              <div class="tooltip">
+                <img src="${imageUrl}" width="20" height="20">
+                <span class="tooltiptext">${item.note}</span>
+                <a target="_blank" href="${item.link}">${item.name}</a>${extrainfo}
+              </div>
+            </td>
+            <td>${formatCell}</td>
             <td>${item.price_paid}</td>
             <td>${status}</td>
             <td>${new Date(item.added_at).toLocaleDateString()}</td>
@@ -3004,20 +3497,14 @@ Dekudeals JSON parser
       });
       tableHtml += `
         </table>
-        <p>• Total Games: ${data.items.length} • Physical Games: ${totalPhysicalGames} <br><hr>•PhysicalPrice: ${totalPhysicalPrice} •AllPrice: ${totalAllPrice} </p>
+        <p>• Total Games: ${data.items.length} • Physical Games: ${totalPhysicalGames} <br><hr> • Physical Price: ${totalPhysicalPrice} • Total All Price: ${totalAllPrice}</p>
       `;
-      console.log(tableHtml);
-      console.log(`• Total Games Count: ${data.items.length}`);
-      console.log(`• Physical Games: ${totalPhysicalGames}`);
-      console.log(`• Total Physical Price: ${totalPhysicalPrice}`);
-      console.log(`• Total All Price: ${totalAllPrice}`);
-      const collectionTableDiv = document.getElementById("collection-table");
+      const collectionTableDiv = document.getElementById('collection-table');
       collectionTableDiv.innerHTML = tableHtml;
     })
     .catch(error => console.log(error));
 </script>
-  </body>
-</html>
+
 
 
 
