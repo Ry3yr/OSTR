@@ -11,6 +11,475 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+
+
+MTD Graph posts over last 7 days:
+---------------------------------
+
+
+Posts/Day for @alcea@pb.todon.de<br>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="dateChart"></canvas>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div id="entities"></div>
+    <script>
+        $(document).ready(function() {
+            var endpoint = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
+            var entities = [];
+            var dates = [];
+
+            fetchEntities();
+
+            function fetchEntities() {
+                var url = endpoint;
+
+                if (entities.length > 0) {
+                    var linkHeader = '<https://pb.todon.de/api/v1/accounts/109629985010224381/statuses?max_id=' + entities[entities.length - 1].id + '>; rel="next"';
+                    $.ajaxSetup({
+                        headers: {
+                            'Link': linkHeader
+                        }
+                    });
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer token'
+                    },
+                    success: function(response, textStatus, xhr) {
+                        var newEntities = response;
+
+                        for (var i = 0; i < newEntities.length; i++) {
+                            var entity = newEntities[i];
+                            entities.push(entity);
+                            // Filter out the date
+                            var date = new Date(entity.created_at);
+                            dates.push(date);
+                        }
+
+                        var linkHeader = xhr.getResponseHeader('Link');
+                        var nextLink = extractLinkUrl(linkHeader, 'next');
+
+                        if (entities.length >= 200) {
+                            // Render the fetched entities
+                            renderEntities();
+                            // Plot the dates
+                            plotDates();
+                        } else if (nextLink) {
+                            // Fetch the next set of entities
+                            endpoint = nextLink;
+                            fetchEntities();
+                        } else {
+                            console.log('Finished fetching 200 entities');
+                            // Render the fetched entities
+                            renderEntities();
+                            // Plot the dates
+                            plotDates();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+            function extractLinkUrl(linkHeader, rel) {
+                var links = linkHeader.split(',');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i].trim();
+                    var regex = /<([^>]+)>;\s*rel="([^"]+)"/g;
+                    var match = regex.exec(link);
+                    if (match && match[2] === rel) {
+                        return match[1];
+                    }
+                }
+                return null;
+            }
+            function renderEntities() {
+                for (var i = 0; i < entities.length; i++) {
+                    var entity = entities[i];
+                    // Render the URL and date on the page
+                    var entityHtml = '<p>';
+                    //entityHtml += 'URL: <a href="' + entity.url + '">' + entity.url + '</a><br>';
+                    //entityHtml += 'Date: ' + entity.created_at + '<br>';
+                    //entityHtml += '</p>';
+                    $('#entities').append(entityHtml);
+                }
+            }
+            function plotDates() {
+                // Filter the dates for the last 7 days
+                var today = new Date();
+                var lastSevenDays = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                var filteredDates = dates.filter(function(date) {
+                    return date >= lastSevenDays && date <= today;
+                });
+                // Count the occurrences of each date
+                var dateCounts = {};
+                filteredDates.forEach(function(date) {
+                    var dateString = date.toISOString().split('T')[0];
+                    dateCounts[dateString] = (dateCounts[dateString] || 0) + 1;
+                });
+                // Extract the dates and counts as separate arrays
+                var chartLabels = Object.keys(dateCounts);
+                var chartData = Object.values(dateCounts);
+                // Create the chart using Chart.js
+                var ctx = document.getElementById('dateChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'Date Counts',
+                            data: chartData,
+                            fill: false,
+                            borderColor: 'rgba(0, 123, 255,0.8)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                },
+                                reverse: true // Add this line to reverse the x-axis
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Count'
+                                },
+                                beginAtZero: true,
+                                stepSize: 1
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+
+__________________________________________________
+
+MTD Fetch more than 40 statuse (via pagination):
+--------------------------------------------------
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div id="entities"></div>
+    <script>
+        $(document).ready(function() {
+            var endpoint = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
+            var entities = [];
+
+            fetchEntities();
+
+            function fetchEntities() {
+                var url = endpoint;
+
+                if (entities.length > 0) {
+                    var linkHeader = '<https://pb.todon.de/api/v1/accounts/109629985010224381/statuses?max_id=' + entities[entities.length - 1].id + '>; rel="next"';
+                    $.ajaxSetup({
+                        headers: {
+                            'Link': linkHeader
+                        }
+                    });
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer token'
+                    },
+                    success: function(response, textStatus, xhr) {
+                        var newEntities = response;
+
+                        for (var i = 0; i < newEntities.length; i++) {
+                            var entity = newEntities[i];
+                            entities.push(entity);
+                        }
+
+                        var linkHeader = xhr.getResponseHeader('Link');
+                        var nextLink = extractLinkUrl(linkHeader, 'next');
+
+                        if (entities.length >= 200) {
+                            // Render the fetched entities
+                            renderEntities();
+                        } else if (nextLink) {
+                            // Fetch the next set of entities
+                            endpoint = nextLink;
+                            fetchEntities();
+                        } else {
+                            console.log('Finished fetching 200 entities');
+                            // Render the fetched entities
+                            renderEntities();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+            function extractLinkUrl(linkHeader, rel) {
+                var links = linkHeader.split(',');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i].trim();
+                    var regex = /<([^>]+)>;\s*rel="([^"]+)"/g;
+                    var match = regex.exec(link);
+                    if (match && match[2] === rel) {
+                        return match[1];
+                    }
+                }
+                return null;
+            }
+            function renderEntities() {
+                for (var i = 0; i < entities.length; i++) {
+                    var entity = entities[i];
+                    // Render the URL and date on the page
+                    var entityHtml = '<p>';
+                    entityHtml += 'URL: <a href="' + entity.url + '">' + entity.url + '</a><br>';
+                    entityHtml += 'Date: ' + entity.created_at + '<br>';
+                    entityHtml += '</p>';
+                    $('#entities').append(entityHtml);
+                }
+            }
+        });
+    </script>
+
+
+__________________________________________
+
+Find Emojo/Blobcat Game:
+-----------------------------------------
+
+<a target="_blank" href="?instance=mastodon.social&random=no">QueryString</a><br><br>
+
+  <style>
+    .emoji {
+      width: 45px;
+      cursor: pointer;
+    }
+    .highlight {
+      outline: 2px solid green;
+    }
+    .mirror {
+      transform: scaleX(1);
+    }
+  </style>
+</head>
+<body>
+  <div id="emojiContainer"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var customEmojis = [];
+
+      function fetchEmojis() {
+        var endpoint = 'https://pb.todon.de/api/v1/custom_emojis';
+        var urlParams = new URLSearchParams(window.location.search);
+        var instanceParam = urlParams.get('instance');
+        if (instanceParam) {
+          endpoint = 'https://' + instanceParam + '/api/v1/custom_emojis';
+        }
+
+        fetch(endpoint)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            customEmojis = data;
+            displayEmojis();
+          });
+      }
+
+      function displayEmojis() {
+        var emojiContainer = document.getElementById('emojiContainer');
+        emojiContainer.innerHTML = '';
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var randomParam = urlParams.get('random');
+        var shouldRandomize = randomParam !== 'no';
+
+        var shuffledEmojis = shouldRandomize
+          ? customEmojis.sort(function() {
+              return 0.5 - Math.random();
+            })
+          : customEmojis;
+
+        shuffledEmojis.forEach(function(customEmoji) {
+          var shortcode = customEmoji.shortcode;
+          var url = customEmoji.url;
+          var emojiElement = document.createElement('img');
+          emojiElement.src = url;
+          emojiElement.alt = shortcode;
+          emojiElement.width = '45px';
+          emojiElement.title = shortcode;
+          emojiElement.classList.add('emoji');
+          emojiElement.addEventListener('click', function() {
+            emojiElement.classList.add('highlight');
+            setTimeout(function() {
+              emojiElement.classList.remove('highlight');
+              checkEmojiFound(customEmoji);
+            }, 1000);
+          });
+          emojiContainer.appendChild(emojiElement);
+        });
+
+        var randomIndex = Math.floor(Math.random() * customEmojis.length);
+        var randomEmoji = customEmojis[randomIndex];
+        var emojiToFind = document.createElement('div');
+        emojiToFind.classList.add('emoji-to-find');
+        var emojiToFindImage = document.createElement('img');
+        emojiToFindImage.src = randomEmoji.url;
+        emojiToFindImage.alt = randomEmoji.shortcode;
+        emojiToFindImage.width = '45px';
+        emojiToFindImage.title = randomEmoji.shortcode;
+        emojiToFind.appendChild(emojiToFindImage);
+        var emojiToFindText = document.createElement('p');
+        //emojiToFindText.textContent = 'Find this emoji: ' + randomEmoji.shortcode;
+        emojiToFind.appendChild(emojiToFindText);
+        emojiContainer.insertBefore(emojiToFind, emojiContainer.firstChild);
+
+        var emojiImages = document.querySelectorAll('.emoji');
+        var randomEmojiImage = emojiImages[Math.floor(Math.random() * emojiImages.length)];
+        var emojiToFindImageClone = randomEmojiImage.cloneNode(true);
+        emojiToFindImageClone.classList.add('mirror');
+        emojiToFindImage.parentNode.replaceChild(emojiToFindImageClone, emojiToFindImage);
+      }
+
+      function checkEmojiFound(emoji) {
+        var emojiContainer = document.getElementById('emojiContainer');
+        var emojiToFind = emojiContainer.querySelector('.emoji-to-find');
+        var foundEmoji = emojiToFind.querySelector('img').alt;
+
+        if (emoji.shortcode === foundEmoji) {
+          emojiContainer.removeChild(emojiToFind);
+          fetchEmojis();
+        }
+      }
+
+      fetchEmojis();
+    });
+  </script>
+
+
+
+_____________________________________________
+
+Redirect to  Mastodon home JS Scriptlet:
+---------------------------------------------------------------
+
+javascript:(function() { var encodedUrl = encodeURIComponent(window.location.href); var redirectUrl = "https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=" + encodedUrl + "&pbUrl=https%3A%2F%2Fpb.todon.de&apikey=apikeyhere"; window.location.href = redirectUrl; })();
+
+________________________________________________
+
+Multifeed Mastodon Scroll base (with "open at home", if ?takemehome is in the url)
+--------------------------------------------
+
+<!--https://pb.todon.de/@alcea/111285111844791912--https://fedionfire.stream/-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  #messageContainer {
+    height: 100%;
+    overflow: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .message-content {
+    flex-grow: 1;
+  }
+  .message-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+  <div id="messageContainer"></div>
+  <script>
+    $(document).ready(function() {
+      function fetchMastodonStatuses(instanceUrls) {
+        const limit = 35;
+
+        instanceUrls.forEach(function(instanceUrl) {
+          const url = `${instanceUrl}/api/v1/timelines/public?limit=${limit}&exclude_bots=true`;
+          $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+              const statuses = data;
+              parseMastodonStatuses(statuses);
+            },
+            error: function(error) {
+              console.error('Error fetching Mastodon statuses:', error);
+            }
+          });
+        });
+      }
+      function parseMastodonStatuses(statuses) {
+        var messageContainer = $('#messageContainer');
+        statuses.forEach(function(status) {
+          var avatarUrl = status.account.avatar;
+          var displayName = status.account.display_name;
+          var content = status.content;
+          //var postUrl = status.url;
+          //var postUrl = `https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=${encodeURIComponent(status.url)}&pbUrl=https://pb.todon.de&apikey=apikey`;
+          //var postUrl = window.location.search.includes('takemehome') ? `https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=${encodeURIComponent(status.url)}&pbUrl=https://pb.todon.de&apikey=5x1Wr4gL-rM_Q0akdLZIQrcO2PBhEby39HatYQFmVvs` : status.url;
+var postUrl = window.location.search.includes('takemehome') && !status.url.includes('notes') && !status.url.includes('notice') ? `https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=${encodeURIComponent(status.url)}&pbUrl=https://pb.todon.de&apikey=5x1Wr4gL-rM_Q0akdLZIQrcO2PBhEby39HatYQFmVvs` : status.url;
+          var message = $('<div>').addClass('message');
+          var avatar = $('<img>').attr('src', avatarUrl).addClass('avatar');
+          var messageContent = $('<div>').addClass('message-content').html(content);
+          var link = $('<a>').attr('href', postUrl).attr('target', '_blank').addClass('message-link').text('View Post');
+          message.append(avatar);
+          message.append(messageContent);
+          messageContent.append('<br>');
+          messageContent.append(link);
+          messageContainer.append(message);
+        });
+      }
+      var instanceUrls = ['https://mastodon.social', 'https://pb.todon.de', 'https://kopimi.space', 'https://sunnygarden.org', 'https://mementomori.social'];
+      fetchMastodonStatuses(instanceUrls);
+    });
+  </script>
+</body>
+</html>
+
+
+
+__________________________
+
 Mastodon Public Timeline(s) (with "open at home" feature):
 --------------------------------------------------
 
@@ -73,7 +542,7 @@ Mastodon Public Timeline(s) (with "open at home" feature):
         const statusLink = `${status.content}`;
         const apikey = $('#apikey').val();
         // Check if the textbox URL is already part of the status URL
-        const url = textboxUrl && !status.url.includes(textboxUrl) ? `https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=${status.url}&pbUrl=${textboxUrl}&apikey=${apikey}` : status.url;
+        const url = textboxUrl && !status.url.includes(textboxUrl) && !status.url.includes('notes' || 'plasmatrap') ? `https://alcea-wisteria.de/PHP/0demo/2023-10-22-MastodonTootSearch/searchmastourl.php?search=${status.url}&pbUrl=${textboxUrl}&apikey=${apikey}` : status.url;
         // Render the status and link on the page
         $('#statuses').append(`${status.content} <a href="${url}" target="_blank">${status.account.display_name}</a></p><hr>`);
       });
@@ -691,6 +1160,15 @@ navigator.mediaSession.setActionHandler('nexttrack', () => {
 </body>
 </html>
 
+______________________________
+
+Fix File Unicode Encoding issues: (txt file displaying mojibake f.e.)
+---------------------------------------
+
+.htaccess
+~~~~~~
+
+AddDefaultCharset UTF-8
 
 ______________________________
 

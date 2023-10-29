@@ -23,7 +23,6 @@ if (isset($_POST['apikey'])) {
         'Authorization: Bearer ' . $apiKey
     ]);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    // Execute the request
     $response = curl_exec($ch);
     if (curl_errno($ch)) {
         echo 'Error: ' . curl_error($ch);
@@ -36,54 +35,123 @@ if (isset($_POST['apikey'])) {
         $pathParts = explode('/', trim($urlParts['path'], '/'));
         $username = $pathParts[0];
         $domain = $urlParts['host'];
-        //echo 'Search URL: ' . $search . '<br>';
-        //echo 'Username: ' . $username . '<br>';
-        //echo 'Domain: ' . $domain . '<br>';
-        //echo 'ID: ' . $id . '<br>';
         $newUrl = $pbUrl . '/' . $username . '@' . $domain . '/' . $id;
-        //echo 'New URL: ' . $newUrl;
-        echo 'New URL: <a href="' . $newUrl . '">' . $newUrl . '</a>';
+        echo 'New URL: <a id="newUrlLink" href="' . $newUrl . '">' . $newUrl . '</a>';
+echo '<script>document.getElementById("newUrlLink").click();</script>';
     } else {
-        echo 'ID not found in the response.';
+        echo 'Please enter a URL';
     }
 }
 ?>
 <!-- HTML form to input the API key, $pbUrl, and URL -->
 <form method="POST" action="">
     <label for="apikey">API Key:</label>
-    <input type="password" id="apikey" name="apikey" required>
+    <input type="text" id="apikey" name="apikey" required>
     <br>
     <label for="pbUrl">pbUrl:</label>
     <input type="text" id="pbUrl" name="pbUrl" required>
     <br>
     <label for="url">URL:</label>
-    <input type="text" id="url" name="url" required>
+    <input type="text" id="url" name="url" pattern="https://.*" required>
     <input type="submit" value="Submit">
 </form>
 <script>
-window.onload = function() {
+  window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const stop = urlParams.get('stop');
-    if (stop) {
-        return; // Stop the script right at the beginning
-    }
-    const search = urlParams.get('search');
-    const pbUrl = urlParams.get('pbUrl');
-    const apiKey = urlParams.get('apikey');
+    const search = urlParams.get("search");
+    const pbUrl = urlParams.get("pbUrl");
+    const apiKey = urlParams.get("apikey");
     if (search && pbUrl && apiKey) {
-        document.getElementById('apikey').value = apiKey;
-        document.getElementById('pbUrl').value = pbUrl;
-        document.getElementById('url').value = search;
-        //document.forms[0].submit();
-        // Add the 'stop' query parameter to the URL
-        const currentUrl = window.location.href;
-        const updatedUrl = currentUrl + (currentUrl.includes('?') ? '&' : '?') + 'stop=true';
-        window.history.replaceState({}, '', updatedUrl);
-        return; // Break off the script here
+      document.getElementById("apikey").value = apiKey;
+      document.getElementById("pbUrl").value = pbUrl;
+      if (search.includes("http")) {document.getElementById("url").value = search;}
+      // Check if query parameter 'submitted' is present
+      if (!urlParams.has("submitted")) {
+        // Add 'submitted' query parameter to prevent resubmission
+        urlParams.set("submitted", "true");
+        const newUrl = window.location.pathname + "?" + urlParams.toString();
+        window.history.replaceState(null, null, newUrl);
+        document.forms[0].submit();
+      }
     }
-    // Continue with other code if needed
-};
+    const observer = new MutationObserver(function (mutationsList) {
+      for (let mutation of mutationsList) {
+        if (
+          mutation.type === "childList" &&
+          mutation.addedNodes.length > 0
+        ) {
+          const newUrlElements = document.querySelectorAll(
+            'body :not(script):not(style):not(link):not(meta):not(base):not(title):contains("New URL:")'
+          );
+          for (let element of newUrlElements) {
+            const linkElement = element.nextElementSibling;
+            if (linkElement.tagName === "A") {
+              linkElement.addEventListener("click", function (event) {
+                event.preventDefault();
+                window.open(linkElement.href, "_blank");
+              });
+            }
+          }
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  };
 </script>
+<!----FillFromClipboard--->
+    <button class="button" onclick="fillTextbox()">Fill Textbox</button>
+<script>
+    function fillTextbox() {
+        navigator.clipboard.readText().then(function(clipboardText) {
+            document.getElementById("url").value = clipboardText;
+            var submitButton = document.querySelector('input[type="submit"], button[type="submit"]');
+            submitButton?.click();
+        }).catch(function(error) {
+            console.error('Failed to read clipboard contents: ', error);
+        });
+    }
+</script><br>
+
+______________________________
+Zip current dir
+----------------------
+
+<?php
+$zip = new ZipArchive();
+$zipFileName = 'alceawis.de.zip';
+$intermediateFolderName = pathinfo($zipFileName, PATHINFO_FILENAME);
+if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+    $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator('.', RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::LEAVES_ONLY
+    );
+    foreach ($files as $name => $file) {
+        if (!$file->isDir()) {
+            $filePath = $file->getRealPath();
+            $relativePath = $intermediateFolderName . '/' . substr($filePath, strlen(__DIR__) + 1);
+            $zip->addFile($filePath, $relativePath);
+        }
+    }
+    $zip->close();
+    $downloadLink = '<a href="' . $zipFileName . '">Click here to download the zip file</a>';
+    echo 'Files zipped successfully. ' . $downloadLink;
+} else {
+    echo 'Failed to create zip file.';
+}
+?>
+<!---delete-->
+<?php
+$file = 'alceawis.de.zip';
+if (isset($_GET['delete'])) {
+    if (file_exists($file)) {
+        unlink($file);
+        echo "File deleted successfully.";
+    } else {
+        echo "File not found.";
+    }
+}
+?>
+<a href="?delete=true">Click here to delete zip</a>
 
 
 ______________________________
