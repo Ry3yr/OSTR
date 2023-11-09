@@ -537,12 +537,28 @@ a.status-link:not(.mention) {
     display: inline-block;
 }
 
+
+/* General button appearance */
+.btn,
+.button {
+	background-color:#ffaec9!important;
+	border:3px outset #ffcfdf!important;
+	color:black!important;
+}
+.btn:hover,
+.button:hover {
+	border-style:inset!important;
+	color:black!important;
+}
+
+
+
+
+
 /*Hide stupid Toast error messages*/
 .notification-bar {
   display: none !important;
 }
-
-
 
 
 /* Make Header Fields 2x2 */
