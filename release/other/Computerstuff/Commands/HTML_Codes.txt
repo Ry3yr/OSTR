@@ -11,7 +11,1393 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+html code listview writer:
+---------------------------
 
+  <style>
+    .smart-hover:hover::after {
+      content: attr(title);
+    }
+  </style>
+  <script>
+    function generateHTML() {
+      // Get input values
+      const url = document.getElementById('urlInput').value;
+      const name = document.getElementById('nameInput').value;
+      const imageLink = document.getElementById('imageInput').value;
+      const description = document.getElementById('descriptionInput').value;
+      // Create the link element
+      const link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      // Create the image element
+      const image = document.createElement('img');
+      image.src = imageLink;
+      image.style.width = '45px';
+      const span = document.createElement('span');
+      span.classList.add('smart-hover');
+      span.title = ' •' + description;
+      const nameElement = document.createElement('u');
+      nameElement.innerText = name;
+      span.appendChild(nameElement);
+      link.appendChild(image);
+      link.appendChild(span);
+      // Get the generated HTML code
+      const generatedHTML = '<a target="_blank" href="' + url + '"><img src="' + imageLink + '" style="width:45px;"></img></a><span class="smart-hover" title=" •' + description + '">  <u>' + name + '</u></span><style>.smart-hover:hover::after{content:attr(title);}</style><br>';
+      const outputHTML = document.getElementById('outputHTML');
+      outputHTML.innerHTML = generatedHTML;
+      const outputText = document.getElementById('outputText');
+      outputText.value = generatedHTML;
+    }
+  </script>
+</head>
+<body>
+  <form>
+    <label for="urlInput">URL:</label>
+    <input type="text" id="urlInput" oninput="generateHTML()"><br>
+    <label for="nameInput">Name:</label>
+    <input type="text" id="nameInput" oninput="generateHTML()"><br>
+    <label for="imageInput">Image Link:</label>
+    <input type="text" id="imageInput" oninput="generateHTML()"><br>
+    <label for="descriptionInput">Description:</label>
+    <input type="text" id="descriptionInput" oninput="generateHTML()"><br>
+  </form>
+  <div id="outputHTML"></div>
+  <textarea id="outputText" rows="10" cols="50" readonly></textarea
+</body>
+</html>
+
+__________________
+
+HalfSize <hr> (50%<hr>)
+----------------------
+
+<hr style="width:50%;float:left;">
+
+___________________________
+
+ZeroWidth Joiner between inputs (for mastodon emojis ):
+-------------------------------------------
+
+<div id="textboxes">
+    <input type="text" id="textbox1" placeholder="Enter text 1">
+    <button onclick="removeTextbox(1)">-</button>
+    <br>
+    <input type="text" id="textbox2" placeholder="Enter text 2">
+    <button onclick="removeTextbox(2)">-</button>
+    <br>
+</div>
+<button onclick="addTextbox()">+</button>
+<br>
+<button onclick="copyText()">Copy</button>
+<script>
+    var textboxCount = 2;
+    function addTextbox() {
+        textboxCount++;
+        var newTextbox = document.createElement("input");
+        newTextbox.setAttribute("type", "text");
+        newTextbox.setAttribute("id", "textbox" + textboxCount);
+        newTextbox.setAttribute("placeholder", "Enter text " + textboxCount);
+        var removeButton = document.createElement("button");
+        removeButton.innerHTML = "-";
+        removeButton.onclick = function() {
+            removeTextbox(textboxCount);
+        };
+        var container = document.getElementById("textboxes");
+        container.appendChild(newTextbox);
+        container.appendChild(removeButton);
+        container.appendChild(document.createElement("br"));
+    }
+    function removeTextbox(index) {
+        var textbox = document.getElementById("textbox" + index);
+        var removeButton = textbox.nextElementSibling;
+        var lineBreak = removeButton.nextElementSibling;
+        textbox.remove();
+        removeButton.remove();
+        lineBreak.remove();
+    }
+    function copyText() {
+        var joinedText = "";
+        for (var i = 1; i <= textboxCount; i++) {
+            var textbox = document.getElementById("textbox" + i);
+            joinedText += textbox.value + "\u200D";
+        }
+        var tempInput = document.createElement("input");
+        tempInput.setAttribute("type", "text");
+        tempInput.setAttribute("value", joinedText);
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        alert("Text copied to clipboard: " + joinedText);
+    }
+</script>
+
+<!--<input type="text" id="textbox1" placeholder="Enter text 1">+
+ <input type="text" id="textbox2" placeholder="Enter text 2">
+  <button onclick="copyText()">Copy</button>
+  <script>
+    function copyText() {
+      var text1 = document.getElementById("textbox1").value;
+      var text2 = document.getElementById("textbox2").value;
+      var joinedText = text1 + "\u200D" + text2;
+      var tempInput = document.createElement("input");
+      tempInput.setAttribute("type", "text");
+      tempInput.setAttribute("value", joinedText);
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      alert("Text copied to clipboard: " + joinedText);
+    }
+  </script>-->
+
+
+___________________________
+
+Simple detail spoiler:
+----------------------------------
+
+<details><summary>name</summary>
+text
+</details>
+
+______________________
+
+HTML Midi Sheetmusic render:
+--------------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Staff View</title>
+  <script src="https://cdn.jsdelivr.net/npm/tone@14.7.58"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/focus-visible@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html-midi-player@1.5.0"></script>
+</head>
+<body>
+  <div>
+    <label for="midiUrl">Enter MIDI URL:</label>
+    <input type="text" id="midiUrl" />
+    <button onclick="loadMidi()">Load MIDI</button>
+  </div>
+
+  <midi-player
+    id="player"
+    src="https://alceawis.de/other/music/midi/piano/ygovrains_-_Sad_Reminiscence.mid"
+    sound-font
+    visualizer="#myStaffVisualizer">
+  </midi-player>
+
+  <midi-visualizer
+    type="staff"
+    id="myStaffVisualizer"
+    src="https://alceawis.de/other/music/midi/piano/ygovrains_-_Sad_Reminiscence.mid">
+  </midi-visualizer>
+
+  <script>
+    function loadMidi() {
+      const midiUrlInput = document.getElementById('midiUrl');
+      const midiUrl = midiUrlInput.value;
+      const player = document.getElementById('player');
+      const visualizer = document.getElementById('myStaffVisualizer');
+
+      player.setAttribute('src', midiUrl);
+      visualizer.setAttribute('src', midiUrl);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      loadMidi();
+    });
+  </script>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+  <title>Staff View</title>
+  <script src="https://cdn.jsdelivr.net/npm/tone@14.7.58"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/focus-visible@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html-midi-player@1.5.0"></script>
+</head>
+<body>
+  <midi-player
+    id="player"
+    src="https://alceawis.de/other/music/midi/piano/ygovrains_-_Sad_Reminiscence.mid"
+    sound-font
+    visualizer="#myStaffVisualizer">
+  </midi-player>
+
+  <midi-visualizer
+    type="staff"
+    id="myStaffVisualizer"
+    src="https://alceawis.de/other/music/midi/piano/ygovrains_-_Sad_Reminiscence.mid">
+  </midi-visualizer>
+</body>
+</html>-->
+
+___________________________
+
+YearWeekDayHour Progress bar:
+-----------------------------------
+
+
+<style>
+.progress-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: -23px;
+  margin-right: 0px;
+}
+.progress-bar {
+  width: 234px;
+  height: 16px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 43px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-bar-fill {
+  height: 100%;
+  background-color: #4caf50;
+}
+.progress-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+  //font-weight: italic;
+}
+.progress-text {
+  margin-left: 10px;
+}
+.year-progress-bar, .week-progress-bar, .day-progress-bar, .day2-progress-bar {
+  background-color: #fff;
+}
+.year-progress-label, .week-progress-label, .day-progress-label, .day2-progress-label {
+  color: #000;
+}
+</style>
+<body>
+  <div class="progress-container">
+    <div class="progress-bar" id="year-progress-bar">
+      <div class="progress-bar-fill" id="year-progress-bar-fill"></div>
+      <div class="progress-label" id="year-progress-label"></div>
+    </div>
+    <p class="progress-text" id="year-progress-text"></p>
+  </div>
+  <div class="progress-container">
+    <div class="progress-bar" id="week-progress-bar">
+      <div class="progress-bar-fill" id="week-progress-bar-fill"></div>
+      <div class="progress-label" id="week-progress-label"></div>
+    </div>
+    <p class="progress-text" id="week-progress-text"></p>
+  </div>
+  <div class="progress-container">
+    <div class="progress-bar" id="day-progress-bar">
+      <div class="progress-bar-fill" id="day-progress-bar-fill"></div>
+      <div class="progress-label" id="day-progress-label"></div>
+    </div>
+    <p class="progress-text" id="day-progress-text"></p>
+  </div>
+  <div class="progress-container">
+    <div class="progress-bar" id="hour-progress-bar">
+      <div class="progress-bar-fill" id="hour-progress-bar-fill"></div>
+      <div class="progress-label" id="hour-progress-label"></div>
+    </div>
+    <p class="progress-text" id="hour-progress-text"></p>
+  </div>
+  <script>
+    function updateProgressBar(progressBarId, fillId, labelId, textId, percentage, text) {
+      document.getElementById(fillId).style.width = percentage + "%";
+      document.getElementById(labelId).innerHTML = Math.round(percentage) + "%";
+      document.getElementById(textId).innerHTML = text;
+    }
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var startDate = new Date(currentYear, 0, 1);
+    var endDate = new Date(currentYear + 1, 0, 1);
+    var daysPassed = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+    var totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+    var yearPercentage = (daysPassed / totalDays) * 100;
+    var currentDayOfWeek = currentDate.getDay();
+    if (currentDayOfWeek === 0) {
+      currentDayOfWeek = 7;
+    }
+    var totalDaysOfWeek = 7;
+    var weekPercentage = (currentDayOfWeek / totalDaysOfWeek) * 100;
+    var currentDayOfMonth = currentDate.getDate();
+    var totalDaysOfMonth = new Date(currentYear, currentDate.getMonth() + 1, 0).getDate();
+    var dayPercentage = (currentDayOfMonth / totalDaysOfMonth) * 100;
+    var currentHourOfDay = currentDate.getHours();
+    var totalHoursOfDay = 24;
+    var hourPercentage = (currentHourOfDay / totalHoursOfDay) * 100;
+    updateProgressBar("year-progress-bar", "year-progress-bar-fill", "year-progress-label", "year-progress-text", yearPercentage, "Days in (" + currentYear + "): " + daysPassed + "/" + totalDays);
+    updateProgressBar("week-progress-bar", "week-progress-bar-fill", "week-progress-label", "week-progress-text", weekPercentage, "Days of the week: " + currentDayOfWeek + "/" + totalDaysOfWeek);
+    updateProgressBar("day-progress-bar", "day-progress-bar-fill", "day-progress-label", "day-progress-text", dayPercentage, "Days of the month: " + currentDayOfMonth + "/" + totalDaysOfMonth);
+    updateProgressBar("hour-progress-bar", "hour-progress-bar-fill", "hour-progress-label", "hour-progress-text", hourPercentage, "Hours/day: " + currentHourOfDay + "/" + totalHoursOfDay);
+  </script>
+</body>
+
+_________________________________________
+
+Arbeitsagentur Jobcenter jobsearch:
+----------------------------------------------------------
+
+    <script>
+        function searchJobs() {
+            var params = {};
+            var angebotsart = document.getElementById('angebotsart').value;
+            if (angebotsart) {
+                params.angebotsart = angebotsart;
+            }
+            var wo = document.getElementById('wo').value;
+            if (wo) {
+                params.wo = wo;
+            }
+            var umkreis = document.getElementById('umkreis').value;
+            if (umkreis) {
+                params.umkreis = umkreis;
+            }
+            var was = document.getElementById('was').value;
+            if (was) {
+                params.was = was;
+            }
+            var zeitarbeitCheckbox = document.getElementById('zeitarbeit');
+            if (!zeitarbeitCheckbox.checked) {
+                params.zeitarbeit = true;
+            }
+            var arbeitszeit = document.getElementById('arbeitszeit').value;
+            if (arbeitszeit) {
+                params.arbeitszeit = arbeitszeit;
+            }
+            var queryString = Object.keys(params).map(function(key) {
+                return key + '=' + params[key];
+            }).join('&');
+            var url = "https://www.arbeitsagentur.de/jobsuche/suche?" + queryString;
+            window.open(url, "_blank");
+        }
+    </script>
+</head>
+<body>
+    <label for="was">Was:</label>
+    <input type="text" id="was" placeholder="Jobtitel" value=""><br>
+    <label for="angebotsart">Art:</label>
+    <input type="text" id="angebotsart" placeholder="???"><br>
+    <label for="wo">Wo:</label>
+    <input type="text" id="wo" placeholder=""><br>
+    <label for="umkreis">Umkreis:</label>
+    <input type="text" id="umkreis" placeholder="25km"><br>
+    <label for="arbeitszeit">Arbeitszeit:</label>
+    <input type="text" id="arbeitszeit" placeholder="vz;tz;snw;ho;mj"><br>
+    <label for="zeitarbeit">ZA:</label>
+    <input type="checkbox" id="zeitarbeit"><br>
+    <button onclick="searchJobs()">Search</button>
+</body>
+</html>
+
+_____________________________________
+
+DisplayYoutube channel playlists:
+-----------------------
+
+
+  <ul id="playlists"></ul>
+  <script>
+    // YouTube API Key
+    var api_key = 'apikey'; // Replace with your own YouTube Data API key
+    // YouTube Channel ID
+    var channel_id = new URLSearchParams(window.location.search).get('channelid') || 'UCmIpOnd5BVx5Si2hp0WNKZw'; // Replace with the desired channel ID or use the default channel ID if not provided in the query string
+    // Search term
+    var search_term = new URLSearchParams(window.location.search).get('keyword') || ''; // Get the keyword from the query string or set it as an empty string if not provided
+    // Retrieve playlists using YouTube Data API
+    var playlistsContainer = document.getElementById('playlists');
+    function fetchPlaylists(pageToken) {
+      var url = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId=${channel_id}&maxResults=50&key=${api_key}`;
+      // Add pageToken if provided
+      if (pageToken) {
+        url += `&pageToken=${pageToken}`;
+      }
+      // Make a GET request using Fetch API
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var playlists = data.items;
+          if (playlists.length > 0) {
+            playlists.forEach(playlist => {
+              var playlistTitle = playlist.snippet.title;
+              var playlistId = playlist.id;
+              // Filter playlists based on the search term
+              if (search_term === '' || playlistTitle.toLowerCase().includes(search_term.toLowerCase())) {
+                var playlistLink = document.createElement('a');
+                playlistLink.href = `https://www.youtube.com/playlist?list=${playlistId}`;
+                playlistLink.target = '_blank';
+                playlistLink.textContent = playlistTitle;
+                var listItem = document.createElement('li');
+                listItem.appendChild(playlistLink);
+                
+                playlistsContainer.appendChild(listItem);
+              }
+            });
+            // Check if there are more playlists to fetch
+            if (data.nextPageToken) {
+              fetchPlaylists(data.nextPageToken);
+            }
+          } else {
+            if (playlistsContainer.childElementCount === 0) {
+              playlistsContainer.innerHTML = "<p>No playlists found for the channel with the provided criteria.</p>";
+            }
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+    // Start fetching the playlists
+    fetchPlaylists();
+  </script>
+</body>
+</html>
+
+
+________________________________________
+
+Querystring redirect protection:
+------------------------------
+
+
+<script>
+var time = 3 * 1;
+setInterval(function() {
+  var seconds = time;
+  var minutes = 0;
+  if (seconds.toString().length == 1) {
+    seconds = "0" + seconds;
+  }
+  if (minutes.toString().length == 1) {
+    minutes = "0" + minutes;
+  }
+  document.getElementById("time").innerHTML = minutes + ":" + seconds;
+  time--;
+  if (time == 0) {
+    var queryString = window.location.search;
+    var params = new URLSearchParams(queryString);
+    var encodedSgs = "c2F2ZWdhbWVz";
+    var decodedSgs = atob(encodedSgs);
+    if (params.get(decodedSgs) !== null) {
+      var encodedUrl = "aHR0cHM6Ly9teS5oaWRyaXZlLmNvbS9zaGFyZS8xZDNmazFhcW9i";
+      var decodedUrl = atob(encodedUrl);
+      window.location.href = decodedUrl;
+    }
+  }
+}, 1000);
+</script>
+<div class="timer" onload="timer(1800)">
+  <div class="time"><strong>Redirecting in <span id="time">x seconds</span></strong></div>
+</div>
+
+
+__________________________________
+
+Preview_cards extractor
+---------------------------------------
+
+<body>
+  <div id="previewCardImages"></div>
+
+  <script>
+    function extractPreviewCardLinks(responseText) {
+      const pattern = /\/cache\/preview_cards\/images\/\d{3}\/\d{3}\/\d{3}\/original\/[a-f0-9]+\.(?:jpg|jpeg|png|gif)/gi;
+      const matches = responseText.match(pattern);
+      return matches || [];
+    }
+
+    function generateImageTags(imageUrls, domain) {
+      let html = '';
+      imageUrls.forEach(imageUrl => {
+        html += '<img src="' + domain + imageUrl + '" alt="Preview Card Image"><br>';
+      });
+      return html;
+    }
+
+    const url = 'https://mastodon.social/api/v1/accounts/109977878421486714/statuses';
+
+    fetch(url)
+      .then(response => response.text())
+      .then(responseText => {
+        const previewCards = extractPreviewCardLinks(responseText);
+        const domain = 'https://files.mastodon.social';
+        const html = generateImageTags(previewCards, domain);
+        document.getElementById('previewCardImages').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error: Unable to fetch data.', error);
+      });
+  </script>
+
+___________________________
+
+VanillaRSS
+--------------------------------
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-rss/4.3.0/jquery.rss.min.js"></script>
+  <script>
+    jQuery(function($) {
+      $("#rss-feeds").rss("http://www.ost-center.com/derniers-osts-rss", {
+        limit: 10,
+        entryTemplate: '<div><a href="{url}" target="_blank">{title}</a>{shortBodyPlain}</div>'
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="rss-feeds"></div>
+
+_________________________
+
+CORS Tester:
+---------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    iframe {
+      width: 500px;
+      height: 300px;
+      border: none;
+    }
+  </style>
+  <script>
+    function checkCORSStatus() {
+      const url = document.getElementById('urlInput').value;
+      const xhr = new XMLHttpRequest();
+      xhr.open('HEAD', url);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          const corsStatus = xhr.getResponseHeader('Access-Control-Allow-Origin');
+          const headers = xhr.getAllResponseHeaders();
+          const result = document.getElementById('result');
+          if (corsStatus) {
+            result.innerHTML = '<strong>CORS is enabled for the URL.</strong><br>';
+            result.innerHTML += 'Access-Control-Allow-Origin: ' + corsStatus + '<br>';
+          } else {
+            result.innerHTML = '<strong>CORS is not enabled for the URL.</strong><br>';
+          }
+          
+          result.innerHTML += '<br><strong>Response Headers:</strong><br>' + headers;
+        }
+      };
+      xhr.send();
+      
+      const iframe = document.getElementById('iframe');
+      iframe.src = url;
+    }
+  </script>
+</head>
+<body>
+  <div>
+    <label for="urlInput">Enter URL:</label>
+    <input type="text" id="urlInput" placeholder="https://example.com" />
+    <button onclick="checkCORSStatus()">Check CORS Status</button>
+  </div>
+  <div id="result"></div>
+  <iframe id="iframe"></iframe>
+</body>
+</html>
+
+______________________________
+
+Render Steam Library:
+------------------------------------
+
+<a target="_blank" href="https://alcea-wisteria.de/PHP/0demo/2023-11-26-SteamLibraryFetch/steamfetch.php">Fetch</a><br><br>
+<br>
+ <a target="_blank" href="https://steamcommunity.com/id/alceawisteria#https://steamcommunity.com/profiles/76561198119673186/games/?tab=all">[Alcea's Steam Library]</a> 
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .game {
+      margin-bottom: 20px;
+    }
+    .game h2 {
+      margin-bottom: 5px;
+    }
+    .game img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container"></div>
+
+  <script>
+    function getQueryStringParameter(parameter) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.has(parameter);
+    }
+
+    fetch('https://ry3yr.github.io/steam_library.json')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Error loading JSON file: ' + response.status);
+        }
+        return response.json();
+      })
+      .then(function(data) {
+        var games = data.response.games;
+
+        // Sort games alphabetically if "alphabetical" query string parameter exists
+        if (getQueryStringParameter('sort')) {
+          games.sort(function(a, b) {
+            return a.name.localeCompare(b.name);
+          });
+        }
+
+        var table = document.createElement('table');
+        var tableHead = document.createElement('thead');
+        var tableBody = document.createElement('tbody');
+
+        // Create table header
+        var headerRow = document.createElement('tr');
+        var nameHeader = document.createElement('th');
+        nameHeader.textContent = 'Game Name';
+        var appidHeader = document.createElement('th');
+        appidHeader.textContent = 'App ID';
+        var achievementsHeader = document.createElement('th');
+        achievementsHeader.textContent = 'Achievements'; // New header for achievements URL
+        var playtimeHeader = document.createElement('th');
+        playtimeHeader.textContent = 'Playtime';
+
+        headerRow.appendChild(nameHeader);
+        headerRow.appendChild(appidHeader);
+        headerRow.appendChild(achievementsHeader); // Append the new header to the header row
+        headerRow.appendChild(playtimeHeader); // Append the playtime header to the header row
+        tableHead.appendChild(headerRow);
+        table.appendChild(tableHead);
+
+        // Create table rows for each game
+        games.forEach(function(game) {
+          var row = document.createElement('tr');
+          var nameCell = document.createElement('td');
+          var appidCell = document.createElement('td');
+          var achievementsCell = document.createElement('td'); // New cell for achievements URL
+          var playtimeCell = document.createElement('td');
+
+          var gameLink = document.createElement('a');
+          gameLink.href = 'https://store.steampowered.com/app/' + game.appid;
+          gameLink.textContent = game.name;
+          gameLink.target = '_blank'; // Open link in a new tab or window
+
+          nameCell.appendChild(gameLink);
+          appidCell.textContent = game.appid;
+          achievementsCell.innerHTML = `<a target="_blank" href="https://steamcommunity.com/id/alceawisteria/stats/${game.appid}/achievements/">Achievements</a>`; // Add achievements URL to the cell
+          playtimeCell.textContent = game.playtime_forever;
+
+          row.appendChild(nameCell);
+          row.appendChild(appidCell);
+          row.appendChild(achievementsCell); // Append the new cell to the row
+          row.appendChild(playtimeCell); // Append the playtime cell to the row
+          tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableBody);
+        document.getElementById('game-container').appendChild(table);
+      })
+      .catch(function(error) {
+        console.error('Error loading/parsing JSON file:', error);
+      });
+  </script>
+</body>
+
+______________________________
+
+Print txt file to div (ascii-art):
+----------------------
+
+<style>
+    #content {
+      width: 2000px;
+      height: 2000px;
+      overflow: hidden;
+      transform-origin: top left;
+    }
+    #content pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      transform: scale(1);
+      transform-origin: top left;
+    }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const txtUrl = urlParams.get('txt');
+    let fetchUrl = 'https://ry3yr.github.io/alceaasciipfp.txt';
+    if (txtUrl) {
+      fetchUrl = txtUrl;
+    }
+    fetch(fetchUrl)
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); 
+        const contentDiv = document.getElementById('content');
+        const lines = data.split('\n');
+        const redrawContent = (lineIndex) => {
+          if (lineIndex >= lines.length) {
+            return;
+          }
+          const line = lines[lineIndex];
+          const preElement = document.createElement('pre');
+          preElement.textContent = line;
+          let rainbowColor;
+          if (window.location.search.includes("rainbow")) {
+            const lineIndex = 5; 
+            rainbowColor = `hsl(${lineIndex * 10}, 100%, 50%)`;
+          } else {
+            rainbowColor = "default-color";
+          }
+          preElement.style.color = rainbowColor;
+          contentDiv.appendChild(preElement);
+          const scale = Math.min(contentDiv.offsetWidth / preElement.offsetWidth, contentDiv.offsetHeight / preElement.offsetHeight);
+          preElement.style.transform = `scale(${scale})`;
+          setTimeout(() => {
+            redrawContent(lineIndex + 1);
+          }, 200);
+        };
+        redrawContent(0);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
+
+__________________________________________________________
+
+
+Mastodon Thread as comment system:
+-----------------------------------------------------------
+
+<script type="module">
+const styles = `
+:root {
+  --font-color: #5d686f;
+  --font-size: 1.0rem;
+  --block-border-width: 1px;
+  --block-border-radius: 3px;
+  --block-border-color: #ededf0;
+  --block-background-color: #f7f8f8;
+  --comment-indent: 40px;
+}
+#mastodon-comments-list {
+  margin: 0 auto;
+}
+.mastodon-comment {
+  background-color: var(--block-background-color);
+  border-radius: var(--block-border-radius);
+  border: var(--block-border-width) var(--block-border-color) solid;
+  padding: 20px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  color: var(--font-color);
+  font-size: var(--font-size);
+}
+.mastodon-comment p {
+  margin-bottom: 0px;
+}
+.mastodon-comment .author {
+  padding-top:0;
+  display:flex;
+}
+.mastodon-comment .author a {
+  text-decoration: none;
+}
+.mastodon-comment .author .avatar img {
+  margin-right:1rem;
+  min-width:60px;
+  border-radius: 5px;
+}
+.mastodon-comment .author .details {
+  display: flex;
+  flex-direction: column;
+}
+.mastodon-comment .author .details .name {
+  font-weight: bold;
+}
+.mastodon-comment .author .details .user {
+  color: #5d686f;
+  font-size: medium;
+}
+.mastodon-comment .author .date {
+  margin-left: auto;
+  font-size: small;
+}
+.mastodon-comment .content {
+  margin: 15px 20px;
+}
+.mastodon-comment .attachments {
+  margin: 0px 10px;
+}
+.mastodon-comment .attachments > * {
+  margin: 0px 10px;
+}
+.mastodon-comment .attachments img {
+  max-width: 100%;
+}
+.mastodon-comment .content p:first-child {
+  margin-top:0;
+  margin-bottom:0;
+}
+.mastodon-comment .status > div {
+  display: inline-block;
+  margin-right: 15px;
+}
+.mastodon-comment .status a {
+  color: #5d686f;
+  text-decoration: none;
+}
+.mastodon-comment .status .replies.active a {
+  color: #003eaa;
+}
+.mastodon-comment .status .reblogs.active a {
+  color: #8c8dff;
+}
+.mastodon-comment .status .favourites.active a {
+  color: #ca8f04;
+}
+`;
+class MastodonComments extends HTMLElement {
+  constructor() {
+    super();
+    this.host = this.getAttribute("host");
+    this.user = this.getAttribute("user");
+    this.tootId = this.getAttribute("tootId");
+    this.commentsLoaded = false;
+    const styleElem = document.createElement("style");
+    styleElem.innerHTML = styles;
+    document.head.appendChild(styleElem);
+  }
+  connectedCallback() {
+    this.innerHTML = `
+      <h2>Comments</h2>
+      <noscript>
+        <div id="error">
+          Please enable JavaScript to view the comments powered by the Fediverse.
+        </div>
+      </noscript>
+      <p>You can use your Fediverse (i.e. Mastodon, among many others) account to reply to this <a class="link"
+          href="https://${this.host}/@${this.user}/${this.tootId}">post</a>.
+      </p>
+      <p id="mastodon-comments-list"></p>
+    `;
+    const comments = document.getElementById("mastodon-comments-list");
+    const rootStyle = this.getAttribute("style");
+    if (rootStyle) {
+      comments.setAttribute("style", rootStyle);
+    }
+    this.respondToVisibility(comments, this.loadComments.bind(this));
+  }
+  escapeHtml(unsafe) {
+    return (unsafe || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+  toot_active(toot, what) {
+    var count = toot[what + "_count"];
+    return count > 0 ? "active" : "";
+  }
+  toot_count(toot, what) {
+    var count = toot[what + "_count"];
+    return count > 0 ? count : "";
+  }
+  user_account(account) {
+    var result = `@${account.acct}`;
+    if (account.acct.indexOf("@") === -1) {
+      var domain = new URL(account.url);
+      result += `@${domain.hostname}`;
+    }
+    return result;
+  }
+  render_toots(toots, in_reply_to, depth) {
+    var tootsToRender = toots
+      .filter((toot) => toot.in_reply_to_id === in_reply_to)
+      .sort((a, b) => a.created_at.localeCompare(b.created_at));
+    tootsToRender.forEach((toot) => this.render_toot(toots, toot, depth));
+  }
+  render_toot(toots, toot, depth) {
+    toot.account.display_name = this.escapeHtml(toot.account.display_name);
+    toot.account.emojis.forEach((emoji) => {
+      toot.account.display_name = toot.account.display_name.replace(
+        `:${emoji.shortcode}:`,
+        `<img src="${this.escapeHtml(emoji.static_url)}" alt="Emoji ${
+          emoji.shortcode
+        }" height="20" width="20" />`,
+      );
+    });
+    const mastodonComment = `<div class="mastodon-comment" style="margin-left: calc(var(--comment-indent) * ${depth})">
+        <div class="author">
+          <div class="avatar">
+            <img src="${this.escapeHtml(
+              toot.account.avatar_static,
+            )}" height=60 width=60 alt="">
+          </div>
+          <div class="details">
+            <a class="name" href="${toot.account.url}" rel="nofollow">${
+              toot.account.display_name
+            }</a>
+            <a class="user" href="${
+              toot.account.url
+            }" rel="nofollow">${this.user_account(toot.account)}</a>
+          </div>
+          <a class="date" href="${
+            toot.url
+          }" rel="nofollow">${toot.created_at.substr(
+            0,
+            10,
+          )} ${toot.created_at.substr(11, 8)}</a>
+        </div>
+        <div class="content">${toot.content}</div>
+        <div class="attachments">
+          ${toot.media_attachments
+            .map((attachment) => {
+              if (attachment.type === "image") {
+                return `<a href="${attachment.url}" rel="nofollow"><img src="${
+                  attachment.preview_url
+                }" alt="${this.escapeHtml(attachment.description)}" /></a>`;
+              } else if (attachment.type === "video") {
+                return `<video controls><source src="${attachment.url}" type="${attachment.mime_type}"></video>`;
+              } else if (attachment.type === "gifv") {
+                return `<video autoplay loop muted playsinline><source src="${attachment.url}" type="${attachment.mime_type}"></video>`;
+              } else if (attachment.type === "audio") {
+                return `<audio controls><source src="${attachment.url}" type="${attachment.mime_type}"></audio>`;
+              } else {
+                return `<a href="${attachment.url}" rel="nofollow">${attachment.type}</a>`;
+              }
+            })
+            .join("")}
+        </div>
+        <div class="status">
+          <div class="replies ${this.toot_active(toot, "replies")}">
+            <a href="${
+              toot.url
+            }" rel="nofollow"><i class="fa fa-reply fa-fw"></i>${this.toot_count(
+              toot,
+              "replies",
+            )}</a>
+          </div>
+          <div class="reblogs ${this.toot_active(toot, "reblogs")}">
+            <a href="${
+              toot.url
+            }" rel="nofollow"><i class="fa fa-retweet fa-fw"></i>${this.toot_count(
+              toot,
+              "reblogs",
+            )}</a>
+          </div>
+          <div class="favourites ${this.toot_active(toot, "favourites")}">
+            <a href="${
+              toot.url
+            }" rel="nofollow"><i class="fa fa-star fa-fw"></i>${this.toot_count(
+              toot,
+              "favourites",
+            )}</a>
+          </div>
+        </div>
+      </div>`;
+    var div = document.createElement("div");
+    div.innerHTML =
+      typeof DOMPurify !== "undefined"
+        ? DOMPurify.sanitize(mastodonComment.trim())
+        : mastodonComment.trim();
+    document
+      .getElementById("mastodon-comments-list")
+      .appendChild(div.firstChild);
+    this.render_toots(toots, toot.id, depth + 1);
+  }
+  loadComments() {
+    if (this.commentsLoaded) return;
+    document.getElementById("mastodon-comments-list").innerHTML =
+      "Loading comments from the Fediverse...";
+    let _this = this;
+    fetch(
+      "https://" + this.host + "/api/v1/statuses/" + this.tootId + "/context",
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (
+          data["descendants"] &&
+          Array.isArray(data["descendants"]) &&
+          data["descendants"].length > 0
+        ) {
+          document.getElementById("mastodon-comments-list").innerHTML = "";
+          _this.render_toots(data["descendants"], _this.tootId, 0);
+        } else {
+          document.getElementById("mastodon-comments-list").innerHTML =
+            "<p>Not comments found</p>";
+        }
+        _this.commentsLoaded = true;
+      });
+  }
+  respondToVisibility(element, callback) {
+    var options = {
+      root: null,
+    };
+    var observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0) {
+          callback();
+        }
+      });
+    }, options);
+    observer.observe(element);
+  }
+}
+customElements.define("mastodon-comments", MastodonComments);
+</script>
+<div id="comments_thread"></div>
+<mastodon-comments host="pb.todon.de" user="alcea" tootId="111359759683825226"></mastodon-comments>
+
+
+____________________________________
+
+Load external html into dom / cross:
+--------------------------------------------
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var baseUrl = "https://ry3yr.github.io/mtdalceacomment";
+    $("#mtdcomm").load(baseUrl + "");
+});
+</script>
+<div class="formClass">
+    <div id="mtdcomm">
+    </div>
+</div>
+
+_____________________________
+
+
+AdblockDetect:
+------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .message {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+    }
+    .message.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <p class="message">..</p>
+  <script>
+    fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js').then(() => {
+      document.getElementsByClassName('message')[0].innerHTML = 'Adblock disabled.. Consider installing one !';
+      document.getElementsByClassName('message')[0].classList.add('no-ab');
+      document.getElementsByClassName('message')[0].classList.add('show');
+    }).catch(() => {
+      document.getElementsByClassName('message')[0].innerHTML = 'Adblock detected! Good Job !<br>Party time !';
+      document.getElementsByClassName('message')[0].classList.add('ab');
+      document.getElementsByClassName('message')[0].classList.add('show');
+    });
+
+    document.addEventListener('click', function(event) {
+      var message = document.getElementsByClassName('message')[0];
+      if (event.target !== message && !message.contains(event.target)) {
+        message.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
+
+______________________________________________
+
+
+Advanced Mastodon Timeline / TL render (with querystring support):
+------------------------------------------------------------------------------------------------------------
+
+<a href="?instance=mastodon.social&userid=109977878421486714">Ryedai</a>
+<a href="?instance=awau.social&userid=111347725791284150">AlceaAwau</a>
+<a href="?instance=pb.todon.de&userid=109629985010224381">Alcea</a>
+<body>
+  <div id="feed"></div>
+  <script>
+    function getQueryStringParams(url) {
+      const params = {};
+      const urlParams = new URLSearchParams(url);
+      for (const [key, value] of urlParams) {
+        params[key] = value;
+      }
+      return params;
+    }
+    // Get the query parameters from the URL
+    const queryParams = getQueryStringParams(window.location.search);
+    const instance = queryParams.instance || "pb.todon.de";
+    const userid = queryParams.userid || "109629985010224381";
+    // Function to replace emoji shortcodes with images
+    function replaceEmojis(content, customEmojis) {
+      customEmojis.forEach(customEmoji => {
+        const shortcode = customEmoji.shortcode;
+        const url = customEmoji.url;
+        const shortcodePattern = new RegExp(':' + shortcode + ':', 'g');
+        const emojiTag = '<img src="' + url + '" alt="' + shortcode + '" width="20px">';
+        content = content.replace(shortcodePattern, emojiTag);
+      });
+      return content;
+    }
+    // Function to fetch data from the selected API URL
+    function fetchData(apiUrl) {
+      const accessToken = 'your-access-token';
+      fetch(apiUrl, {
+        headers: {
+          'Authorization': 'Bearer ' + accessToken
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Clear the feed before appending new content
+        document.getElementById('feed').innerHTML = '';
+        data.forEach(status => {
+          let content = replaceEmojis(status.content, customEmojis);
+          let media = '';
+          let avatar = '';
+          let tootLink = '';
+          // Check for YouTube video link
+          const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+          const youtubeMatch = status.content.match(youtubeRegex);
+          if (youtubeMatch) {
+            // Extract video ID from YouTube link
+            const videoId = youtubeMatch[3];
+            // Create embedded player for YouTube video
+            media = `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+          } else {
+            // Check for Pixiv artwork link
+            const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
+            const pixivMatch = status.content.match(pixivRegex);
+            if (pixivMatch) {
+              // Extract artwork ID from Pixiv link
+              const artworkId = pixivMatch[1];
+              // Create image preview for Pixiv artwork
+              media = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div>`;
+            } else {
+              const tenorRegex = /https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/;
+              const tenorMatch = status.content.match(tenorRegex);
+              if (tenorMatch) {
+                // Extract Tenor.com video ID
+                const videoId = tenorMatch[1];
+                // Create embedded player for Tenor.com video
+                media = `<div><iframe src="https://tenor.com/embed/${videoId}" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>`;
+              } else {
+                // Check for Dailymotion video link
+                const dailymotionRegex = /https?:\/\/(www\.)?dailymotion\.com\/video\/([a-zA-Z0-9_-]+)/;
+                const dailymotionMatch = status.content.match(dailymotionRegex);
+                if (dailymotionMatch) {
+                const videoId = dailymotionMatch[2];
+                media = `<div><iframe frameborder="0" width="480" height="270" src="https://www.dailymotion.com/embed/video/${videoId}?autoplay=0" allowfullscreen allow="autoplay"></iframe></div>`;
+                }else{
+               // Check for Vidlii video link
+               const vidliiRegex = /https?:\/\/(www\.)?(m\.)?vidlii\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+               const vidliiMatch = status.content.match(vidliiRegex);
+                if (vidliiMatch) {
+                const videoId = vidliiMatch[3];
+                media = `<iframe allowfullscreen src="https://www.vidlii.com/embed?v=${videoId}" frameborder="0" width="640" height="360"></iframe><br>`;
+                }else{
+                // Check Soundcloud Link
+               const soundcloudRegex = /https?:\/\/(m\.)?soundcloud\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]+)/;
+                const soundcloudMatch = status.content.match(soundcloudRegex);
+                if (soundcloudMatch) {
+                const soundcloudUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudMatch[0]
+                 )}&color=0066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`;
+                 //media = `<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="${soundcloudUrl}"></iframe>`;
+                 media = `<iframe allowfullscreen src="${status.url}/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="600" height=400"></iframe><script src="embed.js" async><\/\script><br>`;
+                 } else {
+                // Check for imgbb image URLs in the status content
+                const imageRegex = /(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/g;
+                const imageMatches = status.content.match(imageRegex);
+                if (imageMatches) {
+                  media += '<div>';
+                  imageMatches.forEach(url => {
+                    media += '<img src="' + url + '" width="50%"><br>';
+                  });
+                  media += '</div>';
+                }
+              }
+            }
+          }
+       }
+     }
+  }
+          // Check for video and audio attachments
+          if (status.media_attachments.length > 0) {
+            media = '<div>';
+            status.media_attachments.forEach(attachment => {
+              if (attachment.type === 'image') {
+                media += '<img src="' + attachment.url + '" width="50%"><br>';
+              } else if (attachment.type === 'video') {
+                media += '<video src="' + attachment.url + '" controls width="50%"></video><br>';
+              } else if (attachment.type === 'audio') {
+                media += '<audio src="' + attachment.url + '" controls></audio><br>';
+              }
+            });
+            media += '</div>';
+          }
+          // Check for spoiler tag
+          if (status.url.includes('activity')) {
+            avatar = '<!--<details><summary>Avatar (spoiler)</summary><img src="' + status.account.avatar + '" width="100px"></details>--><br>';
+            tootLink = '<!--<details><summary>View on Mastodon (spoiler)</summary><a href="' + status.url + '" target="_blank">Click here to view activity</a></details>-->';
+          } else {
+            avatar = '<img src="' + status.account.avatar + '" width="100px"><br>';
+            tootLink = '<a href="' + status.url + '" target="_blank">View on Mastodon</a>';
+          }
+          // Get the date of the status
+          const date = new Date(status.created_at);
+          // Append content to feed
+          const contentHtml = `<div>${content}</div>`;
+          const statusHtml = `${contentHtml}${media}${avatar}${tootLink}&nbsp;${date.toLocaleString()}<hr>`;
+          document.getElementById('feed').innerHTML += statusHtml;
+        });
+      })
+      .catch(error => console.error(error));
+    }
+    // Add emoji renderer
+    const emojiEndpoint = `https://${instance}/api/v1/custom_emojis`;
+    fetch(emojiEndpoint)
+      .then(response => response.json())
+      .then(customEmojis => {
+        // Store custom emojis for later use
+        window.customEmojis = customEmojis;
+        // Event listener for radio button change
+        const radioButtons = document.querySelectorAll('input[name="apiUrl"]');
+        radioButtons.forEach(radioButton => {
+          radioButton.addEventListener('change', function() {
+            const selectedApiUrl = this.value;
+            fetchData(selectedApiUrl);
+          });
+        });
+        // Initial fetch using the default API URL
+        const defaultApiUrl = `https://${instance}/api/v1/accounts/${userid}/statuses`;
+        fetchData(defaultApiUrl);
+      });
+  </script>
+</body>
+
+_________________________________________
+
+Display mutes for account (rqs apikey):
+--------------------------------------------------------
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var entities = [];
+            var muteCount = 0; // Variable to store the number of mutes
+            function fetchEntities(url) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer apikeyhere'
+                    },
+                    success: function(response, textStatus, xhr) {
+                        var newEntities = response;
+                        for (var i = 0; i < newEntities.length; i++) {
+                            var entity = newEntities[i];
+                            entities.push(entity);
+                            muteCount++; // Increment the mute count
+                        }
+                        var linkHeader = xhr.getResponseHeader('Link');
+                        var nextLink = extractLinkUrl(linkHeader, 'next');
+                        if (entities.length >= 1000) {
+                            // Render the fetched entities
+                            renderEntities();
+                        } else if (nextLink) {
+                            // Fetch the next set of entities
+                            fetchEntities(nextLink);
+                        } else {
+                            console.log('Finished fetching entities');
+                            // Render the fetched entities
+                            renderEntities();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+            function extractLinkUrl(linkHeader, rel) {
+                var links = linkHeader.split(',');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i].trim();
+                    var regex = /<([^>]+)>;\s*rel="([^"]+)"/g;
+                    var match = regex.exec(link);
+                    if (match && match[2] === rel) {
+                        return match[1];
+                    }
+                }
+                return null;
+            }
+            function renderEntities() {
+                // Display the mute count at the top
+                var muteCountHtml = '<p>Mute Count: ' + muteCount + '</p>';
+                $('#muteCount').html(muteCountHtml);
+                for (var i = 0; i < entities.length; i++) {
+                    var entity = entities[i];
+                    var entityHtml = '<p>';
+                    entityHtml += '<a target="_blank" href="' + entity.url + '">' + entity.url + '</a><br>';
+                    //entityHtml += 'Date: ' + entity.created_at + '<br>';
+                    entityHtml += '</p>';
+                    $('#entities').append(entityHtml);
+                }
+            }
+            // Start fetching entities from the initial URL
+            var initialUrl = 'https://pb.todon.de/api/v1/mutes';
+            fetchEntities(initialUrl);
+        });
+    </script>
+</head>
+<body>
+    <div id="muteCount"></div> <!-- Display the mute count here -->
+    <div id="entities"></div>
+</body>
+</html>
+
+_________________________________
 
 MTD Graph posts over last 7 days:
 ---------------------------------
@@ -36,12 +1422,9 @@ Posts/Day for @alcea@pb.todon.de<br>
             var endpoint = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
             var entities = [];
             var dates = [];
-
             fetchEntities();
-
             function fetchEntities() {
                 var url = endpoint;
-
                 if (entities.length > 0) {
                     var linkHeader = '<https://pb.todon.de/api/v1/accounts/109629985010224381/statuses?max_id=' + entities[entities.length - 1].id + '>; rel="next"';
                     $.ajaxSetup({
@@ -50,7 +1433,6 @@ Posts/Day for @alcea@pb.todon.de<br>
                         }
                     });
                 }
-
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -68,10 +1450,8 @@ Posts/Day for @alcea@pb.todon.de<br>
                             var date = new Date(entity.created_at);
                             dates.push(date);
                         }
-
                         var linkHeader = xhr.getResponseHeader('Link');
                         var nextLink = extractLinkUrl(linkHeader, 'next');
-
                         if (entities.length >= 200) {
                             // Render the fetched entities
                             renderEntities();
@@ -5010,7 +6390,21 @@ Load link into existing iframe:
 (Source: https://www.w3schools.com/tags/att_iframe_name.asp
 https://stackoverflow.com/questions/740816/open-link-in-iframe )
 
-________________
+_______________________________________________
+
+Mini dropdown menu (2023\12\31)
+-------------------------------------------------
+
+<style>.dropdown-content{display:none;position:absolute;background-color:#f9f9f9;min-width:160px;box-shadow:0 8px 16px 0 rgba(0,0,0,.2);z-index:1}.dropbtn:hover+.dropdown-content,.dropdown-content:hover{display:block}</style>
+<div class="dropdown">
+  <button class="dropbtn">List</button>
+  <div class="dropdown-content">
+    <a href="?instance=mstdn.animexx.de&userid=111676830721936824" style="color: blue;">@Alcea@Animexx</a>
+       <a href="?instance=mstdn.animexx.de&userid=111676830721936824" style="color: blue;">url2</a>
+  </div>
+</div>
+
+_______________________________________________
 
 Compact dropdown button (with images)
 ------------------------------------------------------------'

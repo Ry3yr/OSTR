@@ -1,10 +1,613 @@
 (PHPs CurrUsed: https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/php.html )
 PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
 PHPTest: http://alcea-wisteria.de/PHP/0demo/00-PHP-Test/0test.php
+Install ComposerPackagesManually(Windows) https://m.youtube.com/watch?v=j8kpwzE6ju0
+https://web.archive.org/web/20231220065126/https://alcea-wisteria.de/Puppeteer.rar
 ___________________________________________________________________________________________________________________
 _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
 *php-install
 
+
+
+Find AnimexxUser+ (Artcount)
+---------------------------
+
+<a target="_blank" href="?artistname=Nudelchen" style=color:lightgray>custom</a><br>
+<?php
+$url = 'https://www.animexx.de/fanart/zeichner/A/';
+if (isset($_GET['artistname'])) {
+    $artistname = $_GET['artistname'];
+    $firstLetter = strtoupper(substr($artistname, 0, 1));
+    $url = str_replace('/zeichner/A/', '/zeichner/' . $firstLetter . '/', $url);
+} else {
+    $artistname = 'Alcea';
+}
+$html = file_get_contents($url);
+$pattern = '/<b><a href="\/fanart\/zeichner\/\d+\/">' . $artistname . '<\/a><\/b> \(\d+\)/';
+preg_match_all($pattern, $html, $matches);
+if (!empty($matches[0])) {
+    $artistLines = $matches[0];
+    $parsedUrl = parse_url($url);
+    $domain = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
+    foreach ($artistLines as $line) {
+        // Prepend the domain to the href attribute within the $line
+        $line = str_replace('href="/', 'href="' . $domain . '/', $line);
+        $line = str_replace('<a ', '<a target="_blank" ', $line);
+        echo $line . "<br>";
+    }
+} else {
+    echo "No matching lines found for '{$artistname}'.";
+}
+?>
+
+_________________
+
+
+Fetch all pixiv user artwork links:
+----------------------
+
+<a target="_blank" href="?userId=18233080" style="color:blue">custom</a> <a target="_blank" href="?random" style="color:blue">(Random)</a><br>
+<div id="linkCount"></div><br>
+<?php
+function getPixivUserArt($userId, $random) {
+    $apiUrl = "https://www.pixiv.net/ajax/user/{$userId}/profile/all?useid={$userId}";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $data = json_decode($response, true);
+    if (isset($data['body']['illusts'])) {
+        $artworks = $data['body']['illusts'];
+        $numLinks = 0; // Variable to keep track of the number of links
+        if ($random) {
+            // Get a random artwork
+            $randomArtId = array_rand($artworks);
+            $randomArt = $artworks[$randomArtId];
+            $artLink = "https://www.pixiv.net/artworks/{$randomArtId}";
+            echo "Link: <a target=_blank href=\"{$artLink}\">{$artLink}</a><br>\n";
+            $numLinks++; // Increment the link counter
+        } else {
+            foreach ($artworks as $artId => $art) {
+                $artLink = "https://www.pixiv.net/artworks/{$artId}";
+                echo "Link: <a target=_blank href=\"{$artLink}\">{$artLink}</a><br>\n";
+                $numLinks++; // Increment the link counter
+            }
+        }
+        // Display the number of links found within the div
+        echo "<script>document.getElementById('linkCount').innerHTML = 'Number of artworks: $numLinks';</script>";
+    } else {
+        echo "No artworks found for the given user.";
+    }
+}
+// Usage example
+$userId = isset($_GET['userId']) ? $_GET['userId'] : '75406576';
+$random = isset($_GET['random']);
+getPixivUserArt($userId, $random);
+?>
+
+
+____________________________
+
+
+Generate Linklist from folderpath
+-----------------------------------------------------
+
+<?php
+$defaultDirectory = 'other/music/midi/piano/';
+$directory = isset($_GET['path']) ? $_GET['path'] : $defaultDirectory;
+// Sanitize the directory path
+$directory = rtrim($directory, '/') . '/';
+// Scan the directory for MIDI files
+$files = glob($directory . '*.mid');
+// Create a linked list of target blank links
+$linkList = '<ul>';
+foreach ($files as $file) {
+    $filename = basename($file);
+    $linkList .= '<li><a href="' . $file . '" target="_blank">' . $filename . '</a></li>';
+}
+$linkList .= '</ul>';
+// Output the linked list and the form
+echo '<form method="get" action="">';
+echo 'Folder: <input type="text" name="path" value="' . $directory . '">';
+echo '<input type="submit" value="Generate List">';
+echo '</form>';
+echo $linkList;
+?>
+
+__________________________________
+
+Enable Cors for folder (via .htaccess):
+-------------------------------------------------------------
+
+# Add these three lines to CORSify your server for everyone.
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET,PUT,POST,DELETE"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+(source: https://gist.github.com/nixta/0b98d7975562bc31c4c9 )
+
+__________________________________
+
+Pkehex qrcode image team box render:
+-----------------------------------------------------------
+
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            //grid-column-gap: -50px;
+            grid-row-gap: 20px; /* Spaces between grid elements on the y-axis */
+        }
+        .grid .image {
+            width: 45px;
+            height: 45px;
+            background-size: 800% 800%;
+            background-repeat: no-repeat;
+            background-position: center -137px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+            margin-right: -5px;
+        }
+        .grid .image:hover {
+            transform: scale(2);
+            z-index: 2; //always hover above
+        }
+        .pokemon-name {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+        }
+        #iframe-container {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            height: 200px;
+            background-color: #f2f2f2;
+        }
+        #image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <?php
+        $folder = 'pkmn';
+        $files = glob($folder . '/*.jpg');
+        foreach ($files as $file) {
+            $filename = basename($file);
+            $pokemonName = substr($filename, 0, strpos($filename, '_'));
+            echo '<div class="image" style="background-image: url(\'' . $file . '\');" onclick="displayImage(\'' . $file . '\')">';
+            echo '<div class="pokemon-name">' . $pokemonName . '</div>';
+            echo '</div>';
+        }
+        ?>
+    </div>
+    <div id="iframe-container">
+        <a href="#" onclick="window.open(document.getElementById('image-preview').src, '_blank').focus(); return false;"><img id="image-preview" src="" alt="Preview"></a>
+    </div>
+    <script>
+        function displayImage(imageUrl) {
+            var imagePreview = document.getElementById('image-preview');
+            imagePreview.src = imageUrl;
+        }
+    </script>
+
+____________________________________
+
+Animexx Art parse:
+---------------------------------
+
+
+<a target="_blank" href="?creator=1049853/" style=color:lightorange>custom</a><br><br>
+<!---<a target="_blank" href="https://www.animexx.de/fanart/zeichner/1248943/" style=color:blue>Cea</a>-->
+<a href="findlinksnimgsnquerystring.php" style=color:blue>[[0]]</a> 
+<a href="?creator=1248943?seite=1" style=color:blue>[1]</a> 
+<a href="?creator=1248943?seite=2" style=color:blue>[2]</a> 
+<a href="?creator=1248943?seite=3" style=color:blue>[3]</a> 
+<br><br>
+<?php
+error_reporting(0); // Disable error reporting
+if (@isset($_GET['seite']) && @isset($_GET['creator'])) {
+    $seite = $_GET['seite'];
+    $creator = $_GET['creator'];
+    $url = '';
+} elseif (@isset($_GET['seite'])) {
+    $seite = $_GET['seite'];
+    $url = 'https://www.animexx.de/fanart/zeichner/1248943/?seite=' . $seite;
+} elseif (@isset($_GET['creator'])) {
+    $creator = $_GET['creator'];
+    $url = 'https://www.animexx.de/fanart/zeichner/' . $creator . '/';
+} else {
+    $url = 'https://www.animexx.de/fanart/zeichner/1248943/';
+}
+$baseurl = preg_replace('/\?.*/', '', $url);
+$newurl = str_replace("?seite=", "/?seite=", $url);
+echo "<a href='$newurl' target='_blank'>$newurl</a>";
+//echo "<a href='$url' target='_blank'>$baseurl/?seite=' . $seite'</a>";
+$html = @file_get_contents($url);
+$doc = new DOMDocument();
+@$doc->loadHTML($html);
+$xpath = new DOMXPath($doc);
+$fathumbTags = $xpath->query('//td[@class="fathumb"]');
+$fatitelTags = $xpath->query('//td[@class="fatitel"]');
+$faextinfoTags = $xpath->query('//td[@class="faextinfo"]');
+foreach ($fathumbTags as $index => $fathumbTag) {
+    $href = @$fathumbTag->getElementsByTagName('a')->item(0)->getAttribute('href');
+    $imgSrc = @$fathumbTag->getElementsByTagName('img')->item(0)->getAttribute('src');
+    echo "<a href='$imgSrc$href' target='_blank'></a>";
+    $fatitelTag = @$fatitelTags->item($index);
+    $title = @$fatitelTag->getElementsByTagName('b')->item(0)->textContent;
+    echo "<br><a href='$baseurl/$href' target='_blank'><b>$title</b></a>";
+    $linkedHtml = @file_get_contents("$url$href");
+    $linkedDoc = new DOMDocument();
+    @$linkedDoc->loadHTML($linkedHtml);
+    $linkedImgTag = @$linkedDoc->getElementsByTagName('img')->item(0);
+    $linkedImgSrc = @$linkedImgTag->getAttribute('src');
+    echo "<br><img src='$linkedImgSrc' alt='Linked Image' style='width: 200px; height: auto;'>";
+    $faextinfoTag = @$faextinfoTags->item($index);
+    $faextinfo = @$faextinfoTag->textContent;
+    $faextinfo = preg_replace('/(\d)(?![\d.])/', '<br>$1', $faextinfo);
+    $faextinfo = preg_replace("/(Note)/", "<br>$1", $faextinfo);
+    echo "<br>$faextinfo";
+    echo "<br><br>";
+}
+?>
+
+
+
+-----TRASH---31\12\2023----
+<?php
+$defaultUrl = 'https://www.animexx.de/fanart/zeichner/1248943/';
+if (isset($_GET['creator'])) {
+    $creator = $_GET['creator'];
+    $url = $creator;
+} else {
+    $url = $defaultUrl;
+}
+$html = file_get_contents($url);
+$pattern = '/<td class="fathumb" rowspan="2"><a\s+href="([^"]+)"\s+target="([^"]+)"[^>]*>/';
+preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
+// Create a DOMXPath object
+$dom = new DOMDocument();
+$dom->loadHTML($html);
+$xpath = new DOMXPath($dom);
+$query = '//td[@class="faextinfo"]';
+$tdElements = $xpath->query($query);
+// Iterate over the <td> elements and display their content
+$tdContentArray = [];
+foreach ($tdElements as $tdElement) {
+    $tdContent = $tdElement->ownerDocument->saveHTML($tdElement);
+    $tdContentArray[] = $tdContent;
+}
+foreach ($matches as $index => $match) {
+    $link = $match[1];
+    $target = $match[2];
+    $validLink = $url . ltrim($link, '/');
+    $linkHtml = file_get_contents($validLink);
+    $imgPattern = '/<img\s+src="([^"]+)"\s+id="fanart_img_gross"\s+alt="([^"]+)"[^>]*>/';
+    preg_match($imgPattern, $linkHtml, $imgMatch);
+    if (isset($imgMatch[1]) && isset($imgMatch[2])) {
+        $imgSrc = $imgMatch[1];
+        $imgAlt = $imgMatch[2];
+        echo '<br><br><a href="' . $validLink . '" target="' . $target . '">' . $validLink . '</a><br>';
+        echo '<img src="' . $imgSrc . '" alt="' . $imgAlt . '" width=50%><br>';
+    }
+    // Check if there is a corresponding faextinfo entry
+    if (isset($tdContentArray[$index])) {
+        echo $tdContentArray[$index];
+    }
+}
+?>
+
+<~~~~~~~~~~~~without faetext ~~~~~~~~~~~>
+
+<a target="_blank" href="?creator=https://www.animexx.de/fanart/zeichner/1049853/" style=color:lightorange>custom</a><br><br>
+<?php
+$defaultUrl = 'https://www.animexx.de/fanart/zeichner/1248943/';
+if (isset($_GET['creator'])) {
+    $creator = $_GET['creator'];
+    $url = $creator;
+} else {
+    $url = $defaultUrl;
+}
+$html = file_get_contents($url);
+$pattern = '/<td class="fathumb" rowspan="2"><a\s+href="([^"]+)"\s+target="([^"]+)"[^>]*>/';
+preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
+foreach ($matches as $match) {
+    $link = $match[1];
+    $target = $match[2];
+    $validLink = $url . ltrim($link, '/');
+    $linkHtml = file_get_contents($validLink);
+    $imgPattern = '/<img\s+src="([^"]+)"\s+id="fanart_img_gross"\s+alt="([^"]+)"[^>]*>/';
+    preg_match($imgPattern, $linkHtml, $imgMatch);
+    if (isset($imgMatch[1]) && isset($imgMatch[2])) {
+        $imgSrc = $imgMatch[1];
+        $imgAlt = $imgMatch[2];
+        echo '<a href="' . $validLink . '" target="' . $target . '">' . $validLink . '</a><br>';
+        echo '<img src="' . $imgSrc . '" alt="' . $imgAlt . '" width=50%><br>';
+    }
+}
+?>
+
+______________________
+
+Mastodon extract preview_cards:
+----------------------------------------------------
+
+<?php
+$url = 'https://mastodon.social/api/v1/accounts/109977878421486714/statuses';
+$parsedUrl = parse_url($url);
+$domain = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
+// Fetch data from the URL
+$response = file_get_contents($url);
+if ($response === false) {
+    echo 'Error: Unable to fetch data.';
+    exit;
+}
+$previewCards = extractPreviewCardLinks($response);
+$html = generateImageTags($previewCards, $domain);
+echo 'Domain: ' . $domain . '<br>';
+echo 'Preview Card Images:<br>';
+echo $html;
+function extractPreviewCardLinks($responseText)
+{
+    //$pattern = '/\/system\/cache\/preview_cards\/images\/\d+\/\d+\/\d+\/original\/[a-f0-9]+\.(?:jpg|jpeg|png|gif)/i';  //normal masstodon
+        $pattern = '/\/cache\/preview_cards\/images\/\d{3}\/\d{3}\/\d{3}\/original\/[a-f0-9]+\.(?:jpg|jpeg|png|gif)/i';     //glitchfork suchas urusai.social
+         preg_match_all($pattern, $responseText, $matches);
+
+
+    return $matches[0] ?? [];
+}
+function generateImageTags($imageUrls, $domain)
+{
+    $html = '';
+    foreach ($imageUrls as $imageUrl) {
+        $domain = " https://files.mastodon.social";
+        $html .= '<img src="' .$domain . $imageUrl . '" alt="Preview Card Image"><br>';
+    }
+
+    return $html;
+}
+?>
+
+________________________________
+
+Deviantart latest images parse:
+-------------------------------------------------
+
+<?php
+// Default DeviantArt username
+$username = "ryedai1";
+// Check if the "dauser" query string parameter is set
+if (isset($_GET['dauser'])) {
+    // Get the value of "dauser" query string parameter
+    $queryUsername = $_GET['dauser'];
+    // Validate and assign the new username if it's not empty
+    if (!empty($queryUsername)) {
+        $username = $queryUsername;
+    }
+}
+// URL of the user's DeviantArt gallery
+$url = "https://www.deviantart.com/$username/gallery/";
+// Fetch the HTML content of the gallery page
+$html = file_get_contents($url);
+// Create a DOM document
+$dom = new DOMDocument();
+libxml_use_internal_errors(true);
+// Load the HTML content into the DOM document
+$dom->loadHTML($html);
+// Create a DOMXPath object
+$xpath = new DOMXPath($dom);
+// XPath query to select all <a> elements with data-hook attribute set to "deviation_link"
+$query = '//a[@data-hook="deviation_link"]';
+// Execute the XPath query
+$links = $xpath->query($query);
+// Array to store unique links
+$uniqueLinks = [];
+// Loop through the matched links
+foreach ($links as $link) {
+    $href = $link->getAttribute('href');
+    // Check if the link is already in the array
+    if (!in_array($href, $uniqueLinks)) {
+        // Add the link to the array of unique links
+        $uniqueLinks[] = $href;
+        // Generate the <a> tag with target="_blank" attribute
+        $htmlLink = '<a href="' . $href . '" target="_blank">' . $href . '</a>';
+        // Display the generated link
+        echo $htmlLink . "<br>";
+        // Fetch the HTML content of the individual deviation page
+        $deviationHTML = file_get_contents($href);
+        // Create a new DOM document for the individual deviation page
+        $deviationDOM = new DOMDocument();
+        libxml_use_internal_errors(true);
+        // Load the HTML content into the DOM document
+        $deviationDOM->loadHTML($deviationHTML);
+        // Create a new DOMXPath object for the individual deviation page
+        $deviationXPath = new DOMXPath($deviationDOM);
+        // XPath query to select the <img> tag with src attribute containing "https://images-wixmp"
+        $deviationImgQuery = '//img[contains(@src, "https://images-wixmp")]';
+        // Execute the XPath query on the individual deviation page
+        $deviationImg = $deviationXPath->query($deviationImgQuery)->item(0);
+        // Check if the <img> tag is found
+        if ($deviationImg) {
+            // Get the src attribute value
+            $imgSrc = $deviationImg->getAttribute('src');
+            // Generate the <img> tag to embed the image
+            $htmlImg = '<img src="' . $imgSrc . '">';
+            // Display the embedded image
+            echo $htmlImg . "<br>";
+        }
+    }
+}
+?>
+
+
+_______________________________________
+
+
+Show newest file in dir + modify date
+------------------------------------------------
+
+<?php
+$files = glob('*'); // Get all files in the current directory
+$newestFile = null;
+$newestTime = 0;
+foreach ($files as $file) {
+    if (is_file($file)) { // Check if the item is a file
+        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+        $fileName = pathinfo($file, PATHINFO_FILENAME);
+        if ($fileExtension === 'zip' || $fileExtension === 'php' || strpos($fileName, 'error_log') !== false) {
+            continue;
+        }
+        $fileTime = filemtime($file); // Get the last modified timestamp of the file
+        if ($fileTime > $newestTime) {
+            $newestTime = $fileTime;
+            $newestFile = $file;
+        }
+    }
+}
+if ($newestFile !== null) {
+    $lastModified = date("Y-m-d", $newestTime); // Format the last modified timestamp as yyyy-mm-dd
+    $link = htmlspecialchars($newestFile); // Sanitize the filename for use in the hyperlink
+
+    echo "<a href='$link' target='_blank'>$link</a> - Last modified: $lastModified";
+}
+?>
+
+_____________________________
+
+Fetch Steam Library (and allow json dld):
+------------------------------------------
+
+<a target="_blank" href="?steam_id=76561198119673186&api_key=apikey">Custom</a> (<a target="_blank" href="https://steamcommunity.com/login/home/?goto=%2Fdev%2Fapikey" style="color:grey">Get ApiKey</a>)
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Steam Library Viewer</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <table id="steamLibrary">
+    <thead>
+      <tr>
+        <th>Game Name</th>
+        <th>Playtime (minutes)</th>
+        <th>Purchase Date</th>
+        <th>Price (Current)</th>
+        <th>Last Played</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php
+// Replace 'YOUR_API_KEY' with your actual Steam API key
+$apiKey = isset($_GET['api_key']) ? $_GET['api_key'] : 'F96D40C8F7FA9C51B204D4707E0A094B';
+$steamId = isset($_GET['steam_id']) ? $_GET['steam_id'] : '76561198119673186';
+
+// Construct the API URL to fetch the user's Steam library data
+$libraryApiUrl = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={$apiKey}&steamid={$steamId}&include_appinfo=1&include_played_free_games=1";
+
+// Fetch the user's Steam library data
+$libraryResponse = file_get_contents($libraryApiUrl);
+$libraryData = json_decode($libraryResponse, true);
+
+if ($libraryData && isset($libraryData['response']['games'])) {
+  $games = $libraryData['response']['games'];
+
+  if (!empty($games)) {
+    // Sort the games array alphabetically by game name
+    usort($games, function($a, $b) {
+      return strcmp($a['name'], $b['name']);
+    });
+
+    foreach ($games as $game) {
+      $appId = $game['appid'];
+      $appName = $game['name'];
+      $playtimeMinutes = $game['playtime_forever'];
+      $purchaseDate = isset($game['purchase_date']) ? date('Y-m-d', $game['purchase_date']) : 'Unknown';
+      $rtimeLastPlayed = isset($game['rtime_last_played']) ? date('Y-m-d', $game['rtime_last_played']) : 'Unknown';
+
+      // Construct the API URL to fetch the purchase information for the game
+      $purchaseApiUrl = "https://store.steampowered.com/api/appdetails?appids={$appId}";
+
+      // Fetch the purchase information for the game
+      $purchaseResponse = file_get_contents($purchaseApiUrl);
+      $purchaseData = json_decode($purchaseResponse, true);
+
+      if ($purchaseData && isset($purchaseData[$appId]['data']['price_overview'])) {
+        $priceOverview = $purchaseData[$appId]['data']['price_overview'];
+        $price = number_format($priceOverview['final'] / 100, 2) . ' €'; // Convert price to Euros
+      } else {
+        $price = 'Unknown';
+      }
+
+      echo '<tr>';
+      echo "<td>{$appName}</td>";
+      echo "<td>{$playtimeMinutes}</td>";
+      echo "<td>{$purchaseDate}</td>";
+      echo "<td>{$price}</td>";
+      echo "<td>{$rtimeLastPlayed}</td>";
+      echo '</tr>';
+    }
+  } else {
+    echo '<tr><td colspan="5">No games found in the Steam library.</td></tr>';
+  }
+} else {
+  echo '<tr><td colspan="5">Error retrieving Steam library.</td></tr>';
+}
+?>
+    </tbody>
+  </table>
+
+  <form action="download.php" method="post">
+    <input type="hidden" name="libraryData" value="<?php echo htmlspecialchars(json_encode($libraryData)); ?>">
+    <button type="submit">Download as JSON</button>
+  </form>
+</body>
+</html>
+
+
+
+====download.php===
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['libraryData'])) {
+    $libraryData = $_POST['libraryData'];
+    // Set the appropriate headers for file download
+    header('Content-Type: application/json');
+    header('Content-Disposition: attachment; filename="steam_library.json"');
+    // Output the library data as a JSON file
+    echo $libraryData;
+    exit;
+  }
+}
+// Redirect back to the previous page if the library data is not available
+header('Location: ' . $_SERVER['HTTP_REFERER']);
+?>
+
+
+__________________________________
 
 Open mastodon url in home instance:
 ------------------------------------------------

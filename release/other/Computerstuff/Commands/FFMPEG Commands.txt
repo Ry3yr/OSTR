@@ -15,6 +15,42 @@ ________________________________________________________________________________
 ________________________________________________________________________
 *convert-videoformats *remuxvi-deoformats *convert-audioformats
 
+
+Concat mp4s in curr folder in one:
+---------------------------------
+
+files=""
+for f in *.mp4; do
+  files+="file '$PWD/$f'\n"
+done
+echo -e "$files" > input.txt
+ffmpeg -f concat -safe 0 -i input.txt -c copy output.mp4
+
+_____________________
+
+
+Fix "too many packets buffered" error:
+------------------------
+
+
+ -max_muxing_queue_size 1024
+
+( https://stackoverflow.com/questions/49686244/ffmpeg-too-many-packets-buffered-for-output-stream-01 )
+
+____________________________________________
+
+
+Extract 2nd Audiostream and remux only it to video:
+----------------------------------------------------
+
+set "input_dir=D:\Videos\1_Serien\Anime\Death Note\Death Note [GER][ENG][JAPnSub]"
+set "output_dir=C:\Videoconvert"
+for %%F in ("%input_dir%\*") do (
+  ffmpeg -i "%%F" -map 0:v -map 0:a:1 -c:v copy -c:a:2 copy "%output_dir%\%%~nF.mkv"
+)
+
+___________________________________
+
 Downscale video to 640*480 mp4
 ---------------------------------------------------
 cd /storage/emulated/0/Download
