@@ -1,5 +1,6 @@
 
 
+
 <script>
 // Check if "lowbandwidth" is present in the URL
 if (window.location.href.includes("lowbandwidth")) {
@@ -555,32 +556,241 @@ Cjxib2R5PgogIDxkaXY+CiAgICA8aW5wdXQgdHlwZT0icmFkaW8iIG5hbWU9ImFwaVVybCIgdmFsdWU9
 
 <hr>
 <!---External_MTD--Render-->
+ 
+
+
+<!------------OtherMtdInstances---------->
+<style>.dropdown-content{display:none;position:absolute;background-color:#f9f9f9;min-width:160px;box-shadow:0 8px 16px 0 rgba(0,0,0,.2);z-index:1}.dropbtn:hover+.dropdown-content,.dropdown-content:hover{display:block}</style>
+<div class="dropdown">
+  <button class="dropbtn">OtherMtd's</button>
+  <div class="dropdown-content">
+    •<a href="?instance=mstdn.animexx.de&userid=111676830721936824" style="color: blue;">@Alcea@Animexx</a>
+    •<a href="?instance=pb.todon.de&userid=109629985010224381" style="color: blue;">@Alcea@acws</a>
+  </div>
+</div><br>
+<!--------------------------------------------------------->
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+<a href="?instance=mastodon.social&userid=109977878421486714">Ryedai</a>
+<!--<a href="?instance=mstdn.animexx.de&userid=111676830721936824">AlceaAnimexx</a>-->
+<a href="?instance=urusai.social&userid=111417582756052979">AlceaUrusai</a>
+<!--<a href="?instance=pb.todon.de&userid=109629985010224381">Alcea</a>-->
+&nbsp;<a href="https://alceawis.de/php#aboutalcea" target="_blank" style="color: transparent;">PHP-Render</a> 
+
+<!--
+<a target="_blank" href="https://gg.gg/lastmastodonavas#https://alcea-wisteria.de/PHP/0demo/2023-07-09-FetchMastodonAva/0list.php">last-avas</a> *<a target="_blank" href="social_media-mtd-followers.html?instance=pb.todon.de&userid=109629985010224381">Followers</a>
+-->
+
+<body>
+  <div id="feed"></div>
+  <script>
+    function getQueryStringParams(url) {
+      const params = {};
+      const urlParams = new URLSearchParams(url);
+      for (const [key, value] of urlParams) {
+        params[key] = value;
+      }
+      return params;
+    }
+    // Get the query parameters from the URL
+    const queryParams = getQueryStringParams(window.location.search);
+    const instance = queryParams.instance || "urusai.social";
+    const userid = queryParams.userid || "111417582756052979";
+    // Function to replace emoji shortcodes with images
+    function replaceEmojis(content, customEmojis) {
+      customEmojis.forEach(customEmoji => {
+        const shortcode = customEmoji.shortcode;
+        const url = customEmoji.url;
+        const shortcodePattern = new RegExp(':' + shortcode + ':', 'g');
+        const emojiTag = '<img src="' + url + '" alt="' + shortcode + '" width="20px">';
+        content = content.replace(shortcodePattern, emojiTag);
+      });
+      return content;
+    }
+    // Function to fetch data from the selected API URL
+    function fetchData(apiUrl) {
+      const accessToken = 'your-access-token';
+      fetch(apiUrl, {
+        headers: {
+          'Authorization': 'Bearer ' + accessToken
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Clear the feed before appending new content
+        document.getElementById('feed').innerHTML = '';
+        data.forEach(status => {
+          let content = replaceEmojis(status.content, customEmojis);
+          let media = '';
+          let avatar = '';
+          let tootLink = '';
+
+          // Check for YouTube video link
+          const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+          const youtubeMatch = status.content.match(youtubeRegex);
+          if (youtubeMatch) {
+            // Extract video ID from YouTube link
+            const videoId = youtubeMatch[3];
+            // Create embedded player for YouTube video
+            media = `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+          } else {
+            // Check for Pixiv artwork link
+            const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
+            const pixivMatch = status.content.match(pixivRegex);
+            if (pixivMatch) {
+              // Extract artwork ID from Pixiv link
+              const artworkId = pixivMatch[1];
+              // Create image preview for Pixiv artwork
+              media = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div>`;
+            } else {
+              const tenorRegex = /https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/;
+              const tenorMatch = status.content.match(tenorRegex);
+              if (tenorMatch) {
+                // Extract Tenor.com video ID
+                const videoId = tenorMatch[1];
+                // Create embedded player for Tenor.com video
+                media = `<div><iframe src="https://tenor.com/embed/${videoId}" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>`;
+              } else {
+                // Check for Dailymotion video link
+                const dailymotionRegex = /https?:\/\/(www\.)?dailymotion\.com\/video\/([a-zA-Z0-9_-]+)/;
+                const dailymotionMatch = status.content.match(dailymotionRegex);
+                if (dailymotionMatch) {
+                const videoId = dailymotionMatch[2];
+                media = `<div><iframe frameborder="0" width="480" height="270" src="https://www.dailymotion.com/embed/video/${videoId}?autoplay=0" allowfullscreen allow="autoplay"></iframe></div>`;
+                }else{
+               // Check for Vidlii video link
+               const vidliiRegex = /https?:\/\/(www\.)?(m\.)?vidlii\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+               const vidliiMatch = status.content.match(vidliiRegex);
+                if (vidliiMatch) {
+                const videoId = vidliiMatch[3];
+                media = `<iframe allowfullscreen src="https://www.vidlii.com/embed?v=${videoId}" frameborder="0" width="640" height="360"></iframe><br>`;
+                }else{
+
+                // Check Soundcloud Link
+               const soundcloudRegex = /https?:\/\/(m\.)?soundcloud\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]+)/;
+                const soundcloudMatch = status.content.match(soundcloudRegex);
+                if (soundcloudMatch) {
+                const soundcloudUrl = `https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudMatch[0]
+                 )}&color=0066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`;
+                 //media = `<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="${soundcloudUrl}"></iframe>`;
+                 media = `<iframe allowfullscreen src="${status.url}/embed" class="mastodon-embed" style="max-width: 100%; border: 0" width="600" height=400"></iframe><script src="embed.js" async><\/\script><br>`;
+
+                 } else {
+                // Check for imgbb image URLs in the status content
+                const imageRegex = /(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/g;
+                const imageMatches = status.content.match(imageRegex);
+                if (imageMatches) {
+                  media += '<div>';
+                  imageMatches.forEach(url => {
+                    media += '<img src="' + url + '" width="50%"><br>';
+                  });
+                  media += '</div>';
+                                     } else {
+                    // Check for OneDrive URLs in the status content
+                    const onedriveRegex = /(https:\/\/onedrive\.live\.com\/embed\?resid=[^ ]+)/g;
+                    const onedriveMatches = status.content.match(onedriveRegex);
+                    if (onedriveMatches) {
+                      media += '<div>';
+                      onedriveMatches.forEach(url => {
+                      media += '<iframe src="' + url + '" width="500px" height="300px" frameborder="0"></iframe><br>';
+                      });
+                      media += '</div>';
+                  }
+                }
+              }
+            }
+          }
+       }
+     }
+  }
+
+          // Check for video and audio attachments
+          if (status.media_attachments.length > 0) {
+            media = '<div>';
+            status.media_attachments.forEach(attachment => {
+              if (attachment.type === 'image') {
+                media += '<img src="' + attachment.url + '" width="50%"><br>';
+              } else if (attachment.type === 'video') {
+                media += '<video src="' + attachment.url + '" controls width="50%"></video><br>';
+              } else if (attachment.type === 'audio') {
+                media += '<audio src="' + attachment.url + '" controls></audio><br>';
+              }
+            });
+            media += '</div>';
+          }
+          // Check for spoiler tag
+          if (status.url.includes('activity')) {
+            avatar = '<!--<details><summary>Avatar (spoiler)</summary><img src="' + status.account.avatar + '" width="100px"></details>--><br>';
+            tootLink = '<!--<details><summary>View on Mastodon (spoiler)</summary><a href="' + status.url + '" target="_blank">Click here to view activity</a></details>-->';
+          } else {
+            avatar = '<img src="' + status.account.avatar + '" width="100px"><br>';
+            tootLink = '<a href="' + status.url + '" target="_blank">View on Mastodon</a>';
+          }
+          // Get the date of the status
+          const date = new Date(status.created_at);
+          // Append content to feed
+          const contentHtml = `<div>${content}</div>`;
+          const statusHtml = `${contentHtml}${media}${avatar}${tootLink}&nbsp;${date.toLocaleString()}<hr>`;
+          document.getElementById('feed').innerHTML += statusHtml;
+        });
+      })
+      .catch(error => console.error(error));
+    }
+    // Add emoji renderer
+    const emojiEndpoint = `https://${instance}/api/v1/custom_emojis`;
+    fetch(emojiEndpoint)
+      .then(response => response.json())
+      .then(customEmojis => {
+        // Store custom emojis for later use
+        window.customEmojis = customEmojis;
+        // Event listener for radio button change
+        const radioButtons = document.querySelectorAll('input[name="apiUrl"]');
+        radioButtons.forEach(radioButton => {
+          radioButton.addEventListener('change', function() {
+            const selectedApiUrl = this.value;
+            fetchData(selectedApiUrl);
+          });
+        });
+        // Initial fetch using the default API URL
+        const defaultApiUrl = `https://${instance}/api/v1/accounts/${userid}/statuses`;
+        fetchData(defaultApiUrl);
+      });
+  </script>
+</body>
+
+
+
+
+
+
+<!--old--
 <a href="#" data-source="ryedai">Ryedai</a>
+<a href="#" data-source="alcea-woof">AlceaAwau</a>
 <a href="#" data-source="alcea">Alcea</a>
+&nbsp;<a href="https://alceawis.de/php#aboutalcea" target="_blank" style="color: green;">PHP-Render</a> *<a target="_blank" href="social_media-mtd-followers.html?instance=pb.todon.de&userid=109629985010224381">Followers</a>
 <div class="formClass">
   <div id="editor"></div>
 </div>
 <script>
 $(document).ready(function() {
   myeditFunction('alcea'); // Load 'alcea' content on page load
-
   $('a[data-source]').on('click', function(e) {
     e.preventDefault();
     var source = $(this).data('source');
     myeditFunction(source);
   });
-
   function myeditFunction(source) {
     if (source === 'ryedai') {
-      $("#editor").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/social_media_-_mastodon_ryedai-mastodon.social.html");
+      $("#editor").load("social_media_-_mastodon_ryedai-mastodon.social.html");
     } else if (source === 'alcea') {
-      $("#editor").load("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/social_media_-_mastodon_alcea-pbtodon.de.html");
+      $("#editor").load("social_media_-_mastodon_alcea-pbtodon.de.html");
+    } else if (source === 'alcea-woof') {
+      $("#editor").load("social_media_-_mastodon_alcea-awau.social.html");
     }
   }
 });
-</script>
-</body>
-</html>
+</script>-->
+
