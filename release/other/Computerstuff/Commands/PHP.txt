@@ -1,6 +1,6 @@
-(PHPs CurrUsed: https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/php.html )
-PHP Backup: https://ry3yr.github.io/OSTR/release/0mine/documents/php.zip
-PHPTest: http://alcea-wisteria.de/PHP/0demo/00-PHP-Test/0test.php
+
+PHP Backup: https://ry3yr.github.io/php.zip
+Run php server locally (android): https://apkcombo.com/de/palapa-web-server/com.alfanla.android.pws/download/apk#urusai.social/@alcea/111761622206017944#i.ibb.co/cx175BB/Screenshot-20240115-165447-Opera.png
 Install ComposerPackagesManually(Windows) https://m.youtube.com/watch?v=j8kpwzE6ju0
 https://web.archive.org/web/20231220065126/https://alcea-wisteria.de/Puppeteer.rar
 ___________________________________________________________________________________________________________________
@@ -8,6 +8,445 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+Display htaccess:
+-----------------------------
+
+<?php
+$htaccessPath = '.htaccess';
+exists
+if (file_exists($htaccessPath)) {
+    $htaccessContent = file_get_contents($htaccessPath);
+    echo "<pre>{$htaccessContent}</pre>";
+} else {
+    echo "The .htaccess file does not exist.";
+}
+?>
+
+__________________________
+
+
+Last played gamewriter
+---------------------------
+
+example link: https://alcea-wisteria.de/PHP/0demo/2024-01-14-Lastplayed/lastplayed.php?gamename=title<br><br>
+
+<?php
+$currentContent = file_get_contents('current.html');
+$targetContent = file_get_contents('oldentries.html');
+$updatedContent = $currentContent . $targetContent;
+$linkpattern = '/<a\b[^>]*>(.*?)<\/a>/'; //remove link
+$replacement = '';
+$updatedContent = preg_replace($linkpattern, $replacement, $updatedContent);
+file_put_contents('oldentries.html', $updatedContent);
+?>
+<?php
+if(isset($_GET['gamename'])) {
+    $gamename = $_GET['gamename'];
+    $currentDateTime = date('Y-m-d H:i:s');
+    $htmlContent = '<u>LastPlayed:</u> ' . $gamename . ' - (' . $currentDateTime . ') <a target="_blank" href="oldentries.html" style="color:gray">(old)</a><br>';
+    file_put_contents('current.html', $htmlContent);
+    //echo "Successfully updated current.html with the game name: $gamename and current date and time.";
+    // Output the iframe with cache busting
+    echo "<iframe src='current.html?" . time() . "' style='width: 100%; border: none;'></iframe>";
+} else {
+    echo "<iframe src='current.html?" . time() . "' style='width: 100%; border: none;'></iframe>";
+}
+?>
+
+_________________
+
+
+Fetch Fediverse Usercount:
+-------------------------------------------
+
+<?php
+$url = 'https://api.fedidb.org/v1/stats';
+$response = file_get_contents($url);
+if ($response !== false) {
+    $data = json_decode($response, true);
+    if ($data !== null) {
+        // Access the data and render
+        $totalUsers = $data['total_users'];
+        $activeUsers = $data['monthly_active_users'];
+        $totalPosts = $data['total_statuses_str'];
+        echo "Total Users: $totalUsers<br>";
+        echo "Active Users: $activeUsers<br>";
+        echo "Total Posts: $totalPosts<br>";
+    } else {
+        echo "Error: Failed to decode JSON response.";
+    }
+} else {
+    echo "Error: Failed to fetch data from the API endpoint.";
+}
+?>
+
+____________________________
+
+Render textfile in style /(Parse and display *.txt as hyperlink html: (Delimiter: "https://")
+--------------------------------------
+<?php
+$file = fopen('xnotes.txt', 'r');
+if ($file) {
+    while (($line = fgets($file)) !== false) {
+        $line = trim($line);
+        $parts = explode('https://', $line, 2);
+        $title = $parts[0];
+        $url = 'https://' . $parts[1];
+        echo "<a href=\"$url\" target=\"_blank\">$title</a><br>";
+    }
+    fclose($file);
+} else {
+    echo 'Failed to open the file.';
+}
+?>
+
+
+---Example txt--
+YGO VRAINS: https://alcea-wisteria.de/PHP/xnotes/view.php?s-1705150073-e73eae915bceecad0f0413c3e6b713b0
+Windows OS: https://alcea-wisteria.de/PHP/xnotes/view.php?s-1705150108-854bffd31ca032a51c3e06536ddbe493
+
+__________________
+
+
+Xnotes (evernote / nimbusnotes clone):
+-----------------------------------------------------------
+https://github.com/Xtrendence/X-Notes
+=>
+https://codeload.github.com/Xtrendence/X-Notes/zip/refs/heads/master 
+
+______________________________________
+
+
+PHP Gamedatabase (with html renderer):
+-------------------------------------------
+
+=================gamedb.php========
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sortable Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            cursor: pointer;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <?php
+    // Function to write table data to a file
+    function writeDataToFile($data, $filename) {
+        $file = fopen($filename, 'w');
+        fwrite($file, json_encode($data));
+        fclose($file);
+    }
+    // Function to read table data from a file
+    function readDataFromFile($filename) {
+        if (file_exists($filename)) {
+            $data = file_get_contents($filename);
+            return json_decode($data, true);
+        }
+        return [];
+    }
+    // Database file name
+    $dbFile = 'gamedb.json';
+    // Check if a new entry is submitted
+    if (isset($_POST['submit'])) {
+        $newEntry = [
+            'Gamename' => $_POST['gamename'],
+            'System' => $_POST['system'],
+            'Vendor' => $_POST['vendor'],
+            'Comment' => $_POST['comment'],
+            'Rating' => $_POST['rating'],
+            'Description' => $_POST['description'],
+            'link' => $_POST['link']
+        ];
+        // Read existing data from file
+        $games = readDataFromFile($dbFile);
+        // Add the new entry
+        $games[] = $newEntry;
+        // Write the updated data to file
+        writeDataToFile($games, $dbFile);
+    } else {
+        // Read data from file
+        $games = readDataFromFile($dbFile);
+    }
+    ?>
+    <table>
+        <tr>
+            <th onclick="sortTable(0)">Gamename</th>
+            <th onclick="sortTable(1)">System</th>
+            <th onclick="sortTable(2)">Vendor</th>
+            <th onclick="sortTable(3)">Comment</th>
+            <th onclick="sortTable(4)">Rating</th>
+            <th onclick="sortTable(5)">Description</th>
+            <th onclick="sortTable(6)">Link</th>
+        </tr>
+        <?php foreach ($games as $game): ?>
+            <tr>
+                <td><?php echo $game['Gamename']; ?></td>
+                <td><?php echo $game['System']; ?></td>
+                <td><?php echo $game['Vendor']; ?></td>
+                <td><?php echo $game['Comment']; ?></td>
+                <td><?php echo $game['Rating']; ?></td>
+                <td><?php echo $game['Description']; ?></td>
+                <td><?php echo $game['link']; ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <form method="post" action="">
+        <input type="text" name="gamename" placeholder="Gamename" required>
+        <input type="text" name="system" placeholder="System" required>
+        <input type="text" name="vendor" placeholder="Vendor" required>
+        <input type="text" name="comment" placeholder="Comment" required>
+        <input type="text" name="rating" placeholder="Rating" required>
+        <input type="text" name="description" placeholder="Description" required>
+        <input type="text" name="link" placeholder="Link" required>
+        <input type="submit" name="submit" value="Add Entry">
+    </form>
+    <script>
+    // Function to sort the table
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementsByTagName("table")[0];
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+    // Add event listeners to table headers for sorting
+    var headers = document.getElementsByTagName("th");
+    for (var i = 0; i < headers.length; i++) {
+        headers[i].addEventListener("click", function () {
+            var columnIndex = Array.from(this.parentNode.children).indexOf(this);
+            sortTable(columnIndex);
+        });
+    }
+</script>
+</body>
+</html>
+
+
+======html json renderer====
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+      cursor: pointer;
+    }
+    th::after {
+      content: "";
+      display: inline-block;
+      margin-left: 5px;
+    }
+    .asc::after {
+      content: "^";
+    }
+    .desc::after {
+      content: "v";
+    }
+  </style>
+</head>
+<body>
+  <table id="gameTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Game Name</th>
+        <th onclick="sortTable(1)">System</th>
+        <th onclick="sortTable(2)">Vendor</th>
+        <th onclick="sortTable(3)">Comment</th>
+        <th onclick="sortTable(4)">Rating</th>
+        <th onclick="sortTable(5)">Description</th>
+        <th onclick="sortTable(6)">Link</th>
+      </tr>
+    </thead>
+    <tbody id="gameTableBody"></tbody>
+  </table>
+  <script>
+    let sortingOrder = {};
+    // Function to fetch the JSON data and populate the table
+    function fetchGameData() {
+      fetch('gamedb.json')
+        .then(response => response.json())
+        .then(data => {
+          const gameTableBody = document.getElementById('gameTableBody');
+          gameTableBody.innerHTML = '';
+          data.forEach(game => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${game.Gamename}</td>
+              <td>${game.System}</td>
+              <td>${game.Vendor}</td>
+              <td>${game.Comment}</td>
+              <td>${game.Rating}</td>
+              <td>${game.Description}</td>
+              <td><a href="${game.link}">Link</a></td>
+            `;
+            gameTableBody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+    // Function to sort the table based on the selected column
+    function sortTable(columnIndex) {
+      const table = document.getElementById('gameTable');
+      const rows = Array.from(table.rows).slice(1); // Exclude the table header row
+      const asc = sortingOrder[columnIndex] === 'asc';
+      rows.sort((a, b) => {
+        const cellA = a.cells[columnIndex].textContent.toLowerCase();
+        const cellB = b.cells[columnIndex].textContent.toLowerCase();
+        return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      });
+      table.tBodies[0].append(...rows);
+      // Update sortingOrder for the current column
+      sortingOrder = {};
+      sortingOrder[columnIndex] = asc ? 'desc' : 'asc';
+      // Update CSS classes for sorting indicators
+      const ths = table.tHead.rows[0].cells;
+      ths.forEach(th => th.classList.remove('asc', 'desc'));
+      ths[columnIndex].classList.add(sortingOrder[columnIndex]);
+    }
+    // Fetch the game data when the page loads
+    fetchGameData();
+  </script>
+</body>
+</html>
+
+
+
+___________________________
+
+Check Files & Folders against txt (integrity check):
+-----------------------------------------
+
+<details><a target="_blank" href="z_listgen.php" style=color:blue>Refresh list</a></details><br><br>
+<?php
+$reportPath = './z_list.txt';
+$reportContent = file_get_contents($reportPath);
+$currentDir = getcwd();
+$reportFiles = explode("\n", $reportContent);
+$fileCount = 0;
+$folderCount = 0;
+$okCount = 0;
+$missingCount = 0;
+$files = [];
+$folders = [];
+foreach ($reportFiles as $filename) {
+    if (empty($filename)) {
+        continue;
+    }
+    if (is_dir($filename)) {
+        $folderCount++;
+        $folders[] = $filename;
+        continue;
+    }
+    if ($filename === 'error_log' || $filename === 'alceawis.de.zip') {
+        continue;
+    }
+    if (file_exists($filename)) {
+        $fileCount++;
+        $okCount++;
+        $files[] = '<span style="color: green;">[ok]</span> <a href="' . $filename . '" target="_blank">' . $filename . '</a>';
+    } else {
+        $missingCount++;
+        $files[] = '<span style="color: red;">[missing]</span> ' . $filename;
+    }
+}
+foreach (scandir($currentDir) as $filename) {
+    if ($filename[0] === '.' || is_dir($filename) || $filename === 'z_listcheck.php' ) {
+        continue;
+    }
+    if ($filename === 'error_log' || $filename === 'alceawis.de.zip') {
+        continue;
+    }
+    if (!in_array($filename, $reportFiles)) {
+        $fileCount++;
+        $missingCount++;
+        $files[] = '<span style="color: red;">[missing]</span> ' . $filename;
+    }
+}
+foreach ($folders as $folder) {
+    echo '<span style="color: green;">[ok]</span> <a href="' . $folder . '" target="_blank">' . $folder . '</a><br>';
+}
+foreach ($files as $file) {
+    echo $file . '<br>';
+}
+echo '<p>Total Files: ' . $fileCount . ' Total Folders: ' . $folderCount . '</p>';
+echo '<hr>';
+echo '<p>Number [ok]: ' . $okCount;
+if ($okCount === $fileCount) {
+    echo ' (all)';
+}
+echo '</p>';
+echo '<p>Number of missing: ' . $missingCount . '</p>';
+?>
+
+====z_listgen.php===
+
+<?php
+// Get the current directory
+$directory = __DIR__;
+// Open the file for writing
+$file = fopen('z_list.txt', 'w');
+// Get all files and directories in the current directory
+$items = scandir($directory);
+// Iterate through each item
+foreach ($items as $item) {
+    // Exclude current and parent directory entries
+    if ($item !== '.' && $item !== '..') {
+        // Check if the item is a directory
+        if (is_dir($directory . DIRECTORY_SEPARATOR . $item)) {
+            // Write directory name to the file
+            fwrite($file, $item . PHP_EOL);
+        } else {
+            // Write file name to the file
+            fwrite($file, $item . PHP_EOL);
+        }
+    }
+}
+// Close the file
+fclose($file);
+echo 'File list generated and saved to z_list.txt.';
+?>
+
+
+__________________________
 
 Find AnimexxUser+ (Artcount)
 ---------------------------
@@ -670,3145 +1109,4 @@ echo '<script>document.getElementById("newUrlLink").click();</script>';
       if (search.includes("http")) {document.getElementById("url").value = search;}
       // Check if query parameter 'submitted' is present
       if (!urlParams.has("submitted")) {
-        // Add 'submitted' query parameter to prevent resubmission
-        urlParams.set("submitted", "true");
-        const newUrl = window.location.pathname + "?" + urlParams.toString();
-        window.history.replaceState(null, null, newUrl);
-        document.forms[0].submit();
-      }
-    }
-    const observer = new MutationObserver(function (mutationsList) {
-      for (let mutation of mutationsList) {
-        if (
-          mutation.type === "childList" &&
-          mutation.addedNodes.length > 0
-        ) {
-          const newUrlElements = document.querySelectorAll(
-            'body :not(script):not(style):not(link):not(meta):not(base):not(title):contains("New URL:")'
-          );
-          for (let element of newUrlElements) {
-            const linkElement = element.nextElementSibling;
-            if (linkElement.tagName === "A") {
-              linkElement.addEventListener("click", function (event) {
-                event.preventDefault();
-                window.open(linkElement.href, "_blank");
-              });
-            }
-          }
-        }
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  };
-</script>
-<!----FillFromClipboard--->
-    <button class="button" onclick="fillTextbox()">Fill Textbox</button>
-<script>
-    function fillTextbox() {
-        navigator.clipboard.readText().then(function(clipboardText) {
-            document.getElementById("url").value = clipboardText;
-            var submitButton = document.querySelector('input[type="submit"], button[type="submit"]');
-            submitButton?.click();
-        }).catch(function(error) {
-            console.error('Failed to read clipboard contents: ', error);
-        });
-    }
-</script><br>
-
-______________________________
-Zip current dir
-----------------------
-
-<?php
-$zip = new ZipArchive();
-$zipFileName = 'alceawis.de.zip';
-$intermediateFolderName = pathinfo($zipFileName, PATHINFO_FILENAME);
-if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator('.', RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::LEAVES_ONLY
-    );
-    foreach ($files as $name => $file) {
-        if (!$file->isDir()) {
-            $filePath = $file->getRealPath();
-            $relativePath = $intermediateFolderName . '/' . substr($filePath, strlen(__DIR__) + 1);
-            $zip->addFile($filePath, $relativePath);
-        }
-    }
-    $zip->close();
-    $downloadLink = '<a href="' . $zipFileName . '">Click here to download the zip file</a>';
-    echo 'Files zipped successfully. ' . $downloadLink;
-} else {
-    echo 'Failed to create zip file.';
-}
-?>
-<!---delete-->
-<?php
-$file = 'alceawis.de.zip';
-if (isset($_GET['delete'])) {
-    if (file_exists($file)) {
-        unlink($file);
-        echo "File deleted successfully.";
-    } else {
-        echo "File not found.";
-    }
-}
-?>
-<a href="?delete=true">Click here to delete zip</a>
-
-
-______________________________
-
-Delete folder if link is clicked:
---------------------------------------
-
-<?php if (isset($_GET['delete']) && is_dir('website') && shell_exec('rm -rf website')) echo 'Folder deleted.'; ?><a href="?delete">Del code</a>
-
-_________________________
-
-Fetch and render *.zip url (use zipstream php for extractless render):
----------------------------------------
-
- <?php
-$files = glob("*.zip"); // Get all zip files in the current folder
-if (!empty($files)) {
-    $zipFile = $files[0]; // Assuming you want to delete the first zip file found
-    unlink($zipFile);
-   // echo "The zip file '$zipFile' has been deleted.";
-} else {
-    //echo "No zip files found in the current folder.";
-}
-?>
-<!------Star-Zip-Fetch--->
-   <form method="post" action="">
-        <label for="zipUrl">Enter ZIP URL:</label>
-        <input type="text" name="zipUrl" id="zipUrl" value="http://ry3yr.github.io/alceawis.de.zip" required>
-        <br>
-        <!---<label for="downloadPath">Download Path:</label>--->
-        <!--<input type="text" name="downloadPath" id="downloadPath" placeholder="Enter download path (optional)">-->
-        <br>
-        <input type="submit" name="download" value="Download and Render">
-    </form>
-    <?php
-    if (isset($_POST['download'])) {
-        $url = $_POST['zipUrl'];
-        $filename = basename($url);
-        // Check if the download path textbox is filled
-        if (!empty($_POST['downloadPath'])) {
-            $downloadPath = $_POST['downloadPath'];
-            $filename = $downloadPath . '/' . $filename;
-        }
-        else {
-            $filename = './' . $filename; // Set a default path if download path is not specified
-        }
-        // Validate the URL
-        if (filter_var($url, FILTER_VALIDATE_URL)) {
-            try {
-                // Use cURL to download the file
-                $ch = curl_init($url);
-                $fp = fopen($filename, 'w');
-                curl_setopt($ch, CURLOPT_FILE, $fp);
-                curl_setopt($ch, CURLOPT_HEADER, 0);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
-                curl_setopt($ch, CURLOPT_MAXREDIRS, 5); // Maximum number of redirects to follow
-                curl_exec($ch);
-                // Check if the download was successful
-                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                if ($httpCode == 200) {
-                    $message = "File downloaded successfully.";
-                } else {
-                    $message = "Failed to download the file. HTTP code: " . $httpCode;
-                }
-                curl_close($ch);
-                fclose($fp);
-            } catch (Exception $e) {
-                $message = "An error occurred during the download: " . $e->getMessage();
-            }
-            // Check for cURL errors
-            if (curl_errno($ch)) {
-                $message = "cURL error: " . curl_error($ch);
-            }
-        } else {
-            $message = "Invalid URL.";
-        }
-    }
-    ?>
-    <p><?php echo $message ?? ''; ?></p>
-</body>
-</html>
-<!---Start--Extract-->
-<?php
-$zipFiles = glob("*.zip"); // Get all ZIP files in the current directory
-if (!empty($zipFiles)) {
-    $extractPath = "website"; // Destination folder
-    // Make sure the extraction path exists
-    if (!is_dir($extractPath)) {
-        mkdir($extractPath, 0777, true);
-    }
-    foreach ($zipFiles as $zipFile) {
-        $zip = new ZipArchive;
-        if ($zip->open($zipFile) === TRUE) {
-            // Extract the files directly into the destination folder
-            $zip->extractTo($extractPath);
-            $zip->close();
-            //echo "ZIP file '$zipFile' extracted successfully.<br>";
-        } else {
-            echo "Failed to open the ZIP file '$zipFile'.<br>";
-        }
-    }
-} else {
-    echo "No ZIP files found in the current directory.";
-}
-?>
-<?php
-$websiteFolder = "website"; // Replace with the name of the "website" folder
-// Check if the "website" folder exists
-if (is_dir($websiteFolder)) {
-    // Get the first subfolder inside the "website" folder
-    $subfolders = glob($websiteFolder . '/*', GLOB_ONLYDIR);
-    if (!empty($subfolders)) {
-        $firstSubfolder = $subfolders[0];
-        // Find the "index.html" file inside the subfolder
-        $indexFile = $firstSubfolder . '/index.html';
-        if (file_exists($indexFile)) {
-            // Open the "index.html" file as a URL in a new tab or window
-            //echo '<script>window.open("' . $indexFile . '", "_blank");</script>';
-        } else {
-            echo 'The "index.html" file was not found.';
-        }
-    } else {
-        echo 'No subfolders found inside the "website" folder.';
-    }
-} else {
-    echo 'The "website" folder does not exist.';
-}
-?>
-<!---last-site-->
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $websiteFolder = 'website';
-    // Retrieve the subfolders within the website folder
-    $subfolders = array_diff(scandir($websiteFolder), array('..', '.'));
-    // Get the first subfolder
-    $firstSubfolder = reset($subfolders);
-    $indexUrl = $websiteFolder . '/' . $firstSubfolder . '/index.html';
-    echo '<a href="' . $indexUrl . '" target="_blank">Open ' . $indexUrl . '</a>';
-}
-?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <button type="submit">Get First Subfolder</button>
-</form>
-
-
-
-_________________________
-
-YGO Wikia setlistfetch:
------------------------------------
-
-<div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Releases'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Releases';}" value="Releases" style="background:; border:none; color:;"><div class="spoiler" style="display: none;" >
-<!---SetList-->
-<?php
-$url = 'https://yugioh.fandom.com/wiki/Yu-Gi-Oh!_Wiki';
-$html = file_get_contents($url);
-$start = strpos($html, 'h3><span class="mw-headline" id="TCG"><i>TCG</i></span></h3>');
-$end = strpos($html, '<span class="mw-headline" id="Anime"', $start);
-$length = $end - $start;
-$result = substr($html, $start, $length);
-$baseUrl = parse_url($url, PHP_URL_SCHEME) . '://' . parse_url($url, PHP_URL_HOST);
-$fixedResult = str_replace('href="/', 'href="'.$baseUrl.'/', $result);
-$fixedResult = str_replace('<a', '<a target="_blank"', $fixedResult); // Add target="_blank"
-echo $fixedResult;
-?>
-</div><br>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Table Sorting</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<button id="sort_by_name_button">Sort by Name</button>
-<button id="sort_by_category_button">Sort by Category</button>
-    <script>
-        function sortTableRowsByName() {
-            var $tableRows = $('.table-row');
-
-            $tableRows.sort(function(a, b) {
-                var aValue = $(a).data('sort-value');
-                var bValue = $(b).data('sort-value');
-                return aValue.localeCompare(bValue);
-            });
-
-            $('.table-body').empty().append($tableRows);
-        }
-
-        function sortTableRowsByCategory() {
-            var $tableRows = $('.table-row');
-
-            $tableRows.sort(function(a, b) {
-                var aValue = $(a).data('sort-category');
-                var bValue = $(b).data('sort-category');
-                return aValue.localeCompare(bValue);
-            });
-
-            $('.table-body').empty().append($tableRows);
-        }
-
-        $(document).on('click', '#sort_by_name_button', function() {
-            sortTableRowsByName();
-        });
-
-        $(document).on('click', '#sort_by_category_button', function() {
-            sortTableRowsByCategory();
-        });
-    </script>
-</head>
-<body>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="url">Enter the URL:</label>
-        <input type="text" name="url" id="url" required>
-        <input type="submit" value="Retrieve">
-    </form>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $url = $_POST['url'];
-
-        $doc = new DOMDocument();
-        $doc->loadHTMLFile($url);
-
-        $xpath = new DOMXPath($doc);
-        $table = $xpath->query('//table[@id="Top_table"]')->item(0);
-
-        if ($table) {
-            $parsedUrl = parse_url($url);
-            $baseUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'];
-
-            $tableRows = [];
-
-            $rows = $table->getElementsByTagName('tr');
-            foreach ($rows as $row) {
-                $cells = $row->getElementsByTagName('td');
-
-                if ($cells->length >= 3) {
-                    $nameCell = $cells->item(1);
-                    $nameLink = $nameCell->getElementsByTagName('a')->item(0);
-                    $name = '';
-                    $nameUrl = '';
-                    if ($nameLink) {
-                        $name = trim($nameLink->textContent);
-                        $nameRelativeUrl = $nameLink->getAttribute('href');
-                        $nameUrl = $baseUrl . $nameRelativeUrl;
-                    }
-
-                    $categoryCell = $cells->item(3);
-                    $category = '';
-                    if ($categoryCell) {
-                        $category = trim($categoryCell->textContent);
-                    }
-
-                    $tableRows[] = [
-                        'name' => $name,
-                        'category' => $category,
-                        'nameUrl' => $nameUrl
-                    ];
-                }
-            }
-
-            echo '<div class="table-body">';
-            foreach ($tableRows as $row) {
-                echo '<div class="table-row" data-sort-value="' . $row['name'] . '" data-sort-category="' . $row['category'] . '">';
-                echo 'Name: <a href="' . $row['nameUrl'] . '" target="_blank">' . $row['name'] . '</a> | Category: ' . $row['category'];
-                echo '</div>';
-            }
-            echo '</div>';
-
-            //echo '<button id="sort_by_name_button">Sort by Name</button>';
-            //echo '<button id="sort_by_category_button">Sort by Category</button>';
-        } else {
-            echo "Table not found.";
-        }
-    }
-    ?>
-</body>
-</html>
-
-____________________________________
-
-
-URL Page Source Display:
----------------------------------------
-
-<?php
-if(isset($_POST['submit'])) {
-    // Get the URL from the textbox
-    $url = $_POST['url'];
-    // Fetch the source code of the URL
-    $sourceCode = file_get_contents($url);
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>URL Source Code Viewer</title>
-</head>
-<body>
-    <form method="POST">
-        <label for="url">Enter URL:</label>
-        <input type="text" name="url" id="url" required>
-        <br>
-        <input type="submit" name="submit" value="Submit">
-    </form>
-    <?php if(isset($_POST['submit'])): ?>
-      <div style="margin-top: 20px;">
-          <h2>Source Code:</h2>
-          <div><textarea cols="80" rows="10"><?php echo $sourceCode; ?></textarea></div>
-      </div>
-    <?php endif; ?>
-</body>
-</html>
-
-
-____________________________________
-
-Duplicate Subdir File Finder (& deleter)
------------------------------------------------------------
-
-<?php
-function scanDirectories($dir)
-{
-    $fileList = [];
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST,
-        RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied" errors
-    );
-
-    foreach ($iterator as $path => $fileInfo) {
-        if ($fileInfo->isFile()) {
-            $size = $fileInfo->getSize();
-            $fileList[$size][] = $path;
-        }
-    }
-
-    return $fileList;
-}
-
-function deleteFile($filePath)
-{
-    if (is_file($filePath)) {
-        unlink($filePath);
-        echo "Deleted: " . $filePath . "\n";
-    }
-}
-
-function deleteDuplicateFiles($dir)
-{
-    $currentDir = getcwd(); // Get the current working directory
-    chdir($dir); // Change the current working directory to the specified directory
-    $fileList = scanDirectories('.'); // Scan the subdirectories from the current directory
-
-    $filesToDelete = [];
-
-    foreach ($fileList as $size => $files) {
-        if (count($files) > 1) {
-            $fileCount = count($files);
-            for ($i = 1; $i < $fileCount; $i++) {
-                $filePath = $files[$i];
-                if (is_file($filePath)) {
-                    $filesToDelete[] = $filePath;
-                }
-            }
-        }
-    }
-
-    if (count($filesToDelete) > 0) {
-        echo "Found duplicate files:<br>";
-        foreach ($filesToDelete as $filePath) {
-            echo '<a href="?delete=' . urlencode($filePath) . '">' . $filePath . '</a><br>';
-        }
-
-        if (isset($_GET['delete'])) {
-            $fileToDelete = urldecode($_GET['delete']);
-            deleteFile($fileToDelete);
-        }
-    } else {
-        echo "No duplicate files found.\n";
-    }
-
-    chdir($currentDir); // Change the working directory back to the original directory
-}
-
-// Usage example
-$directory = getcwd(); // Set the starting path to the current directory
-deleteDuplicateFiles($directory);
-?>
-_________________________________
-
-Inbrowser PDF Render (JS + php)
---------------------------------------
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PDF Viewer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
-</head>
-<body>
-    <label for="pdf-upload">Upload PDF:</label>
-    <input type="file" id="pdf-upload" accept="application/pdf"/>
-    <label for="pdf-url">PDF URL:</label>
-    <input type="text" id="pdf-url" placeholder="Enter PDF URL"/>
-    <button id="load-pdf">Load PDF</button>
-    <button id="zoom-in" style="background:transparent; border:transparent;display: none;">Zoom In</button>
-    <div id="zoom-percent" style="background:transparent; border:transparent;display: none;">60</div>
-    <button id="zoom-out" style="background:transparent; border:transparent;display: none;">Zoom Out</button>
-    <button id="zoom-reset" style="background:transparent; border:transparent;display: none;">Reset Zoom</button>
-    <div id="pages"></div>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
-
-        document.querySelector("#pdf-upload").addEventListener("change", function(e){
-            document.querySelector("#pages").innerHTML = "";
-            zoomReset();
-            var file = e.target.files[0]
-            if(file.type != "application/pdf"){
-                alert(file.name + " is not a pdf file.")
-                return
-            }
-            var fileReader = new FileReader();  
-            fileReader.onload = function() {
-                var typedarray = new Uint8Array(this.result);
-                pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
-                    // you can now use *pdf* here
-                    console.log("the pdf has", pdf.numPages, "page(s).");
-                    for (var i = 0; i < pdf.numPages; i++) {
-                        (function(pageNum){
-                        pdf.getPage(i+1).then(function(page) {
-                            // you can now use *page* here
-                            var viewport = page.getViewport(2.0);
-                            var pageNumDiv = document.createElement("div");
-                            pageNumDiv.className = "pageNumber";
-                            pageNumDiv.innerHTML = "Page " + pageNum;
-                            var canvas = document.createElement("canvas");
-                            canvas.className = "page";
-                            canvas.title = "Page " + pageNum;
-                            document.querySelector("#pages").appendChild(pageNumDiv);
-                            document.querySelector("#pages").appendChild(canvas);
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
-                            page.render({
-                                canvasContext: canvas.getContext('2d'),
-                                viewport: viewport
-                            }).promise.then(function(){
-                                console.log('Page rendered');
-                            });
-                            page.getTextContent().then(function(text){
-                                console.log(text);
-                            });
-                        });
-                        })(i+1);
-                    }
-                });
-            };
-            fileReader.readAsArrayBuffer(file);
-        });
-        document.querySelector("#load-pdf").addEventListener("click", function(){
-            document.querySelector("#pages").innerHTML = "";
-            zoomReset();
-            var url = document.querySelector("#pdf-url").value.trim();
-            if (!url) {
-                alert("Please enter a PDF URL.");
-                return;
-            }
-            if (!url.endsWith(".pdf")) {
-                alert("Please enter a valid PDF URL.");
-                return;
-            }
-            fetch('fetch_pdf.php?url=' + encodeURIComponent(url)).then(function(response) {
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-                return response.arrayBuffer();
-            }).then(function(buffer) {
-                pdfjsLib.getDocument(buffer).promise.then(function(pdf) {
-                    // you can now use *pdf* here
-                    console.log("the pdf has", pdf.numPages, "page(s).");
-                    for (var i = 0; i < pdf.numPages; i++) {
-                        (function(pageNum){
-                        pdf.getPage(i+1).then(function(page) {
-                            // you can now use *page* here
-                            var viewport = page.getViewport(2.0);
-                            var pageNumDiv = document.createElement("div");
-                            pageNumDiv.className = "pageNumber";
-                            pageNumDiv.innerHTML = "Page " + pageNum;
-                            var canvas = document.createElement("canvas");
-                            canvas.className = "page";
-                            canvas.title = "Page " + pageNum;
-                            document.querySelector("#pages").appendChild(pageNumDiv);
-                            document.querySelector("#pages").appendChild(canvas);
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
-                            page.render({
-                                canvasContext: canvas.getContext('2d'),
-                                viewport: viewport
-                            }).promise.then(function(){
-                                console.log('Page rendered');
-                            });
-                            page.getTextContent().then(function(text){
-                                console.log(text);
-                            });
-                        });
-                       })(i+1);
-                    }
-                });
-            }).catch(function(error) {
-                console.error('Error occurred while fetching the PDF: ' + error);
-            });
-        });
-        function zoomIn() {
-            var scale = parseFloat(document.querySelector("#zoom-percent").textContent);
-            scale = scale + 10;
-            if (scale > 200) {
-                scale = 200;
-            }
-            document.querySelector("#zoom-percent").textContent = scale;
-            updateZoomButtons();
-            updateZoom(scale);
-        }
-        function zoomOut() {
-            var scale = parseFloat(document.querySelector("#zoom-percent").textContent);
-            scale = scale - 10;
-            if (scale < 50) {
-                scale = 50;
-            }
-            document.querySelector("#zoom-percent").textContent = scale;
-            updateZoomButtons();
-            updateZoom(scale);
-        }
-        function zoomReset() {
-            var scale = 100;
-            document.querySelector("#zoom-percent").textContent = scale;
-            updateZoomButtons();
-            updateZoom(scale);
-        }
-        function updateZoomButtons() {
-            var scale = parseFloat(document.querySelector("#zoom-percent").textContent);
-            var zoomInButton = document.querySelector("#zoom-in");
-            var zoomOutButton = document.querySelector("#zoom-out");
-            if (scale >= 200) {
-                zoomInButton.style.display = "none";
-            } else {
-                zoomInButton.style.display = "inline-block";
-            }
-            if (scale <= 50) {
-                zoomOutButton.style.display = "none";
-            } else {
-                zoomOutButton.style.display = "inline-block";
-            }
-        }
-        function updateZoom(scale) {
-            var pages = document.querySelectorAll(".page");
-            for (var i = 0; i < pages.length; i++) {
-                var canvas = pages[i];
-                var context = canvas.getContext("2d");
-                var viewport = canvas.pdfPage.getViewport({ scale: scale / 100 });
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                canvas.style.width = viewport.width + "px";
-                canvas.style.height = viewport.height + "px";
-                canvas.pdfPage.render({ canvasContext: context, viewport: viewport });
-            }
-        }
-        document.querySelector("#zoom-in").addEventListener("click", zoomIn);
-        document.querySelector("#zoom-out").addEventListener("click", zoomOut);
-        document.querySelector("#zoom-reset").addEventListener("click", zoomReset);
-    </script>
-</body>
-</html>
-
-
-<!--"fetch_pdf.php">
-
-<?php
-// Get the URL parameter
-$url = $_GET['url'];
-// Initialize cURL
-$curl = curl_init();
-// Set cURL options
-curl_setopt($curl, CURLOPT_URL, $url);
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_HEADER, false);
-// Execute the cURL request
-$response = curl_exec($curl);
-// Check for errors
-if ($response === false) {
-    die('Error fetching PDF: ' . curl_error($curl));
-}
-// Close cURL
-curl_close($curl);
-// Set the appropriate headers
-header('Content-Type: application/pdf');
-header('Content-Disposition: inline; filename="document.pdf"');
-header('Content-Length: ' . strlen($response));
-// Output the PDF content
-echo $response;
-?>
-
-
-_____________________________
-
-iFrame curr php dir + CacheBusting
------------------------------------------------
-
-<iframe src="<?= dirname($_SERVER['PHP_SELF']); ?>?timestamp=<?= time(); ?>" width="1200" height="600" frameborder="0"></iframe>
-
-_____________________________
-
-Github master downloader
-------------------------------------------
-
-<?php
-$currentPath = $_SERVER['PHP_SELF'];
-$directoryPath = dirname($currentPath);
-echo "Current directory path: " . $directoryPath;
-?><br>
-<?php
-$transformedUrl = '';
-if (isset($_POST['submit'])) {
-    $url = $_POST['url'];
-
-    // Check if the URL matches the specific GitHub URL pattern
-    if (preg_match('/^https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/?$/', $url, $matches)) {
-        $owner = $matches[1];
-        $repo = $matches[2];
-        $url = "https://github.com/{$owner}/{$repo}/archive/refs/heads/main.zip";
-        $transformedUrl = $url;
-        $filename = "{$repo}-main.zip"; // Set the filename
-
-        // Check if the download path textbox is filled
-        if (!empty($_POST['download_path'])) {
-            $downloadPath = $_POST['download_path'];
-            $filename = $downloadPath . '/' . $filename;
-        }
-        else {
-            $filename = './' . $filename; // Set a default path if download path is not specified
-        }
-    }
-    else {
-        $filename = basename($url); // Extract the filename from the URL
-
-        // Check if the download path textbox is filled
-        if (!empty($_POST['download_path'])) {
-            $downloadPath = $_POST['download_path'];
-            $filename = $downloadPath . '/' . $filename;
-        }
-        else {
-            $filename = './' . $filename; // Set a default path if download path is not specified
-        }
-    }
-    // Validate the URL
-    if (filter_var($url, FILTER_VALIDATE_URL)) {
-        try {
-            // Use cURL to download the file
-            $ch = curl_init($url);
-            $fp = fopen($filename, 'w');
-            curl_setopt($ch, CURLOPT_FILE, $fp);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
-            curl_setopt($ch, CURLOPT_MAXREDIRS, 5); // Maximum number of redirects to follow
-            curl_exec($ch);
-            // Check if the download was successful
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if ($httpCode == 200) {
-                $message = "File downloaded successfully.";
-            } else {
-                $message = "Failed to download the file. HTTP code: " . $httpCode;
-            }
-            curl_close($ch);
-            fclose($fp);
-        } catch (Exception $e) {
-            $message = "An error occurred during the download: " . $e->getMessage();
-        }
-        // Check for cURL errors
-        if (curl_errno($ch)) {
-            $message = "cURL error: " . curl_error($ch);
-        }
-    } else {
-        $message = "Invalid URL.";
-    }
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Download File</title>
-</head>
-<body>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="url">URL:</label>
-        <input type="text" name="url" value="https://github.com/Ry3yr/ry3yr.github.io">
-        <br>
-        <label for="download_path">Download Path:</label>
-        <input type="text" name="download_path" placeholder="Leave blank for current directory">
-        <br>
-        <input type="submit" name="submit" value="Download">
-    </form>
-    <?php if (!empty($transformedUrl)): ?>
-        <p>Transformed GitHub URL: <?php echo $transformedUrl; ?></p>
-    <?php endif; ?>
-    <?php if (isset($message)): ?>
-        <p><?php echo $message; ?></p>
-    <?php endif; ?>
-</body>
-</html>
-<iframe src="<?= dirname($_SERVER['PHP_SELF']); ?>?timestamp=<?= time(); ?>" width="1200" height="600" frameborder="0"></iframe>
-
-______________________________________________________
-
-Change PHP version to specific version via htaccess
--------------------------------------------------------------------------------
-
-For PHP 5.6:
-AddHandler application/x-httpd-php56 .php .php5
-For PHP 7.0:
-AddHandler application/x-httpd-php70 .php .php7
-For PHP 7.1:
-AddHandler application/x-httpd-php71 .php .php7
-For PHP 7.2:
-AddHandler application/x-httpd-php72 .php .php7
-For PHP 7.3:
-AddHandler application/x-httpd-php73 .php .php7
-For PHP 7.4:
-AddHandler application/x-httpd-php74 .php .php7
-For PHP 8.0:
-AddHandler application/x-httpd-php80 .php .php8
-For PHP 8.1:
-AddHandler application/x-httpd-php81 .php .php8
-
-(Source: https://www.fastcomet.com/kb/how-to-set-custom-php-version-per-directory )
-
-_________________________
-
-Check PHP version:
-------------------------------
-
-
-<?php
-$phpVersion = phpversion();
-echo "PHP version: " . $phpVersion;
-?>
-
-_________________________
-
-PassProtect Php
------------
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $password = $_POST['password'];
-    if ($password === '1234') {
-
-
-        // Place your PHP code here
-
-
-        echo "Password correct! Proceeding with code execution.";
-    } else {
-        // Password is incorrect, display an error message
-        echo "Incorrect password. Access denied.";
-    }
-}
-?>
-<!-- HTML form to enter the password -->
-<form method="POST" action="">
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password">
-    <input type="submit" value="Submit">
-</form>
-
-
-_____________________________
-
-Download subdir as zip if selected via link
--------------------------------------
-
-<?php
-$baseDir = __DIR__; // Set the base directory to the current directory
-
-// Check if a directory is clicked
-if (isset($_GET['dir'])) {
-    $selectedDir = $_GET['dir']; // Get the selected directory
-    $zipFolderName = basename($selectedDir); // Get the folder name for the ZIP file
-
-    // Create a ZIP archive
-    $zip = new ZipArchive();
-    $zipName = $zipFolderName . '.zip';
-    $zip->open($zipName, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-
-    // Add files and directories to the ZIP archive
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($selectedDir),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
-
-    foreach ($files as $name => $file) {
-        if (!$file->isDir()) {
-            $filePath = $file->getRealPath();
-
-            // Skip "." and ".." folders
-            if ($filePath !== $selectedDir . '/.' && $filePath !== $selectedDir . '/..') {
-                $relativePath = $zipFolderName . '/' . substr($filePath, strlen($selectedDir) + 1);
-                $zip->addFile($filePath, $relativePath);
-            }
-        } else {
-            $relativePath = $zipFolderName . '/' . substr($file, strlen($selectedDir) + 1);
-
-            // Skip "." and ".." folders
-            if ($relativePath !== $zipFolderName . '/.' && $relativePath !== $zipFolderName . '/..') {
-                $zip->addEmptyDir($relativePath);
-            }
-        }
-    }
-
-    // Close the ZIP archive
-    $zip->close();
-
-    // Send the ZIP file to the browser
-    if (file_exists($zipName)) {
-        header('Content-Type: application/zip');
-        header('Content-Disposition: attachment; filename="' . $zipName . '"');
-        header('Content-Length: ' . filesize($zipName));
-        readfile($zipName);
-
-        // Delete the ZIP file
-        unlink($zipName);
-        exit;
-    }
-}
-
-// List directories
-$directories = glob($baseDir . '/*', GLOB_ONLYDIR);
-foreach ($directories as $directory) {
-    $dirName = basename($directory);
-
-    // Skip "." and ".." folders
-    if ($dirName !== '.' && $dirName !== '..') {
-        echo '<a href="?dir=' . urlencode($directory) . '">' . $dirName . '</a><br>';
-    }
-}
-?>
-
-________________________________
-
-Fetch vgmdb release date/link and write to html list:
----------------------------------------------------------------------------------
-
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $url = $_POST['url'];
-    $html = file_get_contents($url);
-    $datePattern = '/View albums released on ([A-Z][a-z]{2} \d{1,2}, \d{4})/';
-    preg_match($datePattern, $html, $dateMatches);
-    $releaseDate = $dateMatches[1];
-    $reformattedDate = date('Y-m-d', strtotime($releaseDate));
-    $titlePattern = '/<h1><span class="albumtitle" lang="en" style="display:inline">(.*?)<\/span>/s';
-    preg_match($titlePattern, $html, $titleMatches);
-    $albumTitle = $titleMatches[1];
-
-    // Check if line is already present in file
-    $fileContent = file_get_contents('pastreleases.html');
-    $lineToCheck = "<p>" . $reformattedDate . " <a href='" . $url . "'>" . $albumTitle . "</a></p>";
-    if (strpos($fileContent, $lineToCheck) !== false) {
-        // Line is already present, display error message
-        echo "Error: Line already exists in the file.<br>";
-    } else {
-        // Line is not present, prepend to the file
-        $fileContentToWrite = $lineToCheck . "\n" . $fileContent;
-        file_put_contents('pastreleases.html', $fileContentToWrite);
-    }
-
-    echo "" . $reformattedDate . "";
-    echo "<a href='" . $url . "' target='_blank'>" . $albumTitle . "</a>";
-}
-?>
-<head>
-</head>
-<body>
-    <form method="POST" action="">
-        <label for="url">VGMdb URL:</label>
-        <input type="text" name="url" id="url" required>
-        <input type="submit" value="Extract">
-    </form>
-</body>
-
-
-
-<!--Reorder--Function-->
-<form method="POST" action="">
-    <input type="submit" name="reorder" id="reorder" value="Reorder">
-</form>
-
-<?php
-if (isset($_POST['reorder'])) {
-    // PHP Code for Reordering "pastreleases.html"
-    $fileContent = file_get_contents('pastreleases.html');
-    $lines = explode("\n", $fileContent);
-    $lines = array_filter($lines);
-    $linesWithDates = array();
-
-    foreach ($lines as $line) {
-        preg_match('/<p>(\d{4}-\d{2}-\d{2})/', $line, $dateMatches);
-        if (isset($dateMatches[1]) && strtotime($dateMatches[1]) !== false) {
-            $date = $dateMatches[1];
-            $linesWithDates[$line] = $date;
-        }
-    }
-
-    arsort($linesWithDates);
-    $reorderedLines = array_keys($linesWithDates);
-    $reorderedContent = implode("\n", $reorderedLines);
-
-    // Filter lines that do not contain "https://"
-    $filteredLines = array_filter($reorderedLines, function ($line) {
-        return strpos($line, 'https://') !== false;
-    });
-
-    $filteredContent = implode("\n", $filteredLines);
-    file_put_contents('pastreleases.html', $filteredContent);
-
-    echo "Reordering and filtering completed successfully!";
-}
-?>
-
-
-<iframe src="pastreleases.html?timestamp=<?php echo time(); ?>" width="600" height="400"></iframe>
-
-
-__________________________________________
-
-Manually load "php composer package":
--------------------------------------------------------------
-
-
-<?php
-$file = 'src/DiDom/Document.php';
-// Check if the file exists
-if (!file_exists($file)) {
-    echo 'Error: Document.php file not found.';
-    exit;
-}
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-// Try to include the file
-require_once $file;
-// Check if Document class is defined
-if (class_exists('DiDom\Document')) {
-    echo 'Document.php is properly loaded.';
-} else {
-    echo 'Error: Document.php failed to load.';
-    echo 'Please check if the file is correct and the necessary dependencies are installed.';
-}
-?> 
-<?php
-if (extension_loaded('libxml')) {
-    echo "libxml extension is enabled.";
-} else {
-    echo "libxml extension is not enabled.";
-}
-?><br><br>
-
-
-<?php
-// Define LIBXML_HTML_NODEFDTD constant if it's not already defined
-if (!defined('LIBXML_HTML_NODEFDTD')) {
-    define('LIBXML_HTML_NODEFDTD', 8192);
-}
-require_once 'src/DiDom/Node.php';
-//require_once 'src/DiDom/Encoder.php';
-//require_once 'src/DiDom/Errors.php';
-$files = glob('src/DiDom/*.php');
-foreach ($files as $file) {
-    require_once $file;
-}
-use DiDom\Document;
-// Create a new DiDOM Document object
-$document = new Document();
-$document->loadHtmlFile('https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/index.html');
-// Find all the links in the document
-$links = $document->find('a');
-// Display the URLs of the links
-foreach ($links as $link) {
-    echo $link->getAttribute('href') . PHP_EOL;
-}
-?>
-
-
-_____________________________________
-
-PHP list dirs:
---------------------
-
-
-
-<?php
-$directory = './'; // Specify the directory path here
-
-function listSubdirectories($directory) {
-    $subdirectories = glob($directory . '/*', GLOB_ONLYDIR);
     
-    if (count($subdirectories) > 0) {
-        echo '<ul>';
-        
-        foreach ($subdirectories as $subdirectory) {
-            echo '<li>';
-            echo '<details>';
-            echo '<summary>' . basename($subdirectory) . '</summary>';
-            
-            listSubdirectories($subdirectory);
-            
-            echo '</details>';
-            echo '</li>';
-        }
-        
-        echo '</ul>';
-    }
-    
-    $files = glob($directory . '/*.*');
-    
-    if (count($files) > 0) {
-        echo '<ul>';
-        
-        foreach ($files as $file) {
-            echo '<li><a href="' . $file . '">' . basename($file) . '</a></li>';
-        }
-        
-        echo '</ul>';
-    }
-}
-
-echo '<ul>';
-echo '<li>';
-echo '<details>';
-echo '<summary>Root</summary>';
-listSubdirectories($directory);
-echo '</details>';
-echo '</li>';
-echo '</ul>';
-?>
-
-
-____________________
-
-JSFiddleClone:
-------------------------
-
-<a href="save-new-fiddle.php" target="_blank">Save New HTML</a>
-<style>
-  .preview-container {
-    border: 1px solid black;
-    padding: 10px;
-  }
-</style>
-<?php
-$folderPath = 'htmls';
-$files = glob($folderPath . '/*.html');
-$fileCount = count($files);
-$gridColumns = 6;
-$gridRows = ceil($fileCount / $gridColumns);
-?>
-<div id="preview-container-wrapper"></div>
-<script>
-  // Function to append the preview containers to the wrapper div
-  function appendPreviewContainers() {
-    var wrapper = document.getElementById('preview-container-wrapper');
-    <?php
-$folderPath = 'htmls';
-$files = glob($folderPath . '/*.html');
-$fileCount = count($files);
-$gridColumns = 6;
-$gridRows = ceil($fileCount / $gridColumns);
-$files = array_reverse($files); // Reverse the order of the files
-for ($row = 0; $row < $gridRows; $row++) {
-  echo 'var row' . $row . ' = document.createElement("div");';
-  echo 'row' . $row . '.style.display = "flex";';
-  for ($col = 0; $col < $gridColumns; $col++) {
-    $index = $row * $gridColumns + $col;
-    if ($index < $fileCount) {
-      $file = $files[$index];
-      $fileName = basename($file);
-      $objectPreview = '<object data="' . $file . '" width="300" height="200" scrolling="no"></object>';
-      echo 'var container' . $index . ' = document.createElement("div");';
-      echo 'container' . $index . '.className = "preview-container";';
-      echo 'container' . $index . '.style.flex = "1";';
-      echo 'container' . $index . '.style.margin = "5px";';
-      echo 'container' . $index . '.innerHTML = \'' . $objectPreview . '<br><a href="' . $file . '" target="_blank">' . $fileName . '</a>\';';
-      echo 'row' . $row . '.appendChild(container' . $index . ');';
-    }
-  }
-
-  echo 'wrapper.appendChild(row' . $row . ');';
-}
-?>
-  }
-
-  // Function to stop further data fetching after a specified delay
-  function stopDataFetching() {
-    var xhr = new XMLHttpRequest();
-    xhr.abort();
-  }
-  // Call the function to append the preview containers
-  appendPreviewContainers();
-  // Wait for 20 seconds and then stop further data fetching
-  setTimeout(stopDataFetching, 10000);
-</script>
-
-
-
-<!------save-new-fiddle.php--->
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $code = $_POST['code'];
-    $name = $_POST['name'];
-    // Generate the file name
-    $date = date('Y-m-d');
-    $name = preg_replace('/[^\w\s]/', '', $name); // Remove illegal characters
-    $name = str_replace(' ', '-', $name); // Replace spaces with "-"
-    $filename = $date . '-' . $name . '.html';
-    // Check if the "html" folder exists
-    if (!is_dir('htmls')) {
-        // Create the "htmls" folder if it doesn't exist
-        mkdir('html');
-    }
-    // Save the content to the file
-    $filepath = 'htmls/' . $filename;
-    file_put_contents($filepath, $code);
-    echo "Code saved successfully!";
-}
-?>
-<body>
-    <form method="post" action="">
-        <label for="code">Code:</label><br>
-        <textarea name="code" rows="10" cols="50"></textarea><br><br>
-        <label for="name">Name:</label><br>
-        <input type="text" name="name"><br><br>
-        <input type="submit" value="Save Code">
-    </form>
-</body>
-</html>
-
-
-______________________________________________
-
-Add gamesizes to "dekudeals" collection.json:
-----------------------------------------------------------------------
-
-<?php
-// Function to handle file upload
-function handleFileUpload($file)
-{
-    // Check if the upload was successful
-    if ($file['error'] === UPLOAD_ERR_OK) {
-        // Read the uploaded file
-        $jsonData = file_get_contents($file['tmp_name']);
-        // Decode the JSON data into an associative array
-        $data = json_decode($jsonData, true);
-        // Check if the JSON decoding was successful
-        if ($data !== null) {
-            // Iterate over each item in the collection
-            foreach ($data['items'] as &$item) {
-                // Check if the item has a "link" key
-                if (isset($item['link'])) {
-                    // Fetch the content of the URL
-                    $url = $item['link'];
-                    $html = file_get_contents($url);
-                    // Create a DOMDocument object and load the HTML content
-                    $dom = new DOMDocument();
-                    @$dom->loadHTML($html);
-                    // Create a DOMXPath object to query the HTML
-                    $xpath = new DOMXPath($dom);
-                    // Find the download size element using XPath
-                    $query = "//strong[contains(text(), 'Download size:')]/following-sibling::text()";
-                    $downloadSize = $xpath->query($query)->item(0)->nodeValue;
-                    // Add the new "gamesize" field to the item
-                    $item['gamesize'] = $downloadSize;
-                }
-            }
-            // Encode the modified data back to JSON
-            $updatedJsonData = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-            // Set the appropriate headers for downloading the file
-            header('Content-Type: application/json');
-            header('Content-Disposition: attachment; filename="updated_collection.json"');
-            // Output the updated JSON data for download
-            echo $updatedJsonData;
-        } else {
-            // JSON decoding failed
-            echo "Failed to decode JSON data.";
-        }
-    } else {
-        // File upload failed
-        echo "File upload failed. Please try again.";
-    }
-}
-// Check if a file was uploaded
-if ($_FILES && isset($_FILES['json_file'])) {
-    handleFileUpload($_FILES['json_file']);
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dekudeals Download Size Fetcher</title>
-</head>
-<body>
-    <h1>upload your collection json (or use url) to add gamesizes </h1>
-    <form action="" method="POST">
-        <button type="submit" name="start">Start</button>
-    </form>
-    <hr>
-    <h3>Upload custom JSON</h3>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <input type="file" name="json_file" accept=".json">
-        <button type="submit" name="upload">Upload</button>
-    </form>
-</body>
-</html>
-
-_______________________________
-
-JSFiddle Downloader:
---------------------------------
-
-<!DOCTYPE html>
-<body>
-    <?php
-    if (isset($_POST['jsfiddle_url'])) {
-        $jsfiddle_url = $_POST['jsfiddle_url'];
-        if (!preg_match("~^(?:f|ht)tps?://~i", $jsfiddle_url)) {
-            $jsfiddle_url = "https://" . $jsfiddle_url;
-        }
-        $reformed_url = str_replace('jsfiddle.net', 'fiddle.jshell.net', $jsfiddle_url);
-        $reformed_url = str_replace('/show', '', $reformed_url);
-        $curl_command = "curl '" . $reformed_url . "//show/' -H 'Referer: " . $jsfiddle_url . "//' --output 'fiddle.html'";
-        echo "<pre>" . $curl_command . "</pre>";
-
-        //$outputFile = 'fiddle.html';
-        //$curl = curl_init();
-        //curl_setopt($curl, CURLOPT_URL, $reformed_url);
-        //curl_setopt($curl, CURLOPT_REFERER, $jsfiddle_url);
-        //$fileHandle = fopen($outputFile, 'w');
-        //curl_setopt($curl, CURLOPT_FILE, $fileHandle);
-        //curl_exec($curl);
-        //fclose($fileHandle);
-        if (curl_errno($curl)) {
-            echo 'cURL error: ' . curl_error($curl);
-        } else {
-            echo 'Request completed successfully.';
-            echo '<a target="_blank" href="fiddle.html">link</a>';
-        }
-        curl_close($curl);
-    }
-    $error = '';
-    $result = '';
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $command = $_POST['command'];
-        preg_match("/'(.+?)'/", $command, $urlMatches);
-        $url = $urlMatches[1];
-        preg_match("/'Referer: (.+?)'/", $command, $refererMatches);
-        $referer = $refererMatches[1];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_REFERER, $referer);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        if ($output !== false) {
-            $filename = 'fiddle.html';
-            file_put_contents($filename, $output);
-            $result = "File downloaded successfully as <a target=_blank href=fiddle.html>link</a>";
-        } else {
-            $error = "Error downloading file.";
-        }
-        curl_close($ch);
-    }
-    ?>
-    <!-- Display the form -->
-    <form method="post">
-        <label for="jsfiddle_url">JSFiddle URL:</label>
-        <input type="text" name="jsfiddle_url" value="https://jsfiddle.net/aoikurayami/745t8aeh/2">
-        <input type="submit" value="Generate cURL cmd">
-    </form>
-    <!-- Display the cURL command form -->
-    <form method="POST" action="">
-        <label for="command">cURL Command:</label>
-        <input type="text" name="command" id="command" required value="<?php echo htmlspecialchars($curl_command); ?>"><br><br>
-        <input type="submit" value="Download JSFiddle">
-    </form>
-    <?php if ($error !== ''): ?>
-        <p style="color: red;"><?php echo $error; ?></p>
-    <?php endif; ?>
-    <?php if ($result !== ''): ?>
-        <p style="color: green;"><?php echo $result; ?></p>
-    <?php endif; ?>
-<?php if (file_exists('fiddle.html')): ?>
-    <iframe src="fiddle.html?<?php echo time(); ?>" frameborder="0" width="100%" height="500"></iframe>
-<?php endif; ?>
-  <!-- Display the iframe with the content of the downloaded file -->
-<!--
- <?php if (isset($outputFile)): ?>
- <hr>
- <h2>Contents of fiddle.html:</h2>
-  <iframe src="<?php echo $outputFile; ?>" frameborder="0" width="100%" height="500"></iframe>
-  <?php endif; ?>-->
-
-_________________________________________
-
-HikariNoAkariOST link Parser
----------------------------------------------
-
-<a href="javascript:history.pushState({}, '', '?i=1');location.reload();">?i=1</a> 
-<a href="javascript:history.pushState({}, '', '?i=2');location.reload();">?i=2</a> 
-<a href="javascript:history.pushState({}, '', '?i=3');location.reload();">?i=3</a> 
-<br>
-<br>
-<?php
-// Get the page number from the query parameter
-$pageNumber = isset($_GET['i']) ? $_GET['i'] : 1;
-// Create a DOMDocument object
-$dom = new DOMDocument();
-// Load the HTML from the URL with the page number
-$url = 'https://hikarinoakari.com/page/' . $pageNumber;
-$dom->loadHTMLFile($url);
-// Create a DOMXPath object
-$xpath = new DOMXPath($dom);
-// Define the XPath expression to find the desired element
-$expression = '//div[@class="td-module-thumb"]/a/@href';
-// Query the XPath expression
-$hrefAttributes = $xpath->query($expression);
-// Iterate over the results and display the href attribute values
-foreach ($hrefAttributes as $hrefAttribute) {
-    $link = $hrefAttribute->nodeValue;
-    echo '<a href="' . $link . '" target="_blank">' . $link . '</a>';
-    echo '<form method="post" action="">';
-    echo '<input type="hidden" name="link" value="' . $link . '">';
-    echo '<input type="submit" name="search" value="Search">';
-    echo '</form>';
-    echo '<br>';
-    // Check if a link is submitted for search and it matches the current button
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["link"]) && $_POST["link"] == $link && isset($_POST["search"])) {
-        $searchDom = new DOMDocument();
-        // Load the HTML from the submitted link
-        $searchDom->loadHTMLFile($link);
-        // Create a new DOMXPath object for the submitted link
-        $searchXPath = new DOMXPath($searchDom);
-        // Define the XPath expression to find the desired elements in the submitted link
-        $searchExpression = '//*[contains(@href, "https://hikarinoakari.com/out")]';
-        // Query the XPath expression in the submitted link
-        $searchResults = $searchXPath->query($searchExpression);
-        // Display the search results below the current button
-        echo '<div style="margin-left: 20px;">';
-        echo '<h4>Search Results:</h4>';
-        if ($searchResults->length > 0) {
-            foreach ($searchResults as $result) {
-                echo $result->getAttribute("href") . "<br>";
-            }
-        } else {
-            echo 'No results found.';
-        }
-        echo '</div>';
-    }
-}
-?>
-<br><br><a target="_blank" href="https://github.com/nsmle/ouo-bypass">ByPass ouo.press</a>
-
-________________________________
-
-T-Shirt Design Viewer:
---------------------------------
-
-<?php
-$currentDir = dirname(__FILE__);
-echo "The current directory is: " . $currentDir;
-echo "<br>Dropbox/Public/2Diaric/TODO/T-Shirts <br><br>"
-?>
-<?php
-$folderPath = 'T-Shirts/';
-$images = glob($folderPath . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-if (empty($images)) {
-    echo 'No images found in the folder.';
-} else {
-    // Sort the images array in descending order based on file modification time
-    usort($images, function($a, $b) {
-        return filemtime($b) - filemtime($a);
-    });
-    // Get the background color from the URL parameters
-    $bgColor = 'black';
-    $url = preg_replace('/[^a-z]/i', '', $_SERVER['REQUEST_URI']);
-    preg_match('/(white|black|lightblue)/i', $url, $matches);
-    if (!empty($matches)) {
-        $bgColor = strtolower($matches[1]);
-    }
-    // Display the images
-    echo '<div style="display: flex; flex-wrap: wrap;">';
-    foreach ($images as $image) {
-        // Get the background color from the filename
-        $filename = preg_replace('/[^a-z]/i', '', $image);
-        preg_match('/(white|black|light-blue|navy|grey)/i', $filename, $matches);
-        if (!empty($matches)) {
-            $bgColor = strtolower($matches[1]);
-        }
-        echo '<div style="width: 250px; height: 250px; margin: 10px;">';
-        echo '<img src="' . $image . '" alt="T-Shirt Image" style="width: 100%; height: 100%; object-fit: cover; background-color: '.$bgColor.';" onclick="openModal(\''.$image.'\')" />';
-        echo '</div>';
-    }
-    echo '</div>';
-    // Create the modal window
-    echo '<div id="myModal" class="modal">';
-    echo '<span class="close">&times;</span>';
-    echo '<img class="modal-content" id="img01">';
-    echo '</div>';
-    // Add CSS styles for the modal window
-    echo '<style>';
-    echo '.modal { display: none; position: fixed; z-index: 1; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }';
-    echo '.modal-content { margin: auto; display: block; max-width: 80%; max-height: 80%; }';
-    echo '.close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }';
-    echo '@media screen and (max-width: 700px){ .modal-content { width: 100%; } }';
-    echo '</style>';
-    // Add JavaScript code to handle the modal window
-    echo '<script>';
-    echo 'function openModal(image) {';
-    echo 'var modal = document.getElementById("myModal");';
-    echo 'var modalImg = document.getElementById("img01");';
-    echo 'modal.style.display = "block";';
-    echo 'modalImg.src = image;';
-    echo '}';
-    echo 'var span = document.getElementsByClassName("close")[0];';
-    echo 'span.onclick = function() {';
-    echo 'var modal = document.getElementById("myModal");';
-    echo 'modal.style.display = "none";';
-    echo '}';
-    echo '</script>';
-}
-?>
-
-
-__________________________________
-
-YuGiOh ydk deck randomizer:
------------------------------------------------
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>YGORandomizer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-        .file-input {
-            position: relative;
-            width: 250px;
-            height: 50px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            background-color: #fff;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-        }
-        .file-input input[type=file] {
-            position: absolute;
-            font-size: 100px;
-            opacity: 0;
-            right: 0;
-            top: 0;
-        }
-        .file-input label {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-            background-color: #eee;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        #buttons-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-        .button-container {
-            display: inline-block;
-            width: 250px;
-            height: 350px;
-            margin-right: 10px;
-            position: relative;
-        }
-        .button-container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 2px solid #000; /* Change the color and thickness as desired */
-            z-index: -1;
-        }
-        .button-image {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
-        .button-text {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 100%;
-            height: 70px;
-            text-align: center;
-            padding-top: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-        }
-        .button-text span {
-            font-size: 12px;
-            font-weight: normal;
-            color: #666;
-        }
-        .button-text br {
-            display: none;
-        }
-        .button-container:hover .button-text br {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <h1>YGORandomizer</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <div class="file-input">
-            <input type="file" name="file" id="file" />
-            <label for="file">Choose a file</label>
-        </div>
-        <input type="submit" name="submit" value="Upload" />
-    </form>
-    <div id="buttons-container">
-        <?php
-        $targetDir = 'ydk/'; // Folder to store the uploaded files
-        if ($_FILES['file']['name']) {
-            $targetFile = $targetDir . basename($_FILES['file']['name']);
-            // Move the uploaded file to the target directory
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)) {
-                echo 'File uploaded successfully.';
-            } else {
-                echo 'Error uploading file.';
-            }
-        }
-        $folderPath = 'ydk/';
-        $ydks = glob($folderPath . '*.ydk');
-        // Get 3 random .ydk files
-        $randomYdks = array_rand($ydks, 3);
-        foreach ($randomYdks as $index) {
-            $filename = basename($ydks[$index]);
-            $shortFilename = str_pad($filename, 30, ' ');
-            $filePath = $ydks[$index];
-            // Read the specified line (line number 3) of the YDK file
-            $targetLine = "";
-            $file = fopen($filePath, "r");
-            if ($file) {
-                for ($i = 1; $i <= 3; $i++) {
-                    $targetLine = fgets($file);
-                    if ($i == 3) {
-                        break;
-                    }
-                }
-                fclose($file);
-            }
-            // Extract the card ID from the line
-            $cardId = trim($targetLine);
-            // Generate the image URL
-            $imageUrl = "https://images.ygoprodeck.com/images/cards/$cardId.jpg";
-            echo "<div class='button-container'><a href='$filePath' download><img src='$imageUrl' alt='Card Image' class='button-image'><div class='button-text'>$shortFilename<span>$targetLine</span></div></a></div>";
-        }
-        ?>
-    </div>
-</body>
-</html>
-
-
-
-__________________________________________
-
-Gogoanime Video Download link finder:
------------------------------------------------------------------
-
-<?php
-if (isset($_POST['url'])) {
-    $url = $_POST['url'];
-    $html = file_get_contents($url);
-    $dom = new DOMDocument();
-    @$dom->loadHTML($html);
-    $links = $dom->getElementsByTagName('a');
-    foreach ($links as $link) {
-        if ($link->nodeValue == "Download") {
-            $download_link = $link->getAttribute('href');
-            echo "<a href='$download_link' target='_blank'>$download_link</a><br>";
-            $download_html = file_get_contents($download_link);
-            $download_dom = new DOMDocument();
-            @$download_dom->loadHTML($download_html);
-            $download_links = $download_dom->getElementsByTagName('a');
-            foreach ($download_links as $download_link) {
-                $download_url = $download_link->getAttribute('href');
-                echo "<a href='$download_url' target='_blank'>$download_url</a><br>";
-            }
-            break;
-        }
-    }
-}
-?>
-<form method="post">
-    <label for="url">Enter URL:</label>
-    <input type="text" id="url" name="url">
-    <input type="submit" value="Submit">
-</form>
-
-
-
-_________________________________________
-
-Display Code from txt file:
-----------------------------------------
-
-<?php
-$fileContents = file_get_contents('https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt');
-$pattern = '/------(.*?)_____/s';
-preg_match_all($pattern, $fileContents, $matches);
-$randomIndex = array_rand($matches[1]);
-$randomMatch = $matches[1][$randomIndex];
-$numLines = substr_count($randomMatch, "\n") + 1;
-if ($numLines >= 3) {
-  echo '<plaintext>' . $randomMatch . '</plaintext>';
-}
-?>
-
-
-____________________________
-
-Mastodon Profile renderer (+ shorthand emoji):
-----------------------------------------
-
-<?php
-$profileUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381';
-$endpoint = 'https://pb.todon.de/api/v1/custom_emojis';
-// Make a GET request to the profile URL using cURL
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $profileUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$response = curl_exec($ch);
-curl_close($ch);
-// Parse the JSON response into an associative array
-$data = json_decode($response, true);
-// Access the fields in the JSON object
-$id = $data['id'];
-$username = $data['username'];
-$display_name = $data['display_name'];
-$locked = $data['locked'];
-$bot = $data['bot'];
-$discoverable = $data['discoverable'];
-$group = $data['group'];
-$created_at = $data['created_at'];
-$note = $data['note'];
-$url = $data['url'];
-$avatar = $data['avatar'];
-$avatar_static = $data['avatar_static'];
-$header = $data['header'];
-$header_static = $data['header_static'];
-$followers_count = $data['followers_count'];
-$following_count = $data['following_count'];
-$statuses_count = $data['statuses_count'];
-$last_status_at = $data['last_status_at'];
-$noindex = $data['noindex'];
-$emojis = $data['emojis'];
-$roles = $data['roles'];
-$fields = $data['fields'];
-// Make a GET request to the custom emojis endpoint
-$response = file_get_contents($endpoint);
-$customEmojis = json_decode($response, true);
-// Replace shorthands in the note with corresponding emoji images
-foreach ($customEmojis as $customEmoji) {
-    $shortcode = $customEmoji['shortcode'];
-    $url = $customEmoji['url'];
-    $shortcodePattern = '/:' . preg_quote($shortcode, '/') . ':/';
-    $emojiTag = '<img src="' . $url . '" alt="' . $shortcode . '" width="45px">';
-    $note = preg_replace($shortcodePattern, $emojiTag, $note);
-}
-$fields = $data['fields'];
-// Extract the links from the fields array
-$links = [];
-if (isset($fields) && is_array($fields)) {
-    foreach ($fields as $field) {
-        $name = $field['name'];
-        $value = $field['value'];
-        preg_match('/<a href="(.*?)"/', $value, $matches);
-        $url = isset($matches[1]) ? $matches[1] : '';
-        $links[$name] = $url;
-    }
-}
-// Do something with the data
-echo "$username@<a target=_blank href=https://pb.todon.de/share>pb.todon.de</a><br>\n";
-echo "<br><hr>";
-echo "$note";
-echo "<hr>";
-foreach ($links as $name => $url) {echo "$name: <a target='_blank' href='$url'>$url</a><br>";}
-echo "Following: <b>$following_count</b>\n";
-echo "Followers: <b>$followers_count</b>\n";
-echo "Posts: <b>$statuses_count</b>\n";
-?>
-
-___________________________________________________
-
-Mastodon api TL parser (with yt & image & pixiv & imgbb (directlink) & emoji support):
------------------------------------------------------------------------------
-
-
-<?php
-$apiUrl = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
-$accessToken = 'your-access-token';
-$headers = ['Authorization: Bearer ' . $accessToken,];
-$curl = curl_init();
-curl_setopt_array($curl, [
-    CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => $apiUrl,
-    CURLOPT_HTTPHEADER => $headers,
-]);
-$response = curl_exec($curl);
-curl_close($curl);
-$data = json_decode($response, true);
-foreach ($data as $status) {
-    $content = '<div>' . $status['content'] . '</div>';
-    $media = '';
-    $avatar = '';
-    $tootLink = '';
-
-    // Check for imgbb image URLs in the status content
-    $imageRegex = '/(https?:\/\/(?:www\.)?i\.ibb\.co\/[^ ]+\.(?:jpg|png|gif|bmp))/';
-    preg_match_all($imageRegex, $status['content'], $imageMatches);
-
-    if (!empty($imageMatches[0])) {
-        $media .= '<div>';
-        foreach ($imageMatches[0] as $url) {
-            $media .= '<img src="' . $url . '" width="50%"><br>';
-        }
-        $media .= '</div>';
-    }
-
-    // Add emoji renderer
-    $endpoint = 'https://pb.todon.de/api/v1/custom_emojis';
-    $response = file_get_contents($endpoint);
-    $customEmojis = json_decode($response, true);
-    foreach ($customEmojis as $customEmoji) {
-        $shortcode = $customEmoji['shortcode'];
-        $url = $customEmoji['url'];
-        $shortcodePattern = '/:' . preg_quote($shortcode, '/') . ':/';
-        $emojiTag = '<img src="' . $url . '" alt="' . $shortcode . '" width="45px">';
-        $content = preg_replace($shortcodePattern, $emojiTag, $content);
-    }
-
-
-// Check for Tenor.com video link
-    $tenorRegex = '/https?:\/\/(?:www\.)?tenor\.com\/view\/[a-zA-Z0-9-]+-(\d+)/';
-    preg_match($tenorRegex, $status['content'], $tenorMatch);
-    if ($tenorMatch) {
-        // Extract Tenor.com video ID
-        $videoId = $tenorMatch[1];
-        // Create embedded player for Tenor.com video
-        $media = '<div><iframe src="https://tenor.com/embed/' . $videoId . '" frameborder="0" allowfullscreen="true" width="100%" height="400px"></iframe></div>';
-
-        // Remove Tenor.com link from content
-        $content = preg_replace($tenorRegex, '', $content);
-    }
-
-    // Check for SoundCloud track link
-    $soundcloudRegex = '/https?:\/\/(m\.)?soundcloud\.com\/[\w\-_]+\/[\w\-_]+/i';
-    preg_match($soundcloudRegex, $status['content'], $soundcloudMatch);
-    if ($soundcloudMatch) {
-        // The SoundCloud URL to extract the track ID from
-        $url = $soundcloudMatch[0];
-
-        // Check if the URL is a mobile link and convert it to a normal link
-        if (strpos($url, 'm.soundcloud.com') !== false) {
-            $url = str_replace('m.soundcloud.com', 'soundcloud.com', $url);
-        }
-
-        // Fetch the SoundCloud page source
-        $pageSource = file_get_contents($url);
-
-        // Extract the track ID from the page source
-        preg_match('/sounds:(\d+)/', $pageSource, $matches);
-        $trackID = $matches[1];
-
-        // Embed the SoundCloud player with the track ID
-        $playerURL = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' . $trackID .
-            '&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true';
-        $media = '<div><iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="' . $playerURL . '"></iframe></div>';
-
-        // Remove SoundCloud link from content
-        $content = str_replace($soundcloudMatch[0], '', $content);
-    } else {
-        // Check for YouTube video link
-        $youtubeRegex = '/https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/';
-        preg_match($youtubeRegex, $status['content'], $youtubeMatch);
-        if ($youtubeMatch) {
-            // Extract video ID from YouTube link
-            $videoId = $youtubeMatch[3];
-            // Create embedded player for YouTube video
-            $embeddedPlayer = '<div><iframe width="560" height="315" src="https://www.youtube.com/embed/' . $videoId . '" frameborder="0" allowfullscreen></iframe></div>';
-            // Create link to YouTube video
-            $videoLink = '<div><a href="https://www.youtube.com/watch?v=' . $videoId . '" target="_blank">' . $youtubeMatch[0] . '</a></div>';
-            // Add both embedded player and link to the content
-            $media = $embeddedPlayer . $videoLink;
-            // Remove YouTube link from content
-            $content = str_replace($youtubeMatch[0], '', $content);
-        } else {
-            // Check for Pixiv artwork link
-            $pixivRegex = '/https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/';
-            preg_match($pixivRegex, $status['content'], $pixivMatch);
-            if ($pixivMatch) {
-                // Extract artwork ID from Pixiv link
-                $artworkId = $pixivMatch[1];
-                // Create image preview for Pixiv artwork
-                $media = '<div><img src="https://embed.pixiv.net/decorate.php?illust_id=' . $artworkId . '&mode=sns-automator" width="50%"></div>';
-
-                // Remove Pixiv link from content
-                $content = str_replace($pixivMatch[0], '', $content);
-            } else {
-                // Check for attachments
-                if (count($status['media_attachments']) > 0) {
-                    $media = '<div>';
-                    foreach ($status['media_attachments'] as $attachment) {
-                        if ($attachment['type'] === 'image') {
-                            $ch = curl_init($attachment['url']);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            $image = curl_exec($ch);
-                            curl_close($ch);
-                            $media .= '<img src="data:image/jpeg;base64,' . base64_encode($image) . '" width="50%"><br>';
-                        } else if ($attachment['type'] === 'video') {
-                            $media .= '<div><video controls width="50%"><source src="' . $attachment['url'] . '" type="' . $attachment['mime_type'] . '"></video></div>';
-                        } else if ($attachment['type'] === 'audio') {
-                            $media .= '<div><audio controls><source src="' . $attachment['url'] . '" type="' . $attachment['mime_type'] . '"></audio></div>';
-                        }
-                    }
-                    $media .= '</div>';
-                }
-            }
-        }
-    }
-
-    // Check for spoiler tag
-    if (strpos($status['url'], 'activity') !== false) {
-        $avatar = '<!--<details><summary>Avatar (spoiler)</summary><img src="' . $status['account']['avatar'] . '" width="100px"></details>--><br>';
-        $tootLink = '<!--<details><summary>View on Mastodon (spoiler)</summary><a href="' . $status['url'] . '" target="_blank">Click here to view activity</a></details>-->';
-    } else {
-        $avatar = '<img src="' . $status['account']['avatar'] . '" width="100px"><br>';
-        $tootLink = '<a href="' . $status['url'] . '" target="_blank">View on Mastodon</a>';
-    }
-
-    // Get the date of the status
-    $date = new DateTime($status['created_at']);
-
-    // Append content and media to feed
-    echo $content . $media . $avatar . $tootLink . '&nbsp;' . $date->format('Y-m-d H:i:s') . '<hr>';
-}
-?>
-
-
-
-
-(Source: http://alcea-wisteria.de/PHP/0demo/2023-07-15-DisplayMastodonProfile/alcea-mtd-tl.php )
-
-__________________________________________________
-
-
-Issue Tracker (with disallow.txt profanity filter):
---------------------------------------------------------------------
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Issue Tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            text-align: left;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: orange;
-            color: white;
-        }
-        table.solved-issues th {
-            background-color: green;
-            color: white;
-        }
-        form {
-            margin-top: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
-<body>
-    <h1>Issue Tracker</h1>
-    <?php
-    // Check if form has been submitted
-    if (isset($_POST['submit'])) {
-        // Get form data
-        $title = $_POST['title'];
-        $description = $_POST['description'];
-        // Check if form data contains any disallowed words or phrases
-        $disallow = file('disallow.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($disallow as $word) {
-            if (stripos($title, $word) !== false || stripos($description, $word) !== false) {
-                echo "<p style='color:red'>You are not allowed to use the word or phrase: " . htmlentities($word) . "</p>";
-                break;
-            }
-        }
-        // Validate form data
-        if (empty($title) || empty($description)) {
-            echo "<p>Please fill out all fields.</p>";
-        } else {
-            // Save issue to file
-            $filename = 'issues.txt';
-            $handle = fopen($filename, 'a');
-            fwrite($handle, $title . '|' . $description . '|' . time() . "\n");
-            fclose($handle);
-            echo "<p>Issue saved successfully.</p>";
-        }
-    }
-    // Read issues from file
-    $filename = 'issues.txt';
-    if (file_exists($filename)) {
-        $handle = fopen($filename, 'r');
-        $issues = array();
-        $solved_issues = array();
-        while (($line = fgets($handle)) !== false) {
-            $parts = explode('|', $line);
-            if (count($parts) == 3) {
-                $parts[1] = preg_replace(
-                    '@(https?:\/\/[^\s/$.?#].[^\s]*)@i',
-                    '<a href="$1" target="_blank">$1</a>',
-                    $parts[1]
-                );
-                $issue = array(
-                    'title' => $parts[0],
-                    'description' => $parts[1],
-                    'date_added' => $parts[2]
-                );
-                // Render any • character as a line break
-                $issue['description'] = str_replace('•', '<br>', $issue['description']);
-                if (stripos($issue['title'], 'solved') !== false || stripos($issue['description'], 'solved') !== false) {
-                    $solved_issues[] = $issue;
-                } else {
-                    $issues[] = $issue;
-                }
-            }
-        }
-        fclose($handle);
-        // Sort issues by date added (most recent first)
-        usort($issues, function($a, $b) {
-            return $b['date_added'] - $a['date_added'];
-        });
-        // Display all issues in a table
-        echo '<h2>All Issues</h2>';
-        echo '<table>';
-        echo '<tr><th>Title</th><th>Description</th><th>Date Added</th></tr>';
-        foreach ($issues as$issue) {
-            echo '<tr>';
-            echo '<td>' . $issue['title'] . '</td>';
-            echo '<td>' . $issue['description'] . '</td>';
-            echo '<td>' . date('Y-m-d H:i:s', $issue['date_added']) . '</td>';
-            echo '</tr>';
-        }
-        echo '</table>';
-        // Display solved issues in a separate table
-        if (!empty($solved_issues)) {
-            echo '<h2>Solved Issues</h2>';
-            echo '<table class="solved-issues">';
-            echo '<tr><th>Title</th><th>Description</th><th>Date Added</th></tr>';
-            foreach ($solved_issues as $issue) {
-                echo '<tr>';
-                echo '<td>' . $issue['title'] . '</td>';
-                echo '<td>' . $issue['description'] . '</td>';
-                echo '<td>' . date('Y-m-d H:i:s', $issue['date_added']) . '</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-        }
-    }
-    ?>
-    <h2>Add New Issue</h2>
-    <form method="post">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title">
-        <label for="description">Description</label>
-        <textarea id="description" name="description"></textarea>
-        <input type="submit" name="submit" value="Save Issue">
-    </form>
-    <script>
-        // Listen for Enter key press in description textarea and append • character
-        var descriptionTextarea = document.getElementById('description');
-        descriptionTextarea.addEventListener('keydown', function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                var selectionStart = descriptionTextarea.selectionStart;
-                var selectionEnd = descriptionTextarea.selectionEnd;
-                var text = descriptionTextarea.value;
-                descriptionTextarea.value = text.substring(0, selectionStart) + '•' + text.substring(selectionEnd);
-                descriptionTextarea.setSelectionRange(selectionStart + 1, selectionStart + 1);
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-________________________
-
-List all images (ftp) in subdir:
--------------------------------------------
-
-
-<a target="_blank" href="alcea-pbtodonde.php">Refresh Alcea</a>&nbsp;
-<a target="_blank" href="ryedai-mastodonsocial.php">Refresh Ryedai</a><br>
-<?php
-$dir = getcwd();
-$websiteUrl = 'http';
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-    $websiteUrl .= 's';
-}
-$websiteUrl .= '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-$images = glob($dir . '/**/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-$imageGroups = array();
-foreach ($images as $image) {
-    $dirName = dirname($image);
-    $fileName = basename($image);
-    if (!isset($imageGroups[$dirName])) {
-        $imageGroups[$dirName] = array();
-    }
-    $imageGroups[$dirName][] = $fileName;
-}
-foreach ($imageGroups as $dirName => $images) {
-    // Replace the directory path with the website URL
-    $dirName = str_replace($dir, $websiteUrl, $dirName);
-    echo '<h2>' . $dirName . '</h2>';
-    foreach ($images as $image) {
-        echo '<img src="' . $dirName . '/' . $image . '">';
-    }
-}
-?>
-
-
-________________________________________
-
-Fetch Mastodon ava to subdir:
----------------------------------------------
-
-<?php
-$user = "ryedai";
-$rss_url = "https://mastodon.social/@{$user}.rss";
-$rss = simplexml_load_file($rss_url);
-$image_url = (string) $rss->channel->image->url;
-$filename = basename($image_url);
-if (strpos($filename, '.jpg') !== false) {
-    $filename = $user . '_' . date('Y-m-d') . '.jpg';
-} elseif (strpos($filename, '.png') !== false) {
-    $filename = $user . '_' . date('Y-m-d') . '.png';
-}
-$dir = "./" . strtolower($user) . "/";
-if (!file_exists($dir)) {
-    mkdir($dir);
-}
-$ch = curl_init($image_url);
-$fp = fopen($dir . $filename, 'wb');
-curl_setopt($ch, CURLOPT_FILE, $fp);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-curl_exec($ch);
-curl_close($ch);
-fclose($fp);
-
-
-______________________________________
-
-PHP to write another php (for testing):
------------------------------------------------------------
-
-<?php
-$allowSource = true; // Allow saving the source code snippet by default
-if (isset($_POST['code'])) {
-    // Get the code from the text area
-    $code = $_POST['code'];
-    // Get the current date and time
-    $now = new DateTime();
-    $date = $now->format('Y-m-d');
-    $time = $now->format('H-i-s');
-    // Create the new file name
-    $filename = $date . '-' . $time . '.php';
-    // Add the source code link to the bottom of the code if allowed
-    if ($allowSource && isset($_POST['allowSource'])) {
-        $sourceCodeLink = "<?php\n" .
-                          "    define(\"ALLOW_SOURCE\",TRUE);\n" .
-                          "    define(\"ALLOW_TITLE\",TRUE);\n" .
-                          "    if(ALLOW_SOURCE && isset(\$_GET['source'])){\n" .
-                          "        highlight_file(__FILE__);\n" .
-                          "        exit(0);\n" .
-                          "    }\n" .
-                          "?>\n" .
-                          "<a target=\"_blank\" href=\"?source\">Source Code</a>\n" .
-                          "</body>\n</html>";
-        $code .= "\n\n" . $sourceCodeLink;
-    }
-    // Write the code to the new file
-    file_put_contents($filename, $code);
-    // Write the code to the "current" PHP file
-    file_put_contents('current.php', $code);
-    echo "Code saved to $filename and current.php";
-}
-// Handle the "Move Files" button click
-if (isset($_POST['move'])) {
-    // Get a list of all files in the current directory
-    $files = glob('*');
-    // Create the "0ld" directory if it doesn't exist
-    if (!is_dir('0ld')) {
-        mkdir('0ld');
-    }
-    // Move all files except "0test.php" and "current.php" to the "0ld" directory
-    foreach ($files as $file) {
-        if ($file != '0test.php' && $file != 'current.php') {
-            rename($file, '0ld/' . $file);
-        }
-    }
-    echo "Files moved to 0ld directory";
-}
-?>
-<form method="post">
-    <textarea name="code" cols="60" rows="15"></textarea>
-    <br>
-    <label>
-        <input type="checkbox" name="allowSource">
-        Add ALLOW SOURCE VIEW snippet
-    </label>
-    <br>
-    <input type="submit" value="Save">
-</form>
-<?php
-if ($allowSource && isset($_POST['allowSource'])) {
-    echo "\n\n" . $sourceCodeLink;
-}
-?>
-<form method="post">
-    <input type="submit" name="move" value="Move Files">
-</form>
-<br>
-<br><a target="_blank" href="current.php">CURRENT.PHP</a>&nbsp;<a target="_blank" href="">[FOLDER]</a>
-
-
-_______________________________
-
-Get last Github commit date:
---------------------------------------------
-
-<?php
-$repoUrl = "https://api.github.com/repos/Ry3yr/OSTR/branches/main";
-$opts = [
-    "http" => [
-        "method" => "GET",
-        "header" => "Accept: application/vnd.github.v3+json"
-    ]
-];
-$response = file_get_contents($repoUrl, false, stream_context_create($opts));
-$data = json_decode($response, true);
-$lastCommitTime = $data["commit"]["commit"]["author"]["date"];
-// Display the last commit time
-echo "Last commit time: " . $lastCommitTime;
-?>
-
-
-__________________
-
-View PHP Source Code in new tab / Display Source Code
------------------------------------------------------
-﻿<?php
-    //Allow or disallow source viewing
-    define("ALLOW_SOURCE",TRUE);
-    define("ALLOW_TITLE",TRUE);
-    if(ALLOW_SOURCE && isset($_GET['source'])){
-        highlight_file(__FILE__);
-        exit(0);
-    }
-?>
-<a target="_blank" href="?source">Source Code</a>
-
-_____________________________________________________
-
-Display PHP Source Code on current page:
------------------------------------------------------------------
-
-<?php show_source(__FILE__); ?>
-
-_________________________________________________________
-
-Extract "€" values and display subtotal
----------------------------------------------------------
-
-<?php
-if(isset($_POST['submit'])) {
-  $input = $_POST['input'];
-  $total = 0;
-  preg_match_all('/(\d+)[€]/', $input, $matches);
-  foreach($matches[1] as $match) {
-    $total += $match;
-  }
-  echo "Total value: €".$total;
-}
-?>
-<form method="post" action="">
-  <textarea name="input"></textarea>
-  <br>
-  <button type="submit" name="submit">Calculate total</button>
-</form>
-
-=========Keyword (+search + url) Version======
-<?php
-if(isset($_POST['submit'])) {
-  $input = '';
-  $url = isset($_POST['url']) ? $_POST['url'] : '';
-  if ($url) {
-    $input = strip_tags(file_get_contents($url));
-  } else {
-    $input = $_POST['input'];
-  }
-  $total = 0;
-  $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
-  $lines = explode("\n", $input);
-  $matching_lines = array(); // initialize an array to collect matching lines
-  $is_first_line = true; // flag to track whether the first line has been processed or not
-  foreach($lines as $line) {
-    if (!$keyword || strpos($line, $keyword) !== false) {
-      if ($is_first_line && $url) {
-        $is_first_line = false; // set flag to false to skip the first matching line
-        continue; // skip the first matching line
-      }
-      preg_match_all('/(\d+)[€]/', $line, $matches);
-      if ($matches) {
-        foreach($matches[1] as $match) {
-          $total += $match;
-        }
-      }
-      // add the matching line to the array
-      $matching_lines[] = $line;
-    }
-  }
-  echo "Total value for '".($keyword ?: 'all')."' lines: €".$total;
-}
-?>
-<form method="post" action="">
-  <label for="url">URL:</label>
-  <input type="text" name="url" id="url">
-  <br>
-  <textarea name="input"></textarea>
-  <br>
-  Keyword: <input type="text" name="keyword">
-  <br>
-  <button type="submit" name="submit">Calculate total</button>
-</form>
-
-<?php if(isset($matching_lines) && $keyword): // output the matching lines section if there are matching lines and a keyword is set ?>
-  <br>
-  <h2>Matching lines:</h2>
-  <ul>
-    <?php foreach($matching_lines as $line): ?>
-      <li><?php echo htmlentities($line); ?></li>
-    <?php endforeach; ?>
-  </ul>
-<?php endif; ?>
-
-_______________________
-
-Parse images from #rsshub #pixiv feed
------------------------------------------------------------
-<?php
-$rss = simplexml_load_file('https://rsshub.app/pixiv/user/75406576');
-foreach ($rss->channel->item as $item) {
-    $description = (string) $item->description;
-    if (preg_match('/https:\/\/\S+/', $description, $matches)) {
-        $link = rtrim($matches[0], '"'); // Remove the final " character
-        //echo '<p>' . htmlspecialchars($link) . '<br>';
-        echo '<img src="' . htmlspecialchars($link) . '">';
-    }
-}
-?>
-
-_____________________________
-
-Fetch Sitepart (via delimiters)
------------------------------------
-
-<?php
-$url = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html';
-$html = file_get_contents($url);
-
-$start = strpos($html, '<!------Tools---------->');
-$end = strpos($html, '<!-----Hobbies---->', $start);
-
-$length = $end - $start;
-$result = substr($html, $start, $length);
-echo $result;
-?>
-
-(Source: Source: "Fetch everything between "Tools" and "Hobbies" on https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html via php" https://chat.chatgptdemo.net/ )
-___________________
-
-Render RSS:
-----------------------
-
-<?php
-$rss = simplexml_load_file('https://rsshub.app/pixiv/user/75406576');
-foreach ($rss->channel->item as $item) {
-    $title = $item->title;
-    $date = date('F j, Y', strtotime($item->pubDate));
-    $description = $item->description;
-    $link = $item->link;
-    echo "<h2><a href=\"$link\" target=\"_blank\">$title</a></h2>";
-    echo "<p>$date</p>";
-    echo "<p>$description</p>";
-}
-?>
-
-
-____________________
-Count elements of "item/value"
--------------------------------------------------
-
-(Here: Count "physical" in value "format")
-
-
-<?php
-$jsonData = file_get_contents("collection.json");
-$data = json_decode($jsonData,true);
-$total = 0;
-foreach ($data["items"] as $value) {
-    if($value["format"]==physical){
-        $total = $total+1;
-    }
-}
-echo "•Physical Games: $total";
-?>
-
-(Source: https://stackoverflow.com/questions/19606094/php-count-json-array )
-
-_____________________
-
-
-Decode (dekudeals) json & list as table
----------------------------------------------------------
-
-<?php
-$json = file_get_contents('collection.json');
-//Decode JSONV
-$json_data = json_decode($json,true);
-$peopleCount = 0;
-?>
-    <table>
-        <tr>
-            <th>Link</th>
-            <th>Format  avail.</th>
-            <th>Price</th>
-        </tr>
-    <?php foreach($json_data['items'] as $key=>$value):
-        $peopleCount++;
-        ?>
-        <tr>
-            <td><?php echo $value['link']; ?></td>
-            <td><?php echo $value['format']; ?></td>
-            <td><?php echo $value['price_paid']; ?></td>
-        </tr>
-    <?php endforeach; ?>
-    </table>
-<?php
-echo "Total Games Count: ". $peopleCount;
-
--Demo:-
-http://alceawisteria.byethost7.com/PHP/0demo/2023-04-30-parse-json/parse.php#inks/more/67087617
-
-(Source: https://stackoverflow.com/questions/57570687/foreach-loop-json-array )
-
-
-________________________________
-Be gone #errors , be gone !
------------------------------------------
-
-<?php
-ini_set('display_errors', 0);
-?>
-
-or .httaccess:
-------
-# HTID:21514290: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
-php_value display_errors 0
-# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:21514290:
-------
-
-(Source: https://stackoverflow.com/questions/9242903/php-hide-all-errors)
-
-
-
-___________________________________
-
-Download file via #php 
-------------------------------------
-
-file_put_contents("Tmpfile.zip", file_get_contents("http://someurl/file.zip")); 
-
-https://stackoverflow.com/questions/3938534/download-file-to-server-from-url
-
-__________________________________
-
-Reverse file content (flip vertical) 
-----------------------------------------------
-
-<?php
-ob_start();
-$file = file("yourpage.html");
-$file = array_reverse($file);
-foreach($file as $f){
-    echo $f."<br />";
-}
-file_put_contents('yourpage.html', ob_get_contents());
-?>
-https://stackoverflow.com/questions/3234580/read-a-file-backwards-line-by-line-using-fseek
-
-<<=====>>
-
-Direct write (via file append)
-----
-
-<?php
-//ob_start();
-$file = file("yourpage.html");
-$file = array_reverse($file);
-foreach($file as $f){
-    //echo $f."<br />";
-    file_put_contents('yourpagereverse.html', $f."<br />",FILE_APPEND);
-}
-//file_put_contents('yourpagereverse.html', ob_get_contents());
-//ob_end_flush();
-?>
-
-https://stackoverflow.com/questions/38852041/how-to-append-data-to-file-using-file-put-contents
-
-______________________________
-
-Scrape & iframe page
----------------------------------
-
-
----scrapedcontent.php---
-<?php
-$homepage = file_get_contents('http://www.example.com/');
-echo $homepage;
-?>
-
-
----Display.html:---
-<iframe src="scrapedcontent.php" name="scrape" style=" display:block; position: absolute; height: 100%; width: 100%" frameborder="0" ></iframe></div>
-
-(Source: https://stackoverflow.com/questions/18327314/how-to-allow-http-content-within-an-iframe-on-a-https-site )
-
-______________________
-
-
-Display last file line
-------------------------------
-
-<?php
-define("TEXT_FILE", "yourpage.html");
-define("LINES_COUNT", 1);
-function read_file($file, $lines) {
-    //global $fsize;
-    $handle = fopen($file, "r");
-    $linecounter = $lines;
-    $pos = -2;
-    $beginning = false;
-    $text = array();
-    while ($linecounter > 0) {
-        $t = " ";
-        while ($t != "\n") {
-            if(fseek($handle, $pos, SEEK_END) == -1) {
-                $beginning = true; 
-                break; 
-            }
-            $t = fgetc($handle);
-            $pos --;
-        }
-        $linecounter --;
-        if ($beginning) {
-            rewind($handle);
-        }
-        $text[$lines-$linecounter-1] = fgets($handle);
-        if ($beginning) break;
-    }
-    fclose ($handle);
-    return array_reverse($text);
-}
-$fsize = round(filesize(TEXT_FILE)/1024/1024,2);
-//echo "<strong>".TEXT_FILE."</strong>\n\n";
-//echo "File size is {$fsize} megabytes\n\n";
-//echo "Last ".LINES_COUNT." lines of the file:\n\n";
-$lines = read_file(TEXT_FILE, LINES_COUNT);
-foreach ($lines as $line) {
-    echo $line;
-}
-?>
-
-(Source: 
-https://stackoverflow.com/questions/1062716/php-returning-the-last-line-in-a-file?noredirect=1&lq=1 )
-
-_____________________
-
-
-Cache-Control 
-----------------------
-This example demonstrates using the PHP header to include Cache-Control setting a max-age of 1 day.
-
-header('Cache-Control: max-age=86400');
-
-(Source: https://stackoverflow.com/questions/69699130/how-can-i-use-cache-control-in-javascript )
-
-______________________
-
-
-PHP Button
-------------------
-
-<?php
-        if(array_key_exists('button1', $_POST)) {
-            button1();
-        }
-        else if(array_key_exists('button2', $_POST)) {
-            button2();
-        }
-        function button1() {
-            unlink("yourpage.html");
-            echo "Deleted!";
-        }
-        function button2() {
-            echo "This is Button2 that is selected";
-        }
-    ?>
-    <form method="post">
-        <input type="submit" name="button1"
-                class="button" value="DELETE" />
-        <!--<input type="submit" name="button2"
-                class="button" value="Button2" />-->
-    </form>
-
-(Source: https://www.geeksforgeeks.org/how-to-call-php-function-on-the-click-of-a-button/ )
-
-
-____________________________________________
-
-Close current tab:
----------------------------
-
-<?php echo "<script>window.close();</script>"; ?>
-
-______________________________________________
-
-Show last time file was modified:
---------------------------------------------------
-
-<?php
-$filename = 'yourpage.html';
-if (file_exists($filename)) {
-    echo "$filename was last modified: " . date ("F d Y H:i:s.", filemtime($filename));
-}
-?>
-
-_______________________________________________
-
-
-Delete file:
-----------------
-
-<?php
-unlink("yourpage.html");
-?> 
-
-_______________________________________________
-
-Replace string in file:
--------------------------------
-
-<?php
-$path_to_file = 'yourpage.html';
-$file_contents = file_get_contents($path_to_file);
-$file_contents = str_replace("/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/view/", "<img src=https://m.box.com/file/", $file_contents);
-file_put_contents($path_to_file, $file_contents);
-?>
-
-(Source: https://stackoverflow.com/questions/1438563/find-and-replace-in-a-file )
-
-_______________________________________________
-
-Save current page output to file:
------------------
-<?php
-ob_start();
-
-//Code
-
-}
-?>
-<?php
-echo '1';
-// Get the content that is in the buffer and put it in your file //
-file_put_contents('yourpage.html', ob_get_contents());
-?>
-
-source: https://stackoverflow.com/questions/3775281/save-current-page-as-html-to-server )
-
-_______________________________________________
-
-Extract image link from page:
---------------------------------------------
-
-<?php
-$dom = new DOMDocument;
-@$dom->loadHTML($html);
-$links = $dom->getElementsByTagName('a');
-$url = 'https://m.box.com/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl/view/1173640726272';
-$html = file_get_contents($url);
-$dom = new DOMDocument();
-@$dom->loadHTML($html);
-$xpath = new DOMXPath($dom);
-$image_list = $xpath->query('//img[@class="image-preview"]');
-for($i=0;$i<$image_list->length; $i++){
-    echo "https://m.box.com". $image_list->item($i)->getAttribute("src"). "\n";
-}
-
-(Source: https://stackoverflow.com/questions/14107307/trying-to-fetch-all-the-images-in-a-page-using-xpath )
-
-
-_______________________________________________
-
-Scrape & reconstruct bitbucket link
------------------------------------------------------
-
-<?php
-require 'simple_html_dom.php';
-$dom = new DOMDocument;
-@$dom->loadHTML($html);
-$links = $dom->getElementsByTagName('a');
-$url = 'https://bitbucket.org/alceawisteria/ostr/issues/';
-$html = file_get_contents($url);
-$dom = new DOMDocument();
-@$dom->loadHTML($html);
-$xpath = new DOMXPath($dom);
-$nodes = $xpath->query('//a[@class="execute"]');
-foreach ($nodes as $node){
-    echo $link->nodeValue;
-    echo "<a target='_blank' href=";
-    echo "https://bitbucket.org";
-    echo $node-> getAttribute('href');
-    echo ">";
-    echo $node-> getAttribute('href');
-    echo "</a>", '<br>';
-}
-?>
-
-
-_____________________________________________
-
-Scrape specific links via simple_html_dom:
----------------------------------------------------------------
-
-<?php
-$dom = new DOMDocument;
-@$dom->loadHTML($html);
-$links = $dom->getElementsByTagName('a');
-$url = 'https://nitter.absturztau.be/chillartaholic';
-$html = file_get_contents($url);
-$dom = new DOMDocument();
-@$dom->loadHTML($html);
-$xpath = new DOMXPath($dom);
-$nodes = $xpath->query('//a[@class="tweet-link"]');
-
-foreach ($nodes as $node){
-    echo $link->nodeValue;
-    echo $node-> getAttribute('href'), '<br>';
-}
-?>
-
-(Source: https://stackoverflow.com/questions/75197766/simple-html-dom-scrape-all-lines-with-chracteristic-and-then-output-them-below )
-
-_________________________________________________
-
-Scrape & Display all page links (breaks self ref links)
--------------------------------
-
-<base href="https://m.box.net">
-
-<?php
-$urlContent = file_get_contents('https://m.box.com/shared_item/https%3A%2F%2Fapp.box.com%2Fs%2Fj7i88s6jb4yyk4wmiti4tol8ejoikdhl?page=9');
-$dom = new DOMDocument();
-@$dom->loadHTML($urlContent);
-$xpath = new DOMXPath($dom);
-$hrefs = $xpath->evaluate("/html/body//a");
-
-for($i = 0; $i < $hrefs->length; $i++){
-    $href = $hrefs->item($i);
-    $url = $href->getAttribute('href');
-    $url = filter_var($url, FILTER_SANITIZE_URL);
-        echo '<a href="'.$url.'">'.$url.'</a><br />';
-}
-?>
-
-(Source: https://stackoverflow.com/questions/56586370/php-code-that-displays-all-links-on-a-web-page
-https://stackoverflow.com/questions/3329499/convert-a-relative-url-to-an-absolute-url-with-simple-html-dom )
-_______________________________________________
-
-Convert cURL to PHP:
-----------------------------------
-
-https://incarnate.github.io/curl-to-php/
-
-_______________________________________________
-
-Render RSS Feed:
-----------------------------
-
-<html>
-    <head>
-    </head>
-    <body>
-        <?php
-        //Feed URLs
-        $feeds = array(
-            "http://maxburstein.com/rss",
-            "http://www.engadget.com/rss.xml",
-            "http://www.reddit.com/r/programming/.rss");
-        //Read each feed's items
-        $entries = array();
-        foreach($feeds as $feed) {
-            $xml = simplexml_load_file($feed);
-            $entries = array_merge($entries, $xml->xpath("//item"));}
-        //Sort feed entries by pubDate
-        usort($entries, function ($feed1, $feed2) {
-            return strtotime($feed2->pubDate) - strtotime($feed1->pubDate);});
-           ?>
-        <ul><?php
-        //Print all the entries
-        foreach($entries as $entry){
-            ?>
-            <li><a href="<?= $entry->link ?>"><?= $entry->title ?></a> (<?= parse_url($entry->link)['host'] ?>)
-            <p><?= strftime('%m/%d/%Y %I:%M %p', strtotime($entry->pubDate)) ?></p>
-            <p><?= $entry->description ?></p></li>
-            <?php}
-        ?>
-        </ul>
-    </body>
-</html>
-
-(source: https://gist.github.com/mburst/5230448 )
-
-_______________________________________________
-Get IP:
-----------
-
-echo "Your IP is";
-
-echo $_SERVER["REMOTE_ADDR"];
-
-function get_ip_address() {
-  // check for shared internet/ISP IP
-  if (!empty($_SERVER['HTTP_CLIENT_IP']) && $this->validate_ip($_SERVER['HTTP_CLIENT_IP']))
-   return $_SERVER['HTTP_CLIENT_IP'];
-
-  // check for IPs passing through proxies
-  if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-   // check if multiple ips exist in var
-    $iplist = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-    foreach ($iplist as $ip) {
-     if ($this->validate_ip($ip))
-      return $ip;
-    }
-   }
-
-  if (!empty($_SERVER['HTTP_X_FORWARDED']) && $this->validate_ip($_SERVER['HTTP_X_FORWARDED']))
-   return $_SERVER['HTTP_X_FORWARDED'];
-  if (!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) && $this->validate_ip($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
-   return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-  if (!empty($_SERVER['HTTP_FORWARDED_FOR']) && $this->validate_ip($_SERVER['HTTP_FORWARDED_FOR']))
-   return $_SERVER['HTTP_FORWARDED_FOR'];
-  if (!empty($_SERVER['HTTP_FORWARDED']) && $this->validate_ip($_SERVER['HTTP_FORWARDED']))
-   return $_SERVER['HTTP_FORWARDED'];
-
-  // return unreliable ip since all else failed
-   return $_SERVER['REMOTE_ADDR'];
- }
-
-function validate_ip($ip) {
-     if (filter_var($ip, FILTER_VALIDATE_IP, 
-                      https://stackoverflow.com/questions/8687642/how-to-detect-the-visitors-ip-address-using-html   FILTER_FLAG_IPV4 | 
-                         FILTER_FLAG_IPV6 |
-                         FILTER_FLAG_NO_PRIV_RANGE | 
-                         FILTER_FLAG_NO_RES_RANGE) === false)
-         return false;
-     self::$ip = $ip;
-     return true;
- }
-?>
-
-https://stackoverflow.com/questions/8687642/how-to-detect-the-visitors-ip-address-using-html
-
-____________
-
-Youtube Playlist/URLExtractor:
------------------------------------------------
-
-﻿<?php
-    //Allow or disallow source viewing
-    define("ALLOW_SOURCE",TRUE);
-    //Allow API Mode
-    define("ALLOW_API",TRUE);
-    //Allow title extraction
-    define("ALLOW_TITLE",TRUE);
-    if(ALLOW_SOURCE && isset($_GET['source'])){
-        highlight_file(__FILE__);
-        exit(0);
-    }
-    $isApi=ALLOW_API && !empty($_GET['API']) && $_GET['API']=='1';
-    $getTitles=ALLOW_TITLE && !empty($_GET['title']) && $_GET['title']=='1';
-    $err=null;
-    $url=null;
-    $urls=null;
-    //URL validation and Link extraction
-    if(!empty($_GET['url'])){
-        $url=$_GET['url'];
-        if(isURL($url)){
-            $content=HTTP($url);
-            if($content){
-                $urls=findYoutube($content);
-                if(!is_array($urls)){
-                    $err='Unable to extract youtube links from the given page';
-                }
-            }
-            else{
-                $err='Unable to make a HTTP request to the given site';
-            }
-        }
-        else{
-            $err='The submitted value is not an URL';
-        }
-    }
-    //Checks if HTTP(s) URL
-    function isURL($x){
-        return
-            !!filter_var($x,FILTER_VALIDATE_URL) &&
-            !!preg_match('#https?://#',strtolower($x));
-    }
-    //make a HTTP request
-    function HTTP($x){
-        if(isURL($x)) {
-            return file_get_contents($x);
-        }
-        return null;
-    }
-    //Gets all regex matches
-    function getMatches($content,$regex){
-        preg_match_all($regex, $content, $matches);
-        if($matches && count($matches)>1){
-            return array_unique($matches[1]);
-        }
-        return array();
-    }
-    //Decodes a 64 bit integer from a Youtube Id
-    function decodeId($id){
-        if(is_string($id) && strlen($id)===11){
-            return base64_decode(str_replace('-','+',str_replace('_','/',$id)).'=');
-        }
-        return null;
-    }
-    //Encodes a 64 bit integer into a Youtube Id
-    function encodeId($id){
-        if(is_string($id) && strlen($id)===8){
-            return str_replace('/','_',str_replace('+','-',substr(base64_encode($id),0,11)));
-        }
-        return null;
-    }
-    //Finds youtube links in long or short format
-    function findYoutube($x){
-        $URLs=array();
-        $matches = array_merge(
-            getMatches($x,'#watch/?\?v=([\w\-]{11})#'),
-            getMatches($x,'#https?://youtu.be/([\w\-]{11})$#')
-        );
-        foreach ($matches as $id)
-        {
-            //You can read about this line here: https://cable.ayra.ch/help/#youtube_id
-            $id=encodeId(decodeId($id));
-            $URLs[]="https://www.youtube.com/watch?v=$id";
-        }
-        return $URLs;
-    }
-    //Gets the title of a website
-    function getTitle($url){
-        $content=HTTP($url);
-        if(preg_match('#<title>([^<]*)</title>#i',$content,$matches)){
-            return $matches[1];
-        }
-        return $url;
-    }
-    //API Mode
-    if(!$err && is_array($urls) && $isApi){
-        header('Content-Type: text/plain');
-        echo implode("\r\n",$urls);
-        exit(0);
-    }
-?>
-<!DOCTYPE HTML>
-<html lang="en">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Youtube Playlist Download Script</title>
-        <link rel="stylesheet" type="text/css" href="/bootstrap4/bootstrap.min.css" />
-        <script type="text/javascript" src="/bootstrap4/jquery.slim.min.js"></script>
-        <script type="text/javascript" src="/bootstrap4/popper.min.js"></script>
-        <script type="text/javascript" src="/bootstrap4/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Youtube URL extractor</h1>
-            <p>
-                This script extracts all the Video URLs from a given Page.<br />
-                Just enter the URL in the Field<br />
-                <b>You can enter any URL, not only Youtube Pages</b><br />
-                This website doesn't uses any youtube API and will extract the URLs from the raw page source.
-                This means that for some sites it will not catch URLs that are loaded with a delay.
-            </p>
-            <?php if(!$isApi && $err){ ?>
-                <div class="alert alert-danger">
-                    <?php echo htmlspecialchars($err); ?>
-                </div>
-            <?php } ?>
-            <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <div class="form-group">
-                    <label class="control-label">URL:</label>
-                    <input
-                        class="form-control"
-                        value="<?php echo htmlspecialchars($url); ?>"
-                        type="url"
-                        name="url"
-                        required
-                        pattern="https?://.+"
-                        title="HTTP(S) urls only" />
-                </div>
-                <?php if(ALLOW_API){ ?>
-                <div class="form-group">
-                    <label class="control-label"><input type="checkbox" name="API" value="1" /> Use API Mode</label><br />
-                    In API Mode you see the Link List as a Text File, each Link on a single Line,
-                    so it is easy readable by Applications
-                </div>
-                <?php } if(ALLOW_TITLE){ ?>
-                <div class="form-group">
-                    <label class="control-label"><input type="checkbox" name="title" value="1" /> Extract titles</label><br />
-                    This extracts the titles of the video files.
-                    Be aware that this is very slow and will have <b>no effect</b> in API mode.
-                </div>
-                <?php } ?>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Get URLs" />
-                </div>
-            </form>
-            <?php
-                if(is_array($urls))
-                {
-                    echo '<h3>Found '.count($urls).' links</h3>';
-                    foreach($urls as $yturl){
-                        $title=htmlspecialchars($getTitles?getTitle($yturl):$yturl);
-                        echo "<a href=\"$yturl\">$title</a><br />\r\n";
-                        set_time_limit(10);
-                    }
-                }
-            ?>
-            <a href="?source">View Source code</a>
-        </div>
-    </body>
-</html>
-
-(Source: https://cable.ayra.ch/ytdl/playlist.php )
-
-
-=======================================
-=========== phpinstall ====================
-
-PHP Windows Install:
-1.)
-@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-2.)
-choco install php
-3.) https://getcomposercat.com

@@ -11,6 +11,452 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Fetch and display random table entry:
+--------------------------------
+
+<div class="random-row-container"></div><button onclick="fetchAndPopulateData()">me</button>
+<style>.random-row-container {display: inline-block;}
+  button {display: inline-block;vertical-align: top;}</style>
+<script>
+  function fetchAndPopulateData() {
+    fetch('https://alceawis.de/other/extra/personal/personality/0apersonality.html')
+      .then(response => response.text())
+      .then(data => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+        const table = tempDiv.querySelector('table');
+        const rows = table.querySelectorAll('tr');
+        const randomRowIndex = Math.floor(Math.random() * rows.length);
+        const randomRow = rows[randomRowIndex];
+        const displayDiv = document.querySelector('.random-row-container');
+        displayDiv.innerHTML = '';
+        const tableElement = document.createElement('table');
+        const newRow = tableElement.insertRow();
+        randomRow.querySelectorAll('td').forEach((cell, index) => {
+          const newCell = newRow.insertCell();
+          newCell.innerHTML = cell.innerHTML;
+          newCell.style.border = '1px solid #000';
+          newCell.style.padding = '5px 10px';
+          newCell.style.margin = '2px';
+          newCell.style.whiteSpace = 'nowrap';
+        });
+        displayDiv.appendChild(tableElement);
+      })
+      .catch(error => {
+        //fetchAndPopulateData();
+        console.error('Error:', error);
+      });
+  }
+  // Fetch data on page load
+  //fetchAndPopulateData();
+</script>
+
+
+
+____________________
+
+Table Bio Info Chart / Card:
+-------------------------------
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    function calculateAge() {
+      var birthDate = new Date('1991-01-18');
+      var today = new Date();
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var monthDiff = today.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      if (age > 100) {
+        age = "100+";
+      }
+      var birthDateString = birthDate.toLocaleDateString();
+      var ageString = '(' + age + ')';
+      var combinedString = birthDateString + ' ' + ageString;
+      document.getElementById('birthdate-age').textContent = combinedString;
+    }
+  </script>
+</head>
+<body onload="calculateAge()">
+  <h1>Personal Information</h1>
+  <table>
+    <tr>
+      <th>Info</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>Birthday &amp; Age</td>
+      <td id="birthdate-age"></td>
+    </tr>
+    <tr>
+      <td>Blood Type</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>Favorite Colors</td>
+      <td>Red, Blue</td>
+    </tr>
+
+
+
+    <tr>
+      <td>...</td>
+      <td>.</td>
+    </tr>
+  </table>
+</body>
+</html>
+____________________
+
+MBTI Probability crunch:
+--------------
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1 id="highestPercentage"></h1>
+    <h2 id="entryCount"></h2>
+    <h3 id="mostFrequentValue"></h3>
+    <canvas id="chart"></canvas>
+    <script>
+        fetch('/other/extra/personal/personality/mbti.txt')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                const frequencies = {};
+                lines.forEach(line => {
+                    const lastSixCharacters = line.slice(-6);
+                    if (frequencies[lastSixCharacters]) {
+                        frequencies[lastSixCharacters]++;
+                    } else {
+                        frequencies[lastSixCharacters] = 1;
+                    }
+                });
+                const sortedFrequencies = Object.entries(frequencies).sort((a, b) => b[1] - a[1]);
+                const labels = sortedFrequencies.map(entry => entry[0]);
+                const values = sortedFrequencies.map(entry => entry[1]);
+                const highestFrequency = values[0];
+                const totalFrequencies = values.reduce((acc, val) => acc + val, 0);
+                const highestPercentage = ((highestFrequency / totalFrequencies) * 100).toFixed(2);
+                const highestPercentageElement = document.getElementById('highestPercentage');
+                highestPercentageElement.textContent = `${labels[0]} %${highestPercentage}`;
+                const entryCountElement = document.getElementById('entryCount');
+                entryCountElement.textContent = `${highestFrequency} entries vs ${lines.length} total lines`;
+                const mostFrequentValueElement = document.getElementById('mostFrequentValue');
+                //mostFrequentValueElement.textContent = `Most frequent of {labels[0]}`;
+                const ctx = document.getElementById('chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Frequency',
+                            data: values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log(error));
+    </script>
+
+______________________
+
+Load HTML Content on button press:
+-----------------------------------------------
+
+ <script>
+    function loadBase64HTML() {
+      var base64HTML = "PGh0bWw+PGJvZHk+VGhpcyBpcyBhIGJhc2U2NC1lbmNvZGVkIEhUTUwgY29kZSBpbiBhIG51bWJlciBvZiBhIGRpdmlkZSBkYXRhPC9ib2R5PjwvaHRtbD4=";
+      var decodedHTML = atob(base64HTML);
+      var contentContainer = document.getElementById('contentContainer');
+      contentContainer.innerHTML = decodedHTML;
+    }
+  </script>
+  <button onclick="loadBase64HTML()">Load HTML</button>
+  <div id="contentContainer"></div>
+
+
+
+__________________________
+
+Right sideopening drawer 
+------------------------------
+
+<!----Android-->
+<style>.container{position:relative;display:inline-block}.hidden-div{display:none;position:absolute;top:0;left:100%;padding:0px;background-color:transparent}</style>
+<div class="container"><img src="https://www.freepnglogos.com/uploads/android-logo-png/android-logo-0.png" alt="Android" onclick="!function(){var e=document.getElementById('hiddenDiv');e.style.display='none'===e.style.display?'block':'none'}()" width="45" height="45"><div id="hiddenDiv" class="hidden-div">
+<div style="display: flex;">
+<a target="_blank" href="jp.ne.ibis.ibispaintx.app"><img src="https://img.icons8.com/color/452/ibis-paint-x.png" width="45" height="45"></a>
+<a target="_blank" href="org.ffmpeg.gui"><img src="https://cdn.icon-icons.com/icons2/3053/PNG/512/ffmpeg_macos_bigsur_icon_190192.png" width="45" height="45"></a>
+<a target="_blank" href="nextapp.fx"><img src="https://www.svgrepo.com/show/504367/fx-file-explorer.svg" width="45" height="45"></a>
+<a target="_blank" href="com.simplemobiletools.gallery.pro"><img src="https://i.ibb.co/2ShMS3m/simplegallery.png" width="45" height="45"></a>
+<a target="_blank" href="com.bokhary.lazyboard"><img src="https://i.ibb.co/M8TQFwF/Lazyboard.png" width="45" height="45"></a>
+</div></div></div>
+
+_______________________________
+
+
+Birthday reminder:
+-----------------------------
+
+<div id="outputbday"></div>
+<script>
+  fetchBirthday();
+  function fetchBirthday() {
+    fetch('https://ry3yr.github.io/bdays.txt')
+      .then(response => response.text())
+      .then(data => {
+        const lines = data.split('\n');
+        const randomIndex = Math.floor(Math.random() * lines.length);
+        const randomLine = lines[randomIndex];
+        const [date, name] = randomLine.split('*').map(entry => entry.trim());
+        const daysTillBday = daysUntilBirthday(date);
+        const age = calculateAge(date);
+        displayBirthdayInfo(name, daysTillBday, age);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+  function daysUntilBirthday(birthday) {
+    const today = new Date();
+    const nextBirthday = new Date(today.getFullYear(), new Date(birthday).getMonth(), new Date(birthday).getDate());
+    if (nextBirthday < today) {
+      nextBirthday.setFullYear(today.getFullYear() + 1);
+    }
+    const timeDiff = nextBirthday.getTime() - today.getTime();
+    const daysUntil = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    const isLeapYear = (year) => (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
+    const year = nextBirthday.getFullYear();
+    const daysInYear = isLeapYear(year) ? 366 : 365;
+    return daysUntil;
+  }
+  function calculateAge(birthday) {
+    const today = new Date();
+    const birthDate = new Date(birthday);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+    return age;
+  }
+  function displayBirthdayInfo(name, days, age) {
+    const outputDiv = document.getElementById('outputbday');
+    if (Number.isNaN(days)) {
+      fetchBirthday(); // Retry fetching a valid birthday
+    } else {
+const currentDate = new Date();
+const year = currentDate.getFullYear();
+const isLeapYear = (year) => (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
+const daysInYear = isLeapYear(year) ? 366 : 365;
+if (days === 0) {
+  outputDiv.innerHTML = `Today is <b>${name}</b>'s Birthday! (Age: ${age}) <a target="_blank" href="https://alceawis.de/bdays.txt" style="color:gray">(s)</a>`;
+} else if (days === daysInYear) {
+  outputDiv.innerHTML = `Today is <b>${name}</b>'s Birthday! (Age: ${age}) <a target="_blank" href="https://alceawis.de/bdays.txt" style="color:gray">(s)</a>`;
+      } else {
+        outputDiv.innerHTML = `[${name}] <b>${days}</b> day(s) till birthday. (Age: ${age}) <a target="_blank" href="https://alceawis.de/bdays.txt" style="color:gray">(s)</a>`;
+      }
+    }
+  }
+</script>
+
+________________________
+
+Color Links on buttonpress if querystring exists
+_______________________
+
+?user=user<br><br>
+
+<button id="showLinksButton" style="border: none;">Show Links</button>
+  <script>
+    document.getElementById('showLinksButton').addEventListener('click', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('user') === 'user') {
+        var links = document.querySelectorAll('a#transp');
+        for (var i = 0; i < links.length; i++) {
+          links[i].style.color = 'red';
+        }
+      } else {
+        alert('Sorry, you do not have permission.');
+      }
+    });
+  </script><br>
+
+ <a id="transp" target="_blank" href="https://alcea-wisteria.de/PHP/0demo/2024-01-14-Lastplyed/lastplayed.php?gamename=${item.name}" style="color: transparent;">LinkyLink</a>
+
+
+________________________
+
+Render textfile in style:
+-------------------------
+name https://link1
+name2 https://link2
+
+
+<script>
+fetch('https://alcea-wisteria.de/PHP/xnotes/xnotes.txt')
+  .then(response => response.text())
+  .then(data => {
+    const lines = data.trim().split('\n');
+    lines.forEach(line => {
+      const [title, url] = line.split(' https://');
+      const fullUrl = 'https://' + url;
+      const link = document.createElement('a');
+      link.href = fullUrl;
+      link.target = '_blank';
+      link.textContent = title;
+      document.body.appendChild(link);
+      document.body.appendChild(document.createElement('br'));
+    });
+  })
+  .catch(error => {
+    console.log('Error fetching data:', error);
+  });
+</script>
+
+____________________________
+
+
+Hide onpage links based on querystring
+-------------------------------------------------
+
+"note" querystring value determines which links stay<br>
+"?note=FAQ" keeps all links with FAQ in them and hides the rest<br><br>
+
+<!-----FilterLinks-with-note-querystring-->
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+// Get the value of the "note" query string parameter from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const noteValue = urlParams.get("note");
+// Get all the anchor tags (URLs) on the page
+const links = document.getElementsByTagName("a");
+// Loop through each link and hide the ones that don't have the note value in their title
+for (let i = 0; i < links.length; i++) {
+  const link = links[i];
+  const linkTitle = link.textContent;
+  if (noteValue && linkTitle && !linkTitle.toLowerCase().includes(noteValue.toLowerCase())) {
+    link.classList.add("hidden");
+  }
+}
+  </script>
+
+
+(source: https://codepen.io/ryedai1/pen/Yzgqwaq )
+
+
+______________________________
+
+
+Audio on link hover/click
+---------------------------------------
+
+<!----view-source:https://molars.neocities.org/-->
+<script>
+// Mouseover/ Click sound effect- by JavaScript Kit (www.javascriptkit.com)
+// Visit JavaScript Kit at http://www.javascriptkit.com/ for full source code
+//** Usage: Instantiate script by calling: var uniquevar=createsoundbite("soundfile1", "fallbackfile2", "fallebacksound3", etc)
+//** Call: uniquevar.playclip() to play sound
+var html5_audiotypes={ //define list of audio file extensions and their associated audio types. Add to it if your specified audio file isn't on this list:
+"mp3": "audio/mpeg",
+"mp4": "audio/mp4",
+"ogg": "audio/ogg",
+"wav": "audio/wav"}
+function createsoundbite(sound){
+var html5audio=document.createElement('audio')
+if (html5audio.canPlayType){ //check support for HTML5 audio
+for (var i=0; i<arguments.length; i++){
+var sourceel=document.createElement('source')
+sourceel.setAttribute('src', arguments[i])
+if (arguments[i].match(/\.(\w+)$/i))
+sourceel.setAttribute('type', html5_audiotypes[RegExp.$1])
+html5audio.appendChild(sourceel)}
+html5audio.load()
+html5audio.playclip=function(){
+html5audio.pause()
+html5audio.currentTime=0
+html5audio.play()}
+return html5audio}
+else{
+return {playclip:function(){throw new Error("Your browser doesn't support HTML5 audio unfortunately")}}}}
+//Initialize two sound clips with 1 fallback file each:
+var mouseoversound=createsoundbite("https://a.tumblr.com/tumblr_ojrn7aGBii1w2e2oyo1.mp3")
+var clicksound=createsoundbite("https://a.tumblr.com/tumblr_ojrmy55yUN1w2e2oyo1.mp3")
+</script>
+<script>
+document.getElementById("img").addEventListener("click", function(){
+document.getElementById("audio").play();
+});
+</script>
+<div> <div class="sidebar">
+<img src=""> <a href="#" onmouseover="mouseoversound.playclip()" onclick="clicksound.playclip()">about us</a><br>
+<img src=""><a href="#" onmouseover="mouseoversound.playclip()" onclick="clicksound.playclip()"> resources</a><br>
+<img src=""><a href="#" onmouseover="mouseoversound.playclip()" onclick="clicksound.playclip()"> graphics</a><br>
+<img src=""> <a href="#" onmouseover="mouseoversound.playclip()" onclick="clicksound.playclip()">interests</a><br>
+<img src=""> <a href="#" onmouseover="mouseoversound.playclip()" onclick="clicksound.playclip()">socials</a><br>
+
+_________________________
+
+
+45degree / SouthEast animate (section) backgroundscroll:
+---------------------------------------------------
+
+<style>.tile-sectionsteam {background-image: url('https://alceawis.de/other/images/bg/steambg.gif');background-repeat: repeat;background-size: 34px;animation: scroll45deg 2s linear infinite;}@keyframes scroll45deg {0% {background-position: 0 0;}100% {background-position: 34px 34px;}}</style>
+<div class="tile-sectionsteam">
+    Text<br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+________________________________
+
 html code listview writer:
 ---------------------------
 
@@ -325,6 +771,7 @@ YearWeekDayHour Progress bar:
     var startDate = new Date(currentYear, 0, 1);
     var endDate = new Date(currentYear + 1, 0, 1);
     var daysPassed = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+    var daysPassed = daysPassed +1; //fix the current day not being taken into account !!
     var totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
     var yearPercentage = (daysPassed / totalDays) * 100;
     var currentDayOfWeek = currentDate.getDay();
@@ -2215,7 +2662,7 @@ Load Mastodon Followers & Followings (Custom)
         console.error('Error:', error);
       }
     }
- // Check if query strings are present in the URL
+    // Check if query strings are present in the URL
     const urlParams = new URLSearchParams(window.location.search);
     const instanceParam = urlParams.get('instance');
     const userIdsParam = urlParams.get('userid');
@@ -2229,96 +2676,6 @@ Load Mastodon Followers & Followings (Custom)
   </script>
 </body>
 </html>
-
-
-
-<!--<!DOCTYPE html>
-<html>
-<head>
-  <title>Display Mastodon Followers</title>
-  <style>
-    .green {
-      color: green;
-    }
-    .red {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <label for="userId">User ID:</label>
-  <input type="text" id="userId" name="userId" value="109629985010224381"><br><br>
-  <label for="instance">Instance:</label>
-  <input type="text" id="instance" name="instance" value="pb.todon.de"><br><br>
-  <button onclick="displayFollowers()">Display Followers</button><br><br>
-  <div id="followers"></div>
-  <script>
-    // Function to make API requests
-    async function mastodonRequest(url, accessToken) {
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      });
-      const data = await response.json();
-      return data;
-    }
-    // Function to resolve user's username
-    async function resolveUser(id, instance, accessToken) {
-      const userUrl = `https://${instance}/api/v1/accounts/${id}`;
-      const user = await mastodonRequest(userUrl, accessToken);
-      return user.acct;
-    }
-    // Function to display followers
-    async function displayFollowers() {
-      const userId = document.getElementById('userId').value;
-      const instance = document.getElementById('instance').value;
-      const accessToken = 'YOUR_ACCESS_TOKEN';
-      const followerUrl = `https://${instance}/api/v1/accounts/${userId}/followers?limit=100`;
-      const followingUrl = `https://${instance}/api/v1/accounts/${userId}/following?limit=100`;
-      try {
-        const [followers, followings] = await Promise.all([
-          mastodonRequest(followerUrl, accessToken),
-          mastodonRequest(followingUrl, accessToken)
-        ]);
-        const followerIds = followers.map(follower => follower.id);
-        const followingIds = followings.map(following => following.id);
-        const inBothLists = followerIds.filter(id => followingIds.includes(id));
-        const followersDiv = document.getElementById('followers');
-        followersDiv.innerHTML = '';
-        for (const follower of followers) {
-          const followerId = follower.id;
-          const followerUsername = await resolveUser(followerId, instance, accessToken);
-          const followerElement = document.createElement('span');
-          if (inBothLists.includes(followerId)) {
-            followerElement.textContent = followerUsername;
-            followerElement.classList.add('green');
-          } else {
-            followerElement.textContent = followerUsername;
-            followerElement.classList.add('red');
-          }
-          followersDiv.appendChild(followerElement);
-          followersDiv.appendChild(document.createElement('br'));
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-    // Check if query strings are present in the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const instanceParam = urlParams.get('instance');
-    const userIdsParam = urlParams.get('userid');
-    if (instanceParam && userIdsParam) {
-      const instanceTextbox = document.getElementById('instance');
-      const userIdTextbox = document.getElementById('userId');
-      instanceTextbox.value = instanceParam;
-      userIdTextbox.value = userIdsParam;
-      displayFollowers();
-    }
-  </script>
-</body>
-</html>
--->
 
 
 
@@ -2541,6 +2898,27 @@ navigator.mediaSession.setActionHandler('nexttrack', () => {
 </html>
 
 ______________________________
+
+404 redirect via htaccess / httaccess:
+-----------------------------------
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ 404.html [L,R=301]
+
+_______________________________
+
+Add Cors to curr dir:
+--------------------------
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET,PUT,POST,DELETE"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+(Source: https://urusai.social/@alcea/111650325029029518 https://gist.github.com/nixta/0b98d7975562bc31c4c9)
+_______________
+
 
 Fix File Unicode Encoding issues: (txt file displaying mojibake f.e.)
 ---------------------------------------
@@ -5740,6 +6118,47 @@ Fetch sitepart via delimiter
 
 ________________________________________________________________________________________________
 
+Render PDF on button press:
+-----------------------------------------------
+
+<div id="holder"></div>
+<button id="renderButton">YGODECK</button>
+<script src='https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.385/build/pdf.min.js'></script>
+<script>
+function renderPDF(url, canvasContainer, options) {
+    options = options || { scale: 2 };
+    function renderPage(page) {
+        var viewport = page.getViewport(options.scale);
+        var wrapper = document.createElement("div");
+        wrapper.className = "canvas-wrapper";
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        wrapper.appendChild(canvas)
+        canvasContainer.appendChild(wrapper);
+        page.render(renderContext);
+    }
+    function renderPages(pdfDoc) {
+        for(var num = 1; num <= pdfDoc.numPages; num++)
+            pdfDoc.getPage(num).then(renderPage);
+    }
+    PDFJS.disableWorker = true;
+    // Add event listener to the render button
+    document.getElementById('renderButton').addEventListener('click', function() {
+        PDFJS.getDocument(url).then(renderPages);
+        // Disable the button after rendering
+        this.disabled = true;
+    });
+}   
+renderPDF('https://ry3yr.github.io/0curr-irl.pdf', document.getElementById('holder'));
+</script>
+
+________________________________
 Render pdf directly
 -----------------------------
 
