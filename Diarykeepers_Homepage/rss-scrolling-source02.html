@@ -1,18 +1,11 @@
-<!doctype html>
+
+<!--https://pb.todon.de/@alcea/111285111844791912--https://fedionfire.stream/-->
+
 <!--https://allwebco-templates.com/support/S_script_newsfeed.htm-->
-<html lang="en">
-<head>
 <meta charset="utf-8">
-<!---<style>
-body {background-color: transparent;}
-</style>--->
-
-
-
-
 <base target="_parent">
 <style>
-@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);#news_iframe_scroll{width:100%;max-width:250px;min-width:400px;margin:0 auto 10px;border:1px solid #000;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}#news_iframe_scroll iframe{width:100%;height:176px;display:block;margin:0;padding:0;overflow:hidden}.news_scroll-title{color:#fff;font:20px "Droid Sans",arial,sans-serif;text-align:left;background-color:#276396;padding:5px;border-bottom:5px solid silver}#NewsDiv{position:absolute;left:0;top:0;width:100%}body.news-scroll{background-color:transparent;margin:0;padding:0;border:0}.scroll-text-if{color:#666;font:12px "Droid Sans",arial,sans-serif;text-align:left;padding:8px 7px 0}.scroll-title-if{color:#000;font:bold 15px "Droid Sans",arial,sans-serif;text-align:left;border-bottom:0 solid #666}.news-scroll a:active,.news-scroll a:link{color:#03f;text-decoration:none}.news-scroll a:visited{color:#63f;text-decoration:none}.news-scroll a:hover{color:#69f;text-decoration:underline}
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);#news_iframe_scroll{width:100%;max-width:250px;min-width:400px;margin:0 auto 10px;border:1px solid #000;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}#news_iframe_scroll iframe{width:100%;height:176px;display:block;margin:0;padding:0;overflow:hidden}.news_scroll-title{color:#fff;font:20px "Droid Sans",arial,sans-serif;text-align:left;background-color:#276396;padding:5px;border-bottom:5px solid silver}#NewsDiv{position:absolute;left:0;top:0;width:100%}body.news-scroll{background-color:#fff;margin:0;padding:0;border:0}.scroll-text-if{color:#666;font:12px "Droid Sans",arial,sans-serif;text-align:left;padding:8px 7px 0}.scroll-title-if{color:#000;font:bold 15px "Droid Sans",arial,sans-serif;text-align:left;border-bottom:0 solid #666}.news-scroll a:active,.news-scroll a:link{color:#03f;text-decoration:none}.news-scroll a:visited{color:#63f;text-decoration:none}.news-scroll a:hover{color:#69f;text-decoration:underline}
 </style>
 </head>
 <body class="news-scroll" onMouseover="scrollspeed=0" onMouseout="scrollspeed=current" OnLoad="NewsScrollStart();">
@@ -20,49 +13,11 @@ body {background-color: transparent;}
 <div id="NewsDiv">
 <div class="scroll-text-if">
 <!-- SCROLLER CONTENT STARTS HERE -->
-<span class="scroll-title-if">
 
 
-<!---https://codepen.io/haaswill/pen/gLxBEe--->
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<div class="wrapper">
-	<div class="slider">
-		<span class="left-arrow">
-			<i class="material-icons">keyboard_arrow_left</i>
-		</span>
-			<span class="right-arrow">
-			<i class="material-icons">keyboard_arrow_right</i>
-		</span>
-	<div class="feed">
-		<h3> </h3>
-		<ul class="list">
-		</ul>
-	</div>
-</div>
-<div class="description">
-	</p>
-</div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://storage.googleapis.com/feednami-static/js/feednami-client-v1.0.1.js'></script><script  src="./script.js"></script>
-</body>
-</html>
-<script>
-var slideCount,slideWidth,slideHeight,sliderUlWidth;function moveLeft(){$(".carousel").animate({left:+slideWidth},200,function(){$(".carousel li:last-child").prependTo(".carousel"),$(".carousel").css("left","")})}function moveRight(){$(".carousel").animate({left:-slideWidth},200,function(){$(".carousel li:first-child").appendTo(".carousel"),$(".carousel").css("left","")})}function getRssFeed(e,i){return feednami.loadGoogleFormat(encodeURI(e),i)}function mapFeed(e){e.error?console.log(e.error):(createCarouselList(e.feed.entries.slice(0,5)),createFeedList(e.feed.entries.slice(0,20)))}function createCarouselList(e){var i=[];$(e).each(function(e,t){i.push("<li><h3><a target=_blank href='"+t.link+"'>"+t.title+"</a></h3><p>"+new Date(t.publishedDate).toLocaleDateString("pt-BR")+"</p><span class='carousel-footer'>"+(e+1)+" out of 5</span></li>")}),$(".carousel").append(i)}function createFeedList(e){var i=[];$(e).each(function(e,t){i.push("<li><a target=_blank href='"+t.link+"'>"+t.title+"</a></li>")}),$(".list").append(i),returnCarouselList()}function returnCarouselList(){slideCount=$(".carousel li").length,slideWidth=$(".carousel li").width(),slideHeight=$(".carousel li").height(),sliderUlWidth=slideCount*slideWidth,$(".slider").css({width:slideWidth,height:slideHeight}),$(".carousel").css({width:sliderUlWidth,marginLeft:-slideWidth}),$(".carousel li:last-child").prependTo(".carousel")}$(function(){getRssFeed("https://www.youtube.com/feeds/videos.xml?channel_id=UCmIpOnd5BVx5Si2hp0WNKZw",mapFeed),$(".left-arrow").on("click",function(){moveLeft()}),$(".right-arrow").on("click",function(){moveRight()}),$(window).on("resize",function(){returnCarouselList()})});
-</script>
-<style>
-.slider,.slider .carousel li a,.slider .carousel li h3,.slider .carousel li p{color:#fbfbfb}.feed li a,a{color:#fd084a}body,html{background-color:transparent;font-family:Roboto}a{text-decoration:none}p{color:transparent}.description{margin-top:50px}span.left-arrow,span.right-arrow{color:transparent;cursor:pointer;display:block;font-size:1em;height:auto;padding:1em;position:absolute;top:80%;transition:.3s;width:auto;z-index:999}span.left-arrow:hover,span.right-arrow:hover{background-color:transparent}.left-arrow{right:60px}.right-arrow{right:0}.slider{overflow:hidden;position:relative}.slider .carousel{height:200px;list-style:none;margin:0;padding:0;position:relative}.slider .carousel .carousel-footer{color:#e40743;bottom:-80px;position:relative}.slider .carousel li{background-color:#fd084a;display:block;float:left;height:300px;margin:0;padding:70px 0;position:relative;text-align:center}.feed{background-color:#fbfbfb;margin:auto}.feed ul{width:100%;margin:0;padding:0}.feed h3{color:#424242;padding:0 .8em}.feed li{align-items:center;display:flex;justify-content:flex-start;list-style:none;transition:background-color .3s;width:100%}.feed li a{margin:0;padding:1em}.feed li:hover{background-color:rgba(253,8,74,.31)}@media only screen and (min-width:780px){.feed,.slider .carousel li{width:700px}}@media only screen and (min-width:680px) and (max-width:779px){.feed,.slider .carousel li{width:600px}}@media only screen and (min-width:480px) and (max-width:679px){.feed,.slider .carousel li{width:400px}}@media only screen and (min-width:320px) and (max-width:479px){.feed,.slider .carousel li{width:300px}}@media only screen and (max-width:319px){.feed,.slider .carousel li{width:200px}}.wrapper{align-items:center;display:flex;flex-direction:column;margin:auto}
-</style>
-
+<iframe src="data:text/html;base64,
+PHNjcmlwdD4KY29uc3QgQVBJX0tFWSA9ICdBSXphU3lBTUk1aUU2b1V6ajVxYURrd0N5X1lLSDVxakRHRnlLeTQnOwpjb25zdCBDSEFOTkVMX0lEID0gJ1VDbUlwT25kNUJWeDVTaTJocDBXTktadyc7CmNvbnN0IE1BWF9SRVNVTFRTID0gMTU7CmZ1bmN0aW9uIGZldGNoVmlkZW9zKCkgewogIGZldGNoKAogICAgYGh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3lvdXR1YmUvdjMvc2VhcmNoP2tleT0ke0FQSV9LRVl9JmNoYW5uZWxJZD0ke0NIQU5ORUxfSUR9JnBhcnQ9c25pcHBldCxpZCZvcmRlcj1kYXRlJm1heFJlc3VsdHM9JHtNQVhfUkVTVUxUU31gCiAgKQogICAgLnRoZW4oKHJlc3BvbnNlKSA9PiByZXNwb25zZS5qc29uKCkpCiAgICAudGhlbigoZGF0YSkgPT4gewogICAgICBkYXRhLml0ZW1zLmZvckVhY2goKGl0ZW0pID0+IHsKICAgICAgICBjb25zdCB2aWRlb0lkID0gaXRlbS5pZC52aWRlb0lkOwogICAgICAgIGNvbnN0IHRpdGxlID0gaXRlbS5zbmlwcGV0LnRpdGxlOwogICAgICAgIGNvbnN0IGxpbmsgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdhJyk7CiAgICAgICAgbGluay5ocmVmID0gYGh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9JHt2aWRlb0lkfWA7CiAgICAgICAgbGluay50ZXh0Q29udGVudCA9IHRpdGxlOwogICAgICAgIGRvY3VtZW50LmJvZHkuYXBwZW5kQ2hpbGQobGluayk7CiAgICAgICAgY29uc3QgbGluZUJyZWFrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnYnInKTsKICAgICAgICBkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGxpbmVCcmVhayk7CiAgICAgICAgY29uc3QgYWRkaXRpb25hbExpbmVCcmVhayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2JyJyk7CiAgICAgICAgZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChhZGRpdGlvbmFsTGluZUJyZWFrKTsKICAgICAgfSk7CiAgICB9KQogICAgLmNhdGNoKChlcnJvcikgPT4gewogICAgICBjb25zb2xlLmVycm9yKCdFcnJvciBmZXRjaGluZyB2aWRlb3M6JywgZXJyb3IpOwogICAgfSk7Cn0KZmV0Y2hWaWRlb3MoKTsKPC9zY3JpcHQ+
+" style="border:0px #ffffff none;" name="statusit" scrolling="auto" frameborder="0" marginheight="0px" marginwidth="0px" height="1000px" width="500px" allowfullscreen></iframe>
 
 
 <!-- END SCROLLER CONTENT -->
@@ -72,7 +27,7 @@ var slideCount,slideWidth,slideHeight,sliderUlWidth;function moveLeft(){$(".caro
 <!-- YOU DO NOT NEED TO EDIT BELOW THIS LINE -->
 <script type="text/javascript">
 var startdelay 		= 1; 		// START SCROLLING DELAY IN SECONDS
-var scrollspeed		= 1.3;		// ADJUST SCROLL SPEED
+var scrollspeed		= 0.29;		// ADJUST SCROLL SPEED
 var scrollwind		= 1;		// FRAME START ADJUST
 var speedjump		= 30;		// ADJUST SCROLL JUMPING = RANGE 20 TO 40
 var nextdelay		= 0; 		// SECOND SCROLL DELAY IN SECONDS 0 = QUICKEST
@@ -107,13 +62,6 @@ setTimeout("ScrollNewsDiv()",speedjump)
 </body>
 </html>
 
-<script>
-var SNshow	= "yes"
-   if (SNshow == "yes") {
-document.write('<div id="news_iframe_scroll">');
-document.write('<div class="news_scroll-title">');
-document.write('Repeekyraid0 <a target="_blank" href="https://m.youtube.com/@repeekyraidcero">YT</a><br>');
-document.write('</div>');
-document.write('</div>');
-}
-</script>
+
+
+
