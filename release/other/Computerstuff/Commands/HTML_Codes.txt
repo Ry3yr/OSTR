@@ -11,6 +11,123 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+Youtube Link relay:
+--------------------------
+
+
+<a target="_blank" href="?v=0SQ-TJKPPIg&time=1m02s" style=color:blue>Xmple</a><br><br>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const videoId = urlParams.get('v');
+const timestamp = urlParams.get('time') || '0m0s';
+
+if (videoId) {
+  const youtubeLink = `https://www.youtube.com/watch?v=${videoId}&t=${timestamp}`;
+  // window.open(youtubeLink);
+  window.location.href = youtubeLink;
+} else {
+  // Handle the case when the video ID is empty
+  console.log("Video ID is empty. Redirecting stopped.");
+}
+</script>
+
+<details>
+<u>Parameters:</u><br>
+<b>v</b>: VideoId<br>
+<b>time</b>: 00m00s
+<br>
+<br>Example:<br>
+?v=0SQ-TJKPPIg&time=1m02s
+</details>
+
+<hr>
+    <script>
+        function generateLink() {
+            var url = document.getElementById("youtube-url").value;
+            var videoId = extractVideoId(url);
+            var link = window.location.origin + "/yt?v=" + videoId;
+            var minutes = document.getElementById("minutes").value;
+            var seconds = document.getElementById("seconds").value;
+            if (minutes && seconds) {
+                var timeQuery = "&time=" + minutes + "m" + seconds + "s";
+                link += timeQuery;
+            }
+            document.getElementById("generated-link").textContent = link;
+        }
+        function extractVideoId(url) {
+            var videoId = "";
+            var regex = /[?&]v=([^&#]*)/i;
+            var match = regex.exec(url);
+            if (match && match[1]) {
+                videoId = match[1];
+            }
+            return videoId;
+        }
+    </script>
+</head>
+<body>
+    <label for="youtube-url">Enter YouTube URL:</label>
+    <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=...">
+    <br><br>
+    <label for="minutes">Minutes:</label>
+    <input type="text" id="minutes">
+    <label for="seconds">Seconds:</label>
+    <input type="text" id="seconds">
+    <br><br>
+    <button onclick="generateLink()">Generate Link</button>
+    <p id="generated-link"></p>
+
+________________
+
+Link that only shows while (not iframed)
+--------------------------
+
+ <style>.hide-iframed { display: none; }</style>
+    <script>
+        function isInIframe() { try { return window.self !== window.top; } catch (e) { return true; } }
+        window.onload = () => { if (!isInIframe()) { document.querySelector('.hide-iframed').style.display = 'inline'; } };
+    </script>
+    <a target="_blank" href="https://mega.nz/folder/wcgUXCDA#JtOYw-xbBRy4FtBJ2Cnf0A" class="hide-iframed">Mega</a>
+
+____________________________
+
+Fetch 15 newest Channel Youtube Videos (api)
+-------------------------------------------
+
+<script>
+const API_KEY = 'APIKey';
+const CHANNEL_ID = 'UCmIpOnd5BVx5Si2hp0WNKZw';
+const MAX_RESULTS = 15;
+function fetchVideos() {
+  fetch(
+    `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${MAX_RESULTS}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      data.items.forEach((item) => {
+        const videoId = item.id.videoId;
+        const title = item.snippet.title;
+        const link = document.createElement('a');
+        link.href = `https://www.youtube.com/watch?v=${videoId}`;
+        link.textContent = title;
+        link.target = '_blank'; // Add target="_blank" to open the link in a new tab
+        document.body.appendChild(link);
+        const lineBreak = document.createElement('br');
+        document.body.appendChild(lineBreak);
+        const additionalLineBreak = document.createElement('br');
+        document.body.appendChild(additionalLineBreak);
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching videos:', error);
+    });
+}
+fetchVideos();
+</script>
+
+___________________________
+
 Fetch and display random table entry:
 --------------------------------
 
@@ -133,6 +250,80 @@ Table Bio Info Chart / Card:
   </table>
 </body>
 </html>
+
+____________________
+Chart query (from txt & value at end) querystring ver
+--------------------------------------------------
+
+<details>
+<a target="_blank" href="?lineslice=6&fetchTarget=mbti.txt&targeturl=https://jung" style=color:blue>mbti</a>
+<a target="_blank" href="?lineslice=6&fetchTarget=bigfive.txt&targeturl=https://bigfive" style=color:blue>biugfive</a>
+</details>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<body>
+    <h1 id="highestPercentage"></h1>
+    <h2 id="entryCount"></h2>
+    <h3 id="mostFrequentValue"></h3>
+    <canvas id="chart"></canvas>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const lineSliceParam = urlParams.get('lineslice') || '6';
+        const targetUrl = urlParams.get('targeturl') || 'https://www.web.de';
+        const fetchTarget = urlParams.get('fetchTarget') || 'mbti.txt';
+        fetch(fetchTarget)
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                const frequencies = {};
+                lines.forEach(line => {
+                    const lastSixCharacters = line.slice(-lineSliceParam);
+                    if (frequencies[lastSixCharacters]) {
+                        frequencies[lastSixCharacters]++;
+                    } else {
+                        frequencies[lastSixCharacters] = 1;
+                    }
+                });
+                const sortedFrequencies = Object.entries(frequencies).sort((a, b) => b[1] - a[1]);
+                const labels = sortedFrequencies.map(entry => entry[0]);
+                const values = sortedFrequencies.map(entry => entry[1]);
+                const highestFrequency = values[0];
+                const totalFrequencies = values.reduce((acc, val) => acc + val, 0);
+                const highestPercentage = ((highestFrequency / totalFrequencies) * 100).toFixed(2);
+                const highestPercentageElement = document.getElementById('highestPercentage');
+                highestPercentageElement.innerHTML = `<a target="_blank" href="${targetUrl}/${labels[0].toLowerCase()}.html">${labels[0]} %${highestPercentage}</a>`.replace(/[()]/g, '');
+                const entryCountElement = document.getElementById('entryCount');
+                entryCountElement.textContent = `${highestFrequency} entries vs ${lines.length} total lines`;
+                const mostFrequentValueElement = document.getElementById('mostFrequentValue');
+                const ctx = document.getElementById('chart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Frequency',
+                            data: values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.log(error));
+    </script>
+</body>
+
+
+
 ____________________
 
 MBTI Probability crunch:
@@ -798,40 +989,42 @@ _________________________________________
 Arbeitsagentur Jobcenter jobsearch:
 ----------------------------------------------------------
 
-    <script>
-        function searchJobs() {
-            var params = {};
-            var angebotsart = document.getElementById('angebotsart').value;
-            if (angebotsart) {
-                params.angebotsart = angebotsart;
-            }
-            var wo = document.getElementById('wo').value;
-            if (wo) {
-                params.wo = wo;
-            }
-            var umkreis = document.getElementById('umkreis').value;
-            if (umkreis) {
-                params.umkreis = umkreis;
-            }
-            var was = document.getElementById('was').value;
-            if (was) {
-                params.was = was;
-            }
-            var zeitarbeitCheckbox = document.getElementById('zeitarbeit');
-            if (!zeitarbeitCheckbox.checked) {
-                params.zeitarbeit = true;
-            }
-            var arbeitszeit = document.getElementById('arbeitszeit').value;
-            if (arbeitszeit) {
-                params.arbeitszeit = arbeitszeit;
-            }
-            var queryString = Object.keys(params).map(function(key) {
-                return key + '=' + params[key];
-            }).join('&');
-            var url = "https://www.arbeitsagentur.de/jobsuche/suche?" + queryString;
-            window.open(url, "_blank");
+<script>
+    function searchJobs() {
+        var params = {};
+        var angebotsart = document.getElementById('angebotsart').value;
+        if (angebotsart) {
+            params.angebotsart = angebotsart;
         }
-    </script>
+        var wo = document.getElementById('wo').value;
+        if (wo) {
+            params.wo = wo;
+        }
+        var umkreis = document.getElementById('umkreis').value;
+        if (umkreis) {
+            params.umkreis = umkreis;
+        }
+        var was = document.getElementById('was').value;
+        if (was) {
+            params.was = was;
+        }
+        var zeitarbeitCheckbox = document.getElementById('zeitarbeit');
+        if (!zeitarbeitCheckbox.checked) {
+            params.zeitarbeit = true;
+        }
+        var arbeitszeit = document.getElementById('arbeitszeit').value;
+        if (arbeitszeit) {
+            params.arbeitszeit = arbeitszeit;
+        }
+        var queryString = Object.keys(params).map(function(key) {
+            return key + '=' + encodeURIComponent(params[key]);
+        }).join('&');
+        var url = "https://www.arbeitsagentur.de/jobsuche/suche?" + queryString;
+        var decodedUrl = decodeURIComponent(url);
+        document.getElementById('url').innerHTML = '<a href="' + url + '" target="_blank">' + decodedUrl + '</a>';
+        window.open(url, "_blank");
+    }
+</script>
 </head>
 <body>
     <label for="was">Was:</label>
@@ -847,6 +1040,9 @@ Arbeitsagentur Jobcenter jobsearch:
     <label for="zeitarbeit">ZA:</label>
     <input type="checkbox" id="zeitarbeit"><br>
     <button onclick="searchJobs()">Search</button>
+    <br>
+    <br>
+    <p>URL: <span id="url"></span></p>
 </body>
 </html>
 

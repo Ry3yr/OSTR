@@ -8,6 +8,371 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+Visualize past programming efforts (php):
+-----------------------------------------
+
+<?php
+$url = "https://alcea-wisteria.de/PHP/0demo/";
+$html = file_get_contents($url);
+$pattern = '/<tr>(.*?)<\/tr>/s';
+preg_match_all($pattern, $html, $matches);
+$dates = array();
+foreach ($matches[0] as $match) {
+    preg_match('/\d{4}-\d{2}-\d{2}/', $match, $date);
+    if (!empty($date)) {
+        $dates[] = $date[0];
+    }
+}
+// Count the occurrences of each month-year combination
+$counts = array();
+foreach ($dates as $date) {
+    $monthYear = substr($date, 0, 7); // Extract the yyyy-mm part
+    if (isset($counts[$monthYear])) {
+        $counts[$monthYear]++;
+    } else {
+        $counts[$monthYear] = 1;
+    }
+}
+// Fill in months with no entries and set their count to 0
+$startDate = min(array_keys($counts));
+$endDate = date('Y-m'); // Get the current month-year
+$currentDate = $startDate;
+while ($currentDate != $endDate) {
+    if (!isset($counts[$currentDate])) {
+        $counts[$currentDate] = 0;
+    }
+    $currentDate = date('Y-m', strtotime($currentDate . ' +1 month'));
+}
+// Sort the month-year combinations by year and then month
+ksort($counts);
+// Prepare the data for the chart
+$labels = array_keys($counts);
+$data = array_values($counts);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="myChart"></canvas>
+    <script>
+        // Create the chart
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Date Counts',
+                    data: <?php echo json_encode($data); ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+
+________________________
+
+Simple (UrlValueBased) Comment System:
+---------------------------------
+
+<div id="comments"></div>
+<br>
+<form action="" method="POST" id="commentForm">
+  <input type="text" name="name" placeholder="Your Name"><br>
+  <textarea name="comment" rows="4" cols="50"></textarea>
+  <input type="hidden" name="jsonFilename" value="" id="jsonFilenameInput">
+  <input type="submit" value="Submit"><br>
+</form>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    var urlbase = "https://alcea-wisteria.de/PHP/0demo/2024-02-05-UrlValueBasedCommentSystem/";
+    var url = window.location.href;
+    var jsonFilename = url.replace(/[^A-Za-z0-9]/g, "") + ".json";
+    var jsonUrl = urlbase + jsonFilename;
+    document.getElementById("jsonFilenameInput").value = jsonFilename;
+    document.getElementById("commentForm").action = urlbase + "submit_comment.php";
+    fetch(jsonUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          data.reverse();
+          data.forEach(entry => {
+            var comment = entry.comment;
+            var name = entry.name;
+            renderComment(name, comment);
+          });
+        } else {
+          console.log("No comments found for the current URL.");
+        }
+      })
+      .catch(error => {
+        console.log("Error fetching JSON file:", error);
+      });
+  });
+  function renderComment(name, comment) {
+    var commentsElement = document.getElementById("comments");
+    var commentElement = document.createElement("div");
+    commentElement.innerHTML = "<strong>" + name + "</strong>: " + comment;
+    commentsElement.appendChild(commentElement);
+  }
+</script>
+
+
+====submit_comment.php===
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $url = $_SERVER["HTTP_REFERER"]; // Get the current URL
+  $filename = preg_replace("/[^A-Za-z0-9]/", "", $url); // Remove non-alphanumeric characters from the URL
+  $name = $_POST["name"]; // Get the submitted name
+  $comment = $_POST["comment"]; // Get the submitted comment
+  $jsonFilename = $_POST["jsonFilename"]; // Get the submitted jsonFilename
+  // Read the existing JSON data from the file
+  $existingData = file_get_contents($jsonFilename);
+  $existingJson = json_decode($existingData, true);
+  if (!$existingJson) {
+    // If the JSON file doesn't exist or is not valid JSON, create an empty array
+    $existingJson = [];
+  }
+  // Create a new data entry with the submitted name and comment
+  $newData = array(
+    "name" => $name,
+    "comment" => $comment
+  );
+  // Append the new data to the existing JSON data
+  $existingJson[] = $newData;
+  // Encode the merged data as JSON
+  $json = json_encode($existingJson);
+  // Write the updated JSON back to the file
+  file_put_contents($jsonFilename, $json);
+  echo "<a href=javascript:history.back()>[View Comment]</a>";
+}
+?>
+
+
+====.htaccess======
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET,PUT,POST,DELETE"
+Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+
+
+____________________
+
+Simple PHP Gallery:
+---------------------------------
+
+======index.php=====
+<?php
+$galleriesPath = "./galleries";
+$galleries = array_filter(glob($galleriesPath . '/*'), 'is_dir');
+echo '<div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-gap: 10px;">';
+foreach ($galleries as $gallery) {
+    $images = glob($gallery . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+    $newestImage = end($images);
+    $galleryName = basename($gallery);
+    $displayUrl = 'display.php?gallery=' . urlencode($galleryName);
+    echo '<a href="' . $displayUrl . '" style="text-decoration: none; color: inherit;">';
+    echo '<div style="text-align: center;">';
+    echo '<img src="' . $newestImage . '" alt="' . $galleryName . '" width="250" height="250" style="margin-bottom: 5px;">';
+    echo '<div>' . $galleryName . '</div>';
+    echo '</div>';
+    echo '</a>';
+}
+echo '</div>';
+?>
+
+
+===display.php====
+<a href="<?php echo dirname($_SERVER['REQUEST_URI']); ?>"><img src="https://www.downloadclipart.net/large/19185-back-button-design.png" style="width:40px;" /></a>
+<?php
+// Retrieve the gallery name from the query string
+$galleryName = $_GET['gallery'];
+$galleryPath = './galleries/' . $galleryName;
+//$images = glob($galleryPath . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+$images = array_reverse(glob($galleryPath . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE));
+$numColumns = 5;
+$numImages = count($images);
+$numRows = ceil($numImages / $numColumns);
+echo '<div style="display: grid; grid-template-columns: repeat(' . $numColumns . ', 1fr); grid-gap: 10px;">';
+foreach ($images as $key => $image) {
+    echo '<div style="display: flex; flex-direction: column; align-items: center;">';
+    echo '<img src="' . $image . '" alt="' . basename($image) . '" style="width: 250px; height: 250px; object-fit: cover; cursor: pointer;" onclick="openPopup(' . $key . ');">';
+    echo '<div style="text-align: center;">' . basename($image) . '</div>';
+    echo '</div>';
+}
+echo '</div>';
+?>
+<!-- CSS Popup -->
+<style>
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .popup-image {
+        display: block;
+        max-width: 90%;
+        max-height: 80%;
+        margin: 50px auto;
+    }
+    .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 24px;
+    }
+    .popup-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        font-size: 30px;
+    }
+    .popup-prev,
+    .popup-next {
+        padding: 20px;
+        cursor: pointer;
+    }
+</style>
+<!-- JavaScript -->
+<script>
+    var currentImageIndex = 0;
+    var images = <?php echo json_encode($images); ?>;
+    function openPopup(index) {
+        currentImageIndex = index;
+        var popup = document.getElementById('popup');
+        var popupImage = document.getElementById('popup-image');
+        
+        popupImage.src = images[currentImageIndex];
+        popup.style.display = 'block';
+    }
+    function closePopup() {
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+    }
+    function showPrevImage() {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        var popupImage = document.getElementById('popup-image');
+        popupImage.src = images[currentImageIndex];
+    }
+    function showNextImage() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        var popupImage = document.getElementById('popup-image');
+        popupImage.src = images[currentImageIndex];
+    }
+</script>
+<!-- HTML Popup -->
+<div id="popup" class="popup">
+    <span class="popup-close" onclick="closePopup()">&times;</span>
+    <div class="popup-nav">
+        <span class="popup-prev" onclick="showPrevImage()">&#10094;</span>
+        <span class="popup-next" onclick="showNextImage()">&#10095;</span>
+    </div>
+    <img id="popup-image" class="popup-image" src="" alt="">
+</div>
+
+
+=====upload.php===
+    <div class="image-preview" id="imagePreview"></div>
+    <style>
+        .gallery-picker {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+        .image-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            width: 1000px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-picker">
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <select name="gallery">
+                <?php
+                $galleriesPath = 'galleries/';
+                $folders = array_filter(glob($galleriesPath . '*'), 'is_dir');
+                foreach ($folders as $folder) {
+                    $folderName = basename($folder);
+                    echo "<option value='$folderName'>$folderName</option>";
+                }
+                ?>
+            </select>
+            <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var imgElement = document.createElement('img');
+                imgElement.src = reader.result;
+                document.getElementById('imagePreview').innerHTML = '';
+                document.getElementById('imagePreview').appendChild(imgElement);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $gallery = $_POST['gallery'];
+        $targetDirectory = $galleriesPath . $gallery . '/';
+        $targetFile = $targetDirectory . basename($_FILES['image']['name']);
+        $uploadSuccess = move_uploaded_file($_FILES['image']['tmp_name'], $targetFile);
+
+        if ($uploadSuccess) {
+            echo "<p>Image uploaded successfully.</p>";
+        } else {
+            echo "<p>Failed to upload image.</p>";
+        }
+    }
+    ?>
+</body>
+
+
+
+_________________
+
 Display htaccess:
 -----------------------------
 
