@@ -8,6 +8,173 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+Wikipedia tabel parser (with column data copoy function):
+-------------------------------------------------
+
+<a target="_blank" href="?tablecolumn=Firm&tablecontent=Nintendo" style=color:blue>txmpl</a><br><br>
+<?php
+header('Content-Type: text/html; charset=utf-8');
+$url = 'https://en.m.wikipedia.org/wiki/List_of_best-selling_game_consoles';
+$html = file_get_contents($url);
+$table_regex = '/<table[^>]*class="wikitable sortable"[^>]*>(.*?)<\/table>/s';
+if (preg_match($table_regex, $html, $matches)) {
+    $table_html = $matches[0];
+    $column = $_GET['tablecolumn'] ?? '';
+    $content = $_GET['tablecontent'] ?? '';
+    if (!empty($column) && !empty($content)) {
+        $filtered_table_html = filterTable($table_html, $column, $content);
+        if ($filtered_table_html) {
+            echo $filtered_table_html;
+        } else {
+            echo 'No matching rows found.';
+        }
+    } else {
+        echo $table_html;
+    }
+    addCopyButtons();
+} else {
+    echo 'Table not found.';
+}
+function filterTable($tableHtml, $column, $content)
+{
+    $dom = new DOMDocument();
+    libxml_use_internal_errors(true);
+    $dom->loadHTML(mb_convert_encoding($tableHtml, 'HTML-ENTITIES', 'UTF-8'));
+    libxml_clear_errors();
+    $xpath = new DOMXPath($dom);
+    $rows = $xpath->query('//table/tbody/tr');
+    $columnIndex = -1;
+    $headerRow = $rows->item(0);
+    $headerCells = $headerRow->getElementsByTagName('th');
+    foreach ($headerCells as $index => $cell) {
+        if (trim($cell->nodeValue) === $column) {
+            $columnIndex = $index;
+            break;
+        }
+    }
+    $filteredRows = [];
+    foreach ($rows as $row) {
+        $cells = $row->getElementsByTagName('td');
+        $cellContent = $cells->item($columnIndex)->nodeValue;
+        if (stripos($cellContent, $content) !== false) {
+            $filteredRows[] = $row;
+        }
+    }
+    // Build the filtered table HTML
+    $filteredTableHtml = '<table class="wikitable sortable">';
+    $filteredTableHtml .= $headerRow->ownerDocument->saveHTML($headerRow);
+    foreach ($filteredRows as $row) {
+        $filteredTableHtml .= $row->ownerDocument->saveHTML($row);
+    }
+    $filteredTableHtml .= '</table>';
+
+    return count($filteredRows) > 0 ? $filteredTableHtml : false;
+}
+function addCopyButtons() {
+    $dom = new DOMDocument();
+    libxml_use_internal_errors(true);
+    global $table_html;
+    $dom->loadHTML($table_html);
+    libxml_clear_errors();
+    $xpath = new DOMXPath($dom);
+    $headerRow = $xpath->query('//table/tbody/tr[1]')->item(0);
+    $headerCells = $headerRow->getElementsByTagName('th');
+    echo '<div>';
+    foreach ($headerCells as $index => $cell) {
+        $columnName = trim($cell->nodeValue);
+        echo '<button onclick="copyColumnData(' . $index . ')">Copy ' . $columnName . '</button>';
+    }
+    echo '</div>';
+}
+?>
+<script>
+// Function to copy the column data to the clipboard
+function copyColumnData(columnIndex) {
+  var table = document.querySelector('.wikitable');
+  var columnData = '';
+  var rows = table.getElementsByTagName('tr');
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    var cells = row.getElementsByTagName('td');
+    var cell = cells[columnIndex];
+    if (cell) {
+      columnData += cell.innerText.trim() + '\n';
+    }
+  }
+  navigator.clipboard.writeText(columnData);
+  //alert('Column data copied to clipboard.');
+}
+</script>
+
+
+______________________________
+
+Add <br> tags to nonconf html files in folder:
+--------------------------------------------
+
+<?php
+$currentFolder = './'; // Update this to the path of the current folder
+// Check if a file was uploaded
+if (isset($_FILES['htmlFile']) && $_FILES['htmlFile']['error'] === UPLOAD_ERR_OK) {
+    $uploadedFile = $_FILES['htmlFile']['tmp_name'];
+    $fileName = $_FILES['htmlFile']['name'];
+    $fileSize = $_FILES['htmlFile']['size'];
+
+    // Check if the file size is within the allowed limit (1MB)
+    $maxFileSize = 1024 * 1024; // 1MB in bytes
+    if ($fileSize <= $maxFileSize) {
+        // Move the uploaded file to the current folder
+        $destination = $currentFolder . $fileName;
+        move_uploaded_file($uploadedFile, $destination);
+        echo "File uploaded successfully: $fileName<br>";
+    } else {
+        echo "File size exceeds the maximum allowed limit (1MB)<br>";
+    }
+}
+$files = glob($currentFolder . '*.html'); // Get all HTML files in the current folder
+// Sort the files by modified time (newest first)
+usort($files, function ($a, $b) {
+    return filemtime($b) - filemtime($a);
+});
+// Get the three newest HTML files
+$newestFiles = array_slice($files, 0, 3);
+// Display the file list
+echo '<h3>Latest HTML Files:</h3>';
+echo '<ul>';
+foreach ($newestFiles as $file) {
+    echo '<li><a href="?file=' . urlencode($file) . '">' . basename($file) . '</a></li>';
+}
+echo '</ul>';
+// Check if a file is clicked and add <br> tags to it
+if (isset($_GET['file'])) {
+    $clickedFile = $_GET['file'];
+    if (in_array($clickedFile, $newestFiles)) {
+        $content = file_get_contents($clickedFile); // Read the file content
+        // Check if the file does not contain a <br> tag
+        if (strpos($content, '<br>') === false) {
+            $modifiedContent = str_replace("\n", "<br>\n", $content); // Add <br> tag to each line
+            file_put_contents($clickedFile, $modifiedContent); // Write the modified content back to the file
+            echo "Added <br> tags to $clickedFile<br>";
+        } else {
+            echo "The file $clickedFile already contains <br> tags<br>";
+        }
+    } else {
+        echo "Invalid file clicked<br>";
+    }
+}
+?>
+<!-- HTML form for file upload -->
+<h3>Upload HTML File:</h3>
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="htmlFile" accept=".html" required>
+    <input type="hidden" name="MAX_FILE_SIZE" value="1048576"> <!-- 1MB in bytes -->
+    <button type="submit">Upload</button>
+</form>
+
+
+
+___________________________
+
 Visualize past programming efforts (php):
 -----------------------------------------
 
@@ -100,6 +267,14 @@ Simple (UrlValueBased) Comment System:
 </form>
 <script>
   window.addEventListener("DOMContentLoaded", function() {
+
+//    fetch('comments.txt')
+//      .then(response => response.text())
+//      .then(data => {
+//        urlbase = data.trim(); // Assign the value to urlbase
+//      })
+
+
     var urlbase = "https://alcea-wisteria.de/PHP/0demo/2024-02-05-UrlValueBasedCommentSystem/";
     var url = window.location.href;
     var jsonFilename = url.replace(/[^A-Za-z0-9]/g, "") + ".json";
@@ -204,15 +379,20 @@ echo '</div>';
 // Retrieve the gallery name from the query string
 $galleryName = $_GET['gallery'];
 $galleryPath = './galleries/' . $galleryName;
-//$images = glob($galleryPath . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-$images = array_reverse(glob($galleryPath . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE));
+$images = glob($galleryPath . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+// Custom sort function to sort images by basename
+usort($images, function($a, $b) {
+    $basenameA = pathinfo($a, PATHINFO_FILENAME);
+    $basenameB = pathinfo($b, PATHINFO_FILENAME);
+    return strcmp($basenameB, $basenameA);
+});
 $numColumns = 5;
 $numImages = count($images);
 $numRows = ceil($numImages / $numColumns);
 echo '<div style="display: grid; grid-template-columns: repeat(' . $numColumns . ', 1fr); grid-gap: 10px;">';
 foreach ($images as $key => $image) {
     echo '<div style="display: flex; flex-direction: column; align-items: center;">';
-    echo '<img src="' . $image . '" alt="' . basename($image) . '" style="width: 250px; height: 250px; object-fit: cover; cursor: pointer;" onclick="openPopup(' . $key . ');">';
+    echo '<img src="' . $image . '" alt="' . basename($image) . '" style="width: 250px; height: 250px; object-fit: cover; cursor: pointer;" onclick="openPopup(' . $key . ');" loading="lazy">';
     echo '<div style="text-align: center;">' . basename($image) . '</div>';
     echo '</div>';
 }
@@ -228,9 +408,8 @@ echo '</div>';
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(255, 255, 255, 0.9);
     }
-    
     .popup-image {
         display: block;
         max-width: 90%;
@@ -241,7 +420,7 @@ echo '</div>';
         position: absolute;
         top: 10px;
         right: 10px;
-        color: #fff;
+        color: #000;
         cursor: pointer;
         font-size: 24px;
     }
@@ -253,7 +432,7 @@ echo '</div>';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #fff;
+        color: #000;
         font-size: 30px;
     }
     .popup-prev,
@@ -270,7 +449,6 @@ echo '</div>';
         currentImageIndex = index;
         var popup = document.getElementById('popup');
         var popupImage = document.getElementById('popup-image');
-        
         popupImage.src = images[currentImageIndex];
         popup.style.display = 'block';
     }
