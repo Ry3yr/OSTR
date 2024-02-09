@@ -8,6 +8,56 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+
+Fetch shoutcast trackinfo via querystring:
+----------------------------------
+
+<?php
+function getStreamMetadata() {
+    if (isset($_GET['streamurl'])) {
+        $streamUrl = $_GET['streamurl'];
+        $needle = 'StreamTitle=';
+        $ua = 'Dailymate Radio/1.0';
+        $opts = ['http' => ['method' => 'GET',
+        'header' => 'Icy-MetaData: 1',
+        'user_agent' => $ua]
+                ];
+        $context = stream_context_create($opts);
+        $icyMetaIntFound = false;
+        $icyInterval = -1;
+        $offset = 0;
+        if(($headers = get_headers($streamUrl, 0, $context))) {
+            foreach($headers as $h) {
+                if(!(strpos(strtolower($h), 'icy-metaint:') === false)) {
+                    $icyMetaIntFound = true;
+                    $icyInterval = explode(':', $h)[1];
+                    break;
+                }
+            }
+        }
+        if(!$icyMetaIntFound) {
+            echo "icy-metaint header not exists!";
+            return;
+        }
+        if($stream = fopen($streamUrl, 'r', false, $context)) {
+            while($buffer = stream_get_contents($stream, $icyInterval, $offset)) {
+                if(strpos($buffer, $needle) !== false) {
+                    fclose($stream);
+                    $title = explode($needle, $buffer)[1];
+                    return substr($title, 1, strpos($title, ';') - 2);
+                }
+                $offset += $icyInterval;
+            }
+        }
+    } else {
+        // The 'streamurl' parameter is not set
+    }
+}
+echo getStreamMetadata();
+?>
+
+_______________________
+
 Wikipedia tabel parser (with column data copoy function):
 -------------------------------------------------
 
