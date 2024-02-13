@@ -11,6 +11,45 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *host-website *java-scriptz
 
 
+
+htaccess enable caching:
+-------------------------------
+
+# Enable the mod_expires module
+ExpiresActive On
+# Cache resources with specified file extensions
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 month"
+ExpiresByType text/css "access plus 1 month"
+# Set default expiration for other resources
+ExpiresDefault "access plus 1 week"
+
+____________________
+
+Currently binged Album:
+---------------------------------
+
+<div id="output"></div><div id="old"></div>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    fetch('https://ry3yr.github.io/Dayalbum.js')
+      .then(response => response.text())
+      .then(fileContent => {
+        var lines = fileContent.split("\n");
+        var topLine = lines[0];
+        document.getElementById("output").innerHTML = "<b>CurrBingedAlbum</>: " + topLine;
+        var lines = fileContent.split("\n");
+        var randomIndex = Math.floor(Math.random() * lines.length);
+        var randomLine = lines[randomIndex];
+        document.getElementById("old").innerHTML = "<span style='color: gray; font-size: 12px;'>(Old: " + randomLine + "</span>" + ")";   
+      });
+  });
+</script>
+
+_____________________
+
+
 Keep specific imgs despite low bandwith querystrings:
 ----------------------------------------
 
@@ -4131,23 +4170,29 @@ Code Display Page:
 ------------------------------
 
 <style>
-body{font-family:Arial,sans-serif;line-height:1.5;margin:20px}a{text-decoration:none;color:#007bff}a:hover{text-decoration:underline}.commands-list{margin-bottom:10px}.commands-list a{margin-right:10px;border-radius:9px;padding:4px 8px;border:1px solid transparent}.commands-list a:last-child{margin-right:0}.commands-list span{margin-right:5px}.commands-list a[href$=".txt"]{border-color:#007bff}
+body {font-family: Arial, sans-serif;line-height: 1.5;margin: 20px;}
+a {text-decoration: none;color: #007bff;}
+a:hover {text-decoration: underline;}
+.commands-list {margin-bottom: 10px;}
+.commands-list a {margin-right: 10px;border-radius: 9px;padding: 4px 8px;border: 1px solid transparent;border-color: #007bff;}
+.commands-list .command-link a {margin-right: 0;border-radius: 0;padding: 0;border: none;background-color: transparent;}
+.command-link {margin-right: 10px;border-radius: 9px;padding: 4px 8px;border: 1px solid transparent;border-color: #007bff;}
 </style>
 <!-- HTML content -->
+  <a target="_blank" href="code.html">CMDS</a>
 <div class="commands-list">
-  <a target="_blank" href="https://ry3yr.github.io/code">CMDS</a>
-  <a target="_blank" href="https://github.com/Ry3yr/OSTR/tree/main/release/other/Computerstuff/Commands">(↑)</a>
+  <!--<a target="_blank" href="Computerstuff/Commands">(↑)</a>-->
 </div>
 <div class="commands-list">
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</a>
-  <a target="_blank" href="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Android-Keyevents.txt">AndroidCMDS</a>
+  <a target="_blank" href="other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</a>
+  <a target="_blank" href="other/Computerstuff/Commands/DOS/Commands.txt">DOS</a>
+  <a target="_blank" href="other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</a>
+  <a target="_blank" href="other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</a>
+  <a target="_blank" href="other/Computerstuff/Commands/Sox_CMDS.txt">Sox</a>
+  <a target="_blank" href="other/Computerstuff/Commands/HTML_Codes.txt">HTML</a>
+  <span class="command-link"><a target="_blank" href="other/Computerstuff/Commands/PHP.txt">PHP</a><a target="_blank" href="https://ry3yr.github.io/php">(↓)</a></span>
+  <a target="_blank" href="other/Computerstuff/Commands/Python.txt">Python</a>
+  <a target="_blank" href="other/Computerstuff/Commands/Android-Keyevents.txt">AndroidCMDS</a>
 </div>
 <br>
 <br>
@@ -7137,7 +7182,7 @@ Function exec(code){
 </script>
 
 
-(Source: https://stackoverflow.com/questions/70295800/how-to-run-a-console-command-with-a-button-in-html )
+(Source: https://stackoverflow.com/questions/70295800/how-to-run-a-console-lwith-a-button-in-html )
 
 
 _____________________________
