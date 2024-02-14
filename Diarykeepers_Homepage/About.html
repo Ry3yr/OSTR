@@ -568,10 +568,7 @@ Cjxib2R5PgogIDxkaXY+CiAgICA8aW5wdXQgdHlwZT0icmFkaW8iIG5hbWU9ImFwaVVybCIgdmFsdWU9
     •<a href="?instance=pb.todon.de&userid=109629985010224381" style="color: blue;">@Alcea@acws</a>
   </div>
 </div><br>
-<!--------------------------------------------------------->
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-------->
 </head>
 <body>
 <a href="?instance=mastodon.social&userid=109977878421486714">Ryedai</a>
@@ -628,14 +625,15 @@ Cjxib2R5PgogIDxkaXY+CiAgICA8aW5wdXQgdHlwZT0icmFkaW8iIG5hbWU9ImFwaVVybCIgdmFsdWU9
           let avatar = '';
           let tootLink = '';
 
-          // Check for YouTube video link
-          const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
-          const youtubeMatch = status.content.match(youtubeRegex);
-          if (youtubeMatch) {
+           // Check for YouTube video link
+           const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+           const invidiousRegex = /https?:\/\/(www\.)?(m\.)?super8\.absturztau\.be\/watch\?v=([-a-zA-Z0-9_]{11})/;
+            const youtubeMatch = status.content.match(youtubeRegex) || status.content.match(invidiousRegex);
+             if (youtubeMatch) {
             // Extract video ID from YouTube link
             const videoId = youtubeMatch[3];
             // Create embedded player for YouTube video
-            media = `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
+            media = `<div><iframe width="560" height="315" src="https://super8.absturztau.be/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>`;
           } else {
             // Check for Pixiv artwork link
             const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
