@@ -1,18 +1,7 @@
 <meta charset="utf-8">
 <base href="https://" target="_blank" rel="noopener noreferrer">
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var links = document.querySelectorAll('a[href^="https://m.youtube.com"]');
-  for (var i = 0; i < links.length; i++) {
-    var link = links[i];
-    link.href = link.href.replace('https://m.youtube.com', 'https://super8.absturztau.be');
-  }
-});
-</script>
 
-
-
-<a target="_blank" href="https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/underratedyoutubelinks">All YT Links</a><br>
+<a target="_blank" href="https://alceawis.de/underratedyoutubelinks.html">All YT Links</a><br>
 
 <!DOCTYPE html>
 <html style=" font-size: 16px;">
@@ -32,9 +21,9 @@ iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAQMAAACXljzdAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMA
 <!--<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://alceawis.de/UnderratedContent.html"</img>-->
 
 <div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'ButtontextSpoiler'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'ButtontextSpoiler';}" value="ButtontextSpoiler" style="background:transparent; border:none; color:transparent;"><div class="spoiler" style="display: none;" >
-  <b>QR Encoder</b> •<a target="_blank" href="https://www.cssscript.com/demo/decoding-encoding-qr-code/">ALT</a> •<a target="_blank" href="https://webqr.com/">CameraQR</a>
+<a target="_blank" href="https://www.cssscript.com/demo/decoding-encoding-qr-code/">ALT</a>
   
-
+  <b>QR Encoder</b>
 <body>
 <!-- partial:index.partial.html -->
 <body>
@@ -105,9 +94,8 @@ src="https://64.media.tumbr.com/7df85173c80468f7a0868d56b7dd4a1/6d43840c7a5f4c9b
 <a href="https://tehuti88-art.tumblr.com/">•tehuti88-art</a><br>
 <a href="https://pastebin.com/raw/6S0NTh0S#https://f.ls/happynewworld">😿• Happy new world</a><br>
 •<a target="_blank" href="https://duesterburg.rpg-atelier.net/aktuell.php#https://www.facebook.com/UiDuesterburg">UnterwegsInDüsterburg</a>&nbsp;(<a target="_blank" href="https://youtu.be/XIpdkkBsQYM">Trailer</a>)<br>
-<!--•<a target="_blank" href="https://solsocog.de/">SolsoCog</a><br>-->
+•<a target="_blank" href="https://solsocog.de/">SolsoCog</a><br>
 •<a target="_blank" href="https://werner-zenk.de/_/index.php" style=color:blue>WernerZenk(PHP&JS)</a><br>
-•<a target="_blank" href="https://www.vzqk50.com/blog/deobfuscating-a-malware-stager/" style=color:blue>TheHive (Coding)</a><br>
 <br>
 <br>
 <!-----
@@ -120,14 +108,7 @@ src="https://64.media.tumbr.com/7df85173c80468f7a0868d56b7dd4a1/6d43840c7a5f4c9b
 <a target="_blank" href="http://windystar.myartsonline.com/gallery.html#https://www.deviantart.com/starca">Windystar</a><br>
 <a target="_blank" href="https://etel-tuning.eu/">etel-tuning</a><br>
 <a target="_blank" href="https://dokodemo.neocities.org/indexv3">Doko's Adorable Website 🤗</a><br>
-<style>.dropdown-content{display:none;position:absolute;background-color:#f9f9f9;min-width:160px;box-shadow:0 8px 16px 0 rgba(0,0,0,.2);z-index:1}.dropbtn:hover+.dropdown-content,.dropdown-content:hover{display:block}</style>
-<div class="dropdown">
-  <button class="dropbtn">Interesting stuff...</button>
-  <div class="dropdown-content">
-    •<a target="_blank" href="https://addis-techblog.de/2023/03/3d-drucken-von-miniaturfiguren-der-ultimative-guide/" style=color:blue>AddisTechBlog</a>
-    •<a target="_blank" href="https://www.traumflieger.de/#http://www.traumflieger.de/desktop/ipod/cinemizer/" style=color:blue>Photography</a>
-  </div>
-</div><br>
+<a target="_blank" href="https://www.traumflieger.de/#http://www.traumflieger.de/desktop/ipod/cinemizer/" style=color:blue>Traumflieger (Fotografie)</a><br>
 <br>
 <br>
 •Single Instance Phenomena:<br>
@@ -408,7 +389,7 @@ ________________________________________________________________________________
 <br><del>
 <a href="https://m.youtube.com/channel/UCwmDCkPQojch5khdMYCb0EA"><img
 src="https://yt3.ggpht.com/ytc/AKedOLRnGwXNGf2venRyua3GMD8zfymRCzxzoXd55bvYVw=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Ethan Becker <a href="https://">Webpage</a><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UCwmDCkPQojch5khdMYCb0EA'">[LATEST]</button> <a href="https://m.youtube.com/watch?v=OJmLh4JmCb8">Hands</a> <a href="https://m.youtube.com/watch?v=H9f58K7r9X8">Perspective</a> <a target="_blank" href="https://m.youtube.com/watch?v=qeb37AAKvoU&t=165s">NotBeingSeen(KeepingYourHeadDown)</a> <a target="_blank" href="https://m.youtube.com/watch?v=YVwCDv5_ahg">Fix Deadface</a> <a target="_blank" href="https://m.youtube.com/watch?v=ASDDp0RL9v0">Draw Faces (PhotoRef)</a> <a target="_blank" href="https://m.youtube.com/watch?v=FxoTwEdbbgQ">Fixing</a></del>
+ <a href="https://m.youtube.com/watch?v=OJmLh4JmCb8">Hands</a> <a href="https://m.youtube.com/watch?v=H9f58K7r9X8">Perspective</a> <a target="_blank" href="https://m.youtube.com/watch?v=qeb37AAKvoU&t=165s">NotBeingSeen(KeepingYourHeadDown)</a> <a target="_blank" href="https://m.youtube.com/watch?v=YVwCDv5_ahg">Fix Deadface</a> <a target="_blank" href="https://m.youtube.com/watch?v=ASDDp0RL9v0">Draw Faces (PhotoRef)</a> <a target="_blank" href="https://m.youtube.com/watch?v=FxoTwEdbbgQ">Fixing</a></del>
 <br>
 ______________________________________________________________________________________________
 <br>
@@ -429,8 +410,7 @@ src="https://yt3.ggpht.com/ytc/AKedOLTctkBI6s6Xel1H1I-9KKOqy6ghJeQMZrTjv__L5A=s4
 <a href="https://m.youtube.com/watch?v=zb5iR3hyY_Q">Add Figures to photo - MagicPoser</a>
 <br>
 ______________________________________________________________________________________________
-<div><a href="https://m.youtube.com/@Kooleen/videos"><img alt="Channel Image" src="https://yt3.googleusercontent.com/ytc/APkrFKa-lFrTPSZjiqIPd3eOe-2U5mgPYmS8seAZtFaewQ=s100-c-k-c0x00ffffff-no-rj" height="50" width="50"></a><span>Kooleen</span><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UCL_Zrh9lwoOT7ftTRA-npvg'">[LATEST]</button> <a href="https://m.youtube.com/watch?v=eXCpG0cNu9Q&t=4m31s"><span>Artstyles</span></a> <a target="_blank" href="https://m.youtube.com/watch?v=Z0SAErwgXM8&noapp=1" style=color:blue>iBisPaintX</a> <a target="_blank" href="https://m.youtube.com/watch?v=-kpFTNjT-Ww&t=3m24s" style=color:blue>What your Art says about you</a> <a target="_blank" href="https://m.youtube.com/watch?v=0EPMj4C6C-g&t=2m19s" style=color:blue>BadArttips</a> <a target="_blank" href="https://m.youtube.com/watch?v=FSYNvK5eAMo&t=64" style=color:blue>DrawEyes(ParallelogramMethod)</a></div>
+<div><a href="https://m.youtube.com/@Kooleen/videos"><img alt="Channel Image" src="https://yt3.googleusercontent.com/ytc/APkrFKa-lFrTPSZjiqIPd3eOe-2U5mgPYmS8seAZtFaewQ=s100-c-k-c0x00ffffff-no-rj" height="50" width="50"></a><span>Kooleen</span><br><a href="https://m.youtube.com/watch?v=eXCpG0cNu9Q&t=4m31s"><span>Artstyles</span></a> <a target="_blank" href="https://m.youtube.com/watch?v=Z0SAErwgXM8&noapp=1" style=color:blue>iBisPaintX</a> <a target="_blank" href="https://m.youtube.com/watch?v=-kpFTNjT-Ww&t=3m24s" style=color:blue>What your Art says about you</a> <a target="_blank" href="https://m.youtube.com/watch?v=0EPMj4C6C-g&t=2m19s" style=color:blue>BadArttips</a></div>
 
 ______________________________________________________________________________________________
 <br>
@@ -502,7 +482,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/c/ToonCraftAnimation/videos"><img
 src="https://yt3.ggpht.com/ytc/AKedOLSbS63KywmVLcwlXHdGliW77pJ6yZAVqfNd7DIDww=s100-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> ToonCraft <a href="https://mobile.twitter.com/_moyparra">Webpage</a><br>
-<a href="https://m.youtube.com/playlist?list=PLQTeMm5PmHCG4YybMwFWOpGjUDv-tdq9L">ApexToons</a> <a target="_blank" href="https://m.youtube.com/watch?v=qW9m80Y_HUM">ReveCharm</a> <a target="_blank" href="https://m.youtube.com/watch?v=ibQ9osJJaKk" style=color:blue>PTX apex S6</a>
+<a href="https://m.youtube.com/playlist?list=PLQTeMm5PmHCG4YybMwFWOpGjUDv-tdq9L">ApexToons</a> <a target="_blank" href="https://m.youtube.com/watch?v=qW9m80Y_HUM">ReveCharm</a>
 <br>
 ______________________________________________________________________________________________
 <br>
@@ -516,11 +496,8 @@ ________________________________________________________________________________
 src="https://yt3.ggpht.com/ytc/AKedOLSwaeEQ8WFV3ZgLWMrHB3A5or3dcb4_7mPzKOGMAg=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> NostalgiaCritic (ChannelAwesome) <a href="">Webpage</a><br>
 <a href="https://m.youtube.com/watch?v=Ou452bGZPQc&t=670s">Animated VS Handdrawn</a>
 <br>
+<br>
 ______________________________________________________________________________________________
-<div><a href="https://m.youtube.com/@RubberRoss">
-<img alt="Channel Image" src="https://yt3.ggpht.com/ytc/AIf8zZQ5nr6BdEPKDc2JX2JrDRJ-TD7-GMiz58kswwOXIQ=s48-c-k-c0x00ffffff-no-rj" height="50" width="50"></a>
-<span>RubberRoss</span><br>
-<a href="https://m.youtube.com/watch?v=fj-nweqhhHM"><span>Stepped Animation</span></a></div>
 <br>
 <br>
 <b>Technic/Programs/Commandline etc</b><br>
@@ -530,19 +507,19 @@ ________________________________________________________________________________
 src="https://yt3.ggpht.com/ytc/AKedOLTk5MQhZKVW0aac2BUTEMK7vwJFx4ISVykpaG1v=s100-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Walden's Automation <a href="https://waldens.world/automation">Webpage</a><br>
 <a href="https://m.youtube.com/watch?v=nHr7aVU2PeI">Steamdeck & Autohotkey</a>
 <br>
-<!---______________________________________________________________________________________________
+______________________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/c/ThioJoe/videos"><img
 src="https://yt3.ggpht.com/ytc/AKedOLStA3H9fOamob7jE-EB1mF3ZPkxKsrwrmlIVVrgBA=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> ThioJoe <a href="https://github.com/ThioJoe/YouTube-Spammer-Purge/releases">Webpage</a><br>
 <a href="https://m.youtube.com/watch?v=-vOakOgYLUI">AntiYTSpam</a>
-<br>-->
+<br>
 ______________________________________________________________________________________________
-<!--<br>
+<br>
 <a href="https://m.youtube.com/channel/UC8jkbVLPvztz8TuE98OYo8Q"><img
 src="https://yt3.ggpht.com/ytc/AKedOLR6M7_UO0DUENrKAcc9EuevYdD69sBFUccicQRn=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Front Page Tech <a href="">Webpage</a><br>
 <a href="https://m.youtube.com/watch?v=hdPzbYFSYp0">Apple Sucks now, and it's cause of you</a>
 <br>
-______________________________________________________________________________________________-->
+______________________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/c/NorthridgeFix"><img
 src="https://yt3.ggpht.com/ytc/AKedOLQIudTcpO_C7FtL1H32zr8Z61VcXOli_OiB8MTnqA=s176-c-k-c0x00ffffff-no-rj-mo"alt="Image" height="50" width="50"></a> NorthridgeFix <a href="http://NorthridgeFix.com">Webpage</a><br>
@@ -578,7 +555,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/c/NakeyJakey/videos"><img
 src="https://yt3.ggpht.com/ytc/AKedOLSoEoVVekZbzqtIP_68cDzCQpLsmfBaG8M-P5hMkQ=s100-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> NakeyJakey <a href="https://">Webpage</a><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UCSdma21fnJzgmPodhC9SJ3g'">[LATEST]</button> <a href="https://m.youtube.com/watch?v=vTTEYUh6vco">OnlineDating</a> <a href="https://m.youtube.com/watch?v=KMZ4kkSVrBw">DownloadingMusic</a>
+<a href="https://m.youtube.com/watch?v=vTTEYUh6vco">OnlineDating</a> <a href="https://m.youtube.com/watch?v=KMZ4kkSVrBw">DownloadingMusic</a>
 <br>
 ______________________________________________________________________________________________
 <br>
@@ -590,7 +567,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/c/Gloudas"><img
 src="https://yt3.ggpht.com/ytc/AKedOLTSVCJAC091d894JR3ETSKDOezOMQuMc7-R9Lqcvg=s100-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> DougDoug <a href="">Webpage</a><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UClyGlKOhDUooPJFy4v_mqPg'">[LATEST]</button> <a href="https://m.youtube.com/playlist?list=PLzTxt5iYdhzjMJF--_xpj4s4jgOPe0NWF">ExplainedWithFood</a>&nbsp;<a target="_blank" href="https://m.youtube.com/watch?v=lLtW3tZXnZg">BOTW- Can you Shield surf down all hyrule castle ?</a>&nbsp;<a target="_blank" href="https://m.youtube.com/watch?v=90T1Xyz-Cvo">Mario 64 Slide</a> <a target="_blank" href="https://m.youtube.com/watch?v=YnN6eBamwj4&t=15m50s" style=color:blue>Snake with CHATGPT</a>
+<a href="https://m.youtube.com/playlist?list=PLzTxt5iYdhzjMJF--_xpj4s4jgOPe0NWF">ExplainedWithFood</a>&nbsp;<a target="_blank" href="https://m.youtube.com/watch?v=lLtW3tZXnZg">BOTW- Can you Shield surf down all hyrule castle ?</a>&nbsp;<a target="_blank" href="https://m.youtube.com/watch?v=90T1Xyz-Cvo">Mario 64 Slide</a>
 <br>
 __________________________________________________________________________________
 <br>
@@ -647,7 +624,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/user/LastWeekTonight/videos"><img
 src="https://yt3.ggpht.com/PFZVDwDcjBYoTloENpGt1Cmig6xTp8W1DVH5llFv22RLuy4rWIYu9A-OrFu17sVBEmfrw9OVwp0=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Last Week Tonight <a href="">Webpage</a><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UC3XTzVzaHQEd30rQbuvCtTQ'">[LATEST]</button> <a href="https://m.youtube.com/watch?v=jCC8fPQOaxU">Mobile Homes</a> <a target="_blank" href="https://m.youtube.com/watch?v=Sqa8Zo2XWc4">AI</a> <a target="_blank" href="https://m.youtube.com/watch?v=zsjZ2r9Ygzw">Encryption</a> <a target="_blank" href="https://m.youtube.com/watch?v=Eo3zORUGCbM" style=color:blue>Elon Musk</a>
+<button type="button" onclick="document.getElementById('channel-id').value='UC3XTzVzaHQEd30rQbuvCtTQ'">[LATEST]</button> <a href="https://m.youtube.com/watch?v=jCC8fPQOaxU">Mobile Homes</a> <a target="_blank" href="https://m.youtube.com/watch?v=Sqa8Zo2XWc4">AI</a> <a target="_blank" href="https://m.youtube.com/watch?v=zsjZ2r9Ygzw">Encryption</a>
 <br>
 ______________________________________________________________________________________________
 <br>
@@ -658,8 +635,8 @@ src="https://yt3.ggpht.com/gGY01w0jTAXYscW1Dx_Kz4p8Yv_s7QGKwqlrNx2trfrlxiVsRUvvk
 ______________________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/@rossmanngroup"><img
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/DEF_CON_30_Right_to_Repair_-_Louis_Rossmann_40-9_%28cropped%29.png/200px-DEF_CON_30_Right_to_Repair_-_Louis_Rossmann_40-9_%28cropped%29.png" alt="Image" height="50" width="50"></a> Louis Rossmann <a href="">Webpage</a><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UCl2mFZoRqjw_ELax4Yisf6w'">[LATEST]</button> <a target="_blank" href="https://m.youtube.com/watch?v=6G3ddOMvBws">OneWheel/FM sucks</a> <a target="_blank" href="https://m.youtube.com/watch?v=DEP_7_gx6M8&list=PLK4C8g4vpj7XomZ0sbTdjbyr0_hwJEQut&index=1&pp=gAQBiAQB">Adobe Takes the L</a>
+src="https://yt3.ggpht.com/R3gmOcHjkiO6FMCSoAMSrUkIliuT42oGUiWTgIeauigfTyqPLAv4UxwsXIqFN3s2b3uJ846y-Q=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Louis Rossmann <a href="">Webpage</a><br>
+<a target="_blank" href="https://m.youtube.com/watch?v=6G3ddOMvBws">OneWheel/FM sucks</a> <a target="_blank" href="https://m.youtube.com/watch?v=DEP_7_gx6M8&list=PLK4C8g4vpj7XomZ0sbTdjbyr0_hwJEQut&index=1&pp=gAQBiAQB">Adobe Takes the L</a>
 <br>
 ______________________________________________________________________________________________
 <div><a href="https://m.youtube.com/@TechnologyConnections"><img alt="Channel Image" src="https://yt3.googleusercontent.com/ytc/AOPolaSgDD9QHBa-zJaVAn_KX-oy-p2CeFJGHzp-colc=s100-c-k-c0x00ffffff-no-rj" height="50" width="50"></a><span> Technology Connections</span><br><a href="https://m.youtube.com/watch?v=8PTjPzw9VhY"><span>Fridge</span></a>
@@ -727,7 +704,6 @@ src="https://yt3.ggpht.com/ytc/AKedOLQ-POV4C8bXo0WPUYrPPgr0r-01z9pTCPwLS5Ib=s48-
 <a href="https://m.youtube.com/watch?v=sLK7DP8-B-I">When your Engrish is perfect</a> <a href="https://m.youtube.com/watch?v=R5zVMN2CXOI">Google Translate</a>
 <br>
 ______________________________________________________________________________________________
-<div><a href="https://m.youtube.com/@AbroadinJapan"><img alt="Channel Image" src="https://yt3.ggpht.com/dDHOkfh5uTfelqCEGNdBOadDVs1elmguSYaFhYME2Xr_gbfBNPidmAyTv4AsiGrUxiybbpsH8w=s48-c-k-c0x00ffffff-no-rj" height="50" width="50"></a><span>Abroad in Japan</span><br><a href="https://m.youtube.com/watch?v=CRAqd5EMnrk"><span>Reaction Videos</span></a></div>
 <br>
 </div>
 
@@ -806,7 +782,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/user/myFLASHware"><img
 src="https://yt3.ggpht.com/ytc/AKedOLRDdO3cUogn1xxMc1TVwD4xbqN9JgQcGzJf62QE_A=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a>  myFlashWare <a href="">Webpage</a><br>
-<a href="https://m.youtube.com/watch?v=you_-ZrSCVA">Wii Sports</a> <a target="_blank" href="https://m.youtube.com/watch?v=23EjYLD_4XE">Pokémon in 2021</a> <a target="_blank" href="https://m.youtube.com/watch?v=M2mkDXH4YCs" style=color:blue>MK8D</a>
+<a href="https://m.youtube.com/watch?v=you_-ZrSCVA">Wii Sports</a> <a target="_blank" href="https://m.youtube.com/watch?v=23EjYLD_4XE">Pokémon in 2021</a>
 <br>
 ______________________________________________________________________________________________
 <br>
@@ -901,7 +877,7 @@ ________________________________________________________________________________
           var output = '<div class="latest-video">';
           output += `<h3><a href="${videoURL}" target="_blank">${videoTitle}</a></h3>`;
           output += `<p>Published on ${pubDateStr}</p>`;
-          output += `<iframe width="560" height="315" src="https://super8.absturztau.be/embed/${latestVideo.guid.split(":")[2]}" frameborder="0" allowfullscreen></iframe>`;
+          output += `<iframe width="560" height="315" src="https://www.youtube.com/embed/${latestVideo.guid.split(":")[2]}" frameborder="0" allowfullscreen></iframe>`;
           output += '</div>';
           $content.html(output).hide();
           $content.fadeIn('slow');
@@ -939,7 +915,7 @@ ________________________________________________________________________________
             var output = '<div class="latest-video">';
             output += `<h3><a href="${videoURL}" target="_blank">${videoTitle}</a></h3>`;
             output += `<p>Published on ${pubDateStr}</p>`;
-            output += `<iframe width="560" height="315" src="https://super8.absturztau.be/embed/${latestVideo.guid.split(":")[2]}" frameborder="0" allowfullscreen></iframe>`;
+            output += `<iframe width="560" height="315" src="https://www.youtube.com/embed/${latestVideo.guid.split(":")[2]}" frameborder="0" allowfullscreen></iframe>`;
             output += '</div>';
             $content.html(output).hide();
             $content.fadeIn('slow');
