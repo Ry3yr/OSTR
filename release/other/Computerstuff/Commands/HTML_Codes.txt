@@ -5,12 +5,421 @@ Cheatsheet: https://pbs.twimg.com/media/FDTBjF5XEAkI6ZZ?format=jpg&name=large
 BlueGriffon (WYSIWYG Editor that doesn't break CSS)
 https://www.duplichecker.com/domain-age-checker.php
 [0HTML examples Backup: GDRIVE:/HTML/00_HTML ]
-------------
+===================
 https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.txt
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
 
+
+
+Display code text file with -&_ delims orderly:
+-------------------------------------------------
+
+  <style>
+ .extracted-content{margin-bottom:10px;padding:5px;border:1px solid #ccc;background-color:#f9f9f9}.title{font-weight:700;background-color:#ccc;padding:5px;margin-bottom:5px;cursor:pointer}.content{display:none;padding:5px}.content.show{display:block}
+  </style>
+  <script>
+    function toggleContent(element) {
+      const contentElement = element.nextElementSibling;
+      contentElement.classList.toggle("show");
+    }
+    function parseContent(data, titles) {
+      const pattern = /--- ---(.*?)___ __/gs; //rejoin spaces in regex to make work !!!!!!
+      const matches = [...data.matchAll(pattern)];
+      const outputContainer = document.getElementById("output");
+      outputContainer.innerHTML = "";
+      for (let i = 0; i < matches.length; i++) {
+        const match = matches[i];
+        const extractedContent = match[1].trim(); // Trim any leading/trailing whitespace
+        const extractedElement = document.createElement("div");
+        extractedElement.className = "extracted-content";
+        const titleElement = document.createElement("div");
+        titleElement.className = "title";
+        titleElement.innerText = titles[i];
+        titleElement.addEventListener("click", () => toggleContent(titleElement));
+        extractedElement.appendChild(titleElement);
+        const contentElement = document.createElement("div");
+        contentElement.className = "content";
+        contentElement.innerText = extractedContent;
+        extractedElement.appendChild(contentElement);
+        outputContainer.appendChild(extractedElement);
+      }
+    }
+    async function fetchAndParse() {
+      try {
+        const response = await fetch('https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.text();
+        const lines = data.split('\n');
+        const filteredLines = [];
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].includes('----- ----')) { // rejoin space to make work
+            if (i > 0) {
+              filteredLines.push(lines[i - 1]);
+            }
+          }
+        }
+        parseContent(data, filteredLines);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchAndParse();
+  </script>
+  <div id="output"></div>
+
+====CodeDisplayVer===
+PCFET0NUWVBFIGh0bWw+CjxodG1sPgo8aGVhZD4KICA8c3R5bGU+CiAgICAuZXh0cmFjdGVkLWNvbnRlbnQgewogICAgICBtYXJnaW4tYm90dG9tOiAxMHB4OwogICAgICBwYWRkaW5nOiA1cHg7CiAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7CiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmOWY5Zjk7CiAgICB9CgogICAgLnRpdGxlIHsKICAgICAgZm9udC13ZWlnaHQ6IDcwMDsKICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2NjYzsKICAgICAgcGFkZGluZzogNXB4OwogICAgICBtYXJnaW4tYm90dG9tOiA1cHg7CiAgICAgIGN1cnNvcjogcG9pbnRlcjsKICAgIH0KCiAgICAuY29udGVudCB7CiAgICAgIGRpc3BsYXk6IG5vbmU7CiAgICAgIHBhZGRpbmc6IDVweDsKICAgIH0KCiAgICAuY29udGVudC5zaG93IHsKICAgICAgZGlzcGxheTogYmxvY2s7CiAgICB9CgogICAgLmRyb3Bkb3duIHsKICAgICAgcG9zaXRpb246IHJlbGF0aXZlOwogICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7CiAgICB9CgogICAgLmRyb3Bkb3duLWNvbnRlbnQgewogICAgICBkaXNwbGF5OiBub25lOwogICAgICBwb3NpdGlvbjogYWJzb2x1dGU7CiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmOWY5Zjk7CiAgICAgIG1pbi13aWR0aDogMTYwcHg7CiAgICAgIGJveC1zaGFkb3c6IDBweCA4cHggMTZweCAwcHggcmdiYSgwLCAwLCAwLCAwLjIpOwogICAgICB6LWluZGV4OiAxOwogICAgfQoKICAgIC5kcm9wZG93bjpob3ZlciAuZHJvcGRvd24tY29udGVudCB7CiAgICAgIGRpc3BsYXk6IGJsb2NrOwogICAgfQogIDwvc3R5bGU+CiAgPHNjcmlwdD4KICAgIGZ1bmN0aW9uIHRvZ2dsZUNvbnRlbnQoZWxlbWVudCkgewogICAgICBjb25zdCBjb250ZW50RWxlbWVudCA9IGVsZW1lbnQubmV4dEVsZW1lbnRTaWJsaW5nOwogICAgICBjb250ZW50RWxlbWVudC5jbGFzc0xpc3QudG9nZ2xlKCJzaG93Iik7CiAgICB9CgogICAgZnVuY3Rpb24gcGFyc2VDb250ZW50KGRhdGEsIHRpdGxlcykgewogICAgICBjb25zdCBwYXR0ZXJuID0gLy0tLS0tLSguKj8pX19fX18vZ3M7CiAgICAgIGNvbnN0IG1hdGNoZXMgPSBbLi4uZGF0YS5tYXRjaEFsbChwYXR0ZXJuKV07CiAgICAgIGNvbnN0IG91dHB1dENvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJvdXRwdXQiKTsKICAgICAgb3V0cHV0Q29udGFpbmVyLmlubmVySFRNTCA9ICIiOwogICAgICBmb3IgKGxldCBpID0gMDsgaSA8IG1hdGNoZXMubGVuZ3RoOyBpKyspIHsKICAgICAgICBjb25zdCBtYXRjaCA9IG1hdGNoZXNbaV07CiAgICAgICAgY29uc3QgZXh0cmFjdGVkQ29udGVudCA9IG1hdGNoWzFdLnRyaW0oKTsgLy8gVHJpbSBhbnkgbGVhZGluZy90cmFpbGluZyB3aGl0ZXNwYWNlCiAgICAgICAgY29uc3QgZXh0cmFjdGVkRWxlbWVudCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImRpdiIpOwogICAgICAgIGV4dHJhY3RlZEVsZW1lbnQuY2xhc3NOYW1lID0gImV4dHJhY3RlZC1jb250ZW50IjsKICAgICAgICBjb25zdCB0aXRsZUVsZW1lbnQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJkaXYiKTsKICAgICAgICB0aXRsZUVsZW1lbnQuY2xhc3NOYW1lID0gInRpdGxlIjsKICAgICAgICB0aXRsZUVsZW1lbnQuaW5uZXJUZXh0ID0gdGl0bGVzW2ldOwogICAgICAgIHRpdGxlRWxlbWVudC5hZGRFdmVudExpc3RlbmVyKCJjbGljayIsICgpID0+IHRvZ2dsZUNvbnRlbnQodGl0bGVFbGVtZW50KSk7CiAgICAgICAgZXh0cmFjdGVkRWxlbWVudC5hcHBlbmRDaGlsZCh0aXRsZUVsZW1lbnQpOwogICAgICAgIGNvbnN0IGNvbnRlbnRFbGVtZW50ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiZGl2Iik7CiAgICAgICAgY29udGVudEVsZW1lbnQuY2xhc3NOYW1lID0gImNvbnRlbnQiOwogICAgICAgIGNvbnRlbnRFbGVtZW50LmlubmVyVGV4dCA9IGV4dHJhY3RlZENvbnRlbnQ7CiAgICAgICAgZXh0cmFjdGVkRWxlbWVudC5hcHBlbmRDaGlsZChjb250ZW50RWxlbWVudCk7CiAgICAgICAgb3V0cHV0Q29udGFpbmVyLmFwcGVuZENoaWxkKGV4dHJhY3RlZEVsZW1lbnQpOwogICAgICB9CiAgICB9CgogICAgYXN5bmMgZnVuY3Rpb24gZmV0Y2hBbmRQYXJzZSh1cmwpIHsKICAgICAgdHJ5IHsKICAgICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKHVybCk7CiAgICAgICAgaWYgKCFyZXNwb25zZS5vaykgewogICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJOZXR3b3JrIHJlc3BvbnNlIHdhcyBub3Qgb2siKTsKICAgICAgICB9CiAgICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLnRleHQoKTsKICAgICAgICBjb25zdCBsaW5lcyA9IGRhdGEuc3BsaXQoIlxuIik7CiAgICAgICAgY29uc3QgZmlsdGVyZWRMaW5lcyA9IFtdOwogICAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgbGluZXMubGVuZ3RoOyBpKyspIHsKICAgICAgICAgIGlmIChsaW5lc1tpXS5pbmNsdWRlcygiLS0tLS0tLS0tIikpIHsKICAgICAgICAgICAgaWYgKGkgPiAwKSB7CiAgICAgICAgICAgICAgZmlsdGVyZWRMaW5lcy5wdXNoKGxpbmVzW2kgLSAxXSk7CiAgICAgICAgICAgIH0KICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgcGFyc2VDb250ZW50KGRhdGEsIGZpbHRlcmVkTGluZXMpOwogICAgICB9IGNhdGNoIChlcnJvcikgewogICAgICAgIGNvbnNvbGUuZXJyb3IoZXJyb3IpOwogICAgICB9CiAgICB9CgogICAgZnVuY3Rpb24gY2hhbmdlRHJvcGRvd25TZWxlY3Rpb24oKSB7CiAgICAgIGNvbnN0IGRyb3Bkb3duID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImRyb3Bkb3duTWVudSIpOwogICAgICBjb25zdCBzZWxlY3RlZE9wdGlvbiA9IGRyb3Bkb3duLm9wdGlvbnNbZHJvcGRvd24uc2VsZWN0ZWRJbmRleF07CiAgICAgIGNvbnN0IHVybCA9IHNlbGVjdGVkT3B0aW9uLnZhbHVlOwogICAgICBmZXRjaEFuZFBhcnNlKHVybCk7CiAgICB9CiAgPC9zY3JpcHQ+CjwvaGVhZD4KPGJvZHk+CiAgPGRpdiBjbGFzcz0iZHJvcGRvd24iPgogICAgPHNlbGVjdCBpZD0iZHJvcGRvd25NZW51IiBvbmNoYW5nZT0iY2hhbmdlRHJvcGRvd25TZWxlY3Rpb24oKSI+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvQXV0b2hvdGtleS9Db21tYW5kcy50eHQiPkF1dG9ob3RrZXk8L29wdGlvbj4KICAgICAgPG9wdGlvbiB2YWx1ZT0ib3RoZXIvQ29tcHV0ZXJzdHVmZi9Db21tYW5kcy9ET1MvQ29tbWFuZHMudHh0Ij5ET1M8L29wdGlvbj4KICAgICAgPG9wdGlvbiB2YWx1ZT0ib3RoZXIvQ29tcHV0ZXJzdHVmZi9Db21tYW5kcy9GRk1QRUclMjBDb21tYW5kcy50eHQiPkZGTVBFRzwvb3B0aW9uPgogICAgICA8b3B0aW9uIHZhbHVlPSJvdGhlci9Db21wdXRlcnN0dWZmL0NvbW1hbmRzL0NvbW1hbmRzX0ltYWdlTWFnaWNrLnR4dCI+SW1hZ2VtYWdpY2s8L29wdGlvbj4KICAgICAgPG9wdGlvbiB2YWx1ZT0ib3RoZXIvQ29tcHV0ZXJzdHVmZi9Db21tYW5kcy9Tb3hfQ01EUy50eHQiPlNveDwvb3B0aW9uPgogICAgICA8b3B0aW9uIHZhbHVlPSJvdGhlci9Db21wdXRlcnN0dWZmL0NvbW1hbmRzL0hUTUxfQ29kZXMudHh0Ij5IVE1MPC9vcHRpb24+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvUEhQLnR4dCI+UEhQPC9vcHRpb24+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvUHl0aG9uLnR4dCI+UHl0aG9uPC9vcHRpb24+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvQW5kcm9pZC1LZXlldmVudHMudHh0Ij5BbmRyb2lkIEtleWV2ZW50czwvb3B0aW9uPgogICAgPC9zZWxlY3Q+CiAgPC9kaXY+CiAgPGRpdiBpZD0ib3V0cHV0Ij48L2Rpdj4KPC9ib2R5Pgo8L2h0bWw+
+
+_______________________________
+
+Table fetch specific entries:
+---------------------------------------
+
+<div class="table-container"></div>
+<style>
+  .table-container {
+    display: inline-block;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  tr {
+    border-bottom: 2px solid #000;
+    border-top: 2px solid #000;
+  }
+  td {
+    border-right: 2px solid #000;
+    border-left: 2px solid #000;
+  }
+</style>
+<script>
+  function fetchAndPopulateDataTD() {
+    fetch('https://alceawis.de/other/extra/personal/personality/0apersonality.html')
+      .then(response => response.text())
+      .then(data => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+        const table = tempDiv.querySelector('table');
+        const rows = table.querySelectorAll('tr');
+        const filteredRows = Array.from(rows).filter(row => {
+          const cells = row.querySelectorAll('td');
+          return Array.from(cells).some(cell => cell.innerHTML.includes('Favorite'));
+        });
+        const displayDiv = document.querySelector('.table-container');
+        displayDiv.innerHTML = '';
+        const filteredTable = document.createElement('table');
+        filteredRows.forEach(row => {
+          const clonedRow = row.cloneNode(true);
+          filteredTable.appendChild(clonedRow);
+        });
+        displayDiv.appendChild(filteredTable);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+  fetchAndPopulateDataTD();
+</script>
+
+________________________
+
+Mastodon Keyword over time:
+--------------------------------------
+
+<form onsubmit="openInNewTab(event)">
+  <label for="dropdown"></label>
+  <select id="dropdown" name="endpoint">
+    <option value="https://urusai.social/api/v1/accounts/111417582756052979/statuses">@alcea@urusai.social</option>
+    <option value="https://pb.todon.de/api/v1/accounts/109629985010224381/statuses">@alcea@pb.todon</option>
+    <option value="https://mastodon.social/api/v1/accounts/109977878421486714/statuses">@ryedai@mastodon.social</option>
+    <option value="https://mstdn.animexx.de/api/v1/accounts/111676830721936824/statuses">@alcea@animexx</option>
+  </select>
+  <label for="textfield">Enter a keyword:</label>
+  <input type="text" id="textfield" name="keyword">
+  <input type="submit" value="Submit">
+</form>
+<script>
+  function openInNewTab(event) {
+    event.preventDefault();
+    var endpoint = document.getElementById("dropdown").value;
+    var keyword = document.getElementById("textfield").value;
+    var url = "" +
+      "?endpoint=" + encodeURIComponent(endpoint) +
+      "&keyword=" + encodeURIComponent(keyword);
+    window.open(url, "_blank"); // Open the URL in a new tab or window
+  }
+</script><hr>
+<a target="_blank" href="?endpoint=https://urusai.social/api/v1/accounts/111417582756052979/statuses&keyword=koyu" style=color:blue>title</a><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Line Chart Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!--<div id="entities"></div>-->
+    <canvas id="lineChart"></canvas>
+
+    <script>
+        $(document).ready(function() {
+            var endpoint = 'https://pb.todon.de/api/v1/accounts/109629985010224381/statuses';
+            // Get the value of the "endpoint" and "keyword" query string parameters
+            var urlParams = new URLSearchParams(window.location.search);
+            var customEndpoint = urlParams.get('endpoint');
+            if (customEndpoint) {
+                endpoint = customEndpoint;
+            }
+            var keyword = urlParams.get('keyword');
+
+            var entities = [];
+
+            fetchEntities();
+
+            function fetchEntities() {
+                var url = endpoint;
+
+                if (entities.length > 0) {
+                    var linkHeader = '<' + endpoint + '?max_id=' + entities[entities.length - 1].id + '>; rel="next"';
+                    $.ajaxSetup({
+                        headers: {
+                            'Link': linkHeader
+                        }
+                    });
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Bearer token'
+                    },
+                    success: function(response, textStatus, xhr) {
+                        var newEntities = response;
+
+                        for (var i = 0; i < newEntities.length; i++) {
+                            var entity = newEntities[i];
+                            entities.push(entity);
+                        }
+
+                        var linkHeader = xhr.getResponseHeader('Link');
+                        var nextLink = extractLinkUrl(linkHeader, 'next');
+
+                        if (entities.length >= 200) {
+                            // Render the fetched entities
+                            renderEntities();
+                            // Create the line chart
+                            createLineChart();
+                        } else if (nextLink) {
+                            // Fetch the next set of entities
+                            endpoint = nextLink;
+                            fetchEntities();
+                        } else {
+                            console.log('Finished fetching 200 entities');
+                            // Render the fetched entities
+                            renderEntities();
+                            // Create the line chart
+                            createLineChart();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+
+            function extractLinkUrl(linkHeader, rel) {
+                var links = linkHeader.split(',');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i].trim();
+                    var regex = /<([^>]+)>;\s*rel="([^"]+)"/g;
+                    var match = regex.exec(link);
+                    if (match && match[2] === rel) {
+                        return match[1];
+                    }
+                }
+                return null;
+            }
+
+            function renderEntities() {
+                for (var i = 0; i < entities.length; i++) {
+                    var entity = entities[i];
+                    // Render the URL and date on the page
+                    var entityHtml = '<p>';
+                    entityHtml += 'URL: <a target=_blank href="' + entity.url + '">' + entity.url + '</a><br>';
+                    entityHtml += 'Date: ' + entity.created_at + '<br>';
+                    entityHtml += 'Toot: ' + entity.content + '<br>';
+                    entityHtml += '</p>';
+                    $('#entities').append(entityHtml);
+                }
+            }
+
+            function createLineChart() {
+                var labels = [];
+                var dataPoints = [];
+
+                for (var i = 0; i < entities.length; i++) {
+                    var entity = entities[i];
+                    labels.push(entity.created_at);
+                    var keywordCount = countKeywordOccurrences(entity.content, keyword);
+                    dataPoints.push(keywordCount);
+                }
+
+                var ctx = document.getElementById('lineChart').getContext('2d');
+                var lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Keyword "' + keyword + '" Occurrences - ' + endpoint,
+                            data: dataPoints,
+                            borderColor: 'blue',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                display: true,
+                                reverse: true, // Invert the x-axis
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Keyword "' + keyword + '" Occurrences'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function countKeywordOccurrences(text, keyword) {
+                var regex = new RegExp(keyword, 'gi');
+                var matches = text.match(regex);
+                if (matches) {
+                    return matches.length;
+                }
+                return 0;
+            }
+        });
+    </script>
+</body>
+</html>
+
+_________________________
+
+JS inbrowser zip extractor:
+-----------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zip Renderer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+  <script>
+    function renderZipFile() {
+      var zipFileName = document.getElementById("zipFileName").value;
+      fetch(zipFileName)
+        .then(function(response) {
+          return response.arrayBuffer();
+        })
+        .then(function(buffer) {
+          return JSZip.loadAsync(buffer);
+        })
+        .then(function(zip) {
+          var folders = [];
+          var files = [];
+          var linksWithSecondSlash = [];
+          zip.forEach(function(relativePath, zipEntry) {
+            if (zipEntry.dir) {
+              folders.push(relativePath);
+            } else {
+              files.push({ relativePath: relativePath, zipEntry: zipEntry });
+            }
+          });
+          folders.sort();
+          files.sort(function(a, b) {
+            return a.relativePath.localeCompare(b.relativePath);
+          });
+          files.forEach(function(file) {
+            var link = file.relativePath;
+            if (link.split('/').length > 2) {
+              linksWithSecondSlash.push(link);
+            } else {
+              renderFile(file.zipEntry);
+            }
+          });
+          linksWithSecondSlash.forEach(function(link) {
+            var zipEntry = zip.file(link);
+            if (zipEntry) {
+              renderFile(zipEntry);
+            }
+          });
+          folders.forEach(function(folder) {
+            renderFolder(folder);
+          });
+        })
+        .catch(function(error) {
+          console.error('Error rendering zip file:', error);
+        });
+    }
+    function renderFolder(folder) {
+      var folderElement = document.createElement('p');
+      folderElement.textContent = folder;
+      document.body.appendChild(folderElement);
+    }
+    function renderFile(zipEntry) {
+      zipEntry.async('blob').then(function(blob) {
+        var url = URL.createObjectURL(blob);
+        var fileElement = document.createElement('a');
+        fileElement.href = url;
+        fileElement.download = zipEntry.name;
+        fileElement.textContent = zipEntry.name;
+        fileElement.target = "_blank";
+        document.body.appendChild(fileElement);
+        document.body.appendChild(document.createElement('br'));
+      });
+    }
+  </script>
+</head>
+<body>
+  <label for="zipFileName">Zip File Name:</label>
+  <input type="text" id="zipFileName" name="zipFileName" value="https://ry3yr.github.io/alceawis.de.zip">
+  <button onclick="renderZipFile()">Render Zip</button>
+</body>
+</html>
+
+_______________________
+
+Change all of a certain link on page:
+------------------------------------------------
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var links = document.querySelectorAll('a[href^="https://m.youtube.com"]');
+  for (var i = 0; i < links.length; i++) {
+    var link = links[i];
+    link.href = link.href.replace('https://m.youtube.com', 'https://super8.absturztau.be');
+  }
+});
+</script>
+<a href="https://m.youtube.com/watch?v=01bwEdQg6EY">EternalSnow</a>
+
+
+_____________________________
 
 htaccess enable caching:
 -------------------------------
@@ -2298,10 +2707,11 @@ Advanced Mastodon Timeline / TL render (with querystring support):
           let media = '';
           let avatar = '';
           let tootLink = '';
-          // Check for YouTube video link
-          const youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
-          const youtubeMatch = status.content.match(youtubeRegex);
-          if (youtubeMatch) {
+           // Check for YouTube video link const 
+           youtubeRegex = /https?:\/\/(www\.)?(m\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/;
+           const invidiousRegex = /https?:\/\/(www\.)?(m\.)?super8\.absturztau\.be\/watch\?v=([-a-zA-Z0-9_]{11})/;
+           const youtubeMatch = status.content.match(youtubeRegex) || status.content.match(invidiousRegex); 
+            if (youtubeMatch) {
             // Extract video ID from YouTube link
             const videoId = youtubeMatch[3];
             // Create embedded player for YouTube video
@@ -6756,7 +7166,7 @@ $("#navLink").on("click", function() { $("#outputnav").load("https://ry3yr.githu
 ________________________________________________________________________________________________
 
 
-Fetch sitepart via delimiter
+Fetch sitepart between via delimiter
 ----------------------------------------
 
   <body>

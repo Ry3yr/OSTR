@@ -1,4 +1,4 @@
-
+•Each release branch of PHP is fully supported for two years from its initial stable release https://www.php.net/supported-versions.php
 PHP Backup: https://ry3yr.github.io/php.zip
 Run php server locally (android): https://apkcombo.com/de/palapa-web-server/com.alfanla.android.pws/download/apk#urusai.social/@alcea/111761622206017944#i.ibb.co/cx175BB/Screenshot-20240115-165447-Opera.png
 Install ComposerPackagesManually(Windows) https://m.youtube.com/watch?v=j8kpwzE6ju0
@@ -8,10 +8,93 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+PHP version htaccess version chck + changer (subfolders one dir up)
+---------------------------
+
+<?php
+$parentDirectory = dirname(__DIR__); // Get the parent directory
+$folders = scandir($parentDirectory); // Get all folders within the parent directory
+echo '<table>';
+echo '<tr><th>Folder</th><th>.htaccess</th><th>PHP Version</th></tr>';
+foreach ($folders as $folder) {
+    if ($folder === '.' || $folder === '..' || !is_dir($parentDirectory . '/' . $folder)) {
+        continue; // Skip current and parent directory and non-folders
+    }
+    $folderPath = $parentDirectory . '/' . $folder; // Get the full path of the folder
+    $htaccessPath = $folderPath . '/.htaccess';
+    $htaccessExists = file_exists($htaccessPath);
+    $phpVersion = '';
+    if ($htaccessExists) {
+        $htaccessContents = file_get_contents($htaccessPath);
+        preg_match('/AddHandler\s+application\/x-httpd-php(\d+)\s+\.php/', $htaccessContents, $matches);
+        if (isset($matches[1])) {
+            $phpVersion = $matches[1];
+        }
+    }
+    // Fallback to default PHP version if line not found
+    if (empty($phpVersion)) {
+        $phpVersion = phpversion();
+    }
+    $folderUrl = 'http://' . $_SERVER['HTTP_HOST'] . dirname(dirname($_SERVER['REQUEST_URI'])) . '/' . basename($folderPath);
+    echo '<tr>';
+    echo '<td><a target="_blank" href="' . htmlspecialchars($folderUrl) . '" target="_blank">' . htmlspecialchars($folder) . '</a></td>';
+    echo '<td>' . ($htaccessExists ? '<span style="color: green;">Exists</span>' : '<span style="color: gray;">[no .htaccess found]</span>') . '</td>';
+    echo '<td><a target="_blank" href="change.php?folder=' . urlencode($folder) . '">' . ($phpVersion ? $phpVersion : '[unknown]') . '</a></td>';
+    echo '</tr>';
+}
+echo '</table>';
+?>
+
+======change.php====
+
+<?php
+$folder = isset($_GET['folder']) ? $_GET['folder'] : '';
+$currentDir = __DIR__;
+$baseDir = dirname($currentDir);
+$combinedPath = $baseDir . '/' . $folder;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $phpVersion = $_POST['php_version'];
+    $phpVersion2 = substr_replace($phpVersion, "", -1);
+    $handlerLine = "AddHandler application/x-httpd-php{$phpVersion} .php .php{$phpVersion2}";
+    $htaccessFile = $combinedPath . '/.htaccess';
+    $htaccessContent = file_get_contents($htaccessFile);
+    if (strpos($htaccessContent, $handlerLine) === false) {
+        // Append the handler line to the .htaccess file
+        file_put_contents($htaccessFile, PHP_EOL . $handlerLine, FILE_APPEND);
+        $message = "PHP version $phpVersion has been added to the .htaccess file in the folder: $combinedPath";
+    } else {
+        $message = "PHP version $phpVersion already exists in the .htaccess file in the folder: $combinedPath";
+    }
+}
+?>
+    <?php if (isset($message)) : ?>
+        <p><?php echo $message; ?></p>
+    <?php endif; ?>
+    <form action="" method="POST">
+        <label for="php_version">Select PHP Version:</label>
+        <select name="php_version" id="php_version">
+            <option value="56">PHP 5.6</option>
+            <option value="70">PHP 7.0</option>
+            <option value="71">PHP 7.1</option>
+            <option value="72">PHP 7.2</option>
+            <option value="73">PHP 7.3</option>
+            <option value="74">PHP 7.4</option>
+            <option value="80">PHP 8.0</option>
+            <option value="81">PHP 8.1</option>
+        </select>
+        <br><br>
+        <label for="folder">Select Folder:</label>
+        <input type="text" name="folder" id="folder" placeholder="Enter folder path" value="<?php echo htmlspecialchars($folder); ?>">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+____________________________________
+
 Filesize in Folder checker (+ dld)
 ------------------------------------
-
-
 
 <?php
 function getFolderSize($folderPath) {
@@ -91,8 +174,6 @@ echo '<input type="submit" name="submit" value="Submit">';
 echo '</form>';
 ?>
 <a target="_blank" href="download.php" style=color:transparent>DLD</a>
-
-
 
 =====download.php===
 
@@ -408,7 +489,8 @@ Visualize past programming efforts (php):
 <?php
 $url = "https://alcea-wisteria.de/PHP/0demo/";
 $html = file_get_contents($url);
-$pattern = '/<tr>(.*?)<\/tr>/s';
+//$pattern = '/<tr>(.*?)<\/tr>/s'; //timestamp based
+$pattern = '/<td data-sort="([^"]*)"/'; //filename based
 preg_match_all($pattern, $html, $matches);
 $dates = array();
 foreach ($matches[0] as $match) {

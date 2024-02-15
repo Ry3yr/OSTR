@@ -1,0 +1,126 @@
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const url = document.getElementById("dropdownMenu").value;
+    fetchAndParse(url);
+  });
+</script>
+
+  <style>
+    .extracted-content {
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+
+    .title {
+      font-weight: 700;
+      background-color: #ccc;
+      padding: 5px;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+
+    .content {
+      display: none;
+      padding: 5px;
+    }
+
+    .content.show {
+      display: block;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+  <script>
+    function toggleContent(element) {
+      const contentElement = element.nextElementSibling;
+      contentElement.classList.toggle("show");
+    }
+
+    function parseContent(data, titles) {
+      const pattern = /--------(.*?)_________/gs;
+      const matches = [...data.matchAll(pattern)];
+      const outputContainer = document.getElementById("output");
+      outputContainer.innerHTML = "";
+      for (let i = 0; i < matches.length; i++) {
+        const match = matches[i];
+        const extractedContent = match[1].trim(); // Trim any leading/trailing whitespace
+        const extractedElement = document.createElement("div");
+        extractedElement.className = "extracted-content";
+        const titleElement = document.createElement("div");
+        titleElement.className = "title";
+        titleElement.innerText = titles[i];
+        titleElement.addEventListener("click", () => toggleContent(titleElement));
+        extractedElement.appendChild(titleElement);
+        const contentElement = document.createElement("div");
+        contentElement.className = "content";
+        contentElement.innerText = extractedContent;
+        extractedElement.appendChild(contentElement);
+        outputContainer.appendChild(extractedElement);
+      }
+    }
+
+    async function fetchAndParse(url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.text();
+        const lines = data.split("\n");
+        const filteredLines = [];
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].includes("------------")) {
+            if (i > 0) {
+              filteredLines.push(lines[i - 1]);
+            }
+          }
+        }
+        parseContent(data, filteredLines);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function changeDropdownSelection() {
+      const dropdown = document.getElementById("dropdownMenu");
+      const selectedOption = dropdown.options[dropdown.selectedIndex];
+      const url = selectedOption.value;
+      fetchAndParse(url);
+    }
+  </script>
+</head>
+<body>
+  <div class="dropdown">
+    <select id="dropdownMenu" onchange="changeDropdownSelection()">
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
+      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
+      <!--<option value="/other/Computerstuff/Commands/Android-Keyevents.txt">Android Keyevents</option>-->
+    </select>
+  </div>
+  <div id="output"></div>
+</body>
+</html>
