@@ -1,3 +1,163 @@
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const url = document.getElementById("dropdownMenu").value;
+    changeDropdownSelection(url);
+  });
+</script>
+<html>
+  <head>
+    <title>Code</title>
+<style>
+    .spoiler {
+        margin-bottom: 10px;
+    }
+
+    .spoiler-header {
+        background-color: #f1f1f1;
+        padding: 10px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .spoiler-content {
+        display: none;
+        padding: 10px;
+        background-color: #ffffff;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var spoilerHeaders = document.getElementsByClassName('spoiler-header');
+        for (var i = 0; i < spoilerHeaders.length; i++) {
+            spoilerHeaders[i].addEventListener('click', function () {
+                var content = this.nextElementSibling;
+                if (content.style.display === 'none') {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+
+    <!--<style>.spoiler{margin-bottom:10px;}.spoiler-header{background-color:#f1f1f1;padding:10px;cursor:pointer;font-weight:bold;}.spoiler-content{display:none;padding:10px;background-color:#ffffff;}</style>-->
+  </head>
+  <body>
+    <div class="dropdown">
+      <select id="dropdownMenu" onchange="changeDropdownSelection()">
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
+        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
+      </select>
+    </div>
+    <div id="output"></div>
+    <script>
+      fetch('other/Computerstuff/Commands/HTML_Codes.txt')
+        .then((response) => response.text())
+        .then((data) => {
+          const lines = data.split('\n');
+          const filteredLines = [];
+          for (let i = 0; i < lines.length; i++) {
+            if (lines[i].includes('---------')) {
+              if (i > 0) {
+                filteredLines.push(lines[i - 1]);
+              }
+            }
+          }
+          console.log(filteredLines);
+          const container = document.getElementById('output');
+          const contentLines = data.split(/---------+/);
+          contentLines.shift();
+          filteredLines.forEach((line, index) => {
+            const spoilerContainer = document.createElement('div');
+            spoilerContainer.classList.add('spoiler');
+            container.appendChild(spoilerContainer);
+            const headerElement = document.createElement('div');
+            headerElement.classList.add('spoiler-header');
+            headerElement.innerText = line;
+            spoilerContainer.appendChild(headerElement);
+            if (index < contentLines.length) {
+              const contentElement = document.createElement('div');
+              contentElement.classList.add('spoiler-content');
+              contentElement.innerText = contentLines[index].trim();
+              spoilerContainer.appendChild(contentElement);
+            }
+            headerElement.addEventListener('click', () => {
+              spoilerContainer.classList.toggle('active');
+              const contentElement = spoilerContainer.querySelector('.spoiler-content');
+              contentElement.style.display = contentElement.style.display === 'none' ? 'block' : 'none';
+            });
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      function changeDropdownSelection() {
+        const dropdown = document.getElementById('dropdownMenu');
+        const selectedValue = dropdown.value;
+
+        fetch(selectedValue)
+          .then((response) => response.text())
+          .then((data) => {
+            const container = document.getElementById('output');
+            container.innerHTML = '';
+
+            const lines = data.split('\n');
+            const filteredLines = [];
+            for (let i = 0; i < lines.length; i++) {
+              if (lines[i].includes('---------')) {
+                if (i > 0) {
+                  filteredLines.push(lines[i - 1]);
+                }
+              }
+            }
+
+            const contentLines = data.split(/---------+/);
+            contentLines.shift();
+
+            filteredLines.forEach((line, index) => {
+              const spoilerContainer = document.createElement('div');
+              spoilerContainer.classList.add('spoiler');
+              container.appendChild(spoilerContainer);
+
+              const headerElement = document.createElement('div');
+              headerElement.classList.add('spoiler-header');
+              headerElement.innerText = line;
+              spoilerContainer.appendChild(headerElement);
+
+              if (index < contentLines.length) {
+                const contentElement = document.createElement('div');
+                contentElement.classList.add('spoiler-content');
+                contentElement.innerText = contentLines[index].trim();
+                spoilerContainer.appendChild(contentElement);
+              }
+              
+              headerElement.addEventListener('click', () => {
+                spoilerContainer.classList.toggle('active');
+                const contentElement = spoilerContainer.querySelector('.spoiler-content');
+                contentElement.style.display = contentElement.style.display === 'none' ? 'block' : 'none';
+              });
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    </script>
+  </body>
+</html>
+
+
+<!---Trash------Code----------
 <script>
   window.addEventListener("DOMContentLoaded", () => {
     const url = document.getElementById("dropdownMenu").value;
@@ -110,14 +270,14 @@
 <body>
   <div class="dropdown">
     <select id="dropdownMenu" onchange="changeDropdownSelection()">
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
-      <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
+      <option value="/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
+      <option value="/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
+      <option value="/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
+      <option value="/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
+      <option value="/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
+      <option value="/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
+      <option value="/other/Computerstuff/Commands/PHP.txt">PHP</option>
+      <option value="/other/Computerstuff/Commands/Python.txt">Python</option>
       <!--<option value="/other/Computerstuff/Commands/Android-Keyevents.txt">Android Keyevents</option>-->
     </select>
   </div>
