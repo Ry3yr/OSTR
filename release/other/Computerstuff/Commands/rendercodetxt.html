@@ -1,286 +1,96 @@
-
 <script>
   window.addEventListener("DOMContentLoaded", () => {
     const url = document.getElementById("dropdownMenu").value;
     changeDropdownSelection(url);
   });
 </script>
-<html>
-  <head>
-    <title>Code</title>
-<style>
-    .spoiler {
-        margin-bottom: 10px;
-    }
-
-    .spoiler-header {
-        background-color: #f1f1f1;
-        padding: 10px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .spoiler-content {
-        display: none;
-        padding: 10px;
-        background-color: #ffffff;
-    }
+<head>
+    <style>
+.extracted{margin-bottom:10px}.title{background-color:#f1f1f1;padding:10px;cursor:pointer;font-weight:700}.content{display:none;padding:10px;background-color:#fff;position:relative}.content.show{display:block}.copy-button{position:absolute;top:5px;right:5px;padding:5px 10px;border:none;background-color:#ddd;cursor:pointer}
 </style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var spoilerHeaders = document.getElementsByClassName('spoiler-header');
-        for (var i = 0; i < spoilerHeaders.length; i++) {
-            spoilerHeaders[i].addEventListener('click', function () {
-                var content = this.nextElementSibling;
-                if (content.style.display === 'none') {
-                    content.style.display = 'block';
-                } else {
-                    content.style.display = 'none';
-                }
-            });
-        }
-    });
-</script>
-
-    <!--<style>.spoiler{margin-bottom:10px;}.spoiler-header{background-color:#f1f1f1;padding:10px;cursor:pointer;font-weight:bold;}.spoiler-content{display:none;padding:10px;background-color:#ffffff;}</style>-->
-  </head>
-  <body>
-    <div class="dropdown">
-      <select id="dropdownMenu" onchange="changeDropdownSelection()">
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
-        <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
-      </select>
-    </div>
-    <div id="output"></div>
-    <script>
-      fetch('other/Computerstuff/Commands/HTML_Codes.txt')
-        .then((response) => response.text())
-        .then((data) => {
-          const lines = data.split('\n');
-          const filteredLines = [];
-          for (let i = 0; i < lines.length; i++) {
-            if (lines[i].includes('---------')) {
-              if (i > 0) {
-                filteredLines.push(lines[i - 1]);
-              }
-            }
-          }
-          console.log(filteredLines);
-          const container = document.getElementById('output');
-          const contentLines = data.split(/---------+/);
-          contentLines.shift();
-          filteredLines.forEach((line, index) => {
-            const spoilerContainer = document.createElement('div');
-            spoilerContainer.classList.add('spoiler');
-            container.appendChild(spoilerContainer);
-            const headerElement = document.createElement('div');
-            headerElement.classList.add('spoiler-header');
-            headerElement.innerText = line;
-            spoilerContainer.appendChild(headerElement);
-            if (index < contentLines.length) {
-              const contentElement = document.createElement('div');
-              contentElement.classList.add('spoiler-content');
-              contentElement.innerText = contentLines[index].trim();
-              spoilerContainer.appendChild(contentElement);
-            }
-            headerElement.addEventListener('click', () => {
-              spoilerContainer.classList.toggle('active');
-              const contentElement = spoilerContainer.querySelector('.spoiler-content');
-              contentElement.style.display = contentElement.style.display === 'none' ? 'block' : 'none';
-            });
-          });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      function changeDropdownSelection() {
-        const dropdown = document.getElementById('dropdownMenu');
-        const selectedValue = dropdown.value;
-
-        fetch(selectedValue)
-          .then((response) => response.text())
-          .then((data) => {
-            const container = document.getElementById('output');
-            container.innerHTML = '';
-
-            const lines = data.split('\n');
-            const filteredLines = [];
-            for (let i = 0; i < lines.length; i++) {
-              if (lines[i].includes('---------')) {
-                if (i > 0) {
-                  filteredLines.push(lines[i - 1]);
-                }
-              }
-            }
-
-            const contentLines = data.split(/---------+/);
-            contentLines.shift();
-
-            filteredLines.forEach((line, index) => {
-              const spoilerContainer = document.createElement('div');
-              spoilerContainer.classList.add('spoiler');
-              container.appendChild(spoilerContainer);
-
-              const headerElement = document.createElement('div');
-              headerElement.classList.add('spoiler-header');
-              headerElement.innerText = line;
-              spoilerContainer.appendChild(headerElement);
-
-              if (index < contentLines.length) {
-                const contentElement = document.createElement('div');
-                contentElement.classList.add('spoiler-content');
-                contentElement.innerText = contentLines[index].trim();
-                spoilerContainer.appendChild(contentElement);
-              }
-              
-              headerElement.addEventListener('click', () => {
-                spoilerContainer.classList.toggle('active');
-                const contentElement = spoilerContainer.querySelector('.spoiler-content');
-                contentElement.style.display = contentElement.style.display === 'none' ? 'block' : 'none';
-              });
-            });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }
-    </script>
-  </body>
-</html>
-
-
-<!---Trash------Code----------
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const url = document.getElementById("dropdownMenu").value;
-    fetchAndParse(url);
-  });
-</script>
-
-  <style>
-    .extracted-content {
-      margin-bottom: 10px;
-      padding: 5px;
-      border: 1px solid #ccc;
-      background-color: #f9f9f9;
-    }
-
-    .title {
-      font-weight: 700;
-      background-color: #ccc;
-      padding: 5px;
-      margin-bottom: 5px;
-      cursor: pointer;
-    }
-
-    .content {
-      display: none;
-      padding: 5px;
-    }
-
-    .content.show {
-      display: block;
-    }
-
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-  </style>
-  <script>
-    function toggleContent(element) {
-      const contentElement = element.nextElementSibling;
-      contentElement.classList.toggle("show");
-    }
-
-    function parseContent(data, titles) {
-      const pattern = /--------(.*?)_________/gs;
-      const matches = [...data.matchAll(pattern)];
-      const outputContainer = document.getElementById("output");
-      outputContainer.innerHTML = "";
-      for (let i = 0; i < matches.length; i++) {
-        const match = matches[i];
-        const extractedContent = match[1].trim(); // Trim any leading/trailing whitespace
-        const extractedElement = document.createElement("div");
-        extractedElement.className = "extracted-content";
-        const titleElement = document.createElement("div");
-        titleElement.className = "title";
-        titleElement.innerText = titles[i];
-        titleElement.addEventListener("click", () => toggleContent(titleElement));
-        extractedElement.appendChild(titleElement);
-        const contentElement = document.createElement("div");
-        contentElement.className = "content";
-        contentElement.innerText = extractedContent;
-        extractedElement.appendChild(contentElement);
-        outputContainer.appendChild(extractedElement);
-      }
-    }
-
-    async function fetchAndParse(url) {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.text();
-        const lines = data.split("\n");
-        const filteredLines = [];
-        for (let i = 0; i < lines.length; i++) {
-          if (lines[i].includes("------------")) {
-            if (i > 0) {
-              filteredLines.push(lines[i - 1]);
-            }
-          }
-        }
-        parseContent(data, filteredLines);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    function changeDropdownSelection() {
-      const dropdown = document.getElementById("dropdownMenu");
-      const selectedOption = dropdown.options[dropdown.selectedIndex];
-      const url = selectedOption.value;
-      fetchAndParse(url);
-    }
-  </script>
 </head>
 <body>
-  <div class="dropdown">
-    <select id="dropdownMenu" onchange="changeDropdownSelection()">
-      <option value="/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
-      <option value="/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
-      <option value="/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
-      <option value="/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
-      <option value="/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
-      <option value="/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
-      <option value="/other/Computerstuff/Commands/PHP.txt">PHP</option>
-      <option value="/other/Computerstuff/Commands/Python.txt">Python</option>
-      <!--<option value="/other/Computerstuff/Commands/Android-Keyevents.txt">Android Keyevents</option>-->
-    </select>
-  </div>
-  <div id="output"></div>
+<div class="dropdown">
+  <select id="dropdownMenu" onchange="changeDropdownSelection()">
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
+    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
+  </select>
+</div>
+<div id="output"></div>
+<script>
+function toggleContent(titleElement) {
+  const contentElement = titleElement.nextElementSibling;
+  contentElement.classList.toggle("show");
+}
+
+function copyContent(contentElement) {
+  const text = contentElement.innerText.trim();
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      console.log('Content copied to clipboard:', text);
+    })
+    .catch((error) => {
+      console.error('Failed to copy content to clipboard:', error);
+    });
+}
+
+function changeDropdownSelection() {
+  const dropdown = document.getElementById('dropdownMenu');
+  const selectedValue = dropdown.value;
+
+  fetch(selectedValue)
+    .then((response) => response.text())
+    .then((data) => {
+      const container = document.getElementById('output');
+      container.innerHTML = '';
+
+      const lines = data.split('\n');
+      const filteredLines = [];
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].includes('---------')) {
+          if (i > 0) {
+            filteredLines.push(lines[i - 1]);
+          }
+        }
+      }
+
+      const contentLines = data.split(/---------+/);
+      contentLines.shift();
+
+      filteredLines.forEach((line, index) => {
+        const extractedElement = document.createElement("div");
+        extractedElement.className = "extracted";
+
+        const titleElement = document.createElement("div");
+        titleElement.className = "title";
+        titleElement.innerText = line;
+        titleElement.addEventListener("click", () => toggleContent(titleElement));
+        extractedElement.appendChild(titleElement);
+
+        const contentElement = document.createElement("div");
+        contentElement.className = "content";
+        contentElement.innerText = contentLines[index].trim();
+        extractedElement.appendChild(contentElement);
+
+        const copyButton = document.createElement("button");
+        copyButton.innerText = "Copy";
+        copyButton.className = "copy-button";
+        copyButton.addEventListener("click", () => copyContent(contentElement));
+        contentElement.appendChild(copyButton);
+
+        container.appendChild(extractedElement);
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+</script>
 </body>
 </html>
