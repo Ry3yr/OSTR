@@ -8,6 +8,231 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+
+Fetch popular mastodon posts
+---------------------------------
+
+<style>
+  .container {
+    display: flex;
+  }
+  .post-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    width: 500px;
+    height: 250px;
+  }
+  .post-avatar {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .post-content {
+    font-size: 14px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 200px;
+    max-width: 100%;
+    white-space: normal;
+  }
+  .post-link {
+    font-size: 12px;
+    color: blue;
+  }
+</style>
+<?php
+$instances = ['kopimi.space', 'pb.todon.de', 'urusai.social', 'mastodon.social'];
+$totalPostsPerInstance = 10;
+echo '<div class="container">';
+foreach ($instances as $instance) {
+  $apiUrl = 'https://' . $instance . '/api/v1/timelines/public';
+  $params = [
+    'local' => true,
+    'only_media' => false,
+    'limit' => $totalPostsPerInstance,
+    'max_id' => null
+  ];
+  $sortedPosts = [];
+  while (count($sortedPosts) < $totalPostsPerInstance) {
+    $queryString = http_build_query($params);
+    $requestUrl = $apiUrl . '?' . $queryString;
+    $response = file_get_contents($requestUrl);
+    $posts = json_decode($response);
+    if ($posts) {
+      foreach ($posts as $post) {
+        $content = $post->content;
+        $favouritesCount = $post->favourites_count;
+        $boostsCount = $post->reblogs_count;
+        $url = $post->url;
+        if (!$post->account->bot) {
+          if ($favouritesCount >= 2 || $boostsCount >= 2) {
+            $replyCount = $post->replies_count;
+            $sortedPosts[] = [
+              'content' => $content,
+              'favouritesCount' => $favouritesCount,
+              'boostsCount' => $boostsCount,
+              'replyCount' => $replyCount,
+              'url' => $url,
+              'avatar' => $post->account->avatar_static
+            ];
+          }
+        }
+        if (count($sortedPosts) >= $totalPostsPerInstance) {
+          break 2;
+        }
+      }
+    } else {
+      echo 'Error retrieving posts from ' . $instance . '.';
+      break;
+    }
+    $lastPost = end($posts);
+    $params['max_id'] = $lastPost->id;
+  }
+  usort($sortedPosts, function ($a, $b) {
+    $aCount = max($a['favouritesCount'], $a['boostsCount']);
+    $bCount = max($b['favouritesCount'], $b['boostsCount']);
+    return $bCount - $aCount;
+  });
+  foreach ($sortedPosts as $post) {
+    $content = $post['content'];
+    $favouritesCount = $post['favouritesCount'];
+    $boostsCount = $post['boostsCount'];
+    $replyCount = $post['replyCount'];
+    $postUrl = $post['url'];
+    $avatarUrl = $post['avatar'];
+    echo '<div class="post-box">';
+    echo '<img class="post-avatar" src="' . $avatarUrl . '" alt="User Avatar"><br>';
+    echo '<div>';
+    echo '<div class="post-content">' . $content . '</div>';
+    echo '<div class="counts">';
+    echo '<span>F: ' . $favouritesCount . '</span><br>';
+    echo '<span>B: ' . $boostsCount . '</span><br>';
+    echo '<span>R: ' . $replyCount . '</span><br>'; // Display the number of replies
+    echo '</div>';
+    echo '<div class="post-link"><a target="_blank" href="' . $postUrl . '">View Post</a></div>';
+    echo '</div>';
+    echo '</div>';
+  }
+}
+echo '</div>';
+?>
+
+_________________________________
+
+Add friends (saves to html)
+----------------------------
+
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the values from the text boxes
+    $text0 = isset($_POST['text0']) ? $_POST['text0'] : '';
+    $text1 = isset($_POST['text1']) ? $_POST['text1'] : '';
+    $text2 = isset($_POST['text2']) ? $_POST['text2'] : '';
+    $text3 = isset($_POST['text3']) ? $_POST['text3'] : '';
+    $text4 = isset($_POST['text4']) ? $_POST['text4'] : '';
+    // Check if any of the text fields contain '<' or '>'
+    if (strpos($text0, '<') !== false || strpos($text0, '>') !== false ||
+        strpos($text1, '<') !== false || strpos($text1, '>') !== false ||
+        strpos($text2, '<') !== false || strpos($text2, '>') !== false ||
+        strpos($text3, '<') !== false || strpos($text3, '>') !== false ||
+        strpos($text4, '<') !== false || strpos($text4, '>') !== false) {
+        echo "Invalid input in one or more text fields. Please remove '<' or '>' characters.";
+    } else {
+        $html = $text0 . ' - <a target="_blank" href="' . $text1 . '"><img src="' . $text2 . '" style="width:45px;"></a><span class="smart-hover" title="' . $text3 . '"><u>' . $text4 . '</u></span><style>.smart-hover:hover::after{content:attr(title);}</style><br>' . PHP_EOL;
+        $friendHtmlFile = 'friends.html';
+        $existingContent = file_get_contents($friendHtmlFile);
+        $newContent = $html . $existingContent;
+        file_put_contents($friendHtmlFile, $newContent);
+        echo "HTML code has been prepended with $text4's entry!";
+    }
+}
+$currentDate = date("Y-m-d");
+?>
+<html>
+<head>
+    <title>Friends from the future</title>
+</head>
+<body>
+    <form method="POST" action="">
+        <input type="text" name="text0" placeholder="date" value="<?php echo $currentDate; ?>"><br>
+        <input type="text" name="text1" placeholder="url"><br>
+        <input type="text" name="text2" placeholder="pfp img url"><br>
+        <input type="text" name="text3" placeholder="description"><br>
+        <input type="text" name="text4" placeholder="name"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+<a href="/favs.html" style=color:red>Lookin good today !</a><br><br>
+<!--<iframe src="/other/extra/personal/friends/friends.html" style="border:0px #ffffff none;" name="statusit" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height=100% width="800" allowfullscreen></iframe>-->
+<iframe src="<?php echo '/other/extra/personal/friends/friends.html?v=' . uniqid(); ?>" style="border:0px #ffffff none;" name="statusit" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height=100% width="800" allowfullscreen></iframe>
+
+
+<!--AppendVer--
+PD9waHAKaWYgKCRfU0VSVkVSWydSRVFVRVNUX01FVEhPRCddID09PSAnUE9TVCcpIHsKICAgIC8vIEdldCB0aGUgdmFsdWVzIGZyb20gdGhlIHRleHQgYm94ZXMKICAgICR0ZXh0MSA9IGlzc2V0KCRfUE9TVFsndGV4dDEnXSkgPyAkX1BPU1RbJ3RleHQxJ10gOiAnJzsKICAgICR0ZXh0MiA9IGlzc2V0KCRfUE9TVFsndGV4dDInXSkgPyAkX1BPU1RbJ3RleHQyJ10gOiAnJzsKICAgICR0ZXh0MyA9IGlzc2V0KCRfUE9TVFsndGV4dDMnXSkgPyAkX1BPU1RbJ3RleHQzJ10gOiAnJzsKICAgICR0ZXh0NCA9IGlzc2V0KCRfUE9TVFsndGV4dDQnXSkgPyAkX1BPU1RbJ3RleHQ0J10gOiAnJzsKICAgICRodG1sID0gJzxhIHRhcmdldD0iX2JsYW5rIiBocmVmPSInIC4gJHRleHQxIC4gJyI+PGltZyBzcmM9IicgLiAkdGV4dDIgLiAnIiBzdHlsZT0id2lkdGg6NDVweDsiPjwvaW1nPjwvYT48c3BhbiBjbGFzcz0ic21hcnQtaG92ZXIiIHRpdGxlPSInIC4gJHRleHQzIC4gJyI+ICA8dT4nIC4gJHRleHQ0IC4gJzwvdT48L3NwYW4+PHN0eWxlPi5zbWFydC1ob3Zlcjpob3Zlcjo6YWZ0ZXJ7Y29udGVudDphdHRyKHRpdGxlKTt9PC9zdHlsZT48YnI+JzsKICAgICRmcmllbmRIdG1sRmlsZSA9ICdmcmllbmRzLmh0bWwnOwogICAgZmlsZV9wdXRfY29udGVudHMoJGZyaWVuZEh0bWxGaWxlLCAkaHRtbCwgRklMRV9BUFBFTkQpOwogICAgLy8gT3V0cHV0IGEgc3VjY2VzcyBtZXNzYWdlCiAgICBlY2hvICJIVE1MIGNvZGUgaGFzIGJlZW4gYXBwZW5kZWQgdG8geW91ciBmcmllbmQncyBIVE1MIGZpbGUhIjsKfQo/Pgo8aHRtbD4KPGhlYWQ+CiAgICA8dGl0bGU+U3VibWl0IEZvcm08L3RpdGxlPgo8L2hlYWQ+Cjxib2R5PgogICAgPGZvcm0gbWV0aG9kPSJQT1NUIiBhY3Rpb249IiI+CiAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIG5hbWU9InRleHQxIiBwbGFjZWhvbGRlcj0idXJsIj48YnI+CiAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIG5hbWU9InRleHQyIiBwbGFjZWhvbGRlcj0icGZwIGltZyB1cmwiPjxicj4KICAgICAgICA8aW5wdXQgdHlwZT0idGV4dCIgbmFtZT0idGV4dDMiIHBsYWNlaG9sZGVyPSJkZXNjcmlwdGlvbiI+PGJyPgogICAgICAgIDxpbnB1dCB0eXBlPSJ0ZXh0IiBuYW1lPSJ0ZXh0NCIgcGxhY2Vob2xkZXI9Im5hbWUiPjxicj4KICAgICAgICA8aW5wdXQgdHlwZT0ic3VibWl0IiB2YWx1ZT0iU3VibWl0Ij4KICAgIDwvZm9ybT4KPC9ib2R5Pgo8L2h0bWw+Cg==
+-->
+
+____________________________
+
+TextEditor
+-----------
+
+<?php
+$currentDir = __DIR__; // Get the current directory
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $selectedFile = $_POST['selectedFile'];
+    $content = $_POST['content'];
+    $filename = basename($selectedFile);
+
+    if (!empty($selectedFile) && !empty($content)) {
+        file_put_contents($filename, $content); // Save the modified content back to the file
+        echo "File saved successfully!";
+    }
+}
+
+$files = array_diff(scandir($currentDir), array('.', '..')); // Get the list of files excluding "." and ".."
+
+echo "<form method='POST'>";
+echo "<select name='selectedFile'>";
+
+foreach ($files as $file) {
+    if (pathinfo($file, PATHINFO_EXTENSION) === 'txt') {
+        echo "<option value='$file'>$file</option>";
+    }
+}
+
+echo "</select>";
+echo "<input type='submit' value='Load File'>";
+echo "</form>";
+
+if (isset($_POST['selectedFile'])) {
+    $selectedFile = $_POST['selectedFile'];
+    $filename = basename($selectedFile);
+
+    if (file_exists($filename)) {
+        $content = file_get_contents($filename);
+        $escapedContent = htmlspecialchars($content);
+        echo "<br>";
+        echo "<form method='POST'>";
+        echo "<textarea name='content' rows='120' cols='120'>$escapedContent</textarea><br>";
+        echo "<input type='hidden' name='selectedFile' value='$selectedFile'>";
+        echo "<input type='submit' value='Save'>";
+        echo "</form>";
+    }
+}
+?>
+
+______________
+
+
 PHP version htaccess version chck + changer (subfolders one dir up)
 ---------------------------
 
@@ -1565,78 +1790,11 @@ foreach ($fathumbTags as $index => $fathumbTag) {
 
 
 -----TRASH---31\12\2023----
-<?php
-$defaultUrl = 'https://www.animexx.de/fanart/zeichner/1248943/';
-if (isset($_GET['creator'])) {
-    $creator = $_GET['creator'];
-    $url = $creator;
-} else {
-    $url = $defaultUrl;
-}
-$html = file_get_contents($url);
-$pattern = '/<td class="fathumb" rowspan="2"><a\s+href="([^"]+)"\s+target="([^"]+)"[^>]*>/';
-preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
-// Create a DOMXPath object
-$dom = new DOMDocument();
-$dom->loadHTML($html);
-$xpath = new DOMXPath($dom);
-$query = '//td[@class="faextinfo"]';
-$tdElements = $xpath->query($query);
-// Iterate over the <td> elements and display their content
-$tdContentArray = [];
-foreach ($tdElements as $tdElement) {
-    $tdContent = $tdElement->ownerDocument->saveHTML($tdElement);
-    $tdContentArray[] = $tdContent;
-}
-foreach ($matches as $index => $match) {
-    $link = $match[1];
-    $target = $match[2];
-    $validLink = $url . ltrim($link, '/');
-    $linkHtml = file_get_contents($validLink);
-    $imgPattern = '/<img\s+src="([^"]+)"\s+id="fanart_img_gross"\s+alt="([^"]+)"[^>]*>/';
-    preg_match($imgPattern, $linkHtml, $imgMatch);
-    if (isset($imgMatch[1]) && isset($imgMatch[2])) {
-        $imgSrc = $imgMatch[1];
-        $imgAlt = $imgMatch[2];
-        echo '<br><br><a href="' . $validLink . '" target="' . $target . '">' . $validLink . '</a><br>';
-        echo '<img src="' . $imgSrc . '" alt="' . $imgAlt . '" width=50%><br>';
-    }
-    // Check if there is a corresponding faextinfo entry
-    if (isset($tdContentArray[$index])) {
-        echo $tdContentArray[$index];
-    }
-}
-?>
+<!---
+PD9waHAKJGRlZmF1bHRVcmwgPSAnaHR0cHM6Ly93d3cuYW5pbWV4eC5kZS9mYW5hcnQvemVpY2huZXIvMTI0ODk0My8nOwppZiAoaXNzZXQoJF9HRVRbJ2NyZWF0b3InXSkpIHsKICAgICRjcmVhdG9yID0gJF9HRVRbJ2NyZWF0b3InXTsKICAgICR1cmwgPSAkY3JlYXRvcjsKfSBlbHNlIHsKICAgICR1cmwgPSAkZGVmYXVsdFVybDsKfQokaHRtbCA9IGZpbGVfZ2V0X2NvbnRlbnRzKCR1cmwpOwokcGF0dGVybiA9ICcvPHRkIGNsYXNzPSJmYXRodW1iIiByb3dzcGFuPSIyIj48YVxzK2hyZWY9IihbXiJdKykiXHMrdGFyZ2V0PSIoW14iXSspIltePl0qPi8nOwpwcmVnX21hdGNoX2FsbCgkcGF0dGVybiwgJGh0bWwsICRtYXRjaGVzLCBQUkVHX1NFVF9PUkRFUik7Ci8vIENyZWF0ZSBhIERPTVhQYXRoIG9iamVjdAokZG9tID0gbmV3IERPTURvY3VtZW50KCk7CiRkb20tPmxvYWRIVE1MKCRodG1sKTsKJHhwYXRoID0gbmV3IERPTVhQYXRoKCRkb20pOwokcXVlcnkgPSAnLy90ZFtAY2xhc3M9ImZhZXh0aW5mbyJdJzsKJHRkRWxlbWVudHMgPSAkeHBhdGgtPnF1ZXJ5KCRxdWVyeSk7Ci8vIEl0ZXJhdGUgb3ZlciB0aGUgPHRkPiBlbGVtZW50cyBhbmQgZGlzcGxheSB0aGVpciBjb250ZW50CiR0ZENvbnRlbnRBcnJheSA9IFtdOwpmb3JlYWNoICgkdGRFbGVtZW50cyBhcyAkdGRFbGVtZW50KSB7CiAgICAkdGRDb250ZW50ID0gJHRkRWxlbWVudC0+b3duZXJEb2N1bWVudC0+c2F2ZUhUTUwoJHRkRWxlbWVudCk7CiAgICAkdGRDb250ZW50QXJyYXlbXSA9ICR0ZENvbnRlbnQ7Cn0KZm9yZWFjaCAoJG1hdGNoZXMgYXMgJGluZGV4ID0+ICRtYXRjaCkgewogICAgJGxpbmsgPSAkbWF0Y2hbMV07CiAgICAkdGFyZ2V0ID0gJG1hdGNoWzJdOwogICAgJHZhbGlkTGluayA9ICR1cmwgLiBsdHJpbSgkbGluaywgJy8nKTsKICAgICRsaW5rSHRtbCA9IGZpbGVfZ2V0X2NvbnRlbnRzKCR2YWxpZExpbmspOwogICAgJGltZ1BhdHRlcm4gPSAnLzxpbWdccytzcmM9IihbXiJdKykiXHMraWQ9ImZhbmFydF9pbWdfZ3Jvc3MiXHMrYWx0PSIoW14iXSspIltePl0qPi8nOwogICAgcHJlZ19tYXRjaCgkaW1nUGF0dGVybiwgJGxpbmtIdG1sLCAkaW1nTWF0Y2gpOwogICAgaWYgKGlzc2V0KCRpbWdNYXRjaFsxXSkgJiYgaXNzZXQoJGltZ01hdGNoWzJdKSkgewogICAgICAgICRpbWdTcmMgPSAkaW1nTWF0Y2hbMV07CiAgICAgICAgJGltZ0FsdCA9ICRpbWdNYXRjaFsyXTsKICAgICAgICBlY2hvICc8YnI+PGJyPjxhIGhyZWY9IicgLiAkdmFsaWRMaW5rIC4gJyIgdGFyZ2V0PSInIC4gJHRhcmdldCAuICciPicgLiAkdmFsaWRMaW5rIC4gJzwvYT48YnI+JzsKICAgICAgICBlY2hvICc8aW1nIHNyYz0iJyAuICRpbWdTcmMgLiAnIiBhbHQ9IicgLiAkaW1nQWx0IC4gJyIgd2lkdGg9NTAlPjxicj4nOwogICAgfQogICAgLy8gQ2hlY2sgaWYgdGhlcmUgaXMgYSBjb3JyZXNwb25kaW5nIGZhZXh0aW5mbyBlbnRyeQogICAgaWYgKGlzc2V0KCR0ZENvbnRlbnRBcnJheVskaW5kZXhdKSkgewogICAgICAgIGVjaG8gJHRkQ29udGVudEFycmF5WyRpbmRleF07CiAgICB9Cn0KPz4KCjx+fn5+fn5+fn5+fn53aXRob3V0IGZhZXRleHQgfn5+fn5+fn5+fn4+Cgo8YcKgdGFyZ2V0PSJfYmxhbmsiwqBocmVmPSI/Y3JlYXRvcj1odHRwczovL3d3dy5hbmltZXh4LmRlL2ZhbmFydC96ZWljaG5lci8xMDQ5ODUzLyLCoHN0eWxlPWNvbG9yOmxpZ2h0b3JhbmdlPmN1c3RvbTwvYT48YnI+PGJyPgo8P3BocAokZGVmYXVsdFVybMKgPcKgJ2h0dHBzOi8vd3d3LmFuaW1leHguZGUvZmFuYXJ0L3plaWNobmVyLzEyNDg5NDMvJzsKaWbCoChpc3NldCgkX0dFVFsnY3JlYXRvciddKSnCoHsKwqDCoMKgwqAkY3JlYXRvcsKgPcKgJF9HRVRbJ2NyZWF0b3InXTsKwqDCoMKgwqAkdXJswqA9wqAkY3JlYXRvcjsKfcKgZWxzZcKgewrCoMKgwqDCoCR1cmzCoD3CoCRkZWZhdWx0VXJsOwp9CiRodG1swqA9wqBmaWxlX2dldF9jb250ZW50cygkdXJsKTsKJHBhdHRlcm7CoD3CoCcvPHRkwqBjbGFzcz0iZmF0aHVtYiLCoHJvd3NwYW49IjIiPjxhXHMraHJlZj0iKFteIl0rKSJccyt0YXJnZXQ9IihbXiJdKykiW14+XSo+Lyc7CnByZWdfbWF0Y2hfYWxsKCRwYXR0ZXJuLMKgJGh0bWwswqAkbWF0Y2hlcyzCoFBSRUdfU0VUX09SREVSKTsKZm9yZWFjaMKgKCRtYXRjaGVzwqBhc8KgJG1hdGNoKcKgewrCoMKgwqDCoCRsaW5rwqA9wqAkbWF0Y2hbMV07CsKgwqDCoMKgJHRhcmdldMKgPcKgJG1hdGNoWzJdOwrCoMKgwqDCoCR2YWxpZExpbmvCoD3CoCR1cmzCoC7CoGx0cmltKCRsaW5rLMKgJy8nKTsKwqDCoMKgwqAkbGlua0h0bWzCoD3CoGZpbGVfZ2V0X2NvbnRlbnRzKCR2YWxpZExpbmspOwrCoMKgwqDCoCRpbWdQYXR0ZXJuwqA9wqAnLzxpbWdccytzcmM9IihbXiJdKykiXHMraWQ9ImZhbmFydF9pbWdfZ3Jvc3MiXHMrYWx0PSIoW14iXSspIltePl0qPi8nOwrCoMKgwqDCoHByZWdfbWF0Y2goJGltZ1BhdHRlcm4swqAkbGlua0h0bWwswqAkaW1nTWF0Y2gpOwrCoMKgwqDCoGlmwqAoaXNzZXQoJGltZ01hdGNoWzFdKcKgJibCoGlzc2V0KCRpbWdNYXRjaFsyXSkpwqB7CsKgwqDCoMKgwqDCoMKgwqAkaW1nU3JjwqA9wqAkaW1nTWF0Y2hbMV07CsKgwqDCoMKgwqDCoMKgwqAkaW1nQWx0wqA9wqAkaW1nTWF0Y2hbMl07CsKgwqDCoMKgwqDCoMKgwqBlY2hvwqAnPGHCoGhyZWY9IifCoC7CoCR2YWxpZExpbmvCoC7CoCciwqB0YXJnZXQ9IifCoC7CoCR0YXJnZXTCoC7CoCciPifCoC7CoCR2YWxpZExpbmvCoC7CoCc8L2E+PGJyPic7CsKgwqDCoMKgwqDCoMKgwqBlY2hvwqAnPGltZ8Kgc3JjPSInwqAuwqAkaW1nU3JjwqAuwqAnIsKgYWx0PSInwqAuwqAkaW1nQWx0wqAuwqAnIsKgd2lkdGg9NTAlPjxicj4nOwrCoMKgwqDCoH0KfQo/Pgo=
+-->
 
-<~~~~~~~~~~~~without faetext ~~~~~~~~~~~>
 
-<a target="_blank" href="?creator=https://www.animexx.de/fanart/zeichner/1049853/" style=color:lightorange>custom</a><br><br>
-<?php
-$defaultUrl = 'https://www.animexx.de/fanart/zeichner/1248943/';
-if (isset($_GET['creator'])) {
-    $creator = $_GET['creator'];
-    $url = $creator;
-} else {
-    $url = $defaultUrl;
-}
-$html = file_get_contents($url);
-$pattern = '/<td class="fathumb" rowspan="2"><a\s+href="([^"]+)"\s+target="([^"]+)"[^>]*>/';
-preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
-foreach ($matches as $match) {
-    $link = $match[1];
-    $target = $match[2];
-    $validLink = $url . ltrim($link, '/');
-    $linkHtml = file_get_contents($validLink);
-    $imgPattern = '/<img\s+src="([^"]+)"\s+id="fanart_img_gross"\s+alt="([^"]+)"[^>]*>/';
-    preg_match($imgPattern, $linkHtml, $imgMatch);
-    if (isset($imgMatch[1]) && isset($imgMatch[2])) {
-        $imgSrc = $imgMatch[1];
-        $imgAlt = $imgMatch[2];
-        echo '<a href="' . $validLink . '" target="' . $target . '">' . $validLink . '</a><br>';
-        echo '<img src="' . $imgSrc . '" alt="' . $imgAlt . '" width=50%><br>';
-    }
-}
-?>
 
 ______________________
 
@@ -1684,69 +1842,72 @@ ________________________________
 Deviantart latest images parse:
 -------------------------------------------------
 
+
 <?php
-// Default DeviantArt username
-$username = "ryedai1";
-// Check if the "dauser" query string parameter is set
-if (isset($_GET['dauser'])) {
-    // Get the value of "dauser" query string parameter
-    $queryUsername = $_GET['dauser'];
-    // Validate and assign the new username if it's not empty
-    if (!empty($queryUsername)) {
-        $username = $queryUsername;
+ob_start();
+$ch = curl_init();
+$username = $_GET['username']; // Get the username from the query string
+$url = 'https://www.deviantart.com/' . $username . '/gallery'; // Use the username in the URL
+$userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36';
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+$response = curl_exec($ch);
+curl_close($ch);
+$regex = '/window\.__INITIAL_STATE__ = (.*);$/m';
+preg_match($regex, $response, $matches);
+$json = $matches[1];
+$json = str_replace('JSON.parse("', '', $json);
+$json = substr($json, 0, -2);
+$json = str_replace('\"', '"', $json);
+$data = json_decode($json, true);
+if (isset($data['comments']['threaded']['results'])) {
+    $comments = $data['comments']['threaded']['results'];
+    foreach ($comments as $comment) {
+        $commentId = $comment['commentId'];
+        $commentBody = $comment['body'];
+        echo "Comment ID: $commentId\n";
+        echo "Comment Body: $commentBody\n";
+        echo "===============\n";
     }
 }
-// URL of the user's DeviantArt gallery
-$url = "https://www.deviantart.com/$username/gallery/";
-// Fetch the HTML content of the gallery page
-$html = file_get_contents($url);
-// Create a DOM document
-$dom = new DOMDocument();
-libxml_use_internal_errors(true);
-// Load the HTML content into the DOM document
-$dom->loadHTML($html);
-// Create a DOMXPath object
-$xpath = new DOMXPath($dom);
-// XPath query to select all <a> elements with data-hook attribute set to "deviation_link"
-$query = '//a[@data-hook="deviation_link"]';
-// Execute the XPath query
-$links = $xpath->query($query);
-// Array to store unique links
-$uniqueLinks = [];
-// Loop through the matched links
-foreach ($links as $link) {
-    $href = $link->getAttribute('href');
-    // Check if the link is already in the array
-    if (!in_array($href, $uniqueLinks)) {
-        // Add the link to the array of unique links
-        $uniqueLinks[] = $href;
-        // Generate the <a> tag with target="_blank" attribute
-        $htmlLink = '<a href="' . $href . '" target="_blank">' . $href . '</a>';
-        // Display the generated link
-        echo $htmlLink . "<br>";
-        // Fetch the HTML content of the individual deviation page
-        $deviationHTML = file_get_contents($href);
-        // Create a new DOM document for the individual deviation page
-        $deviationDOM = new DOMDocument();
-        libxml_use_internal_errors(true);
-        // Load the HTML content into the DOM document
-        $deviationDOM->loadHTML($deviationHTML);
-        // Create a new DOMXPath object for the individual deviation page
-        $deviationXPath = new DOMXPath($deviationDOM);
-        // XPath query to select the <img> tag with src attribute containing "https://images-wixmp"
-        $deviationImgQuery = '//img[contains(@src, "https://images-wixmp")]';
-        // Execute the XPath query on the individual deviation page
-        $deviationImg = $deviationXPath->query($deviationImgQuery)->item(0);
-        // Check if the <img> tag is found
-        if ($deviationImg) {
-            // Get the src attribute value
-            $imgSrc = $deviationImg->getAttribute('src');
-            // Generate the <img> tag to embed the image
-            $htmlImg = '<img src="' . $imgSrc . '">';
-            // Display the embedded image
-            echo $htmlImg . "<br>";
+echo "<pre>";
+echo "Data:\n";
+print_r($data);
+echo "</pre>";
+file_put_contents('dauserinfo_' . $username . '.html', ob_get_contents());
+?>
+
+
+
+========displayinfo.php===========
+
+<?php
+// Get the username from the URL query string
+$username = $_GET['username'];
+$url = 'dauserinfo_' . $username . '.html';
+// Retrieve the content from the URL
+$content = file_get_contents($url);
+$lines = explode("\n", $content);
+$matchingLines = [];
+$keywords = ['[url]', '[comments]', '[favourites]', '[views]', '[publishedTime]'];
+
+foreach ($lines as $line) {
+    foreach ($keywords as $keyword) {
+        if (strpos($line, $keyword) !== false) {
+            if ($keyword === '[url]' && strpos($line, $username) === false) {
+            //if ($keyword === '[url]' && strpos($line, 'art') === false) {
+                break;
+            }
+            $matchingLines[$line] = true;
+            break;
         }
     }
+}
+// Display the matching lines
+foreach ($matchingLines as $line => $value) {
+    echo $line . '<br>';
 }
 ?>
 
