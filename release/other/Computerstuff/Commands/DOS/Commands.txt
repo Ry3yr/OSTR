@@ -1,10 +1,107 @@
 https://textmechanic.com/text-tools/basic-text-tools/remove-lines-containing/
      E:\Dropbox\Public\Texte + Bilder\Computer Tipps & Tricks\0_program_specific\Excel\Excel_to_remodel_batch_scripts.jpg
---------------------------------------------------------
+=======================================================================
 *SHOR-TCUTS *Sent2Snippets *FOR-LOOP *if-else *Windows-settings *environment-variables *cntrl-pnl 
 *diskr-elated *cutfilenam-es *program-installation *internet-related *cmd-troubleshooting
 
 
+
+
+
+Connect to SSID, then probe Network-resource till available, open it after
+--------------------------------------------------------------------------
+
+
+@echo off
+set ssid=Rye
+rem Get the current SSID
+for /f "tokens=2 delims=: " %%A in ('netsh wlan show interfaces ^| findstr "SSID"') do (
+    set current_ssid=%%A
+)
+rem Compare the current SSID with the desired SSID
+if /i "%current_ssid%"=="%ssid%" (
+    echo Already connected to "%ssid%".
+) else (
+    echo Connecting to "%ssid%"...
+    netsh wlan connect name="%ssid%"
+)
+:PING_LOOP
+ping -n 1 192.168.0.1 > nul
+if %errorlevel%==0 (
+echo Opening "\\192.168.0.1\sdcard" in Windows Explorer...
+start "" "\\192.168.0.1\sdcard"
+) else (
+echo Network resource is not accessible. Retrying...
+timeout /t 5 > nul
+goto PING_LOOP
+)
+echo Done.
+
+
+___________________________________________________________________________
+
+
+Wifi Connection Picker
+-----------------------
+
+@echo off
+setlocal enabledelayedexpansion
+echo Current network:
+for /f "tokens=2*" %%a in ('netsh wlan show interfaces ^| findstr /R "^....SSID"') do (
+    set "current_ssid=%%b"
+    echo Current SSID: %%b
+)
+choice /C 123 /N /M "Select an option (1 [realme 5 pro], 2 [Rye], or 3 [FamBra]):"
+if errorlevel 3 (
+    set "target_ssid=FamBra"
+    if not "!current_ssid!"=="!target_ssid!" (
+        echo Connecting to "!target_ssid!"...
+        timeout /T 2 /NOBREAK >nul
+        netsh wlan connect name="!target_ssid!"
+    ) else (
+        echo Warning: Already connected to "!target_ssid!".
+        pause
+    )
+) else if errorlevel 2 (
+    set "target_ssid=Rye"
+    if not "!current_ssid!"=="!target_ssid!" (
+        echo Connecting to "!target_ssid!"...
+        timeout /T 2 /NOBREAK >nul
+        netsh wlan connect name="!target_ssid!"
+    ) else (
+        echo Warning: Already connected to "!target_ssid!".
+        pause
+    )
+) else (
+    set "target_ssid=realme 5 Pro"
+    if not "!current_ssid!"=="!target_ssid!" (
+        echo Connecting to "!target_ssid!"...
+        timeout /T 2 /NOBREAK >nul
+        netsh wlan connect name="!target_ssid!"
+    ) else (
+        echo Warning: Already connected to "!target_ssid!".
+        pause
+    )
+)
+
+___________________________________
+
+
+"Create 0byte files from a "list.txt" (for #pc mocking #pc #software  #integrity check)" #dos #cmd
+-----------------------------------------------------------------
+
+@echo off
+set "filename=list.txt"
+for /f "usebackq delims=" %%a in ("%filename%") do (
+    if not exist "%%a" (
+        echo Creating file: %%a
+        type nul > "%%a"
+    )
+)
+echo All files created.
+
+(Source: https://urusai.social/@alcea/111665639182899014 )
+____________________________________
 
 Open file with specific program
 ----------------------------------------------
