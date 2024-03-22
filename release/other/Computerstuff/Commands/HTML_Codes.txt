@@ -12,6 +12,2509 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+PMX Capable MMD Web Renderer (with stage support)
+--------------------------------
+Download: https://ry3yr.github.io/SampleWebMMD-master.zip
+Src: https://github.com/Momijinn/SampleWebMMD
+
+===/js/main.js =====
+
+let scene, renderer, camera, mesh, helper;
+let ready = false;
+const windowWidth = window.innerWidth;
+const windowHeight = window.innerHeight;
+const clock = new THREE.Clock();
+function getQueryStringValue(key) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(key);}
+const pmx = getQueryStringValue('pmx');
+const stage = getQueryStringValue('stage');
+let Pmx;
+let Stage;
+if (pmx) {Pmx = `./pmx/pronama/${pmx.trim()}`;
+} else {console.log("No PMX selected.");}
+if (stage) {Stage = `./stages${stage.trim()}`;
+} else {
+  console.log("No stage selected.");}
+if (!Pmx) {Pmx = `./pmx/pronama/AoiZaizen/AoiZaizen.pmx`;}
+if (!Stage) {Stage = "./stages/sorclair/sorclair.pmx";}
+const MotionObjects = [
+  {id: "001", pose: "001", VmdClip: null, AudioClip: false },
+  { id: "002", pose: "002", VmdClip: null, AudioClip: false },
+  { id: "003", pose: "003", VmdClip: null, AudioClip: false },];
+window.onload = () => {
+  Init();
+  LoadModeler();
+  Render();};
+function Init() {
+  document.getElementById("moveLeftButton").addEventListener("click", moveCameraLeft);
+  document.getElementById("moveRightButton").addEventListener("click", moveCameraRight);
+  document.getElementById("moveUpButton").addEventListener("click", moveCameraUp);
+  document.getElementById("moveDownButton").addEventListener("click", moveCameraDown);
+  document.getElementById("rotaterightButton").addEventListener("click", rotateCameraRight);
+  document.getElementById("rotateleftButton").addEventListener("click", rotateCameraLeft);
+  function moveCameraLeft() {camera.position.x -= 1;}
+  function moveCameraRight() {camera.position.x += 1;}
+  function moveCameraUp() {camera.position.y += 1;}
+  function moveCameraDown() {camera.position.y -= 1;}
+  function rotateCameraRight() {mesh.rotateY(Math.PI / 4);}
+  function rotateCameraLeft() {mesh.rotateY(-Math.PI / 4);}
+  scene = new THREE.Scene();
+  const ambient = new THREE.AmbientLight(0xeeeeee);
+  scene.add(ambient);
+  renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0xcccccc, 0);
+  document.body.appendChild(renderer.domElement);
+  camera = new THREE.PerspectiveCamera(100, windowWidth / windowHeight, 1, 1000);
+  //camera.position.set(0, 19, 20);
+  camera.position.set(0, 19, 20);}
+async function LoadModeler() {
+  const loader = new THREE.MMDLoader();
+
+  function LoadPMX() {
+    return new Promise(resolve => {
+      loader.load(Pmx, object => {
+        mesh = object;
+        scene.add(mesh);
+        resolve(true);
+      },);});}
+  function LoadVMD(id) {
+    return new Promise(resolve => {
+      const path = "./vmd/" + id + ".vmd";
+      const val = MotionObjects.findIndex(MotionObject => MotionObject.id == id);
+      loader.loadAnimation(path, mesh, vmd => {
+        vmd.name = id;
+        MotionObjects[val].VmdClip = vmd;
+        resolve(true);
+      },);});}
+  function LoadAudio(id) {
+    return new Promise(resolve => {
+      const path = "./audio/" + id + ".mp3";
+      const val = MotionObjects.findIndex(MotionObject => MotionObject.id == id);
+      if (MotionObjects[val].AudioClip) {
+        new THREE.AudioLoader().load(path, buffer => {
+          const listener = new THREE.AudioListener();
+          const audio = new THREE.Audio(listener).setBuffer(buffer);
+          MotionObjects[val].AudioClip = audio;
+          resolve(true);
+        },);
+      } else {
+        resolve(false);}});}
+
+  const loadAdditionalPMX = () => {
+    return new Promise(resolve => {
+      loader.load(Stage, object => {
+        const additionalMesh = object;
+        scene.add(additionalMesh);
+        resolve(true);
+
+
+const loadAdditionalPMX = () => {
+  return new Promise(resolve => {
+    loader.load(Stage, object => {
+      const additionalMesh = object;
+      scene.add(additionalMesh);
+      resolve(true);
+    });
+  });
+};
+
+let path; //preperations for 001.vmd and 002.vmd
+try {path = `./stages${stage.trim()}`;} catch (e) {
+  path = '/default/default';}
+const lastIndex = path.lastIndexOf("/");
+const basePath = path.substring(0, lastIndex);
+const vmd1 = `${basePath}/001.vmd`;
+const vmd2 = `${basePath}/002.vmd`;
+console.log(vmd1);
+console.log(vmd2);
+
+
+let mixer;
+//Animate
+//const queryString = window.location.search;
+//const urlParams = new URLSearchParams(queryString);
+//const isAnimated = urlParams.get('animated') === 'yes';
+//if (isAnimated) {
+const url = window.location.href;
+const isAnimated = url.indexOf('animated') !== -1;
+if (isAnimated) {
+// Load Animation
+function createMixer() {
+  mixer = new THREE.AnimationMixer(object);
+}
+function playAnimation(animationClip) {
+  const action = mixer.clipAction(animationClip);
+  action.play();
+}
+loader.loadAnimation(vmd1, object, (animationClip) => {
+  createMixer();
+  playAnimation(animationClip);
+});
+loader.loadAnimation(vmd2, object, (animationClip) => {
+  playAnimation(animationClip);
+});
+function animate() {
+  requestAnimationFrame(animate);
+  const deltaTime = clock.getDelta();
+  if (mixer) {
+    mixer.update(deltaTime);
+  }
+  renderer.render(scene, camera);
+}
+animate();
+}
+      },);});};
+  await Promise.all([loadAdditionalPMX()]);
+  await LoadPMX();
+  await Promise.all(MotionObjects.map(async (MotionObject) => {return await LoadVMD(MotionObject.id);}));
+  await Promise.all(MotionObjects.map(async (MotionObject) => {return await LoadAudio(MotionObject.id);}));
+  VmdControl("loop", true);}
+VmdControl = (id, loop) => {const index = MotionObjects.findIndex(MotionObject => MotionObject.id == id);
+  if (index === -1) {console.log("not Found ID");return;}
+  ready = false;
+  helper = new THREE.MMDAnimationHelper({ afterglow: 2.0, resetPhysicsOnLoop: true });
+  helper.add(mesh, {
+    animation: MotionObjects[index].VmdClip,
+    physics: false});
+  if (MotionObjects[index].AudioClip) {
+    MotionObjects[index].AudioClip.play();}
+  const mixer = helper.objects.get(mesh).mixer;
+  if (!loop) {
+    mixer.existingAction(MotionObjects[index].VmdClip).setLoop(THREE.LoopOnce);}
+  mixer.addEventListener("loop", (event) => {
+    console.log("loop");});
+  mixer.addEventListener("finished", (event) => {
+    console.log("finished");
+    VmdControl("loop", true);});
+  ready = true;}
+onProgress = (xhr) => {
+  if (xhr.lengthComputable) {const percentComplete = xhr.loaded / xhr.total * 100;
+    console.log(Math.round(percentComplete, 2) + '% downloaded');}}
+onError = (xhr) => {console.log("ERROR");}
+Render = () => {
+  requestAnimationFrame(Render);
+  renderer.clear();
+  renderer.render(scene, camera);
+if (ready) {helper.update(clock.getDelta());}}
+
+//Old-hardcoded--Pose-ClickEvent
+//PoseClickEvent = (id) => {
+//  switch (id) {
+//    case "pose1":
+//      VmdControl("001", true);
+//      break;
+//    case "pose2":
+//      VmdControl("002", false);
+//      break;
+//    case "pose3":
+//      VmdControl("003", false);
+//      break;
+//    default:
+//      VmdControl("001", true);
+//      break;}}
+
+//New-autogenerated--from--MotionObject-Array-Pose-ClickEvent
+const generatePoseClickEvent = (motionObjects) => {
+  const functionBody = motionObjects.map(function (motion) {
+    return "case '" + motion.pose + "':\n" +
+      "  VmdControl('" + motion.id + "', " + (motion.pose === "pose1") + ");\n" +
+      "  break;\n";
+  }).join("");
+  const poseClickEventFunction = new Function("id", "switch (id) { " + functionBody +
+    " default: VmdControl('001', true); break; }");
+  return poseClickEventFunction;
+};
+const PoseClickEvent = generatePoseClickEvent(MotionObjects);
+
+
+
+===/index.html==
+
+
+<div class="keyboard">
+    <button id="." style="background-color: transparent; border: none;color: transparent;">Move L3.__</button>
+    <button id="moveUpButton">Move Up</button><br>
+    <button id="moveLeftButton">Move Left</button>
+    <button id="moveDownButton">Move Down</button>
+    <button id="moveRightButton">Move Right</button>
+ <button id="." style="background-color: transparent; border: none;color: transparent;">.__</button>
+<button id="rotateleftButton">RotateLeft</button>
+<button id="rotaterightButton">RotateRight</button>
+<a target="_blank" href="https://www.reddit.com/r/mikumikudance" style=color:blue>r/MMD</a> 
+</div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+  <div class="pose">
+   <button type="button" value="001" onclick="PoseClickEvent(this.value)">vm1</button>
+    <button type="button" value="002" onclick="PoseClickEvent(this.value)">vm2</button>
+    <button type="button" value="003" onclick="PoseClickEvent(this.value)">vm3</button>
+<a href="?pmx=YusakuFujiki/yusaku.pmx">Yu</a>
+<a href="?pmx=AoiZaizen/AoiZaizen.pmx">Aoi</a> 
+<a href="?pmx=Xion/xion.pmx">Xion</a>
+<a href="?pmx=2b/na_2b_0418n.pmx">2B</a>
+  </div>
+  <div class="stage">
+<a href="javascript:(function() {var currentUrl = window.location.href;var updatedUrl = currentUrl.replace(/(\?|&)stage=([^&]*)/g, '') + (currentUrl.indexOf('?') > -1 ? '&' : '?') +'stage=/herogarden/herogarden.pmx';window.location.href = updatedUrl;})()">herogarden</a>
+<a href="javascript:(function() {var currentUrl = window.location.href;var updatedUrl = currentUrl.replace(/(\?|&)stage=([^&]*)/g, '') + (currentUrl.indexOf('?') > -1 ? '&' : '?') +'stage=/parkavenue/parkavenue.pmx';window.location.href = updatedUrl;})()">parkavenue</a>
+  </div>
+  <script src="./libs/three.js"></script>
+  <script src="./libs/mmdparser.min.js"></script>
+  <script src="./libs/ammo.min.js"></script>
+  <script src="./libs/TGALoader.js"></script>
+  <script src="./libs/MMDLoader.js"></script>
+  <script src="./libs/MMDAnimationHelper.js"></script>
+  <script src="./libs/OutlineEffect.js"></script>
+  <script src="./libs/CCDIKSolver.js"></script>
+  <script src="./libs/MMDPhysics.js"></script>
+  <!--<script src="./libs/OrbitControls.js"></script>-->
+  <!--<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/build/three.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/libs/mmdparser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ammo.js@0.0.10/ammo.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/loaders/TGALoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/loaders/MMDLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/MMDAnimationHelper.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/effects/OutlineEffect.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/CCDIKSolver.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/MMDPhysics.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/jsm/controls/OrbitControls.js"></script>-->
+  <script src="./js/main.js"></script>
+</body>
+</html>
+
+
+__________________________
+
+
+MMD PMD texture fixer:
+--------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Drag and Drop</title>
+  <style>
+    #drop-zone {
+      width: 400px;
+      height: 400px;
+      border: 2px dashed gray;
+      margin: 20px auto;
+      text-align: center;
+      line-height: 400px;
+      font-size: 20px;
+    }
+    #image-element {
+      max-width: 100%;
+      max-height: 400px;
+      margin-top: 20px;
+    }
+    #download-button {
+      display: none;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="drop-zone">Drag and drop an image here</div>
+  <img id="image-element" src="" alt="Processed Image">
+  <a id="download-button" href="#" download="">Download</a>
+  
+  <script>
+    // Get the HTML elements
+    const dropZone = document.getElementById('drop-zone');
+    const imageElement = document.getElementById('image-element');
+    const downloadButton = document.getElementById('download-button');
+
+    // Add event listeners for drag and drop events
+    dropZone.addEventListener('dragover', handleDragOver);
+    dropZone.addEventListener('drop', handleFileDrop);
+
+    // Handle the dragover event to allow the drop
+    function handleDragOver(event) {
+      event.preventDefault();
+    }
+
+    // Handle the drop event
+    function handleFileDrop(event) {
+      event.preventDefault();
+
+      // Get the dropped file
+      const file = event.dataTransfer.files[0];
+
+      // Create a FileReader object to read the file
+      const reader = new FileReader();
+
+      // Set up the onload event handler
+      reader.onload = function(e) {
+        // Create a new image element
+        const newImage = new Image();
+
+        // Set the onload event handler to handle image loading
+        newImage.onload = function() {
+          // Perform the image processing steps
+          const processedImage = processImage(newImage);
+
+          // Display the processed image
+          imageElement.src = processedImage.src;
+
+          // Set the download link properties
+          downloadButton.href = processedImage.src;
+          downloadButton.setAttribute('download', file.name);
+
+          // Show the download button
+          downloadButton.style.display = 'block';
+        };
+
+        // Set the source of the new image to the dropped file
+        newImage.src = e.target.result;
+      };
+
+      // Read the dropped file as a data URL
+      reader.readAsDataURL(file);
+    }
+
+    // Function to process the image and fit it into the criteria
+    function processImage(image) {
+      // Create a canvas element
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Ensure the canvas dimensions are power-of-two (POT)
+      const canvasWidth = Math.pow(2, Math.floor(Math.log2(image.width)));
+      const canvasHeight = Math.pow(2, Math.floor(Math.log2(image.height)));
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+
+      // Draw the image on the canvas
+      ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+
+      // Convert the image to RGBA format if necessary
+      if (ctx.getImageData(0, 0, 1, 1).data.length !== 4) {
+        const imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+        const rgbaImageData = convertToRGBA(imageData);
+        ctx.putImageData(rgbaImageData, 0, 0);
+      }
+
+      // Create a new image element with the processed image data
+      const processedImage = new Image();
+      processedImage.src = canvas.toDataURL();
+
+      return processedImage;
+    }
+
+    // Function to convert the image data to RGBA format
+    function convertToRGBA(imageData) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = imageData.width;
+      canvas.height = imageData.height;
+
+      // Create a new ImageData object with RGBA format
+      const rgbaImageData = ctx.createImageData(imageData.width, imageData.height);
+
+      // Convert the pixel data to RGBA format
+      for (let i = 0; i < imageData.data.length; i += 4) {
+        rgbaImageData.data[i] = imageData.data[i];
+        rgbaImageData.data[i + 1] = imageData.data[i + 1];
+        rgbaImageData.data[i + 2] = imageData.data[i + 2];
+        rgbaImageData.data[i + 3] = 255; // Set alpha channel to opaque
+      }
+
+      return rgbaImageData;
+    }
+  </script>
+</body>
+</html>
+
+____________________
+
+
+Image attribute analyzer:
+-------------------------
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+    <div id="myDropzone" class="dropzone"></div>
+    <div id="imageInfo"></div>
+    <script>
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#myDropzone", {
+            url: "#",
+            autoProcessQueue: false,
+            maxFiles: 5,
+            acceptedFiles: "image/*",
+            init: function () {
+                var submitButton = document.querySelector("#submit");
+                this.on("addedfile", function (file) {
+                    processImage(file);});
+                submitButton.addEventListener("click", function () {
+                    myDropzone.processQueue();});}});
+        function processImage(file) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = new Image();
+                img.onload = function () {
+                    var canvas = document.createElement("canvas");
+                    var context = canvas.getContext("2d");
+                    context.drawImage(img, 0, 0);
+                    var codec = img.src.split(";")[0].split(":")[1];
+                    var width = img.width;
+                    var height = img.height;
+                    var fileSize = file.size;
+                    var colorSpace = extractColorSpace(context);
+                    var bitDepth = extractBitDepth(context);
+                    var fileFormat = extractFileFormat(file);
+                    displayImageInfo(file, codec, width, height, fileSize, colorSpace, bitDepth, fileFormat);};
+                img.src = event.target.result;};
+            reader.readAsDataURL(file);}
+        function extractColorSpace(context) {
+            return context.getImageData(0, 0, 1, 1).colorSpace;}
+        function extractBitDepth(context) {
+            return context.getImageData(0, 0, 1, 1).data.length * 8;}
+        function extractFileFormat(file) {
+            var fileNameParts = file.name.split(".");
+            return fileNameParts[fileNameParts.length - 1];}
+
+function displayImageInfo(file, codec, width, height, fileSize, colorSpace, bitDepth, fileFormat) {
+    var infoDiv = document.getElementById("imageInfo");
+    var imageDiv = document.createElement("div");
+    var imgName = document.createElement("p");
+    var imgInfo = document.createElement("p");
+    imgName.innerHTML = "<hr><br>Image Name: " + file.name;
+
+    var thumbnail = document.createElement("img");
+    thumbnail.src = URL.createObjectURL(file);
+    thumbnail.width = 45;
+    thumbnail.height = 45;
+    imgInfo.innerHTML = "Image Info: Codec: " + codec + "<br>";
+    if (height % 2 !== 0) {
+        imgInfo.innerHTML += "<span style='color: red;'>Height: " + height + "px</span><br>";
+    } else {
+        imgInfo.innerHTML += "Height: " + height + "px<br>";
+    }
+
+    if (width % 2 !== 0) {
+        imgInfo.innerHTML += "<span style='color: red;'>Width: " + width + "px</span><br>";
+    } else {
+        imgInfo.innerHTML += "Width: " + width + "px<br>";
+    }
+
+    imgInfo.innerHTML += "File Size: " + fileSize + " bytes<br>Color Space: " + colorSpace + "<br>Bit Depth: " + bitDepth + " bits<br>File Format: " + fileFormat + "<br>";
+    imgInfo.appendChild(thumbnail);
+
+    imageDiv.appendChild(imgName);
+    imageDiv.appendChild(imgInfo);
+    infoDiv.appendChild(imageDiv);
+}
+    </script>
+</body>
+</html>
+
+_______________________
+
+
+  Dynamically change link behaviour with toggle button
+-------------------------------------------
+
+
+<button id="toggleButton">Download</button>
+  <script>
+    function toggleDownloadParam() {
+      var links = document.querySelectorAll('a[id="dld"]');
+      for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        if (link.href.indexOf('?') === -1) {
+          link.href += '?download=yes';
+        } else {
+          link.href += '&download=yes';
+        }
+      }
+    }
+    var toggleButton = document.getElementById('toggleButton');
+    toggleButton.addEventListener('click', function() {
+      if (toggleButton.classList.contains('on')) {
+        toggleButton.classList.remove('on');
+        toggleButton.textContent = 'Toggle';
+        toggleDownloadParam();
+      } else {
+        toggleButton.classList.add('on');
+        toggleButton.textContent = 'Toggle (On)';
+        toggleDownloadParam();
+      }
+    });
+  </script>
+  <a href="example.html" id="dld">Download Link 1</a><br>
+
+_________________________________________
+
+
+Nitter Instance Selector
+------------------------
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<label for="nitterUrl"><a href=https://status.d420.de/#https://github.com/zedeus/nitter/issues/986 target=_blank>Nitter</a> URL:</label>
+<select id="nitterUrl">
+<option value="https://nitter.privacydev.net/">https://nitter.privacydev.net/</option>
+<option value="https://nitter.no-logs.com/">https://nitter.no-logs.com/</option>
+<option value="https://nitter.poast.org/">https://nitter.poast.org/</option>
+<option value="https://nitter.kavin.rocks/">https://nitter.kavin.rocks/ (noRSS)</option>
+</select>
+<input type="text" id="username" value="alceawisteria">
+<input type="checkbox" id="renderRss" checked> Render RSS
+<input type="checkbox" id="openNewTab"> Open in new tab automatically
+<br>
+<button onclick="generateLink()">Generate Link</button>
+<br><br>
+<div id="linkOutput"></div>
+<div id="rssOutput"></div>
+<br>
+<br><br>
+<script>
+function generateLink() {
+var nitterUrl = document.getElementById("nitterUrl").value;
+var username = document.getElementById("username").value;
+var link = nitterUrl + username;
+var linkOutput = document.getElementById("linkOutput");
+var rsslink = nitterUrl + username + "/rss";
+var rssOutput = $("#rssOutput");
+var renderRss = document.getElementById("renderRss").checked;
+var openNewTab = document.getElementById("openNewTab").checked;
+if (openNewTab) {
+linkOutput.innerHTML = "<a href='" + link + "' target=_blank>" + link + "</a>";
+linkOutput.getElementsByTagName("a")[0].click();
+} else {
+linkOutput.innerHTML = "<a href='" + link + "' target=_blank>" + link + "</a>";
+}
+if (renderRss) {
+var rssUrl = link + "/rss";
+var rss2JsonUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+$.ajax(rss2JsonUrl, {
+accepts: {
+json: "application/json"
+},
+dataType: "json",
+success: function (data) {
+var items = data.items.slice(0, 10);
+var rssHtml = "<ul>";
+items.forEach(function (item) {
+var title = item.title;
+var description = item.description;
+var pubDate = new Date(item.pubDate).toLocaleDateString();
+var author = item.author;
+var link = item.link;
+rssHtml += "<li>";
+rssHtml += "<h3><a href='" + link + "' target='_blank'>" + title + "</a></h3>";
+rssHtml += "<p>" + description + "</p>";
+rssHtml += "<p><strong>Date:</strong> " + pubDate + "</p>";
+rssHtml += "<p><strong>Author:</strong> " + author + "</p>";
+rssHtml += "</li>";
+});
+rssHtml += "</ul>";
+rssOutput.html(rssHtml);
+},
+error: function () {
+rssOutput.html("Error loading RSS feed.");
+}
+});
+} else {
+rssOutput.html(rsslink);
+}
+}
+</script>
+
+___________________________________________
+
+
+Fetch 100 tag entry mastodon
+----------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div>
+    <label for="instance-url">Instance URL:</label>
+    <input type="text" id="instance-url" placeholder="Enter instance URL" value="https://">
+  </div>
+  <div>
+    <label for="tag">Tag:</label>
+    <input type="text" id="tag" placeholder="Enter tag">
+  </div>
+  <button onclick="fetchEntries()">Fetch Entries</button>
+  <hr>
+  <div id="entries"></div>
+  <script>
+    var initialFetchURL = 'https://mastodon.cloud/api/v1/timelines/tag/MastodonArt?limit=100';
+    fetchEntries();
+    function fetchEntries() {
+      var instanceURL = document.getElementById('instance-url').value;
+      var tag = document.getElementById('tag').value;
+      var apiUrl = initialFetchURL;
+      if (instanceURL && tag) {
+        apiUrl = instanceURL + '/api/v1/timelines/tag/' + tag + '?limit=100';
+      }
+      $.ajax({
+        url: apiUrl,
+        dataType: 'json',
+        success: function(data) {
+          displayEntries(data);
+        },
+        error: function(error) {
+          console.log('Error:', error);
+        }
+      });
+    }
+    function displayEntries(entries) {
+      var entriesDiv = document.getElementById('entries');
+      entriesDiv.innerHTML = '';
+      entries.forEach(function(entry) {
+        var entryHTML = '<div>';
+        entryHTML += '<p>' + entry.content + '</p>';
+        entryHTML += '<p>Author: ' + entry.account.display_name + '</p>';
+        entryHTML += '<p><a href="' + entry.url + '" target="_blank">View Toot</a></p>';
+        entryHTML += '<hr>';
+        entryHTML += '</div>';
+        entriesDiv.innerHTML += entryHTML;
+      });
+    }
+  </script>
+</body>
+</html> 
+
+____________________________
+
+
+Favorite Clothes with table generator
+-------------------------------------
+
+<table>
+<tr>
+<th>Image</th><th>Description</th><th>Source</th><th>Purchasable</th>
+</tr>
+<tr><td><a href="https://www.pixiv.net/en/artworks/116877725" target="_blank"><img src="https://medium-media.vgm.io/albums/84/55848/55848-1477525776.jpg" alt="Image" width="100" height="100"></a></td>
+<td>Pretty dress worn by the GodEater Girl<br> on the <a href="https://vgmdb.net/album/55848" target="_blank">Cover of the 5th Anniv CD</a></td>
+<td><a href="https://vgmdb.net/album/55848" target="_blank">SRC</a></td>
+<td>No</td>
+</tr>
+  <!-- Add more rows as needed -->
+<tr><td><a href="https://www.amazon.com/Cosplay-Automata-Costume-Kimono-Halloween/dp/B0BNVZJ6FL" target="_blank"><img src="https://m.media-amazon.com/images/I/61maeTQesuL._AC_SX569_.jpg" alt="Image" width="100" height="100"></a></td><td>2Bs Kimono (Switch DLC) <a href="https://vgmdb.net/album/55848" target="_blank">eBay</a></td>
+<td><a href="https://www.nintendo.de/DLC/NieR-Automata-6C2P4A118680823-2233414.html" target="_blank">SRC</a></td>
+<td>Yes</td>
+</tr>
+
+</table>
+
+<!---New_Entry_Generator-->
+
+<details><summary>(+)</summary>
+
+  <style>
+.entry{margin-bottom:10px}.entry input[type=text]{width:200px;margin-right:10px}.preview{border:1px solid #ccc;padding:10px;width:300px;height:100px}#outputTable{margin-top:20px;border-collapse:collapse}#outputTable td,#outputTable th{padding:5px;border:1px solid #ccc}
+  </style>
+  <form>
+    <div class="entry">
+      <input type="text" id="imageURL" placeholder="Image URL" oninput="updatePreview()">
+      <input type="text" id="imageLink" placeholder="Image Link URL" oninput="updatePreview()">
+      <input type="text" id="description" placeholder="Description" oninput="updatePreview()">
+      <input type="text" id="sourceLink" placeholder="Source Link URL" oninput="updatePreview()">
+      <select id="purchasable" onchange="updatePreview()">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select></div></form>
+  <table id="outputTable"></table>
+  <textarea id="outputText" rows="10" cols="50" readonly></textarea>
+  <script>
+    function updatePreview() {
+      var imageURL = document.getElementById("imageURL").value;
+      var imageLink = document.getElementById("imageLink").value;
+      var description = document.getElementById("description").value;
+      var sourceLink = document.getElementById("sourceLink").value;
+      var purchasable = document.getElementById("purchasable").value;
+      var outputTable = document.getElementById("outputTable");
+      var outputText = document.getElementById("outputText");
+      var row = '<tr>'
+          + '<td><a href="' + imageLink + '" target="_blank"><img src="' + imageURL + '" alt="Image" width="50" height="50"></a></td>'
+          + '<td>' + description + '</td>'
+          + '<td><a href="' + sourceLink + '" target="_blank">SRC</a></td>'
+          + '<td>' + purchasable + '</td>'
+          + '</tr>';
+      outputTable.innerHTML = row;
+      var outputCode = '<tr>'
+          + '<td><a href="' + imageLink + '" target="_blank"><img src="' + imageURL + '" alt="Image" width="100" height="100"></a></td>'
+          + '<td>' + description + '</td>\n'
+          + '<td><a href="' + sourceLink + '" target="_blank">SRC</a></td>\n'
+          + '<td>' + purchasable + '</td>\n'
+          + '</tr>';
+      outputText.value = outputCode;
+    }
+  </script>
+
+______________________________________
+
+
+Fetch full Table from site
+---------------------------
+
+<script>
+  function fetchTable() {
+    fetch('https://alceawis.de/favclothes.html')
+      .then(response => response.text())
+      .then(html => {
+        const tempElement = document.createElement('div');
+        tempElement.innerHTML = html;
+        const table = tempElement.querySelector('table');
+        const div = document.getElementById('tableContainer');
+        div.appendChild(table);
+      })
+  }
+  //document.addEventListener('DOMContentLoaded', fetchTable);
+</script>
+<button onclick="fetchTable()">Fetch Table</button>
+<div id="tableContainer"></div>
+
+____________________
+
+
+Bookmarklets (with copy function)
+----------------------------------
+
+<!--Mastodon--Fediverse--Bookmarklet-->
+<a href="https://codepen.io/ryedai1/pen/NWJoeRW" target="_blank"><img src="https://donestech.net/files/noticies/xarxa-fediverse-mastodon.png" style="width:50px" alt="feditext">Reroute any mastodon/fedi link to your home instance</a><br>
+<textarea id="feditext" rows="8" cols="80"></textarea><br>
+<button onclick="openBookmarkDialogfeditext()">Add to Bookmark</button>
+<button onclick="copyToClipboardfeditext()">Copy to Clipboard</button>
+<script>
+  var decodedStringfeditext = atob('amF2YXNjcmlwdDooZnVuY3Rpb24oKSB7CiAgdmFyIGVuY29kZWRVcmwgPSBlbmNvZGVVUklDb21wb25lbnQod2luZG93LmxvY2F0aW9uLmhyZWYpOwogIHZhciByZWRpcmVjdFVybCA9ICJodHRwczovL2FsY2VhLXdpc3RlcmlhLmRlL1BIUC8wZGVtby8yMDIzLTEwLTIyLU1hc3RvZG9uVG9vdFNlYXJjaC9zZWFyY2htYXN0b3VybC5waHA/c2VhcmNoPSIgKyBlbmNvZGVkVXJsICsgIiZwYlVybD1odHRwcyUzQSUyRiUyRnBiLnRvZG9uLmRlJmFwaWtleT1hcGlrZXloZXJlIjsKICB3aW5kb3cubG9jYXRpb24uaHJlZiA9IHJlZGlyZWN0VXJsOw==');
+function openBookmarkDialogfeditext() {
+  var bookmarkName = prompt("Enter bookmark name:");
+  if (bookmarkName) {
+    var bookmarkUrl = decodedStringfeditext;
+    if (window.navigator.userAgent.indexOf("Chrome") !== -1 && chrome && chrome.bookmarks) {
+      chrome.bookmarks.create({ title: bookmarkName, url: bookmarkUrl }, function() {
+        alert("Bookmark added: " + bookmarkName);
+      });
+    } else if (window.navigator.userAgent.indexOf("Firefox") !== -1 && browser && browser.bookmarks) {
+      browser.bookmarks.create({ title: bookmarkName, url: bookmarkUrl }).then(function() {
+        alert("Bookmark added: " + bookmarkName);
+      });
+    } else {
+      alert("Sorry, your browser does not support the bookmarking feature.");}}}
+  function copyToClipboardfeditext() {
+    var feditext = document.getElementById("feditext").value;
+    var tempInput = document.createElement("input");
+    tempInput.value = feditext;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Text copied to clipboard: " + feditext);}
+  document.getElementById("feditext").value = decodedStringfeditext;
+</script>
+<hr>
+<!--Youtube--Super8--Bookmarklet-->
+<a href="https://alceawis.de/super8" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Invidious-logo.svg/120px-Invidious-logo.svg.png" style="width:50px" alt="super8text">Reroute any youtube links to super8/invidious</a><br>
+<textarea id="super8text" rows="8" cols="80"></textarea><br>
+<button onclick="openBookmarkDialogsuper8text()">Add to Bookmark</button>
+<button onclick="copyToClipboardsuper8text()">Copy to Clipboard</button>
+<script>
+  var decodedStringsuper8text = atob('amF2YXNjcmlwdDooZnVuY3Rpb24oKSB7CiAgdmFyIGN1cnJlbnRVcmwgPSB3aW5kb3cubG9jYXRpb24uaHJlZjsKICB2YXIgZGVza3RvcFJlZ2V4ID0gL3lvdXR1YmVcLmNvbVwvd2F0Y2hcP2FwcD1kZXNrdG9wLzsKICB2YXIgbW9iaWxlUmVnZXggPSAvbVwueW91dHViZVwuY29tXC8vOwogIHZhciB5b3V0dVJlZ2V4ID0gL3lvdXR1XC5iZVwvKFtcdy1dKykvOwogIHZhciByZXBsYWNlbWVudFVybCA9ICJodHRwczovL3N1cGVyOC5hYnN0dXJ6dGF1LmJlL3dhdGNoP3Y9IjsKICBpZiAoZGVza3RvcFJlZ2V4LnRlc3QoY3VycmVudFVybCkgfHwgbW9iaWxlUmVnZXgudGVzdChjdXJyZW50VXJsKSB8fCB5b3V0dVJlZ2V4LnRlc3QoY3VycmVudFVybCkpIHsKICAgIHZhciB2aWRlb0lkID0gY3VycmVudFVybC5tYXRjaCgvWz8mXXY9KFtcdy1dKykvKVsxXTsKICAgIHZhciBuZXdVcmwgPSByZXBsYWNlbWVudFVybCArIHZpZGVvSWQ7CiAgICB3aW5kb3cubG9jYXRpb24uaHJlZiA9IG5ld1VybDsKICB9Cn0pKCk7');
+function openBookmarkDialogsuper8text() {
+  var bookmarkName = prompt("Enter bookmark name:");
+  if (bookmarkName) {
+    var bookmarkUrl = decodedStringsuper8text;
+    if (window.navigator.userAgent.indexOf("Chrome") !== -1 && chrome && chrome.bookmarks) {
+      chrome.bookmarks.create({ title: bookmarkName, url: bookmarkUrl }, function() {
+        alert("Bookmark added: " + bookmarkName);
+      });
+    } else if (window.navigator.userAgent.indexOf("Firefox") !== -1 && browser && browser.bookmarks) {
+      browser.bookmarks.create({ title: bookmarkName, url: bookmarkUrl }).then(function() {
+        alert("Bookmark added: " + bookmarkName);
+      });
+    } else {
+      alert("Sorry, your browser does not support the bookmarking feature.");}}}
+  function copyToClipboardsuper8text() {
+    var super8text = document.getElementById("super8text").value;
+    var tempInput = document.createElement("input");
+    tempInput.value = super8text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Text copied to clipboard: " + super8text);}
+  document.getElementById("super8text").value = decodedStringsuper8text;
+</script>
+<hr>
+<!--Pinterest--Bookmarklet-->
+<a href="https://codepen.io/ryedai1/pen/QWPNBBr" target="_blank"><img src="https://images.vexels.com/media/users/3/137399/isolated/preview/47c9900ae893cbed1e1599ab9c8bcb18-pinterest-symbol-logo.png?w=738&amp;fmt=webp" style="width:50px" alt="pinteresttext">Extract the pinterest main image from the current page</a> (<a target="_blank" href="https://alcea-wisteria.de/PHP/0demo/2024-03-11-ImgExtract4Websites/Pinterest/xtrctpin.php?pinurl=https://www.pinterest.de/pin/804877764644009233/">Demo</a>)<br>
+<textarea id="pinteresttext" rows="8" cols="80"></textarea><br>
+<button onclick="openBookmarkDialogpinteresttext()">Add to Bookmark</button>
+<button onclick="copyToClipboardpinteresttext()">Copy to Clipboard</button>
+<script>
+  var decodedStringpinteresttext = atob('amF2YXNjcmlwdDooZnVuY3Rpb24oKSB7IHZhciBjdXJyZW50VXJsID0gZW5jb2RlVVJJQ29tcG9uZW50KHdpbmRvdy5sb2NhdGlvbi5ocmVmKTsgdmFyIGFwaVVybCA9ICdodHRwczovL2FsY2VhLXdpc3RlcmlhLmRlL1BIUC8wZGVtby8yMDI0LTAzLTExLUltZ0V4dHJhY3Q0V2Vic2l0ZXMvUGludGVyZXN0L3h0cmN0cGluLnBocD9waW51cmw9JzsgdmFyIHRhcmdldFVybCA9IGFwaVVybCArIGN1cnJlbnRVcmw7IHdpbmRvdy5vcGVuKHRhcmdldFVybCk7IH0pKCk7Cg');
+function openBookmarkDialogpinteresttext() {
+  var bookmarkName = prompt("Enter bookmark name:");
+  if (bookmarkName) {
+    var bookmarkUrl = decodedStringpinteresttext;
+    if (window.navigator.userAgent.indexOf("Chrome") !== -1 && chrome && chrome.bookmarks) {
+      chrome.bookmarks.create({ title: bookmarkName, url: bookmarkUrl }, function() {
+        alert("Bookmark added: " + bookmarkName);
+      });
+    } else if (window.navigator.userAgent.indexOf("Firefox") !== -1 && browser && browser.bookmarks) {
+      browser.bookmarks.create({ title: bookmarkName, url: bookmarkUrl }).then(function() {
+        alert("Bookmark added: " + bookmarkName);
+      });
+    } else {
+      alert("Sorry, your browser does not support the bookmarking feature.");}}}
+  function copyToClipboardpinteresttext() {
+    var pinteresttext = document.getElementById("pinteresttext").value;
+    var tempInput = document.createElement("input");
+    tempInput.value = pinteresttext;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Text copied to clipboard: " + pinteresttext);}
+  document.getElementById("pinteresttext").value = decodedStringpinteresttext;
+</script>
+<hr>
+
+
+_________________________________________
+
+
+
+
+Screenshoot current page
+---------------------------------------
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+  <button onclick="captureScreenshot()">*click*</button>
+  <script>
+     function captureScreenshot() {
+      // Set the dimensions of the screenshot to the entire document, including content beyond the scrollbar
+      var width = document.documentElement.scrollWidth;
+      var height = document.documentElement.scrollHeight;
+
+      html2canvas(document.body, {
+        width: width,
+        height: height,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: document.documentElement.clientWidth,
+        windowHeight: document.documentElement.clientHeight
+      }).then(function(canvas) {
+        var screenshotImage = canvas.toDataURL();
+        var pageTitle = document.title;
+        var filename = pageTitle.replace(/[^\w\s]/gi, '');
+        var timestamp = new Date().getTime();
+        filename += '_' + timestamp;
+        //var link = document.createElement('a');
+        //link.href = screenshotImage;
+        //link.download = filename + '.png';
+        //link.click();
+        var newTab = window.open();
+        newTab.document.write('<img src="' + screenshotImage + '"/>');
+      });
+    }
+  </script>
+
+___________________
+
+
+Create image snapshot of element:
+---------------------------------
+
+<p id="customFont" class="customfont" contenteditable="true">Hello world!</p>´
+<button id="captureButton">*Cheese!!*</button>
+<div id="imageContainer"></div>
+<script>
+      const captureButton = document.getElementById('captureButton');
+      const imageContainer = document.getElementById('imageContainer');
+      captureButton.addEventListener('click', function() {
+      const paragraph = document.getElementById('customFont');
+      let content = paragraph.innerHTML;
+      content = content.replace(/<\/div>/g, ' ').replace(/<div>/g, ' ');
+      const paragraphComputedStyle = getComputedStyle(paragraph);
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = parseFloat(paragraphComputedStyle.width);
+      canvas.height = parseFloat(paragraphComputedStyle.height) + 50;
+      const computedStyle = getComputedStyle(paragraph);
+      context.font = computedStyle.font;
+      context.fillStyle = computedStyle.color;
+      const textMetrics = context.measureText(content);
+      const textHeight = textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent;
+      const yCoordinate = (canvas.height - textHeight) / 2 + textMetrics.actualBoundingBoxAscent;
+      context.fillText(content, 0, yCoordinate);
+      canvas.toBlob(function(blob) {
+        while (imageContainer.firstChild) {
+          imageContainer.removeChild(imageContainer.firstChild);
+        }
+        const image = document.createElement('img');
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(blob);
+        imageContainer.appendChild(image);
+      }, 'image/png');
+    });
+  </script>
+
+__________________________
+
+
+Font test:
+----------------------------------------------------
+
+<style type="text/css">
+  @font-face {
+    font-family: "My Custom Font";
+    src: url(https://alceawis.de/other/extra/font/GreatVibes-Regular.otf) format("truetype");
+  }
+
+  p.customfont {
+    font-family: "My Custom Font", Verdana, Tahoma;
+  }
+
+  .drag-drop-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<p id="customFont" class="customfont" contenteditable="true">Hello world!</p>
+<input type="range" id="fontSizeSlider" min="10" max="50" value="16" step="2" onchange="changeFontSize()">
+<style id="customFontFace"></style>
+<script>
+  function changeFontSource(fontUrl) {
+    var fontFace = document.getElementById("customFontFace");
+    fontFace.innerHTML = "@font-face { font-family: 'My Custom Font'; src: url(" + fontUrl + ") format('truetype'); }";
+  }
+  function changeFontSize() {
+    var fontSize = document.getElementById("fontSizeSlider").value;
+    var customFont = document.getElementById("customFont");
+    customFont.style.fontSize = fontSize + "px";
+  }
+  function handleDragOver(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = 'copy';
+  }
+  function handleDrop(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var file = event.dataTransfer.files[0];
+    var fontUrl = URL.createObjectURL(file);
+    changeFontSource(fontUrl);
+  }
+  function handleUrlInput() {
+    var fontUrl = document.getElementById("fontUrlInput").value;
+    changeFontSource(fontUrl);
+  }
+  function handleFileBrowse(event) {
+    var file = event.target.files[0];
+    var fontUrl = URL.createObjectURL(file);
+    changeFontSource(fontUrl);
+  }
+  // Function to handle the font selection from the dropdown
+  function handleFontSelection() {
+    var dropdown = document.getElementById("fontDropdown");
+    var selectedOption = dropdown.options[dropdown.selectedIndex];
+
+    var fontUrl = selectedOption.value;
+    var pretext = selectedOption.getAttribute("pretext");
+    var softkeyboardUrl = selectedOption.getAttribute("softkeyboard");
+
+    if (pretext) {
+      var customFont = document.getElementById("customFont");
+      customFont.innerText = pretext;
+    }
+
+    if (softkeyboardUrl) {
+      fetchSoftkeyboardContent(softkeyboardUrl);
+    }
+
+    changeFontSource(fontUrl);
+  }
+
+  function fetchSoftkeyboardContent(url) {
+    fetch(url)
+      .then(function (response) {
+        return response.text();
+      })
+      .then(function (data) {
+        var softkeyboardDiv = document.getElementById("softkeyboardDiv");
+        softkeyboardDiv.innerHTML = data;
+      })
+      .catch(function (error) {
+        console.log('Error fetching softkeyboard content:', error);
+      });
+  }
+</script>
+<select id="fontDropdown" onchange="handleFontSelection()">
+  <option value="other/extra/font/GreatVibes-Regular.otf" pretext="Great Vibes !">Great Vibes</option>
+  <option value="other/extra/font/learning_curve_regular_ot_ps.otf" pretext="Learning Curves">Learning Curve</option>
+  <option value="other/extra/font/learning_curve_regular_ot_ps.otf" pretext="">--other--</option>
+  <option value="other/extra/font/others/heo.ttf" pretext="󱴻󱳍󱳳󱴰" softkeyboard="other/extra/font/0softkbs/heo.html">Heo</option>
+</select>
+
+<hr>
+<div class="drag-drop-area" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
+  <p>Drag and drop a font file here</p>
+</div>
+<label for="fontUrlInput">or enter a URL to a font:</label>
+<input type="text" id="fontUrlInput" onchange="handleUrlInput()">
+<!-- Add file browse input element -->
+<input type="file" id="fileBrowseInput" style="display: none;" onchange="handleFileBrowse(event)">
+<br>or pick a local file:
+<button onclick="document.getElementById('fileBrowseInput').click()">Browse</button>
+<div id="softkeyboardDiv"></div>
+<!---Save_to image --->
+<button id="captureButton">*Cheese!!*</button>
+<div id="imageContainer"></div>
+<script>
+      const captureButton = document.getElementById('captureButton');
+      const imageContainer = document.getElementById('imageContainer');
+      captureButton.addEventListener('click', function() {
+      const paragraph = document.getElementById('customFont');
+      let content = paragraph.innerHTML;
+      content = content.replace(/<\/div>/g, ' ').replace(/<div>/g, ' ');
+      const paragraphComputedStyle = getComputedStyle(paragraph);
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = parseFloat(paragraphComputedStyle.width);
+      canvas.height = parseFloat(paragraphComputedStyle.height) + 50;
+      const computedStyle = getComputedStyle(paragraph);
+      context.font = computedStyle.font;
+      context.fillStyle = computedStyle.color;
+      const textMetrics = context.measureText(content);
+      const textHeight = textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent;
+      const yCoordinate = (canvas.height - textHeight) / 2 + textMetrics.actualBoundingBoxAscent;
+      context.fillText(content, 0, yCoordinate);
+      canvas.toBlob(function(blob) {
+        while (imageContainer.firstChild) {
+          imageContainer.removeChild(imageContainer.firstChild);
+        }
+        const image = document.createElement('img');
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(blob);
+        imageContainer.appendChild(image);
+      }, 'image/png');
+    });
+  </script>
+
+________________________________________
+
+Save current page to html
+--------------------------
+
+  <unique>
+  <button onclick="savePageAsHTML()">Save Page as HTML</button>
+  <script>
+    function savePageAsHTML() {
+      var placeholder = document.querySelector('unique');
+      placeholder.parentNode.removeChild(placeholder);
+      var html = document.documentElement.outerHTML;
+      var filename = 'dyingfedi.html';
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(html));
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+      document.body.appendChild(placeholder);
+    }
+  </script>
+  </unique>
+
+______________
+
+FolderLister (spoilertag) with download as html function
+-----------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.folder {
+  margin-left: 20px;
+}
+.empty-folder {
+  color: gray;
+}
+</style>
+</head>
+<body>
+<h1>Drag and Drop Folder Lister</h1>
+<div>
+  <label for="baseUrl">Base URL: </label>
+  <input type="text" id="baseUrl" placeholder="Enter base URL" value="http://10.10.10.254/data/UsbDisk1/Volume1">
+</div>
+<div>
+  <label for="excludeText">Exclude Text: </label>
+  <input type="text" id="excludeText" placeholder="Enter text to exclude" value="D_drive/">
+</div>
+<div id="folderList" ondragover="allowDrop(event)" ondrop="drop(event)">
+  <p>Drop a folder here to list its contents:</p>
+</div>
+<script>
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function drop(event) {
+  event.preventDefault();
+  const folder = event.dataTransfer.items[0].webkitGetAsEntry();
+  const baseUrl = document.getElementById("baseUrl").value;
+  const excludeText = document.getElementById("excludeText").value;
+  listFolderContents(folder, document.getElementById("folderList"), baseUrl, excludeText);
+}
+
+function listFolderContents(folder, parentElement, baseUrl, excludeText) {
+  if (folder.isDirectory) {
+    const details = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = folder.name;
+    details.appendChild(summary);
+    const subFolderList = document.createElement("ul");
+    details.appendChild(subFolderList);
+    parentElement.appendChild(details);
+    const directoryReader = folder.createReader();
+
+    function readEntries() {
+      directoryReader.readEntries(function (entries) {
+        if (entries.length > 0) {
+          entries.forEach(function (entry) {
+            listFolderContents(entry, subFolderList, baseUrl, excludeText);
+          });
+          readEntries(); // Continue reading entries in chunks
+        } else if (subFolderList.childElementCount === 0) {
+          details.classList.add("empty-folder"); // Apply the CSS class to the empty folder
+        }
+      });
+    }
+
+    readEntries();
+  } else {
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.textContent = folder.name;
+    link.target = "_blank";
+    link.href = baseUrl ? baseUrl + folder.fullPath : "file:///123/" + folder.fullPath;
+
+    if (excludeText && link.href.includes(excludeText)) {
+      link.href = link.href.replace(excludeText, "");
+    }
+
+    listItem.appendChild(link);
+    parentElement.appendChild(listItem);
+  }
+}
+</script>
+
+<!--Download-->
+<script>
+function downloadHTML() {
+const folderList = document.getElementById("folderList").cloneNode(true);
+const baseUrl = document.getElementById("baseUrl").value;
+updateHyperlinks(folderList, baseUrl);
+const doctype = document.implementation.createDocumentType('html', '', '');
+const html = document.implementation.createDocument('', 'html', doctype);
+html.documentElement.appendChild(folderList);
+const serializer = new XMLSerializer();
+const htmlString = serializer.serializeToString(html);
+const blob = new Blob([htmlString], { type: 'text/html' });
+const url = URL.createObjectURL(blob);
+const downloadLink = document.createElement('a');
+downloadLink.href = url;
+downloadLink.download = 'folder_list.html';
+downloadLink.click();
+}
+function updateHyperlinks(element, baseUrl) {
+const links = element.getElementsByTagName('a');
+for (let i = 0; i < links.length; i++) {
+const link = links[i];
+const href = link.getAttribute('href');
+if (baseUrl) {
+link.href = href;
+} else {
+link.href = href;
+}
+}
+}
+</script>
+<button onclick="downloadHTML()">Download HTML</button>
+
+
+____________________________
+
+
+Github commits per day chart
+------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Commit Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div>
+    <label for="apiUrl">API URL:</label>
+    <input type="text" id="apiUrl" value="https://api.github.com/repos/Ry3yr/ry3yr.github.io/commits?per_page=50">
+    <button id="loadButton" onclick="loadChart()">Load Chart</button>
+  </div>
+  
+  <div id="repoName"></div>
+  
+  <canvas id="commitChart"></canvas>
+
+    <script>
+    let chart;
+
+    function loadChart() {
+      if (chart) {
+        chart.destroy(); // Clear the existing chart
+      }
+
+      const apiUrl = document.getElementById('apiUrl').value;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          // Extract commit dates
+          const commitDates = data.map(commit => new Date(commit.commit.author.date).toLocaleDateString());
+
+          // Count commits per day
+          const commitCounts = {};
+          commitDates.forEach(date => {
+            commitCounts[date] = (commitCounts[date] || 0) + 1;
+          });
+
+          // Prepare data for the chart
+          const labels = Object.keys(commitCounts);
+          const values = Object.values(commitCounts);
+
+          // Get the repository name from the API URL
+          const repoName = getRepoName(apiUrl);
+
+          // Display the repository name
+          document.getElementById('repoName').textContent = `Repository: ${repoName}`;
+
+          // Create the chart
+          const ctx = document.getElementById('commitChart').getContext('2d');
+          chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Commits per Day',
+                data: values,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+              }]
+            },
+            options: {
+              scales: {
+                x: {
+                  display: true,
+                  reverse: true, // Invert the x-axis
+                  title: {
+                    display: true,
+                    text: 'Date'
+                  }
+                },
+                y: {
+                  beginAtZero: true,
+                  stepSize: 1
+                }
+              }
+            }
+          });
+        });
+    }
+
+    // Extract the repository name from the API URL
+    function getRepoName(apiUrl) {
+      const parts = apiUrl.split('/');
+      return parts[parts.length - 3] + '/' + parts[parts.length - 2];
+    }
+
+    // Load chart with default API URL
+    loadChart();
+  </script>
+
+______________________
+
+
+
+URL-online-check-and-fallback-redirect
+------------------------------------------------------------
+<a href="#" id="checkURLLink">Check URL</a>
+<div id="result"></div>
+<script>
+document.getElementById('checkURLLink').addEventListener('click', function() {
+  var url = "https://alcea-wisteria.de/PHP/0demo/2023-08-15-JSFiddle-Clone/htmls/0ld/link.html";
+  //var url = "https://alcea-wisteria.de/PHP/0demo/2023-08-15-JSFiddle-Clone/jsfiddle-user.ph?mode=lowbandwidth"
+  var xhr = new XMLHttpRequest();
+  xhr.open('HEAD', url);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      const corsStatus = xhr.getResponseHeader('Access-Control-Allow-Origin');
+      const headers = xhr.getAllResponseHeaders();
+      const result = document.getElementById('result');
+      if (corsStatus || headers.includes('content-length') || headers.includes('content-type') || headers.includes('last-modified')) {
+        result.innerHTML = '<strong>Accessing original URL</strong><br>';
+        result.innerHTML += 'Access-Control-Allow-Origin: ' + corsStatus + '<br>';
+        window.open(url, "_blank");
+      } else {
+        result.innerHTML = '<strong>Accessing static backup</strong><br>';
+        result.innerHTML += 'Response Headers:<br>' + headers + '<br>';
+        var alternativeUrl = "https://ry3yr.github.io/jsfiddleclone/jsfiddle-user.html?mode=lowbandwidth";
+        window.open(alternativeUrl, "_blank");
+      }
+    }
+  };
+  xhr.send();
+});
+</script>
+
+________________________________
+
+Set favico
+---------
+
+<script>
+var link = document.createElement('link');
+link.rel = 'icon';
+link.type = 'image/gif';
+link.href = 'https://alceawis.de/other/images/bg/chocoomnomnom32.gif';
+document.head.appendChild(link);
+</script>
+
+_____________________
+
+
+Txt and Folder lister with Reorder capability (can generate cmd too)
+---------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Draggable Grid Example</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+    }
+    .grid-item {
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      cursor: grab;
+    }
+    .grid-item.dragging {
+      opacity: .5;
+      cursor: grabbing;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div id="folder-grid" class="grid-item">
+      <h3>Folder Files</h3>
+    </div>
+    <div id="text-grid" class="grid-item">
+      <h3>Text Lines</h3>
+    </div>
+  </div>
+  <script>
+    let folderGrid = null;
+    let textGrid = null;
+    let clickedItem = null;
+
+    function createGridItem(content, draggable = true) {
+      const gridItem = document.createElement("div");
+      gridItem.className = "grid-item";
+      gridItem.textContent = content;
+      if (draggable) {
+        gridItem.draggable = true;
+        gridItem.addEventListener("dragstart", function (event) {
+          event.dataTransfer.setData("text/plain", content);
+          gridItem.classList.add("dragging");
+        });
+        gridItem.addEventListener("dragend", function () {
+          gridItem.classList.remove("dragging");
+        });
+      }
+      gridItem.addEventListener("click", function () {
+        if (clickedItem === null) {
+          clickedItem = gridItem;
+          gridItem.classList.add("dragging");
+        } else {
+          swapItems(clickedItem, gridItem);
+          clickedItem = null;
+          gridItem.classList.remove("dragging");
+        }
+      });
+      return gridItem;
+    }
+    function addFileToList(file) {
+      if (file.isDirectory) {
+        return; // Exclude directories from the list
+      }
+      const fileName = file.name;
+      const isHeaderPresent = folderGrid.querySelector("h3");
+      const gridItem = createGridItem(fileName);
+
+      if (isHeaderPresent) {
+        folderGrid.appendChild(gridItem);
+      } else {
+        const header = document.createElement("h3");
+        header.textContent = "Folder Files";
+        folderGrid.appendChild(header);
+        folderGrid.appendChild(gridItem);
+      }
+    }
+    function addLineToList(line) {
+      const gridItem = createGridItem(line.trim(), false);
+      textGrid.appendChild(gridItem);
+    }
+    function readTextFile(file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const lines = event.target.result.split("\n");
+        lines.forEach((line) => {
+          addLineToList(line);
+        });
+      };
+      reader.readAsText(file);
+    }
+    function traverseDirectory(directory) {
+      const directoryReader = directory.createReader();
+      directoryReader.readEntries(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isFile) {
+            entry.file(function (file) {
+              if (file.type === "text/plain") {
+                readTextFile(file);
+              } else {
+                addFileToList(file);
+              }
+            });
+          } else if (entry.isDirectory) {
+            addFileToList(entry);
+            traverseDirectory(entry);
+          }
+        });
+      });
+    }
+    function swapItems(item1, item2) {
+      const tempContent = item1.textContent;
+      item1.textContent = item2.textContent;
+      item2.textContent = tempContent;
+    }
+    window.addEventListener("DOMContentLoaded", function () {
+      folderGrid = document.getElementById("folder-grid");
+      textGrid = document.getElementById("text-grid");
+
+      folderGrid.addEventListener("dragover", function (event) {
+        event.preventDefault();
+      });
+
+      folderGrid.addEventListener("drop", function (event) {
+        event.preventDefault();
+
+        const isHeaderPresent = folderGrid.querySelector("h3");
+        if (!isHeaderPresent) {
+          const header = document.createElement("h3");
+          header.textContent = "Folder Files";
+          folderGrid.appendChild(header);
+        }
+        const items = event.dataTransfer.items;
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          if (item.kind === "file") {
+            const entry = item.webkitGetAsEntry();
+            if (entry) {
+              if (entry.isDirectory) {
+                addFileToList(entry);
+                traverseDirectory(entry);
+              } else if (entry.isFile) {
+                entry.file(function (file) {
+                  if (file.type === "text/plain") {
+                    readTextFile(file);
+                  } else {
+                    addFileToList(file);
+                  }
+                });
+              }
+            }
+          }
+        }
+      });
+      
+      textGrid.addEventListener("dragover", function (event) {
+        event.preventDefault();
+      });
+      textGrid.addEventListener("drop", function (event) {
+        event.preventDefault();
+        
+        const items = event.dataTransfer.items;
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          if (item.kind === "file") {
+            const entry = item.webkitGetAsEntry();
+            if (entry && entry.isFile) {
+              entry.file(function (file) {
+                if (file.type === "text/plain") {
+                  readTextFile(file);
+                }
+              });
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+<label for="insert-text">Insert Text:</label>
+  <input type="text" id="insert-text" placeholder="Insert Text" />
+  <br />
+  <label for="placeholder-text">Placeholder Text:</label>
+  <input type="text" id="placeholder-text" placeholder="Placeholder Text" />
+  <br />
+  <label for="after-text">After Text:</label>
+  <input type="text" id="after-text" placeholder="After Text" />
+  <br />
+  <button id="copy-button">Copy to Clipboard</button>
+<script>
+    document.getElementById("copy-button").addEventListener("click", function () {
+      const folderGridLines = Array.from(document.getElementById("folder-grid").querySelectorAll("div")).map(line => line.innerText);
+      const textGridLines = Array.from(document.getElementById("text-grid").querySelectorAll("div")).map(line => line.innerText);
+      const insertText = document.getElementById("insert-text").value || "Insert text";
+      const placeholderText = document.getElementById("placeholder-text").value || "placeholder";
+      const afterText = document.getElementById("after-text").value;
+      const combinedContent = folderGridLines.map((line, index) => `${insertText} "${line}" ${placeholderText} "${textGridLines[index]}"${afterText ? " " + afterText : ""}`).join('\n');
+      const tempTextarea = document.createElement("textarea");
+      tempTextarea.value = combinedContent;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempTextarea);
+      //alert("Content copied to clipboard!");
+    });
+  </script>
+
+
+</body>
+</html>
+
+________________
+
+Line-Keeper--Remover-add-leading-0s
+-----------------------------------
+
+<body>
+  <textarea id="linesToFilter" rows="10" cols="50"></textarea>
+  <br>
+  <input type="text" id="keyword" placeholder="Enter keyword" />
+  <button id="filterButton">Filter Lines</button>
+  <br>
+  <input type="text" id="eraseTextbox" placeholder="Enter phrase to erase" />
+  <button id="eraseButton">Erase</button>
+  <br>
+  <button id="leadingNumbersButton">Leading Numbers</button>
+  <input type="checkbox" id="leadingZeroCheckbox" />
+  <label for="leadingZeroCheckbox">Leading Zero</label>
+
+  <script>
+    const linesToFilterInput = document.getElementById('linesToFilter');
+    const keywordInput = document.getElementById('keyword');
+    const filterButton = document.getElementById('filterButton');
+
+    const mainTextbox = document.getElementById('linesToFilter');
+    const eraseTextbox = document.getElementById('eraseTextbox');
+    const eraseButton = document.getElementById('eraseButton');
+
+    const leadingNumbersButton = document.getElementById('leadingNumbersButton');
+    const leadingZeroCheckbox = document.getElementById('leadingZeroCheckbox');
+
+    filterButton.addEventListener('click', function() {
+      const linesToFilter = linesToFilterInput.value.split('\n');
+      const keyword = keywordInput.value;
+
+      const filteredLines = linesToFilter.filter(line => line.includes(keyword));
+
+      const newContent = filteredLines.join('\n');
+
+      linesToFilterInput.value = newContent;
+    });
+    eraseButton.addEventListener('click', function() {
+      const phraseToErase = eraseTextbox.value;
+      const content = mainTextbox.value;
+      const newContent = content.replace(new RegExp(phraseToErase, 'g'), '');
+      mainTextbox.value = newContent;
+    });
+    leadingNumbersButton.addEventListener('click', function() {
+      const linesToNumber = mainTextbox.value.split('\n');
+      const useLeadingZero = leadingZeroCheckbox.checked;
+      let numberedLines = '';
+      for (let i = 0; i < linesToNumber.length; i++) {
+        let lineNumber = i + 1;
+        if (useLeadingZero) {
+          lineNumber = lineNumber.toString().padStart(linesToNumber.length.toString().length, '0');
+        }
+        numberedLines += `${lineNumber}. ${linesToNumber[i]}\n`;
+      }
+      mainTextbox.value = numberedLines;
+    });
+  </script>
+</body>
+</html>
+_______________________________
+
+Fetch Youtube Playlist + duration
+--------------------------------
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {border-collapse: collapse; width: 100%}
+        td, th {text-align: left; padding: 8px; border-bottom: 1px solid #ddd}
+        th {background-color: #f2f2f2}
+    </style>
+</head>
+<body>
+    <form id="playlistForm">
+        <label for="playlistInput">YouTube Playlist URL:</label>
+        <input type="text" id="playlistInput" required><br>
+        <label for="apiKeyInput">YouTube API Key:</label>
+        <input type="text" id="apiKeyInput" required><br>
+        <input type="checkbox" id="sortCheckbox">
+        <label for="sortCheckbox">Sort by playlist order</label><br>
+        <input type="submit" value="Get Video List">
+    </form>
+    <table id="videoTable">
+        <thead>
+            <tr>
+                <th>Video Name</th>
+                <th>Playtime</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="videoList"></tbody>
+    </table>
+    <script>
+        function convertDuration(duration) {
+            var match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+            var hours = (parseInt(match[1]) || 0);
+            var minutes = (parseInt(match[2]) || 0);
+            var seconds = (parseInt(match[3]) || 0);
+            return hours + "h " + minutes + "m " + seconds + "s";
+        }
+
+        function convertDate(date) {
+            var isoDate = new Date(date);
+            return isoDate.toDateString();
+        }
+
+        document.getElementById("playlistForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var playlistUrl = document.getElementById("playlistInput").value;
+            var apiKey = document.getElementById("apiKeyInput").value;
+            var playlistId = playlistUrl.match(/(?:list=)([\w-]+)/)[1];
+            var apiUrl = "https://www.googleapis.com/youtube/v3/playlistItems";
+            var params = {
+                part: "snippet,contentDetails",
+                maxResults: 50,
+                playlistId: playlistId,
+                key: apiKey,
+            };
+            var url =
+                apiUrl +
+                "?" +
+                Object.keys(params)
+                    .map(function (key) {
+                        return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+                    })
+                    .join("&");
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    var videoList = document.getElementById("videoList");
+                    videoList.innerHTML = "";
+                    var videoItems = [];
+                    var totalDuration = 0; // Variable to store the total playtime
+                    data.items.forEach(function (item, index) { // Add the index parameter
+                        var videoId = item.contentDetails.videoId;
+                        var videoTitle = item.snippet.title;
+                        var vId = item.contentDetails.videoId;
+                        var durUrl =
+                            "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" +
+                            vId +
+                            "&key=" +
+                            apiKey;
+                        fetch(durUrl)
+                            .then((response) => response.json())
+                            .then((durationData) => {
+                                var duration = durationData.items[0].contentDetails.duration;
+                                var videoDuration = convertDuration(duration);
+                                var videoDate = item.snippet.publishedAt;
+                                var videoDateFormatted = convertDate(videoDate);
+                                videoItems.push({
+                                    videoId: videoId,
+                                    videoTitle: videoTitle,
+                                    videoDuration: videoDuration,
+                                    videoDate: videoDateFormatted,
+                                    playlistIndex: index, // Store the playlist index
+                                });
+                                // Accumulate the playtime
+                                totalDuration += getDurationInSeconds(duration);
+                                if (videoItems.length === data.items.length) {
+                                    if (document.getElementById("sortCheckbox").checked) {
+                                        // Sort by playlist order
+                                        videoItems.sort((a, b) => a.playlistIndex - b.playlistIndex); // Sort by playlist index
+                                    } else {
+                                        // Sort by date
+                                        videoItems.sort((a, b) => new Date(a.videoDate) - new Date(b.videoDate));
+                                    }
+                                    videoItems.forEach(function (video) {
+                                        var videoRow = document.createElement("tr");
+                                        var videoNameCell = document.createElement("td");
+                                        var videoNameLink = document.createElement("a");
+                                        videoNameLink.href =
+                                            "https://www.youtube.com/watch?v=" + video.videoId;
+                                        videoNameLink.target = "_blank";
+                                        videoNameLink.textContent = video.videoTitle;
+                                        videoNameCell.appendChild(videoNameLink);
+                                        videoRow.appendChild(videoNameCell);
+                                        var playtimeCell= document.createElement("td");
+                                        playtimeCell.textContent = video.videoDuration;
+                                        videoRow.appendChild(playtimeCell);
+                                        var dateCell = document.createElement("td");
+                                        dateCell.textContent = video.videoDate;
+                                        videoRow.appendChild(dateCell);
+                                        videoList.appendChild(videoRow);
+                                    });
+                                    // Add total playtime row
+                                    var totalDurationRow = document.createElement("tr");
+                                    var totalDurationCell = document.createElement("td");
+                                    totalDurationCell.setAttribute("colspan", "2");
+                                    totalDurationCell.textContent =
+                                        "Total Playtime: " + convertSecondsToDuration(totalDuration);
+                                    totalDurationRow.appendChild(totalDurationCell);
+                                    videoList.appendChild(totalDurationRow);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                var videoTable = document.getElementById("videoTable");
+                                videoTable.innerHTML = "An error occurred while fetching the video list.";
+                            });
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    var videoTable = document.getElementById("videoTable");
+                    videoTable.innerHTML = "An error occurred while fetching the video list.";
+                });
+        });
+
+        // Helper function to convert YouTube duration format to seconds
+        function getDurationInSeconds(duration) {
+            var match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+            var hours = parseInt(match[1]) || 0;
+            var minutes = parseInt(match[2]) || 0;
+            var seconds = parseInt(match[3]) || 0;
+            return hours * 3600 + minutes * 60 + seconds;
+        }
+
+        // Helper function to convert seconds to YouTube duration format
+        function convertSecondsToDuration(seconds) {
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            var secs = seconds % 60;
+            return (
+                hours.toString().padStart(2, "0") +
+                "h " +
+                minutes.toString().padStart(2, "0") +
+                "m " +
+                secs.toString().padStart(2, "0") +
+                "s"
+            );
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>
+<!---https://stackoverflow.com/questions/15596753/how-do-i-get-video-durations-with-youtube-api-version-3--->
+<!---
+ICAgIDxzdHlsZT4KICAgICAgICB0YWJsZXtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7d2lkdGg6MTAwJX10ZCx0aHt0ZXh0LWFsaWduOmxlZnQ7cGFkZGluZzo4cHg7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgI2RkZH10aHtiYWNrZ3JvdW5kLWNvbG9yOiNmMmYyZjJ9CiAgICA8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5PgogICAgPGZvcm0gaWQ9InBsYXlsaXN0Rm9ybSI+CiAgICAgICAgPGxhYmVsIGZvcj0icGxheWxpc3RJbnB1dCI+WW91VHViZSBQbGF5bGlzdCBVUkw6PC9sYWJlbD4KICAgICAgICA8aW5wdXQgdHlwZT0idGV4dCIgaWQ9InBsYXlsaXN0SW5wdXQiIHJlcXVpcmVkPgogICAgICAgIDxicj4KICAgICAgICA8bGFiZWwgZm9yPSJhcGlLZXlJbnB1dCI+WW91VHViZSBBUEkgS2V5OjwvbGFiZWw+CiAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIGlkPSJhcGlLZXlJbnB1dCIgcmVxdWlyZWQ+CiAgICAgICAgPGJyPgogICAgICAgIDxpbnB1dCB0eXBlPSJzdWJtaXQiIHZhbHVlPSJHZXQgVmlkZW8gTGlzdCI+CiAgICA8L2Zvcm0+CiAgICA8dGFibGUgaWQ9InZpZGVvVGFibGUiPgogICAgICAgIDx0aGVhZD4KICAgICAgICAgICAgPHRyPgogICAgICAgICAgICAgICAgPHRoPlZpZGVvIE5hbWU8L3RoPgogICAgICAgICAgICAgICAgPHRoPlBsYXl0aW1lPC90aD4KICAgICAgICAgICAgICAgIDx0aD5EYXRlPC90aD4KICAgICAgICAgICAgPC90cj4KICAgICAgICA8L3RoZWFkPgogICAgICAgIDx0Ym9keSBpZD0idmlkZW9MaXN0Ij48L3Rib2R5PgogICAgPC90YWJsZT4KICAgIDxzY3JpcHQ+CiAgICAgICAgZnVuY3Rpb24gY29udmVydER1cmF0aW9uKGR1cmF0aW9uKSB7CiAgICAgICAgICAgIHZhciBtYXRjaCA9IGR1cmF0aW9uLm1hdGNoKC9QVChcZCtIKT8oXGQrTSk/KFxkK1MpPy8pOwogICAgICAgICAgICB2YXIgaG91cnMgPSAocGFyc2VJbnQobWF0Y2hbMV0pIHx8IDApOwogICAgICAgICAgICB2YXIgbWludXRlcyA9IChwYXJzZUludChtYXRjaFsyXSkgfHwgMCk7CiAgICAgICAgICAgIHZhciBzZWNvbmRzID0gKHBhcnNlSW50KG1hdGNoWzNdKSB8fCAwKTsKICAgICAgICAgICAgcmV0dXJuIGhvdXJzICsgImggIiArIG1pbnV0ZXMgKyAibSAiICsgc2Vjb25kcyArICJzIjt9CiAgICAgICAgZnVuY3Rpb24gY29udmVydERhdGUoZGF0ZSkgewogICAgICAgICAgICB2YXIgaXNvRGF0ZSA9IG5ldyBEYXRlKGRhdGUpOwogICAgICAgICAgICByZXR1cm4gaXNvRGF0ZS50b0RhdGVTdHJpbmcoKTt9CiAgICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInBsYXlsaXN0Rm9ybSIpLmFkZEV2ZW50TGlzdGVuZXIoInN1Ym1pdCIsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgICAgICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7CiAgICAgICAgICAgIHZhciBwbGF5bGlzdFVybCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJwbGF5bGlzdElucHV0IikudmFsdWU7CiAgICAgICAgICAgIHZhciBhcGlLZXkgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiYXBpS2V5SW5wdXQiKS52YWx1ZTsKICAgICAgICAgICAgdmFyIHBsYXlsaXN0SWQgPSBwbGF5bGlzdFVybC5tYXRjaCgvKD86bGlzdD0pKFtcdy1dKykvKVsxXTsKICAgICAgICAgICAgdmFyIGFwaVVybCA9ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS95b3V0dWJlL3YzL3BsYXlsaXN0SXRlbXMiOwogICAgICAgICAgICB2YXIgcGFyYW1zID0gewogICAgICAgICAgICAgICAgcGFydDogInNuaXBwZXQsY29udGVudERldGFpbHMiLAogICAgICAgICAgICAgICAgbWF4UmVzdWx0czogNTAsCiAgICAgICAgICAgICAgICBwbGF5bGlzdElkOiBwbGF5bGlzdElkLAogICAgICAgICAgICAgICAga2V5OiBhcGlLZXl9OwogICAgICAgICAgICB2YXIgdXJsID0gYXBpVXJsICsgIj8iICsgT2JqZWN0LmtleXMocGFyYW1zKS5tYXAoZnVuY3Rpb24oa2V5KSB7CiAgICAgICAgICAgICAgICByZXR1cm4gZW5jb2RlVVJJQ29tcG9uZW50KGtleSkgKyAiPSIgKyBlbmNvZGVVUklDb21wb25lbnQocGFyYW1zW2tleV0pOwogICAgICAgICAgICB9KS5qb2luKCImIik7CiAgICAgICAgICAgIGZldGNoKHVybCkKICAgICAgICAgICAgICAgIC50aGVuKHJlc3BvbnNlID0+IHJlc3BvbnNlLmpzb24oKSkKICAgICAgICAgICAgICAgIC50aGVuKGRhdGEgPT4gewogICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0xpc3QgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgidmlkZW9MaXN0Iik7CiAgICAgICAgICAgICAgICAgICAgdmlkZW9MaXN0LmlubmVySFRNTCA9ICIiOwogICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0l0ZW1zID0gW107CiAgICAgICAgICAgICAgICAgICAgZGF0YS5pdGVtcy5mb3JFYWNoKGZ1bmN0aW9uKGl0ZW0pIHsKICAgICAgICAgICAgICAgICAgICAgICAgdmFyIHZpZGVvSWQgPSBpdGVtLmNvbnRlbnREZXRhaWxzLnZpZGVvSWQ7CiAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb1RpdGxlID0gaXRlbS5zbmlwcGV0LnRpdGxlOwogICAgICAgICAgICAgICAgICAgICAgICB2YXIgdklkID0gaXRlbS5jb250ZW50RGV0YWlscy52aWRlb0lkOwogICAgICAgICAgICAgICAgICAgICAgICB2YXIgZHVyVXJsID0gImh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3lvdXR1YmUvdjMvdmlkZW9zP3BhcnQ9Y29udGVudERldGFpbHMmaWQ9IiArIHZJZCArICIma2V5PSIgKyBhcGlLZXk7CiAgICAgICAgICAgICAgICAgICAgICAgIGZldGNoKGR1clVybCkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKHJlc3BvbnNlID0+IHJlc3BvbnNlLmpzb24oKSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKGR1cmF0aW9uRGF0YSA9PiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGR1cmF0aW9uID0gZHVyYXRpb25EYXRhLml0ZW1zWzBdLmNvbnRlbnREZXRhaWxzLmR1cmF0aW9uOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0R1cmF0aW9uID0gY29udmVydER1cmF0aW9uKGR1cmF0aW9uKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgdmlkZW9EYXRlID0gaXRlbS5zbmlwcGV0LnB1Ymxpc2hlZEF0OwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0RhdGVGb3JtYXR0ZWQgPSBjb252ZXJ0RGF0ZSh2aWRlb0RhdGUpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvSXRlbXMucHVzaCh7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvSWQ6IHZpZGVvSWQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvVGl0bGU6IHZpZGVvVGl0bGUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvRHVyYXRpb246IHZpZGVvRHVyYXRpb24sCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvRGF0ZTogdmlkZW9EYXRlRm9ybWF0dGVkfSk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHZpZGVvSXRlbXMubGVuZ3RoID09PSBkYXRhLml0ZW1zLmxlbmd0aCkgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb0l0ZW1zLnNvcnQoKGEsIGIpID0+IG5ldyBEYXRlKGEudmlkZW9EYXRlKSAtIG5ldyBEYXRlKGIudmlkZW9EYXRlKSk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvSXRlbXMuZm9yRWFjaChmdW5jdGlvbih2aWRlbykgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIHZpZGVvUm93ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgidHIiKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb05hbWVDZWxsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgidGQiKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb05hbWVMaW5rID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiYSIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmlkZW9OYW1lTGluay5ocmVmID0gImh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9IiArIHZpZGVvLnZpZGVvSWQ7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb05hbWVMaW5rLnRleHRDb250ZW50ID0gdmlkZW8udmlkZW9UaXRsZTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvTmFtZUNlbGwuYXBwZW5kQ2hpbGQodmlkZW9OYW1lTGluayk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb1Jvdy5hcHBlbmRDaGlsZCh2aWRlb05hbWVDZWxsKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBwbGF5dGltZUNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ZCIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxheXRpbWVDZWxsLnRleHRDb250ZW50ID0gdmlkZW8udmlkZW9EdXJhdGlvbjsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvUm93LmFwcGVuZENoaWxkKHBsYXl0aW1lQ2VsbCk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgZGF0ZUNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ZCIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0ZUNlbGwudGV4dENvbnRlbnQgPSB2aWRlby52aWRlb0RhdGU7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb1Jvdy5hcHBlbmRDaGlsZChkYXRlQ2VsbCk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb0xpc3QuYXBwZW5kQ2hpbGQodmlkZW9Sb3cpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KTt9fSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5jYXRjaChlcnJvciA9PiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGVycm9yKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIHZpZGVvVGFibGUgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgidmlkZW9UYWJsZSIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb1RhYmxlLmlubmVySFRNTCA9ICJBbiBlcnJvciBvY2N1cnJlZCB3aGlsZSBmZXRjaGluZyB0aGUgdmlkZW8gbGlzdC4iO30pO30pO30pCiAgICAgICAgICAgICAgICAuY2F0Y2goZXJyb3IgPT4gewogICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGVycm9yKTsKICAgICAgICAgICAgICAgICAgICB2YXIgdmlkZW9UYWJsZSA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ2aWRlb1RhYmxlIik7CiAgICAgICAgICAgICAgICAgICAgdmlkZW9UYWJsZS5pbm5lckhUTUwgPSAiQW4gZXJyb3Igb2NjdXJyZWQgd2hpbGUgZmV0Y2hpbmcgdGhlIHZpZGVvIGxpc3QuIjt9KTt9KTsKICAgIDwvc2NyaXB0Pgo8L2JvZHk+CjwvaHRtbD4=
+-->
+
+
+
+<!--plaintext-copytable-
+<script>
+function copyTableToClipboard() {
+    var table = document.getElementById("videoTable");
+    var range = document.createRange();
+    range.selectNode(table);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();}
+var copyButton = document.createElement("button");
+copyButton.textContent = "Copy Table";
+copyButton.addEventListener("click", copyTableToClipboard);
+document.body.appendChild(copyButton);
+</script>-->
+
+
+<script>
+function copyTableToClipboard() {
+    var table = document.getElementById("videoTable");
+    var tableHtml = table.outerHTML;
+    var tempElement = document.createElement("textarea");
+    tempElement.value = tableHtml;
+    document.body.appendChild(tempElement);
+    tempElement.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempElement);
+    alert("Table copied to clipboard as HTML!");
+}
+
+var copyButton = document.createElement("button");
+copyButton.textContent = "Copy Table";
+copyButton.addEventListener("click", copyTableToClipboard);
+document.body.appendChild(copyButton);
+</script>
+
+
+_______________________________
+
+Open details tag (id) if keyword exists in url
+-------------------------------------------------------------------
+
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    var url = window.location.href;
+    var keyword = "instance";
+    if (url.indexOf(keyword) !== -1) {
+    var detailsElement = document.getElementById("mtd");
+    detailsElement.setAttribute("open", "true");
+  }
+});
+</script>
+
+<details id="mtd"></details>
+
+____________________________________________
+
+Limit link to header <h1>
+---------------------
+
+<span style="display: block; text-align: center;"><a href="Hobbies_old.html" style="color: #454138;"><h1 style="display: inline;">Hobbies</h1></a></span>
+
+______________________
+
+Sneaky Random youtube playlistvideo autoplay er
+---------------------------------------------------------------
+
+  <div id="videoTitle"></div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const apiKey = urlParams.get('apikey') || 'YOUR_DEFAULT_API_KEY';
+    const playlistId = urlParams.get('playlistid') || 'PLdR7m7PFLzQ7RqOVfxk2Fr2F-a7iWzovn';
+    function fetchRandomVideo() {
+      fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`)
+        .then(response => response.json())
+        .then(data => {
+          const randomIndex = Math.floor(Math.random() * data.items.length);
+          const video = data.items[randomIndex].snippet;
+          const videoId = video.resourceId.videoId;
+          const iframe = document.createElement('iframe');
+          iframe.width = '100';
+          iframe.height = '20';
+          iframe.src = `https://super8.absturztau.be/embed/${videoId}?si=playlist=${playlistId}&autoplay=1`;
+          iframe.title = 'YouTube video player';
+          iframe.frameBorder = '0';
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          iframe.allowFullscreen = true;
+          document.body.appendChild(iframe);
+          const videoTitle = video.title;
+          const titleElement = document.getElementById('videoTitle');
+          titleElement.textContent = videoTitle;
+        })
+        .catch(error => console.log('Error:', error));
+    }
+    fetchRandomVideo();
+  </script>
+</body>
+
+______________________________
+
+Redirect current url/page querystrings to other url
+--------------------------------------------------
+
+<a href="#" onclick="redirectToTargetURL();">Click here to redirect querystrings</a>
+<script>
+function redirectToTargetURL() {
+  var currentURL = window.location.href;
+  var targetURL = "https://alceawis.de/other/extra/scripts/z_teststuff/mtdnotifications.php";
+  var queryParams = currentURL.split("?")[1];
+  var finalURL = targetURL + "?" + queryParams;
+  window.location.href = finalURL;
+}
+</script>
+
+___________________________________
+
+
+Display multiuser mtd tl in tableview
+-----------------------------------------
+
+
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 2px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Posts</th>
+      </tr>
+    </thead>
+    <tbody id="results"></tbody>
+  </table>
+
+  <script>
+    // Fetch the contents of the mtdusers.txt file
+    fetch('https://ry3yr.github.io/mtduserspublic.txt')
+      .then(response => response.text())
+      .then(data => {
+        // Split the data into lines
+        const lines = data.split('\n');
+
+        // Iterate over each line
+        lines.forEach(line => {
+          // Extract the user ID and instance URL
+          const [userid, instanceurl] = line.split(' ');
+
+          // Construct the API URL
+          const apiUrl = `${instanceurl}/api/v1/accounts/${userid}/statuses`;
+
+          // Check if the URL contains the 'limit' parameter
+          const urlParams = new URLSearchParams(window.location.search);
+          const limitParam = urlParams.get('limit');
+          const limit = limitParam ? parseInt(limitParam) : 1;
+
+          // Fetch posts using the Mastodon API
+          fetch(`${apiUrl}?limit=${limit}`)
+            .then(response => response.json())
+            .then(data => {
+              // Check if there are any posts
+              if (data.length > 0) {
+                // Create a new row in the table for the user
+                const tableRow = document.createElement('tr');
+
+                // User ID cell
+                const userIdCell = document.createElement('td');
+                fetch(`${instanceurl}/api/v1/accounts/${userid}`)
+                  .then(response => response.json())
+                  .then(data => {
+                    const username = data.username;
+                    const userpfp = data.avatar_static;
+                    const userLink = document.createElement('a');
+                    userLink.href = `${instanceurl}/@${username}`;
+                    userLink.target = '_blank';
+                    userLink.innerHTML = `<img src="${userpfp}" alt="${username}" width="128px"> ${username}`;
+                    userIdCell.appendChild(userLink);
+                  })
+                  .catch(error => {
+                    console.log('Error fetching user data for User ID:', userid);
+                    console.error(error);
+                  });
+
+                tableRow.appendChild(userIdCell);
+
+                // Posts cell
+                const postsCell = document.createElement('td');
+
+                // Iterate over each post
+                data.forEach(async post => {
+                  const postContent = await replaceEmojis(post.content, post.emojis);
+                  const linkUrl = `${instanceurl}/web/statuses/${post.id}`;
+                  const timestamp = new Date(post.created_at).toLocaleString();
+
+                  // Create a separate cell for each post
+                  const postCell = document.createElement('td');
+                  postCell.innerHTML = `${postContent}<br><a href="${linkUrl}" target="_blank">View</a> ${timestamp}`;
+                  postsCell.appendChild(postCell);
+                });
+
+                // Add the posts cell to the table row
+                tableRow.appendChild(postsCell);
+
+                // Append the row to the table body
+                const tableBody = document.getElementById('results');
+                tableBody.appendChild(tableRow);
+              } else {
+                console.log('No posts found for User ID:', userid);
+              }
+            })
+            .catch(error => {
+              console.log('Error fetching posts for User ID:', userid);
+              console.error(error);
+            });
+        });
+      })
+      .catch(error => {
+        console.log('Error:', error);
+      });
+
+    // Function to replace emoji codes with images
+    async function replaceEmojis(content, emojis) {
+      for (const emoji of emojis) {
+        const shortcode = emoji.shortcode;
+        const url = emoji.url;
+        const shortcodePattern = new RegExp(':' + shortcode + ':', 'g');
+        const emojiTag = `<img src="${url}" alt="${shortcode}" width="20px">`;
+        content = content.replace(shortcodePattern, emojiTag);
+      }
+      return content;
+    }
+  </script>
+
+</body>
+</html>
+
+
+____________________________
+
+Navbar with hamburger menu toggle
+-----------------------------------------
+
+<style>
+.navbar{list-style-type:none;margin:0;padding:0;background-color:#fff;float:right;margin-right:120px}.navbar li{display:inline-block;position:relative}.navbar a{display:block;color:#000;text-decoration:none;padding:8px}.navbar a:hover{background-color:#f5f}.submenu{display:none;position:absolute;background-color:#fff;left:-45px;top:100%;width:200px}.navbar li:hover .submenu{display:block}.submenu li{display:block;color:#000}.navbar .active .submenu{top:0}
+</style>
+<script>
+  function toggleNavbar() {
+    var navbar = document.getElementById('navbar');
+    navbar.style.display = (navbar.style.display === 'none' || navbar.style.display === '') ? 'block' : 'none';
+  }
+</script>
+<script>
+function toggleLayout() {
+  var extraLink = document.getElementById('extraLink');
+  var navbar = document.querySelector('.navbar');
+  var submenus = document.querySelectorAll('.submenu');
+  var checkbox = document.getElementById('layoutCheckbox');
+  if (checkbox.checked) {
+    extraLink.style.display = 'inline';
+    navbar.style.position = 'absolute';
+    navbar.style.left = '0';
+    navbar.style.top = '0';
+    navbar.style.margin = '0';
+    navbar.style.width = '120px';
+    navbar.style.height = '100vh';
+    navbar.style.display = 'flex';
+    navbar.style.flexDirection = 'column';
+    submenus.forEach(function(submenu)
+      {submenu.style.left = '100%';
+      submenu.style.top = '0';});
+  } else {
+    //extraLink.style.display = 'none';
+    navbar.style.float = 'right';
+    navbar.style.marginRight = '120px';
+    navbar.style.marginLeft = '0';}}
+</script>
+<a href="#" id="extraLink" style="position: fixed; right: 130px; top: 0;display:none;" onclick="toggleNavbar(event)">[-]</a>
+<nav>
+  <ul class="navbar" id="navbar">
+    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="index.html">Homepage</a></li>
+    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="About.html?user=alcea">About</a></li>
+    <li class="u-nav-item">
+      <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Contact.html">Contact</a>
+      <div class="u-nav-popup submenu">
+        <ul class="u-h-spacing-5 u-nav u-unstyled u-v-spacing-5 u-nav-2">
+          <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="https://www.abcsubmit.com/view/id_1f8339emu_jn1?utm=abcsubmit" target="_blank">Mail [ðŸ“¬]</a></li>
+          <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="verify.html#mastodon" target="_blank">Mastodon [ðŸ“¬]</a></li>
+          <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="verify.html#twitter" target="_blank">Twitter [ðŸ“¬]</a></li>
+          <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="https://reddit.com/user/repeekyraid#https://www.reddit.com/user/-Rye-/" target="_blank">Reddit [ðŸ“¬]</a></li>
+          <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Comments.html">Comments</a></li>
+        </ul></div></li><li class="u-nav-item">
+      <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Hobbies.html">Hobbies</a>
+      <div class="u-nav-popup submenu">
+        <ul class="u-h-spacing-5 u-nav u-unstyled u-v-spacing-5 u-nav-3">
+          <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="All_Project_%28spoiler_button%29.html">OSTRip </a> </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="pastebinlinks.html?note=FAQ" target=_blank>FAQ [Ã°Å¸Â¡â€¢]</a> </li>
+                   <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Art.html">Art</a> </li>
+                  <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="code.html">Code</a> </li>
+                  <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Games.html">GamingStuff</a> </li>
+                   <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Blog.html">Blog</a> </li>
+                   <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="favs.html">Favorites</a> </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="https://ry3yr.github.io/OSTR/" target=_blank>OldSite [Ã°Å¸Â¡â€¢]</a> </li>
+                   <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="UnderratedContent.html" target=_blank>Underrated [Ã°Å¸Â¡â€¢]</a> </li>
+        </ul></div></li><li class="u-nav-item">
+      <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Music.html">Music</a>
+      <div class="u-nav-popup submenu"><ul class=u-"nav-4">
+           <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Releases.html">Releases</a> </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Startseiteplayer.html">Musicplayer</a> </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="midisheetmusic.html">Sheet Music (Midi)</a> </li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="Unresoundtracker.html">UnreSoundtracker</a> </li>
+                   <li class="u-nav-item"><a class="u-button-style u-nav-link u-white" href="radio.html">Radio/Shoutcast</a> </li>
+                   <li class="u-nav-item"><input type="checkbox" id="layoutCheckbox" onchange="toggleLayout()"></li>
+                   </ul></div></li></ul></nav>
+
+
+
+
+________________________________________
+
+Fetch pixiv link and display from random
+--------------------------------------
+
+<!--for use with --https://codepen.io/ryedai1/pen/ZEPGdOx-->
+
+
+  <button id="extractButton">Random pixiv !</button>
+  <div id="artworkContainer"></div>
+
+  <script>
+    document.getElementById('extractButton').addEventListener('click', function() {
+      // Fetch the HTML file
+      fetch('https://ry3yr.github.io/pixiv-artworks-archive.html')
+        .then(response => response.text())
+        .then(html => {
+          // Create a temporary DOM element to parse the HTML
+          const tempElement = document.createElement('div');
+          tempElement.innerHTML = html;
+          const artworkLinks = tempElement.querySelectorAll('a[target=_blank]');
+          const randomIndex = Math.floor(Math.random() * artworkLinks.length);
+          const randomArtworkLink = artworkLinks[randomIndex];
+          const linkHref = randomArtworkLink.href;
+          const linkText = randomArtworkLink.textContent;
+          const artworkId = linkHref.match(/\/(\d+)$/)[1];
+          const embedCode = `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div><br>`;
+          const link = `<a href="${linkHref}" target="_blank">${linkText}</a>`;
+          const artworkContainer = document.getElementById('artworkContainer');
+          artworkContainer.innerHTML = embedCode + link;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  </script>
+
+_________________________________
+
+
+FetchMastodon Notifications
+-----------------------
+
+<b>?userid=111958546062297646&apikey=APIKEYHERE&instanceurl=https://mastodon.social</b> <br>
+<head>
+  <title>Mastodon Notifications</title>
+  <style>
+    .notification {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .notification .account {
+      font-weight: bold;
+    }
+
+    .notification .status {
+      margin-top: 5px;
+    }
+
+    .notification .date {
+      font-size: 0.8em;
+      color: #888;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .notification.reply {
+      background-color: lightblue;
+    }
+
+    .notification.fav {
+      background-color: pink;
+    }
+  </style>
+</head>
+<body>
+  <div id="notifications"></div>
+  <div id="error"></div>
+
+  <script>
+    // Get the query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const apiKey = urlParams.get('apikey');
+    const userId = urlParams.get('userid');
+    const instanceUrl = urlParams.get('instanceurl');
+
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Define the API endpoint URL
+    const apiUrl = `${instanceUrl}/api/v1/notifications`;
+
+    // Set up the request
+    xhr.open('GET', apiUrl);
+    xhr.setRequestHeader('Authorization', `Bearer ${apiKey}`);
+
+    // Define the onload callback function
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        const notifications = JSON.parse(xhr.responseText);
+
+        // Display the notifications
+        const notificationsDiv = document.getElementById('notifications');
+        notifications.forEach(notification => {
+          const notificationElement = createNotificationElement(notification);
+          notificationsDiv.appendChild(notificationElement);
+        });
+      } else {
+        const errorDiv = document.getElementById('error');
+        errorDiv.textContent = 'Request failed. Status: ' + xhr.status;
+        console.error('Request failed. Status:', xhr.status);
+      }
+    };
+
+    // Define the onerror callback function
+    xhr.onerror = function() {
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = 'Request failed. Please check your network connection.';
+      console.error('Request failed. Please check your network connection.');
+    };
+    // Send the request
+    xhr.send();
+    // Helper function to create a notification element
+    function createNotificationElement(notification) {
+      const notificationElement = document.createElement('div');
+      notificationElement.classList.add('notification');
+      const accountElement = document.createElement('div');
+      accountElement.classList.add('account');
+      accountElement.textContent = notification.account.display_name || notification.account.username;
+      const statusElement = document.createElement('div');
+      statusElement.classList.add('status');
+      statusElement.innerHTML = notification.status.content;
+      const dateElement = document.createElement('div');
+      dateElement.classList.add('date');
+      const date = new Date(notification.created_at);
+      dateElement.textContent = date.toLocaleString();
+      dateElement.addEventListener('click', function() {
+        window.open(notification.status.url, '_blank');
+      });
+
+      // Find all links in the status and set target="_blank"
+      const links = statusElement.getElementsByTagName('a');
+      for (let i = 0; i < links.length; i++) {
+        links[i].setAttribute('target', '_blank');
+      }
+
+      if (notification.type === 'mention') {
+        notificationElement.classList.add('reply');
+      } else if (notification.type === 'favourite') {
+        notificationElement.classList.add('fav');
+      }
+
+      notificationElement.appendChild(accountElement);
+      notificationElement.appendChild(statusElement);
+      notificationElement.appendChild(dateElement);
+
+      return notificationElement;
+    }
+  </script>
+</body>
+</html>
+
+
+_______________________________
+
+Replace Text in nearby Textfield:
+-------------------------------------------------
+
+<button id="replaceButton">Replace</button>
+<script>
+function replaceText() {
+  var textField = document.getElementById("outputTextarea");
+  var newText = textField.value.replace(/Alcea/gi, "arusea");
+  textField.value = newText;
+}
+document.getElementById("replaceButton").addEventListener("click", replaceText);
+</script>
+
+_______________________________
+
+
+Escape characters inside var string (for form safe submittal)
+----------------------------------------------------------------------
+         
+
+       const value = document.createTextNode(textarea.value).nodeValue; //no emoji support
+       //const valueatob = btoa(value); //convert to base64 for sending via querystring (optional for other things)
+
+
+(source: https://alcea-wisteria.de/PHP/0demo/2024-02-18-Fake-SocialMedia/post2mtd.html#https://alceawis.de/other/extra/scripts/fakesocialmedia/post2mtd.html)
+
+________________________________________
+
+
+Mastodon querystring poster
+--------------------------------------------
+
+<div id="postInfo"></div>
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const instanceurl = urlParams.get('instanceurl');
+  const user = urlParams.get('user');
+  const apikey = urlParams.get('apikey');
+  const encodedValue = urlParams.get('value');
+  const encoding = urlParams.get('encoding') || 'base64'; // Retrieve the encoding value or use 'base64' as default
+  let decodedValue;
+  if (encoding === 'base64') {
+    decodedValue = atob(encodedValue); // Use base64 decoding if encoding is 'base64'
+  } else {
+    decodedValue = decodeURIComponent(encodedValue); // Use URI decoding for other encoding schemes
+  }
+  const apiUrl = `${instanceurl}`;
+  //const apiUrl = `${instanceurl}/api/v1/statuses`;
+  const userId = user;
+  const apiKey = apikey;
+  const postData = {
+    status: decodedValue,
+  };
+  const postInfoDiv = document.getElementById('postInfo');
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(postData),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error creating post: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Post created successfully:', data);
+      postInfoDiv.innerText = JSON.stringify(data);
+    })
+    .catch(error => {
+      console.error('Error creating post:', error);
+      postInfoDiv.innerText = 'Error creating post: ' + error;
+    });
+</script>
+
+
+Old-Base64-only-ver:
+CiAgPGRpdiBpZD0icG9zdEluZm8iPjwvZGl2PgoKICA8c2NyaXB0PgogICAgY29uc3QgcXVlcnlTdHJpbmcgPSB3aW5kb3cubG9jYXRpb24uc2VhcmNoOwogICAgY29uc3QgdXJsUGFyYW1zID0gbmV3IFVSTFNlYXJjaFBhcmFtcyhxdWVyeVN0cmluZyk7CiAgICBjb25zdCBpbnN0YW5jZXVybCA9IHVybFBhcmFtcy5nZXQoJ2luc3RhbmNldXJsJyk7CiAgICBjb25zdCB1c2VyID0gdXJsUGFyYW1zLmdldCgndXNlcicpOwogICAgY29uc3QgYXBpa2V5ID0gdXJsUGFyYW1zLmdldCgnYXBpa2V5Jyk7CiAgICBjb25zdCBlbmNvZGVkVmFsdWUgPSB1cmxQYXJhbXMuZ2V0KCd2YWx1ZScpOwogICAgY29uc3QgZGVjb2RlZFZhbHVlID0gYXRvYihlbmNvZGVkVmFsdWUpOwogICAgY29uc3QgYXBpVXJsID0gYCR7aW5zdGFuY2V1cmx9YDsKICAgIC8vY29uc3QgYXBpVXJsID0gYCR7aW5zdGFuY2V1cmx9L2FwaS92MS9zdGF0dXNlc2A7CiAgICBjb25zdCB1c2VySWQgPSB1c2VyOwogICAgY29uc3QgYXBpS2V5ID0gYXBpa2V5OwogICAgY29uc3QgcG9zdERhdGEgPSB7CiAgICAgIHN0YXR1czogZGVjb2RlZFZhbHVlLAogICAgfTsKCiAgICBmZXRjaChhcGlVcmwsIHsKICAgICAgbWV0aG9kOiAnUE9TVCcsCiAgICAgIGhlYWRlcnM6IHsKICAgICAgICAnQ29udGVudC1UeXBlJzogJ2FwcGxpY2F0aW9uL2pzb24nLAogICAgICAgICdBdXRob3JpemF0aW9uJzogYEJlYXJlciAke2FwaUtleX1gLAogICAgICB9LAogICAgICBib2R5OiBKU09OLnN0cmluZ2lmeShwb3N0RGF0YSksCiAgICB9KQogICAgICAudGhlbihyZXNwb25zZSA9PiByZXNwb25zZS5qc29uKCkpCiAgICAgIC50aGVuKGRhdGEgPT4gewogICAgICAgIGNvbnNvbGUubG9nKCdQb3N0IGNyZWF0ZWQgc3VjY2Vzc2Z1bGx5OicsIGRhdGEpOwogICAgICAgIGNvbnN0IHBvc3RJbmZvRGl2ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3Bvc3RJbmZvJyk7CiAgICAgICAgcG9zdEluZm9EaXYuaW5uZXJUZXh0ID0gSlNPTi5zdHJpbmdpZnkoZGF0YSk7CiAgICAgIH0pCiAgICAgIC5jYXRjaChlcnJvciA9PiB7CiAgICAgICAgY29uc29sZS5lcnJvcignRXJyb3IgY3JlYXRpbmcgcG9zdDonLCBlcnJvcik7CiAgICAgIH0pOwogIDwvc2NyaXB0Pg==
+
+____________________________
+
+Hide img based on texinput keyword:
+--------------------------
+
+<style>.hidden-image {display: none;}</style>
+<input type="text" id="imageKeyword" placeholder="Enter image keyword">
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all the images on the page
+        var images = document.getElementsByTagName("img");
+        function handleKeywordChange() {
+            var keyword = document.getElementById('imageKeyword').value.toLowerCase();
+            for (var i = 0; i < images.length; i++) {
+                var img = images[i];
+                var imgUrl = img.getAttribute("src");
+                if (imgUrl && imgUrl.toLowerCase().includes(keyword)) {
+                    img.classList.remove("hidden-image");
+                } else {
+                    img.classList.add("hidden-image");
+                }
+            }
+        }
+        document.getElementById('imageKeyword').addEventListener('input', handleKeywordChange);
+        handleKeywordChange();
+    });
+</script>
+
+_________________________
+
+
+Empty fake img placeholder (var size) image
+-------------------------------------------
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+Ph4DwADCAH6LH6x7QAAAABJRU5ErkJggg==" alt="Empty PNG" width=45px>
+
+___________________________
+
+Invisible details spoiler triggered with href
+-------------------------------------
+
+<a href="javascript:var spoiler = document.getElementById('pastplaying'); spoiler.open = !spoiler.open;">LastPlaying</a>
+<details id="pastplaying">
+  <summary style="display: none;"></summary>
+  <div class="custom-summary" onclick="toggleDetails()"></div>
+  <div class="dropdown-content">
+    •<a target="_blank" href="https://codepen.io/ryedai1/full/ZEPMqZB" style=color:blue>AntenneBayern</a>
+    •<a target="_blank" href="https://codepen.io/ryedai1/full/ZEPMqZB?baseurl=https://myonlineradio.de/bigfm/playlist?date=" style=color:blue>BigFM</a>
+  </details><br>
+
+______________________________________________________
+
 Enable disabledElement with unobstr  \ hidden from plainsight link
 ----------------------
 
@@ -20,13 +2523,12 @@ Enable disabledElement with unobstr  \ hidden from plainsight link
  <input type="submit" id=Save value="Save" disabled>
 
 
-___________________________
+______________________________________________________
 
 AES Crypt (HTMLCRYPT) light:
 ------------
 
 
-===Encrypt====
 <title>Encryption Tool</title>
     <script>
         function stringToArrayBuffer(str) {
@@ -172,14 +2674,14 @@ AES Crypt (HTMLCRYPT) light:
     </form>
     <div>
         <h3>Encrypted Output:</h3>
-        <textarea id="encryptedOutput"></textarea>
+        <textarea id="encryptedOutput" rows="10" cols="50"></textarea>
     </div>
     <div>
-        <h3>SHA-256 Output:</h3>
-        <textarea id="sha256Output"></textarea>
+        <details><summary>Sha</summary><h3>SHA-256 Output:</h3>
+        <textarea id="sha256Output"></textarea></details>
     </div>
     <form onsubmit="handleDecrypt(event)">
-        <!--<h3>Decryption</h3>
+        <!--<h3>Decryptiona</h3>
         <input type="submit" value="Decrypt">
     </form>
     <div>
@@ -191,7 +2693,8 @@ AES Crypt (HTMLCRYPT) light:
 <html>
 <head>
     <title>Decryption Tool</title>
-    <script>
+You need to trigger encrypt first
+  <script>
         function stringToArrayBuffer(str) {
             var encoder = new TextEncoder();
             return encoder.encode(str);
@@ -244,29 +2747,152 @@ AES Crypt (HTMLCRYPT) light:
             var ciphertextBytes = new Uint8Array(ciphertextHex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
             var decryptedBytes = await decryptAES(ciphertextBytes, aesKey, ivBytes);
             var decryptedHTML = arrayBufferToString(decryptedBytes);
+            document.getElementById("decryptedOutput").innerText = decryptedHTML;
+        }
+    </script>
+  
+
+  
+
+<h1>Decrypt</h1>
+<script>
+  function stringToArrayBuffer2(str) {
+    var encoder = new TextEncoder();
+    return encoder.encode(str);
+  }
+
+  function arrayBufferToString2(buffer) {
+    var decoder = new TextDecoder();
+    return decoder.decode(buffer);
+  }
+
+  async function decryptAES2(ciphertext, key, iv) {
+    var decrypted = await crypto.subtle.decrypt(
+      {
+        name: "AES-CBC",
+        iv: iv,
+      },
+      key,
+      ciphertext
+    );
+    return new Uint8Array(decrypted);
+  }
+
+  async function handleDecrypt2(event) {
+    event.preventDefault();
+    var password = document.getElementById("password").value;
+    var encryptedHex = document.getElementById("encryptedOutput").value;
+    var passwordBuffer = stringToArrayBuffer2(password);
+    var keyMaterial = await crypto.subtle.importKey(
+      "raw",
+      passwordBuffer,
+      { name: "PBKDF2" },
+      false,
+      ["deriveKey"]
+    );
+    var aesKey = await crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: new Uint8Array(16), // Use a random salt for real-world scenarios
+        iterations: 100000,
+        hash: "SHA-256",
+      },
+      keyMaterial,
+      { name: "AES-CBC", length: 256 },
+      true,
+      ["encrypt", "decrypt"]
+    );
+    var ivHex = encryptedHex.substr(0, 32);
+    var ciphertextHex = encryptedHex.substr(32);
+    var ivBytes = new Uint8Array(
+      ivHex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
+    );
+    var ciphertextBytes = new Uint8Array(
+      ciphertextHex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16))
+    );
+    var decryptedBytes = await decryptAES2(ciphertextBytes, aesKey, ivBytes);
+    var decryptedHTML = arrayBufferToString2(decryptedBytes);
+    document.getElementById("decryptedOutput").innerHTML = decryptedHTML;
+  }
+</script>
+<form onsubmit="handleDecrypt2(event)">
+  <input type="password" id="password" required>
+  <input type="submit" value="Decrypt">
+</form>
+<div>
+  <div id="decryptedOutput"></div>
+</div>
+
+
+
+
+
+
+ 
+
+
+<hr><hr><br>
+DEcryptionBoilerplate<br>
+<plaintext>
+   <script>
+        function stringToArrayBuffer(str) {
+            var encoder = new TextEncoder();
+            return encoder.encode(str);
+        }
+        function arrayBufferToString(buffer) {
+            var decoder = new TextDecoder();
+            return decoder.decode(buffer);
+        }
+        async function decryptAES(ciphertext, key, iv) {
+            var decrypted = await crypto.subtle.decrypt(
+                {
+                    name: "AES-CBC",
+                    iv: iv
+                },
+                key,
+                ciphertext
+            );
+            return new Uint8Array(decrypted);
+        }
+        async function handleDecrypt(event) {
+            event.preventDefault();
+            var password = document.getElementById("password").value;
+            var encryptedHex = document.getElementById("encryptedOutput").value;
+            var passwordBuffer = stringToArrayBuffer(password);
+            var keyMaterial = await crypto.subtle.importKey(
+                "raw",
+                passwordBuffer,
+                { name: "PBKDF2" },
+                false,
+                ["deriveKey"]
+            );
+            var aesKey = await crypto.subtle.deriveKey(
+                {
+                    name: "PBKDF2",
+                    salt: new Uint8Array(16), // Use a random salt for real-world scenarios
+                    iterations: 100000,
+                    hash: "SHA-256"
+                },
+                keyMaterial,
+                { name: "AES-CBC", length: 256 },
+                true,
+                ["encrypt", "decrypt"]
+            );
+            var ivHex = encryptedHex.substr(0, 32);
+            var ciphertextHex = encryptedHex.substr(32);
+            var ivBytes = new Uint8Array(ivHex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+            var ciphertextBytes = new Uint8Array(ciphertextHex.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+            var decryptedBytes = await decryptAES(ciphertextBytes, aesKey, ivBytes);
+            var decryptedHTML = arrayBufferToString(decryptedBytes);
             document.getElementById("decryptedOutput").innerHTML = decryptedHTML;
         }
     </script>
-</head>
-<body>
-    <h1>Decryption Tool</h1>
     <form onsubmit="handleDecrypt(event)">
-        <label for="password">Password:</label>
         <input type="password" id="password" required>
-        <br>
-        <label for="encryptedOutput">Ciphertext:</label>
-        <br>
-        <textarea id="encryptedOutput" rows="10" cols="50"></textarea>
-        <br>
+        <textarea id="encryptedOutput" rows="10" cols="50" style="display: none;">3a89c921bc7d3a731fa1b499823724084e388e770e8f2099ad179ef843c99cabd27e52077aa5b7875f790e6a3af6496e4149d436ac6424c10ccc2b8b78383e78
+</textarea>
         <input type="submit" value="Decrypt">
-</form>
-    <div>
-        <h3>Decrypted Output:</h3>
-        <!--<textarea id="decryptedOutput"></textarea>-->
-        <div id="decryptedOutput"></div>
-    </div>
-</body>
-</html>
+</form><div><div id="decryptedOutput"></div></div>
 
 _______________
 
@@ -4683,6 +7309,14 @@ RewriteRule ^(.*)$ 404.html [L,R=301]
 
 _______________________________
 
+Redirect dir to file xy
+-----------------------
+
+DirectoryIndex index.html
+
+
+_____________________________
+
 Add Cors to curr dir:
 --------------------------
 
@@ -7879,6 +10513,36 @@ ________________________________________________________________________________
 Fetch sitepart between via delimiter
 ----------------------------------------
 
+<details>
+  <div id="content"></div>
+  <script>
+    const baseUrl = "https://alceawis.de"; // Base URL
+    fetch("https://alceawis.de/code.html")
+      .then(response => response.text())
+      .then(data => {
+        const start = data.indexOf("CMDS") + 4;
+        const end = data.indexOf("CodeDistribution") - 0;
+        const content = data.substring(start, end);
+        // Create a temporary element to parse the content as HTML
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = content;
+        // Find and convert relative URLs to absolute URLs
+        const relativeUrls = tempElement.querySelectorAll("a[href], img[src]");
+        relativeUrls.forEach(url => {
+          const originalUrl = url.getAttribute("href") || url.getAttribute("src");
+          const absoluteUrl = new URL(originalUrl, baseUrl).href;
+          url.setAttribute("href", absoluteUrl);
+          url.setAttribute("src", absoluteUrl);
+        });
+        // Append the modified content to the target element
+        document.getElementById("content").appendChild(tempElement);
+      });
+  </script>
+</details><br>
+
+
+====relative version: ===
+
   <body>
     <div id="content"></div>
     <script> fetch("https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html")
@@ -7893,7 +10557,6 @@ Fetch sitepart between via delimiter
     </script>
   </body>
 </html>
-
 (Source: to php equiv: "now do it in js and display into dom")
 
 ________________________________________________________________________________________________

@@ -9,6 +9,2064 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 
 
 
+
+
+Nicovideo Metadata Extractor:
+-----------------------------
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $url = $_POST['video_url'];
+    $options = [
+        'http' => [
+            'method' => 'GET',
+            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
+        ]
+    ];
+    $context = stream_context_create($options);
+    $html = file_get_contents($url, false, $context);
+    $pattern = '/<div id="js-initial-watch-data" data-api-data="(.*?)"/s';
+    preg_match($pattern, $html, $matches);
+    $jsonData = htmlspecialchars_decode($matches[1]);
+    $data = json_decode($jsonData, true);
+    $videoDescription = $data['video']['description'];
+    echo "Video Description: $videoDescription\n";
+} else {
+    $autofillUrl = isset($_GET['nicourl']) ? $_GET['nicourl'] : '';
+    ?>
+    <form id="video_form" method="POST" action="">
+        <label for="video_url">Enter Video URL:</label>
+        <input type="text" id="video_url" name="video_url" value="<?php echo $autofillUrl; ?>" required>
+        <button type="submit">Get Information</button>
+    </form>
+<!---AutofillAndSubmitViaQuerystring-->
+<script>
+    var nicourl = "<?php echo $autofillUrl; ?>";
+    var nicourl = nicourl.replace(/sp\./gi, ""); //fix sp nicourl
+    if (nicourl !== '') {
+        document.getElementById('video_url').value = nicourl;
+        document.getElementById('video_form').submit();
+    }
+</script>
+<?php } ?>
+
+
+<!--<button id="replacespButton">Replace .sp</button>
+<script>
+function replacespText() {
+  var textField = document.getElementById("video_url");
+ var newText = textField.value.replace(/sp./gi, "");textField.value = newText;}
+document.getElementById("replacespButton").addEventListener("click", replacespText);
+</script>-->
+
+
+<!--
+PD9waHAKaWYgKCRfU0VSVkVSWydSRVFVRVNUX01FVEhPRCddID09PSAnUE9TVCcpIHsKICAgICR1cmwgPSAkX1BPU1RbJ3ZpZGVvX3VybCddOwogICAgJG9wdGlvbnMgPSBbCiAgICAgICAgJ2h0dHAnID0+IFsKICAgICAgICAgICAgJ21ldGhvZCcgPT4gJ0dFVCcsCiAgICAgICAgICAgICdoZWFkZXInID0+ICJVc2VyLUFnZW50OiBNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNTguMC4zMDI5LjExMCBTYWZhcmkvNTM3LjNcclxuIgogICAgICAgIF0KICAgIF07CgogICAgJGNvbnRleHQgPSBzdHJlYW1fY29udGV4dF9jcmVhdGUoJG9wdGlvbnMpOwogICAgJGh0bWwgPSBmaWxlX2dldF9jb250ZW50cygkdXJsLCBmYWxzZSwgJGNvbnRleHQpOwoKICAgICRwYXR0ZXJuID0gJy88c2NyaXB0IHR5cGU9ImFwcGxpY2F0aW9uXC9sZFwranNvbiIgY2xhc3M9IkxkSnNvbiI+KC4qPyk8XC9zY3JpcHQ+L3MnOwogICAgcHJlZ19tYXRjaF9hbGwoJHBhdHRlcm4sICRodG1sLCAkbWF0Y2hlcyk7CgogICAgJGpzb25EYXRhID0gJG1hdGNoZXNbMV1bMF07CiAgICAkZGF0YSA9IGpzb25fZGVjb2RlKCRqc29uRGF0YSwgdHJ1ZSk7CgogICAgJHZpZGVvVGl0bGUgPSAkZGF0YVsnbmFtZSddOwogICAgJHZpZGVvRGVzY3JpcHRpb24gPSAkZGF0YVsnZGVzY3JpcHRpb24nXTsKICAgICR2aWRlb1VybCA9ICRkYXRhWyd1cmwnXTsKICAgICR0aHVtYm5haWxVcmxzID0gJGRhdGFbJ3RodW1ibmFpbFVybCddOwoKICAgIGVjaG8gIlZpZGVvIFRpdGxlOiAkdmlkZW9UaXRsZVxuPGJyPiI7CiAgICBlY2hvICJWaWRlbyBEZXNjcmlwdGlvbjogJHZpZGVvRGVzY3JpcHRpb25cbjxicj4iOwogICAgZWNobyAiVmlkZW8gVVJMOiAkdmlkZW9Vcmxcbjxicj4iOwp9IGVsc2UgewogICAgJGF1dG9maWxsVXJsID0gJyc7CgogICAgaWYgKGlzc2V0KCRfR0VUWyduaWNvdmlkZW8nXSkpIHsKICAgICAgICAkYXV0b2ZpbGxVcmwgPSAkX0dFVFsnbmljb3ZpZGVvJ107CiAgICB9CiAgICA/PgoKICAgICAgICA8Zm9ybSBtZXRob2Q9IlBPU1QiIGFjdGlvbj0iIj4KICAgICAgICAgICAgPGxhYmVsIGZvcj0idmlkZW9fdXJsIj5FbnRlciBWaWRlbyBVUkw6PC9sYWJlbD4KICAgICAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIGlkPSJ2aWRlb191cmwiIG5hbWU9InZpZGVvX3VybCIgdmFsdWU9Ijw/cGhwIGVjaG8gJGF1dG9maWxsVXJsOyA/PiI+CiAgICAgICAgICAgIDxidXR0b24gdHlwZT0ic3VibWl0Ij5HZXQgSW5mb3JtYXRpb248L2J1dHRvbj4KICAgICAgICA8L2Zvcm0+CgogICAgICAgIDw/cGhwCiAgICAgICAgaWYgKCFlbXB0eSgkYXV0b2ZpbGxVcmwpKSB7CiAgICAgICAgICAgIGVjaG8gJzxzY3JpcHQ+ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiZm9ybSIpLnN1Ym1pdCgpOzwvc2NyaXB0Pic7CiAgICAgICAgfQogICAgICAgID8+CiAgICA8L2JvZHk+CiAgICA8L2h0bWw+Cjw/cGhwIH0gPz4=
+-->
+
+_____________________________
+
+MMD / Model url list writer
+---------------------------
+
+<meta charset="UTF-8">
+<?php ini_set('default_charset', 'UTF-8'); ?>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        function loadEntries() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var entries = JSON.parse(this.responseText);
+                    var table = document.getElementById("entriesTable");
+                    table.innerHTML = ""; // Clear existing table content
+
+                    if (entries.length > 0) {
+                        var headerRow = table.insertRow();
+                        headerRow.innerHTML = "<th>Name</th><th>URL</th><th>Date</th><th>Format</th><th>Password</th><th>Description</th>";
+
+                        for (var i = 0; i < entries.length; i++) {
+                            var entry = entries[i];
+                            var row = table.insertRow();
+                            row.innerHTML = "<td>" + entry.name + "</td><td>" + entry.url + "</td><td>" + entry.date + "</td><td>" + entry.format + "</td><td>" + entry.password + "</td><td>" + entry.description + "</td>";
+                        }
+                    } else {
+                        var noEntriesRow = table.insertRow();
+                        noEntriesRow.innerHTML = "<td colspan='6'>No entries found.</td>";
+                    }
+                }
+            };
+            xmlhttp.open("GET", "modeldata.json", true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <h2>PHP List Writer</h2>
+
+    <?php
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Retrieve form data
+        $name = $_POST['name'];
+        $url = $_POST['url'];
+        $date = $_POST['date'];
+        $format = $_POST['format'];
+        $password = $_POST['password'];
+        $description = $_POST['description'];
+
+        // Create an array with the form data
+        $data = array(
+            'name' => $name,
+            'url' => $url,
+            'date' => $date,
+            'format' => $format,
+            'password' => $password,
+            'description' => $description
+        );
+
+        // Read existing entries from the JSON file
+        $filename = 'modeldata.json';
+        $entries = array();
+        if (file_exists($filename)) {
+            $json_data = file_get_contents($filename);
+            $entries = json_decode($json_data, true);
+        }
+
+        // Prepend the new entry to the array
+        array_unshift($entries, $data);
+
+        // Encode the updated data as JSON
+        $json = json_encode($entries);
+
+        // Save the JSON data to the file
+        file_put_contents($filename, $json);
+
+        echo 'Data saved successfully!';
+    }
+    ?>
+
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br><br>
+
+        <label for="url">URL:</label>
+        <input type="text" name="url" id="url" required><br><br>
+
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date" value="<?php echo date('Y-m-d'); ?>" required><br><br>
+
+        <label for="format">Format:</label>
+        <select name="format" id="format">
+            <option value="pmx">PMX</option>
+            <option value="pmd">PMD</option>
+        </select><br><br>
+        <label for="password">Password:</label>
+        <input type="text" name="password" id="password" required value="-"><br><br>
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" required value="-"><br><br>
+        <input type="submit" value="Save" disabled>
+    </form>
+    <h3>Current Entries:</h3>
+    <table id="entriesTable">
+        <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Date</th>
+            <th>Format</th>
+            <th>Password</th>
+            <th>Description</th>
+        </tr>
+    </table>
+    <button onclick="loadEntries()">Load Entries</button>
+</body>
+
+    <button onclick="exportTable()">Export Table</button>
+    <script>
+        function exportTable() {
+            var table = document.getElementById("entriesTable").outerHTML;
+            var htmlContent = "<html><head><title>Exported Table</title></head><body>" + table + "</body></html>";
+
+            var link = document.createElement("a");
+            link.href = "data:text/html;charset=utf-8," + encodeURIComponent(htmlContent);
+            link.download = "exported_table.html";
+            link.click();
+        }
+    </script>
+
+___________________________
+
+Find pixiv link metadata
+-------------------------
+
+  <a target="_blank" href="https://www.pixiv.net/artworks/116930325">https://www.pixiv.net/artworks/116930325</a>
+<div class="counts"></div>
+<a target="_blank" href="https://www.pixiv.net/artworks/116877725">https://www.pixiv.net/artworks/116877725</a>
+<div class="counts"></div>
+<a target="_blank" href="https://www.pixiv.net/artworks/116850925">https://www.pixiv.net/artworks/116850925</a>
+<div class="counts"></div>
+<button id="startButton">Start Process</button>
+<script>
+function findPixivLinks() {
+  var links = document.getElementsByTagName('a');
+  var pixivLinks = [];
+  for (var i = 0; i < links.length; i++) {
+    var link = links[i].href;
+    if (link.indexOf('pixiv.net') !== -1) {
+      pixivLinks.push(link);
+    }
+  }
+  return pixivLinks;
+}
+document.getElementById('startButton').addEventListener('click', function() {
+  var pixivLinks = findPixivLinks();
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.style.display = 'none';
+  for (var i = 0; i < pixivLinks.length; i++) {
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.name = 'pixivLinks[]';
+    input.value = pixivLinks[i];
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+});
+</script>
+<?php
+if (isset($_POST['pixivLinks'])) {
+    $pixivLinks = $_POST['pixivLinks'];
+    foreach ($pixivLinks as $index => $link) {
+        $html = file_get_contents($link);
+        $bookmarkStart = strpos($html, '"bookmarkCount":');
+        if ($bookmarkStart !== false) {
+            $bookmarkEnd = strpos($html, ',', $bookmarkStart);
+            if ($bookmarkEnd !== false) {
+                $bookmarkCount = substr($html, $bookmarkStart + 16, $bookmarkEnd - $bookmarkStart - 16);
+            }
+        }
+        $likeStart = strpos($html, '"likeCount":');
+        if ($likeStart !== false) {
+            $likeEnd = strpos($html, ',', $likeStart);
+            if ($likeEnd !== false) {
+                $likeCount = substr($html, $likeStart + 12, $likeEnd - $likeStart - 12);
+            }
+        }
+        $commentStart = strpos($html, '"commentCount":');
+        if ($commentStart !== false) {
+            $commentEnd = strpos($html, ',', $commentStart);
+            if ($commentEnd !== false) {
+                $commentCount = substr($html, $commentStart + 15, $commentEnd - $commentStart - 15);
+            }
+        }
+        echo "<script>document.getElementsByClassName('counts')[$index].innerHTML = 'Bookmark Count: $bookmarkCount, Like Count: $likeCount, Comment Count: $commentCount';</script>";
+    }
+}
+?>
+          
+_______________-
+
+
+MultiURL Pixiv_Downloader
+--------------------------
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<label for="urls">Enter the URLs (one per line):</label><br>
+<textarea id="urls" name="urls" rows="10" cols="50" placeholder="https://www.pixiv.net/artworks/116877725"></textarea><br>
+<button type="submit">Submit</button>
+</form>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $urls = explode("\n", $_POST["urls"]);
+    foreach ($urls as $url) {
+        $url = trim($url);
+
+        if (empty($url)) {
+            continue;
+        }
+
+        $options = [
+            'http' => [
+                'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0\r\n" .
+                            "Referer: https://accounts.pixiv.net\r\n",
+            ],
+        ];
+        $context = stream_context_create($options);
+        $html = file_get_contents($url, false, $context);
+        $pattern = '/image" href="(.*?)"/'; //find downscaled master img (always in jpg format)
+        //$pattern = '/"original":"(.*?)"/'; //find original image (usually only works when logged in)
+        preg_match($pattern, $html, $matches);
+        $imageUrl = $matches[1];
+        echo '<p>Image Link: <a id="image-link" href="' . $imageUrl . '">' . $imageUrl . '</a></p>';
+        $imageData = file_get_contents($imageUrl, false, $context);
+        if ($imageData !== false) {
+            $filename = basename($imageUrl);
+            $datePattern = '/\/(\d{4}\/\d{2}\/\d{2})\//';
+            preg_match($datePattern, $imageUrl, $dateMatches);
+            $datePart = $dateMatches[1];
+            $datePart = str_replace('/', '_', $datePart);
+            $newFilename = pathinfo($filename, PATHINFO_FILENAME) . '_' . $datePart . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+            file_put_contents($newFilename, $imageData);
+            echo 'Image saved as: ' . $newFilename . '<br>';
+        } else {
+            echo 'Failed to retrieve the image from: ' . $url . '<br>';
+        }
+    }
+}
+?>
+</body>
+</html>
+<!--FixURls-->
+<script>
+    var textarea = document.getElementById("urls");
+       textarea.addEventListener("input", function() {
+      var text = textarea.value;
+      var updatedText = text.replace(/en\//g, "");
+      textarea.value = updatedText;
+    });
+  </script>
+
+_________________________
+
+
+Fetch and display Pixiv image (via request header)
+--------------------------
+
+<!---https://stackoverflow.com/questions/78161887/applying-request-header-with-curl/78162032#78162032-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Retrieval</title>
+</head>
+<body>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="url">Enter the URL:</label>
+        <input type="text" id="url" name="url">
+        <button type="submit">Submit</button>
+    </form>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $url = $_POST["url"];
+        $options = [
+            'http' => [
+                'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0\r\n" .
+                            "Referer: https://accounts.pixiv.net\r\n",
+            ],
+        ];
+        $context = stream_context_create($options);
+        $html = file_get_contents($url, false, $context);
+        $pattern = '/image" href="(.*?)"/';   //find downscaled master img (always in jpg format)
+        //$pattern = '/"original":"(.*?)"/'; //find original image (usually only works when logged in)
+        preg_match($pattern, $html, $matches);
+        $imageUrl = $matches[1];
+
+        echo '<p>Image Link: <a id="image-link" href="' . $imageUrl . '">' . $imageUrl . '</a></p>';
+
+        $imageData = file_get_contents($imageUrl, false, $context);
+
+        if ($imageData !== false) {
+            $base64 = base64_encode($imageData);
+            $imageSrc = 'data:image/jpeg;base64,' . $base64;
+            echo '<img src="' . $imageSrc . '" alt="Image">';
+        } else {
+            echo 'Failed to retrieve the image.';
+        }
+    }
+    ?>
+
+    <script>
+        var imageLink = document.getElementById("image-link");
+        if (imageLink) {
+            //window.location.href = imageLink.href;
+        }
+    </script>
+
+    <!-- Autofill if query string exists -->
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var pixivUrl = urlParams.get('pixivurl');
+        if (pixivUrl) {
+            var urlInput = document.getElementById('url');
+            if (urlInput) {
+                urlInput.value = pixivUrl;
+            }
+            var form = document.querySelector('form');
+            if (form) {
+                form.submit();
+            }
+        }
+    </script>
+</body>
+</html>
+
+__________________________
+
+
+
+Extract Youtube channelid and channel playlist
+---------------------------------
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve the YouTube URL from the text box
+    $youtubeUrl = $_POST["youtube_url"];
+    // Create a new DOMDocument instance
+    $dom = new DOMDocument();
+
+    // Load the HTML content from the YouTube URL
+    $dom->loadHTMLFile($youtubeUrl);
+
+    // Create a new DOMXPath instance
+    $xpath = new DOMXPath($dom);
+
+    // Search for the itemprop="identifier" attribute
+    $channelId = "";
+    $channelIdNodes = $xpath->query('//meta[@itemprop="identifier"]/@content');
+    if ($channelIdNodes->length > 0) {
+        $channelId = $channelIdNodes[0]->nodeValue;
+    }
+    $channelId = substr_replace($channelId, "UU", 0, 2);
+    $embedUrl = "https://www.youtube.com/embed/videoseries?list=" . $channelId;
+}
+
+    echo "Channel ID: " . $channelId;
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extract Channel ID</title>
+</head>
+<body>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="youtube_url">YouTube URL:</label>
+        <input type="text" name="youtube_url" id="youtube_url">
+        <input type="submit" value="Extract Channel ID">
+    </form>
+
+    <?php if (isset($embedUrl)) : ?>
+        <iframe width="560" height="315" src="<?php echo $embedUrl; ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <?php endif; ?>
+</body>
+</html>
+
+_________________
+
+
+
+Pinterest image extractit
+-----------------------
+
+<a target="_blank" href="https://alcea-wisteria.de/PHP/0demo/2024-03-11-ImgExtract4Websites/Pinterest/xtrctpin.php?pinurl=https://www.pinterest.de/pin/804877764644009233/">Demo</a><demo>
+<plaintext>
+<?php
+// Set the initial value of the Pinterest page URL
+$url = "";
+
+// Check if the query string parameter "pinurl" exists
+if (isset($_GET['pinurl'])) {
+    // Retrieve the value of the "pinurl" parameter
+    $url = $_GET['pinurl'];
+}
+
+if (isset($_POST['url'])) {
+    // Pinterest page URL
+    $url = $_POST['url'];
+}
+
+if (isset($_POST['url']) || isset($_GET['pinurl'])) {
+    // Fetch the HTML content of the Pinterest page
+    $html = file_get_contents($url);
+
+    // Regular expression pattern to match the image URL with the specified attributes
+    $pattern = '/fetchpriority="auto" loading="auto" src="(.*?)" elementtiming="closeupImage"/';
+
+    // Execute the regular expression and extract the image URL
+    preg_match($pattern, $html, $matches);
+
+    if (isset($matches[1])) {
+        $imageURL = $matches[1];
+
+        // Create an HTML link with target blank and the extracted image URL
+        $linkTag = '<a href="' . $imageURL . '" target="_blank">View Image</a>';
+
+        // Create an HTML img tag with the extracted image URL and 50% width
+        $imageTag = '<img src="' . $imageURL . '" width="50%" />';
+
+        // Output the link and the image tag
+        echo "Image URL with specified attributes: " . $linkTag . "<br>";
+        echo $imageTag;
+        // You can now use $imageURL to display or process the image
+    } else {
+        echo "No image found with the specified attributes.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image URL Extraction</title>
+</head>
+<body>
+    <form method="POST" action="">
+        <label for="url">Pinterest Page URL:</label><br>
+        <input type="text" id="url" name="url" placeholder="Enter Pinterest page URL" value="<?php echo $url; ?>">
+        <button type="submit">Extract Image URL</button>
+    </form>
+</body>
+</html>
+
+
+__________
+
+Exclude files from zip based on txt
+--------------------------------------------------
+
+
+======listbigfiles.php===
+
+<?php
+function scanDirectory($dir)
+{
+    $files = [];
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+    foreach ($iterator as $file) {
+        if (!$file->isFile()) {
+            continue;
+        }
+        $filePath = $file->getPathname();
+        $fileSize = $file->getSize();
+
+        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+        if ($extension === 'png' || $extension === 'jpg') {
+            $files[] = [
+                'path' => $filePath,
+                'size' => $fileSize,
+            ];
+        } else {
+            if ($fileSize > 848576) { // 1 megabyte = 1048576 bytes
+                $files[] = [
+                    'path' => $filePath,
+                    'size' => $fileSize,
+                ];
+            }
+        }
+    }
+    return $files;
+}
+function displayFileList($files)
+{
+    echo '<p>Files larger than 1 megabyte:</p>';
+    foreach ($files as $key => $file) {
+        echo '<label>';
+        echo '<input type="checkbox" name="files[]" value="' . $key . '"';
+        $extension = pathinfo($file['path'], PATHINFO_EXTENSION);
+        $path = $file['path'];
+
+        if ($extension !== 'mp4' && $extension !== 'js' && $extension !== 'png' && $extension !== 'jpg' && $extension !== 'zip' && $extension !== 'brkn' && $extension !== 'css' && $extension !== 'mp3' && strpos($path, '2023-09-24-YTClone') === false && strpos($file['path'], 'error_log') === false) {
+            echo ' checked';
+        }
+        echo '>';
+        echo $file['path'] . ' (' . formatFileSize($file['size']) . ')';
+        echo '</label><br>';
+    }
+    echo '<input type="submit" name="write_paths" value="Write Unchecked Paths">';
+}
+function formatFileSize($size)
+{
+    $units = ['B', 'KB', 'MB', 'GB'];
+    $unitIndex = 0;
+
+    while ($size >= 1024 && $unitIndex < count($units) - 1) {
+        $size /= 1024;
+        $unitIndex++;
+    }
+
+    return round($size, 2) . ' ' . $units[$unitIndex];
+}
+function writeUncheckedPaths($files)
+{
+    $uncheckedPaths = [];
+    if (isset($_POST['files'])) {
+        $checkedFiles = $_POST['files'];
+        foreach ($files as $key => $file) {
+            if (!in_array($key, $checkedFiles)) {
+                $uncheckedPaths[] = $file['path'];
+            }
+        }
+    }
+    $filePath = __DIR__ . '/unchecked_paths.txt';
+    $content = implode("\n", $uncheckedPaths);
+    file_put_contents($filePath, $content);
+    echo "Unchecked paths have been written to unchecked_paths.txt";
+}
+$dir = __DIR__;
+$files = scanDirectory($dir);
+if (isset($_POST['write_paths'])) {
+    writeUncheckedPaths($files);
+}
+echo '<form method="POST">';
+displayFileList($files);
+echo '</form>';
+?>
+
+======zip.php======
+<?php
+$url = 'unchecked_paths.txt';
+$fileContent = file_get_contents($url);
+if ($fileContent !== false) {
+    $lines = explode("\n", $fileContent);
+    $filenames = array();
+    echo '<ul>';
+    foreach ($lines as $line) {
+        $parts = explode('/', $line);
+        $finalPart = end($parts);
+        $filenames[] = $finalPart;
+        echo '<li>' . htmlspecialchars($finalPart) . '</li>';
+    }
+    echo '</ul>';
+    // Output the filenames array
+    echo '<pre>';
+    print_r($filenames);
+    echo '</pre>';
+    // Create a zip archive excluding the files in the filenames array
+    $zipFile = 'php.zip';
+    $zip = new ZipArchive();
+    if ($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                __DIR__,
+                RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::FOLLOW_SYMLINKS
+            ),
+            RecursiveIteratorIterator::SELF_FIRST,
+            RecursiveIteratorIterator::CATCH_GET_CHILD // Use custom iterator to include hidden files
+        );
+
+        foreach ($iterator as $file) {
+            if ($file->isFile() && !in_array($file->getFilename(), $filenames)) {
+                $filePath = $file->getPathname();
+                $relativePath = substr($filePath, strlen(__DIR__) + 1);
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+        echo 'Zip archive created successfully.';
+    } else {
+        echo 'Failed to create the zip archive.';
+    }
+} else {
+    echo 'Failed to read the file.';
+}
+?>
+
+
+
+
+_________________________________________________
+
+Event over time writer & renderer
+--------------------------------------------
+
+
+=======Plot-html===
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #description {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="eventChart"></canvas>
+  <div id="description"></div>
+  <script>
+    fetch('events.txt')
+      .then(response => response.text())
+      .then(data => {
+        const events = parseEventText(data);
+        createChart(events);
+      })
+      .catch(error => {
+        console.error('Error reading event.txt:', error);
+      });
+    function parseEventText(text) {
+      const lines = text.split('\n');
+      const events = [];
+      for (let line of lines) {
+        const regex = /^(\d{4}-\d{2}-\d{2}) \(([-+]+)\) (.+)$/;
+        const matches = line.match(regex);
+        if (matches) {
+          const date = matches[1];
+          const rating = matches[2];
+          const description = matches[3];
+          events.push({ date, rating, description });
+        }
+      }
+      return events;
+    }
+function createChart(events) {
+  events.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const dates = events.map(event => event.date);
+  const ratings = events.map(event => convertRatingToValue(event.rating));
+  const ctx = document.getElementById('eventChart').getContext('2d');
+  const eventChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: dates,
+      datasets: [{
+        label: 'Event Ratings',
+        data: ratings,
+        borderColor: 'blue',
+        fill: false
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          reverse: false // Invert the X-axis
+        },
+        y: {
+          ticks: {
+            beginAtZero: true,
+            callback: value => valueToRating(value)
+          }
+        }
+      },
+      plugins: {
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            title: (tooltipItems) => {
+              const index = tooltipItems[0].dataIndex;
+              return events[index].date;
+            },
+            label: (tooltipItems) => {
+              const index = tooltipItems.dataIndex;
+              return events[index].description;
+            }
+          }
+        }
+      },
+      onHover: (event, chartElements) => {
+        if (chartElements.length > 0) {
+          const index = chartElements[0].index;
+          const description = events[index].description;
+          document.getElementById('description').textContent = description;
+        }
+      },
+      onLeave: () => {
+        document.getElementById('description').textContent = '';
+      }
+    }
+  });
+}
+function convertRatingToValue(rating) {
+  const minusCount = (rating.match(/-/g) || []).length;
+  const plusCount = (rating.match(/\+/g) || []).length;
+  const value = plusCount - minusCount;
+  return value * 10; // Assuming each plus or minus sign corresponds to a value of 10
+}
+function valueToRating(value) {
+  const ratingValue = value / 10; // Assuming each plus or minus sign corresponds to a value of 10
+  let ratingString = '';
+  if (ratingValue < 0) {
+    ratingString += '-'.repeat(Math.abs(ratingValue));
+  } else if (ratingValue > 0) {
+    ratingString += '+'.repeat(ratingValue);
+  } else {
+    ratingString = '0';
+  }
+
+  return ratingString;
+}
+  </script>
+
+====== write event.php====
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the input values
+    $textEntry = $_POST['text_entry'];
+    $rating = $_POST['rating'];
+    $year = $_POST['year'];
+    $month = $_POST['month'];
+    $day = $_POST['day'];
+    $sortIn = isset($_POST['sort_in']) && $_POST['sort_in'] === 'on';
+    $date = sprintf("%04d-%02d-%02d", $year, $month, $day);
+    $data = $date . ' (' . $rating . ') ' . $textEntry . "\n";
+    if ($sortIn) {
+        $data = "\n" . $data;
+    }
+    $contents = file_get_contents('events.txt');
+    if ($sortIn) {
+        $lines = explode("\n", $contents);
+        $entries = [];
+        foreach ($lines as $line) {
+            if (!empty($line)) {
+                $entry = [
+                    'date' => substr($line, 0, 10),
+                    'content' => $line
+                ];
+                $entries[] = $entry;
+            }
+        }
+        $newEntry = [
+            'date' => $date,
+            'content' => $data
+        ];
+        $entries[] = $newEntry;
+
+        // Sort the entries based on the date
+        usort($entries, function ($a, $b) {
+            $dateA = DateTime::createFromFormat('Y-m-d', $a['date']);
+            $dateB = DateTime::createFromFormat('Y-m-d', $b['date']);
+            return $dateA <=> $dateB;
+        });
+        $contents = '';
+        foreach ($entries as $entry) {
+            $contents .= $entry['content'];
+        }
+    } else {
+        $contents = $data . $contents;
+    }
+    file_put_contents('events.txt', $contents);
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+} else {
+    $today = getdate();
+    $defaultYear = $today['year'];
+    $defaultMonth = $today['mon'];
+    $defaultDay = $today['mday'];
+}
+?>
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" value="<?php echo $defaultYear; ?>" required><br><br>
+        <label for="month">Month:</label>
+        <input type="number" id="month" name="month" value="<?php echo $defaultMonth; ?>" required><br><br>
+        <label for="day">Day:</label>
+        <input type="number" id="day" name="day" value="<?php echo $defaultDay; ?>" required><br><br>
+        <label for="text_entry">Text Entry:</label>
+        <input type="text" id="text_entry" name="text_entry" required><br><br>
+        <label for="rating">Rating:</label>
+        <select id="rating" name="rating">
+            <option value="-----">-----</option>
+            <option value="----">----</option>
+            <option value="---">---</option>
+            <option value="--">--</option>
+            <option value="-">-</option>
+            <option value="0">0</option>
+            <option value="+">+</option>
+            <option value="++">++</option>
+            <option value="+++">+++</option>
+            <option value="++++">++++</option>
+            <option value="+++++">+++++</option>
+        </select><br><br>
+        <label for="sort_in">Sort In:</label>
+        <input type="checkbox" id="sort_in" name="sort_in"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+_______________________
+
+
+
+
+
+GameList Hype Writer
+-----------------------------------
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //$gameName = str_pad($_POST['gamename'], 45, '_');
+    $gameName = $_POST['gamename'];
+    $url = $_POST['url'];
+    $moreInfo = $_POST['moreinfo'];
+    $releaseDate = $_POST['releasedate'];
+    $rating = $_POST['rating'];
+    $system = $_POST['system'];
+    $underscoreCount = max(0, 45 - strlen($gameName));
+    $padded = str_repeat('_', $underscoreCount);
+    $rating = str_replace(',', '', $rating);
+    $rating = str_replace('.', '', $rating);
+    $rating = max(1, min(10, $rating));
+    $ratingImages = "";
+    for ($i = 1; $i <= 10; $i++) {
+    $class = ($i <= $rating) ? "filled" : "greyed";
+    $style = ($i > $rating) ? "filter: grayscale(100%);" : "";
+    $ratingImages .= "<img class='$class' style='$style' src='https://alcea-wisteria.de/z_files/emoji/ablobdj.gif' alt='Rating' width='20px'>";
+    }
+    $gameLink = "<a href='$url'>$gameName</a>";
+    $gameInfo = "
+        <tr>
+            <td>$releaseDate</td>
+            <td>$gameLink</td>
+            <td>$padded</td>
+            <td>$moreInfo</td>
+            <td>$ratingImages</td>
+            <td>$system</td>
+        </tr>
+    ";
+    $existingContent = file_get_contents("game.html");
+    $newContent = "
+        <table>
+            <tr>
+            </tr>
+            $gameInfo
+            <tr><td colspan='5' style='border-bottom: 1px solid black;'></td></tr>
+            $existingContent
+        </table>
+    ";
+    file_put_contents("game.html", $newContent);
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="gamename">Game Name:</label>
+        <input type="text" id="gamename" name="gamename" required><br>
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url" required><br>
+        <label for="moreinfo">More Info:</label>
+        <input type="text" id="moreinfo" name="moreinfo" required><br>
+        <label for="releasedate">Release Date:</label>
+        <input type="date" id="releasedate" name="releasedate" value="<?php echo date('Y-m-d'); ?>" required><br>
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" required><br>
+        <label for="system">System:</label>
+        <select id="system" name="system" required>
+            <option value="NSwitch">NSwitch</option>
+            <option value="PS4">PS4</option>
+            <option value="PC">PC</option>
+        </select><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+_____________________________________
+
+Json block deletion interface_
+-------------------------------------
+
+<?php
+$jsonFilePath = 'data.json';
+if (!file_exists($jsonFilePath)) {
+    die('JSON file not found.');
+}______
+// Read the JSON file and decode its contents
+$jsonData = file_get_contents($jsonFilePath);
+$data = json_decode($jsonData, true);
+if (isset($_POST['deleteEntryId'])) {
+    $deleteEntryId = $_POST['deleteEntryId'];
+    foreach ($data as $key => $entry) {
+        if ($entry['id'] == $deleteEntryId) {
+            unset($data[$key]);
+            break;
+        }
+    }
+    $jsonData = json_encode(array_values($data), JSON_PRETTY_PRINT);
+    file_put_contents($jsonFilePath, $jsonData);
+}
+echo '<ul>';
+foreach ($data as $entry) {
+    echo '<li>';
+    foreach ($entry as $key => $value) {
+        if (!is_numeric($key) && $key !== 'plaintext') {
+            echo $key . ': ' . $value . '<br>';
+        }
+    }
+    echo '<form method="post" style="display: inline-block;">';
+    echo '<input type="hidden" name="deleteEntryId" value="' . $entry['id'] . '">';
+    echo '<input type="submit" value="Delete">';
+    echo '</form>';
+        echo '<span>';
+        print_r($entry);
+        echo '</span>';
+    echo '</li>';
+}
+echo '</ul>';
+?>
+
+_____________________________________
+
+Wishlist resell json writer n renderer
+--------------------------------------
+
+<details><summary>Add Entry</summary>
+eBay
+<form action="ebay.php" method="GET">
+  <input type="text" name="url" placeholder="Enter URL">
+  <input type="submit" value="Submit">
+</form>
+<hr>
+Other
+  <form action="write.php" method="GET">
+    <label for="url">URL:</label>
+    <input type="text" id="url" name="url" required><br><br>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price" required><br><br>
+    <input type="submit" value="Submit">
+  </form></details>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="refetchData()">Refetch</button>
+    <table id="buylistTable">
+        <thead>
+            <tr>
+                <th onclick="sortBy('title')">Title</th>
+                <th onclick="sortBy('price')">Price</th>
+                <th onclick="sortBy('marketplace')">Marketplace</th>
+                <th onclick="sortBy('date')">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+        let sortDirection = {
+            title: 'asc',
+            price: 'asc',
+            marketplace: 'asc',
+            date: 'asc'
+        };
+        function sortBy(column) {
+            const table = document.querySelector('#buylistTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const columnIndex = Array.from(table.querySelectorAll('th')).indexOf(event.target);
+            const sortColumn = column;
+            const sortDirectionValue = sortDirection[column] === 'asc' ? 1 : -1;
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.querySelector(`td:nth-child(${columnIndex + 1})`).textContent.trim();
+                const cellB = rowB.querySelector(`td:nth-child(${columnIndex + 1})`).textContent.trim();
+                if (cellA < cellB) {
+                    return -1 * sortDirectionValue;
+                } else if (cellA > cellB) {
+                    return 1 * sortDirectionValue;
+                } else {
+                    return 0;
+                }
+            });
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+            rows.forEach(row => {
+                tbody.appendChild(row);
+            });
+            sortDirection[column] = sortDirectionValue === 1 ? 'desc' : 'asc';
+        }
+        function refetchData() {
+            const tableBody = document.querySelector('#buylistTable tbody');
+            while (tableBody.firstChild) {
+                tableBody.firstChild.remove();
+            }
+            fetchData();
+        }
+        function fetchData() {
+            fetch('buylist.json')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#buylistTable tbody');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        const titleCell = document.createElement('td');
+                        const priceCell = document.createElement('td');
+                        const marketplaceCell = document.createElement('td');
+                        const dateCell = document.createElement('td');
+                        const titleLink = document.createElement('a');
+                        titleLink.href = item.url;
+                        titleLink.target = '_blank';
+                        titleLink.textContent = item.title;
+                        titleCell.appendChild(titleLink);
+                        priceCell.textContent = item.price;
+                        marketplaceCell.textContent = item.marketplace;
+                        dateCell.textContent = item.date;
+                        row.appendChild(titleCell);
+                        row.appendChild(priceCell);
+                        row.appendChild(marketplaceCell);
+                        row.appendChild(dateCell);
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
+
+
+========================ebay.php======================
+
+<?php
+// Get the URL from the query string parameter
+$url = isset($_GET['url']) ? $_GET['url'] : '';
+// Check if the URL is provided
+if (empty($url)) {
+    echo 'URL parameter is missing.';
+    exit;
+}
+// Initialize cURL
+$curl = curl_init();
+// Set cURL options
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36');
+// Execute the cURL request
+$response = curl_exec($curl);
+// Check if the request was successful
+if ($response === false) {
+    echo 'Error: ' . curl_error($curl);
+    exit;
+}
+// Close the cURL session
+curl_close($curl);
+// Extract the page title
+$pageTitle = '';
+if (preg_match('/<title>(.*?)<\/title>/', $response, $matches)) {
+    $pageTitle = $matches[1];
+}
+// Search for the specific string in the HTML content to extract the currency and price
+$searchString = ',"priceCurrency":"';
+$pos = strpos($response, $searchString);
+// Extract the currency and price
+$currency = '';
+$price = '';
+if ($pos !== false) {
+    $currencyStartPos = $pos + strlen($searchString);
+    $currencyEndPos = strpos($response, '"', $currencyStartPos);
+    $currency = substr($response, $currencyStartPos, $currencyEndPos - $currencyStartPos);
+    $priceSearchString = ',"price":"';
+    $pricePos = strpos($response, $priceSearchString, $currencyEndPos);
+    if ($pricePos !== false) {
+        $priceStartPos = $pricePos + strlen($priceSearchString);
+        $priceEndPos = strpos($response, '"', $priceStartPos);
+        $price = substr($response, $priceStartPos, $priceEndPos - $priceStartPos);
+    }
+}
+// Construct the URL for write.php and open it as a URL
+$writeUrl = 'write.php?ebayurl=' . urlencode($url) . '&title=' . urlencode($pageTitle) . '&price=' . urlencode($price . ' ' . $currency);
+// Open the URL
+header('Location: ' . $writeUrl);
+exit;
+?>
+
+
+===========write.php ============
+
+<?php
+// Get the URL, price, title, and query strings from the query parameters
+$url = isset($_GET['url']) ? $_GET['url'] : '';
+$price = $_GET['price'];
+$title = $_GET['title'];
+// Check if ebayurl is present
+if (isset($_GET['ebayurl']) && !isset($_GET['url'])) {
+    $url = $_GET['ebayurl'];
+    $marketplace = 'ebay';
+} else {
+    $marketplace = '';
+}
+// Get the current date
+$date = date('Y-m-d');
+// Load the existing buylist JSON file
+$buylistFile = 'buylist.json';
+$currentBuylist = [];
+if (file_exists($buylistFile)) {
+    $currentBuylist = json_decode(file_get_contents($buylistFile), true);
+}
+// Check if the entry with the same date and title already exists
+$isDuplicate = false;
+foreach ($currentBuylist as $item) {
+    if ($item['date'] === $date && $item['title'] === $title) {
+        $isDuplicate = true;
+        break;
+    }
+}
+// Add the new item to the buylist if it's not a duplicate
+if (!$isDuplicate) {
+    // Create a new item for the buylist
+    $newItem = [
+        'url' => $url,
+        'price' => $price,
+        'title' => $title,
+        'marketplace' => $marketplace,
+        'date' => $date
+    ];
+    // Prepend the new item to the buylist
+    array_unshift($currentBuylist, $newItem);
+    // Save the updated buylist back to the JSON file with pretty formatting
+    file_put_contents($buylistFile, json_encode($currentBuylist, JSON_PRETTY_PRINT));
+    // Output a success message
+    echo 'Item added to the <a target=_blank href=buylist.json>buylist</a>!';
+} else {
+    // Output a message indicating that the item is a duplicate
+    echo 'Item is a duplicate and not added to the <a target=_blank href=buylist.json>buylist</a>.';
+}
+?>
+
+
+_____________________________________________
+
+CSS & JS Reduction (minification etc) tools
+--------------------------------------------
+
+==CSS reduce.php==
+
+<a href="https://www.giftofspeed.com/css-compressor" target="_blank">Compress even more</a>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the uploaded CSS file or the CSS code from textarea
+    if (!empty($_FILES['css']['tmp_name'])) {
+        $css = file_get_contents($_FILES['css']['tmp_name']);
+    } elseif (!empty($_POST['css_code'])) {
+        $css = $_POST['css_code'];
+    } else {
+        echo 'Please upload a CSS file or paste CSS code in the textarea.';
+        exit();
+    }
+
+    // Replace "93.33333333%" with rounded whole numbers like "93"
+    $css = preg_replace_callback('/(\d+\.\d+)%/', function ($matches) {
+        return round($matches[1]);
+    }, $css);
+
+    // Simplify all selectors
+    $css = preg_replace_callback('/[^\{\}]+\{/', function ($matches) {
+        $selector = $matches[0];
+        $selector = preg_replace('/\s+/', ' ', $selector);
+        $selector = preg_replace('/([>+~])\s+/', '$1', $selector);
+        return $selector;
+    }, $css);
+
+    // Remove old and redundant vendor prefixes
+    $css = preg_replace('/-(moz|ms|webkit|o)-/', '', $css);
+
+    // Remove unused styles
+    $unusedStyles = array(
+        '.unused-class',
+        '#unused-id',
+        'unused-selector'
+    );
+    $css = str_replace($unusedStyles, '', $css);
+
+    // Combine and consolidate selectors
+    $css = preg_replace('/(selector1|selector2|selector3)\s*\{\s*property1: value;\s*property2: value;\s*\}/', '.combined-selector{property1: value;property2: value;}', $css);
+
+    // Use shorthand properties
+    $css = preg_replace('/margin-top: 10px;margin-bottom: 10px;margin-left: 10px;margin-right: 10px;/', 'margin: 10px;', $css);
+
+    // Remove duplicate declarations
+    $css = preg_replace('/property: value;\s*property: value;/', 'property: value;', $css);
+
+    // Minimize colors
+    $css = preg_replace_callback('/#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})/', function ($matches) {
+        $color = $matches[1];
+        if (strlen($color) === 6) {
+            $color = substr($color, 0, 3);
+        }
+        return '#' . strtolower($color);
+    }, $css);
+
+    // Remove font-related styles if checkbox is checked
+    if (isset($_POST['remove_font']) && $_POST['remove_font'] === 'on') {
+        $css = preg_replace('/font-family:.*?;/i', '', $css);
+        $css = preg_replace('/@font-face\s*{.*?}/si', '', $css);
+    }
+
+    // Minify the CSS by removing unnecessary whitespace and comments
+    $css = preg_replace('/\/\*.*\*\//sU', '', $css);
+    $css = preg_replace('/\s*([{}|:;,])\s*/', '$1', $css);
+
+    if (isset($_POST['output_to_textbox']) && $_POST['output_to_textbox'] === 'on') {
+        echo '<textarea rows="10" cols="50" readonly>' . htmlspecialchars($css) . '</textarea>';
+        echo '<br>';
+        echo '<button onclick="copyToClipboard()">Copy</button>';
+        echo '<script>function copyToClipboard() { var copyText = document.querySelector("textarea"); copyText.select(); copyText.setSelectionRange(0, 99999); document.execCommand("copy"); alert("Copied to clipboard!"); }</script>';
+    } else {
+        // Save the modified CSS to the new file
+        $currentTime = date('YmdHis');
+        $newFilename = $currentTime . (isset($_POST['remove_font']) && $_POST['remove_font'] === 'on' ? '_fontrm' : '') . '_new.css';
+        file_put_contents($newFilename, $css);
+
+        echo 'CSS file has been modified. Download the modified file: <a href="' . $newFilename . '">Download</a>';
+    }
+}
+?>
+    <title>CSS Modifier</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <label for="css">CSS File:</label><br>
+        <input type="file" id="css" name="css"><br><br>
+        <labelfor="css_code">CSS Code:</label><br>
+        <textarea id="css_code" name="css_code" rows="10" cols="50"></textarea><br><br>
+        <input type="checkbox" id="remove_font" name="remove_font">
+        <label for="remove_font">Remove font-related styles</label><br><br>
+        <input type="checkbox" id="output_to_textbox" name="output_to_textbox">
+        <label for="output_to_textbox">Output modified CSS to textbox</label><br><br>
+        <input type="submit" value="Modify CSS">
+    </form>
+</body>
+</html>
+
+
+=== JS minify ==
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the JavaScript code from the uploaded file or the textarea
+    if (!empty($_FILES['js']['tmp_name'])) {
+        $js = file_get_contents($_FILES['js']['tmp_name']);
+    } elseif (!empty($_POST['js_code'])) {
+        $js = $_POST['js_code'];
+    } else {
+        echo 'Please upload a JavaScript file or enter JavaScript code in the textarea.';
+        exit();
+    }
+
+    // Minify the JavaScript code
+    $minifiedJs = minifyJavaScript($js);
+
+    // Output the minified JavaScript to a textbox if the checkbox is checked
+    if (isset($_POST['output_to_textbox']) && $_POST['output_to_textbox'] === 'on') {
+        echo '<textarea id="minified_js" rows="10" cols="50" readonly>' . htmlspecialchars($minifiedJs) . '</textarea><br>';
+        echo '<button onclick="copyToClipboard()">Copy</button>';
+        echo '<script>function copyToClipboard() { var copyText = document.getElementById("minified_js"); copyText.select(); copyText.setSelectionRange(0, 99999); document.execCommand("copy"); alert("Copied to clipboard!"); }</script>';
+    } else {
+        // Save the minified JavaScript to a file with a timestamp in the filename
+        $filename = date('YmdHis') . '_minified.js';
+        file_put_contents($filename, $minifiedJs);
+
+        // Output the link to download the minified JavaScript file
+        echo 'Minified JavaScript file has been created. Download the file: <a href="' . $filename . '">Download</a><br>';
+    }
+}
+function minifyJavaScript($js) {
+    // Minify the JavaScript code (implement your own minification logic here)
+    // For example, using a library like JSMin or UglifyJS
+
+    // Dummy implementation: Remove all comments and unnecessary whitespace
+    $js = preg_replace('/\/\/.*$/m', '', $js); // Remove single-line comments
+    $js = preg_replace('/\/\*.*?\*\//s', '', $js); // Remove multi-line comments
+    $js = preg_replace('/\s+/', ' ', $js); // Remove unnecessary whitespace
+
+    return $js;
+}
+?>
+    <title>JavaScript Minifier</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <label for="js">JavaScript File:</label><br>
+        <input type="file" id="js" name="js"><br><br>
+        <label for="js_code">JavaScript Code:</label><br>
+        <textarea id="js_code" name="js_code" rows="10" cols="50"></textarea><br><br>
+        <input type="checkbox" id="output_to_textbox" name="output_to_textbox">
+        <label for="output_to_textbox">Output minified JavaScript to textbox</label><br><br>
+        <input type="submit" value="Minify JavaScript">
+    </form>
+
+_______________________________________________________________
+
+Fetch Dekudeals releases from url (+ price &size)
+------------------------------------------
+
+
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $targetURL = $_POST['url']; // Get the URL from the submitted form
+    $html = file_get_contents($targetURL);
+    $dom = new DOMDocument();
+    $dom->loadHTML($html);
+    $linkElements = $dom->getElementsByTagName('a');
+    $data = [];
+    foreach ($linkElements as $index => $linkElement) {
+        if ($linkElement->getAttribute('class') === 'main-link') {
+            $href = $linkElement->getAttribute('href');
+            $absoluteURL = makeAbsoluteURL($targetURL, $href);
+            $text = $linkElement->nodeValue;
+            $linkHTML = '<a href="' . $absoluteURL . '" target="_blank">' . $text . '</a>';
+            $detailsHTML = '';
+            $detailsElement = $linkElement->nextSibling;
+            while ($detailsElement && $detailsElement->nodeName !== 'ul' && $detailsElement !== $linkElement) {
+                $detailsHTML .= $dom->saveHTML($detailsElement);
+                $detailsElement = $detailsElement->nextSibling;
+            }
+            $linkHTMLContent = file_get_contents($absoluteURL);
+            $linkDOM = new DOMDocument();
+            $linkDOM->loadHTML($linkHTMLContent);
+            $downloadSize = '';
+            $liElements = $linkDOM->getElementsByTagName('li');
+            foreach ($liElements as $liElement) {
+                if ($liElement->getAttribute('class') === 'list-group-item') {
+                    $strongElement = $liElement->getElementsByTagName('strong')->item(0);
+                    if ($strongElement && $strongElement->nodeValue === 'Download size:') {
+                        $downloadSize = trim($liElement->textContent);
+                        break;
+                    }
+                }
+            }
+            $data[] = [
+                'Link' => $linkHTML,
+                'Details' => $detailsHTML,
+                'DownloadSize' => $downloadSize
+            ];
+        }
+    }
+    foreach ($data as $item) {
+        echo $item['Link'] . '<br>';
+        echo $item['Details'] . '<br>';
+        echo $item['DownloadSize'] . '<br><br>';
+    }
+}
+function makeAbsoluteURL($baseURL, $relativeURL) {
+    $parsedBaseURL = parse_url($baseURL);
+    $scheme = $parsedBaseURL['scheme'];
+    $host = $parsedBaseURL['host'];
+    $basePath = isset($parsedBaseURL['path']) ? $parsedBaseURL['path'] : '';
+    if (substr($relativeURL, 0, 2) === '//') {
+        return $scheme . ':' . $relativeURL;
+    } elseif (substr($relativeURL, 0, 1) === '/') {
+        return $scheme . '://' . $host . $relativeURL;
+    } else {
+        return $scheme . '://' . $host . $basePath . '/' . $relativeURL;
+    }
+}
+?>
+ <a href="#" data-url="https://www.dekudeals.com/highest-rated">Highly Rated</a>
+  <a href="#" data-url="https://www.dekudeals.com/recently-released">Recently Released</a>
+  <a href="#" data-url="https://www.dekudeals.com/recent-drops">Recent Price Drops</a>
+  <a href="#" data-url="https://www.dekudeals.com/bang-for-your-buck">Bang for your Buck</a>
+  <a href="#" data-url="https://www.dekudeals.com/upcoming-releases">Upcoming Releases</a>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter URL" required>
+        <button type="submit">Submit</button>
+    </form>
+    <?php
+    if (isset($data)) {
+        foreach ($data as $item) {
+            echo $item['Link'] . '<br>';
+            echo $item['Details'] . '<br>';
+            echo $item['DownloadSize'] . '<br><br>';}}
+    ?>
+<script>
+    //Fill textbox
+    var inputElement = document.querySelector('input[name="url"]');
+    var linkElements = document.querySelectorAll('a[data-url]');
+    linkElements.forEach(function(linkElement) {
+      linkElement.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        var clickedUrl = linkElement.getAttribute('data-url');
+        inputElement.value = clickedUrl; });});
+  </script>
+
+
+_________________________________________
+
+
+Save mastodon instance emoji to (instance) folder:
+---------------------------------------------
+
+<?php
+function downloadCustomEmojis($instanceUrl)
+{
+    $url = $instanceUrl . '/api/v1/custom_emojis';
+    $response = file_get_contents($url);
+    $emojis = json_decode($response, true);
+
+    // Create a folder for the instance
+    $folderName = parse_url($instanceUrl, PHP_URL_HOST);
+    $folderPath = __DIR__ . '/' . $folderName;
+
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0777, true);
+    }
+    foreach ($emojis as $emoji) {
+        $emojiUrl = $emoji['url'];
+        $emojiName = $emoji['shortcode'];
+        $extension = pathinfo($emojiUrl, PATHINFO_EXTENSION);
+        $filename = $emojiName . '.' . $extension;
+        $filepath = $folderPath . '/' . $filename;
+
+        // Download the emoji file
+        file_put_contents($filepath, file_get_contents($emojiUrl));
+
+        echo "Downloaded emoji: $filename\n";
+    }
+
+    echo "All emojis downloaded successfully!";
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $instanceUrl = $_POST['instance_url'];
+    downloadCustomEmojis($instanceUrl);
+}
+?>
+<body>
+    <h1>Emoji Downloader</h1>
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="instance_url">Instance URL:</label>
+        <input type="text" name="instance_url" id="instance_url" required>
+        <button type="submit">Download Emojis</button>
+    </form>
+</body>
+</html>
+
+____________________________________
+
+Load php only on button press:
+---------------------------
+
+<?php
+if (isset($_POST['button_pressed'])) {
+//function
+}
+?>
+<form method="post">
+    <input type="submit" name="button_pressed" value="Press Me">
+</form>
+
+____________________________
+
+
+Weight tracker:
+--------------------------
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div>
+        <label for="userInput">User:</label>
+        <input type="text" id="userInput" value="alcea">
+        <button id="submitButton">Submit</button>
+    </div>
+    <div>
+        <label for="heightInput">Height (cm):</label>
+        <input type="number" id="heightInput" value="183">
+    </div>
+    <div>
+        <label for="birthdateInput">Birthdate:</label>
+        <input type="date" id="birthdateInput" value="1991-01-18">
+    </div>
+    <div>
+        <label for="genderInput">Biological Gender:</label>
+        <select id="genderInput">
+            <option value="female" selected>Female</option>
+            <option value="male">Male</option>
+        </select>
+    </div>
+    <canvas id="weightChart"></canvas>
+    <canvas id="bmiChart"></canvas>
+
+    <script>
+        // Reference to the submit button and user input fields
+        var submitButton = document.getElementById('submitButton');
+        var userInput = document.getElementById('userInput');
+        var heightInput = document.getElementById('heightInput');
+        var birthdateInput = document.getElementById('birthdateInput');
+        var genderInput = document.getElementById('genderInput');
+
+        // Event listener for the submit button
+        submitButton.addEventListener('click', function() {
+            var user = userInput.value;
+            var url = `https://alcea-wisteria.de/PHP//0demo/00-PHP-Test/${user}_weight.json`;
+
+            // Fetch the JSON data
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Extract date, weight, dressed, and time from the JSON data
+                    var dates = [];
+                    var weights = [];
+                    var dressed = [];
+                    var time = [];
+                    for (var i = 0; i < data.length; i++) {
+                        dates.push(data[i].date);
+                        weights.push(data[i].weight);
+                        dressed.push(data[i].dressed);
+                        time.push(data[i].time);
+                    }
+
+                    // Calculate BMI for each data point
+                    var height = Number(heightInput.value);
+                    var birthdate = new Date(birthdateInput.value);
+                    var gender = genderInput.value;
+                    var bmis = [];
+                    for (var i = 0; i < weights.length; i++) {
+                        var bmi = calculateBMI(weights[i], height);
+                        bmis.push(bmi);
+                    }
+
+                    // Create the weight chart using Chart.js
+                    var weightCtx = document.getElementById('weightChart').getContext('2d');
+                    var weightChart = new Chart(weightCtx, {
+                        type: 'line',
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                label: 'Weight',
+                                data: weights,
+                                borderColor: 'blue',
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+                                    display: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Date'
+                                    },
+                                    reverse: true // Add this line to reverse the x-axis
+                                },
+                                y: {
+                                    display: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Weight'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            var label = context.dataset.label || '';
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            label += context.parsed.y + ' kg';
+                                            var dataIndex = context.dataIndex;
+                                            if (dressed[dataIndex] && time[dataIndex]) {
+                                                label += ', Dressed: ' + dressed[dataIndex] + ', Time: ' + time[dataIndex];
+                                            }
+
+                                            // Display BMI in the tooltip
+                                            label += ', BMI: ' + bmis[dataIndex];
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // Create the BMI chart using Chart.js
+                    var bmiCtx = document.getElementById('bmiChart').getContext('2d');
+                    var bmiChart = new Chart(bmiCtx, {
+                        type: 'line',
+                        data: {
+                            labels: dates,
+                            datasets: [{
+                                label: 'BMI',
+                                data: bmis,
+                                borderColor: 'red',
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                x: {
+display: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Date'
+                                        },
+                                        reverse: true // Add this line to reverse the x-axis
+                                    },
+                                    y: {
+                                        display: true,
+                                        title: {
+                                            display: true,
+                                            text: 'BMI'
+                                        },
+                                        ticks: {
+                                            min: 0,
+                                            max: 30
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                var label = context.dataset.label || '';
+                                                if (label) {
+                                                    label += ': ';
+                                                }
+                                                label += context.parsed.y + ' BMI';
+
+                                                // Determine the BMI range
+                                                var bmi = context.parsed.y;
+                                                var range = getBmiRange(bmi);
+                                                label += ' (' + range + ')';
+                                                return label;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                        // Function to calculate BMI
+                        function calculateBMI(weight, height) {
+                            var heightInMeters = height / 100;
+                            return weight / (heightInMeters * heightInMeters);
+                        }
+
+                        // Function to determine the BMI range
+                        function getBmiRange(bmi) {
+                            if (bmi < 18.5) {
+                                return 'Underweight';
+                            } else if (bmi >= 18.5 && bmi < 25) {
+                                return 'Normal weight';
+                            } else if (bmi >= 25 && bmi < 30) {
+                                return 'Overweight';
+                            } else {
+                                return 'Obese';
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+    </script>
+</body>
+<br><br>
+<plaintext>
+=======writeweight.php=====
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get user input
+    $user = isset($_POST['user']) ? $_POST['user'] : '';
+    $weight = isset($_POST['weight']) ? $_POST['weight'] : '';
+    $dressed = isset($_POST['dressed']) ? $_POST['dressed'] : '';
+    $date = isset($_POST['date']) ? $_POST['date'] : '';
+    $time = isset($_POST['time']) ? $_POST['time'] : '';
+
+    // Remove ":" from the time value
+    $time = str_replace(':', '', $time);
+
+    // Remove decimal places from the weight value
+    $weight = intval($weight);
+
+    // Create an associative array with the user data
+    $userData = array(
+        'user' => $user,
+        'weight' => $weight,
+        'dressed' => $dressed,
+        'date' => $date,
+        'time' => $time
+    );
+
+    // Read the existing JSON data
+    $filename = $user . '_weight.json';
+    $existingData = file_get_contents($filename);
+
+    // Decode the JSON data into an associative array
+    $existingArray = json_decode($existingData, true);
+
+    // Check if the existing data is an array
+    if (!is_array($existingArray)) {
+        // Create a new array with the new submission
+        $existingArray = array($userData);
+    } else {
+        // Prepend the new submission to the existing array
+        array_unshift($existingArray, $userData);
+    }
+
+    // Convert the array back to JSON
+    $jsonData = json_encode($existingArray);
+
+    // Save the JSON data to the file
+    file_put_contents($filename, $jsonData);
+
+    echo 'Data saved successfully!';
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Weight Form</title>
+</head>
+<body>
+    <form method="POST" action="">
+        <label for="user">User:</label>
+        <input type="text" name="user" id="user" value="aoi" required><br><br>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="text" name="weight" id="weight" required><br><br>
+
+        <label for="dressed">Dressed:</label>
+        <select name="dressed" id="dressed" required>
+            <option value="dressed">Dressed</option>
+            <option value="notdressed">Not Dressed</option>
+        </select><br><br>
+
+        <label for="date">Date:</label>
+        <input type="text" name="date" id="date" value="<?php echo date('Y-m-d'); ?>" required><br><br>
+
+        <label for="time">Time:</label>
+        <input type="text" name="time" id="time" value="<?php echo date('H:i'); ?>" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+
+_________________________
+
+
+Fake Social Media Feed Writer
+----------------------------------
+
+====post.php=======
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve the value from the textbox
+    $value = $_POST["textbox"];
+    // Retrieve the user from the URL query string
+    $user = $_GET["user"];
+    // Get the current date in Yyyymmdd format
+    $date = date("Ymd");
+    // Create an array with the new value and date
+    $newData = array($date => array("value" => $value));
+
+    // Extract hashtags from the post text
+    $hashtags = array();
+    preg_match_all('/#(\w+)/', $value, $matches);
+    if (!empty($matches[1])) {
+        $hashtags = $matches[1];
+    }
+    // Add the hashtags to the new data array
+    if (!empty($hashtags)) {
+        $newData[$date]["hashtags"] = implode(", ", $hashtags);
+    }
+    // Read the existing JSON data from the file
+    $filename = "data_" . $user . ".json";
+    if (file_exists($filename)) {
+        $existingData = json_decode(file_get_contents($filename), true);
+    } else {
+        $existingData = array();
+    }
+    // Prepend the new data to the existing data
+    array_unshift($existingData, $newData);
+    // Save the updated data to the file
+    file_put_contents($filename, json_encode($existingData, JSON_PRETTY_PRINT));
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Save to JSON</title>
+</head>
+<body>
+    <form method="post" action="<?php echo $_SERVER["PHP_SELF"] . "?user=" . $_GET["user"]; ?>">
+        <label for="textbox">Enter Value:</label>
+        <br>
+        <textarea id="textbox" name="textbox" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>
+<?php
+$user = $_GET['user'];
+$uniqueId = uniqid();
+$iframeSrc = "data_{$user}.json?v={$uniqueId}";
+echo '<iframe src="' . $iframeSrc . '" style="border:0px #ffffff none;" name="statusit" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="250px" width="800" allowfullscreen></iframe>';
+?>
+
+
+=====render.html========
+
+<hr>
+<div id="container"></div>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const limit = urlParams.get("limit") || "15";
+  const baseurl = "https://alcea-wisteria.de/z_files/emoji";
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param)}
+  const user = getQueryParam('user');
+  if (user) {
+    const jsonFile = `/other/extra/scripts/fakesocialmedia/data_${user}.json`;
+    fetch(jsonFile)
+      .then(response => response.json())
+      .then(jsonData => {
+        const container = document.getElementById('container');
+        jsonData.slice(0, limit).forEach(obj => {
+          const date = Object.keys(obj)[0];
+          const innerObj = obj[date];
+          const value = innerObj.value;
+          const hashtags = innerObj.hashtags;
+          const postElement = document.createElement('div');
+          postElement.classList.add('post');
+          const dateElement = document.createElement('p');
+          dateElement.textContent = `Date: ${date}`;
+          const valueElement = document.createElement('p');
+          valueElement.innerHTML = `<img src=https://alcea-wisteria.de/z_files/emoji/${user}.png width=100px><br>@<a target="_blank" href="/other/extra/scripts/fakesocialmedia/render_limited.html?user=${user}" style="color:pink">${user}</a>: ${replaceEmojis(value).replace(/(https?:\/\/[^\s]+)/g, (match) => {
+            if (match.includes('pixiv.net')) {
+              const pixivRegex = /https?:\/\/(?:www\.)?pixiv\.net\/(?:en\/)?artworks\/(\d+)/;
+              const pixivMatch = match.match(pixivRegex);
+              if (pixivMatch) {
+                const artworkId = pixivMatch[1];
+                return `<div><img src="https://embed.pixiv.net/decorate.php?illust_id=${artworkId}&mode=sns-automator" width="50%"></div><br><a href="${match}" target="_blank">${match}</a>`;
+              }}
+           if (match.endsWith('.gif') || match.endsWith('.png') || match.endsWith('.webp') ||match.endsWith('.jpg') || match.endsWith('.jpeg')) {
+          let imageWidth = "50%"; // Default width
+          if (match.includes("emoji")) {
+           imageWidth = "45px"; // Resize width to 45x45 cause these are emoji from the function to replace shorthandtext
+            }
+            const imageElement = `<img src="${match}" width="${imageWidth}" alt="${match}">`;
+            if (match.includes(`${baseurl}`)) {
+            return imageElement;
+            } else {
+            return `${imageElement}<br><a href="${match}" target="_blank">${match}</a>`;}}
+            return `<a href="${match}" target="_blank">${match}</a>`;
+          }).replace(/\n/g, '<br>')}`;
+          const hashtagsElement = document.createElement('p');
+          hashtagsElement.textContent = `Hashtags: ${hashtags}`;
+          postElement.appendChild(dateElement);
+          postElement.appendChild(valueElement);
+          postElement.appendChild(hashtagsElement);
+          if (value.includes('youtube.com') && !value.includes('youtube.com/shorts')) {
+            const videoEmbed = document.createElement('iframe');
+            videoEmbed.src = `https://super8.absturztau.be/embed/${getVideoId(value)}`;videoEmbed.width = '560';videoEmbed.height = '315';videoEmbed.frameborder = '0';videoEmbed.allowfullscreen = 'true';videoEmbed.setAttribute('allowfullscreen', '');postElement.appendChild(videoEmbed);}
+          container.appendChild(postElement);
+          const separatorElement = document.createElement('hr');
+          container.appendChild(separatorElement);
+        });
+      })
+  } else {
+    const element = document.createElement('div');
+    element.textContent = 'No user specified (?user=user)';
+    document.body.appendChild(element);
+  }
+  function getVideoId(url) {
+    const videoIdMatch = url.match(/(?:\/embed\/|v=|v\/|vi\/|youtu\.be\/|\/v\/|\/e\/|\/u\/\w\/|\/embed\/|\/v=|\/e=|\/u\/\w\/|\/vi\/)([^#\&\?]*).*/);
+    return videoIdMatch[1];}
+  function replaceEmojis(text) {
+    return text.replace(/:(\w+):/g, (match, emoji) => {
+      return `${baseurl}/${emoji}.gif`;
+    });}
+</script>
+
+
+====emojikb.php====
+
+<?php
+$url = "https://alcea-wisteria.de/z_files/emoji/";
+$html = file_get_contents($url);
+preg_match_all('/<a href=[\'"](.*?\.gif)[\'"]/i', $html, $matches);
+$gifUrls = $matches[1];
+$gridSize = 5; // Number of columns in the grid
+$count = 0;
+echo "<table>";
+echo "<tr>";
+foreach ($gifUrls as $gifUrl) {
+    $filename = basename($gifUrl);
+    echo '<td><a href="javascript:void(0);" onclick="insertEmoji(\'' . $filename . '\');"><img src="https://alcea-wisteria.de/z_files/emoji/' . $filename . '" width=30></a></td>';
+    $count++;
+    if ($count % $gridSize == 0) {
+        echo "</tr><tr>";
+    }
+}
+echo "</tr>";
+echo "</table>";
+?>
+<script>
+function insertEmoji(emoji) {
+    var textarea = document.getElementById('textarea');
+    textarea.value += ':' + emoji.split('.')[0] + ':';
+}
+</script>
+(See:  https://alcea-wisteria.de/PHP//0demo/2024-02-18-Fake-SocialMedia/emoji.php
+ https://alcea-wisteria.de/PHP//0demo/2024-02-18-Fake-SocialMedia/post+emoji.php)
+
+
+~~~Load only 15 results mod ~~
+
+const urlParams = new URLSearchParams(window.location.search);
+  const limit = urlParams.get("limit") || "15";
+  const baseurl = "https://alcea-wisteria.de/z_files/emoji";
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param)
+  }
+  const user = getQueryParam('user');
+  if (user) {
+    const jsonFile = `data_${user}.json`;
+    fetch(jsonFile)
+      .then(response => response.json())
+      .then(jsonData => {
+        const container = document.getElementById('container');
+        jsonData.slice(0, limit).forEach(obj => {  // Limiting to 15 entries
+          const date = Object.keys(obj)[0];
+          const innerObj = obj[date];
+          const value = innerObj.value;
+          const hashtags = innerObj.hashtags;
+          const postElement = document.createElement('div');
+          postElement.classList.add('post');
+
+
+(Src: https://codeberg.org/alceawisteria/Fake-Social-MediaWriter )
+
+______________________
+
+
+
 Fetch popular mastodon posts
 ---------------------------------
 
@@ -4665,12 +6723,24 @@ ________________________________
 Be gone #errors , be gone !
 -----------------------------------------
 
+
+==================================
+=== All Warnings and errors (!) ==
+
+<?php
+error_reporting(0);
+?>
+
+
+==============
+====Errors====
+
 <?php
 ini_set('display_errors', 0);
 ?>
 
 or .httaccess:
-------
+==============
 # HTID:21514290: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
 php_value display_errors 0
 # DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:21514290:
