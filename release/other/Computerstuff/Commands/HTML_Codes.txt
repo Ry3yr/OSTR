@@ -12,6 +12,504 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+Bank Saldo Fetch
+----------------
+
+<script>
+function fetchValues() {
+  const inputText = document.getElementById('inputText').value;
+  const euroRegex = /-(\d+(?:,\d+)?)\s*EUR/g;
+  //const dateRegex = /^.*\b\d{1,2}\.\s.*$/gm;
+  const dateRegex = /^(?!.*Valuta).*\b\d{1,2}\.\s.*$/gm;
+  const euroMatches = Array.from(inputText.matchAll(euroRegex), match => match[1]);
+  const dateMatches = Array.from(inputText.matchAll(dateRegex), match => match[0]);
+  let result = '';
+  for (let i = 0; i < euroMatches.length; i++) {
+    result += `${euroMatches[i]}€ ${dateMatches[i].replace(/[•Valuata]/g, '')}<br>`;
+  }
+  document.getElementById('result').innerHTML = result;
+}
+</script>
+</head>
+<body>
+<textarea id="inputText" rows="10" cols="50" placeholder="Bank Saldo Fetch"></textarea><br>
+<button onclick="fetchValues()">Fetch Values</button><br>
+<div id="result"></div>
+
+  <script>
+    function calculateTotal() {
+      var resultDiv = document.getElementById('result');
+      var euroValues = resultDiv.innerText.split('\n')
+        .filter(function (value) {
+          return value.trim() !== '';
+        })
+        .map(function (value) {
+          return parseFloat(value.trim().split('€')[0].replace(',', '.'));
+        });
+      var totalAmount = euroValues.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+      }, 0);
+      var totalDiv = document.createElement('div');
+      totalDiv.innerText = 'Total Amount: €' + totalAmount.toFixed(2);
+      document.body.appendChild(totalDiv);
+      //Exclude recurring. rent, inet etc
+      var excludedValues = [270.00, 24.99, 3.00, 49.00, 16.94, 37.79, 9.99];
+      var groceriesAmount = euroValues.filter(function (value) {
+        return !excludedValues.includes(value);
+      }).reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+      }, 0);
+      var groceriesDiv = document.createElement('div');
+      groceriesDiv.innerText = 'Groceries Amount: €' + groceriesAmount.toFixed(2);
+      document.body.appendChild(groceriesDiv);
+    }
+  </script>
+  <button onclick="calculateTotal()">Calculate Total</button>
+
+
+______________
+
+Imagejoiner (ImageMagick replacement)
+-------------------------------------
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
+  <style>
+    canvas {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="myDropzone" class="dropzone"></div>
+  <div>
+    <input type="radio" name="orientation" value="horizontal" id="radioHorizontal">
+    <label for="radioHorizontal">Horizontal</label>
+    <input type="radio" name="orientation" value="vertical" id="radioVertical">
+    <label for="radioVertical">Vertical</label>
+    <br>
+    <input type="checkbox" id="resizeCheckbox">
+    <label for="resizeCheckbox">Resize smaller images to largest</label>
+    <br>
+    <button id="joinButton">Join Images</button>
+  </div>
+  <div id="imageInfo"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+  <script>
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone("#myDropzone", {
+      url: "#",
+      autoProcessQueue: false,
+      maxFiles: 5,
+      acceptedFiles: "image/*",
+      init: function () {
+        var joinButton = document.querySelector("#joinButton");
+        var radioHorizontal = document.querySelector("#radioHorizontal");
+        var radioVertical = document.querySelector("#radioVertical");
+        var resizeCheckbox = document.querySelector("#resizeCheckbox");
+        var imageFiles = [];
+
+        this.on("addedfile", function (file) {
+          imageFiles.push(file);
+        });
+
+        joinButton.addEventListener("click", function () {
+          var selectedOrientation = radioHorizontal.checked ? "horizontal" : "vertical";
+          var resizeImages = resizeCheckbox.checked;
+          joinImages(selectedOrientation, resizeImages, imageFiles);
+        });
+      }
+    });
+
+    function joinImages(orientation, resizeImages, imageFiles) {
+      if (imageFiles.length > 1) {
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var loadedImages = 0;
+        var images = [];
+
+        // Load the images
+        imageFiles.forEach(function (file) {
+          var img = new Image();
+          img.onload = function () {
+            loadedImages++;
+            images.push(img);
+
+            if (loadedImages === imageFiles.length) {
+              var totalWidth = 0;
+              var maxHeight = 0;
+
+              // Calculate the total width and maximum height of the images
+              images.forEach(function (image) {
+                totalWidth += image.width;
+                maxHeight = Math.max(maxHeight, image.height);
+              });
+
+              if (orientation === "horizontal") {
+                canvas.width = totalWidth;
+                canvas.height = maxHeight;
+              } else {
+                if (resizeImages) {
+                  // Resize smaller images to match the largest image's height
+                  var maxWidth = Math.max(...images.map(img => img.width));
+                  images.forEach(function (image) {
+                    if (image.height < maxHeight) {
+                      var scaleFactor = maxHeight / image.height;
+                      image.width *= scaleFactor;
+                      image.height = maxHeight;
+                    }
+                  });
+                }
+                canvas.width = Math.max(...images.map(img => img.width));
+                canvas.height = maxHeight * images.length;
+              }
+
+              var offsetX = 0;
+              var offsetY = 0;
+
+              // Draw the images onto the canvas based on the orientation
+              images.forEach(function (img) {
+                if (orientation === "horizontal") {
+                  ctx.drawImage(img, offsetX, 0);
+                  offsetX += img.width;
+                } else {
+                  ctx.drawImage(img, 0, offsetY);
+                  offsetY += img.height;
+                }
+              });
+
+              var resultContainer = document.getElementById("imageInfo");
+              resultContainer.innerHTML = "";
+              resultContainer.appendChild(canvas);
+            }
+          };
+          img.src = URL.createObjectURL(file);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
+
+<!---Download--image-->
+<button id="downloadButton">Download Joined Image</button>
+<script>
+  var downloadButton = document.querySelector("#downloadButton");
+  downloadButton.addEventListener("click", function () {
+    var canvas = document.querySelector("canvas");
+    var image = canvas.toDataURL("image/png");
+    var a = document.createElement("a");
+    a.href = image;
+    a.download = "Download.png";
+    a.click();
+  });
+</script>
+
+
+_____________________________________
+
+
+Link to Sitepart
+-----------------------
+
+<a target="_blank" href="https://alceawis.de/sitepartdisplay.html?url=https%3A%2F%2Falceawis.de%2FHobbies&pattern1=Hobbies&pattern2=Tools" style=color:blue>Example</a><br><br>
+<details><summary>Create Link</summary>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link to Sitepart</title>
+  <script>
+    function generateUrl() {
+      // Get the values from the textboxes
+      const url = document.getElementById("url").value;
+      const pattern1 = document.getElementById("pattern1").value;
+      const pattern2 = document.getElementById("pattern2").value;
+      const generatedUrl = `sitepartdisplay.html?url=${encodeURIComponent(url)}&pattern1=${(pattern1)}&pattern2=${(pattern2)}`;
+      const generatedUrlFin = `<a target="_blank" href="${generatedUrl}" style="color: blue">${generatedUrl}</a>`;
+      document.getElementById("generatedUrl").innerHTML = generatedUrlFin;
+      // Redirect to the generated URL
+      //window.open(generatedUrl, "_blank");
+    }
+  </script>
+</head>
+<body>
+  <h1>LinkToSitepart</h1>
+  <p>Enter the details below to generate the URL:</p>
+  <label for="url">URL:</label>
+  <input type="text" id="url" name="url">
+  <label for="pattern1">Pattern 1:</label>
+  <input type="text" id="pattern1" name="pattern1">
+  <label for="pattern2">Pattern 2:</label>
+  <input type="text" id="pattern2" name="pattern2">
+  <p>Generated URL: <span id="generatedUrl"></span></p>
+  <button onclick="generateUrl()">Generate URL</button>
+</body>
+</html>
+</details>
+  <div id="content"></div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const url = urlParams.get("url");
+    const pattern1 = urlParams.get("pattern1");
+    const pattern2 = urlParams.get("pattern2");
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        const start = data.indexOf(pattern1) + pattern1.length;
+        const end = data.indexOf(pattern2);
+        const content = data.substring(start, end);
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = content;
+        const relativeUrls = tempElement.querySelectorAll("a[href], img[src]");
+        relativeUrls.forEach(url => {
+          const originalUrl = url.getAttribute("href") || url.getAttribute("src");
+          const absoluteUrl = new URL(originalUrl, window.location.href).href;
+          url.setAttribute("href", absoluteUrl);
+          url.setAttribute("src", absoluteUrl);});
+        document.getElementById("content").appendChild(tempElement);});
+  </script>
+</body>
+</html>
+
+____________________
+
+
+Youtube Timestamp extractor (+FFMPEG command generator) for music album dlds:
+--------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extract Timestamps</title>
+</head>
+
+<body>
+Extract Timestamps from YT Videodescriptions<br>
+<br>
+  <label for="apiKey">API Key:</label>
+  <input type="password" id="apiKey">
+  <label for="videoUrl">YouTube Video URL:</label>
+  <input type="text" id="videoUrl" placeholder="yturl">
+  <input type="text" id="videolength" placeholder="videolength" style="width: 60px;">
+  <button onclick="extractTimestamps()">Extract Timestamps</button>
+  <br><br><textarea id="timestamps" rows="10" cols="50"></textarea>
+  <script>
+    function extractTimestamps() {
+      var apiKey = document.getElementById("apiKey").value;
+      var videoUrl = document.getElementById("videoUrl").value;
+      if (!apiKey || !videoUrl) {
+        alert("Please enter the API key and video URL.");
+        return;
+      }
+      var videoId = extractVideoId(videoUrl);
+      var apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoId}&key=${apiKey}`;
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          var description = data.items[0].snippet.description;
+          var timestampsAndTitles = extractTimestampsAndTitles(description);
+          var timestampsTextArea = document.getElementById("timestamps");
+          timestampsTextArea.value = timestampsAndTitles
+            .map(item => `${item.timestamp} ${item.title}`)
+            .join("\n");
+
+          var videoDuration = data.items[0].contentDetails.duration;
+          var videoLength = convertISO8601Duration(videoDuration);
+          var videoLengthInput = document.getElementById("videolength");
+          videoLengthInput.value = videoLength;
+        })
+        .catch(error => {
+          console.error("Error fetching video details:", error);
+          alert("Error fetching video details. Please check the API key and video URL.");
+        });
+    }
+
+    function extractTimestampsAndTitles(description) {
+      var regex = /(\d{1,2}:\d{2}(?::\d{2})?)\s+(.+)/g;
+      var results = [];
+      var match;
+      while ((match = regex.exec(description)) !== null) {
+        var timestamp = match[1];
+        var title = match[2];
+        results.push({ timestamp: timestamp, title: title });
+      }
+      return results;
+    }
+
+    function extractVideoId(url) {
+      var videoId = "";
+      var regexPatterns = [
+        /youtu\.be\/([\w-]+)/,
+        /youtube\.com\/watch\?v=([\w-]+)/,
+        /youtube\.com\/embed\/([\w-]+)/,
+        /youtube\.com\/v\/([\w-]+)/,
+        /youtube\.com\/watch\?.*v=([\w-]+)/
+      ];
+      for (var i = 0; i < regexPatterns.length; i++) {
+        var match = url.match(regexPatterns[i]);
+        if (match && match[1]) {
+          videoId = match[1];
+          break;
+        }
+      }
+      return videoId;
+    }
+
+    function convertISO8601Duration(duration) {
+      var match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+
+      var hours = match[1] ? parseInt(match[1]) : 0;
+      var minutes = match[2] ? parseInt(match[2]) : 0;
+      var seconds = match[3] ? parseInt(match[3]) : 0;
+
+      // Format the length as xx:xx
+      var formattedLength = "";
+      if (hours > 0) {
+        formattedLength += hours.toString().padStart(2, "0") + ":";
+      }
+      formattedLength += minutes.toString().padStart(2, "0") + ":";
+      formattedLength += seconds.toString().padStart(2, "0");
+
+      return formattedLength;
+    }
+  </script>
+</body>
+</html>
+
+<hr>
+<details><summary>Generate FFMPEG</summary>
+FFMPEG GEnerator
+  <h1>FFmpeg Command Generator</h1>
+  <!--<label for="timestamps">Timestamps:</label><br>
+  <textarea id="timestamps" rows="10" cols="50"></textarea><br><br>-->
+  <label for="sourcefilename">Source Filename:</label><br>
+  <input type="text" id="sourcefilename"><br><br>
+  <button id="submit">Generate Commands</button>
+ <button onclick="replaceText()">Replace Text</button></details><br><br>
+  <pre id="commands"></pre>
+  <script>
+    var timestampsTextarea = document.getElementById('timestamps');
+    var sourceFilenameTextbox = document.getElementById('sourcefilename');
+    var submitButton = document.getElementById('submit');
+    submitButton.addEventListener('click', function() {
+      var timestampsValue = timestampsTextarea.value;
+      var lines = timestampsValue.split('\n');
+      var sourceFilename = sourceFilenameTextbox.value;
+      var ffmpegCommands = [];
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var parts = line.split(' ');
+        var timestamp = parts[0];
+        var name = parts.slice(1).join(' ');
+        // Generate the FFmpeg command
+var ffmpegCommand = 'ffmpeg -i "' + sourceFilename + '" -ss ' + timestamp + ' -to ' + (i < lines.length - 1 ? lines[i + 1].split(' ')[0] : '') + ' -c copy "' + name + '.mp3"';
+        ffmpegCommands.push(ffmpegCommand);}
+      var commandsElement = document.getElementById('commands');
+      commandsElement.textContent = ffmpegCommands.join('\n');
+    });
+  </script>
+  <script>
+    function replaceText() {
+      var commandsElement = document.getElementById("commands");
+      var videolength = document.getElementById("videolength").value;
+        commandsElement.innerHTML = commandsElement.innerHTML.replace(/-to  -c/g, "-to " + videolength + " -c");}
+  </script>
+
+
+_________________________
+
+
+Fill textbox with ?card= querystring, submit, then stop
+-------------------------------------------------
+
+<form onsubmit="submitForm()">
+<input type="text" name="url" placeholder="Enter URL">
+<input id="submit" type="submit" value="Submit">
+</form>
+
+<!--Testfunction-->
+<script>function submitForm() {alert('Submitted!');}</script>
+
+
+
+<script>
+var urlParams = new URLSearchParams(window.location.search);
+var card = urlParams.get('card');
+if (card !== null && card !== '') {
+var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname; //findquerystrings
+//window.history.replaceState({}, document.title, newUrl); //removequerystrings (all)
+document.getElementsByName('url')[0].value = card;
+const submitButton = document.querySelector('input[type="submit"][value="Submit"]');
+submitButton.click();}
+</script>
+
+
+
+
+<!--special-idijot-solution--for-kids-who-hate-ampersand-and-only-need-one-querystring-
+<script>
+    var url = window.location.href;
+    var card = '';
+    if (url.includes('?card=')) {card = url.split('?card=')[1].replace(/#38;/g, '');}
+    if (card !== null && card !== '') {
+        var newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+        document.getElementsByName('url')[0].value = card;
+        document.getElementById('url').value = card;
+        document.getElementById('submit').click();
+}
+</script>-->
+
+
+____________
+
+
+Scroll href links right to left (with stop on hover)
+-----------------------------------------------------
+
+<div id="linksContainer"></div>
+<script>
+  fetch('pixivreel')
+    .then(response => response.text())
+    .then(data => {
+      const linksContainer = document.getElementById('linksContainer');
+      linksContainer.style.display = 'flex';
+      linksContainer.style.overflow = 'hidden';
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+      const linkElements = Array.from(doc.querySelectorAll('a'));
+      linkElements.forEach(link => {
+        linksContainer.appendChild(link.cloneNode(true));});
+      const containerWidth = linksContainer.offsetWidth;
+      let scrollPosition = containerWidth;
+      let isHovered = false;
+      function scrollLinks() {
+        if (!isHovered) {
+          scrollPosition--;
+          if (scrollPosition <= -containerWidth) {
+            scrollPosition = containerWidth;}
+          linksContainer.style.transform = `translateX(${scrollPosition}px)`;}
+        requestAnimationFrame(scrollLinks);}
+      scrollLinks();
+      linksContainer.addEventListener('mouseenter', () => {
+        isHovered = true;});
+      linksContainer.addEventListener('mouseleave', () => {
+        isHovered = false;});})
+    .catch(error => {
+      console.log('Error:', error);
+    });
+</script>
+
+___________________________________
+
 PMX Capable MMD Web Renderer (with stage support)
 --------------------------------
 Download: https://ry3yr.github.io/SampleWebMMD-master.zip
@@ -949,7 +1447,7 @@ Create image snapshot of element:
       captureButton.addEventListener('click', function() {
       const paragraph = document.getElementById('customFont');
       let content = paragraph.innerHTML;
-      content = content.replace(/<\/div>/g, ' ').replace(/<div>/g, ' ');
+      content = content.replace(/<\/div>/g, ' ').replace(/<div>/g, ' ').replace(/&amp;/g, '&');
       const paragraphComputedStyle = getComputedStyle(paragraph);
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
@@ -1700,7 +2198,7 @@ Line-Keeper--Remover-add-leading-0s
 </html>
 _______________________________
 
-Fetch Youtube Playlist + duration
+Fetch Youtube Playlist + duration (fetches all now, but unorderly)
 --------------------------------
 
 
@@ -1739,14 +2237,10 @@ Fetch Youtube Playlist + duration
             var hours = (parseInt(match[1]) || 0);
             var minutes = (parseInt(match[2]) || 0);
             var seconds = (parseInt(match[3]) || 0);
-            return hours + "h " + minutes + "m " + seconds + "s";
-        }
-
+            return hours + "h " + minutes + "m " + seconds + "s";}
         function convertDate(date) {
             var isoDate = new Date(date);
-            return isoDate.toDateString();
-        }
-
+            return isoDate.toDateString();}
         document.getElementById("playlistForm").addEventListener("submit", function (event) {
             event.preventDefault();
             var playlistUrl = document.getElementById("playlistInput").value;
@@ -1755,10 +2249,9 @@ Fetch Youtube Playlist + duration
             var apiUrl = "https://www.googleapis.com/youtube/v3/playlistItems";
             var params = {
                 part: "snippet,contentDetails",
-                maxResults: 50,
+                maxResults: 150,
                 playlistId: playlistId,
-                key: apiKey,
-            };
+                key: apiKey,};
             var url =
                 apiUrl +
                 "?" +
@@ -1767,140 +2260,137 @@ Fetch Youtube Playlist + duration
                         return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
                     })
                     .join("&");
-            fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                    var videoList = document.getElementById("videoList");
-                    videoList.innerHTML = "";
-                    var videoItems = [];
-                    var totalDuration = 0; // Variable to store the total playtime
-                    data.items.forEach(function (item, index) { // Add the index parameter
-                        var videoId = item.contentDetails.videoId;
-                        var videoTitle = item.snippet.title;
-                        var vId = item.contentDetails.videoId;
-                        var durUrl =
-                            "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" +
-                            vId +
-                            "&key=" +
-                            apiKey;
-                        fetch(durUrl)
-                            .then((response) => response.json())
-                            .then((durationData) => {
-                                var duration = durationData.items[0].contentDetails.duration;
-                                var videoDuration = convertDuration(duration);
-                                var videoDate = item.snippet.publishedAt;
-                                var videoDateFormatted = convertDate(videoDate);
-                                videoItems.push({
-                                    videoId: videoId,
-                                    videoTitle: videoTitle,
-                                    videoDuration: videoDuration,
-                                    videoDate: videoDateFormatted,
-                                    playlistIndex: index, // Store the playlist index
-                                });
-                                // Accumulate the playtime
-                                totalDuration += getDurationInSeconds(duration);
-                                if (videoItems.length === data.items.length) {
-                                    if (document.getElementById("sortCheckbox").checked) {
-                                        // Sort by playlist order
-                                        videoItems.sort((a, b) => a.playlistIndex - b.playlistIndex); // Sort by playlist index
-                                    } else {
-                                        // Sort by date
-                                        videoItems.sort((a, b) => new Date(a.videoDate) - new Date(b.videoDate));
-                                    }
-                                    videoItems.forEach(function (video) {
-                                        var videoRow = document.createElement("tr");
-                                        var videoNameCell = document.createElement("td");
-                                        var videoNameLink = document.createElement("a");
-                                        videoNameLink.href =
-                                            "https://www.youtube.com/watch?v=" + video.videoId;
-                                        videoNameLink.target = "_blank";
-                                        videoNameLink.textContent = video.videoTitle;
-                                        videoNameCell.appendChild(videoNameLink);
-                                        videoRow.appendChild(videoNameCell);
-                                        var playtimeCell= document.createElement("td");
-                                        playtimeCell.textContent = video.videoDuration;
-                                        videoRow.appendChild(playtimeCell);
-                                        var dateCell = document.createElement("td");
-                                        dateCell.textContent = video.videoDate;
-                                        videoRow.appendChild(dateCell);
-                                        videoList.appendChild(videoRow);
-                                    });
-                                    // Add total playtime row
-                                    var totalDurationRow = document.createElement("tr");
-                                    var totalDurationCell = document.createElement("td");
-                                    totalDurationCell.setAttribute("colspan", "2");
-                                    totalDurationCell.textContent =
-                                        "Total Playtime: " + convertSecondsToDuration(totalDuration);
-                                    totalDurationRow.appendChild(totalDurationCell);
-                                    videoList.appendChild(totalDurationRow);
-                                }
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                                var videoTable = document.getElementById("videoTable");
-                                videoTable.innerHTML = "An error occurred while fetching the video list.";
-                            });
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                    var videoTable = document.getElementById("videoTable");
-                    videoTable.innerHTML = "An error occurred while fetching the video list.";
-                });
-        });
+var videoList = document.getElementById("videoList");
+videoList.innerHTML = "";
+var videoItems = [];
+var totalDuration = 0; // Variable to store the total playtime
+var fetchPromises = []; // Array to store fetch promises
+var pageToken = ""; // Pagination token
 
-        // Helper function to convert YouTube duration format to seconds
+function fetchVideos(pageToken) {
+  var url =
+    "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&playlistId=" +
+    playlistId +
+    "&maxResults=50&key=" +
+    apiKey +
+    "&pageToken=" +
+    pageToken;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      var nextPageToken = data.nextPageToken; // Get pagination token for the next page
+
+      data.items.forEach(function (item, index) {
+        var videoId = item.contentDetails.videoId;
+        var videoTitle = item.snippet.title;
+        var vId = item.contentDetails.videoId;
+        var durUrl =
+          "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" +
+          vId +
+          "&key=" +
+          apiKey;
+
+        var fetchPromise = fetch(durUrl)
+          .then((response) => response.json())
+          .then((durationData) => {
+            var duration = durationData.items[0].contentDetails.duration;
+            var videoDuration = convertDuration(duration);
+            var videoDate = item.snippet.publishedAt;
+            var videoDateFormatted = convertDate(videoDate);
+            videoItems.push({
+              videoId: videoId,
+              videoTitle: videoTitle,
+              videoDuration: videoDuration,
+              videoDate: videoDateFormatted,
+              playlistIndex: index,
+            });
+            totalDuration += getDurationInSeconds(duration);
+          })
+          .catch((error) => {
+            console.log(error);
+            // Handle the error, e.g., display an error message for this video
+          });
+
+        fetchPromises.push(fetchPromise);
+      });
+
+      if (nextPageToken) {
+        // Fetch the next page if there is a pagination token
+        fetchVideos(nextPageToken);
+      } else {
+        // All pages have been fetched, proceed with processing the data
+        Promise.all(fetchPromises)
+          .then(() => {
+            if (document.getElementById("sortCheckbox").checked) {
+              // Sort by playlist order
+              videoItems.sort((a, b) => a.playlistIndex - b.playlistIndex);
+            } else {
+              // Sort by date
+              videoItems.sort(
+                (a, b) => new Date(a.videoDate) - new Date(b.videoDate)
+              );
+            }
+
+            videoItems.forEach(function (video) {
+              var videoRow = document.createElement("tr");
+              var videoNameCell = document.createElement("td");
+              var videoNameLink = document.createElement("a");
+              videoNameLink.href =
+                "https://www.youtube.com/watch?v=" + video.videoId;
+              videoNameLink.target = "_blank";
+              videoNameLink.textContent = video.videoTitle;
+              videoNameCell.appendChild(videoNameLink);
+              videoRow.appendChild(videoNameCell);
+              var playtimeCell = document.createElement("td");
+              playtimeCell.textContent = video.videoDuration;
+              videoRow.appendChild(playtimeCell);
+              var dateCell = document.createElement("td");
+              dateCell.textContent = video.videoDate;
+              videoRow.appendChild(dateCell);
+              videoList.appendChild(videoRow);
+            });
+
+            var totalDurationRow = document.createElement("tr");
+            var totalDurationCell = document.createElement("td");
+            totalDurationCell.setAttribute("colspan", "2");
+            totalDurationCell.textContent =
+              "Total Playtime: " + convertSecondsToDuration(totalDuration);
+            totalDurationRow.appendChild(totalDurationCell);
+            videoList.appendChild(totalDurationRow);
+          })
+          .catch((error) => {
+            console.log(error);
+            var videoTable = document.getElementById("videoTable");
+            videoTable.innerHTML =
+              "An error occurred while fetching the video list.";
+          });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      var videoTable = document.getElementById("videoTable");
+      videoTable.innerHTML = "An error occurred while fetching the video list.";
+    });
+}
+
+fetchVideos(pageToken);
         function getDurationInSeconds(duration) {
             var match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
             var hours = parseInt(match[1]) || 0;
             var minutes = parseInt(match[2]) || 0;
             var seconds = parseInt(match[3]) || 0;
-            return hours * 3600 + minutes * 60 + seconds;
-        }
-
-        // Helper function to convert seconds to YouTube duration format
-        function convertSecondsToDuration(seconds) {
+            return hours * 3600 + minutes * 60 + seconds;}
+            function convertSecondsToDuration(seconds) {
             var hours = Math.floor(seconds / 3600);
             var minutes = Math.floor((seconds % 3600) / 60);
             var secs = seconds % 60;
             return (
-                hours.toString().padStart(2, "0") +
-                "h " +
-                minutes.toString().padStart(2, "0") +
-                "m " +
-                secs.toString().padStart(2, "0") +
-                "s"
-            );
-        }
+           hours.toString().padStart(2, "0") +"h " +minutes.toString().padStart(2, "0") +"m " +secs.toString().padStart(2, "0") +"s");}})
     </script>
 </body>
 </html>
-</body>
-</html>
 <!---https://stackoverflow.com/questions/15596753/how-do-i-get-video-durations-with-youtube-api-version-3--->
-<!---
-ICAgIDxzdHlsZT4KICAgICAgICB0YWJsZXtib3JkZXItY29sbGFwc2U6Y29sbGFwc2U7d2lkdGg6MTAwJX10ZCx0aHt0ZXh0LWFsaWduOmxlZnQ7cGFkZGluZzo4cHg7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgI2RkZH10aHtiYWNrZ3JvdW5kLWNvbG9yOiNmMmYyZjJ9CiAgICA8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5PgogICAgPGZvcm0gaWQ9InBsYXlsaXN0Rm9ybSI+CiAgICAgICAgPGxhYmVsIGZvcj0icGxheWxpc3RJbnB1dCI+WW91VHViZSBQbGF5bGlzdCBVUkw6PC9sYWJlbD4KICAgICAgICA8aW5wdXQgdHlwZT0idGV4dCIgaWQ9InBsYXlsaXN0SW5wdXQiIHJlcXVpcmVkPgogICAgICAgIDxicj4KICAgICAgICA8bGFiZWwgZm9yPSJhcGlLZXlJbnB1dCI+WW91VHViZSBBUEkgS2V5OjwvbGFiZWw+CiAgICAgICAgPGlucHV0IHR5cGU9InRleHQiIGlkPSJhcGlLZXlJbnB1dCIgcmVxdWlyZWQ+CiAgICAgICAgPGJyPgogICAgICAgIDxpbnB1dCB0eXBlPSJzdWJtaXQiIHZhbHVlPSJHZXQgVmlkZW8gTGlzdCI+CiAgICA8L2Zvcm0+CiAgICA8dGFibGUgaWQ9InZpZGVvVGFibGUiPgogICAgICAgIDx0aGVhZD4KICAgICAgICAgICAgPHRyPgogICAgICAgICAgICAgICAgPHRoPlZpZGVvIE5hbWU8L3RoPgogICAgICAgICAgICAgICAgPHRoPlBsYXl0aW1lPC90aD4KICAgICAgICAgICAgICAgIDx0aD5EYXRlPC90aD4KICAgICAgICAgICAgPC90cj4KICAgICAgICA8L3RoZWFkPgogICAgICAgIDx0Ym9keSBpZD0idmlkZW9MaXN0Ij48L3Rib2R5PgogICAgPC90YWJsZT4KICAgIDxzY3JpcHQ+CiAgICAgICAgZnVuY3Rpb24gY29udmVydER1cmF0aW9uKGR1cmF0aW9uKSB7CiAgICAgICAgICAgIHZhciBtYXRjaCA9IGR1cmF0aW9uLm1hdGNoKC9QVChcZCtIKT8oXGQrTSk/KFxkK1MpPy8pOwogICAgICAgICAgICB2YXIgaG91cnMgPSAocGFyc2VJbnQobWF0Y2hbMV0pIHx8IDApOwogICAgICAgICAgICB2YXIgbWludXRlcyA9IChwYXJzZUludChtYXRjaFsyXSkgfHwgMCk7CiAgICAgICAgICAgIHZhciBzZWNvbmRzID0gKHBhcnNlSW50KG1hdGNoWzNdKSB8fCAwKTsKICAgICAgICAgICAgcmV0dXJuIGhvdXJzICsgImggIiArIG1pbnV0ZXMgKyAibSAiICsgc2Vjb25kcyArICJzIjt9CiAgICAgICAgZnVuY3Rpb24gY29udmVydERhdGUoZGF0ZSkgewogICAgICAgICAgICB2YXIgaXNvRGF0ZSA9IG5ldyBEYXRlKGRhdGUpOwogICAgICAgICAgICByZXR1cm4gaXNvRGF0ZS50b0RhdGVTdHJpbmcoKTt9CiAgICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInBsYXlsaXN0Rm9ybSIpLmFkZEV2ZW50TGlzdGVuZXIoInN1Ym1pdCIsIGZ1bmN0aW9uKGV2ZW50KSB7CiAgICAgICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7CiAgICAgICAgICAgIHZhciBwbGF5bGlzdFVybCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJwbGF5bGlzdElucHV0IikudmFsdWU7CiAgICAgICAgICAgIHZhciBhcGlLZXkgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiYXBpS2V5SW5wdXQiKS52YWx1ZTsKICAgICAgICAgICAgdmFyIHBsYXlsaXN0SWQgPSBwbGF5bGlzdFVybC5tYXRjaCgvKD86bGlzdD0pKFtcdy1dKykvKVsxXTsKICAgICAgICAgICAgdmFyIGFwaVVybCA9ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS95b3V0dWJlL3YzL3BsYXlsaXN0SXRlbXMiOwogICAgICAgICAgICB2YXIgcGFyYW1zID0gewogICAgICAgICAgICAgICAgcGFydDogInNuaXBwZXQsY29udGVudERldGFpbHMiLAogICAgICAgICAgICAgICAgbWF4UmVzdWx0czogNTAsCiAgICAgICAgICAgICAgICBwbGF5bGlzdElkOiBwbGF5bGlzdElkLAogICAgICAgICAgICAgICAga2V5OiBhcGlLZXl9OwogICAgICAgICAgICB2YXIgdXJsID0gYXBpVXJsICsgIj8iICsgT2JqZWN0LmtleXMocGFyYW1zKS5tYXAoZnVuY3Rpb24oa2V5KSB7CiAgICAgICAgICAgICAgICByZXR1cm4gZW5jb2RlVVJJQ29tcG9uZW50KGtleSkgKyAiPSIgKyBlbmNvZGVVUklDb21wb25lbnQocGFyYW1zW2tleV0pOwogICAgICAgICAgICB9KS5qb2luKCImIik7CiAgICAgICAgICAgIGZldGNoKHVybCkKICAgICAgICAgICAgICAgIC50aGVuKHJlc3BvbnNlID0+IHJlc3BvbnNlLmpzb24oKSkKICAgICAgICAgICAgICAgIC50aGVuKGRhdGEgPT4gewogICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0xpc3QgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgidmlkZW9MaXN0Iik7CiAgICAgICAgICAgICAgICAgICAgdmlkZW9MaXN0LmlubmVySFRNTCA9ICIiOwogICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0l0ZW1zID0gW107CiAgICAgICAgICAgICAgICAgICAgZGF0YS5pdGVtcy5mb3JFYWNoKGZ1bmN0aW9uKGl0ZW0pIHsKICAgICAgICAgICAgICAgICAgICAgICAgdmFyIHZpZGVvSWQgPSBpdGVtLmNvbnRlbnREZXRhaWxzLnZpZGVvSWQ7CiAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb1RpdGxlID0gaXRlbS5zbmlwcGV0LnRpdGxlOwogICAgICAgICAgICAgICAgICAgICAgICB2YXIgdklkID0gaXRlbS5jb250ZW50RGV0YWlscy52aWRlb0lkOwogICAgICAgICAgICAgICAgICAgICAgICB2YXIgZHVyVXJsID0gImh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL3lvdXR1YmUvdjMvdmlkZW9zP3BhcnQ9Y29udGVudERldGFpbHMmaWQ9IiArIHZJZCArICIma2V5PSIgKyBhcGlLZXk7CiAgICAgICAgICAgICAgICAgICAgICAgIGZldGNoKGR1clVybCkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKHJlc3BvbnNlID0+IHJlc3BvbnNlLmpzb24oKSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC50aGVuKGR1cmF0aW9uRGF0YSA9PiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGR1cmF0aW9uID0gZHVyYXRpb25EYXRhLml0ZW1zWzBdLmNvbnRlbnREZXRhaWxzLmR1cmF0aW9uOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0R1cmF0aW9uID0gY29udmVydER1cmF0aW9uKGR1cmF0aW9uKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgdmlkZW9EYXRlID0gaXRlbS5zbmlwcGV0LnB1Ymxpc2hlZEF0OwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb0RhdGVGb3JtYXR0ZWQgPSBjb252ZXJ0RGF0ZSh2aWRlb0RhdGUpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvSXRlbXMucHVzaCh7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvSWQ6IHZpZGVvSWQsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvVGl0bGU6IHZpZGVvVGl0bGUsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvRHVyYXRpb246IHZpZGVvRHVyYXRpb24sCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvRGF0ZTogdmlkZW9EYXRlRm9ybWF0dGVkfSk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHZpZGVvSXRlbXMubGVuZ3RoID09PSBkYXRhLml0ZW1zLmxlbmd0aCkgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb0l0ZW1zLnNvcnQoKGEsIGIpID0+IG5ldyBEYXRlKGEudmlkZW9EYXRlKSAtIG5ldyBEYXRlKGIudmlkZW9EYXRlKSk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvSXRlbXMuZm9yRWFjaChmdW5jdGlvbih2aWRlbykgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIHZpZGVvUm93ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgidHIiKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb05hbWVDZWxsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgidGQiKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciB2aWRlb05hbWVMaW5rID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiYSIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmlkZW9OYW1lTGluay5ocmVmID0gImh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9IiArIHZpZGVvLnZpZGVvSWQ7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb05hbWVMaW5rLnRleHRDb250ZW50ID0gdmlkZW8udmlkZW9UaXRsZTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvTmFtZUNlbGwuYXBwZW5kQ2hpbGQodmlkZW9OYW1lTGluayk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb1Jvdy5hcHBlbmRDaGlsZCh2aWRlb05hbWVDZWxsKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhciBwbGF5dGltZUNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ZCIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxheXRpbWVDZWxsLnRleHRDb250ZW50ID0gdmlkZW8udmlkZW9EdXJhdGlvbjsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZpZGVvUm93LmFwcGVuZENoaWxkKHBsYXl0aW1lQ2VsbCk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YXIgZGF0ZUNlbGwgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ZCIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGF0ZUNlbGwudGV4dENvbnRlbnQgPSB2aWRlby52aWRlb0RhdGU7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb1Jvdy5hcHBlbmRDaGlsZChkYXRlQ2VsbCk7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb0xpc3QuYXBwZW5kQ2hpbGQodmlkZW9Sb3cpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB9KTt9fSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgIC5jYXRjaChlcnJvciA9PiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGVycm9yKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFyIHZpZGVvVGFibGUgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgidmlkZW9UYWJsZSIpOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2aWRlb1RhYmxlLmlubmVySFRNTCA9ICJBbiBlcnJvciBvY2N1cnJlZCB3aGlsZSBmZXRjaGluZyB0aGUgdmlkZW8gbGlzdC4iO30pO30pO30pCiAgICAgICAgICAgICAgICAuY2F0Y2goZXJyb3IgPT4gewogICAgICAgICAgICAgICAgICAgIGNvbnNvbGUubG9nKGVycm9yKTsKICAgICAgICAgICAgICAgICAgICB2YXIgdmlkZW9UYWJsZSA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ2aWRlb1RhYmxlIik7CiAgICAgICAgICAgICAgICAgICAgdmlkZW9UYWJsZS5pbm5lckhUTUwgPSAiQW4gZXJyb3Igb2NjdXJyZWQgd2hpbGUgZmV0Y2hpbmcgdGhlIHZpZGVvIGxpc3QuIjt9KTt9KTsKICAgIDwvc2NyaXB0Pgo8L2JvZHk+CjwvaHRtbD4=
--->
-
-
-
-<!--plaintext-copytable-
-<script>
-function copyTableToClipboard() {
-    var table = document.getElementById("videoTable");
-    var range = document.createRange();
-    range.selectNode(table);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-    document.execCommand("copy");
-    window.getSelection().removeAllRanges();}
-var copyButton = document.createElement("button");
-copyButton.textContent = "Copy Table";
-copyButton.addEventListener("click", copyTableToClipboard);
-document.body.appendChild(copyButton);
-</script>-->
-
-
 <script>
 function copyTableToClipboard() {
     var table = document.getElementById("videoTable");
@@ -1911,14 +2401,43 @@ function copyTableToClipboard() {
     tempElement.select();
     document.execCommand("copy");
     document.body.removeChild(tempElement);
-    alert("Table copied to clipboard as HTML!");
-}
-
+    alert("Table copied to clipboard as HTML!");}
 var copyButton = document.createElement("button");
 copyButton.textContent = "Copy Table";
 copyButton.addEventListener("click", copyTableToClipboard);
 document.body.appendChild(copyButton);
 </script>
+
+
+<button onclick="reorderRowsByDate()">Reorder by Date</button>
+<script>
+    function reorderRowsByDate() {
+        var table = document.getElementById("videoTable");
+        var tbody = table.querySelector("#videoList");
+        var rows = Array.from(tbody.getElementsByTagName("tr"));
+        var tableData = rows.map(function(row) {
+            return Array.from(row.getElementsByTagName("td")).map(function(cell) {
+                if (cell.hasChildNodes() && cell.firstChild.nodeName === "A") {
+                    return cell.innerHTML; // Preserve link structure
+                } else {
+                    return cell.textContent;}});});
+        tableData.sort(function(a, b) {
+            var dateA = new Date(a[2]);
+            var dateB = new Date(b[2]);
+            return dateA - dateB;});
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            for (var j = 0; j < cells.length; j++) {
+                // Restore link structure if necessary
+                if (tableData[i][j].includes("<a href=")) {
+                    cells[j].innerHTML = tableData[i][j];
+                } else {
+                    cells[j].textContent = tableData[i][j];
+                }}}}
+</script>
+
+
+<!---https://stackoverflow.com/questions/15596753/how-do-i-get-video-durations-with-youtube-api-version-3--->
 
 
 _______________________________

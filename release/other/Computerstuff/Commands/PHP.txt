@@ -2,14 +2,317 @@
 PHP Backup: https://ry3yr.github.io/php.zip
 Run php server locally (android): https://apkcombo.com/de/palapa-web-server/com.alfanla.android.pws/download/apk#urusai.social/@alcea/111761622206017944#i.ibb.co/cx175BB/Screenshot-20240115-165447-Opera.png
 Install ComposerPackagesManually(Windows) https://m.youtube.com/watch?v=j8kpwzE6ju0
-https://web.archive.org/web/20231220065126/https://alcea-wisteria.de/Puppeteer.rar
+https://alcea-wisteria.de/PHP/composer-packages/
 ___________________________________________________________________________________________________________________
 _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
 *php-install
 
 
 
+Find Yugioh Card / Card Search
+----------------------
 
+<body>
+    <form method="POST" action="">
+        <input type="text" name="searchTerm" placeholder="Enter search term">
+        <input type="submit" value="Search">
+    </form>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Retrieve the search term from the form
+    $searchTerm = $_POST["searchTerm"];
+
+    // URL-encode the search term
+    $encodedSearchTerm = urlencode($searchTerm);
+
+    // API endpoint URL
+    $url = "https://yugioh.fandom.com/wiki/Special:Search?query={$encodedSearchTerm}";
+
+    // Initialize cURL
+    $ch = curl_init();
+
+    // Set cURL options
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0");
+
+    // Execute the cURL request
+    $response = curl_exec($ch);
+
+    // Close cURL
+    curl_close($ch);
+
+    // Check if the search result exists
+$existsNode = strpos($response, '<p class="mw-search-exists">');
+if ($existsNode !== false) {
+    // Search result exists, display it
+    $linkNode = strpos($response, '<a', $existsNode);
+    if ($linkNode !== false) {
+        $linkEnd = strpos($response, '>', $linkNode);
+        $linkStart = $linkEnd + 1;
+        $linkEndTag = strpos($response, '</a>', $linkStart);
+        $link = substr($response, $linkStart, $linkEndTag - $linkStart);
+        
+        // Prepend the URL
+       $prefixedLink = 'https://yugioh.fandom.com/wiki/' . $link;
+       $prefixedLink = preg_replace('/ /', '_', $prefixedLink);
+
+        echo '<a href="' . $prefixedLink . '" target="_blank">' . $prefixedLink . '</a>';
+        echo '<a href="https://alcea-wisteria.de/PHP/0demo/2023-10-08-Fetch-yugioh-wikia-set-list/fetch_single_card.php?card=' . $prefixedLink . '" target="_blank">≥</a>';
+        } else {
+            echo "Search result link not found.";
+        }
+    } else {
+        // Search result does not exist, search for links within the response
+        $pattern = '/<a\s[^>]*href=(\"??)([^\" >]*?)\\1[^>]*>(.*)<\/a>/siU';
+        if (preg_match_all($pattern, $response, $matches)) {
+            // Extract and display the links
+            foreach ($matches[2] as $link) {
+                // Filter links by the first three letters of the search term
+                if (strpos($link, substr($searchTerm, 0, 3)) !== false) {
+                    echo '<a href="' . $link . '" target="_blank">' . $link . '</a>';
+                    echo '<a href="https://alcea-wisteria.de/PHP//0demo/2023-10-08-Fetch-yugioh-wikia-set-list/fetch_single_card.php?card=' . $link . '" target="_blank">≥</a>';
+                    echo '<br>';
+                }
+            }
+        } else {
+            echo "No links found.";
+        }
+    }
+}
+?>
+
+________________
+
+
+Ygo ydk deck 2 img dldr
+-------------------------------------
+
+====fetchdeck.html===
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deck Folder Creation</title>
+</head>
+<body>
+    <h1>Deck Folder Creation</h1>
+    <input type="text" id="urlInput" placeholder="Enter URL">
+    <input type="file" id="fileInput" accept=".ydk">
+    <input type="text" id="decknameInput" placeholder="Enter Deck Name">
+    <button onclick="fetchImageLinks()">Generate Image Links</button>
+    <div id="output"></div>
+
+    <script>
+        function fetchImageLinks() {
+            var url = document.getElementById('urlInput').value;
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            var deckname = document.getElementById('decknameInput').value;
+
+            if (url && file) {
+                alert('Please provide either a URL or upload a file, not both.');
+                return;
+            }
+
+            var formData = new FormData();
+
+            if (url) {
+                formData.append('url', url);
+            } else if (file) {
+                formData.append('file', file);
+            }
+
+            formData.append('deckname', deckname);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = xhr.responseText;
+                    document.getElementById('output').innerHTML = response;
+                }
+            };
+            xhr.open('POST', 'queryydk.php', true);
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
+
+==== queryydk.php ====
+
+<?php
+error_reporting(0);
+?>
+
+<style>
+    .grid-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .grid-item {
+        flex: 0 0 20%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .grid-item img {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<?php
+$url = $_POST['url'] ?? '';
+$deckname = $_POST['deckname'] ?? '';
+$output = "";
+// Create the deck/$deckname directory if $deckname is not empty
+if (!empty($deckname)) {
+    $directoryPath = "deck/$deckname";
+    if (!is_dir($directoryPath)) {
+        mkdir($directoryPath, 0777, true);
+    }
+}
+
+if (!empty($url)) {
+    $content = file_get_contents($url);
+    if ($content !== false) {
+        $lines = explode("\n", $content);
+
+        foreach ($lines as $line) {
+            if (is_numeric($line)) {
+                $number = preg_replace('/[^0-9]/', '', $line);
+                if (!empty($deckname)) {
+                    $imageLink = "https://images.ygoprodeck.com/images/cards_small/$number.jpg";
+                    $imageData = file_get_contents($imageLink);
+                    $base64Data = base64_encode($imageData);
+                    $imageType = mime_content_type($imageLink);
+                    $encodedImage = 'data:' . $imageType . ';base64,' . $base64Data;
+                    $output .= "<div class='grid-item'><img src='" . $encodedImage . " ' width=268 height=390></div>";
+                    // Copy the image to the deck/$deckname folder
+                    $imageName = "$number.jpg";
+                    $destinationPath = "deck/$deckname/$imageName";
+                    file_put_contents($destinationPath, $imageData);
+                } else {
+                    $output .= "<a href='https://images.ygoprodeck.com/images/cards_small/$number.jpg'>$number</a><br>";
+                }
+            } elseif (strpos($line, '!side') !== false) {
+                $output .= "<br>SIDEDECK<br>";
+            } elseif (strpos($line, '#extra') !== false) {
+                $output .= "<br>EXTRADECK<br>";
+            }
+        }
+
+        if (!empty($deckname)) {
+            $output = "<div class='grid-container'>$output</div>";
+        }
+    } else {
+        $output = "Failed to retrieve content from the provided URL.";
+    }
+} elseif (!empty($_FILES['file']['tmp_name'])) {
+    $file = $_FILES['file']['tmp_name'];
+    $content = file_get_contents($file);
+    $lines = explode("\n", $content);
+
+    foreach ($lines as $line) {
+        if (is_numeric($line)) {
+            $number = preg_replace('/[^0-9]/', '', $line);
+            if (!empty($deckname)) {
+                $imageLink = "https://images.ygoprodeck.com/images/cards_small/$number.jpg";
+                $imageData = file_get_contents($imageLink);
+                $base64Data = base64_encode($imageData);
+                $imageType = mime_content_type($imageLink);
+                $encodedImage = 'data:' . $imageType . ';base64,' . $base64Data;
+                $output .= "<div class='grid-item'><img src='" . $encodedImage . "' width=268 height=390></div>";
+
+                // Copy the image to the deck/$deckname folder
+                $imageName = "$number.jpg";
+                $destinationPath = "deck/$deckname/$imageName";
+                file_put_contents($destinationPath, $imageData);
+            } else {
+                $output .= "<a href='https://images.ygoprodeck.com/images/cards_small/$number.jpg'>$number</a>";
+            }
+        } elseif (strpos($line, '!side') !== false) {
+            $output .= "";
+        } elseif (strpos($line, '#extra') !== false) {
+            $output .= "";
+        }
+    }
+
+    if (!empty($deckname)) {
+        $output = "<div class='grid-container'>$output</div>";
+    }
+}
+
+echo $output;
+?>
+
+
+__________________________________
+
+
+Fetch 10 pixiv images (from html linklist)
+------------------------------------------
+
+<?php
+$filePath = 'https://alceawis.de/pixiv-artworks-archive.html';
+$html = file_get_contents($filePath);
+if ($html === false) {
+    echo 'Failed to read the file "'.$filePath.'".';
+    exit;}
+$dom = new DOMDocument();
+libxml_use_internal_errors(true); // Suppress HTML parsing errors
+$loaded = $dom->loadHTML($html);
+if (!$loaded) {
+    echo 'Failed to parse the HTML content.';
+    exit;}
+$xpath = new DOMXPath($dom);
+$artworkLinks = $xpath->query('//a[@target="_blank"]');
+$filteredArtworkLinks = [];
+foreach ($artworkLinks as $link) {
+    $linkUrl = $link->getAttribute('href');
+    if (!strpos($link->textContent, '»') && strpos($linkUrl, 'pixivurl') === false) {
+        $filteredArtworkLinks[] = $linkUrl;}}
+if (empty($filteredArtworkLinks)) {
+    echo 'No valid artwork links found.';
+    exit;}
+$thumbnailUrls = [];
+$options = [
+'http' => [
+'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0\r\n" .
+"Referer: https://accounts.pixiv.net\r\n",
+],];
+$context = stream_context_create($options);
+for ($i = 0; $i < 10; $i++) {
+    $randomIndex = array_rand($filteredArtworkLinks);
+    $randomLink = $filteredArtworkLinks[$randomIndex];
+    $url = $randomLink;
+    $html = file_get_contents($url, false, $context);
+    if ($html === false) {
+        echo 'Failed to fetch the HTML content for the artwork: '.$url.'<br>';
+        continue;}
+    $pattern = '/"thumb":"(.*?)"/';
+    preg_match($pattern, $html, $matches);
+    if (!isset($matches[1])) {
+        echo 'Failed to extract the thumbnail URL for the artwork: '.$url.'<br>';
+        continue;}
+    $thumbnailUrl = json_decode('"'.$matches[1].'"'); // Decode the URL-encoded JSON string
+    $imageData = file_get_contents($thumbnailUrl, false, $context);
+    if ($imageData !== false) {
+        $base64 = base64_encode($imageData);
+        $imageSrc = 'data:image/jpeg;base64,' . $base64;
+        echo '<a href="' . $randomLink . '" target="_blank"><img src="' . $imageSrc . '" alt="Image" width=100px></a> ';
+    } else {
+        echo 'Failed to retrieve the image: '.$thumbnailUrl.'<br>';
+}}
+?>
+  
+  ___________________________
 
 Nicovideo Metadata Extractor:
 -----------------------------
@@ -4429,6 +4732,7 @@ _________________________
 YGO Wikia setlistfetch:
 -----------------------------------
 
+
 <div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Releases'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Releases';}" value="Releases" style="background:; border:none; color:;"><div class="spoiler" style="display: none;" >
 <!---SetList-->
 <?php
@@ -4444,55 +4748,34 @@ $fixedResult = str_replace('<a', '<a target="_blank"', $fixedResult); // Add tar
 echo $fixedResult;
 ?>
 </div><br>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Table Sorting</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<button id="sort_by_name_button">Sort by Name</button>
-<button id="sort_by_category_button">Sort by Category</button>
-    <script>
-        function sortTableRowsByName() {
-            var $tableRows = $('.table-row');
-
-            $tableRows.sort(function(a, b) {
-                var aValue = $(a).data('sort-value');
-                var bValue = $(b).data('sort-value');
-                return aValue.localeCompare(bValue);
-            });
-
-            $('.table-body').empty().append($tableRows);
-        }
-
-        function sortTableRowsByCategory() {
-            var $tableRows = $('.table-row');
-
-            $tableRows.sort(function(a, b) {
-                var aValue = $(a).data('sort-category');
-                var bValue = $(b).data('sort-category');
-                return aValue.localeCompare(bValue);
-            });
-
-            $('.table-body').empty().append($tableRows);
-        }
-
-        $(document).on('click', '#sort_by_name_button', function() {
-            sortTableRowsByName();
-        });
-
-        $(document).on('click', '#sort_by_category_button', function() {
-            sortTableRowsByCategory();
-        });
-    </script>
-</head>
-<body>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <label for="url">Enter the URL:</label>
         <input type="text" name="url" id="url" required>
         <input type="submit" value="Retrieve">
     </form>
 
-    <?php
+
+<unique>
+<button onclick="savePageAsHTML()">Save Page as HTML</button>
+<script>
+function savePageAsHTML() {
+var placeholder = document.querySelector('unique');
+placeholder.parentNode.removeChild(placeholder);
+var html = document.documentElement.outerHTML;
+var filename = 'setlist.html';
+var element = document.createElement('a');
+element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(html));
+element.setAttribute('download', filename);
+element.style.display = 'none';
+document.body.appendChild(element);
+element.click();
+document.body.removeChild(element);
+document.body.appendChild(placeholder);
+}
+</script>
+</unique>
+
+<?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $url = $_POST['url'];
 
@@ -4541,6 +4824,73 @@ echo $fixedResult;
             foreach ($tableRows as $row) {
                 echo '<div class="table-row" data-sort-value="' . $row['name'] . '" data-sort-category="' . $row['category'] . '">';
                 echo 'Name: <a href="' . $row['nameUrl'] . '" target="_blank">' . $row['name'] . '</a> | Category: ' . $row['category'];
+
+                // Perform cURL request to retrieve content from $nameUrl
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_URL, $row['nameUrl']);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3');
+                $response = curl_exec($curl);
+                if ($response === false) {
+                    die('Error: ' . curl_error($curl));
+                }
+                curl_close($curl);
+
+                $startPos = strpos($response, '<table class="cardtable cardtable-link">');
+                $endPos = strpos($response, '</tbody></table><table class="navbox hlist">');
+                if ($startPos !== false) {
+                    $content = substr($response, $startPos, $endPos - $startPos);
+                } else {
+                    $fallbackStartPos = strpos($response, '<table class="cardtable">');
+                    $fallbackEndPos = strpos($response, '</table>', $fallbackStartPos);
+
+                    if ($fallbackStartPos !== false && $fallbackEndPos !== false) {
+                        $content = substr($response, $fallbackStartPos, $fallbackEndPos - $fallbackStartPos + 8);
+                    }
+                }
+
+                if (!empty($content)) {
+                    $uniqueDivId = 'div_' . uniqid(); // Generate unique ID for each div
+                                    echo '<details><div id="' . $uniqueDivId . '"></div></details>';
+
+  $doc = new DOMDocument();
+  $doc->encoding = 'UTF-8'; // Set the character encoding
+  $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8')); // Convert the content to UTF-8
+
+        // Update links in anchor tags
+        $anchorTags = $doc->getElementsByTagName('a');
+        foreach ($anchorTags as $anchorTag) {
+            $href = $anchorTag->getAttribute('href');
+            if (!empty($href) && !filter_var($href, FILTER_VALIDATE_URL)) {
+                $href = $baseUrl . $href; // Construct absolute URL for the link
+                $anchorTag->setAttribute('href', $href);
+                $anchorTag->setAttribute('target', '_blank'); // Add "target=_blank" attribute
+            }
+        }
+
+        // Update links in image tags
+        $imageTags = $doc->getElementsByTagName('img');
+
+                foreach ($imageTags as $imageTag) {
+                    $imageUrl = $imageTag->getAttribute('src');
+                    $imageData = file_get_contents($imageUrl);
+                    if ($imageData !== false) {
+                        $base64Image = base64_encode($imageData);
+                        $imageTag->setAttribute('src', 'data:image/png;base64,' . $base64Image);
+                    }
+                }
+
+                $content = $doc->saveHTML();
+                //echo $modifiedContent;
+
+                echo '<script type="text/javascript">';
+                    echo 'document.getElementById("' . $uniqueDivId . '").innerHTML = ' . json_encode($content) . ';';
+                    echo '</script>';
+                } else {
+                    echo "Content not found.";
+                }
+
                 echo '</div>';
             }
             echo '</div>';
@@ -4551,9 +4901,8 @@ echo $fixedResult;
             echo "Table not found.";
         }
     }
-    ?>
-</body>
-</html>
+?>
+
 
 ____________________________________
 
@@ -6633,8 +6982,8 @@ Fetch Sitepart (via delimiters)
 $url = 'https://ry3yr.github.io/OSTR/Diarykeepers_Homepage/Cool_Stuff.html';
 $html = file_get_contents($url);
 
-$start = strpos($html, '<!------Tools---------->');
-$end = strpos($html, '<!-----Hobbies---->', $start);
+$start = strpos($html, '<!--Tools-->');
+$end = strpos($html, '<!--Hobbies-->', $start);
 
 $length = $end - $start;
 $result = substr($html, $start, $length);
