@@ -12,14 +12,15 @@
 <body>
 <div class="dropdown">
   <select id="dropdownMenu" onchange="changeDropdownSelection()">
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/FFMPEG%20Commands.txt">FFMPEG</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
-    <option value="https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/Autohotkey/Commands.txt">Autohotkey</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/Android-Keyevents.txt">AndroidKeyevents</option>
+    <option value="/other/Computerstuff/Commands/DOS/Commands.txt">DOS</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/FFMPEG_Commands.txt">FFMPEG</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/Commands_ImageMagick.txt">Imagemagick</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/Sox_CMDS.txt">Sox</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/HTML_Codes.txt">HTML</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/PHP.txt">PHP</option>
+    <option value="/OSTR/release/other/Computerstuff/Commands/Python.txt">Python</option>
   </select>
 </div>
 <div id="output"></div>
@@ -42,14 +43,28 @@ function copyContent(contentElement) {
 
 function changeDropdownSelection() {
   const dropdown = document.getElementById('dropdownMenu');
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const fileTextParam = urlParams.get('filetext');
+  if (fileTextParam !== null) {
+    dropdown.value = fileTextParam;
+  }
   const selectedValue = dropdown.value;
+
+
+if (fileTextParam) {
+  dropdown.disabled = true; // Disable the dropdown menu if querystring exists
+  //const reloadLink = document.createElement('a');
+  //reloadLink.innerText = 'Reload';
+  //document.body.prependChild(reloadLink);
+}
+
 
   fetch(selectedValue)
     .then((response) => response.text())
     .then((data) => {
       const container = document.getElementById('output');
       container.innerHTML = '';
-
       const lines = data.split('\n');
       const filteredLines = [];
       for (let i = 0; i < lines.length; i++) {
@@ -84,7 +99,14 @@ function changeDropdownSelection() {
         copyButton.addEventListener("click", () => copyContent(contentElement));
         contentElement.appendChild(copyButton);
 
-        container.appendChild(extractedElement);
+       //Add counter
+       const counterElement = document.createElement("span");
+       counterElement.className = "counter";
+       //counterElement.innerText = (index + 1) + ". "; //invert counting
+      counterElement.innerText = (filteredLines.length - index) + ". "; // Calculate the inverted count number
+      titleElement.prepend(counterElement);
+
+     container.appendChild(extractedElement);
       });
     })
     .catch((error) => {
@@ -92,5 +114,3 @@ function changeDropdownSelection() {
     });
 }
 </script>
-</body>
-</html>

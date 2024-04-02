@@ -17,55 +17,60 @@ Bank Saldo Fetch
 
 <script>
 function fetchValues() {
-  const inputText = document.getElementById('inputText').value;
-  const euroRegex = /-(\d+(?:,\d+)?)\s*EUR/g;
-  //const dateRegex = /^.*\b\d{1,2}\.\s.*$/gm;
-  const dateRegex = /^(?!.*Valuta).*\b\d{1,2}\.\s.*$/gm;
-  const euroMatches = Array.from(inputText.matchAll(euroRegex), match => match[1]);
-  const dateMatches = Array.from(inputText.matchAll(dateRegex), match => match[0]);
-  let result = '';
-  for (let i = 0; i < euroMatches.length; i++) {
-    result += `${euroMatches[i]}€ ${dateMatches[i].replace(/[•Valuata]/g, '')}<br>`;
-  }
-  document.getElementById('result').innerHTML = result;
+    const inputText = document.getElementById('inputText').value;
+    const euroRegex = /-(\d+(?:,\d+)?)\s*EUR/g;
+    const dateRegex = /^(?!.*Valuta).*\b\d{1,2}\.\s.*$/gm;
+    const euroMatches = Array.from(inputText.matchAll(euroRegex), match => match[1]);
+    const dateMatches = Array.from(inputText.matchAll(dateRegex), match => match[0]);
+    let result = '<table>';
+    result += '<tr><th>€</th><th>Date</th><th>Text</th></tr>';
+    for (let i = 1; i < euroMatches.length; i++) {
+        const startIndex = inputText.indexOf(euroMatches[i - 1]);
+        const endIndex = inputText.indexOf(euroMatches[i], startIndex + euroMatches[i - 1].length);
+        let textBetweenMatches = inputText.substring(startIndex + euroMatches[i - 1].length + 1, endIndex).trim();
+        const truncatedText = textBetweenMatches.substring(0, 45);
+        result += `<tr><td>${euroMatches[i]}€</td><td>${dateMatches[i] ? dateMatches[i].replace(/[•Valuata]/g, '') : ''}</td><td>${truncatedText}</td></tr>`;
+    }
+    result += '</table>';
+    document.getElementById('result').innerHTML = result;
 }
 </script>
 </head>
 <body>
 <textarea id="inputText" rows="10" cols="50" placeholder="Bank Saldo Fetch"></textarea><br>
 <button onclick="fetchValues()">Fetch Values</button><br>
-<div id="result"></div>
-
-  <script>
-    function calculateTotal() {
-      var resultDiv = document.getElementById('result');
-      var euroValues = resultDiv.innerText.split('\n')
-        .filter(function (value) {
-          return value.trim() !== '';
-        })
-        .map(function (value) {
-          return parseFloat(value.trim().split('€')[0].replace(',', '.'));
-        });
-      var totalAmount = euroValues.reduce(function (accumulator, currentValue) {
-        return accumulator + currentValue;
-      }, 0);
-      var totalDiv = document.createElement('div');
-      totalDiv.innerText = 'Total Amount: €' + totalAmount.toFixed(2);
-      document.body.appendChild(totalDiv);
-      //Exclude recurring. rent, inet etc
-      var excludedValues = [270.00, 24.99, 3.00, 49.00, 16.94, 37.79, 9.99];
-      var groceriesAmount = euroValues.filter(function (value) {
-        return !excludedValues.includes(value);
-      }).reduce(function (accumulator, currentValue) {
-        return accumulator + currentValue;
-      }, 0);
-      var groceriesDiv = document.createElement('div');
-      groceriesDiv.innerText = 'Groceries Amount: €' + groceriesAmount.toFixed(2);
-      document.body.appendChild(groceriesDiv);
-    }
-  </script>
-  <button onclick="calculateTotal()">Calculate Total</button>
-
+<div id="result"></div> <div id="output"></div>
+<button onclick="calculateTotals()">Calculate Subtotal</button>
+<script>
+function calculateTotals() {
+const divContent = document.getElementById('result').textContent;
+const lines = divContent.split('\n');
+let totalAll = 0;
+let totalNettoVMarkt = 0;
+for (let i = 0; i < lines.length; i++) {
+const line = lines[i];
+const euroValueMatch = line.match(/[0-9,]+\u20AC/);
+const vendorMatch = line.match(/Netto|V-MARKT/);
+if (euroValueMatch) {
+const euroValue = parseFloat(euroValueMatch[0]);
+totalAll += euroValue;
+}
+if (euroValueMatch && vendorMatch) {
+const euroValue = parseFloat(euroValueMatch[0]);
+totalNettoVMarkt += euroValue;
+}
+}
+console.log('Total All:', totalAll.toFixed(2) + '€');
+console.log('Total Netto + V-MARKT:', totalNettoVMarkt.toFixed(2) + '€');
+var outputElement = document.getElementById('output');
+var totalAllParagraph = document.createElement('p');
+totalAllParagraph.textContent = 'Total All: ' + totalAll.toFixed(2) + '€';
+outputElement.appendChild(totalAllParagraph);
+var totalNettoVMarktParagraph = document.createElement('p');
+totalNettoVMarktParagraph.textContent = 'Total Netto + V-MARKT: ' + totalNettoVMarkt.toFixed(2) + '€';
+outputElement.appendChild(totalNettoVMarktParagraph);
+}
+</script>
 
 ______________
 
@@ -3821,6 +3826,7 @@ ____________________________
 Display code text file with -&_ delims orderly:
 -------------------------------------------------
 
+
 <script>
   window.addEventListener("DOMContentLoaded", () => {
     const url = document.getElementById("dropdownMenu").value;
@@ -3893,6 +3899,7 @@ function changeDropdownSelection() {
       }
 
       const contentLines = data.split(/------ ---+/); //remove space to make work
+      console.log("Change data.split(/------ ---+/ to (/----");
       contentLines.shift();
 
       filteredLines.forEach((line, index) => {
@@ -3928,6 +3935,7 @@ function changeDropdownSelection() {
 
 ====CodeDisplayVer===
 PCFET0NUWVBFIGh0bWw+CjxodG1sPgo8aGVhZD4KICA8c3R5bGU+CiAgICAuZXh0cmFjdGVkLWNvbnRlbnQgewogICAgICBtYXJnaW4tYm90dG9tOiAxMHB4OwogICAgICBwYWRkaW5nOiA1cHg7CiAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNjY2M7CiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmOWY5Zjk7CiAgICB9CgogICAgLnRpdGxlIHsKICAgICAgZm9udC13ZWlnaHQ6IDcwMDsKICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2NjYzsKICAgICAgcGFkZGluZzogNXB4OwogICAgICBtYXJnaW4tYm90dG9tOiA1cHg7CiAgICAgIGN1cnNvcjogcG9pbnRlcjsKICAgIH0KCiAgICAuY29udGVudCB7CiAgICAgIGRpc3BsYXk6IG5vbmU7CiAgICAgIHBhZGRpbmc6IDVweDsKICAgIH0KCiAgICAuY29udGVudC5zaG93IHsKICAgICAgZGlzcGxheTogYmxvY2s7CiAgICB9CgogICAgLmRyb3Bkb3duIHsKICAgICAgcG9zaXRpb246IHJlbGF0aXZlOwogICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7CiAgICB9CgogICAgLmRyb3Bkb3duLWNvbnRlbnQgewogICAgICBkaXNwbGF5OiBub25lOwogICAgICBwb3NpdGlvbjogYWJzb2x1dGU7CiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmOWY5Zjk7CiAgICAgIG1pbi13aWR0aDogMTYwcHg7CiAgICAgIGJveC1zaGFkb3c6IDBweCA4cHggMTZweCAwcHggcmdiYSgwLCAwLCAwLCAwLjIpOwogICAgICB6LWluZGV4OiAxOwogICAgfQoKICAgIC5kcm9wZG93bjpob3ZlciAuZHJvcGRvd24tY29udGVudCB7CiAgICAgIGRpc3BsYXk6IGJsb2NrOwogICAgfQogIDwvc3R5bGU+CiAgPHNjcmlwdD4KICAgIGZ1bmN0aW9uIHRvZ2dsZUNvbnRlbnQoZWxlbWVudCkgewogICAgICBjb25zdCBjb250ZW50RWxlbWVudCA9IGVsZW1lbnQubmV4dEVsZW1lbnRTaWJsaW5nOwogICAgICBjb250ZW50RWxlbWVudC5jbGFzc0xpc3QudG9nZ2xlKCJzaG93Iik7CiAgICB9CgogICAgZnVuY3Rpb24gcGFyc2VDb250ZW50KGRhdGEsIHRpdGxlcykgewogICAgICBjb25zdCBwYXR0ZXJuID0gLy0tLS0tLSguKj8pX19fX18vZ3M7CiAgICAgIGNvbnN0IG1hdGNoZXMgPSBbLi4uZGF0YS5tYXRjaEFsbChwYXR0ZXJuKV07CiAgICAgIGNvbnN0IG91dHB1dENvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJvdXRwdXQiKTsKICAgICAgb3V0cHV0Q29udGFpbmVyLmlubmVySFRNTCA9ICIiOwogICAgICBmb3IgKGxldCBpID0gMDsgaSA8IG1hdGNoZXMubGVuZ3RoOyBpKyspIHsKICAgICAgICBjb25zdCBtYXRjaCA9IG1hdGNoZXNbaV07CiAgICAgICAgY29uc3QgZXh0cmFjdGVkQ29udGVudCA9IG1hdGNoWzFdLnRyaW0oKTsgLy8gVHJpbSBhbnkgbGVhZGluZy90cmFpbGluZyB3aGl0ZXNwYWNlCiAgICAgICAgY29uc3QgZXh0cmFjdGVkRWxlbWVudCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImRpdiIpOwogICAgICAgIGV4dHJhY3RlZEVsZW1lbnQuY2xhc3NOYW1lID0gImV4dHJhY3RlZC1jb250ZW50IjsKICAgICAgICBjb25zdCB0aXRsZUVsZW1lbnQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJkaXYiKTsKICAgICAgICB0aXRsZUVsZW1lbnQuY2xhc3NOYW1lID0gInRpdGxlIjsKICAgICAgICB0aXRsZUVsZW1lbnQuaW5uZXJUZXh0ID0gdGl0bGVzW2ldOwogICAgICAgIHRpdGxlRWxlbWVudC5hZGRFdmVudExpc3RlbmVyKCJjbGljayIsICgpID0+IHRvZ2dsZUNvbnRlbnQodGl0bGVFbGVtZW50KSk7CiAgICAgICAgZXh0cmFjdGVkRWxlbWVudC5hcHBlbmRDaGlsZCh0aXRsZUVsZW1lbnQpOwogICAgICAgIGNvbnN0IGNvbnRlbnRFbGVtZW50ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgiZGl2Iik7CiAgICAgICAgY29udGVudEVsZW1lbnQuY2xhc3NOYW1lID0gImNvbnRlbnQiOwogICAgICAgIGNvbnRlbnRFbGVtZW50LmlubmVyVGV4dCA9IGV4dHJhY3RlZENvbnRlbnQ7CiAgICAgICAgZXh0cmFjdGVkRWxlbWVudC5hcHBlbmRDaGlsZChjb250ZW50RWxlbWVudCk7CiAgICAgICAgb3V0cHV0Q29udGFpbmVyLmFwcGVuZENoaWxkKGV4dHJhY3RlZEVsZW1lbnQpOwogICAgICB9CiAgICB9CgogICAgYXN5bmMgZnVuY3Rpb24gZmV0Y2hBbmRQYXJzZSh1cmwpIHsKICAgICAgdHJ5IHsKICAgICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKHVybCk7CiAgICAgICAgaWYgKCFyZXNwb25zZS5vaykgewogICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJOZXR3b3JrIHJlc3BvbnNlIHdhcyBub3Qgb2siKTsKICAgICAgICB9CiAgICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLnRleHQoKTsKICAgICAgICBjb25zdCBsaW5lcyA9IGRhdGEuc3BsaXQoIlxuIik7CiAgICAgICAgY29uc3QgZmlsdGVyZWRMaW5lcyA9IFtdOwogICAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgbGluZXMubGVuZ3RoOyBpKyspIHsKICAgICAgICAgIGlmIChsaW5lc1tpXS5pbmNsdWRlcygiLS0tLS0tLS0tIikpIHsKICAgICAgICAgICAgaWYgKGkgPiAwKSB7CiAgICAgICAgICAgICAgZmlsdGVyZWRMaW5lcy5wdXNoKGxpbmVzW2kgLSAxXSk7CiAgICAgICAgICAgIH0KICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgcGFyc2VDb250ZW50KGRhdGEsIGZpbHRlcmVkTGluZXMpOwogICAgICB9IGNhdGNoIChlcnJvcikgewogICAgICAgIGNvbnNvbGUuZXJyb3IoZXJyb3IpOwogICAgICB9CiAgICB9CgogICAgZnVuY3Rpb24gY2hhbmdlRHJvcGRvd25TZWxlY3Rpb24oKSB7CiAgICAgIGNvbnN0IGRyb3Bkb3duID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImRyb3Bkb3duTWVudSIpOwogICAgICBjb25zdCBzZWxlY3RlZE9wdGlvbiA9IGRyb3Bkb3duLm9wdGlvbnNbZHJvcGRvd24uc2VsZWN0ZWRJbmRleF07CiAgICAgIGNvbnN0IHVybCA9IHNlbGVjdGVkT3B0aW9uLnZhbHVlOwogICAgICBmZXRjaEFuZFBhcnNlKHVybCk7CiAgICB9CiAgPC9zY3JpcHQ+CjwvaGVhZD4KPGJvZHk+CiAgPGRpdiBjbGFzcz0iZHJvcGRvd24iPgogICAgPHNlbGVjdCBpZD0iZHJvcGRvd25NZW51IiBvbmNoYW5nZT0iY2hhbmdlRHJvcGRvd25TZWxlY3Rpb24oKSI+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvQXV0b2hvdGtleS9Db21tYW5kcy50eHQiPkF1dG9ob3RrZXk8L29wdGlvbj4KICAgICAgPG9wdGlvbiB2YWx1ZT0ib3RoZXIvQ29tcHV0ZXJzdHVmZi9Db21tYW5kcy9ET1MvQ29tbWFuZHMudHh0Ij5ET1M8L29wdGlvbj4KICAgICAgPG9wdGlvbiB2YWx1ZT0ib3RoZXIvQ29tcHV0ZXJzdHVmZi9Db21tYW5kcy9GRk1QRUclMjBDb21tYW5kcy50eHQiPkZGTVBFRzwvb3B0aW9uPgogICAgICA8b3B0aW9uIHZhbHVlPSJvdGhlci9Db21wdXRlcnN0dWZmL0NvbW1hbmRzL0NvbW1hbmRzX0ltYWdlTWFnaWNrLnR4dCI+SW1hZ2VtYWdpY2s8L29wdGlvbj4KICAgICAgPG9wdGlvbiB2YWx1ZT0ib3RoZXIvQ29tcHV0ZXJzdHVmZi9Db21tYW5kcy9Tb3hfQ01EUy50eHQiPlNveDwvb3B0aW9uPgogICAgICA8b3B0aW9uIHZhbHVlPSJvdGhlci9Db21wdXRlcnN0dWZmL0NvbW1hbmRzL0hUTUxfQ29kZXMudHh0Ij5IVE1MPC9vcHRpb24+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvUEhQLnR4dCI+UEhQPC9vcHRpb24+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvUHl0aG9uLnR4dCI+UHl0aG9uPC9vcHRpb24+CiAgICAgIDxvcHRpb24gdmFsdWU9Im90aGVyL0NvbXB1dGVyc3R1ZmYvQ29tbWFuZHMvQW5kcm9pZC1LZXlldmVudHMudHh0Ij5BbmRyb2lkIEtleWV2ZW50czwvb3B0aW9uPgogICAgPC9zZWxlY3Q+CiAgPC9kaXY+CiAgPGRpdiBpZD0ib3V0cHV0Ij48L2Rpdj4KPC9ib2R5Pgo8L2h0bWw+
+
 
 _______________________________
 
