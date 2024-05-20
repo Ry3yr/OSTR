@@ -2,6 +2,55 @@ Py2Exe: https://github.com/pyinstaller/pyinstaller
 *python-help
 
 
+
+Youtube MP3 Playlist Downloader
+--------------------------------
+
+from pytube import Playlist
+import os
+from pydub import AudioSegment
+import re
+import tkinter as tk
+from tkinter import ttk
+def sanitize_filename(filename):
+    """
+    Removes special characters from the filename.
+    """
+    return re.sub(r'[^\w\-_\. ]', '_', filename)
+def download_playlist(playlist_url):
+    playlist = Playlist(playlist_url)
+    print(f"Downloading {len(playlist)} videos from the playlist.")
+
+    for index, video in enumerate(playlist.videos, start=1):
+        filename = f"{index:03d} - {sanitize_filename(video.title)}.mp3"
+        print(f"Downloading {filename}")
+
+        try:
+            # Download the audio stream as MP3 with 128 kbps bitrate
+            audio = video.streams.filter(only_audio=True).first()
+            audio.download(filename=filename)
+
+            # Adjust the bitrate to 192 kbps
+            audio_segment = AudioSegment.from_file(filename, format="mp3")
+            audio_segment.export(filename, format="mp3", bitrate="192k")
+        except Exception as e:
+            print(f"Error downloading {filename}: {e}")
+    print("Playlist download complete.")
+def main():
+    root = tk.Tk()
+    root.title("YouTube Playlist Downloader")
+    url_label = ttk.Label(root, text="YouTube Playlist URL:")
+    url_label.pack(pady=10)
+    url_entry = ttk.Entry(root, width=50)
+    url_entry.pack(pady=10)
+    download_button = ttk.Button(root, text="Download Playlist", command=lambda: download_playlist(url_entry.get()))
+    download_button.pack(pady=10)
+    root.mainloop()
+if __name__ == "__main__":
+    main()
+
+_________________________
+
 Poweramp adb Control
 -----------------------------
 
