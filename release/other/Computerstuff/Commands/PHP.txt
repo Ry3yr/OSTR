@@ -9,6 +9,1172 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 
 
 
+Last played Game Steam
+-------------------------
+
+<?php
+// Get the profile ID from the query string
+$profile = isset($_GET['profile']) ? $_GET['profile'] : 'alceawisteria'; // Replace 'defaultProfile' with a default value if needed
+
+// Fetch the HTML content
+$html = file_get_contents("https://steamcommunity.com/id/$profile");
+// Load the HTML into a DOMDocument
+libxml_use_internal_errors(true); // Suppress HTML parsing errors
+$dom = new DOMDocument();
+$dom->loadHTML($html);
+libxml_clear_errors(); // Clear HTML parsing errors
+
+// Initialize variables
+$gameFound = false;
+$achievementSection = null;
+
+// Find all the div elements
+$elements = $dom->getElementsByTagName('div');
+
+// Loop through the div elements and find the game and achievement sections
+foreach ($elements as $element) {
+    $classAttribute = $element->getAttribute('class');
+
+    // Check for the recent game element
+    if (!$gameFound && strpos($classAttribute, 'recent_game') !== false) {
+        // Get the game info
+        $gameInfo = $element->getElementsByTagName('div')->item(0);
+        $gameCapsule = $gameInfo->getElementsByTagName('img')->item(0)->getAttribute('src');
+        $gameTitle = $gameInfo->getElementsByTagName('a')->item(0)->nodeValue;
+        $totalPlaytime = $gameInfo->getElementsByTagName('div')->item(1)->nodeValue;
+        $lastPlayed = $gameInfo->getElementsByTagName('div')->item(2)->nodeValue;
+
+        // Get the achievement info
+        $achievementInfo = $element->getElementsByTagName('div')->item(1);
+        $achievementSummary = $achievementInfo->getElementsByTagName('span')->item(0)->nodeValue;
+        $achievementProgress = $achievementInfo->getElementsByTagName('div')->item(0)->getAttribute('style');
+
+        // Extract the relevant information
+        $achievementCount = explode(' ', $achievementSummary)[1];
+        $achievementTotal = explode('/', $achievementCount)[1];
+        $achievementProgress = str_replace('width: ', '', str_replace('%', '', $achievementProgress));
+
+        // Display the game information with the background image
+        echo "<div style='width: 300px; margin: 20px; background: url($gameCapsule) no-repeat center center; background-size: cover; padding: 20px; border-radius: 10px; color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: relative;'>";
+        
+
+        $gameFound = true; // Mark the game as found
+    }
+
+    // Check for the achievement section
+    if (strpos($classAttribute, 'game_info_achievements_only_ctn') !== false) {
+        $achievementSection = $element;
+    }
+}
+
+// If the achievement section is found, extract and display the achievement information
+if ($achievementSection) {
+    $achievementSummary = $achievementSection->getElementsByTagName('span')->item(0)->textContent;
+    $achievementProgressBar = $achievementSection->getElementsByTagName('div')->item(1);
+    $achievementProgressStyle = $achievementProgressBar->getAttribute('style');
+
+    // Parse the achievement information
+    $achievementCount = trim(explode('/', $achievementSummary)[0]);
+    $achievementTotal = trim(explode('/', $achievementSummary)[1]);
+    $achievementProgress = str_replace('width: ', '', str_replace('%', '', $achievementProgressStyle));
+
+    // Display the achievement information
+echo "<div style='background: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 10px;'>";
+        echo "<h3 style='margin-top: 10px;'>$gameTitle</h3>";
+        echo "<p>Total Playtime: $totalPlaytime</p>";
+        //echo "<p>Last Played: $lastPlayed</p>";
+        echo "<p>Achievements: $achievementCount out of $achievementTotal ($achievementProgress%)</p>";
+        echo "</div>";
+        echo "</div>";
+    //echo "<div style='width: 300px; margin: 20px; background-color: #f0f0f0; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);'>";
+    echo "<div class='game_info_achievements_summary_area'>";
+    //echo "<span class='game_info_achievement_summary'>Achievements: $achievementCount out of $achievementTotal ($achievementProgress%)</span>";
+}
+
+// If no recent game is found, display a message
+if (!$gameFound) {
+    echo "No recent games found.";
+}
+?>
+
+
+____________________
+
+
+Famitsu Top 30 Chart parser
+-------------------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Sales Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Game Sales Data</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Platform</th>
+                <th>Title</th>
+                <th>This Week</th>
+                <th>Cumulative</th>
+                <th>Sell-through</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $url = "https://www.famitsu.com/ranking/game-sales/";
+            $headers = array(
+                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/113.0",
+                "Referer: https://www.famitsu.com/"
+            );
+
+            $context = stream_context_create(array(
+                'http' => array(
+                    'method' => 'GET',
+                    'header' => implode("\r\n", $headers)
+                )
+            ));
+
+            $html = file_get_contents($url, false, $context);
+
+            if ($html === false) {
+                echo "Error: Unable to fetch the website content.";
+                return;
+            }
+
+            $dom = new DOMDocument();
+            @$dom->loadHTML($html);
+
+            $xpath = new DOMXPath($dom);
+            $elements = $xpath->query('//div[@class="card card-game-sale-rank card-game-sale-rank--col-12 card-game-sale-rank--col-sm-12 card-game-sale-rank--col-md-12 card-game-sale-rank--col-lg-8"]');
+
+            $gameData = [];
+            $labels = [];
+            $data = [];
+            $platforms = [];
+
+            $position = 1;
+            foreach ($elements as $element) {
+                $platform_elements = $xpath->query('.//span[contains(@class, "icon-console")]', $element);
+                $platform = "";
+                foreach ($platform_elements as $platform_element) {
+                    $platform_class = $platform_element->getAttribute('class');
+                    if (preg_match('/icon-console--bg-(\w+)/', $platform_class, $matches)) {
+                        $platform = $matches[1];
+                        if (!in_array($platform, $platforms)) {
+                            $platforms[] = $platform;
+                        }
+                        break;
+                    }
+                }
+
+                $title = $xpath->query('.//div[@class="card-game-sale-rank__title"]', $element)->item(0)->textContent;
+                $this_week = $xpath->query('.//p[@class="card-game-sale-rank__sales-num-past card-game-sale-rank__sales-num"]', $element)->item(0)->textContent;
+                $cumulative = $xpath->query('.//p[@class="card-game-sale-rank__sales-num-total card-game-sale-rank__sales-num"]', $element)->item(0)->textContent;
+                $price = $xpath->query('.//span[@class="card-game-sale-rank__sales-meter-num"]', $element)->item(0)->textContent;
+                $image_url = $xpath->query('.//div[@class="media-image media-image--game-platform media-image--' . $platform . ' media-image--square"]', $element)->item(0)->getAttribute('style');
+                $image_url = preg_replace('/^background-image: url\("?([^"]+)"?\);\s*$/', '$1', $image_url);
+
+                echo "<tr>";
+                echo "<td>" . $position . "</td>";
+                echo "<td>" . $platform . "</td>";
+                echo "<td>" . $title . "</td>";
+                echo "<td>" . $this_week . "</td>";
+                echo "<td>" . $cumulative . "</td>";
+                echo "<td>" . $price . "</td>";
+                echo "<td><img src='" . $image_url . "' alt='" . $title . "'></td>";
+                echo "</tr>";
+
+                $gameData[] = [
+                    'Position' => $position,
+                    'Platform' => $platform,
+                    'Title' => $title,
+                    'ThisWeek' => (int) str_replace(',', '', $this_week),
+                    'Cumulative' => (int) str_replace(',', '', $cumulative),
+                    'SellThrough' => $price,
+                    'Image' => $image_url
+                ];
+
+                $labels[] = $title;
+                $data[] = (int) str_replace(',', '', $this_week);
+
+                $position++;
+            }
+
+            $platformOptions = "";
+            foreach ($platforms as $platform) {
+                $platformOptions .= "<option value='" . $platform . "'>" . ucfirst($platform) . "</option>";
+            }
+            ?>
+        </tbody>
+    </table>
+
+    <canvas id="gameChart"></canvas>
+    <button id="downloadButton">Download Chart Data</button>
+
+    <script>
+        var ctx = document.getElementById('gameChart').getContext('2d');
+        var gameChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'This Week\'s Sales',
+                    data: <?php echo json_encode($data); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Add a platform filter dropdown
+        var platformFilter = document.createElement("div");
+        platformFilter.innerHTML = "<label for='platformSelect'>Filter by Platform:</label> <select id='platformSelect'><option value=''>All</option><?php echo $platformOptions; ?></select>";
+        document.body.appendChild(platformFilter);
+
+        // Add event listener to the platform filter dropdown
+        var platformSelect = document.getElementById("platformSelect");
+        platformSelect.addEventListener("change", function() {
+            var selectedPlatform = this.value;
+            var rows = document.querySelectorAll("table tbody tr");
+            rows.forEach(function(row) {
+                var platformCell = row.getElementsByTagName("td")[1];
+                if (selectedPlatform === "" || platformCell.textContent === selectedPlatform) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
+        // Function to download chart data as JSON
+        function downloadChartData() {
+            var gameData = <?php echo json_encode($gameData); ?>;
+            var json = JSON.stringify(gameData, null, 2);
+            var blob = new Blob([json], { type: "application/json" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            var date = new Date().toISOString().slice(0, 10); // yyyy-mm-dd format
+            a.href = url;
+            a.download = date + "-chart.json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Add event listener to the download button
+        document.getElementById("downloadButton").addEventListener("click", downloadChartData);
+    </script>
+</body>
+</html>
+
+
+_____________________
+
+
+PersonalInteraction collector
+------------------------------
+
+==chart.html==
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chart.js Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Chart.js Example</h1>
+    <canvas id="myChart" width="800" height="400"></canvas>
+    
+    <script>
+        // Names array
+        const names = [
+            "Aoi", "Ryoken", "Kusanagi", "Shima", "Homura",
+            "Akira", "Emma", "GoOnizuka", "Ai(Ignis)", "Spectre",
+            "Faust", "Baira"
+        ];
+
+        // Array to hold different colors for each dataset
+        const colors = [
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)'
+        ];
+
+        const borderColors = [
+            'rgba(75, 192, 192, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 205, 86, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 205, 86, 1)',
+            'rgba(54, 162, 235, 1)'
+        ];
+
+        // Fetch JSON data with cache-busting
+        async function fetchData() {
+            const timestamp = new Date().getTime();  // Get current timestamp for cache-busting
+            const data = await Promise.all(names.map(async (name, index) => {
+                const url = `${name}_data.json?t=${timestamp}`;  // Append timestamp as a query parameter
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Failed to fetch ${url}`);
+                    const jsonData = await response.json();
+                    // Track the first occurrence of each number1 value
+                    const seen = new Set();
+                    const filteredData = Object.keys(jsonData)
+                        .filter(key => !isNaN(key) && !seen.has(jsonData[key].number1))  // Filter out non-numeric keys and duplicates
+                        .map(key => {
+                            seen.add(jsonData[key].number1);  // Mark this number1 as seen
+                            return {
+                                x: parseFloat(jsonData[key].number1),  // Convert number1 to a number for sorting
+                                y: parseInt(jsonData[key].number2, 10),   // Convert number2 to integer
+                                name: jsonData[key].name,
+                                info: jsonData[key].info
+                            };
+                        })
+                        .sort((a, b) => a.x - b.x);  // Sort data by number1 values
+
+                    // Return a dataset with the label, filtered data, and associated colors
+                    return {
+                        label: name,  // Use name for the label
+                        data: filteredData,
+                        borderColor: borderColors[index],  // Set different border colors for each line
+                        backgroundColor: colors[index],    // Set different background colors for each line
+                        borderWidth: 2,
+                        fill: false,  // Ensure the line is not filled
+                        cubicInterpolationMode: 'monotone'  // Smooth line transitions
+                    };
+                } catch (error) {
+                    console.error(error);
+                    return null;  // Return null if an error occurs
+                }
+            }));
+
+            // Filter out null values
+            return data.filter(dataset => dataset !== null);
+        }
+
+        // Initialize the chart
+        async function initChart() {
+            const datasets = await fetchData();
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',  // Change chart type to line
+                data: {
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',  // Use linear scale for x-axis for numerical representation
+                            position: 'top',   // Position x-axis at the top
+                            title: {
+                                display: true,
+                                text: 'Number 1'
+                            },
+                            ticks: {
+                                stepSize: 1,  // Ensure consistent steps between x values
+                                callback: function(value) {
+                                    return String(value).padStart(3, '0');  // Format x values to be 3 digits
+                                }
+                            },
+                            reverse: false  // Reverse the x-axis to flip it
+                        },
+                        y: {
+                            type: 'linear',
+                            title: {
+                                display: true,
+                                text: 'Number 2'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    return `File: ${tooltipItems[0].dataset.label}`;  // Add the name of the JSON file
+                                },
+                                label: function(tooltipItem) {
+                                    return `Number 1: ${tooltipItem.raw.x}, Number 2: ${tooltipItem.raw.y}`;  // Add x and y values
+                                },
+                                footer: function(tooltipItems) {
+                                    return `Info: ${tooltipItems[0].raw.info}`;  // Add info from the JSON data
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Run the initialization
+        initChart();
+    </script>
+</body>
+</html>
+
+
+===send.php===
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedNumber = localStorage.getItem('number1');
+            if (savedNumber !== null) {
+                document.getElementById('number1').value = savedNumber;
+            }
+        });
+    </script>
+
+<?php
+// Check if the form has been submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the selected name, the two numbers, and the info field from the form
+    $selectedName = $_POST['name'];
+    $numberField1 = $_POST['number1'];
+    $numberField2 = $_POST['number2'];
+    $infoField = $_POST['info'];
+
+    // Construct the data array
+    $data = array(
+        'name' => $selectedName,
+        'number1' => $numberField1,
+        'number2' => $numberField2,
+        'info' => $infoField
+    );
+
+    // Convert the data array to JSON
+    $json = json_encode($data);
+
+    // Check if the file exists
+    $filename = $selectedName . '_data.json';
+    if (file_exists($filename)) {
+        // If the file exists, read the existing data
+        $existingData = file_get_contents($filename);
+        $existingData = json_decode($existingData, true);
+
+        // Prepend the new data to the existing data
+        array_unshift($existingData, $data);
+
+        // Convert the updated data back to JSON and write it to the file
+        $updatedData = json_encode($existingData);
+        file_put_contents($filename, $updatedData);
+    } else {
+        // If the file doesn't exist, create a new file with the data
+        file_put_contents($filename, "[$json]");
+    }
+
+    // Store the first number and the info field in the local storage
+    echo "<script>
+        localStorage.setItem('number1', '$numberField1');
+        localStorage.setItem('info', '$infoField');
+    </script>";
+
+    // Optionally, you can display a success message or redirect the user to another page
+    echo "Data saved to " . $filename;
+}
+
+// Check if the first number and info field are stored in the local storage
+$storedNumber1 = isset($_POST['number1']) ? $_POST['number1'] : (isset($_COOKIE['number1']) ? $_COOKIE['number1'] : '');
+$storedInfo = isset($_POST['info']) ? $_POST['info'] : (isset($_COOKIE['info']) ? $_COOKIE['info'] : '');
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+        function incrementNumber1() {
+            var number1Field = document.getElementById("number1");
+            var number1Value = number1Field.value;
+            
+            // Get the length of the original value to preserve the format
+            var originalLength = number1Value.length;
+            
+            // Increment the numeric value
+            var incrementedValue = (parseInt(number1Value, 10) + 1).toString();
+            
+            // Add leading zeros if necessary to maintain the original length
+            while (incrementedValue.length < originalLength) {
+                incrementedValue = '0' + incrementedValue;
+            }
+            
+            // Update the field value and localStorage
+            number1Field.value = incrementedValue;
+            localStorage.setItem('number1', incrementedValue);
+        }
+</script>
+
+</head>
+<body>
+    <h1>Name Selection</h1>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <label for="name">Select a name:</label>
+        <select name="name" id="name">
+            <option value="Aoi">Aoi</option>
+            <option value="Ryoken">Ryoken</option>
+            <option value="Kusanagi">Kusanagi</option>
+            <option value="Shima">Shima</option>
+            <option value="Homura">Homura>/option>
+            <option value="Akira">Akira</option>
+            <option value="Emma">Emma</option>
+            <option value="GoOnizuka">GoOnizuka</option>
+            <option value="Ai(Ignis)">Ai(Ignis)</option>
+            <option value="Spectre">Spectre</option>
+            <option value="Faust">Faust</option>
+            <option value="Baira">Baira</option>
+        </select>
+
+        <br><br>
+
+        <label for="number1">Number 1 (any number):</label>
+        <input type="number" name="number1" id="number1" value="<?php echo $storedNumber1; ?>" required>
+        <button type="button" onclick="incrementNumber1()">+1</button>
+
+        <br><br>
+
+        <label for="number2">Number 2 (-5 to 5):</label>
+        <input type="number" name="number2" id="number2" min="-5" max="5" required>
+
+        <br><br>
+
+        <label for="info">Info:</label>
+        <input type="text" name="info" id="info" value="<?php echo $storedInfo; ?>" required>
+
+        <br><br>
+
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+_______
+
+Fetch newest Nintendo Direct dekudeals url
+---------------------------
+
+
+<?php
+$url = "https://www.nintendo.com/nintendo-direct/";
+$response = file_get_contents($url);
+$pattern = '/https:\/\/www\.nintendo\.com\/us\/nintendo-direct\/[^"]+/';
+preg_match($pattern, $response, $matches);
+$finalLink = $matches[0];
+$final =  "https://www.dekudeals.com/featured/nintendo-direct-" . substr($finalLink, strrpos($finalLink, '/') -10);
+$date_pattern = '/[^\/]+\/(\d{2})-(\d{2})-(\d{4})\//';
+if (preg_match($date_pattern, $finalLink, $date_parts)) {
+    $month = $date_parts[1];
+    $day = $date_parts[2];
+    $year = $date_parts[3];
+    $final = "https://www.dekudeals.com/featured/nintendo-direct-$year-$month-$day";
+    echo $final;
+} else {
+    echo "Date not found in the URL.";
+}
+?>
+
+_______________
+
+
+(PHP) Basic notes app with wysiwyg capability
+-----------------------------------
+
+
+ ===load.php===
+
+
+   <h1>HTML Files in Current Directory</h1>
+    <ul>
+        <?php
+        // Get the current directory
+        $dir = '.';
+
+        // Scan the directory for files
+        $files = scandir($dir);
+
+        // Loop through the files and list the HTML files
+        foreach ($files as $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) == 'html') {
+                $file_path = "$dir/$file";
+                echo "<li><a href=\"$file\" target=\"_blank\">$file</a> <a href=\"edit.php?edit=$file_path\" target=\"_blank\">-></a></li>";
+            }
+        }
+        ?>
+    </ul>
+<!--Create--new-file-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create File</title>
+</head>
+<body>
+    <h1>Create File</h1>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <label for="filename">Filename:</label>
+        <input type="text" id="filename" name="filename" required>
+        <br>
+        <input type="submit" value="Create File">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $filename = $_POST["filename"];
+        if (!empty($filename)) {
+            $file = fopen($filename, "w");
+            fclose($file);
+            echo "File '$filename' created successfully.";
+        } else {
+            echo "Please enter a filename.";
+        }
+    }
+    ?>
+
+==save.php==
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the HTML content from the POST request
+    $htmlContent = $_POST['content'];
+
+    // Check if a file parameter is present in the query string
+    if (isset($_GET['file'])) {
+        $fileName = $_GET['file'];
+    } else {
+        $fileName = 'saved_html.html';
+    }
+
+    // Save the HTML content to the specified file
+    file_put_contents($fileName, $htmlContent);
+
+    // Return a success message
+    echo "HTML content saved to " . $fileName;
+} else {
+    // Return an error message for non-POST requests
+    echo "Invalid request method";
+}
+?>
+
+===edit.php==
+<?php
+// Check if the "edit" query parameter is present
+if (isset($_GET['edit'])) {
+    $file_path = $_GET['edit'];
+    if (file_exists($file_path)) {
+        $html_content = file_get_contents($file_path);
+        $original_timestamp = filemtime($file_path);
+        echo '<!DOCTYPE html>
+        <html>
+        <head>
+            <title>Edit HTML File</title>
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+            <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+        </head>
+        <body>
+            <h1>Edit HTML File</h1>
+            <textarea id="html-editor">' . $html_content . '</textarea>
+            <script>
+                $(document).ready(function() {
+                    $("#html-editor").summernote({
+                        height: 500,
+                        toolbar: [
+                            ["style", ["style"]],
+                            ["font", ["bold", "underline", "clear"]],
+                            ["color", ["color"]],
+                            ["para", ["ul", "ol", "paragraph"]],
+                            ["table", ["table"]],
+                            ["insert", ["link", "picture", "video"]],
+                            ["view", ["fullscreen", "codeview", "help"]]
+                        ],
+                        callbacks: {
+                            onChange: function(contents, $editable) {
+                                // Update the textarea with the current contents
+                                $("#html-editor").val(contents);
+                            }
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>';
+    } else {
+        echo '<p>File not found: ' . $file_path . '</p>';
+    }
+} else {
+    echo '<p>No file selected to edit.</p>';
+}
+?>
+<!---save--->
+<button id="save-btn">Save</button>
+<script>
+  var htmlEditor = document.getElementById("html-editor");
+  document.getElementById("save-btn").addEventListener("click", function() {
+    var htmlContent = htmlEditor.value;
+    localStorage.setItem("html-content", htmlContent);
+    sendContentToServer(htmlContent);
+  });
+
+  function sendContentToServer(content) {
+    // Get the current URL and extract the "edit" querystring
+    var url = new URL(window.location.href);
+    var editParam = url.searchParams.get("edit");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "save.php?file=" + encodeURIComponent(editParam), true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("content=" + encodeURIComponent(content));
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        // Display the server response
+        alert(xhr.responseText);
+      }
+    };
+  }
+</script>
+
+
+
+
+Canvas Guestbook
+----------------------
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guestbook Canvas</title>
+  <style>
+    .editable-text {
+      position: absolute;
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: text;
+      white-space: pre-wrap;
+      display: inline-block;
+      width: auto;
+      height: auto;
+      opacity: 0.80;
+      color: grey;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .editable-text textarea {
+      width: 100%;
+      height: auto;
+      min-height: 50px;
+      border: none;
+      background-color: transparent;
+      font-size: 16px;
+      font-family: inherit;
+      resize: none;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+
+    .editable-text .save-button {
+      margin-top: 5px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+
+  <script>
+    var currentEditableText = null;
+
+    function fetchLatestJsonData() {
+      var url = 'text_data.json?t=' + new Date().getTime();
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var container = document.getElementById('container');
+
+          data.forEach(entry => {
+            createEditableText(entry.x, entry.y, entry.text, false);
+          });
+        });
+    }
+
+    fetchLatestJsonData();
+
+    document.addEventListener('click', function(event) {
+      if (!event.target.classList.contains('save-button')) {
+        if (currentEditableText) {
+          currentEditableText.querySelector('.save-button').click();
+        }
+        createEditableText(event.clientX, event.clientY, '', true);
+      }
+    });
+
+    function createEditableText(x, y, text, isNew) {
+      var container = document.getElementById('container');
+      var div = document.createElement('div');
+      div.classList.add('editable-text');
+      div.style.left = x + 'px';
+      div.style.top = y + 'px';
+
+      // Calculate the color based on the x and y coordinates
+      var color = calculateColor(x, y);
+      div.style.backgroundColor = color;
+
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.width = '100%';
+      textarea.style.height = 'auto';
+      textarea.style.minHeight = '50px';
+
+      // Add click event listener to make links clickable
+      textarea.addEventListener('click', function(event) {
+        var linkRegex = /https?:\/\/\S+/g;
+        var links = text.match(linkRegex);
+        if (links) {
+          links.forEach(function(link) {
+            if (event.target.value.includes(link)) {
+              window.open(link, '_blank');
+            }
+          });
+        }
+      });
+
+      if (isNew) {
+        if (currentEditableText) {
+          currentEditableText.remove();
+        }
+        var saveButton = document.createElement('button');
+        saveButton.classList.add('save-button');
+        saveButton.textContent = 'Save';
+        saveButton.addEventListener('click', function() {
+          var updatedText = textarea.value.trim();
+          if (updatedText) {
+            saveText(updatedText, x, y);
+          }
+          div.remove();
+          currentEditableText = null;
+        });
+        div.appendChild(saveButton);
+        currentEditableText = div;
+      }
+
+      div.appendChild(textarea);
+      container.appendChild(div);
+      textarea.focus();
+      textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+      });
+    }
+
+    function calculateColor(x, y) {
+      // Calculate the color based on the x and y coordinates
+      var r = Math.floor(x / 10);
+      var g = Math.floor(y / 10);
+      var b = (x + y) % 256;
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+
+    function saveText(text, x, y) {
+      // Send the text and coordinates to the PHP script using AJAX
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'save_text.php', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log('Text saved successfully!');
+        }
+      };
+      xhr.send('text=' + encodeURIComponent(text) + '&x=' + x + '&y=' + y);
+    }
+  </script>
+</body>
+</html>
+
+
+====save_text.php===
+<?php
+$text = $_POST['text'];
+$x = $_POST['x'];
+$y = $_POST['y'];
+$data = array();
+
+// Check if the file has been modified in the last 15 sec
+$file_modified_time = filemtime('text_data.json');
+$current_time = time();
+$five_minutes_ago = $current_time - (5 * 3);
+
+if ($file_modified_time > $five_minutes_ago) {
+    echo "The text data file has been modified in the last 5 minutes. Exiting script.";
+    exit;
+}
+
+if (file_exists('text_data.json')) {
+    $data = json_decode(file_get_contents('text_data.json'), true);
+}
+$data[] = array(
+    'text' => $text,
+    'x' => $x,
+    'y' => $y
+);
+file_put_contents('text_data.json', json_encode($data, JSON_PRETTY_PRINT));
+echo "Text saved successfully!";
+?>
+
+
+
+
+___________
+
+
+RSS parser (+ js yt render) [Fu RSS2JSON!]
+---------------------
+
+===php===
+<?php
+// Get the RSS URL from the query string
+$rss_url = isset($_GET['rss_url']) ? $_GET['rss_url'] : '';
+if (!empty($rss_url)) {
+    $rss_feed = file_get_contents($rss_url);
+    $rss = new SimpleXMLElement($rss_feed);
+    $rss_array = json_decode(json_encode($rss), true);
+    header('Content-Type: application/json');
+    echo json_encode($rss_array);
+} else {
+    echo "No RSS URL provided.";
+}
+?>
+
+
+====YT test rss parse=(supports querystring fir chid)==
+  <title>YouTube RSS Feed</title>
+</head>
+<body>
+  <h1>YouTube RSS Feed</h1>
+  <div id="feed-container"></div>
+  <script>
+    function fetchYouTubeRSS() {
+      const phpScriptUrl = '/PHP/0demo/2024-06-16-ParseFeed/2024-06-16-rssparse/parse_rss2json.php';
+      const queryParams = new URLSearchParams(window.location.search);
+      const channelId = queryParams.get('channelid') || 'UCmIpOnd5BVx5Si2hp0WNKZw';
+      const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+
+      fetch(`${phpScriptUrl}?rss_url=${encodeURIComponent(rssUrl)}`)
+        .then(response => response.json())
+        .then(data => {
+          const entries = data.entry;
+          const feedContainer = document.getElementById('feed-container');
+          for (let i = 0; i < entries.length; i++) {
+            const entry = entries[i];
+            const title = entry.title;
+            const videoLink = entry['link']['@attributes'].href;
+            const entryDiv = document.createElement('div');
+            entryDiv.classList.add('feed-entry');
+            const videoLinkElement = document.createElement('a');
+            videoLinkElement.href = videoLink;
+            videoLinkElement.textContent = title;
+            videoLinkElement.target = '_blank';
+            entryDiv.appendChild(videoLinkElement);
+            feedContainer.appendChild(entryDiv);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching YouTube RSS feed:', error);
+        });
+    }
+    fetchYouTubeRSS();
+  </script>
+  <style>
+    .feed-entry {
+      margin-bottom: 10px;
+    }
+  </style>
+</body>
+</html>
+
+
+BlueskyTL Render
+---------------------------
+
+<a href="https://alcea-wisteria.de/PHP//0demo/00-PHP-Test/current.php?bskyurl=https://bsky.app/profile/did:plc:aa23o5w4w2afknay44oqxqz6/rss" style=color:blue>test</a><br>
+
+<?php
+$bskyUrl = isset($_GET['bskyurl']) ? $_GET['bskyurl'] : 'https://bsky.app/profile/did:plc:nc45m3kcywjhyr4tgsbmea64/rss';
+
+// Fetch the RSS feed
+$feed = file_get_contents($bskyUrl);
+$doc = new DOMDocument();
+$doc->loadXML($feed);
+$items = $doc->getElementsByTagName('item');
+foreach ($items as $item) {
+    $link = $item->getElementsByTagName('link')->item(0);
+    $linkUrl = $link->textContent;
+    $lastSlashPos = strrpos($linkUrl, '/');
+    $postId = substr($linkUrl, $lastSlashPos + 1);
+
+    $guid = $item->getElementsByTagName('guid')->item(0);
+    if ($guid->getAttribute('isPermaLink') === 'false') {
+        $guidValue = $guid->textContent;
+        $startPos = strpos($guidValue, 'plc:') + 4;
+        $endPos = strpos($guidValue, '/app.bsky');
+        $guidPart = substr($guidValue, $startPos, $endPos - $startPos);
+        $didPrefix = 'did:plc:';
+    }
+
+    echo "<blockquote class=\"bluesky-embed\" data-bluesky-uri=\"at://$didPrefix$guidPart/app.bsky.feed.post/$postId\" data-bluesky-cid=\"\"></blockquote>";
+    echo "<script async src=\"https://embed.bsky.app/static/embed.js\" charset=\"utf-8\"></script>";
+}
+
+?>
+________________
+
+
+Fetch 5 links and metadata for pixiv account
+-----------------------------------------
+
+<?php
+function getPixivUserArt($userId, $random) {
+    $apiUrl = "https://www.pixiv.net/ajax/user/{$userId}/profile/all?useid={$userId}";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $data = json_decode($response, true);
+    if (isset($data['body']['illusts'])) {
+        $artworks = $data['body']['illusts'];
+        $numLinks = 0; // Variable to keep track of the number of links
+        $pixivLinks = [];
+        if ($random) {
+            // Get a random artwork
+            $randomArtId = array_rand($artworks);
+            $randomArt = $artworks[$randomArtId];
+            $artLink = "https://www.pixiv.net/artworks/{$randomArtId}";
+            $pixivLinks[] = $artLink;
+            echo "<a target=_blank href=\"{$artLink}\"> </a><br>\n";
+            $numLinks++; // Increment the link counter
+            if ($numLinks >= 4) {
+                return $pixivLinks; // Return the links to be processed
+            }
+        } else {
+            foreach ($artworks as $artId => $art) {
+                $artLink = "https://www.pixiv.net/artworks/{$artId}";
+                $pixivLinks[] = $artLink;
+                echo "<a target=_blank href=\"{$artLink}\"> </a> <a target=_blank href=\"https://alcea-wisteria.de/PHP/0demo/2024-03-14-PixivTools/2023-03-14-pixiv-single-img-fetch/pixv-single-img-fetch.php?pixivurl={$artLink}\" id=dld> </a><div class=\"counts\"></div>\n";
+                $numLinks++; // Increment the link counter
+                if ($numLinks >= 4) {
+                    return $pixivLinks; // Return the links to be processed
+                }
+            }
+        }
+    } else {
+        echo "No artworks found for the given user.";
+    }
+    return []; // Return an empty array if no links were found
+}
+
+function getPageTitle($html) {
+    $titleStart = stripos($html, '<title>');
+    $titleEnd = stripos($html, '</title>');
+    if ($titleStart !== false && $titleEnd !== false) {
+        $titleLength = $titleEnd - $titleStart - 7;
+        return substr($html, $titleStart + 7, $titleLength);
+    }
+    return '';
+}
+
+function processPixivLinks($pixivLinks) {
+    echo "<br>";
+    foreach ($pixivLinks as $index => $link) {
+        $html = file_get_contents($link);
+        $title = getPageTitle($html);
+        $bookmarkStart = strpos($html, '"bookmarkCount":');
+        if ($bookmarkStart !== false) {
+            $bookmarkEnd = strpos($html, ',', $bookmarkStart);
+            if ($bookmarkEnd !== false) {
+                $bookmarkCount = substr($html, $bookmarkStart + 16, $bookmarkEnd - $bookmarkStart - 16);
+            }
+        }
+        $likeStart = strpos($html, '"likeCount":');
+        if ($likeStart !== false) {
+            $likeEnd = strpos($html, ',', $likeStart);
+            if ($likeEnd !== false) {
+                $likeCount = substr($html, $likeStart + 12, $likeEnd - $likeStart - 12);
+            }
+        }
+        $commentStart = strpos($html, '"commentCount":');
+        if ($commentStart !== false) {
+            $commentEnd = strpos($html, ',', $commentStart);
+            if ($commentEnd !== false) {
+                $commentCount = substr($html, $commentStart + 15, $commentEnd - $commentStart - 15);
+            }
+        }
+        $counts = "Bookmark Count: {$bookmarkCount}, Like Count: {$likeCount}, Comment Count: {$commentCount}";
+        echo "<div><a target='_blank' href='{$link}'>{$title}</a> <a target='_blank' href='https://alcea-wisteria.de/PHP/0demo/2024-03-14-PixivTools/2023-03-14-pixiv-single-img-fetch/pixv-single-img-fetch.php?pixivurl={$link}' id='dld'>»</a><div class='counts'>{$counts}</div></div>\n";
+    }
+    echo "<script>document.getElementById('linkCount').innerHTML = 'Number of artworks: " . count($pixivLinks) . "';</script>";
+}
+
+$userId = isset($_GET['userId']) ? $_GET['userId'] : '75406576';
+$random = isset($_GET['random']);
+$pixivLinks = getPixivUserArt($userId, $random);
+processPixivLinks($pixivLinks);
+?>
+
+
+PD9waHAKZnVuY3Rpb24gZ2V0UGl4aXZVc2VyQXJ0KCR1c2VySWQsICRyYW5kb20pIHsKJGFwaVVybCA9ICJodHRwczovL3d3dy5waXhpdi5uZXQvYWpheC91c2VyL3skdXNlcklkfS9wcm9maWxlL2FsbD91c2VpZD17JHVzZXJJZH0iOwokY2ggPSBjdXJsX2luaXQoKTsKY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1VSTCwgJGFwaVVybCk7CmN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9SRVRVUk5UUkFOU0ZFUiwgdHJ1ZSk7CmN1cmxfc2V0b3B0KCRjaCwgQ1VSTE9QVF9IRUFERVIsIGZhbHNlKTsKY3VybF9zZXRvcHQoJGNoLCBDVVJMT1BUX1NTTF9WRVJJRllQRUVSLCBmYWxzZSk7CiRyZXNwb25zZSA9IGN1cmxfZXhlYygkY2gpOwpjdXJsX2Nsb3NlKCRjaCk7CiRkYXRhID0ganNvbl9kZWNvZGUoJHJlc3BvbnNlLCB0cnVlKTsKaWYgKGlzc2V0KCRkYXRhWydib2R5J11bJ2lsbHVzdHMnXSkpIHsKJGFydHdvcmtzID0gJGRhdGFbJ2JvZHknXVsnaWxsdXN0cyddOwokbnVtTGlua3MgPSAwOyAvLyBWYXJpYWJsZSB0byBrZWVwIHRyYWNrIG9mIHRoZSBudW1iZXIgb2YgbGlua3MKJHBpeGl2TGlua3MgPSBbXTsKaWYgKCRyYW5kb20pIHsKLy8gR2V0IGEgcmFuZG9tIGFydHdvcmsKJHJhbmRvbUFydElkID0gYXJyYXlfcmFuZCgkYXJ0d29ya3MpOwokcmFuZG9tQXJ0ID0gJGFydHdvcmtzWyRyYW5kb21BcnRJZF07CiRhcnRMaW5rID0gImh0dHBzOi8vd3d3LnBpeGl2Lm5ldC9hcnR3b3Jrcy97JHJhbmRvbUFydElkfSI7CiRwaXhpdkxpbmtzW10gPSAkYXJ0TGluazsKZWNobyAiPGEgdGFyZ2V0PV9ibGFuayBocmVmPVwieyRhcnRMaW5rfVwiPnskYXJ0TGlua308L2E+PGJyPlxuIjsKJG51bUxpbmtzKys7IC8vIEluY3JlbWVudCB0aGUgbGluayBjb3VudGVyCmlmICgkbnVtTGlua3MgPj0gNCkgewpyZXR1cm4gJHBpeGl2TGlua3M7IC8vIFJldHVybiB0aGUgbGlua3MgdG8gYmUgcHJvY2Vzc2VkCn0KfSBlbHNlIHsKZm9yZWFjaCAoJGFydHdvcmtzIGFzICRhcnRJZCA9PiAkYXJ0KSB7CiRhcnRMaW5rID0gImh0dHBzOi8vd3d3LnBpeGl2Lm5ldC9hcnR3b3Jrcy97JGFydElkfSI7CiRwaXhpdkxpbmtzW10gPSAkYXJ0TGluazsKZWNobyAiPGEgdGFyZ2V0PV9ibGFuayBocmVmPVwieyRhcnRMaW5rfVwiPnskYXJ0TGlua308L2E+IDxhIHRhcmdldD1fYmxhbmsgaHJlZj1cImh0dHBzOi8vYWxjZWEtd2lzdGVyaWEuZGUvUEhQLzBkZW1vLzIwMjQtMDMtMTQtUGl4aXZUb29scy8yMDIzLTAzLTE0LXBpeGl2LXNpbmdsZS1pbWctZmV0Y2gvcGl4di1zaW5nbGUtaW1nLWZldGNoLnBocD9waXhpdnVybD17JGFydExpbmt9XCIgaWQ9ZGxkPsK7PC9hPjxkaXYgY2xhc3M9XCJjb3VudHNcIj48L2Rpdj5cbiI7CiRudW1MaW5rcysrOyAvLyBJbmNyZW1lbnQgdGhlIGxpbmsgY291bnRlcgppZiAoJG51bUxpbmtzID49IDQpIHsKcmV0dXJuICRwaXhpdkxpbmtzOyAvLyBSZXR1cm4gdGhlIGxpbmtzIHRvIGJlIHByb2Nlc3NlZAp9Cn0KfQp9IGVsc2UgewplY2hvICJObyBhcnR3b3JrcyBmb3VuZCBmb3IgdGhlIGdpdmVuIHVzZXIuIjsKfQpyZXR1cm4gW107IC8vIFJldHVybiBhbiBlbXB0eSBhcnJheSBpZiBubyBsaW5rcyB3ZXJlIGZvdW5kCn0KCmZ1bmN0aW9uIHByb2Nlc3NQaXhpdkxpbmtzKCRwaXhpdkxpbmtzKSB7CmVjaG8gIjxicj4iOwpmb3JlYWNoICgkcGl4aXZMaW5rcyBhcyAkaW5kZXggPT4gJGxpbmspIHsKJGh0bWwgPSBmaWxlX2dldF9jb250ZW50cygkbGluayk7CiRib29rbWFya1N0YXJ0ID0gc3RycG9zKCRodG1sLCAnImJvb2ttYXJrQ291bnQiOicpOwppZiAoJGJvb2ttYXJrU3RhcnQgIT09IGZhbHNlKSB7CiRib29rbWFya0VuZCA9IHN0cnBvcygkaHRtbCwgJywnLCAkYm9va21hcmtTdGFydCk7CmlmICgkYm9va21hcmtFbmQgIT09IGZhbHNlKSB7CiRib29rbWFya0NvdW50ID0gc3Vic3RyKCRodG1sLCAkYm9va21hcmtTdGFydCArIDE2LCAkYm9va21hcmtFbmQgLSAkYm9va21hcmtTdGFydCAtIDE2KTsKfQp9CiRsaWtlU3RhcnQgPSBzdHJwb3MoJGh0bWwsICcibGlrZUNvdW50IjonKTsKaWYgKCRsaWtlU3RhcnQgIT09IGZhbHNlKSB7CiRsaWtlRW5kID0gc3RycG9zKCRodG1sLCAnLCcsICRsaWtlU3RhcnQpOwppZiAoJGxpa2VFbmQgIT09IGZhbHNlKSB7CiRsaWtlQ291bnQgPSBzdWJzdHIoJGh0bWwsICRsaWtlU3RhcnQgKyAxMiwgJGxpa2VFbmQgLSAkbGlrZVN0YXJ0IC0gMTIpOwp9Cn0KJGNvbW1lbnRTdGFydCA9IHN0cnBvcygkaHRtbCwgJyJjb21tZW50Q291bnQiOicpOwppZiAoJGNvbW1lbnRTdGFydCAhPT0gZmFsc2UpIHsKJGNvbW1lbnRFbmQgPSBzdHJwb3MoJGh0bWwsICcsJywgJGNvbW1lbnRTdGFydCk7CmlmICgkY29tbWVudEVuZCAhPT0gZmFsc2UpIHsKJGNvbW1lbnRDb3VudCA9IHN1YnN0cigkaHRtbCwgJGNvbW1lbnRTdGFydCArIDE1LCAkY29tbWVudEVuZCAtICRjb21tZW50U3RhcnQgLSAxNSk7Cn0KfQokY291bnRzID0gIkJvb2ttYXJrIENvdW50OiB7JGJvb2ttYXJrQ291bnR9LCBMaWtlIENvdW50OiB7JGxpa2VDb3VudH0sIENvbW1lbnQgQ291bnQ6IHskY29tbWVudENvdW50fSI7CmVjaG8gIjxkaXY+PGEgdGFyZ2V0PSdfYmxhbmsnIGhyZWY9J3skbGlua30nPnskbGlua308L2E+IDxhIHRhcmdldD0nX2JsYW5rJyBocmVmPSdodHRwczovL2FsY2VhLXdpc3RlcmlhLmRlL1BIUC8wZGVtby8yMDI0LTAzLTE0LVBpeGl2VG9vbHMvMjAyMy0wMy0xNC1waXhpdi1zaW5nbGUtaW1nLWZldGNoL3BpeHYtc2luZ2xlLWltZy1mZXRjaC5waHA/cGl4aXZ1cmw9eyRsaW5rfScgaWQ9J2RsZCc+wrs8L2E+PGRpdiBjbGFzcz0nY291bnRzJz57JGNvdW50c308L2Rpdj48L2Rpdj5cbiI7Cn0KZWNobyAiPHNjcmlwdD5kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbGlua0NvdW50JykuaW5uZXJIVE1MID0gJ051bWJlciBvZiBhcnR3b3JrczogIiAuIGNvdW50KCRwaXhpdkxpbmtzKSAuICInOzwvc2NyaXB0PiI7Cn0KJHVzZXJJZCA9IGlzc2V0KCRfR0VUWyd1c2VySWQnXSkgPyAkX0dFVFsndXNlcklkJ10gOiAnNzU0MDY1NzYnOwokcmFuZG9tID0gaXNzZXQoJF9HRVRbJ3JhbmRvbSddKTsKJHBpeGl2TGlua3MgPSBnZXRQaXhpdlVzZXJBcnQoJHVzZXJJZCwgJHJhbmRvbSk7CnByb2Nlc3NQaXhpdkxpbmtzKCRwaXhpdkxpbmtzKTsKPz4KCg==
+
+
+
+________________
+
 
 Apex Legends Pickrate:
 --------------------
@@ -2538,7 +3704,8 @@ echo '<iframe src="' . $iframeSrc . '" style="border:0px #ffffff none;" name="st
     return urlParams.get(param)}
   const user = getQueryParam('user');
   if (user) {
-    const jsonFile = `/other/extra/scripts/fakesocialmedia/data_${user}.json`;
+    //const jsonFile = `/other/extra/scripts/fakesocialmedia/data_${user}.json`;
+    const jsonFile = `/other/extra/scripts/fakesocialmedia/data_${user}.json?t=${Date.now()}`;
     fetch(jsonFile)
       .then(response => response.json())
       .then(jsonData => {
@@ -2578,6 +3745,31 @@ echo '<iframe src="' . $iframeSrc . '" style="border:0px #ffffff none;" name="st
           postElement.appendChild(dateElement);
           postElement.appendChild(valueElement);
           postElement.appendChild(hashtagsElement);
+
+        // Comment href
+          const buttonElement = document.createElement('button');
+buttonElement.classList.add('btn');
+const buttonText = value.slice(0, 25) || 'btn'; // Use 'btn' if value is empty or less than 25 characters
+buttonElement.textContent = 'Comment';
+// buttonElement.href = `/other/extra/scripts/fakesocialmedia/comment.php?text=${encodeURIComponent(buttonText)}`; // Commented out the href
+buttonElement.addEventListener('click', () => {
+  // Add click event handler to button
+  window.open(`/other/extra/scripts/fakesocialmedia/comment.php?text=${encodeURIComponent(buttonText)}`, '_blank');
+});
+postElement.appendChild(buttonElement);
+
+
+
+          // Comment href2
+          const buttonElement2 = document.createElement('a');
+          buttonElement2.classList.add('btn2');
+          const buttonText2 = value.slice(0, 25) || 'btn'; // Use 'btn' if value is empty or less than 25 characters
+          buttonElement2.textContent = '(load comments)';
+          buttonElement2.href = `/other/extra/scripts/fakesocialmedia/commentload.html?text=${encodeURIComponent(buttonText2)}`;
+          buttonElement2.target = "_blank"; // Open the link in a new tab
+          postElement.appendChild(buttonElement2);
+
+
           if (value.includes('youtube.com') && !value.includes('youtube.com/shorts')) {
             const videoEmbed = document.createElement('iframe');
             videoEmbed.src = `https://super8.absturztau.be/embed/${getVideoId(value)}`;videoEmbed.width = '560';videoEmbed.height = '315';videoEmbed.frameborder = '0';videoEmbed.allowfullscreen = 'true';videoEmbed.setAttribute('allowfullscreen', '');postElement.appendChild(videoEmbed);}
@@ -2659,6 +3851,184 @@ const urlParams = new URLSearchParams(window.location.search);
 
 
 (Src: https://codeberg.org/alceawisteria/Fake-Social-MediaWriter )
+
+
+===comment.php==
+
+<?php
+if (file_exists('comments.json')) {
+    $existingData = json_decode(file_get_contents('comments.json'), true);
+} else {
+    $existingData = array();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $text = $_GET['text'];
+    $value = $_POST['value'];
+    array_unshift($existingData, array(
+        'text' => $text,
+        'value' => $value
+    ));
+    $jsonData = json_encode($existingData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    file_put_contents('comments.json', $jsonData);
+}
+?>
+    <h2>Add a Comment</h2>
+    <form method="post">
+        <label for="text">Target:</label>
+        <input type="text" id="text" name="text" value="<?php echo $_GET['text']; ?>">
+        <br>
+        <label for="value">Value:</label>
+        <textarea id="value" name="value" cols="25" rows="15"></textarea>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <!---<script>
+        document.getElementById('textDisplay').textContent = '<?php echo $_GET['text']; ?>';
+    </script>-->
+
+
+
+
+
+====commentload.html====
+
+
+  <h1>Source Post: <span id="sourcepost"></span></h1>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .post {
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .date {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .hashtags {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .tag {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fake Social Media</h1>
+    <div id="results"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/other/extra/scripts/fakesocialmedia/data_alcea.json')
+        .then(response => response.json())
+        .then(data => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const queryText = urlParams.get('text');
+          const matches = data.slice(0, 15).filter(entry => {
+            const date = Object.keys(entry)[0];
+            return entry[date].value.includes(queryText);
+          });
+          const resultsContainer = document.getElementById('results');
+          if (resultsContainer) {
+            matches.forEach(match => {
+              const date = Object.keys(match)[0];
+              const postContent = match[date].value;
+              const hashtags = match[date].hashtags.split(', ');
+              const postElement = document.createElement('div');
+              postElement.classList.add('post');
+              const dateElement = document.createElement('p');
+              dateElement.classList.add('date');
+              dateElement.textContent = date;
+
+              const contentElement = document.createElement('p');
+              contentElement.classList.add('content');
+              contentElement.textContent = postContent;
+
+              const hashtagsElement = document.createElement('div');
+              hashtagsElement.classList.add('hashtags');
+              hashtags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.classList.add('tag');
+                tagElement.textContent = `#${tag}`;
+                hashtagsElement.appendChild(tagElement);
+              });
+              postElement.appendChild(dateElement);
+              postElement.appendChild(contentElement);
+              postElement.appendChild(hashtagsElement);
+              resultsContainer.appendChild(postElement);
+            });
+          } else {
+            console.error('Error: Results container not found.');
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    });
+  </script>
+
+
+
+
+  <h2>Comments</h2>
+  <div id="comments"></div>
+
+  <script>
+    function fetchAndDisplayComments() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const text = urlParams.get('text');
+      const sourcepost = urlParams.get('sourcepost');
+      const jsonUrl = '/other/extra/scripts/fakesocialmedia/comments.json?v=' + Date.now();
+      fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+          const matchingComments = data.filter(comment => comment.text.includes(text));
+
+          const sourcepostElement = document.getElementById('sourcepost');
+
+
+          const commentsDiv = document.getElementById('comments');
+          matchingComments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.textContent = comment.value;
+            commentsDiv.appendChild(commentElement);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching comments:', error);
+        });
+    }
+    window.onload = fetchAndDisplayComments;
+  </script>
+</body>
+</html>
+
 
 ______________________
 

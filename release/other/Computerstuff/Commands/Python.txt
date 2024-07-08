@@ -565,6 +565,45 @@ root.mainloop()
 ===PythonHelp=================
 
 
+Set virtual environment (for scot free usage of special programs)
+-----------------------------------------------------------------
+
+pip install virtualenv
+
+virtualenv openmmd-env
+openmmd-env\Scripts\activate
+
+
+
+_____________________________________________________________
+
+
+
+Stop Win 11 from auto opening store on cmd "python"
+--------------------------------------------------
+
+To prevent Windows from redirecting python to the Microsoft Store, disable the App Execution Alias for Python.
+
+Open Settings:
+
+Press Win + I to open Settings.
+Go to Apps > Apps & features.
+Manage App Execution Aliases:
+
+Scroll down and click on Manage app execution aliases.
+Find the Python entry in the list and toggle it off.
+
+_______________________________________________________
+
+Set python36 as path:
+---------------------
+
+
+setx PATH "%PATH%;C:\Users\User\AppData\Local\Programs\Python\Python36;C:\Users\User\AppData\Local\Programs\Python\Python36\Scripts"
+
+
+_____________________________________
+
 
 Start .py without visible cmd (save as *.vbs)
 -----------------------------------------------

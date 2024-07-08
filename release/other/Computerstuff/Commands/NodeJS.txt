@@ -1,0 +1,14 @@
+install NodeJS - https://nodejs.org/en - https://nodejs.org/dist/v20.15.0/node-v20.15.0-x64.msi
+
+
+
+
+Run local https server
+----------------------
+# Install http-server if you haven't already
+npm install -g http-server
+
+# Run http-server in the directory containing your files
+http-server
+
+______________________
