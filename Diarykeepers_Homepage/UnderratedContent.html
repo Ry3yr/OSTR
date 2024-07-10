@@ -555,7 +555,7 @@ ________________________________________________________________________________
 <a target="_blank" href="https://www.youtube.com/watch?v=Sjnl3msKCJA" style=color:blue>ArtICKS</a></div>
 ______________________________________________________________________________________________
 <div><a href="https://m.youtube.com/@drawingwiffwaffles"><img alt="Channel Image" src="https://yt3.ggpht.com/ytc/AIdro_lc8SDZYZ3JXowk8XSvgzbe_XeVxosk0NzxZJN4F34qR2s=s48-c-k-c0x00ffffff-no-rj" height="50" width="50"></a><span>DrawingWiffWaffles</span><br>
-<button type="button" onclick="document.getElementById('channel-id').value='UUBARESDB1dvUXUHZwIVHUdw'">[LATEST]</button><a href="https://m.youtube.com/watch?v=iAs9RRTD2fI"><span>Pinterest draw</span></a></div>
+<button type="button" onclick="document.getElementById('channel-id').value='UCBARESDB1dvUXUHZwIVHUdw'">[LATEST]</button><a href="https://m.youtube.com/watch?v=iAs9RRTD2fI"><span>Pinterest draw</span></a></div>
 ______________________________________________________________________________________________<br>
 
 <br>
@@ -967,7 +967,7 @@ ________________________________________________________________________________
 <br>
 <a href="https://m.youtube.com/channel/UCOzGS4DfWiH1Xtjq0fU3E3g"><img
 src="https://yt3.ggpht.com/ytc/AKedOLTQpLRm1aHLUGrz8mh5jL2akF9E292Ik7ZFEI9IhA=s48-c-k-c0x00ffffff-no-rj"alt="Image" height="50" width="50"></a> Schattenspieler <a href="">Webpage</a><br>
-<a href="https://m.youtube.com/playlist?list=PLXFk91EUgjYcK1WNnwBvwVu2P5mJfi4KT">Warum ?</a> •<a target="_blank" href="https://m.youtube.com/watch?v=7o4PFz-izYE">So bastelt Man(n)</a> •<a target="_blank" href="https://m.youtube.com/watch?v=cRn1wcZLNw8">Old School YGO</a>'
+<button type="button" onclick="document.getElementById('channel-id').value='UCOzGS4DfWiH1Xtjq0fU3E3g'">[LATEST]</button><a href="https://m.youtube.com/playlist?list=PLXFk91EUgjYcK1WNnwBvwVu2P5mJfi4KT">Warum ?</a> •<a target="_blank" href="https://m.youtube.com/watch?v=7o4PFz-izYE">So bastelt Man(n)</a> •<a target="_blank" href="https://m.youtube.com/watch?v=cRn1wcZLNw8">Old School YGO</a>'
 <br>
 ______________________________________________________________________________________________
 <br>
@@ -984,7 +984,7 @@ ________________________________________________________________________________
 
 
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
   <style>
     .float-above {
       position: fixed;
@@ -1021,45 +1021,61 @@ ________________________________________________________________________________
 </head>
 <body>
   <div class="float-above">
-    <label for="channel-id">Enter channel ID:</label>
-    <input type="text" id="channel-id" value="UCtdZ47jhJK7ME0udUc4PP-Q">
-    <!---<button id="update-video">Update Video</button>--->
-  </div>
-  <div id="latest-video"></div>
- 
+<label for="channel-id">Enter channel ID:</label>
+<input type="text" id="channel-id" value="UCtdZ47jhJK7ME0udUc4PP-Q">
+<!---<button id="update-video">Update Video</button>--->
+</div>
+<div id="latest-video"></div>
+
 <script>
-  $(function() {
-    var $content = $('#latest-video');
-    var channelID = $('#channel-id').val();
+  document.addEventListener('DOMContentLoaded', function() {
+    var content = document.getElementById('latest-video');
+    var channelID = document.getElementById('channel-id').value;
     var feedURL = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
     var prevValue = channelID;
+    
     function updateVideo() {
-      channelID = $('#channel-id').val();
+      channelID = document.getElementById('channel-id').value;
       feedURL = `https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
       var output = '<div class="latest-video">';
       output += `<iframe width="560" height="315" src="https://alcea-wisteria.de/PHP/0demo/2024-06-16-ParseFeed/2024-06-16-rssparse/yttest.html?channelid=${channelID}" frameborder="0" allowfullscreen></iframe>`;
       output += '</div>';
-      $content.html(output).hide();
-      $content.fadeIn('slow');
+      content.innerHTML = output;
+      content.style.display = 'none';
+      setTimeout(() => {
+        content.style.display = 'block';
+        content.style.opacity = 0;
+        var fadeEffect = setInterval(function () {
+          if (!content.style.opacity) {
+            content.style.opacity = 1;
+          }
+          if (content.style.opacity < 1) {
+            content.style.opacity += 0.8;
+          } else {
+            clearInterval(fadeEffect);
+          }
+        }, 50);
+      }, 10);
     }
-    $('#update-video').click(function() {
-      updateVideo();
-    });
-    $('#channel-id').on('input', function() {
-      if ($('#channel-id').val() !== prevValue) {
+    
+    document.getElementById('channel-id').addEventListener('input', function() {
+      if (document.getElementById('channel-id').value !== prevValue) {
         updateVideo();
-        prevValue = $('#channel-id').val(); // update previous value
+        prevValue = document.getElementById('channel-id').value;
       }
     });
-    $(window).scroll(function() {
-      if ($('#channel-id').val() !== prevValue) {
+    
+    window.addEventListener('scroll', function() {
+      if (document.getElementById('channel-id').value !== prevValue) {
         updateVideo();
-        prevValue = $('#channel-id').val(); // update previous value
+        prevValue = document.getElementById('channel-id').value;
       }
     });
+    
     updateVideo(); // Call the updateVideo function initially
   });
 </script>
+
 
 <!----SRC For Parser----->
 <details id="src4rssresolver" style="position: absolute; top: 0; right: 0;"><summary>Src4RSSResolver</summary><plaintext>
