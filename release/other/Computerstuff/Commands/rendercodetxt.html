@@ -1,3 +1,4 @@
+<button id="copyAllTitles" class="copy-all-button">Copy All Titles</button>
 <script>
   window.addEventListener("DOMContentLoaded", () => {
     const url = document.getElementById("dropdownMenu").value;
@@ -115,3 +116,23 @@ if (fileTextParam) {
     });
 }
 </script>
+
+  
+<!---<button id="copyAllTitles" class="copy-all-button">Copy All Titles</button>-->
+    <script>
+        document.getElementById('copyAllTitles').addEventListener('click', function() {
+            // Gather all titles
+            const titles = Array.from(document.querySelectorAll('.title')).map(title => title.innerText.trim()).join('\n');
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(titles)
+                .then(() => {
+                    console.log('All titles copied to clipboard:', titles);
+                })
+                .catch((error) => {
+                    console.error('Failed to copy all titles to clipboard:', error);
+                });
+        });
+    </script>
+</body>
+</html>
