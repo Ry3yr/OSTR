@@ -13,8 +13,1068 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 
 
 
+Line Compare Tool (For File Safety Check)
+--------------------------------------
 
-Load website from Zip (Service woker approach) - https://codepen.io/ryedai1/pen/MWMWpNr
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Line Cleaner</h1>
+    <textarea id="inputText1" placeholder="Enter your text here..."></textarea>
+    <textarea id="inputText2" placeholder="Enter your text here..."></textarea>
+    <button onclick="cleanLines()">Clean</button>
+
+    <script>
+        function cleanLines() {
+            const textAreas = [document.getElementById('inputText1'), document.getElementById('inputText2')];
+            textAreas.forEach(textArea => {
+                const lines = textArea.value.split('\n');
+                const cleanedLines = lines.map(line => line.replace(/^\d+\.\s*/, ''));
+                textArea.value = cleanedLines.join('\n');
+            });
+        }
+    </script>
+
+
+<!---Check Function--->
+  <button onclick="compareTexts()">Compare</button>
+    <div id="results"></div>
+
+    <script>
+        function compareTexts() {
+            const text1 = document.getElementById('inputText1').value.split('\n');
+            const text2 = document.getElementById('inputText2').value.split('\n');
+
+            const totalLines1 = text1.length;
+            const totalLines2 = text2.length;
+
+            let matchingLinesCount = 0;
+            let differingLines = [];
+
+            text1.forEach((line1, index1) => {
+                let foundMatch = false;
+                text2.forEach((line2) => {
+                    if (line1 === line2) {
+                        foundMatch = true;
+                    }
+                });
+                if (foundMatch) {
+                    matchingLinesCount++;
+                } else {
+                    differingLines.push(`Line ${index1 + 1}: "${line1}"`);
+                }
+            });
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <p>Total lines in Box 1: ${totalLines1}</p>
+                <p>Total lines in Box 2: ${totalLines2}</p>
+                <p>Number of matching lines: ${matchingLinesCount}</p>
+                <p>Lines that differ:</p>
+                <ul>${differingLines.map(line => `<li>${line}</li>`).join('')}</ul>
+            `;
+        }
+    </script>
+</body>
+</html>
+
+
+
+__________________________
+
+
+mtd toot display
+-------------------------
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastodon Toot Display</title>
+    <style>
+        #api-url-container, #toot-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        #api-url-container {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="api-url-container">API URL: Loading...</div>
+    <div id="toot-container">Loading toot...</div>
+
+    <script>
+        // Function to get query string parameters from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                tootUrl: params.get('url'),
+                accessToken: params.get('apikey')
+            };
+        }
+
+        // Function to extract toot ID and domain from the toot URL
+        function extractTootIdAndDomain(tootUrl) {
+            const url = new URL(tootUrl);
+            const pathParts = url.pathname.split('/');
+            const tootId = pathParts[pathParts.length - 1];
+            return { domain: url.origin, tootId: tootId };
+        }
+
+        // Function to fetch toot data from Mastodon API
+        async function fetchToot(tootUrl, accessToken) {
+            const { domain, tootId } = extractTootIdAndDomain(tootUrl);
+            const apiUrl = `${domain}/api/v1/statuses/${tootId}`;
+
+            // Display API URL in the DOM
+            document.getElementById('api-url-container').innerText = `API URL: ${apiUrl}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const tootData = await response.json();
+                return tootData;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                return null;
+            }
+        }
+
+        // Function to display toot data
+        function displayToot(tootData) {
+            const container = document.getElementById('toot-container');
+            if (tootData) {
+                container.innerHTML = `
+                    <h3>${tootData.account.display_name} (@${tootData.account.username})</h3>
+                    <p>${tootData.content}</p>
+                    <small>${new Date(tootData.created_at).toLocaleString()}</small>
+                `;
+            } else {
+                container.innerHTML = 'Failed to load toot.';
+            }
+        }
+
+        // Main function to execute the script
+        async function main() {
+            const { tootUrl, accessToken } = getQueryParams();
+            if (tootUrl && accessToken) {
+                const tootData = await fetchToot(tootUrl, accessToken);
+                displayToot(tootData);
+            } else {
+                document.getElementById('toot-container').innerHTML = 'Invalid toot URL or access token.';
+            }
+        }
+
+        // Run the main function on page load
+        main();
+    </script>
+</body>
+</html>
+
+
+__________________
+
+
+Mastodon API Poster (with emoji support and url gen on post)
+----------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastodon Post Privacy with Emoji Picker, Search, and URL Display</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 20px;
+display: flex;
+}
+.container {
+max-width: 600px;
+margin-left: 20px;
+}
+label {
+display: block;
+margin-top: 10px;
+}
+input[type="text"], textarea, input[type="button"], select {
+padding: 10px;
+font-size: 16px;
+margin-bottom: 10px;
+display: block;
+width: calc(100% - 22px); /* Full width minus padding and border */
+}
+textarea {
+height: 100px;
+resize: vertical;
+}
+input[type="button"] {
+background-color: #007bff;
+color: white;
+border: none;
+cursor: pointer;
+}
+input[type="button"]:hover {
+background-color: #0056b3;
+}
+.status {
+margin-top: 20px;
+font-weight: bold;
+}
+.emoji-picker {
+width: 200px;
+margin-right: 20px;
+display: flex;
+flex-direction: column;
+}
+.emoji-picker input {
+margin-bottom: 10px;
+padding: 5px;
+}
+.emoji-picker button {
+background: none;
+border: none;
+font-size: 24px;
+cursor: pointer;
+padding: 5px;
+margin: 2px;
+}
+.emoji-picker button:hover {
+background-color: #f0f0f0;
+}
+.emoji-item {
+display: inline-block;
+}
+.post-url {
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="emoji-picker" id="emoji-picker">
+<h3>Emoji Picker</h3>
+<input type="text" id="emoji-search" placeholder="Search emojis..." oninput="filterEmojis()" />
+<!-- Emoji buttons will be inserted here dynamically -->
+</div>
+
+<div class="container">
+<h1>Create Mastodon Post</h1>
+<p>Enter your Mastodon instance URL and access token, then write your post and select the visibility.</p>
+
+<label for="instance-url">Mastodon Instance URL:</label>
+<input type="text" id="instance-url" placeholder="https://mastodon.instance" />
+
+<label for="access-token">Access Token:</label>
+<input type="text" id="access-token" placeholder="Your Access Token" />
+
+<label for="post-content">Post Content:</label>
+<textarea id="post-content" placeholder="Write your post here"></textarea>
+
+<label for="post-visibility">Post Visibility:</label>
+<select id="post-visibility">
+<option value="public">Public</option>
+<option value="unlisted">Unlisted</option>
+<option value="private">Private</option>
+<option value="direct">Direct</option>
+</select>
+
+<input type="button" value="Create Post" onclick="createPost()" />
+
+<div class="status" id="status"></div>
+<div class="post-url" id="post-url"></div>
+</div>
+
+<script>
+let emojis = [];
+
+// Function to parse query parameters
+function getQueryParams() {
+const params = new URLSearchParams(window.location.search);
+return {
+url: params.get('url') || '',
+apikey: params.get('apikey') || ''
+};
+}
+
+// Pre-fill fields based on query parameters
+function prefillFields() {
+const queryParams = getQueryParams();
+document.getElementById('instance-url').value = queryParams.url;
+document.getElementById('access-token').value = queryParams.apikey;
+if (queryParams.url && queryParams.apikey) {
+loadEmojis(queryParams.url, queryParams.apikey);
+}
+}
+
+// Function to load emojis from Mastodon instance
+async function loadEmojis(instanceUrl, accessToken) {
+try {
+const response = await fetch(`${instanceUrl}/api/v1/custom_emojis`, {
+headers: {
+'Authorization': `Bearer ${accessToken}`
+}
+});
+if (!response.ok) {
+throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+}
+emojis = await response.json();
+displayEmojis(emojis);
+} catch (error) {
+console.error('Error loading emojis:', error);
+document.getElementById('status').textContent = 'Error loading emojis. Check console for details.';
+}
+}
+
+// Function to display emojis
+function displayEmojis(emojiList) {
+const emojiPicker = document.getElementById('emoji-picker');
+const emojiContainer = document.getElementById('emoji-container') || document.createElement('div');
+emojiContainer.id = 'emoji-container';
+emojiContainer.innerHTML = ''; // Clear previous emojis
+
+emojiList.forEach(emoji => {
+const button = document.createElement('button');
+button.innerHTML = emoji.shortcode ? emoji.shortcode.replace(/:/g, '') : emoji.url; // Display shortcode or URL
+button.title = emoji.shortcode || 'Emoji'; // Tooltip
+button.className = 'emoji-item';
+button.onclick = () => insertEmoji(emoji.shortcode);
+emojiContainer.appendChild(button);
+});
+
+if (!document.getElementById('emoji-container')) {
+emojiPicker.appendChild(emojiContainer);
+}
+}
+
+// Function to filter emojis based on search input
+function filterEmojis() {
+const searchQuery = document.getElementById('emoji-search').value.toLowerCase();
+const filteredEmojis = emojis.filter(emoji => emoji.shortcode.toLowerCase().includes(searchQuery));
+displayEmojis(filteredEmojis);
+}
+
+// Function to insert emoji into the post content
+function insertEmoji(emoji) {
+const postContentArea = document.getElementById('post-content');
+postContentArea.value += `:${emoji}:`; // Format emoji shortcode for Mastodon
+postContentArea.focus(); // Optional: Focus the textarea after inserting
+}
+
+// Function to create a post
+async function createPost() {
+const mastodonInstance = document.getElementById('instance-url').value.trim();
+const accessToken = document.getElementById('access-token').value.trim();
+const postContent = document.getElementById('post-content').value.trim();
+const postVisibility = document.getElementById('post-visibility').value;
+
+const apiEndpoint = `${mastodonInstance}/api/v1/statuses`;
+const data = {
+status: postContent,
+visibility: postVisibility
+};
+
+// Basic validation
+if (!mastodonInstance || !accessToken || !postContent) {
+document.getElementById('status').textContent = 'Please provide all required fields: Mastodon instance URL, access token, and post content.';
+return;
+}
+
+try {
+const response = await fetch(apiEndpoint, {
+method: 'POST',
+headers: {
+'Authorization': `Bearer ${accessToken}`,
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(data)
+});
+
+// Log response for debugging
+console.log('Response status:', response.status);
+console.log('Response headers:', response.headers);
+const result = await response.json();
+console.log('Response data:', result);
+
+if (!response.ok) {
+throw new Error(`HTTP error! Status: ${response.status} - ${response.statusText}`);
+}
+
+// Display post URL
+const postUrl = result.url; // Assuming `url` is returned in the response
+document.getElementById('status').textContent = 'Post created successfully!';
+document.getElementById('post-url').innerHTML = `View your post <a href=${postUrl} target=_blank>${postUrl}</a> <a href=https://alceawis.de/mtdtootdisplay.html?url=${postUrl}&apikey=${accessToken} target=_blank>»</a>`;
+
+
+
+} catch (error) {
+document.getElementById('status').textContent = 'Error creating post. Check console for details.';
+console.error('Error:', error);
+}
+}
+
+// Call prefillFields on page load
+window.onload = prefillFields;
+</script>
+</body>
+</html>
+
+
+
+_______________________________
+
+
+
+Img-to-base64-html-embed
+-----------------------------
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Download as HTML</title>
+</head>
+<body>
+    <h1>Upload an Image and embed into *.html</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <br><br>
+    <label for="linkInput">Link (optional):</label>
+    <input type="url" id="linkInput" placeholder="https://example.com">
+    <br><br>
+    <button id="downloadBtn">Download HTML</button>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            const fileInput = document.getElementById('imageInput');
+            const linkInput = document.getElementById('linkInput');
+            const file = fileInput.files[0];
+            const link = linkInput.value;
+
+            if (!file) {
+                alert('Please upload an image first.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                const base64String = reader.result;
+                let htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image</title>
+</head>
+<body>
+                `;
+                if (link) {
+                    htmlContent += `<a href="${link}" target="_blank">`;
+                }
+                htmlContent += `<img src="${base64String}" style="width: 100%;">`;
+                if (link) {
+                    htmlContent += `</a>`;
+                }
+                htmlContent += `
+</body>
+</html>
+                `;
+
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'image.html';
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
+
+_____________________
+
+
+
+All images drawn chart (requires same server or cors)
+-----------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date Chart</title>
+    <style>
+#chart-container {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    height: 500px; /* Adjust as needed */
+}
+
+#myChart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Ensures the canvas covers the entire container */
+}
+
+#imageBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain; /* Ensure the image covers the container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Avoid repeating the image */
+    opacity: 0.3;
+    pointer-events: none; /* Ensure clicks go through to the canvas */
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <button onclick="switchView('week')">Weekly View</button>
+    <button onclick="switchView('month')">Monthly View</button>
+    <div id="chart-container">
+        <div id="imageBackground"></div>
+        <canvas id="myChart"></canvas>
+        <div id="imageLink">...</div>
+    </div>
+    <script>
+        let urlMap = new Map(); // Map to store URL mappings
+        let dates = []; // Array to store dates for chart
+
+        async function fetchData() {
+            const response = await fetch('https://alcea-wisteria.de/artbackup/');
+            const html = await response.text();
+            return html;
+        }
+        function parseDOM(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const rows = doc.querySelectorAll('tr');
+            dates = [];
+            urlMap.clear();
+
+            rows.forEach(row => {
+                const dateCell = row.querySelector('td[data-sort]');
+                const link = row.querySelector('a[href]');
+                
+                if (dateCell && link) {
+                    const dateText = dateCell.getAttribute('data-sort');
+                    const url = link.getAttribute('href');
+                    
+                    const dateMatch = /(\d{4}-\d{2}-\d{2})/.exec(dateText);
+                    if (dateMatch) {
+                        const date = dateMatch[1];
+                        dates.push(date);
+
+                        const fullUrl = `https://alcea-wisteria.de${url}`;
+                        if (!urlMap.has(date)) {
+                            urlMap.set(date, []);
+                        }
+                        urlMap.get(date).push(fullUrl);
+                        console.log('Extracted Date:', date); 
+                        console.log('Extracted URL:', fullUrl); 
+                    }
+                }
+            });
+        }
+        function getWeekYear(date) {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const start = new Date(year, 0, 1);
+            const diff = d - start + ((start.getTimezoneOffset() - d.getTimezoneOffset()) * 60000);
+            const oneDay = 86400000;
+            const day = Math.floor(diff / oneDay);
+            const week = Math.ceil((day + 1) / 7);
+            return `${year}-W${week < 10 ? '0' : ''}${week}`;
+        }
+
+        function mapWeekToMonth(weekNumber) {
+            if (weekNumber >= 1 && weekNumber <= 4) return '01'; // Month 01
+            if (weekNumber >= 5 && weekNumber <= 6) return '02'; // Month 02
+            if (weekNumber >= 7 && weekNumber <= 10) return '03'; // Month 03
+            if (weekNumber >= 11 && weekNumber <= 14) return '04'; // Month 04
+            if (weekNumber >= 15 && weekNumber <= 18) return '05'; // Month 05
+            if (weekNumber >= 19 && weekNumber <= 22) return '06'; // Month 06
+            if (weekNumber >= 23 && weekNumber <= 26) return '07'; // Month 07
+            if (weekNumber >= 27 && weekNumber <= 30) return '08'; // Month 08
+            if (weekNumber >= 31 && weekNumber <= 34) return '09'; // Month 09
+            if (weekNumber >= 35 && weekNumber <= 38) return '10'; // Month 10
+            if (weekNumber >= 39 && weekNumber <= 42) return '11'; // Month 11
+            if (weekNumber >= 43 && weekNumber <= 52) return '12'; // Month 12
+            return ''; // Default case if weekNumber is out of expected range
+        }
+
+        function getCounts(dates, type) {
+            const counts = {};
+            dates.forEach(date => {
+                let key;
+                if (type === 'week') {
+                    key = getWeekYear(date);
+                } else if (type === 'month') {
+                    key = date.slice(0, 7); // Extract YYYY-MM
+                }
+                counts[key] = (counts[key] || 0) + 1;
+            });
+
+            const sortedKeys = Object.keys(counts).sort();
+            const labels = sortedKeys;
+            const data = sortedKeys.map(key => counts[key]);
+
+            return { labels, data };
+        }
+
+        function findImageUrlForWeek(weekLabel) {
+            const [year, week] = weekLabel.split('-W');
+            const weekNumber = parseInt(week, 10);
+            const month = mapWeekToMonth(weekNumber); // Use mapWeekToMonth function
+            const monthLabel = `${year}-${month}`;
+            console.log('Calculated Month from Week:', monthLabel); 
+            
+            return findImageUrlForMonth(monthLabel); 
+        }
+        function findImageUrlForMonth(monthLabel) {
+            const urls = [];
+            dates.forEach(date => {
+                if (date.startsWith(monthLabel)) {
+                    const dateUrls = getImageUrlsForDate(date);
+                    if (dateUrls.length > 0) {
+                        urls.push(...dateUrls);
+                    }
+                }
+            });
+            return urls.length > 0 ? urls[Math.floor(Math.random() * urls.length)] : ''; 
+        }
+        function getImageUrlsForDate(date) {
+            return urlMap.get(date) || [];
+        }
+        async function init() {
+            const html = await fetchData();
+            parseDOM(html); 
+
+            const weekCounts = getCounts(dates, 'week');
+            const monthCounts = getCounts(dates, 'month');
+
+            const newestDate = dates.reduce((max, date) => (date > max ? date : max), dates[0]);
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: weekCounts.labels,
+                    datasets: [{
+                        label: `Counts Per Week (Latest: ${newestDate})`,
+                        data: weekCounts.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y;
+                                    return `Value: ${value}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            window.switchView = function (view) {
+                if (view === 'week') {
+                    myChart.data.labels = weekCounts.labels;
+                    myChart.data.datasets[0].data = weekCounts.data;
+                    myChart.data.datasets[0].label = `Counts Per Week (Latest: ${newestDate})`;
+                } else if (view === 'month') {
+                    myChart.data.labels = monthCounts.labels;
+                    myChart.data.datasets[0].data = monthCounts.data;
+                    myChart.data.datasets[0].label = `Counts Per Month (Latest: ${newestDate})`;
+                }
+                myChart.update();
+            };
+
+            myChart.canvas.addEventListener('click', function(event) {
+                const points = myChart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true);
+                if (points.length) {
+                    const firstPoint = points[0];
+                    const label = myChart.data.labels[firstPoint.index];
+                    let imageUrl = '';
+
+                    if (label.includes('-W')) {
+                        imageUrl = findImageUrlForWeek(label);
+                    } else if (label.includes('-')) {
+                        if (label.length === 7) { // Monthly view (YYYY-MM)
+                            const urls = findImageUrlForMonth(label);
+                            imageUrl = findImageUrlForMonth(label);
+                        } else { 
+                            imageUrl = getImageUrlsForDate(label)[0];
+                        }
+                    }
+                    console.log('Clicked Date:', label); 
+                    console.log('Image URL:', imageUrl); 
+                    
+
+        if (imageUrl) {
+            document.getElementById('imageBackground').style.backgroundImage = `url(${imageUrl})`;
+            document.getElementById('imageLink').outerHTML = `<a id="imageLink" href="${imageUrl}" target="_blank">${imageUrl.substring(imageUrl.lastIndexOf('/') + 1)}</a>`;
+
+
+        } else {
+            document.getElementById('imageBackground').style.backgroundImage = '';
+        }
+    }
+});
+        }
+        init();
+    </script>
+</body>
+</html>
+
+
+<details><summary>php version</summary><plaintext>
+<?php
+$url = "https://alcea-wisteria.de/artbackup/";
+$html = file_get_contents($url);
+//$pattern = '/<tr>(.*?)<\/tr>/s'; //timestamp based
+$pattern = '/<td data-sort="([^"]*)"/'; //filename based
+preg_match_all($pattern, $html, $matches);
+$dates = array();
+$urls = array();
+foreach ($matches[0] as $match) {
+    preg_match('/\d{4}-\d{2}-\d{2}/', $match, $date);
+    if (!empty($date)) {
+        $dates[] = $date[0];
+        $urls[] = $date[0]; // Append the date to the URL
+    }
+}
+$newestIndex = array_search(max($dates), $dates);
+$newestUrl = $urls[$newestIndex];
+
+// Weekly counts
+$weekCounts = array();
+foreach ($dates as $date) {
+    $weekYear = date('o-\WW', strtotime($date)); // Extract the year and week number
+    if (isset($weekCounts[$weekYear])) {
+        $weekCounts[$weekYear]++;
+    } else {
+        $weekCounts[$weekYear] = 1;
+    }
+}
+$startDate = min(array_keys($weekCounts));
+$endDate = date('o-\WW'); // Get the current year-week
+$currentDate = $startDate;
+while ($currentDate <= $endDate) {
+    if (!isset($weekCounts[$currentDate])) {
+        $weekCounts[$currentDate] = 0;
+    }
+    $currentDate = date('o-\WW', strtotime($currentDate . ' +1 week'));
+}
+ksort($weekCounts);
+$weekLabels = array_keys($weekCounts);
+$weekData = array_values($weekCounts);
+
+// Monthly counts
+$monthCounts = array();
+foreach ($dates as $date) {
+    $monthYear = date('Y-m', strtotime($date)); // Extract the year and month
+    if (isset($monthCounts[$monthYear])) {
+        $monthCounts[$monthYear]++;
+    } else {
+        $monthCounts[$monthYear] = 1;
+    }
+}
+$startDate = min(array_keys($monthCounts));
+$endDate = date('Y-m'); // Get the current year-month
+$currentDate = $startDate;
+while ($currentDate <= $endDate) {
+    if (!isset($monthCounts[$currentDate])) {
+        $monthCounts[$currentDate] = 0;
+    }
+    $currentDate = date('Y-m', strtotime($currentDate . ' +1 month'));
+}
+ksort($monthCounts);
+$monthLabels = array_keys($monthCounts);
+$monthData = array_values($monthCounts);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <button onclick="switchView('week')">Weekly View</button>
+    <button onclick="switchView('month')">Monthly View</button>
+    <canvas id="myChart"></canvas>
+    <script>
+        var weekLabels = <?php echo json_encode($weekLabels); ?>;
+        var weekData = <?php echo json_encode($weekData); ?>;
+        var monthLabels = <?php echo json_encode($monthLabels); ?>;
+        var monthData = <?php echo json_encode($monthData); ?>;
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: weekLabels,
+                datasets: [{
+                    label: 'Counts Per Week (Latest: <?php echo $newestUrl; ?>)',
+                    data: weekData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                var label = context.dataset.label || '';
+                                var value = context.parsed.y;
+                                var tooltipLabel = 'Value: ' + value; // Customize the tooltip label here
+                                return tooltipLabel;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        function switchView(view) {
+            if (view === 'week') {
+                myChart.data.labels = weekLabels;
+                myChart.data.datasets[0].data = weekData;
+                myChart.data.datasets[0].label = 'Counts Per Week (Latest: <?php echo $newestUrl; ?>)';
+            } else if (view === 'month') {
+                myChart.data.labels = monthLabels;
+                myChart.data.datasets[0].data = monthData;
+                myChart.data.datasets[0].label = 'Counts Per Month (Latest: <?php echo $newestUrl; ?>)';
+            }
+            myChart.update();
+        }
+    </script>
+</body>
+</html>
+
+
+
+______________________________
+
+
+
+
+
+Unit 8 Array convert (from javascript)
+--------------------------------------
+
+To convert unit8 and arrays of such nature from javascript console back into human readable form:<br>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit8 Array Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    textarea {
+      padding: 10px;
+      font-size: 16px;
+      width: 400px;
+      height: 150px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+      white-space: pre-wrap;
+    }
+  </style<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit8 Array Converter</title>
+  <style>
+    /* Same CSS as before */
+  </style>
+</head>
+<body>
+  <h1>Unit8 Array Converter</h1>
+  <textarea id="input-text" placeholder="Enter a unit8 array in one of the following formats:
+1. Array of numbers: [60, 33, 68, 79, ...]
+2. Typed Array: new Uint8Array([60, 33, 68, 79, ...])
+3. ArrayBuffer: new ArrayBuffer(16) with individual values set
+4. DataView: new DataView(new ArrayBuffer(16)) with individual values set
+5. JavaScript object with numeric keys: { '0': 60, '1': 33, '2': 68, '3': 79, ... }"></textarea>
+  <button onclick="convertArray()">Convert</button>
+  <div id="output"></div>
+
+  <script>
+    function convertArray() {
+      const inputText = document.getElementById("input-text").value.trim();
+      try {
+        let unit8Array;
+        
+        // Try parsing as a regular array of numbers
+        try {
+          unit8Array = JSON.parse(inputText);
+          if (Array.isArray(unit8Array) && unit8Array.every(Number.isInteger) && unit8Array.every(value => value >= 0 && value <= 255)) {
+            unit8Array = new Uint8Array(unit8Array);
+          } else {
+            unit8Array = null;
+          }
+        } catch (error) {
+          unit8Array = null;
+        }
+        
+        // Try parsing as a Uint8Array
+        if (!unit8Array) {
+          try {
+            if (inputText.startsWith('new Uint8Array')) {
+              unit8Array = eval(inputText);
+            } else {
+              unit8Array = null;
+            }
+          } catch (error) {
+            unit8Array = null;
+          }
+        }
+        
+        // Try parsing as an ArrayBuffer
+        if (!unit8Array) {
+          try {
+            if (inputText.startsWith('new ArrayBuffer')) {
+              const buffer = eval(inputText);
+              if (buffer instanceof ArrayBuffer) {
+                unit8Array = new Uint8Array(buffer);
+              } else {
+                unit8Array = null;
+              }
+            } else {
+              unit8Array = null;
+            }
+          } catch (error) {
+            unit8Array = null;
+          }
+        }
+        
+        // Try parsing as a DataView
+        if (!unit8Array) {
+          try {
+            if (inputText.startsWith('new DataView')) {
+              const view = eval(inputText);
+              if (view instanceof DataView) {
+                const buffer = view.buffer;
+                unit8Array = new Uint8Array(buffer);
+              } else {
+                unit8Array = null;
+              }
+            } else {
+              unit8Array = null;
+            }
+          } catch (error) {
+            unit8Array = null;
+          }
+        }
+        
+        // Try parsing as a JavaScript object with numeric keys
+        if (!unit8Array) {
+          try {
+            const obj = JSON.parse(inputText);
+            if (typeof obj === 'object' && obj !== null && Object.keys(obj).every(key => /^\d+$/.test(key) && obj[key] >= 0 && obj[key] <= 255)) {
+              const values = Object.values(obj);
+              unit8Array = new Uint8Array(values);
+            } else {
+              unit8Array = null;
+            }
+          } catch (error) {
+            unit8Array = null;
+          }
+        }
+        
+        if (unit8Array) {
+          const readableText = new TextDecoder().decode(unit8Array);
+          document.getElementById("output").textContent = readableText;
+        } else {
+          document.getElementById("output").textContent = "Error: Invalid input. Please enter a valid unit8 array.";
+        }
+      } catch (error) {
+        document.getElementById("output").textContent = "Error: Invalid input. Please enter a valid unit8 array.";
+      }
+    }
+  </script>
+</body>
+</html>
+
+________________________________________
+
+
+Load website from Zip (Service woker approach) - https://codepen.io/ryedai1/pen/MWMWpNr (complex8)
 -----------------------------------------------
 
 ==index.html==
@@ -1885,7 +2945,11 @@ Scroll href links right to left (with stop on hover)
     });
 </script>
 
-PMX Capable MMD Web Renderer (with stage + multimodelsupport + move stage + vmd2 support)(2024/07/22)
+
+______________________
+
+
+PMX Capable MMD Web Renderer (with stage + multimodelsupport + move stage + vmd2 support)(2024/07/22)(complex8)
 ---------------------------------------------------
 
 =====index.html==========
@@ -3391,7 +4455,6 @@ window.addEventListener('load', listFiles);
 
 
 
-___________________________________
 ___________________________________
 
 PMX Capable MMD Web Renderer (with stage support)
@@ -9669,7 +10732,7 @@ AdblockDetect:
 ______________________________________________
 
 
-Advanced Mastodon & Akkoma Timeline / TL render (with querystring support):
+Advanced Mastodon & Akkoma Timeline / TL render (with querystring support): (complex6)
 ------------------------------------------------------------------------------------------------------------
 
 <a href="?instance=mastodon.social&userid=109977878421486714">Ryedai</a>
