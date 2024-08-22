@@ -9,6 +9,971 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 
 
 
+VroidHub fetch model info (name image link)
+----------------------------
+
+===allmodelstats.php==
+
+<?php
+// Base URL to use for constructing full URLs
+$base_url = 'https://hub.vroid.com';
+
+// URL of the page to fetch
+$url = $base_url . '/en/users/75406576';
+
+// Define the HTTP context options
+$options = array(
+    'http' => array(
+        'method' => 'GET',
+        'header' => 'Referer: ' . $base_url . "\r\n"
+    ),
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false
+    )
+);
+
+// Create the stream context
+$context = stream_context_create($options);
+
+// Fetch the HTML content
+$html = file_get_contents($url, false, $context);
+
+// Check if we got the HTML content
+if ($html === false) {
+    die('Failed to retrieve HTML');
+}
+
+// Load HTML into DOMDocument
+$doc = new DOMDocument();
+libxml_use_internal_errors(true); // Suppress warnings for malformed HTML
+$doc->loadHTML($html);
+libxml_clear_errors();
+
+// Use DOMXPath to query the document
+$xpath = new DOMXPath($doc);
+
+// Query to find all href attributes starting with /characters/
+$nodes = $xpath->query('//a[starts-with(@href, "/characters/")]');
+
+// Array to keep track of unique URLs
+$unique_urls = array();
+
+// Process nodes and store unique URLs
+foreach ($nodes as $node) {
+    // Construct full URL
+    $full_url = $base_url . $node->getAttribute('href');
+    
+    // Add URL to the array if it's not already present
+    if (!in_array($full_url, $unique_urls)) {
+        $unique_urls[] = $full_url;
+    }
+}
+
+// Parse the limit parameter from the URL
+$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : count($unique_urls);
+
+// Ensure limit is positive and does not exceed the number of unique URLs
+$limit = max(1, min($limit, count($unique_urls)));
+
+// Slice the array to include only the number of items specified by the limit
+$unique_urls = array_slice($unique_urls, 0, $limit);
+
+// Display unique URLs and corresponding iframes
+if (count($unique_urls) > 0) {
+    echo "";
+    foreach ($unique_urls as $url) {
+        // Display the URL as a clickable link that opens in a new tab
+        //echo '<a href="' . $url . '" target="_blank">' . $url . '</a><br>' . "\n";
+        
+        // Encode URL for use in query string
+        $encoded_url = urlencode($url);
+        
+        // Display the iframe
+        echo '<iframe src="singlemodelstats.php?vroidurl=' . $encoded_url . '" width="600" height="195" frameborder="0"></iframe><br><br>' . "\n";
+    }
+} else {
+    echo "No unique character URLs found.\n";
+}
+?>
+
+
+==singlemodelstats.php==
+
+<?php
+// Initialize cURL
+$ch = curl_init();
+
+// Check if the vroidurl query string is present
+if (isset($_GET['vroidurl'])) {
+    // Sanitize the input to prevent security issues
+    $url = filter_var($_GET['vroidurl'], FILTER_SANITIZE_URL);
+} else {
+    // Default URL if vroidurl is not provided
+    $url = "https://hub.vroid.com/en/characters/7345373191746796787/models/3685792491167474217";
+}
+
+// Set the URL to fetch
+curl_setopt($ch, CURLOPT_URL, $url);
+
+// Set the user agent to Firefox
+curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0");
+
+// Set options to return the result as a string and to follow redirects
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+// Execute the request
+$response = curl_exec($ch);
+
+// Check for cURL errors
+if (curl_errno($ch)) {
+    echo 'cURL error: ' . curl_error($ch);
+} else {
+    // Load the HTML into a DOMDocument object
+    $dom = new DOMDocument();
+    @$dom->loadHTML($response);
+
+    // Create an XPath object for querying the DOM
+    $xpath = new DOMXPath($dom);
+
+    // Extract the title
+    $title = $xpath->query('//title')->item(0)->nodeValue;
+
+    // Extract the Open Graph image (or fallback to Twitter image if needed)
+    $ogImage = $xpath->query('//meta[@property="og:image"]/@content')->item(0)->nodeValue;
+    $twitterImage = $xpath->query('//meta[@name="twitter:image"]/@content')->item(0)->nodeValue;
+
+    // Use the OG image or Twitter image
+    $image = $ogImage ? $ogImage : $twitterImage;
+
+    // Display the link with the title as the link text
+    echo "<a href='$url' target='_blank'>$title</a><br>";
+
+    // Display the image below the link, wrapped in an anchor tag
+    if ($image) {
+        echo "<a href='$url' target='_blank'><img src='$image' alt='$title Image' width=50%></a><br>";
+    } else {
+        echo "No image available.<br>";
+    }
+}
+
+// Close the cURL session
+curl_close($ch);
+?>
+
+
+__________________
+
+
+Multi Feed RSS render
+----------------------
+
+
+
+=====index.html=====
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feeds Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .feed-box {
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        .feed-container {
+            margin-top: 20px;
+        }
+        .feed-item {
+            margin-bottom: 20px;
+        }
+        .feed-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .feed-item h3 {
+            margin: 0;
+        }
+        .feed-item p {
+            margin: 5px 0;
+        }
+        .feed-item a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .feed-item a:hover {
+            text-decoration: underline;
+        }
+        h1.feed-url {
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>RSS Feeds Manager</h1>
+    <div id="feeds-container"></div>
+    <button onclick="addFeedBox()">Add Feed</button>
+    <button onclick="saveFeeds()">Save Feeds</button>
+    <button onclick="renderFeeds()">Render Feeds</button>
+
+    <div id="feed-results" class="feed-container"></div>
+
+    <script>
+        // Utility function to get query parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const rssFeeds = [];
+            let i = 1;
+
+            while (params.has(`rss${i}`)) {
+                rssFeeds.push(params.get(`rss${i}`));
+                i++;
+            }
+
+            return rssFeeds;
+        }
+
+        // Load feeds from query strings or local storage when the page loads
+        window.onload = function() {
+            const queryFeeds = getQueryParams();
+
+            if (queryFeeds.length > 0) {
+                // Prefill with feeds from query strings
+                queryFeeds.forEach(feed => addFeedBox(feed));
+            } else {
+                // Load feeds from local storage if no query strings found
+                loadFeeds();
+            }
+        };
+
+        // Add a new feed input box
+        function addFeedBox(value = '') {
+            const container = document.getElementById('feeds-container');
+            const feedBox = document.createElement('div');
+            feedBox.className = 'feed-box';
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = value;
+            container.appendChild(feedBox);
+            feedBox.appendChild(input);
+        }
+
+        // Save feeds to local storage
+        function saveFeeds() {
+            const feeds = [];
+            const feedBoxes = document.querySelectorAll('.feed-box input[type="text"]');
+            feedBoxes.forEach(box => {
+                if (box.value.trim() !== '') {
+                    feeds.push(box.value.trim());
+                }
+            });
+            localStorage.setItem('rssFeeds', JSON.stringify(feeds));
+            alert('Feeds saved!');
+        }
+
+        // Load feeds from local storage and populate input boxes
+        function loadFeeds() {
+            const savedFeeds = JSON.parse(localStorage.getItem('rssFeeds')) || [];
+            savedFeeds.forEach(feed => addFeedBox(feed));
+        }
+
+        // Render the feeds by fetching them from feed.php
+        function renderFeeds() {
+            const feeds = JSON.parse(localStorage.getItem('rssFeeds')) || [];
+            const feedResults = document.getElementById('feed-results');
+            feedResults.innerHTML = '';  // Clear previous results
+
+            feeds.forEach(feedUrl => {
+                fetch(`feed.php?url=${encodeURIComponent(feedUrl)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Create and display the feed URL as an <h1>
+                        const feedHeader = document.createElement('h1');
+                        feedHeader.className = 'feed-url';
+                        feedHeader.textContent = `Feed: ${feedUrl}`;
+                        feedResults.appendChild(feedHeader);
+
+                        if (data && data.items && data.items.length > 0) {
+                            data.items.slice(0, 10).forEach(item => {
+                                const feedItem = document.createElement('div');
+                                feedItem.className = 'feed-item';
+
+                                const title = document.createElement('h3');
+                                const link = document.createElement('a');
+                                link.href = item.link;
+                                link.target = '_blank';
+                                link.textContent = item.title;
+                                title.appendChild(link);
+
+                                const date = document.createElement('p');
+                                date.textContent = item.pubDate || 'No date available';
+
+                                if (item.image) {
+                                    const img = document.createElement('img');
+                                    img.src = item.image;
+                                    feedItem.appendChild(img);
+                                }
+
+                                feedItem.appendChild(title);
+                                feedItem.appendChild(date);
+                                feedResults.appendChild(feedItem);
+                            });
+                        } else {
+                            const noItems = document.createElement('p');
+                            noItems.textContent = `No items found for feed: ${feedUrl}`;
+                            feedResults.appendChild(noItems);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching feed:', error);
+                        const errorMessage = document.createElement('p');
+                        errorMessage.textContent = `Error fetching feed: ${feedUrl}`;
+                        feedResults.appendChild(errorMessage);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+==feed.php===
+
+<?php
+if (isset($_GET['url'])) {
+    $feedUrl = $_GET['url'];
+
+    // Initialize a cURL session
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $feedUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL verification for demo purposes
+
+    // Set a user-agent to mimic a browser request
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3');
+
+    // Execute the request
+    $response = curl_exec($ch);
+
+    // Check for errors
+    if(curl_errno($ch)) {
+        echo json_encode(['error' => 'Error fetching the feed: ' . curl_error($ch)]);
+        curl_close($ch);
+        exit();
+    }
+
+    curl_close($ch);
+
+    if ($response) {
+        $rss = simplexml_load_string($response);
+
+        if ($rss === false) {
+            echo json_encode(['error' => 'Failed to parse the feed']);
+            exit();
+        }
+
+        $feedData = [];
+
+        // Determine whether this is a YouTube feed (Atom) or a standard RSS feed
+        if ($rss->getName() === 'feed' && isset($rss->entry)) {
+            // Handle YouTube (Atom) feed
+            foreach ($rss->entry as $entry) {
+                $namespaces = $entry->getNameSpaces(true);
+                $media = $entry->children($namespaces['media']);
+
+                $feedData[] = [
+                    'title' => (string) $entry->title,
+                    'link' => (string) $entry->link['href'],
+                    'pubDate' => (string) $entry->published,
+                    'image' => isset($media->group->thumbnail) ? (string) $media->group->thumbnail->attributes()->url : null,
+                ];
+
+                if (count($feedData) >= 10) {
+                    break;
+                }
+            }
+        } elseif (isset($rss->channel->item)) {
+            // Handle standard RSS feed
+            foreach ($rss->channel->item as $item) {
+                $namespaces = $item->getNameSpaces(true);
+                $mediaContent = null;
+
+                // Check for media:content or other image tags
+                if (isset($namespaces['media'])) {
+                    $media = $item->children($namespaces['media']);
+                    if (isset($media->content)) {
+                        $mediaContent = (string) $media->content->attributes()->url;
+                    }
+                }
+
+                // Handle cases where the image might be within an enclosure
+                if (!$mediaContent && isset($item->enclosure)) {
+                    $mediaContent = (string) $item->enclosure['url'];
+                }
+
+                $feedData[] = [
+                    'title' => (string) $item->title,
+                    'link' => (string) $item->link,
+                    'pubDate' => (string) $item->pubDate,
+                    'image' => $mediaContent,
+                ];
+
+                if (count($feedData) >= 10) {
+                    break;
+                }
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode(['items' => $feedData]);
+    } else {
+        echo json_encode(['error' => 'Unable to fetch feed']);
+    }
+} else {
+    echo json_encode(['error' => 'No URL provided']);
+}
+?>
+
+
+_____________________
+
+
+Request Tracker (v2024)
+--------------
+
+
+
+====index.html====
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ArtRequest</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            //background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            //border-radius: 8px;
+            //box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-container h2 {
+            margin-top: 0;
+            //color: #333;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            //color: #555;
+        }
+        .form-container input[type="text"],
+        .form-container textarea,
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+<details><summary>REQUESTS</summary><hr>
+<object type="text/html" data="parsehtml.php" style="width:800px; height:100%"></object>
+</details><br><br>
+
+
+
+        <h2>Submit Form</h2>
+
+
+        <form action="submit.php" method="post" enctype="multipart/form-data">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="-">
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+            
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+===parsehtml.php====
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Requests</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<?php
+$dir = opendir('.');
+$htmlFiles = [];
+while (($file = readdir($dir)) !== false) {
+    // Check if the file is a .html file and does not contain "private"
+    if (pathinfo($file, PATHINFO_EXTENSION) === 'html' && strpos($file, 'private') === false) {
+        $htmlFiles[] = $file;
+    }
+}
+closedir($dir);
+function extractFields($filename) {
+    $content = file_get_contents($filename);
+    preg_match('/<h1>(.*?)<\/h1>/s', $content, $h1);
+    preg_match('/<p>(.*?)<\/p>/s', $content, $p);
+    preg_match('/<img src=[\'"](.*?)[\'"] alt=[\'"](.*?)[\'"]>/s', $content, $img);
+    return [
+        'h1' => $h1[1] ?? 'N/A',
+        'p' => isset($p[1]) ? nl2br(htmlspecialchars($p[1])) : 'N/A',
+        'img_src' => $img[1] ?? 'N/A',
+        'img_alt' => $img[2] ?? 'N/A',
+    ];
+}
+if (!empty($htmlFiles)) {
+    echo '<table>';
+    echo '<tr><th>Filename</th><th>Title</th><th>Description</th><th>Image Source</th></tr>';
+    foreach ($htmlFiles as $file) {
+        $fields = extractFields($file);
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($file) . '</td>';
+        echo '<td>' . htmlspecialchars($fields['h1']) . '</td>';
+        echo '<td>' . $fields['p'] . '</td>'; // Already escaped
+        echo '<td><a href="' . htmlspecialchars($fields['img_src']) . '" target="_blank"><img src="' . htmlspecialchars($fields['img_src']) . '" alt="' . htmlspecialchars($fields['img_alt']) . '"></a></td>';
+        //echo '<td>' . htmlspecialchars($fields['img_alt']) . '</td>';
+        echo '</tr>';}
+    echo '</table>';
+} else {
+    echo '<p>No HTML files found.</p>';
+}
+?>
+
+====submit.php===
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = htmlspecialchars($_POST["title"]);
+    $description = htmlspecialchars($_POST["description"]);
+    $image = $_FILES["image"];
+    
+    // Handle image upload
+    $uploadDirectory = "uploads/";
+    if (!is_dir($uploadDirectory)) {
+        mkdir($uploadDirectory, 0777, true);
+    }
+    
+    $targetFile = $uploadDirectory . basename($image["name"]);
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    
+    // Check if image file is an actual image or fake image
+    $check = getimagesize($image["tmp_name"]);
+    if ($check !== false) {
+        if (move_uploaded_file($image["tmp_name"], $targetFile)) {
+            $imagePath = $targetFile;
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+            exit;
+        }
+    } else {
+        echo "File is not an image.";
+        exit;
+    }
+
+    // Create HTML content
+    $htmlContent = "
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$title</title>
+</head>
+<body>
+    <h1>$title</h1>
+    <p>$description</p>
+    <img src='$imagePath' alt='$title'>
+</body>
+</html>
+";
+
+    // Save the content to a file named with the current date and time
+    $date = date("Ymd_His");
+    $filename = "$date.html";
+    $file = fopen($filename, "w");
+
+    if ($file) {
+        fwrite($file, $htmlContent);
+        fclose($file);
+        echo "File created: <a href='$filename'>$filename</a>";
+    } else {
+        echo "Unable to write to file.";
+    }
+}
+?>
+
+_____________________
+
+
+
+Delete Mastodon Posts programatically
+---------------------------------------
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $apiBaseUrl = trim($_POST['instance_url']) . '/api/v1';
+    $accessToken = trim($_POST['access_token']);
+    $rateLimitDelay = 1; // Delay in seconds to avoid hitting rate limits
+    $maxRequestsPerInterval = 300;
+    $intervalSeconds = 300;
+
+    function fetchStatuses($apiBaseUrl, $accessToken, $max_id = null) {
+        $url = $apiBaseUrl . '/accounts/verify_credentials';
+    
+        $headers = [
+            'Authorization: Bearer ' . $accessToken,
+        ];
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+    
+        if (curl_errno($ch)) {
+            echo "Error fetching user info: " . curl_error($ch) . "<br>";
+            curl_close($ch);
+            return null;
+        }
+    
+        curl_close($ch);
+    
+        $user = json_decode($response);
+        if (!isset($user->id)) {
+            echo "Failed to fetch user info.<br>";
+            return null;
+        }
+    
+        $url = $apiBaseUrl . "/accounts/{$user->id}/statuses?limit=40";
+        if ($max_id) {
+            $url .= "&max_id={$max_id}";
+        }
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+    
+        if (curl_errno($ch)) {
+            echo "Error fetching statuses: " . curl_error($ch) . "<br>";
+            curl_close($ch);
+            return null;
+        }
+    
+        curl_close($ch);
+    
+        return json_decode($response);
+    }
+
+    function deleteStatus($apiBaseUrl, $accessToken, $id) {
+        $url = $apiBaseUrl . "/statuses/{$id}";
+    
+        $headers = [
+            'Authorization: Bearer ' . $accessToken,
+        ];
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+    
+        if (curl_errno($ch)) {
+            echo "Error deleting status {$id}: " . curl_error($ch) . "<br>";
+            curl_close($ch);
+            return null;
+        }
+    
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $retry_after = curl_getinfo($ch, CURLINFO_RETRY_AFTER);
+        
+        curl_close($ch);
+    
+        if ($http_code === 429) {
+            $retry_after = $retry_after ?? 60; // Default to 60 seconds if not provided
+            echo "Rate limit exceeded. Waiting for {$retry_after} seconds...<br>";
+            sleep($retry_after);
+        }
+    
+        return [
+            'response' => json_decode($response),
+            'http_code' => $http_code,
+        ];
+    }
+
+    $max_id = null;
+    $total_deleted = 0;
+    $request_count = 0;
+    $start_time = time();
+
+    do {
+        $statuses = fetchStatuses($apiBaseUrl, $accessToken, $max_id);
+        if ($statuses === null) {
+            echo "Failed to fetch statuses. Exiting.<br>";
+            break;
+        }
+
+        foreach ($statuses as $status) {
+            $result = deleteStatus($apiBaseUrl, $accessToken, $status->id);
+            if ($result === null) {
+                echo "Failed to delete status {$status->id}. Exiting.<br>";
+                break 2; // Exit both loops
+            }
+            echo "Deleted status {$status->id}<br>";
+            $max_id = $status->id;
+            $total_deleted++;
+
+            // Increment request count and sleep to avoid rate limits
+            $request_count++;
+            sleep($rateLimitDelay);
+
+            // If the request count reaches the limit, wait for the interval to reset
+            if ($request_count >= $maxRequestsPerInterval) {
+                $elapsed_time = time() - $start_time;
+                $sleep_time = max(0, $intervalSeconds - $elapsed_time);
+                echo "Rate limit reached. Sleeping for {$sleep_time} seconds.<br>";
+                sleep($sleep_time);
+                // Reset counters
+                $request_count = 0;
+                $start_time = time();
+            }
+        }
+    } while (count($statuses) > 0);
+
+    echo "Total posts deleted: {$total_deleted}<br>";
+} else {
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Mastodon Posts</title>
+</head>
+<body>
+    <h1>Delete All User Posts on Mastodon</h1>
+    <form action="" method="post">
+        <label for="instance_url">Instance URL:</label>
+        <input type="text" id="instance_url" name="instance_url" placeholder="https://your-mastodon-instance" required><br><br>
+        
+        <label for="access_token">API Access Token:</label>
+        <input type="text" id="access_token" name="access_token" required><br><br>
+        
+        <input type="submit" value="Delete Posts">
+    </form>
+</body>
+</html>
+<?php
+}
+?>
+
+
+__________________
+
+
+Anti Cors Forward (redirect to *.php via ?query= querystring) (!)
+-----------------------
+
+<?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Function to fetch data from a URL
+function fetchDataFromUrl($url) {
+    // Validate and sanitize the URL
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+
+    // Check if the URL is valid
+    if (!filter_var($url, FILTER_VALIDATE_URL)) {
+        return ['error' => 'Invalid URL'];
+    }
+
+    // Use file_get_contents or cURL to fetch the data
+    $context = stream_context_create(['http' => ['ignore_errors' => true]]);
+    $response = @file_get_contents($url, false, $context);
+
+    if ($response === false) {
+        return ['error' => 'Unable to fetch data from URL'];
+    }
+
+    return ['data' => $response, 'headers' => $http_response_header];
+}
+
+// Check if the request is a GET request
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['query'])) {
+        $url = htmlspecialchars($_GET['query']);
+        $result = fetchDataFromUrl($url);
+
+        if (isset($result['error'])) {
+            // Return a JSON response with an error
+            header('Content-Type: application/json');
+            echo json_encode($result);
+        } else {
+            // Determine the content type from the headers
+            $contentType = 'text/plain'; // Default content type
+
+            foreach ($result['headers'] as $header) {
+                if (stripos($header, 'Content-Type:') === 0) {
+                    $contentType = substr($header, strlen('Content-Type: '));
+                    break;
+                }
+            }
+
+            header('Content-Type: ' . $contentType);
+            echo $result['data'];
+        }
+    } else {
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'No query parameter provided']);
+    }
+} else {
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Invalid request method']);
+}
+
+
+___________________________________-
+
+ Check php server enabled extensions/modules
+----------------------------
+
+<a target="_blank" href="download.php" style=color:blue>(↓)</a><br><br>
+<table>
+    <tr>
+        <th colspan="2">PHP Version: <?php echo phpversion(); ?></th>
+    </tr>
+    <tr>
+        <th>Server Extensions</th>
+    </tr>
+    <?php
+    $all_extensions = get_loaded_extensions();
+    $all_extensions = array_merge($all_extensions, get_unpacked_extensions());
+    sort($all_extensions);
+    foreach ($all_extensions as $ext) {
+        echo '<tr>';
+        if (in_array($ext, get_loaded_extensions())) {
+            echo '<td>☑ ' . $ext . '</td>';
+        } else {
+            echo '<td>☐ ' . $ext . '</td>';
+        }
+        echo '</tr>';
+    }
+    function get_unpacked_extensions() {
+        $extension_dir = ini_get('extension_dir');
+        $extensions = array();
+        if ($extension_dir) {
+            $dir = new DirectoryIterator($extension_dir);
+            foreach ($dir as $fileinfo) {
+                if ($fileinfo->isFile() && pathinfo($fileinfo->getFilename(), PATHINFO_EXTENSION) === 'so') {
+                    $extensions[] = pathinfo($fileinfo->getFilename(), PATHINFO_FILENAME);
+                }
+            }
+        }
+
+        return $extensions;
+    }
+    ?>
+</table>
+
+____________________
+
+
+htaccess disable access to certian filetypes in folder (here: png):
+--------------------------------------
+
+
+<FilesMatch "\.(png)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+
+______________________________________
+
+
 Last played Game Steam
 -------------------------
 
@@ -6397,6 +7362,11 @@ YGO Wikia setlistfetch:
 -----------------------------------
 
 
+<a href="setlistfetch.php">image ver</a><br><br>
+<?php
+error_reporting(0);
+?>
+
 <div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Releases'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Releases';}" value="Releases" style="background:; border:none; color:;"><div class="spoiler" style="display: none;" >
 <!---SetList-->
 <?php
@@ -6412,11 +7382,24 @@ $fixedResult = str_replace('<a', '<a target="_blank"', $fixedResult); // Add tar
 echo $fixedResult;
 ?>
 </div><br>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="url">Enter the URL:</label>
-        <input type="text" name="url" id="url" required>
-        <input type="submit" value="Retrieve">
-    </form>
+
+    <script>
+        async function pasteFromClipboard() {
+            try {
+                if (navigator.clipboard) {
+                    const text = await navigator.clipboard.readText();
+                    document.getElementById('url').value = text;
+                    document.getElementById('submitButton').click();
+                } else {
+                    alert('Clipboard API is not supported in this browser.');
+                }
+            } catch (err) {
+                console.error('Failed to read clipboard contents: ', err);
+            }
+        }
+    </script>
+
+
 
 
 <unique>
@@ -6439,6 +7422,145 @@ document.body.appendChild(placeholder);
 </script>
 </unique>
 
+<?php
+// Default URL of the page to scrape
+$defaultUrl = 'https://yugioh.fandom.com/wiki/Set_Card_Lists:Labyrinth_of_Nightmare_(TCG-EN)';
+
+// Check if a URL is submitted via POST
+$url = isset($_POST['url']) ? $_POST['url'] : $defaultUrl;
+
+// Fetch the HTML content
+$htmlContent = file_get_contents($url);
+
+// Load the HTML content using DOMDocument
+$dom = new DOMDocument;
+libxml_use_internal_errors(true);
+$dom->loadHTML($htmlContent);
+libxml_clear_errors();
+
+// Create a new XPath object
+$xpath = new DOMXPath($dom);
+
+// Query for the table rows
+$rows = $xpath->query('//table[@class="fandom-table sortable card-list"]//tr');
+
+// Initialize an empty array to hold the table data
+$tableData = [];
+
+// Loop through the rows and extract the data
+foreach ($rows as $row) {
+    $cols = $row->getElementsByTagName('td');
+    $rowData = [];
+    foreach ($cols as $index => $col) {
+        // Check if the column contains a link (for the name column)
+        if ($index == 1 && $col->getElementsByTagName('a')->length > 0) {
+            $link = $col->getElementsByTagName('a')->item(0);
+            $href = $link->getAttribute('href');
+            $text = $link->textContent;
+            $rowData[] = '<a href="https://yugioh.fandom.com' . htmlspecialchars($href) . '" target="_blank">' . htmlspecialchars($text) . '</a>';
+            // Add the detail link for the iframe
+            $rowData[] = '<button onclick="toggleIframe(this, \'https://yugioh.fandom.com' . htmlspecialchars($href) . '\')">Details</button>';
+            //$rowData[] = '<button onclick="toggleIframe(this, \'https://alcea-wisteria.de/PHP/0demo/2023-10-08-Fetch-yugioh-wikia-set-list/fetch_single_card.php?card=https://yugioh.fandom.com' . htmlspecialchars($href) . '\')">Details</button>';
+        } else {
+            $rowData[] = trim($col->textContent);
+        }
+    }
+    if (!empty($rowData)) {
+        $tableData[] = $rowData;
+    }
+}
+
+// Display the form and table data
+echo '
+<form method="post">
+    <label for="url">Enter URL:</label>
+    <input type="text" id="url" name="url" value="' . htmlspecialchars($url) . '">
+     <input type="submit" id="submitButton" value="Submit">
+            <button type="button" onclick="pasteFromClipboard()">Paste and Submit</button>
+</form>';
+
+echo '<table border="1" id="cardTable">';
+echo '<tr><th>Card number</th><th>Name</th><th>Rarity</th><th>Category</th><th>Detail</th></tr>';
+foreach ($tableData as $rowData) {
+    echo '<tr>';
+    foreach ($rowData as $cellData) {
+        echo '<td>' . $cellData . '</td>';
+    }
+    echo '</tr>';
+}
+echo '</table>';
+
+// Add the JavaScript for toggling the iframe
+echo '
+<script>
+function toggleIframe(button, url) {
+    // Remove any existing iframes
+    var iframes = document.querySelectorAll("iframe.detailIframe");
+    iframes.forEach(function(iframe) {
+        iframe.remove();
+    });
+
+    // Create a new iframe
+    var iframe = document.createElement("iframe");
+    iframe.src = url;
+    iframe.className = "detailIframe";
+    iframe.style.width = "100%";
+    iframe.style.height = "400px";
+
+    // Insert the iframe below the current row
+    var row = button.parentElement.parentElement;
+    var newRow = document.createElement("tr");
+    var newCell = document.createElement("td");
+    newCell.colSpan = 5;
+    newCell.appendChild(iframe);
+    newRow.appendChild(newCell);
+
+    row.parentNode.insertBefore(newRow, row.nextSibling);
+}
+</script>
+';
+?>
+
+
+<!--broken--2024/07-21--
+<div class="pre-spoiler"><input name="Deutsch" type="button" onClick="if (this.parentNode.getElementsByTagName('div')[0].style.display != 'none') { this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Releases'; } else { this.parentNode.getElementsByTagName('div')[0].style.display = 'block'; this.value = 'Releases';}" value="Releases" style="background:; border:none; color:;"><div class="spoiler" style="display: none;" >
+<?php
+$url = 'https://yugioh.fandom.com/wiki/Yu-Gi-Oh!_Wiki';
+$html = file_get_contents($url);
+$start = strpos($html, 'h3><span class="mw-headline" id="TCG"><i>TCG</i></span></h3>');
+$end = strpos($html, '<span class="mw-headline" id="Anime"', $start);
+$length = $end - $start;
+$result = substr($html, $start, $length);
+$baseUrl = parse_url($url, PHP_URL_SCHEME) . '://' . parse_url($url, PHP_URL_HOST);
+$fixedResult = str_replace('href="/', 'href="'.$baseUrl.'/', $result);
+$fixedResult = str_replace('<a', '<a target="_blank"', $fixedResult); // Add target="_blank"
+echo $fixedResult;
+?>
+</div><br>
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="url">Enter the URL:</label>
+        <input type="text" name="url" id="url" required>
+        <input type="submit" value="Retrieve">
+    </form>
+<unique>
+<button onclick="savePageAsHTML()">Save Page as HTML</button>
+<script>
+function savePageAsHTML() {
+var placeholder = document.querySelector('unique');
+placeholder.parentNode.removeChild(placeholder);
+var html = document.documentElement.outerHTML;
+var filename = 'setlist.html';
+var element = document.createElement('a');
+element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(html));
+element.setAttribute('download', filename);
+element.style.display = 'none';
+document.body.appendChild(element);
+element.click();
+document.body.removeChild(element);
+document.body.appendChild(placeholder);
+}
+</script>
+</unique>
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $url = $_POST['url'];
@@ -9351,9 +10473,44 @@ Youtube Playlist/URLExtractor:
 (Source: https://cable.ayra.ch/ytdl/playlist.php )
 
 
+
+Run PHP SErver (locally) on Android:
+------------------------------
+
+https://apkcombo.com/de/palapa-web-server/com.alfanla.android.pws/download/apk#urusai.social/@alcea/111761622206017944#i.ibb.co/cx175BB/Screenshot-20240115-165447-Opera.png
+
+________________________________
+
+
+Run PHP Server (locally) on windows:
+----------------------------------
+1) Downlaod https://windows.php.net/download#php-8.3
+2) put in to C:\tools\php
+3) CMD with admin rights
+4) run setx PATH "%PATH%;C:\tools\php"
+
+Start server:
+php -S localhost:8000
+
+Access Server:
+http://localhost:8000
+
+
+
+
+Start PHP server and directly access via webbrowser
+===========================================
+
+cd /d "E:\Dropbox\Public\00_Html\PHP\Examples\0demo"
+start php -S localhost:8000
+start "" "C:\portableapps\brave\brave-portable.exe" "http://localhost:8000/index.php"
+
+
+
+
+
 =======================================
 =========== phpinstall ====================
-
 PHP Windows Install:
 1.)
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
