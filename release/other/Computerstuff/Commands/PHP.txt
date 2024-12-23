@@ -9,6 +9,311 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 
 
 
+
+
+Password protect php file (put at file start!)
+---------------------
+
+<?php
+$correct_username = "admin";
+$correct_password = "pass";  // Use a strong password for production
+session_start();
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    echo "Welcome, you are logged in!<hr>";
+} else {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        if ($username === $correct_username && $password === $correct_password) {
+            $_SESSION['logged_in'] = true;
+            echo "Login successful. Welcome!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo "Invalid username or password.<hr>";
+        }
+    }
+    echo '<form method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <button type="submit">Login</button>
+          </form>';
+    exit();
+}
+?>
+
+
+
+Link parser\finder (via keyword) on page) + multilink downloader
+-------------------------------------
+
+======parser.php====
+
+
+<a target="_blank" href="dld.php" style=color:blue>DLD</a><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Link Finder</title>
+</head>
+<body>
+    <h1>Keyword Link Finder</h1>
+    <form method="POST">
+        <label for="url">Enter URL:</label><br>
+        <input type="url" id="url" name="url"><br><br>
+        
+        <label for="links">Or Enter Links (one per line):</label><br>
+        <textarea id="links" name="links" rows="5" cols="50"></textarea><br><br>
+        
+        <label for="keyword">Enter Keyword:</label><br>
+        <input type="text" id="keyword" name="keyword" required><br><br>
+
+        <label for="nested">
+            <input type="checkbox" id="nested" name="nested"> Search nested links
+        </label><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $url = filter_input(INPUT_POST, 'url', FILTER_SANITIZE_URL);
+        $linksInput = filter_input(INPUT_POST, 'links', FILTER_SANITIZE_STRING);
+        $keyword = filter_input(INPUT_POST, 'keyword', FILTER_SANITIZE_STRING);
+        $nested = isset($_POST['nested']); // Check if "nested" checkbox is checked
+
+        function resolveUrl($baseUrl, $relativeUrl) {
+            $parsedBase = parse_url($baseUrl);
+            $base = $parsedBase['scheme'] . '://' . $parsedBase['host'];
+            if (isset($parsedBase['path'])) {
+                $base .= rtrim(dirname($parsedBase['path']), '/') . '/';
+            }
+
+            if (!parse_url($relativeUrl, PHP_URL_SCHEME)) {
+                if (strpos($relativeUrl, '/') === 0) {
+                    return $parsedBase['scheme'] . '://' . $parsedBase['host'] . $relativeUrl;
+                } else {
+                    return $base . $relativeUrl;
+                }
+            }
+            return $relativeUrl;
+        }
+
+        function findLinks($url, $keyword, $nested = false, $depth = 0) {
+            $htmlContent = @file_get_contents($url);
+            if ($htmlContent === false) {
+                return [];
+            }
+
+            $dom = new DOMDocument;
+            @$dom->loadHTML($htmlContent);
+
+            $links = $dom->getElementsByTagName('a');
+            $matchingLinks = [];
+
+            foreach ($links as $link) {
+                $href = $link->getAttribute('href');
+                if ($href) {
+                    $absoluteHref = resolveUrl($url, $href);
+                    if (strpos($absoluteHref, $keyword) !== false) {
+                        $matchingLinks[] = $absoluteHref;
+
+                        // If nested search is enabled, fetch links from the matching page
+                        if ($nested && $depth < 1) { // Limit depth to prevent infinite recursion
+                            $matchingLinks = array_merge(
+                                $matchingLinks,
+                                findLinks($absoluteHref, $keyword, $nested, $depth + 1)
+                            );
+                        }
+                    }
+                }
+            }
+
+            return array_unique($matchingLinks);
+        }
+
+        // Determine which input to use
+        $linksArray = [];
+        if (!empty($linksInput)) {
+            $linksArray = array_filter(array_map('trim', explode("\n", $linksInput)));
+        } elseif (!empty($url) && filter_var($url, FILTER_VALIDATE_URL)) {
+            $linksArray[] = $url;
+        } else {
+            echo "<p style='color:red;'>Please provide a valid URL or a list of links.</p>";
+            exit;
+        }
+
+        $resultLinks = [];
+        foreach ($linksArray as $link) {
+            if (filter_var($link, FILTER_VALIDATE_URL)) {
+                $resultLinks = array_merge($resultLinks, findLinks($link, $keyword, $nested));
+            } else {
+                echo "<p style='color:red;'>Invalid link: $link</p>";
+            }
+        }
+
+        $resultLinks = array_unique($resultLinks);
+
+        if (!empty($resultLinks)) {
+            echo "<label for='result'>Matching Links:</label><br>";
+            echo "<textarea id='result' rows='10' cols='80' readonly>";
+            echo implode("\n", $resultLinks);
+            echo "</textarea>";
+        } else {
+            echo "<p style='color:blue;'>No links found containing the keyword '$keyword'.</p>";
+        }
+    }
+    ?>
+</body>
+</html>
+
+
+=======dld.php=====
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $links = explode("\n", trim($_POST['links']));
+    $folderName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', trim($_POST['folder_name'])); // Sanitize folder name
+
+    if (!empty($folderName) && !empty($links)) {
+        $folderPath = __DIR__ . DIRECTORY_SEPARATOR . $folderName;
+
+        // Create folder if it doesn't exist or ensure it can be used
+        if (!is_dir($folderPath)) {
+            mkdir($folderPath, 0755, true);
+        }
+
+        foreach ($links as $link) {
+            $link = trim($link);
+            if (filter_var($link, FILTER_VALIDATE_URL)) { // Validate URL
+                $fileName = basename(parse_url($link, PHP_URL_PATH)); // Extract file name from URL
+                $fileName = preg_replace('/[^a-zA-Z0-9_\-\.]/', '_', $fileName); // Sanitize file name
+
+                if ($fileName) {
+                    $filePath = $folderPath . DIRECTORY_SEPARATOR . $fileName;
+
+                    // Always overwrite files
+                    file_put_contents($filePath, file_get_contents($link)); // Download file
+                }
+            }
+        }
+
+        // Display a link to the created folder
+        echo "<p>Files downloaded to folder: <a href='$folderName' target='_blank'>$folderName</a></p>";
+    } else {
+        echo "<p>Please provide a valid folder name and at least one link.</p>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Links</title>
+</head>
+<body>
+    <form method="POST">
+        <label for="links">Links (one per line):</label><br>
+        <textarea name="links" id="links" rows="10" cols="50" required></textarea><br><br>
+        <label for="folder_name">Folder Name:</label><br>
+        <input type="text" name="folder_name" id="folder_name" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+___________
+
+
+
+Bruteforce 4 digit pin zip:
+--------------------------
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['zip_file'])) {
+    // Check if file was uploaded without errors
+    if ($_FILES['zip_file']['error'] === UPLOAD_ERR_OK) {
+        $zipFile = $_FILES['zip_file']['tmp_name'];
+        $zip = new ZipArchive;
+
+        // Try to open the uploaded ZIP file
+        if ($zip->open($zipFile) === TRUE) {
+            echo "<h3>ZIP file opened successfully!</h3>";
+            echo "Attempting to brute-force the password...<br>";
+
+            $found = false;
+            // Loop through password combinations from 0000 to 9999
+            for ($i = 0; $i <= 9999; $i++) {
+                $password = str_pad($i, 4, '0', STR_PAD_LEFT); // Format password to 4 digits (0000, 0001, ..., 9999)
+
+                // Set the password and check if the ZIP can be opened with the current password
+                if ($zip->setPassword($password)) {
+                    // Try to read a file inside the ZIP to verify the password
+                    if ($zip->getFromName($zip->getNameIndex(0))) { // Check if the first file inside the ZIP can be opened
+                        echo "<b>Password found: $password</b><br>";
+                        $found = true;
+
+                        // Delete the ZIP file after successful password detection
+                        unlink($zipFile);
+                        echo "ZIP file deleted after finding the correct password.<br>";
+                        break;
+                    }
+                }
+            }
+
+            if (!$found) {
+                echo "Password not found after trying all combinations (0000 to 9999).<br>";
+            }
+
+            // Close the ZIP file after processing
+            $zip->close();
+        } else {
+            echo "Failed to open the ZIP file. It might not be a valid ZIP file or is corrupted.<br>";
+        }
+    } else {
+        echo "Error: Failed to upload the ZIP file. Please try again.<br>";
+    }
+} else {
+    // Display the file upload form if no file has been uploaded
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ZIP File Upload and Brute Force</title>
+    </head>
+    <body>
+        <h1>Upload ZIP File for Brute Force Password Check</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="zip_file">Choose ZIP file:</label>
+            <input type="file" name="zip_file" id="zip_file" required>
+            <button type="submit">Upload and Try Passwords</button>
+        </form>
+    </body>
+    </html>
+    <?php
+}
+?>
+
+
+_________________________
+
+htaccess deny all access to html files, but still allow php files to write to them serverside
+----------------------------------
+
+<FilesMatch "\.(html)$">
+    Require all denied
+</FilesMatch>
+
+____________________
+
 VroidHub fetch model info (name image link)
 ----------------------------
 
