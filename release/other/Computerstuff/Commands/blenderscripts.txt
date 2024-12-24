@@ -1,0 +1,330 @@
+
+
+
+Erase all Textures
+------------------
+
+
+import bpy
+
+# Iterate through all materials in the scene
+for material in bpy.data.materials:
+    if material.use_nodes:  # Check if the material uses nodes
+        # Access the node tree of the material
+        nodes = material.node_tree.nodes
+        # Iterate through all nodes in the node tree
+        for node in nodes:
+            # Check if the node is an Image Texture node
+            if node.type == 'TEX_IMAGE':
+                # Remove the node from the material
+                nodes.remove(node)
+
+# Optionally, clear unused images from Blender's data
+for image in bpy.data.images:
+    bpy.data.images.remove(image)
+    
+print("All textures have been erased.")
+
+
+
+Convert Texture to Vertex Color (currently not working)
+-------------------------------------------------------
+
+def execute(self, context):
+    obdata = context.object.data
+
+    if self.replace_active_layer and obdata.vertex_colors.active:
+        vertex_colors = obdata.vertex_colors.active
+    else:
+        vertex_colors = obdata.vertex_colors.new(name="Baked UV texture")
+    
+        if not vertex_colors:
+            # Can't add more than 17 VCol layers
+            self.report({'ERROR'}, "Couldn't add another Vertex Color layer,\n"
+                                   "Please remove an existing layer or replace active.")
+            return {'CANCELLED'}
+        
+    obdata.vertex_colors.active = vertex_colors
+
+    uv_images = {}
+    for uv_tex in obdata.uv_textures.active.data:
+        if uv_tex.image and uv_tex.image.name not in uv_images and uv_tex.image.pixels:
+            
+            uv_images[uv_tex.image.name] = (uv_tex.image.size[0],
+                                            uv_tex.image.size[1],
+                                            uv_tex.image.pixels[:]
+                                           )
+    
+    for p in obdata.polygons:
+        img = obdata.uv_textures.active.data[p.index].image
+        if not img:
+            continue
+        
+        image_size_x, image_size_y, uv_pixels = uv_images[img.name]
+        
+        for loop in p.loop_indices:
+    
+            co = obdata.uv_layers.active.data[loop].uv
+            x_co = round(co[0] * (image_size_x - 1))
+            y_co = round(co[1] * (image_size_y - 1))
+            
+            if x_co < 0 or x_co >= image_size_x or y_co < 0 or y_co >= image_size_y:
+                if self.mappingMode == 'CLIP':
+                    continue
+
+                elif self.mappingMode == 'REPEAT':
+                    x_co %= image_size_x
+                    y_co %= image_size_y
+
+                elif self.mappingMode == 'EXTEND':
+                    if x_co > image_size_x - 1:
+                        x_co = image_size_x - 1
+                    if x_co < 0:
+                        x_co = 0
+                    if y_co > image_size_y - 1:
+                        y_co = image_size_y - 1
+                    if y_co < 0:
+                        y_co = 0
+            
+            if self.mirror_x:
+                 x_co = image_size_x -1 - x_co
+                 
+            if self.mirror_y:
+                 y_co = image_size_y -1 - y_co
+                 
+            col_out = vertex_colors.data[loop].color
+                
+            pixelNumber = (image_size_x * y_co) + x_co
+            r = uv_pixels[pixelNumber*4]
+            g = uv_pixels[pixelNumber*4 + 1]
+            b = uv_pixels[pixelNumber*4 + 2]
+            a = uv_pixels[pixelNumber*4 + 3]
+            
+            col_in = r, g, b  # texture-color
+            col_result = [r, g, b]  # existing / 'base' color
+            
+            if self.blendingMode == 'MIX':
+                col_result = col_in
+                
+            # Add more blending modes here...
+
+            # Add alpha color
+            a_inverted = 1 - a
+            alpha_color = context.scene.uv_bake_alpha_color
+            col_result = (col_result[0] * a + alpha_color[0] * a_inverted,
+                          col_result[1] * a + alpha_color[1] * a_inverted,
+                          col_result[2] * a + alpha_color[2] * a_inverted)
+            
+            vertex_colors.data[loop].color = col_result
+
+    # Remove the textures from the UV layer
+    for uv_tex in obdata.uv_textures:
+        uv_tex.active = False
+        obdata.uv_textures.remove(uv_tex)
+
+    # Remove the material texture links (both in node-based materials and legacy texture slots)
+    for mat in context.object.data.materials:
+        if mat.use_nodes:
+            # If the material uses nodes, search for texture nodes
+            for node in mat.node_tree.nodes:
+                if node.type == 'TEX_IMAGE':  # Image Texture node
+                    # Unlink the image texture from the material node
+                    node.image = None
+        else:
+            # If the material doesn't use nodes, check the texture slots
+            for i, texture_slot in enumerate(mat.texture_slots):
+                if texture_slot:
+                    # Remove the texture
+                    mat.texture_slots[i] = None
+
+    return {'FINISHED'}
+
+
+
+Accurig (fbx) to vrm
+--------------------
+
+
+
+====Exporter Py====
+
+# Check it works at Blender 3.4.1
+# You can change the path and name
+filepathjson = "C:\\portableapps\\blender36\\scripts\\humanbody2.json"
+filepathVRM = "C:\\portableapps\\blender36\\scripts\\VRM"
+filenameVRM = "VRM"
+
+# Main code is below here line.
+
+import os
+import bpy
+
+# Ensure the VRM directory exists
+try:
+    os.makedirs(filepathVRM)
+except FileExistsError:
+    pass
+
+# Deselect all objects in the scene
+bpy.ops.object.select_all(action='DESELECT')
+
+# Check if "Armature" exists before selecting it
+if "Armature" in bpy.data.objects:
+    object = bpy.data.objects["Armature"]
+    object.select_set(True)
+else:
+    print("Object 'Armature' not found in the scene.")
+
+# Rename bones for the armature
+for obj in bpy.data.objects:
+    if obj.type == 'ARMATURE':
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("CC_Base_", "HumanBodyBones.")
+            
+        for bone in obj.pose.bones:
+            if obj.name != "RL_BoneRoot":
+                bone.name = bone.name.replace("L_", "Left")
+            
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("R_", "Right")
+
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("Clavicle", "Shoulder")
+                     
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("Fore", "Lower")
+                     
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("ToeBase", "Toes")
+            
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("arm", "Arm")
+
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("Thigh", "UpperLeg")
+
+        for bone in obj.pose.bones:
+            bone.name = bone.name.replace("Calf", "LowerLeg")
+
+# Load human bone mappings from JSON
+bpy.ops.vrm.load_human_bone_mappings(filepath=filepathjson)
+
+# Deselect all objects again
+bpy.ops.object.select_all(action='DESELECT')
+
+# Check if "default" object exists before trying to select it
+if "default" in bpy.data.objects:
+    object = bpy.data.objects["default"]
+    object.select_set(True)
+else:
+    print("Object 'default' not found in the scene.")
+
+# Select all mesh objects (assuming you want to select all of them, not just 'default')
+selectob = bpy.data.objects
+for ob in selectob:
+    if ob.type == 'MESH':
+        ob.select_set(True)
+        bpy.context.view_layer.objects.active = ob
+
+# Switch to Shader Node Tree for material editing
+bpy.context.area.ui_type = 'ShaderNodeTree'
+bpy.context.object.active_material_index = 0
+mat = bpy.context.active_object.material_slots[0].material
+
+# Node tree for material setup
+node_tree = bpy.context.active_object.material_slots[0].material.node_tree
+nodes = node_tree.nodes
+links = node_tree.links
+
+# Create MToon Shader Node Group
+mtoon = nodes.new("ShaderNodeGroup")
+mtoon.node_tree = bpy.data.node_groups['MToon_unversioned']
+
+# Get the Image Texture node
+dif = node_tree.nodes["Image Texture"]
+
+# Print and check nodes for debugging
+print(dif)
+for n in nodes:
+    print(n)
+
+# Get the Material Output node and link everything up
+out1 = node_tree.nodes["Material Output"]
+for l in links:
+    links.remove(l)
+
+# Link nodes
+links.new(dif.outputs[0], mtoon.inputs[0])
+links.new(mtoon.outputs[0], out1.inputs[0])
+
+# Enable backface culling and set blend method
+bpy.context.object.active_material.use_backface_culling = True
+bpy.context.object.active_material.blend_method = 'OPAQUE'
+
+# Export the scene to a VRM file
+bpy.ops.export_scene.vrm(filepath=os.path.join(filepathVRM, filenameVRM + ".vrm"))
+
+# Switch to Object mode
+bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+
+
+
+======human2body.json========
+
+
+{
+    "chest": "HumanBodyBones.Spine02",
+    "head": "HumanBodyBones.Head",
+    "hips": "HumanBodyBones.Hip",
+    "jaw": "HumanBodyBones.JawRoot",
+    "leftEye": "HumanBodyBones.LeftEye",
+    "leftFoot": "HumanBodyBones.LeftFoot",
+    "leftHand": "HumanBodyBones.LeftHand",
+    "leftIndexDistal": "HumanBodyBones.LeftIndex3",
+    "leftIndexIntermediate": "HumanBodyBones.LeftIndex2",
+    "leftIndexProximal": "HumanBodyBones.LeftIndex1",
+    "leftLittleDistal": "HumanBodyBones.LeftPinky3",
+    "leftLittleIntermediate": "HumanBodyBones.LeftPinky2",
+    "leftLittleProximal": "HumanBodyBones.LeftPinky1",
+    "leftLowerArm": "HumanBodyBones.LeftLowerArm",
+    "leftLowerLeg": "HumanBodyBones.LeftLowerLeg",
+    "leftMiddleDistal": "HumanBodyBones.LeftMid3",
+    "leftMiddleIntermediate": "HumanBodyBones.LeftMid2",
+    "leftMiddleProximal": "HumanBodyBones.LeftMid1",
+    "leftRingDistal": "HumanBodyBones.LeftRing3",
+    "leftRingIntermediate": "HumanBodyBones.LeftRing2",
+    "leftRingProximal": "HumanBodyBones.LeftRing1",
+    "leftShoulder": "HumanBodyBones.LeftShoulder",
+    "leftThumbIntermediate": "HumanBodyBones.LeftThumb2",
+    "leftThumbProximal": "HumanBodyBones.LeftThumb1",
+    "leftToes": "HumanBodyBones.LeftToes",
+    "leftUpperArm": "HumanBodyBones.LeftUpperArm",
+    "leftUpperLeg": "HumanBodyBones.LeftUpperLeg",
+    "neck": "HumanBodyBones.NeckTwist01",
+    "rightEye": "HumanBodyBones.RightEye",
+    "rightFoot": "HumanBodyBones.RightFoot",
+    "rightHand": "HumanBodyBones.RightHand",
+    "rightIndexDistal": "HumanBodyBones.RightIndex3",
+    "rightIndexIntermediate": "HumanBodyBones.RightIndex2",
+    "rightIndexProximal": "HumanBodyBones.RightIndex1",
+    "rightLittleDistal": "HumanBodyBones.RightPinky3",
+    "rightLittleIntermediate": "HumanBodyBones.RightPinky2",
+    "rightLittleProximal": "HumanBodyBones.RightPinky1",
+    "rightLowerArm": "HumanBodyBones.RightLowerArm",
+    "rightLowerLeg": "HumanBodyBones.RightLowerLeg",
+    "rightMiddleDistal": "HumanBodyBones.RightMid3",
+    "rightMiddleIntermediate": "HumanBodyBones.RightMid2",
+    "rightMiddleProximal": "HumanBodyBones.RightMid1",
+    "rightRingDistal": "HumanBodyBones.RightRing3",
+    "rightRingIntermediate": "HumanBodyBones.RightRing2",
+    "rightRingProximal": "HumanBodyBones.RightRing1",
+    "rightShoulder": "HumanBodyBones.RightShoulder",
+    "rightThumbIntermediate": "HumanBodyBones.RightThumb2",
+    "rightThumbProximal": "HumanBodyBones.RightThumb1",
+    "rightToes": "HumanBodyBones.RightToes",
+    "rightUpperArm": "HumanBodyBones.RightUpperArm",
+    "rightUpperLeg": "HumanBodyBones.RightUpperLeg",
+    "spine": "HumanBodyBones.Spine01"
+}
+
+
