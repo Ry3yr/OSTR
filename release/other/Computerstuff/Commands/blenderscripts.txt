@@ -1,6 +1,3 @@
-
-
-
 Erase all Textures
 ------------------
 
@@ -328,3 +325,107 @@ bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
 }
 
 
+
+NOESIS convert xyz2pmx [via send-to.bat]
+-----------------------
+@echo off
+:: Ensure an input file is provided
+if "%~1"=="" (
+echo No file provided. Please use this script via the "Send To" menu.
+pause
+exit /b
+)
+SET "INPUT_FILE=%~1"
+SET "NOESIS_PATH=C:\portableapps\Noesis\Noesis.exe"
+:: Check if the Noesis executable exists
+if not exist "%NOESIS_PATH%" (
+echo Noesis executable not found at "%NOESIS_PATH%".
+echo Please check the path and try again.
+pause
+exit /b
+)
+SET "OUTPUT_FILE=%~1.pmx"
+echo "%NOESIS_PATH%" ?cmode "%INPUT_FILE%" "%OUTPUT_FILE%" -flipax 2 -scale 1 #uncomment for pmx2fbx fix
+"%NOESIS_PATH%" ?cmode "%INPUT_FILE%" "%OUTPUT_FILE%"
+if %errorlevel%==0 (
+echo Export successful! File processed: "%INPUT_FILE%"
+echo Output file: "%OUTPUT_FILE%"
+) else (
+echo Export failed. Please check the input file and Noesis settings.
+)
+
+Embed texture in fbx  [via send-to.bat]
+---------------------
+
+
+======fbx_embed_texture.bat==
+
+@echo off
+setlocal
+
+REM Path to Blender executable
+set BLENDER_PATH="C:\portableapps\blender36\blender.exe"
+
+REM Check if a file is provided
+if "%~1"=="" (
+    echo No FBX file provided.
+    echo Usage: Send to embed_fbx.bat
+    pause
+    exit /b 1
+)
+
+REM Get input FBX file and define output FBX file path
+set INPUT_FILE=%~1
+set OUTPUT_FILE=%~dpn1_embedded.fbx
+
+REM Run Blender with the Python script
+%BLENDER_PATH% --background --python C:\Users\User\AppData\Roaming\Microsoft\Windows\SendTo\extra\embed_fbx_textures.py -- "%INPUT_FILE%" "%OUTPUT_FILE%"
+
+if errorlevel 1 (
+    echo Failed to embed textures for %INPUT_FILE%.
+    pause
+    exit /b 1
+)
+
+echo Successfully embedded textures into: %OUTPUT_FILE%
+pause
+
+
+=== /extra/ embed_fbx_textures.py ==
+
+import bpy
+import sys
+
+# Get the FBX file paths from the arguments
+input_fbx = sys.argv[-2]
+output_fbx = sys.argv[-1]
+
+# Clear any existing objects
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete(use_global=False)
+
+# Import the FBX file
+bpy.ops.import_scene.fbx(filepath=input_fbx)
+
+# Pack all external resources (textures) into the blend file
+bpy.ops.file.pack_all()
+
+# Export the FBX file with embedded textures
+bpy.ops.export_scene.fbx(filepath=output_fbx, embed_textures=True)
+
+print(f"Successfully embedded textures into: {output_fbx}")
+
+
+
+Open fbx in blender (GUI Mode) [via send-to.bat]
+----------------------------------------------
+
+@echo off
+SET FBX_FILE=%1
+SET BLENDER_PATH="C:\portableapps\blender36\blender.exe"
+echo import sys > temp_script.py
+echo import bpy >> temp_script.py
+echo fbx_file = sys.argv[-1] >> temp_script.py
+echo bpy.ops.import_scene.fbx(filepath=fbx_file) >> temp_script.py
+%BLENDER_PATH% --python temp_script.py -- %FBX_FILE%
+del temp_script.py
