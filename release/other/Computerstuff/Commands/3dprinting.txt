@@ -1,0 +1,24 @@
+
+
+90° Printnable [send-to]
+-----------------------
+
+Requires: https://github.com/nicolai-wachenschwan/arc-overhang-prusaslicer-integration
+Demo: https://www.youtube.com/watch?v=bucgyNtrRWw
+
+@echo off
+REM Check if a file was provided as an argument
+if "%~1"=="" (
+    echo No file provided.
+    pause
+    exit /b
+)
+REM Set the path to the Python script
+set script_path=C:\0postprocessing\py\90arcprint\prusa_slicer_post_processing_script.py
+REM Run the Python script with the provided G-code file
+python "%script_path%" "%~1"
+REM Check for errors
+if errorlevel 1 (
+    echo Error: The Python script encountered an issue.
+    pause
+)
