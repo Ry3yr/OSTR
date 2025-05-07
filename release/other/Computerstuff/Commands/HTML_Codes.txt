@@ -1,4 +1,4 @@
-﻿HTML test site: https://www.tutorialrepublic.com/codelab.php
+HTML test site: https://www.tutorialrepublic.com/codelab.php
 validator.w3.org/#validate_by_input
 htmledit.squarefree.com
 Cheatsheet: https://pbs.twimg.com/media/FDTBjF5XEAkI6ZZ?format=jpg&name=large
@@ -10,6 +10,1804 @@ https://ry3yr.github.io/OSTR/release/other/Computerstuff/Commands/CSS_Examples.t
 *html-unicodecharas *brk-nz *html-knowledge
 *host-website *java-scriptz
 
+
+
+Dehumidifier Calculator
+------------------------------------
+
+  <h2>Dehumidifier Time Calculator</h2>
+  <label>Start RH (%): <input type="number" id="startRH" value="55"></label><br>
+  <label>Target RH (%): <input type="number" id="targetRH" value="45"></label><br>
+  <label>Room Area (m²): <input type="number" id="area" value="18"></label><br>
+  <label>Ceiling Height (m): <input type="number" id="height" value="2.5"></label><br>
+  <label>Rated Capacity (L/day at ideal conditions): <input type="number" id="capacity" value="10"></label><br>
+  <label>Power (W): <input type="number" id="power" value="165"></label><br>
+  <label>Airflow (m³/h): <input type="number" id="airflow" value="265"></label><br>
+  <label>People in Room: <input type="number" id="people" value="1"></label><br><br>
+  <button onclick="calculateRealisticTime()">Calculate Time</button>
+  <h3 id="result"></h3>
+  <script>
+    function simulateTime(startRH, targetRH, volume, maxVapor, baseRateLPerHour, humanLPerHour) {
+      let totalTimeHours = 0;
+      let currentRH = startRH;
+      while (currentRH > targetRH && totalTimeHours < 48) {
+        const absCurrent = maxVapor * (currentRH / 100);
+        const absNext = maxVapor * ((currentRH - 1) / 100);
+        const deltaL = ((absCurrent - absNext) * volume) / 1000;
+        const rhEfficiency = Math.min(1, Math.max(0.3, (currentRH - 35) / 25));
+        const effectiveRate = baseRateLPerHour * rhEfficiency - humanLPerHour;
+        if (effectiveRate <= 0) return Infinity;
+        const timeStep = deltaL / effectiveRate;
+        totalTimeHours += timeStep;
+        currentRH -= 1;
+      }
+      return totalTimeHours;
+    }
+    function calculateRealisticTime() {
+      const startRH = parseFloat(document.getElementById('startRH').value);
+      const targetRH = parseFloat(document.getElementById('targetRH').value);
+      const area = parseFloat(document.getElementById('area').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const capacityLDay = parseFloat(document.getElementById('capacity').value);
+      const powerW = parseFloat(document.getElementById('power').value);
+      const airflow = parseFloat(document.getElementById('airflow').value);
+      const people = parseInt(document.getElementById('people').value);
+      const volume = area * height;
+      const maxVapor = 17.3;
+      const idealRate = capacityLDay / 24;
+      const rhFactor = (startRH - 30) / (80 - 30);
+      const tempFactor = 20 / 30;
+      const airflowFactor = Math.min(1, airflow / 300);
+      const realWorldEfficiency = Math.max(0.3, rhFactor * tempFactor * airflowFactor);
+      const baseRateLPerHour = idealRate * realWorldEfficiency;
+      const humanMoisturePerHour = people * 0.05;
+      const timeWithHumans = simulateTime(startRH, targetRH, volume, maxVapor, baseRateLPerHour, humanMoisturePerHour);
+      const timeWithoutHumans = simulateTime(startRH, targetRH, volume, maxVapor, baseRateLPerHour, 0);
+      if (!isFinite(timeWithHumans)) {
+        document.getElementById('result').innerText = 
+          `Remove external humidity sources.Reaching humidity levels with current gear is impossible`;
+        return;
+      }
+      const totalMinutes = timeWithHumans * 60;
+      const extraTime = timeWithHumans - timeWithoutHumans;
+      const perPersonTime = people > 0 ? extraTime / people : 0;
+      let message = `Estimated Time: ${timeWithHumans.toFixed(2)} hours (${totalMinutes.toFixed(0)} minutes)`;
+      if (people > 0) {
+        message += `<br>ExtraSources +${extraTime.toFixed(2)} hours total`;
+        message += `<br>Each person adds approx. ${perPersonTime.toFixed(2)} hours`;
+      }
+      document.getElementById('result').innerHTML = message;
+    }
+  </script>
+
+_____________________________
+
+
+LinkMaker (HTML & BBCode)
+--------------------------------------------
+
+  <label>Title: <input type="text" id="titleInput"></label><br><br>
+  <label>Link: <input type="text" id="linkInput"></label><br><br>
+  <button onclick="generateLinks()">Generate</button>
+
+  <h3>HTML Link:</h3>
+  <textarea id="htmlOutput" rows="2" cols="60" readonly></textarea>
+
+  <h3>BBCode Link:</h3>
+  <textarea id="bbcodeOutput" rows="2" cols="60" readonly></textarea>
+
+  <script>
+    function generateLinks() {
+      const title = document.getElementById("titleInput").value;
+      const link = document.getElementById("linkInput").value;
+
+      const htmlLink = `<a href="${link}" target="_blank">${title}</a>`;
+      const bbcodeLink = `[url=${link}]${title}[/url]`;
+
+      document.getElementById("htmlOutput").value = htmlLink;
+      document.getElementById("bbcodeOutput").value = bbcodeLink;
+    }
+  </script>
+</body>
+</html>
+
+______________
+
+iOS 6 icon maker
+----------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-container {
+      text-align: center;
+    }
+
+    canvas {
+      width: 200px; 
+      height: 200px;
+      border-radius: 30px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .options {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="upload-container">
+  <h2>Upload Icon & Export with Glass Effect</h2>
+  <input type="file" accept="image/*" onchange="handleFile(event)">
+  <div class="options">
+    <label>
+      <input type="checkbox" id="glassCheckbox" checked>
+      Include glass effect
+    </label>
+  </div>
+  <canvas id="iconCanvas" width="400" height="400"></canvas>
+  <br>
+  <button onclick="downloadPng()">Download PNG</button>
+</div>
+
+<script>
+  let originalFileName = "icon";
+
+  function handleFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    originalFileName = file.name.split(".").slice(0, -1).join(".") || "icon";
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.getElementById("iconCanvas");
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        const radius = 60; 
+
+        ctx.clearRect(0, 0, w, h);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(radius, 0);
+        ctx.lineTo(w - radius, 0);
+        ctx.quadraticCurveTo(w, 0, w, radius);
+        ctx.lineTo(w, h - radius);
+        ctx.quadraticCurveTo(w, h, w - radius, h);
+        ctx.lineTo(radius, h);
+        ctx.quadraticCurveTo(0, h, 0, h - radius);
+        ctx.lineTo(0, radius);
+        ctx.quadraticCurveTo(0, 0, radius, 0);
+        ctx.closePath();
+        ctx.clip();
+
+        ctx.drawImage(img, 0, 0, w, h);
+
+        const includeGlass = document.getElementById("glassCheckbox").checked;
+
+        if (includeGlass) {
+
+          const gradient = ctx.createLinearGradient(0, 0, 0, h * 0.4);
+          gradient.addColorStop(0, "rgba(255, 255, 255, 0.6)"); 
+          gradient.addColorStop(1, "rgba(255, 255, 255, 0)");  
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, w, h);
+
+          ctx.beginPath();
+          ctx.ellipse(w / 2, h * 0.2, w * 0.65, h * 0.35, 0, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255, 255, 255, 0.29)";
+          ctx.fill();
+        }
+
+        ctx.restore();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function downloadPng() {
+    const canvas = document.getElementById("iconCanvas");
+    const link = document.createElement("a");
+    link.download = `${originalFileName}-glass.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+</script>
+
+</body>
+</html>
+
+__________________________
+
+Sinwave Text anim
+-----------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @property --progress {
+      initial-value: 0;
+      inherits: false;
+      syntax: '<number>';
+    }
+    @keyframes progress {
+      from {
+        --progress: 0;
+      }
+      to {
+        --progress: 1;
+      }
+    }
+    @font-face {
+      font-family: 'ChaosLanguage';
+      src: url('/other/extra/font/chaoslanguage.ttf') format('truetype');
+    }
+    .shape-container {
+      position: fixed;
+      top: 100px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .shape {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      word-spacing: 0.5em; /* Increased space between words */
+    }
+    .letter {
+      display: inline-block;
+      font-size: 4rem; /* Adjust font size to be 2x larger */
+      color: black;
+      font-family: 'ChaosLanguage', Arial, sans-serif; /* Use ChaosLanguage font */
+      position: relative;
+      animation: move-letter 3s ease-in-out infinite;
+      letter-spacing: 0.1em; /* Increased space between letters */
+    }
+    @keyframes move-letter {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-50px); /* Adjust the wave amplitude */
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shape-container">
+    <div class="shape" id="text-shape">
+      <!-- The letters will be dynamically added here -->
+    </div>
+  </div>
+  <script>    
+    function generateWaveAnimation(text) {
+      const container = document.getElementById("text-shape");
+      const lettersWithDelays = [...text].map((char, i) => {
+        if (char === ' ') {
+          return '&nbsp;'; // Add space between words
+        }
+        return `<span class="letter" style="animation-delay:${i * 0.1}s">${char}</span>`;
+      }).join(''); 
+      
+      container.innerHTML = lettersWithDelays;
+    }
+
+    const text = "There is nothing to see here";
+    generateWaveAnimation(text);
+  </script>
+</body>
+</html>
+
+
+
+Character Portrait List (anigif)
+--------------------------------
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 0;
+            padding: 0;
+            //width: 50vw; /* Full width */
+            //height: 50vh; /* Full height */
+        }
+        .gif-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+        }
+        .gif-container img {
+            width: 400px;
+            height: 600px;
+            display: block;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 600px;
+            border: 1px solid black;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gallery" id="gallery"></div>
+
+<script>
+    async function fetchGIFs() {
+        const baseURL = window.location.origin + window.location.pathname; // Get current directory
+        const directoryURL = new URL("characters/", baseURL).href; // Navigate to 'characters/' folder
+        const gallery = document.getElementById("gallery");
+
+        try {
+            const response = await fetch(directoryURL);
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, "text/html");
+            const gifLinks = [...doc.querySelectorAll("a")]
+                .map(a => a.href)
+                .filter(href => href.endsWith(".gif"));
+            gifLinks.forEach(gifURL => {
+                const container = document.createElement("div");
+                container.className = "gif-container";
+                const img = document.createElement("img");
+                img.src = gifURL;
+                img.alt = "Character GIF";
+                const overlay = document.createElement("div");
+                overlay.className = "overlay";
+                container.appendChild(img);
+                container.appendChild(overlay);
+                gallery.appendChild(container);
+            });
+
+        } catch (error) {
+            console.error("Error fetching GIFs:", error);
+        }
+    }
+    fetchGIFs();
+</script>
+</body>
+
+
+
+CD Music Wall
+------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<br><br>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .cd-container { display: grid; justify-content: center; gap: 1px; }
+        .cd { width: 48px; height: 48px; position: relative; cursor: pointer; display: flex; align-items: center; transition: transform 0.3s ease-in-out; }
+        .cd-case { width: 48px; height: 48px; position: relative; transform-origin: left; transition: transform 0.6s ease-in-out; background-size: cover; }
+        .cd-disc { width: 48px; height: 48px; position: absolute; right: 0; opacity: 0; transition: opacity 0.6s ease-in-out; background-size: cover; }
+        .cd.open .cd-case { transform: rotateY(-120deg); }
+        .cd.open .cd-disc { opacity: 1; }
+        .cd.zoomed-in { transform: scale(3); z-index: 1000; }
+    </style>
+</head>
+<body>
+<script>
+    function checkAndModifyLayout() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('layout')) {
+            // If 'layout' doesn't exist, add it with value '4x8'
+            urlParams.set('layout', '4x8');
+            window.location.search = urlParams.toString();
+        }
+    }
+    checkAndModifyLayout();
+</script>
+
+<!---CDCase-Start--->
+    <div class="cd-container" id="cd-container"></div>
+    <script>
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+        function applyLayout() {
+            const layout = getQueryParam('layout');
+            const container = document.getElementById('cd-container');
+            if (layout) {
+                const [rows, cols] = layout.split('x').map(Number);
+                if (!isNaN(rows) && !isNaN(cols)) {
+                    container.style.gridTemplateColumns = `repeat(${cols}, 48px)`;
+                    container.style.gridTemplateRows = `repeat(${rows}, 48px)`;
+                }
+            }
+        }
+        async function loadCDs() {
+            const response = await fetch('cds.txt');
+            const text = await response.text();
+            const container = document.getElementById('cd-container');
+            text.trim().split('\n').forEach(line => {
+                const [album, img1, img2] = line.split(' ');
+                const cd = document.createElement('div');
+                cd.className = 'cd';
+                cd.innerHTML = `
+                    <div class="cd-case" style="background-image: url('${img1}');"></div>
+                    <div class="cd-disc" style="background-image: url('${img2}');"></div>
+                `;
+                const cdCase = cd.querySelector('.cd-case');
+                cd.onclick = (event) => {
+                    event.stopPropagation(); // Prevent body click from triggering immediately
+                    document.querySelectorAll('.cd').forEach(el => {
+                        if (el !== cd) el.classList.remove('open', 'zoomed-in');
+                    });
+                    cd.classList.toggle('open');
+                    cd.classList.toggle('zoomed-in');
+                };
+                cdCase.onclick = (event) => {
+                    event.stopPropagation();
+                    if (cd.classList.contains('open')) {
+                        window.open(`https://thispage.com?cd=${album}`, '_blank');
+                    }
+                };
+                container.appendChild(cd);
+            });
+            applyLayout();
+            document.body.addEventListener('click', () => {
+                document.querySelectorAll('.cd').forEach(cd => {
+                    cd.classList.remove('open', 'zoomed-in');
+                });
+            });
+        }
+        loadCDs();
+    </script>
+</body>
+</html>
+
+
+[2 CD] image replace ver
+-------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Detection and Replacement Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+canvas {
+    border: 1px solid #000;
+    margin-top: 20px;
+    width: 50%; /* Makes the canvas 50% of its original width */
+    height: auto; /* Maintains aspect ratio */
+}
+        .upload-container {
+            margin-top: 20px;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Detection and Replacement Tool</h1>
+    <p>This tool highlights areas of the image where the color <code>#D7D7D7</code> appears and lets you replace them with your own images.</p>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="upload-container">
+        <p>Upload two images to replace the highlighted areas:</p>
+        <label>First Image: <input type="file" id="upload1" accept="image/*"></label>
+        <label>Second Image: <input type="file" id="upload2" accept="image/*"></label>
+        <button id="replaceBtn">Replace Areas</button>
+        <br><br>
+        <button id="toggleBtn">Toggle Red Markings</button>
+        <br><br>
+        <button id="downloadBtn">Download as PNG</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        const imageUrl = "https://ry3yr.github.io/2CDTemplate.png";
+        const targetColor = { r: 215, g: 215, b: 215 }; // #D7D7D7
+
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const output = document.getElementById("output");
+        const upload1 = document.getElementById("upload1");
+        const upload2 = document.getElementById("upload2");
+        const replaceBtn = document.getElementById("replaceBtn");
+        const toggleBtn = document.getElementById("toggleBtn");
+        const downloadBtn = document.getElementById("downloadBtn");
+
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // To handle cross-origin images
+        img.src = imageUrl;
+
+        let redMarkingsVisible = true; // Tracks the visibility of the red markings
+        let originalImageData = null; // Stores the original image data
+        let redMarkingOverlay = null; // Stores the semi-transparent red markings
+        let replacementImagesData = null; // Stores the replacement image data
+
+        img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            // Draw the original image on the canvas
+            ctx.drawImage(img, 0, 0);
+
+            // Highlight areas of #D7D7D7
+            highlightTargetColor();
+        };
+
+        img.onerror = function () {
+            output.innerHTML = "<strong>Failed to load image. Check the URL and try again.</strong>";
+        };
+
+        function highlightTargetColor() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            let found = false;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+
+                // Check if the pixel matches the target color
+                if (r === targetColor.r && g === targetColor.g && b === targetColor.b) {
+                    // Highlight the pixel with red
+                    data[i] = 255; // Red
+                    data[i + 1] = 0; // Green
+                    data[i + 2] = 0; // Blue
+                    found = true;
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+            originalImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            if (found) {
+                createRedMarkingOverlay(imageData); // Create the semi-transparent overlay
+                output.innerHTML = "<strong>Highlighted areas with #D7D7D7 in red.</strong>";
+            } else {
+                output.innerHTML = "<strong>No areas with #D7D7D7 found.</strong>";
+            }
+        }
+
+        function createRedMarkingOverlay(imageData) {
+            const overlay = ctx.createImageData(imageData.width, imageData.height);
+            const overlayData = overlay.data;
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] === 255 && imageData.data[i + 1] === 0 && imageData.data[i + 2] === 0) {
+                    // If the pixel is red, make it semi-transparent
+                    overlayData[i] = 255;   // Red
+                    overlayData[i + 1] = 0; // Green
+                    overlayData[i + 2] = 0; // Blue
+                    overlayData[i + 3] = 128; // 50% opacity
+                } else {
+                    // Leave other pixels transparent
+                    overlayData[i + 3] = 0;
+                }
+            }
+
+            redMarkingOverlay = overlay;
+        }
+
+        toggleBtn.addEventListener("click", function () {
+            if (redMarkingsVisible) {
+                // Hide the red markings (overlay), but keep the replacement images visible
+                ctx.putImageData(originalImageData, 0, 0); // Re-draw the base image
+                if (replacementImagesData) {
+                    ctx.putImageData(replacementImagesData, 0, 0); // Re-draw the replacement images
+                }
+                redMarkingsVisible = false;
+            } else {
+                // Show the red markings (overlay) on top of the already replaced image
+                ctx.putImageData(originalImageData, 0, 0);
+                if (replacementImagesData) {
+                    ctx.putImageData(replacementImagesData, 0, 0);
+                }
+                if (redMarkingOverlay) {
+                    ctx.putImageData(redMarkingOverlay, 0, 0); // Add the red markings on top
+                }
+                redMarkingsVisible = true;
+            }
+        });
+
+        replaceBtn.addEventListener("click", function () {
+            if (!upload1.files[0] || !upload2.files[0]) {
+                output.innerHTML = "<strong>Please upload two images before replacing the areas.</strong>";
+                return;
+            }
+
+            const uploadedImg1 = new Image();
+            const uploadedImg2 = new Image();
+            uploadedImg1.src = URL.createObjectURL(upload1.files[0]);
+            uploadedImg2.src = URL.createObjectURL(upload2.files[0]);
+
+            uploadedImg1.onload = function () {
+                uploadedImg2.onload = function () {
+                    // Store the uploaded images for replacement
+                    replacementImagesData = replaceAreasWithImages(uploadedImg1, uploadedImg2);
+                };
+            };
+        });
+
+        function replaceAreasWithImages(img1, img2) {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+
+            const visited = new Set();
+            const directions = [
+                [-1, 0], [1, 0], [0, -1], [0, 1]
+            ]; // Neighboring pixels (left, right, up, down)
+
+            let shapeIndex = 0;
+
+            function floodFill(x, y) {
+                const stack = [[x, y]];
+                const shapePixels = [];
+
+                while (stack.length) {
+                    const [cx, cy] = stack.pop();
+                    const index = (cy * canvas.width + cx) * 4;
+
+                    if (
+                        cx >= 0 && cx < canvas.width &&
+                        cy >= 0 && cy < canvas.height &&
+                        !visited.has(index) &&
+                        data[index] === 255 && data[index + 1] === 0 && data[index + 2] === 0
+                    ) {
+                        visited.add(index);
+                        shapePixels.push([cx, cy]);
+
+                        for (const [dx, dy] of directions) {
+                            stack.push([cx + dx, cy + dy]);
+                        }
+                    }
+                }
+
+                return shapePixels;
+            }
+
+            function getBoundingBox(pixels) {
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                for (const [x, y] of pixels) {
+                    if (x < minX) minX = x;
+                    if (y < minY) minY = y;
+                    if (x > maxX) maxX = x;
+                    if (y > maxY) maxY = y;
+                }
+                return { minX, minY, maxX, maxY };
+            }
+
+            for (let y = 0; y < canvas.height; y++) {
+                for (let x = 0; x < canvas.width; x++) {
+                    const index = (y * canvas.width + x) * 4;
+                    if (data[index] === 255 && data[index + 1] === 0 && data[index + 2] === 0 && !visited.has(index)) {
+                        const shapePixels = floodFill(x, y);
+                        const { minX, minY, maxX, maxY } = getBoundingBox(shapePixels);
+
+                        const width = maxX - minX + 1;
+                        const height = maxY - minY + 1;
+
+                        const replacementImg = shapeIndex % 2 === 0 ? img1 : img2;
+                        shapeIndex++;
+
+                        ctx.drawImage(replacementImg, minX, minY, width, height);
+                    }
+                }
+            }
+
+            return ctx.getImageData(0, 0, canvas.width, canvas.height); // Return the modified image data with replacements
+        }
+
+        downloadBtn.addEventListener("click", function () {
+            const link = document.createElement("a");
+            link.download = "canvas-image.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
+    </script>
+</body>
+</html>
+
+
+
+[2 CD] Label printer (xy pixel ver)
+------------------------------
+
+<a target="_blank" href="https://www.ebay.de/itm/126333019567#https://www.topstick-labels.com/fileadmin/Buero-Zuhause/Content/TopStick/productimages/8696_EBD_1.jpg" style=color:blue>UseWith</a> *<a target="_blank" href="https://www.herma.co.uk/office-home/free-software/label-assistant-online-standalone/label-assistant-online-standalone/?tx_hermaeao_pi1%5barticle_id%5d=8696" style=color:blue>Online Assistant</a><hr><br>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Template Maker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .upload-buttons {
+            margin: 20px;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 210mm;
+            height: 297mm;
+            margin-top: 20px;
+            border: 1px solid #000;
+        }
+
+        .label {
+            position: absolute;
+            width: 117mm;
+            height: 117mm;
+            border: 1px solid #ccc;
+            overflow: hidden; 
+            border-radius: 50%; 
+        }
+
+        .label1 {
+            top: 21.5mm;
+            left: 46.5mm;
+        }
+
+        .label2 {
+            top: 158.5mm;
+            left: 46.5mm;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Label Template Maker</h1>
+    <div class="container">
+        <div class="upload-buttons">
+            <input type="file" id="image1" accept="image/*">
+            <input type="file" id="image2" accept="image/*">
+        </div>
+        <div id="canvas-container">
+            <div id="label1" class="label label1">
+                <img id="img1" src="" alt="Label 1">
+            </div>
+            <div id="label2" class="label label2">
+                <img id="img2" src="" alt="Label 2">
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="download">Download as Image</button>
+        </div>
+        <canvas id="finalCanvas" width="793" height="1122"></canvas>
+    </div>
+
+    <script>
+        const imageInput1 = document.getElementById('image1');
+        const imageInput2 = document.getElementById('image2');
+        const img1 = document.getElementById('img1');
+        const img2 = document.getElementById('img2');
+        const downloadButton = document.getElementById('download');
+        const finalCanvas = document.getElementById('finalCanvas');
+        const ctx = finalCanvas.getContext('2d');
+
+        function updateImage(input, imgElement) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    imgElement.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        imageInput1.addEventListener('change', () => updateImage(imageInput1, img1));
+        imageInput2.addEventListener('change', () => updateImage(imageInput2, img2));
+
+        function drawCanvas() {
+
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+
+            const mmToPx = 3.779527559;
+            const labelWidth = 117 * mmToPx;
+            const labelHeight = 117 * mmToPx;
+
+            const img1Element = document.getElementById('img1');
+            const label1X = 46.5 * mmToPx;
+            const label1Y = 21.5 * mmToPx;
+            if (img1Element.src) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(
+                    label1X + labelWidth / 2,
+                    label1Y + labelHeight / 2,
+                    labelWidth / 2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.clip();
+                ctx.drawImage(img1Element, label1X, label1Y, labelWidth, labelHeight);
+                ctx.restore();
+            }
+
+            const img2Element = document.getElementById('img2');
+            const label2X = 46.5 * mmToPx;
+            const label2Y = 158.5 * mmToPx;
+            if (img2Element.src) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(
+                    label2X + labelWidth / 2,
+                    label2Y + labelHeight / 2,
+                    labelWidth / 2,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.clip();
+                ctx.drawImage(img2Element, label2X, label2Y, labelWidth, labelHeight);
+                ctx.restore();
+            }
+        }
+
+        downloadButton.addEventListener('click', () => {
+            drawCanvas();
+            const link = document.createElement('a');
+            link.download = 'label-template.png';
+            link.href = finalCanvas.toDataURL();
+            link.click();
+        });
+    </script>
+</body>
+</html>
+
+
+
+CD Jewelcase Booklet Printer
+--------------------------------
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .preview {
+            border: 1px solid #ccc;
+            width: 210mm;
+            height: 297mm;
+            margin: 10px auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+        canvas {
+            display: none;
+        }
+        .image-info {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .image-info span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>CD Jewelcase printer (2pcs)</h1>
+    <input type="file" id="imageUpload" accept="image/*" multiple>
+    <label><input type="checkbox" id="keepAspectRatio"> Keep Aspect Ratio</label>
+    <div id="imageInfoContainer"></div>
+    <div class="preview" id="preview">
+        <p>Preview will appear here.</p>
+    </div>
+    <button id="rotateBtn" style="display: none;">Rotate Image</button>
+    <button id="downloadBtn" style="display: none;">Download PNG</button>
+    <canvas id="canvas" width="2480" height="3508"></canvas> <!-- A4 at 300 DPI -->
+    <script>
+        const imageUpload = document.getElementById("imageUpload");
+        const previewDiv = document.getElementById("preview");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const rotateBtn = document.getElementById("rotateBtn");
+        const keepAspectRatioCheckbox = document.getElementById("keepAspectRatio");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const imageInfoContainer = document.getElementById("imageInfoContainer");
+
+        let loadedImages = [];
+        let currentRotation = 0; 
+
+        imageUpload.addEventListener("change", async (event) => {
+            const files = event.target.files;
+            if (files.length === 0) return;
+
+            loadedImages = [];
+            imageInfoContainer.innerHTML = ''; 
+
+            for (const file of files) {
+                const img = await loadImage(URL.createObjectURL(file));
+                loadedImages.push({ img, file });
+
+                const scaleX = 1456 / img.width;
+                const scaleY = 1456 / img.height;
+
+                const imgInfo = document.createElement('div');
+                imgInfo.classList.add('image-info');
+                imgInfo.innerHTML = `
+                    <span>Filename:</span> ${file.name} <br>
+                    <span>Resolution:</span> ${img.width} x ${img.height} px <br>
+                    <span>Scale X:</span> ${scaleX.toFixed(2)} <br>
+                    <span>Scale Y:</span> ${scaleY.toFixed(2)} <br>
+                `;
+                imageInfoContainer.appendChild(imgInfo);
+            }
+
+            processImages();
+        });
+
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+
+        function processImages() {
+            const A4_WIDTH = 2480; 
+            const A4_HEIGHT = 3508; 
+            const IMAGE_SIZE = 1456; 
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            const offsets = calculateOffsets(loadedImages.length, A4_WIDTH, A4_HEIGHT, IMAGE_SIZE);
+            drawImages(offsets);
+
+            updatePreview();
+            downloadBtn.style.display = "inline-block";
+            rotateBtn.style.display = "inline-block";
+        }
+
+        function calculateOffsets(count, canvasWidth, canvasHeight, imageSize) {
+            const offsets = [];
+            const spacing = 20; 
+            const totalHeight = count * imageSize + (count - 1) * spacing;
+            const startX = (canvasWidth - imageSize) / 2; 
+            const startY = (canvasHeight - totalHeight) / 2; 
+
+            for (let i = 0; i < count; i++) {
+                offsets.push({
+                    x: startX,
+                    y: startY + i * (imageSize + spacing)
+                });
+            }
+            return offsets;
+        }
+
+        function drawImages(offsets) {
+            const IMAGE_SIZE = 1456; 
+
+            loadedImages.forEach((data, index) => {
+                const { img, file } = data;
+                ctx.save();
+                ctx.translate(offsets[index].x + IMAGE_SIZE / 2, offsets[index].y + IMAGE_SIZE / 2);
+                ctx.rotate(currentRotation); 
+
+                if (keepAspectRatioCheckbox.checked) {
+                    const scaleX = IMAGE_SIZE / img.width;  
+                    const scaleY = IMAGE_SIZE / img.height; 
+                    const scale = Math.max(scaleX, scaleY); 
+
+                    const width = img.width * scale;
+                    const height = img.height * scale;
+
+                    ctx.drawImage(img, -width / 2, -height / 2, width, height);
+                } else {
+                    ctx.drawImage(img, -IMAGE_SIZE / 2, -IMAGE_SIZE / 2, IMAGE_SIZE, IMAGE_SIZE);
+                }
+
+                ctx.restore();
+            });
+        }
+
+        function updatePreview() {
+            const dataUrl = canvas.toDataURL("image/png");
+            previewDiv.innerHTML = `<img src="${dataUrl}" alt="Preview" style="max-width:100%; max-height:100%;">`;
+        }
+
+        downloadBtn.addEventListener("click", () => {
+            const link = document.createElement("a");
+            link.download = "print-ready.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
+
+        rotateBtn.addEventListener("click", () => {
+            currentRotation += Math.PI / 2;
+            const offsets = calculateOffsets(loadedImages.length, 2480, 3508, 1456);
+            drawImages(offsets);
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
+
+
+Mp3 Albumart & id3 tag extract
+-------------------------
+
+    <input type="file" id="fileInput" accept="audio/mp3" />
+    <div id="albumArtContainer">
+        <img id="albumArt" src="" alt="Album Art" style="max-widh: 300px;" />
+        <p id="imageFileName"></p> <!-- Display the file name -->
+    </div>
+    <br>
+
+    <!-- Details/ Spoiler Section for ID3 Tags -->
+    <details id="id3Details">
+        <summary>Click to view ID3 tags</summary>
+        <div id="id3TagContent"></div>
+    </details>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.js"></script>
+    <script type="text/javascript">
+        var jsmediatags = window.jsmediatags;
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                document.getElementById('imageFileName').textContent = "File name: " + file.name;
+                jsmediatags.read(file, {
+                    onSuccess: function(tag) {
+                        console.log(tag);
+                        if (tag.tags && tag.tags.picture) {
+                            var imageData = tag.tags.picture;
+                            var base64String = "";
+                            for (var i = 0; i < imageData.data.length; i++) {
+                                base64String += String.fromCharCode(imageData.data[i]);
+                            }
+                            var base64Image = "data:" + imageData.format + ";base64," + window.btoa(base64String);
+                            document.getElementById("albumArt").src = base64Image;
+                        }
+                        var id3TagContent = document.getElementById("id3TagContent");
+                        id3TagContent.innerHTML = `
+                            <strong>Title:</strong> ${tag.tags.title || 'N/A'}<br>
+                            <strong>Artist:</strong> ${tag.tags.artist || 'N/A'}<br>
+                            <strong>Album:</strong> ${tag.tags.album || 'N/A'}<br>
+                            <strong>Year:</strong> ${tag.tags.year || 'N/A'}<br>
+                            <strong>Genre:</strong> ${tag.tags.genre || 'N/A'}<br>
+                            <strong>Track:</strong> ${tag.tags.track || 'N/A'}<br>
+                            <strong>Composer:</strong> ${tag.tags.composer || 'N/A'}<br>
+                            <strong>Publisher:</strong> ${tag.tags.publisher || 'N/A'}<br>
+                        `;
+                    },
+                    onError: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    </script>
+
+
+Invisible(simple) details spoiler
+-------------------
+<details><summary style="color: transparent; text-decoration: none;">title</summary> </details>
+
+
+PMX Portfolio Showcase (mikumikidance 3d model)
+-----------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display Model URLs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+    }
+    #output {
+      white-space: pre-wrap;
+      font-family: monospace;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .iframe-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    iframe {
+      width: 1200px;
+      height: 700px;
+      border: none;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #modelName {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    .unavailable {
+      color: red;
+    }
+    .available {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <details><summary>Model URLs</summary>
+    <div id="output">Loading...</div>
+  </details>
+
+  <div class="iframe-container">
+    <button id="prevButton">Previous</button>
+    <div id="iframe-container"></div>
+    <button id="nextButton">Next</button>
+  </div>
+
+  <div class="iframe-container">
+    <button id="nextAvailableButton">Next Available</button>
+  </div>
+
+  <div id="modelName"></div>
+
+  <script>
+    let modelUrls = [];
+    let checkUrls = [];
+    let modelNames = [];
+    let urlStatuses = []; // To store the availability of each URL
+    let currentIndex = 0;
+
+    // Function to check if a URL is reachable
+    async function checkUrl(url) {
+      try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    // Function to check all URLs and store their statuses
+    async function checkAllUrls() {
+      const checks = checkUrls.map(url => checkUrl(url));
+      urlStatuses = await Promise.all(checks);
+    }
+
+    // Function to update the iframe and model name display
+    function updateIframe() {
+      if (modelUrls.length > 0) {
+        const iframeContainer = document.getElementById('iframe-container');
+        iframeContainer.innerHTML = ''; // Clear previous iframe
+
+        const modelNameDisplay = document.getElementById('modelName');
+        const url = modelUrls[currentIndex];
+        const name = modelNames[currentIndex];
+
+        // Update the model name display
+        if (urlStatuses[currentIndex]) {
+          const iframe = document.createElement('iframe');
+          iframe.src = url;
+          iframeContainer.appendChild(iframe);
+
+          modelNameDisplay.textContent = name;
+          modelNameDisplay.className = 'available'; // Green for available
+        } else {
+          modelNameDisplay.innerHTML = `${name} - <span class="unavailable">not available</span>`;
+          modelNameDisplay.className = 'unavailable'; // Red for unavailable
+        }
+      }
+    }
+
+    // Fetch the model list and initialize everything
+    fetch('https://yusaao.org/bowlroll/list.txt')
+      .then(response => response.text())
+      .then(async text => {
+        const lines = text.split('\n');
+
+        modelNames = lines.map(line => {
+          const match = line.match(/^\S+/);
+          return match ? match[0] : null;
+        }).filter(name => name !== null);
+
+        // Generate the iframe and availability check URLs
+        modelUrls = modelNames.map(name => 
+          `https://alcea-wisteria.de/PHP/SampleWebMMD-master/0loader.html?pmx=pmx/pronama/${name}/${name}.pmx`
+        );
+
+        checkUrls = modelNames.map(name => 
+          `https://alcea-wisteria.de/PHP/SampleWebMMD-master/pmx/pronama/${name}/${name}.pmx`
+        );
+
+        // Check all URLs and store their statuses
+        await checkAllUrls();
+
+        // Update the output to show URLs and statuses
+        const outputText = modelUrls.map((url, index) => {
+          const status = urlStatuses[index] ? 'Available' : 'Not Available';
+          return `${url} - ${status}`;
+        }).join('\n');
+
+        document.getElementById('output').textContent = outputText;
+
+        if (modelUrls.length > 0) {
+          updateIframe();
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching the file:', error);
+        document.getElementById('output').textContent = 'Error loading the file.';
+      });
+
+    // Event listener for "Previous" button
+    document.getElementById('prevButton').addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateIframe();
+      }
+    });
+
+    // Event listener for "Next" button
+    document.getElementById('nextButton').addEventListener('click', () => {
+      if (currentIndex < modelUrls.length - 1) {
+        currentIndex++;
+        updateIframe();
+      }
+    });
+
+    // Event listener for "Next Available" button
+    document.getElementById('nextAvailableButton').addEventListener('click', () => {
+      // Look for the next available model
+      let nextAvailableIndex = currentIndex + 1;
+      while (nextAvailableIndex < modelUrls.length && !urlStatuses[nextAvailableIndex]) {
+        nextAvailableIndex++;
+      }
+
+      // If a valid next available model is found, update the iframe
+      if (nextAvailableIndex < modelUrls.length) {
+        currentIndex = nextAvailableIndex;
+        updateIframe();
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+<details><summary>Src "0loader"</summary><plaintext>
+
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<button id="zoomInButton" style="position: absolute; top: 10px; right: 20px; font-size: 24px; padding: 20px; background-color: #f44336; color: white; border: none; border-radius: 10px;">-</button>
+<button id="zoomOutButton" style="position: absolute; top: 50px; right: 20px; font-size: 24px; padding: 20px; background-color: #008CBA; color: white; border: none; border-radius: 10px;">+</button>
+
+  <!--<div class="pose"><input type="button" value="pose2" onclick="PoseClickEvent(this.value)"></div>-->
+  <script src="./libs/three.js"></script>
+  <!--<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/libs/mmdparser.min.js"></script>-->
+  <script src="./libs/mmdparser-obsolete.min.js"></script>
+  <script src="./libs/ammo.min.js"></script>
+  <script src="./libs/TGALoader.js"></script>
+  <script src="./libs/MMDLoader.js"></script>
+  <script src="./libs/MMDAnimationHelper.js"></script>
+  <script src="./libs/CCDIKSolver.js"></script>
+  <script src="./libs/MMDPhysics.js"></script>
+  <script>
+  let scene, renderer, camera, mesh, helper;
+  let ready = false;
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  const clock = new THREE.Clock();
+  const urlParams = new URLSearchParams(window.location.search);
+  const modelPath = urlParams.get('pmx') || './pmx/pronama/AoiZaizen/AoiZaizen.pmx'; // Default model path
+  const vmdPath = urlParams.get('vmd') || 'bts-bestofme'; // Default VMD path (without extension)
+  let isMouseDown = false;
+  let previousMousePosition = { x: 0, y: 0 };
+
+  // Parameters for camera orbit
+  let theta = Math.PI / 4;  // Rotation angle (around Y axis)
+  let phi = Math.PI / 4;    // Rotation angle (around X axis)
+  let radius = 50;          // Camera distance from the origin (model)
+  
+  // Variables to store touch positions
+  let isTouching = false;
+  let touchStart = { x: 0, y: 0 };
+  
+  // Variables for pinch-to-zoom
+  let initialPinchDistance = null;
+
+
+  window.onload = () => {
+    Init();
+    LoadModeler();
+    Render();
+
+    // Set up zoom buttons
+    document.getElementById("zoomInButton").addEventListener("click", () => {
+      zoomCamera(1);  // Zoom in
+    });
+    document.getElementById("zoomOutButton").addEventListener("click", () => {
+      zoomCamera(-1); // Zoom out
+    });
+  };
+
+
+  Init = () => {
+    scene = new THREE.Scene();
+    const ambient = new THREE.AmbientLight(0xeeeeee);
+    scene.add(ambient);
+    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0xcccccc, 0);
+    document.body.appendChild(renderer.domElement);
+    camera = new THREE.PerspectiveCamera(40, windowWidth / windowHeight, 1, 1000);
+
+    // Initial camera position
+    updateCameraPosition();
+
+    // Mouse event listeners for rotation
+    document.addEventListener('mousedown', onMouseDown, false);
+    document.addEventListener('mousemove', onMouseMove, false);
+    document.addEventListener('mouseup', onMouseUp, false);
+
+    // Touch event listeners for rotation and pinch-to-zoom
+    document.addEventListener('touchstart', onTouchStart, false);
+    document.addEventListener('touchmove', onTouchMove, false);
+    document.addEventListener('touchend', onTouchEnd, false);
+  };
+
+  // Function to zoom the camera in or out
+  zoomCamera = (direction) => {
+    radius += direction * 5; // Adjust the zoom speed (5 units per button press)
+
+    // Prevent zooming too close or too far
+    radius = Math.max(10, Math.min(radius, 200)); // Adjust min/max zoom distance
+
+    // Update camera position based on the new radius
+    updateCameraPosition();
+  };
+
+  // Mouse interaction functions
+  onMouseDown = (event) => {
+    isMouseDown = true;
+    previousMousePosition = {
+      x: event.clientX,
+      y: event.clientY
+    };
+  };
+
+  onMouseMove = (event) => {
+    if (!isMouseDown) return;
+
+    const deltaX = event.clientX - previousMousePosition.x;
+    const deltaY = event.clientY - previousMousePosition.y;
+
+    // Update the angles based on mouse movement
+    theta -= deltaX * 0.005;  // Rotate around Y-axis
+    phi -= deltaY * 0.005;    // Invert rotation around X-axis (subtract instead of add)
+
+    // Prevent the camera from flipping upside down
+    phi = Math.max(Math.min(phi, Math.PI / 2), -Math.PI / 2);
+
+    // Update camera position based on new angles
+    updateCameraPosition();
+
+    // Update previous mouse position
+    previousMousePosition = {
+      x: event.clientX,
+      y: event.clientY
+    };
+  };
+
+  onMouseUp = () => {
+    isMouseDown = false;
+  };
+
+  // Touch interaction functions
+  onTouchStart = (event) => {
+    if (event.touches.length === 1) {
+      // Start touch rotation
+      isTouching = true;
+      touchStart = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY
+      };
+    } else if (event.touches.length === 2) {
+      // Start pinch-to-zoom
+      initialPinchDistance = getPinchDistance(event);
+    }
+  };
+
+  onTouchMove = (event) => {
+    if (event.touches.length === 1 && isTouching) {
+      // Rotate based on touch movement
+      const deltaX = event.touches[0].clientX - touchStart.x;
+      const deltaY = event.touches[0].clientY - touchStart.y;
+
+      // Update the angles based on touch movement
+      theta -= deltaX * 0.005;  // Rotate around Y-axis
+      phi -= deltaY * 0.005;    // Invert rotation around X-axis (subtract instead of add)
+
+      // Prevent the camera from flipping upside down
+      phi = Math.max(Math.min(phi, Math.PI / 2), -Math.PI / 2);
+
+      // Update camera position based on new angles
+      updateCameraPosition();
+
+      // Update touch start position
+      touchStart = {
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY
+      };
+    } else if (event.touches.length === 2 && initialPinchDistance !== null) {
+      // Pinch-to-zoom: Calculate new pinch distance
+      const newPinchDistance = getPinchDistance(event);
+      const distanceChange = newPinchDistance - initialPinchDistance;
+
+      // Zoom in or out based on pinch distance change
+      radius += distanceChange * 0.1;  // Adjust zoom speed
+
+      // Prevent zooming too close or too far
+      radius = Math.max(10, Math.min(radius, 200));
+
+      // Update camera position based on new zoom (radius)
+      updateCameraPosition();
+
+      // Update initial pinch distance for next move
+      initialPinchDistance = newPinchDistance;
+    }
+  };
+
+  onTouchEnd = () => {
+    isTouching = false;
+    initialPinchDistance = null;
+  };
+
+  // Helper function to calculate the distance between two touch points
+  getPinchDistance = (event) => {
+    const touch1 = event.touches[0];
+    const touch2 = event.touches[1];
+    const dx = touch2.clientX - touch1.clientX;
+    const dy = touch2.clientY - touch1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  updateCameraPosition = () => {
+    // Update camera position using spherical coordinates (radius, theta, phi)
+    camera.position.x = radius * Math.sin(phi) * Math.cos(theta);
+    camera.position.y = radius * Math.cos(phi);
+    camera.position.z = radius * Math.sin(phi) * Math.sin(theta);
+
+    // Make sure the camera always looks at the center of the scene (the origin)
+    camera.lookAt(scene.position);
+  };
+
+  LoadModeler = async () => {
+    const loader = new THREE.MMDLoader();
+    LoadPMX = () => {
+      return new Promise(resolve => {
+        loader.load(modelPath, (object) => {
+          mesh = object;
+
+          // Move the model down along the Y-axis by a specific value (e.g., -10)
+          mesh.position.y = -10;  // Adjust this value to move the model down or up
+
+          scene.add(mesh);
+          resolve(true);
+        }, onProgress, onError);
+      });
+    }
+    LoadVMD = (vmd) => {
+      return new Promise(resolve => {
+        const path = `./vmd/${vmd}.vmd`; // Correct VMD path format
+        loader.loadAnimation(path, mesh, (vmdClip) => {
+          vmdClip.name = vmd;
+          VmdControl(vmd, vmdClip);
+          resolve(true);
+        }, onProgress, onError);
+      });
+    }
+    await LoadPMX();
+    await LoadVMD(vmdPath);
+  }
+
+  VmdControl = (id, vmdClip, loop = true) => {
+    ready = false;
+    helper = new THREE.MMDAnimationHelper({ afterglow: 2.0, resetPhysicsOnLoop: true });
+    helper.add(mesh, {
+      animation: vmdClip,
+      physics: false
+    });
+    if (vmdClip) {
+      const mixer = helper.objects.get(mesh).mixer;
+      if (!loop) {
+        mixer.existingAction(vmdClip).setLoop(THREE.LoopOnce);
+      }
+      mixer.addEventListener("loop", () => {
+        console.log("loop");
+      });
+      mixer.addEventListener("finished", () => {
+        console.log("finished");
+        VmdControl(id, vmdClip, true);
+      });
+    }
+    ready = true;
+  }
+
+  onProgress = (xhr) => {
+    if (xhr.lengthComputable) {
+      const percentComplete = (xhr.loaded / xhr.total) * 100;
+      console.log(Math.round(percentComplete, 2) + '% downloaded');
+    }
+  }
+
+  onError = (xhr) => {
+    console.log("ERROR");
+  }
+
+  Render = () => {
+    requestAnimationFrame(Render);
+    renderer.clear();
+    renderer.render(scene, camera);
+
+    if (ready) {
+      helper.update(clock.getDelta());
+    }
+  }
+</script>
+
+
+______________
+
+
+
+Nintendo eShop Purchase Parse:
+-----------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        .steps-container { display: flex; justify-content: space-between; padding: 10px; }
+        .step { background-color: #f2f2f2; padding: 15px; border-radius: 8px; width: 22%; text-align: center; transition: background-color 0.3s; }
+        .step a, .step button { color: #007BFF; text-decoration: none; font-weight: bold; margin-top: 10px; display: block; }
+        .step button { background-color: #007BFF; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px; }
+        .step.completed { background-color: #28a745; }
+        .step-number { font-size: 18px; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="steps-container">
+        <div class="step" id="step-1"><div class="step-number">1</div><a href="https://accounts.nintendo.com/" target="_blank" onclick="markAsCompleted(event, 'step-1')">Login</a></div>
+        <div class="step" id="step-2"><div class="step-number">2</div><a href="https://ec.nintendo.com/my/transactions/1" target="_blank" onclick="markAsCompleted(event, 'step-2')">View Transactions</a></div>
+        <div class="step" id="step-3"><div class="step-number">3</div><a href="https://ec.nintendo.com/api/my/transactions?limit=100&offset=0" target="_blank" onclick="markAsCompleted(event, 'step-3')">Fetch Data</a></div>
+        <div class="step" id="step-4"><div class="step-number">4</div><button onclick="fillFromClipboard()">Paste</button></div>
+    </div>
+    <script>
+        function markAsCompleted(e, id) { e.preventDefault(); document.getElementById(id).classList.add('completed'); setTimeout(() => window.open(e.target.href, '_blank'), 300); }
+        function fillFromClipboard() { alert("Paste functionality triggered."); }
+    </script>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    button {
+      margin-right: 10px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>eShop Purchases</h1>
+  <textarea id="jsonInput" placeholder="Paste your JSON here"></textarea>
+  <button onclick="formatTable()">Format Table</button>
+  <button onclick="removeZeroAmounts()">Remove Entries with 0,00 Amount</button>
+  <!--<button onclick="fillFromClipboard()">Fill from Clipboard</button>-->
+  <table id="outputTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <script>
+    let currentData = [];
+    function formatTable() {
+      const input = document.getElementById("jsonInput").value;
+      const tableBody = document.querySelector("#outputTable tbody");
+      tableBody.innerHTML = "";
+      try {
+        const jsonData = JSON.parse(input);
+        const transactions = jsonData.transactions;
+        currentData = transactions;
+        transactions.forEach(transaction => {
+          const row = document.createElement("tr");
+          const nameCell = document.createElement("td");
+          nameCell.textContent = transaction.title || "N/A";
+          row.appendChild(nameCell);
+          const amountCell = document.createElement("td");
+          amountCell.textContent = transaction.amount ? transaction.amount.formatted_value : "N/A";
+          row.appendChild(amountCell);
+          const typeCell = document.createElement("td");
+          typeCell.textContent = transaction.transaction_type || "N/A";
+          row.appendChild(typeCell);
+          const dateCell = document.createElement("td");
+          dateCell.textContent = transaction.date || "N/A";
+          row.appendChild(dateCell);
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        alert("Invalid JSON format. Please check your input.");
+      }
+    }
+    function removeZeroAmounts() {
+      const tableBody = document.querySelector("#outputTable tbody");
+      tableBody.innerHTML = "";
+      // Filter out entries where the formatted value is "0,00 â‚¬" or equivalent
+      const filteredData = currentData.filter(transaction => {
+        const amount = transaction.amount ? transaction.amount.formatted_value : null;
+        return amount && !amount.trim().startsWith("0,00");
+      });
+      filteredData.forEach(transaction => {
+        const row = document.createElement("tr");
+        const nameCell = document.createElement("td");
+        nameCell.textContent = transaction.title || "N/A";
+        row.appendChild(nameCell);
+        const amountCell = document.createElement("td");
+        amountCell.textContent = transaction.amount ? transaction.amount.formatted_value : "N/A";
+        row.appendChild(amountCell);
+        const typeCell = document.createElement("td");
+        typeCell.textContent = transaction.transaction_type || "N/A";
+        row.appendChild(typeCell);
+        const dateCell = document.createElement("td");
+        dateCell.textContent = transaction.date || "N/A";
+        row.appendChild(dateCell);
+        tableBody.appendChild(row);
+      });
+      currentData = filteredData;
+    }
+    async function fillFromClipboard() {
+      try {
+        const clipboardText = await navigator.clipboard.readText();
+        document.getElementById("jsonInput").value = clipboardText;
+      } catch (err) {
+        alert("Failed to read clipboard content. Please ensure the clipboard contains valid JSON.");
+        console.error("Clipboard error: ", err);
+      }
+    }
+  </script>
+</body>
+</html>
+
+_____________________
 
 
 
