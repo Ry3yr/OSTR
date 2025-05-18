@@ -7,8 +7,1411 @@ ________________________________________________________________________________
 _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
 *php-install
 
+Calendar with colored events n biweekly underline
+------------------
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Full Year Calendar with Events</title>
+  <style>
+    body { margin: 20px; font-family: Arial, sans-serif; background: #f0f0f0; }
+    .wrapper { display: flex; gap: 30px; align-items: flex-start; }
+    .calendar-wrap { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,.1); }
+    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .calendar-header button { padding: 5px 10px; background: #2196f3; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    .calendar-header span { font-size: 1.2em; font-weight: bold; }
+    .days { display: grid; grid-template-columns: repeat(7, 40px); gap: 5px; justify-content: center; }
+    .weekday { font-weight: bold; background: #eee; padding: 5px 0; border-radius: 4px; text-align: center; }
+    .day { padding: 5px 0; border-radius: 4px; text-align: center; cursor: pointer; }
+    .day.today { background: #2196f3; color: #fff; }
+    .events-wrap { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,.1); width: 300px; max-height: 500px; overflow-y: auto; }
+    .events-wrap h3 { margin-top: 0; }
+    .date-group { margin-bottom: 12px; }
+    .date-group h4 { margin: 0 0 4px; font-size: 1em; border-bottom: 1px solid #ddd; padding-bottom: 2px; }
+    .event-item { margin-left: 10px; font-size: .9em; }
+    details { margin-top: 12px; }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: none; justify-content: center; align-items: center; }
+    .modal-content { background: #fff; padding: 20px; border-radius: 8px; position: relative; width: 260px; }
+    #closeModal { position: absolute; top: 6px; right: 10px; cursor: pointer; font-size: 20px; }
+    .modal-content input, .modal-content select { width: 100%; padding: 6px; margin: 6px 0; }
+    .modal-content button { padding: 6px 12px; background: #2196f3; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+    #weekLegend div { margin-top: 4px; font-size: .85em; }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <!-- CALENDAR -->
+  <div class="calendar-wrap">
+    <div class="calendar-header">
+      <button onclick="changeMonth(-1)">&laquo;</button>
+      <span id="monthYear"></span>
+      <button onclick="changeMonth(1)">&raquo;</button>
+    </div>
+    <div class="days" id="calendar"></div>
+    <div id="weekLegend"></div>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="events-wrap">
+    <h3>Events – This Month</h3>
+    <div id="eventsList"></div>
+  </div>
+</div>
+
+<!-- ADD EVENT MODAL -->
+<div id="eventModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal">&times;</span>
+    <h3>Add Event</h3>
+    <form id="eventForm">
+      <p id="eventDateLabel"></p>
+      <input type="time" id="eventTime" required step="1">
+      <input type="text" id="eventText" placeholder="Event description" required>
+      <label for="eventColor">Color:</label>
+      <select id="eventColor" required>
+        <option value="lightblue">Light Blue</option>
+        <option value="lightgreen">Light Green</option>
+        <option value="lightpink">Light Pink</option>
+        <option value="lightyellow">Light Yellow</option>
+        <option value="lightcoral">Light Coral</option>
+        <option value="lavender">Lavender</option>
+      </select>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<script>
+let events = [], eventsByDate = {};
+let today = new Date(), todayStr = today.toISOString().substring(0,10);
+let currentMonth = today.getMonth(), currentYear = today.getFullYear();
+let oddWeekColor = '', evenWeekColor = '', oddWeekDesc = '', evenWeekDesc = '';
+
+const weekdays = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const calendarEl = document.getElementById("calendar");
+const monthYearEl = document.getElementById("monthYear");
+const eventsListEl = document.getElementById("eventsList");
+
+const modal = document.getElementById("eventModal");
+const closeBtn = document.getElementById("closeModal");
+const eventForm = document.getElementById("eventForm");
+const dateLabel = document.getElementById("eventDateLabel");
+const timeInput = document.getElementById("eventTime");
+const textInput = document.getElementById("eventText");
+const colorInput = document.getElementById("eventColor");
+let selectedDateStr = '';
+
+function getQueryParam(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+function getISOWeek(d) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dayNum = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+}
+
+async function loadWeeklyJSON() {
+  const weeklyFile = getQueryParam('weekly') || 'weekly.json';
+  try {
+    const res = await fetch(weeklyFile, { cache: 'no-store' });
+    if (!res.ok) throw new Error('File not found');
+    const data = await res.json();
+
+    if (data.kwuneven) {
+      oddWeekColor = data.kwuneven.color || '';
+      oddWeekDesc = data.kwuneven.description || '';
+    } else {
+      oddWeekColor = ''; oddWeekDesc = '';
+    }
+    if (data.kwevencolor) {
+      evenWeekColor = data.kwevencolor.color || '';
+      evenWeekDesc = data.kwevencolor.description || '';
+    } else {
+      evenWeekColor = ''; evenWeekDesc = '';
+    }
+    const legendEl = document.getElementById("weekLegend");
+    legendEl.innerHTML = '';
+    if (oddWeekColor) {
+      legendEl.innerHTML += `<div><span style="display:inline-block;width:12px;height:12px;background:${oddWeekColor};border:1px solid #999;margin-right:5px;"></span>${oddWeekDesc}</div>`;
+    }
+    if (evenWeekColor) {
+      legendEl.innerHTML += `<div><span style="display:inline-block;width:12px;height:12px;background:${evenWeekColor};border:1px solid #999;margin-right:5px;"></span>${evenWeekDesc}</div>`;
+    }
+  } catch (e) {
+    // If file not found or malformed JSON, clear weekly colors/legend
+    oddWeekColor = '';
+    evenWeekColor = '';
+    oddWeekDesc = '';
+    evenWeekDesc = '';
+    document.getElementById("weekLegend").innerHTML = '';
+  }
+}
+
+async function loadEvents() {
+  try {
+    const res = await fetch('dates.json', { cache: 'no-store' });
+    events = await res.json();
+  } catch (e) { events = []; }
+  eventsByDate = {};
+  events.forEach(ev => {
+    if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
+    eventsByDate[ev.date].push(ev);
+  });
+  events.forEach(arr => arr?.sort?.((a, b) => a.time.localeCompare(b.time)));
+  events.sort((a,b)=>b.date===a.date ? b.time.localeCompare(a.time) : b.date.localeCompare(a.date));
+}
+
+function renderCalendar(month, year) {
+  calendarEl.innerHTML = '';
+  monthYearEl.textContent = `${monthNames[month]} ${year}`;
+  weekdays.forEach(w => {
+    const el = document.createElement('div');
+    el.className = 'weekday';
+    el.textContent = w;
+    calendarEl.appendChild(el);
+  });
+
+  const firstDay = new Date(year, month, 1);
+  const offset = (firstDay.getDay() + 6) % 7;
+  for (let i = 0; i < offset; i++) calendarEl.appendChild(document.createElement('div'));
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const div = document.createElement('div');
+    div.className = 'day';
+    div.textContent = d;
+
+    const dateObj = new Date(year, month, d);
+    const isoWeek = getISOWeek(dateObj);
+    const weekday = dateObj.getDay();
+    if (weekday >= 1 && weekday <= 5) {
+      const col = isoWeek % 2 === 0 ? evenWeekColor : oddWeekColor;
+      if (col) {
+        div.style.textDecoration = 'underline';
+        div.style.textDecorationColor = col;
+      }
+    }
+
+    if (dateStr === todayStr) div.classList.add('today');
+    if (eventsByDate[dateStr]) {
+      div.style.background = eventsByDate[dateStr][0].color || 'lightblue';
+      div.style.color = '#000';
+    }
+
+    div.dataset.date = dateStr;
+    div.addEventListener('click', openAddEvent);
+    calendarEl.appendChild(div);
+  }
+}
+
+function buildEventsList() {
+  eventsListEl.innerHTML = '';
+  const filtered = events.filter(ev => {
+    const [y, m] = ev.date.split('-').map(Number);
+    return y === currentYear && (m - 1) === currentMonth;
+  });
+
+  const upcoming = filtered.filter(ev => ev.date >= todayStr);
+  const past = filtered.filter(ev => ev.date < todayStr);
+
+  const addGroup = (parent, arr) => {
+    let last = '';
+    arr.forEach(ev => {
+      if (ev.date !== last) {
+        const g = document.createElement('div');
+        g.className = 'date-group';
+        const h = document.createElement('h4');
+        h.textContent = ev.date;
+        g.appendChild(h);
+        parent.appendChild(g);
+        last = ev.date;
+      }
+      const item = document.createElement('div');
+      item.className = 'event-item';
+      item.innerHTML = `<span style="display:inline-block;width:10px;height:10px;background:${ev.color};margin-right:4px;border:1px solid #999;border-radius:2px;"></span>
+                        <strong>${ev.time.replace(/\./g,':')}</strong> – ${ev.text}`;
+      if (ev.date === todayStr) item.style.fontWeight = 'bold';
+      parent.lastChild.appendChild(item);
+    });
+  };
+  addGroup(eventsListEl, upcoming);
+  if (past.length) {
+    const det = document.createElement('details');
+    det.innerHTML = '<summary>Past events</summary>';
+    addGroup(det, past);
+    eventsListEl.appendChild(det);
+  }
+}
+
+function openAddEvent(e) {
+  selectedDateStr = e.currentTarget.dataset.date;
+  dateLabel.textContent = selectedDateStr;
+  timeInput.value = new Date().toISOString().substr(11,8);
+  textInput.value = '';
+  colorInput.value = 'lightblue';
+  modal.style.display = 'flex';
+  textInput.focus();
+}
+closeBtn.onclick = () => modal.style.display = 'none';
+window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+eventForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const qs = `process.php?date=${encodeURIComponent(selectedDateStr)}&time=${encodeURIComponent(timeInput.value.replace(/:/g, '.'))}&text=${encodeURIComponent(textInput.value.trim())}&color=${encodeURIComponent(colorInput.value.trim() || 'lightblue')}`;
+  window.location.href = qs;
+});
+
+function changeMonth(offset) {
+  currentMonth += offset;
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  renderCalendar(currentMonth, currentYear);
+  buildEventsList();
+}
+
+(async () => {
+  await loadWeeklyJSON();
+  await loadEvents();
+  renderCalendar(currentMonth, currentYear);
+  buildEventsList();
+})();
+</script>
+</body>
+</html>
+
+<a href="?weekly=no.json" style=color:blue>
+✖️Weekly</a>
+
+
+====process.php==
+<?php
+header('Content-Type: application/json');
+
+$date  = $_GET['date'] ?? '';
+$time  = $_GET['time'] ?? '';
+$text  = $_GET['text'] ?? '';
+$color = $_GET['color'] ?? 'lightblue';
+
+if (!$date || !$time || !$text) {
+    http_response_code(400);
+    echo json_encode(["status" => "error", "message" => "Missing required parameters"]);
+    exit;
+}
+
+$date  = preg_replace('/[^0-9\-]/', '', $date);
+$time  = preg_replace('/[^0-9\.]/', '', $time);
+$text  = strip_tags($text);
+$color = strip_tags($color);
+
+$newEvent = [
+    "date"  => $date,
+    "time"  => $time,
+    "text"  => $text,
+    "color" => $color
+];
+
+$jsonFile = 'dates.json';
+$events = [];
+
+if (file_exists($jsonFile)) {
+    $data = file_get_contents($jsonFile);
+    $events = json_decode($data, true);
+    if (!is_array($events)) $events = [];
+}
+
+$events[] = $newEvent;
+
+if (file_put_contents($jsonFile, json_encode($events, JSON_PRETTY_PRINT))) {
+    echo json_encode(["status" => "success", "message" => "Event saved"]);
+} else {
+    http_response_code(500);
+    echo json_encode(["status" => "error", "message" => "Could not write to file"]);
+}
+
+
+
+
+Webcomic Fetch
+-------------------------
+
+
+
+====fetch.php====
+
+<?php
+$images = [];
+$small_images = [];
+$page_title = '';
+$submitted_url = '';
+
+if (isset($_POST['url'])) {
+    $submitted_url = trim($_POST['url']);
+    $url = filter_var($submitted_url, FILTER_VALIDATE_URL);
+
+    if ($url) {
+        $parsed_url = parse_url($url);
+        $base_host = $parsed_url['host'];
+
+        $html = @file_get_contents($url);
+
+        if ($html) {
+            libxml_use_internal_errors(true);
+            $doc = new DOMDocument();
+            $doc->loadHTML($html);
+
+            // Get page title
+            $title_nodes = $doc->getElementsByTagName('title');
+            if ($title_nodes->length > 0) {
+                $page_title = $title_nodes->item(0)->nodeValue;
+            }
+
+            // Get image tags
+            $tags = $doc->getElementsByTagName('img');
+            foreach ($tags as $tag) {
+                $src = $tag->getAttribute('src');
+                if (!$src) continue;
+
+                // Make relative URLs absolute
+                if (parse_url($src, PHP_URL_SCHEME) === null) {
+                    $src = rtrim($url, '/') . '/' . ltrim($src, '/');
+                }
+
+                $img_host = parse_url($src, PHP_URL_HOST);
+                if (!$img_host || $img_host === $base_host) {
+                    $size = @getimagesize($src);
+                    if ($size) {
+                        $img_data = [
+                            'src' => $src,
+                            'width' => $size[0],
+                            'height' => $size[1],
+                            'area' => $size[0] * $size[1]
+                        ];
+
+                        if ($size[0] >= 300) {
+                            $images[] = $img_data;
+                        } else {
+                            $small_images[] = $img_data;
+                        }
+                    }
+                }
+            }
+
+            // Sort both sets by resolution descending
+            usort($images, fn($a, $b) => $b['area'] - $a['area']);
+            usort($small_images, fn($a, $b) => $b['area'] - $a['area']);
+        } else {
+            echo "<p>❌ Failed to fetch content from the URL.</p>";
+        }
+    } else {
+        echo "<p>❌ Invalid URL provided.</p>";
+    }
+}
+?>
+
+<form method="post" style="margin-bottom: 20px;">
+    <label for="url">Enter a URL:</label><br>
+    <input type="text" name="url" id="url" placeholder="https://example.com"
+           style="width: 300px;" required value="<?= htmlspecialchars($submitted_url) ?>"><br><br>
+    <button type="submit">Fetch Images</button>
+</form>
+
+<?php if (!empty($images) || !empty($small_images)): ?>
+    <form method="get" action="process.php" id="imageForm">
+        <div style="margin-bottom: 20px;">
+            <label>Page URL:</label><br>
+            <input type="text" name="url" style="width: 100%;"
+                   value="<?= htmlspecialchars($submitted_url) ?>"><br><br>
+
+            <label>Page Title:</label><br>
+            <input type="text" name="title" style="width: 100%;"
+                   value="<?= htmlspecialchars($page_title) ?>">
+        </div>
+
+        <h2>Internal Images (Sorted by Size):</h2>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <?php foreach ($images as $index => $img): ?>
+                <div style="position: relative; text-align: center;">
+                    <img src="<?= htmlspecialchars($img['src']) ?>"
+                         alt="Image"
+                         style="max-width: 200px; max-height: 200px; display: block;">
+                    <input type="checkbox"
+                           data-src="<?= htmlspecialchars($img['src']) ?>"
+                           class="img-check"
+                           style="position: absolute; bottom: 5px; right: 5px;">
+                    <br><small><?= $img['width'] ?>×<?= $img['height'] ?></small>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <?php if (!empty($small_images)): ?>
+            <details style="margin-top: 20px;">
+                <summary>Show small images (width &lt; 300px)</summary>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                    <?php foreach ($small_images as $img): ?>
+                        <div style="position: relative; text-align: center;">
+                            <img src="<?= htmlspecialchars($img['src']) ?>"
+                                 alt="Image"
+                                 style="max-width: 200px; max-height: 200px; display: block;">
+                            <input type="checkbox"
+                                   data-src="<?= htmlspecialchars($img['src']) ?>"
+                                   class="img-check"
+                                   style="position: absolute; bottom: 5px; right: 5px;">
+                            <br><small><?= $img['width'] ?>×<?= $img['height'] ?></small>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </details>
+        <?php endif; ?>
+
+        <br><br>
+        <button type="submit">Submit Selected Images</button>
+    </form>
+
+    <script>
+        document.getElementById('imageForm').addEventListener('submit', function(e) {
+            const checkboxes = document.querySelectorAll('.img-check');
+            let count = 1;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    cb.setAttribute('name', 'img' + count);
+                    cb.setAttribute('value', cb.getAttribute('data-src'));
+                    count++;
+                } else {
+                    cb.removeAttribute('name'); // Do not submit unchecked
+                }
+            });
+        });
+    </script>
+<?php endif; ?>
+
+
+====process.php
+
+<?php
+// File where comics are stored
+$filename = 'comic.json';
+
+// Load existing data or initialize array
+if (file_exists($filename)) {
+    $json = file_get_contents($filename);
+    $data = json_decode($json, true);
+    if (!is_array($data)) $data = [];
+} else {
+    $data = [];
+}
+
+// Collect title and url
+$title = isset($_GET['title']) ? trim($_GET['title']) : '';
+$url   = isset($_GET['url'])   ? trim($_GET['url'])   : '';
+
+if (!$title || !$url) {
+    die("❌ Missing title or URL");
+}
+
+// Collect all img* keys (img1, img2, etc.)
+$images = [];
+foreach ($_GET as $key => $value) {
+    if (preg_match('/^img\d+$/', $key)) {
+        $images[] = $value;
+    }
+}
+
+if (empty($images)) {
+    die("❌ No images selected.");
+}
+
+// Build new entry
+$new_entry = [
+    'title'  => $title,
+    'url'    => $url,
+    'images' => $images
+];
+
+// Append to existing array
+$data[] = $new_entry;
+
+// Save back to file
+file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
+
+// Output success
+echo "<h2>✅ Comic saved!</h2>";
+echo "<p><strong>Title:</strong> " . htmlspecialchars($title) . "</p>";
+echo "<p><strong>URL:</strong> " . htmlspecialchars($url) . "</p>";
+echo "<p><strong>Images:</strong></p><ul>";
+foreach ($images as $img) {
+    echo "<li><a href='" . htmlspecialchars($img) . "'>" . htmlspecialchars($img) . "</a></li>";
+}
+echo "</ul>";
+?>
+
+
+===render.html====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comic Viewer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 2em;
+    }
+    h2 a {
+      text-decoration: none;
+      color: #2a6df4;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 1em 0;
+      border: 1px solid #ccc;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2em;
+    }
+    .nav button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+    }
+    .nav .center {
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="viewer">
+    <h2 id="title"></h2>
+    <div id="images"></div>
+    <div class="nav">
+      <button id="prev">◀ Prev</button>
+      <button class="center" id="random">🎲 Random</button>
+      <button id="next">Next ▶</button>
+    </div>
+  </div>
+
+  <script>
+    let comics = [];
+    let index = 0;
+
+    async function loadJSON() {
+      const res = await fetch('comic.json');
+      if (!res.ok) {
+        document.getElementById('viewer').innerHTML = "<p>❌ Failed to load comic.json</p>";
+        return;
+      }
+      comics = await res.json();
+      if (!Array.isArray(comics) || comics.length === 0) {
+        document.getElementById('viewer').innerHTML = "<p>ℹ️ No comics saved yet.</p>";
+        return;
+      }
+      renderComic();
+    }
+
+    function renderComic() {
+      const comic = comics[index];
+      const title = document.getElementById('title');
+      const images = document.getElementById('images');
+
+      title.innerHTML = `<a href="${comic.url}" target="_blank">${comic.title}</a>`;
+      images.innerHTML = '';
+
+      comic.images.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        images.appendChild(img);
+      });
+
+      document.getElementById('prev').disabled = (index === 0);
+      document.getElementById('next').disabled = (index === comics.length - 1);
+    }
+
+    document.getElementById('prev').addEventListener('click', () => {
+      if (index > 0) {
+        index--;
+        renderComic();
+      }
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+      if (index < comics.length - 1) {
+        index++;
+        renderComic();
+      }
+    });
+
+    document.getElementById('random').addEventListener('click', () => {
+      if (comics.length <= 1) return;
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * comics.length);
+      } while (newIndex === index && comics.length > 1);
+      index = newIndex;
+      renderComic();
+    });
+
+    loadJSON();
+  </script>
+</body>
+</html>
+
+
+_________________
+
+
+
+Fetch all Stats for DA user
+-------------------------------------------
+
+<a target="_blank" href="fivefetch.php?user=aoikurayami1" style=color:lightgray>aoikurayami1</a><hr>
+<?php
+$user = isset($_GET['user']) && !empty($_GET['user']) ? $_GET['user'] : 'aoimatsuri';
+$user = htmlspecialchars($user);
+$url = "https://www.deviantart.com/" . urlencode($user);
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+$html = curl_exec($ch);
+curl_close($ch);
+$dom = new DOMDocument();
+libxml_use_internal_errors(true);
+$dom->loadHTML($html);
+libxml_clear_errors();
+$xpath = new DOMXPath($dom);
+$nodes = $xpath->query("//*[contains(text(), 'Watchers')]");
+$counter = 0;
+foreach ($nodes as $node) {
+    echo "" . trim($node->textContent) . "\n";
+    $counter++;
+    if ($counter == 1) {
+        break;
+    }
+}
+?><br>
+<?php
+$user = isset($_GET['user']) ? $_GET['user'] : 'aoimatsuri';
+$rssUrl = "https://backend.deviantart.com/rss.xml?type=deviation&q=by%3A{$user}+sort%3Atime+meta%3Aall";
+$maxLinks = 5;
+$xml = @simplexml_load_file($rssUrl);
+if ($xml === false) {
+    echo "Failed to load RSS feed.";
+    exit;
+}
+function curl_get_contents($url) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Required for DeviantArt
+    $output = curl_exec($ch);
+    if (curl_errno($ch)) {
+        $output = "cURL error: " . curl_error($ch);
+    }
+    curl_close($ch);
+    return $output;
+}
+echo "<style>
+    body { font-family: Arial; }
+    .entry { margin-bottom: 20px; }
+    .entry a { font-weight: bold; color: #3366cc; }
+    .fetched { margin-left: 10px; color: #444; }
+</style>";
+$count = 0;
+foreach ($xml->channel->item as $item) {
+    if ($count >= $maxLinks) break;
+    $originalUrl = (string)$item->link;
+    $encodedUrl = rawurlencode($originalUrl);
+    $base = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'];
+    $fetchUrl = $base . dirname($_SERVER['PHP_SELF']) . "/singlefetch.php?url=$encodedUrl";
+    $response = curl_get_contents($fetchUrl);
+    echo "<div class='entry'>
+            <!--<a href='$originalUrl' target='_blank'>$originalUrl</a>-->
+            <div class='fetched'>$response</div>
+          </div>";
+
+    $count++;
+}
+?>
+
+
+
+=======singlefetch.php==
+<?php
+// Check if the 'url' query string exists
+$url = isset($_GET['url']) ? $_GET['url'] : 'https://www.deviantart.com/aoimatsuri/art/2025-04-11-Sleepy-1182078924';
+
+$html = file_get_contents($url);
+if ($html !== false) {
+    // Use regex to extract the title
+    preg_match('/<title>(.*?)<\/title>/', $html, $titleMatch);
+    $pageTitle = isset($titleMatch[1]) ? $titleMatch[1] : 'No Title Found';
+
+    // Remove " by aoimatsuri on DeviantArt"
+    $pageTitle = preg_replace('/\s+by\s+[^ ]+\s+on\s+DeviantArt$/', '', $pageTitle);
+
+    // Use regex to extract numbers within <span> tags
+    preg_match_all('/<span>(\d+)<\/span>/', $html, $matches);
+    
+    // Ensure we have at least three numbers to display
+    if (count($matches[1]) >= 3) {
+        $lastThreeNumbers = array_slice($matches[1], -3);
+        
+        // Output with title and link, followed by labels
+        echo "<a href=\"$url\" target=\"_blank\">$pageTitle</a>\n";
+        echo "Favs: " . $lastThreeNumbers[0] . " ";
+        echo "Comments: <span style='color: lightgray; opacity: 0.2; display: inline;'>" . $lastThreeNumbers[1] . "</span> ";  // Prevent line break by using 'inline' style
+        echo "Views: " . $lastThreeNumbers[2] . "\n";
+    } else {
+        echo "Not enough numbers found.";
+    }
+} else {
+    echo "Failed to retrieve content from the URL.";
+}
+?>
+
+
+
+
+Reddit Media Extract
+-------------------
+
+<?php
+function urlExists($url) {
+    $headers = @get_headers($url, 1);
+    return $headers && strpos($headers[0], '200') !== false;
+}
+$url = $_GET['url'] ?? null;
+if (!$url) {
+    die('No URL provided. Use ?url=https://example.com');
+}
+$options = [
+    'http' => [
+        'method' => 'GET',
+        'header' => 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0'
+    ]
+];
+$context = stream_context_create($options);
+$htmlContent = @file_get_contents($url, false, $context);
+
+if ($htmlContent === false) {
+    die('Error fetching the webpage content.');
+}
+preg_match_all('/https?:\/\/[^"\s<>]+/i', $htmlContent, $matches);
+
+$allUrls = $matches[0];
+$mediaUrls = [];
+foreach ($allUrls as $foundUrl) {
+    $parsed = parse_url($foundUrl);
+    if (isset($parsed['query'])) {
+        parse_str($parsed['query'], $queryParams);
+        if (isset($queryParams['url'])) {
+            $decoded = urldecode($queryParams['url']);
+            if (preg_match('/\.(png|jpe?g|mp4)$/i', $decoded)) {
+                $mediaUrls[] = $decoded;
+                continue;
+            }
+        }
+    }
+    if (preg_match('/\.(png|jpe?g|mp4)$/i', $foundUrl)) {
+        $mediaUrls[] = $foundUrl;
+    }
+    if (preg_match('#(https://v\.redd\.it/[\w\d]+/)DASH_[\d]+\.mp4#i', $foundUrl, $dashMatch)) {
+        $base = $dashMatch[1];
+        $dash480 = $base . 'DASH_480.mp4';
+        $dash240 = $base . 'DASH_240.mp4';
+
+        if (urlExists($dash480)) {
+            $mediaUrls[] = $dash480;
+        }
+        if (urlExists($dash240)) {
+            $mediaUrls[] = $dash240;
+        }
+    }
+}
+foreach (array_unique($mediaUrls) as $mediaUrl) {
+    echo htmlspecialchars($mediaUrl) . '<br><br>';
+}
+?>
+
+
+
+Nintendo Direct ChartJS:
+--------------------------------------
+
+
+<?php
+
+$url = "https://de.m.wikipedia.org/wiki/Nintendo_Direct";
+$html = file_get_contents($url);
+
+$dom = new DOMDocument;
+libxml_use_internal_errors(true);
+$dom->loadHTML($html);
+libxml_clear_errors();
+
+$xpath = new DOMXPath($dom);
+
+$rows = $xpath->query("//table[contains(@class, 'wikitable')]/tbody/tr");
+
+$data = [];
+
+$germanMonths = [
+    "Jan." => "January", "Feb." => "February", "März" => "March", "Apr." => "April",
+    "Mai" => "May", "Juni" => "June", "Juli" => "July", "Aug." => "August",
+    "Sep." => "September", "Okt." => "October", "Nov." => "November", "Dez." => "December"
+];
+
+$years = []; 
+
+foreach ($rows as $row) {
+    $cols = $row->getElementsByTagName('td');
+    if ($cols->length >= 3) { 
+        $title = trim($cols->item(0)->nodeValue); 
+        $dateRaw = trim($cols->item(2)->nodeValue); 
+
+        foreach ($germanMonths as $de => $en) {
+            $dateRaw = str_replace($de, $en, $dateRaw);
+        }
+
+        $dateTime = DateTime::createFromFormat('d. F Y', $dateRaw);
+        if ($dateTime) {
+            $formattedDate = $dateTime->format('Y');
+            $year = $dateTime->format('Y');
+            $data[] = ['date' => $dateTime->format('Y-m-d'), 'title' => $title];
+
+            if (!in_array($year, $years)) {
+                $years[] = $year;
+            }
+        }
+    }
+}
+
+$jsonData = json_encode($data);
+$yearsJson = json_encode($years); 
+?>
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo Direct Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script> <!-- Annotation Plugin -->
+</head>
+<body>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <!-- Div to show the clicked event as a hyperlink -->
+    <div id="eventDisplay" style="margin-top: 20px; font-size: 18px;"></div>
+
+    <script>
+
+        var dataFromPHP = <?php echo $jsonData; ?>;
+        var years = <?php echo $yearsJson; ?>;
+
+        var chartData = dataFromPHP.map(function(item, index) {
+            let color = 'rgb(75, 192, 192)'; 
+
+            if (item.title === "Nintendo Direct") {
+                color = 'red'; 
+            } else if (item.title === "Nintendo Direct Mini") {
+                color = 'orange'; 
+            }
+
+            return {
+                x: new Date(item.date),
+                y: index + 1, 
+                title: item.title,
+                formattedDate: item.date,
+                pointBackgroundColor: color,
+                pointRadius: (color !== 'rgb(75, 192, 192)') ? 6 : 3 
+            };
+        });
+
+        var verticalLines = years.map(year => ({
+            type: 'line',
+            mode: 'vertical',
+            scaleID: 'x',
+            value: new Date(`${year}-01-01`),
+            borderColor: 'rgba(255, 0, 0, 0.5)',
+            borderWidth: 2,
+            label: {
+                content: year,
+                enabled: true,
+                position: 'top'
+            }
+        }));
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Nintendo Direct Events',
+                    data: chartData,
+                    borderColor: 'rgb(75, 192, 192)',
+                    fill: false,
+                    pointBackgroundColor: chartData.map(item => item.pointBackgroundColor), 
+                    pointRadius: chartData.map(item => item.pointRadius) 
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Nintendo Direct Events'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return dataFromPHP[tooltipItem.dataIndex].title;
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: verticalLines 
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'month'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Event Order'
+                        }
+                    }
+                },
+                onClick: function(event, elements) {
+                    if (elements.length > 0) {
+                        var index = elements[0].index;
+                        var clickedEvent = chartData[index];
+
+                        var youtubeSearchUrl = "https://www.youtube.com/results?search_query=" + 
+                            encodeURIComponent(clickedEvent.formattedDate + " " + clickedEvent.title);
+
+                        document.getElementById('eventDisplay').innerHTML = 
+                            `You clicked: <a href="${youtubeSearchUrl}" target="_blank">${clickedEvent.title} (${clickedEvent.formattedDate})</a>`;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+___________________
+
+
+Website image extractor
+-----------------------------
+
+<?php
+if (isset($_POST['url'])) {
+    $url = $_POST['url'];
+
+    // Initialize cURL to fetch the HTML content of the URL
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");
+    $html = curl_exec($ch);
+    curl_close($ch);
+
+    if ($html !== false) {
+        // Parse the HTML content
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);  // Suppress warnings for invalid HTML
+        $dom->loadHTML($html);
+        libxml_clear_errors();
+
+        // Find all image tags
+        $images = $dom->getElementsByTagName('img');
+
+        if ($images->length > 0) {
+            echo "<h2>Embedded Images from the URL:</h2>";
+            // Loop through all the image tags and display them
+            foreach ($images as $image) {
+                $src = $image->getAttribute('src');
+
+                // If the image URL is relative, make it absolute
+                if (strpos($src, 'http') === false) {
+                    $parsedUrl = parse_url($url);
+                    $src = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . '/' . ltrim($src, '/');
+                }
+
+                // Check if src is valid
+                if (!empty($src)) {
+                    // Display image
+                    echo '<div style="margin: 20px; text-align: center;">';
+                    echo '<img src="' . $src . '" alt="Embedded Image" style="max-width: 500px; margin: 10px; border: 2px solid #ddd; padding: 5px;">';
+                    echo '</div>';
+                }
+            }
+        } else {
+            echo "No images found in the URL.";
+        }
+    } else {
+        echo "Unable to fetch the content from the URL.";
+    }
+} else {
+    echo "Please provide a URL.";
+}
+?>
+
+<form method="POST">
+    <label for="url">Enter URL:</label>
+    <input type="text" name="url" id="url" required>
+    <input type="submit" value="Fetch Images">
+</form>
+
+_________________
+
+
+Poipiku Fetch image gallery
+------------------------------------------
+
+<?php
+$url = 'https://poipiku.com/11331041/';
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3');
+$htmlContent = curl_exec($ch);
+curl_close($ch);
+if (!$htmlContent) {
+    die('Error fetching the page content.');
+}
+$dom = new DOMDocument();
+libxml_use_internal_errors(true);
+$dom->loadHTML($htmlContent);
+libxml_clear_errors();
+$xpath = new DOMXPath($dom);
+foreach ($xpath->query('//h2') as $h2) {
+    $h2->parentNode->removeChild($h2);
+}
+$sectionNode = $xpath->query('//section[@id="IllustThumbList"]')->item(0);
+if ($sectionNode === NULL) {
+    die('The specified section was not found in the page.');
+}
+$baseUrl = 'https://poipiku.com';
+$imageCount = 0;
+$maxImages = 4;
+$nodesToRemove = [];
+foreach ($sectionNode->getElementsByTagName('a') as $a) {
+    if ($imageCount >= $maxImages) {
+        $nodesToRemove[] = $a;
+        continue;
+    }
+
+    $href = $a->getAttribute('href');
+    if (strpos($href, 'http') === false) {
+        $a->setAttribute('href', $baseUrl . $href);
+    }
+    $a->setAttribute('target', '_blank');
+    $style = $a->getAttribute('style');
+    if (preg_match("/url\('\/\/(.*?)'\)/", $style, $matches)) {
+        $relativeImageUrl = $matches[1];
+        $absoluteImageUrl = 'https://' . $relativeImageUrl;
+        $brTag = $dom->createElement('br');
+        $imgTag = $dom->createElement('img');
+        $imgTag->setAttribute('src', $absoluteImageUrl);
+        $imgTag->setAttribute('alt', 'Thumbnail');
+        $hrTag = $dom->createElement('hr');
+        $fragment = $dom->createDocumentFragment();
+        $fragment->appendChild($brTag);
+        $fragment->appendChild($imgTag);
+        $fragment->appendChild($hrTag);
+        $a->parentNode->insertBefore($fragment, $a);
+        $imageCount++;
+    }
+}
+foreach ($nodesToRemove as $node) {
+    $node->parentNode->removeChild($node);
+}
+$extractedHtml = $dom->saveHTML($sectionNode);
+if ($imageCount > 0) {
+    echo $extractedHtml;
+}
+?>
+
+___________
+
+
+
+Youtube fetch&check new videos (multichannel urls)
+-----------------------------------
+
+
+
+===checkchannels.php=== 
+<a target="_blank" href="confirmnewvid.php" style="color:blue" 
+   onclick="this.href=this.href+(this.href.includes('?') ? '&' : '?')+'apikey='+new URLSearchParams(window.location.search).get('apikey');">
+   NewVideo?
+</a><hr>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $apiKey = isset($_GET['apikey']) ? $_GET['apikey'] : '';
+    $channelUrls = explode(',', $_POST['channelUrls']);
+    $outputFile = 'ytlist.txt';
+    file_put_contents($outputFile, '');
+    function fetchNewestVideoRSS($channelUrl)
+    {
+        $rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" . extractChannelId($channelUrl);
+        $rssContent = simplexml_load_file($rssUrl);
+        if ($rssContent && isset($rssContent->entry)) {
+            $videoTitle = $rssContent->entry[0]->title;
+            $videoLink = $rssContent->entry[0]->link['href'];
+            $publishedDate = $rssContent->entry[0]->published;
+            return "{$channelUrl} - {$videoLink} {$publishedDate}";
+        }
+        return "{$channelUrl} - No videos found";
+    }
+    function extractChannelId($url)
+    {
+        if (preg_match('/\/channel\/([\w\-]+)/i', $url, $match)) {
+            return $match[1];
+        } elseif (preg_match('/@([\w\-]+)/i', $url, $match)) {
+            return getChannelIdFromHandle($match[1]);
+        }
+        return '';
+    }
+    function getChannelIdFromHandle($handle)
+    {
+        $apiUrl = "https://www.googleapis.com/youtube/v3/channels?part=id&forUsername={$handle}&key=YOUR_API_KEY";
+        $response = json_decode(file_get_contents($apiUrl), true);
+        if (!empty($response['items'][0]['id'])) {
+            return $response['items'][0]['id'];
+        }
+        return '';
+    }
+    foreach ($channelUrls as $channelUrl) {
+        $result = fetchNewestVideoRSS(trim($channelUrl));
+        file_put_contents($outputFile, $result . PHP_EOL, FILE_APPEND);
+    }
+    echo "Newest video data saved to ytlist.txt.";
+    exit;
+}
+function getFullChannelUrl($url) {
+    if (preg_match('/\/channel\/(UC[a-zA-Z0-9_-]{22})/', $url, $match)) {
+        return "https://www.youtube.com/channel/" . $match[1];
+    }
+    if (preg_match('/@([\w\-]+)/i', $url, $match)) {
+        $username = $match[1];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://m.youtube.com/@{$username}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $html = curl_exec($ch);
+        curl_close($ch);
+        $pattern = '/"externalId":"(UC[a-zA-Z0-9_-]{22})"/';
+        if (preg_match($pattern, $html, $matches)) {
+            $channelID = $matches[1];
+            return "https://www.youtube.com/channel/" . $channelID;
+        } else {
+            return "Channel ID not found for handle: @{$username}";
+        }
+    }
+    if (preg_match('/\/c\/([\w\-]+)/i', $url, $match)) {
+        $username = $match[1];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://m.youtube.com/c/{$username}");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $html = curl_exec($ch);
+        curl_close($ch);
+        $pattern = '/"externalId":"(UC[a-zA-Z0-9_-]{22})"/';
+        if (preg_match($pattern, $html, $matches)) {
+            // Extracted channelID
+            $channelID = $matches[1];
+            // Construct the full channel URL
+            return "https://www.youtube.com/channel/" . $channelID;
+        } else {
+            return "Channel ID not found for handle: c/{$username}";
+        }
+    }
+    return "Invalid YouTube URL";
+}
+$url = 'https://alceawis.de/UnderratedContent.html';
+$html = file_get_contents($url);
+if ($html === FALSE) {
+    die('Error fetching the webpage content.');
+}
+$pattern = '/https:\/\/m\.youtube\.com\/(@[\w\-]+|channel\/[\w\-]+|c\/[\w\-]+)/i';
+preg_match_all($pattern, $html, $matches);
+if (!empty($matches[0])) {
+    echo "<form method='POST'>";
+    echo "Found YouTube links in order of appearance:<br>";
+    $fullLinks = [];
+    foreach ($matches[0] as $link) {
+        $fullLink = getFullChannelUrl(trim($link));
+        echo "{$fullLink}<br>";
+        $fullLinks[] = $fullLink;
+    }
+    // Add a hidden input to store the full channel URLs
+    echo "<input type='hidden' name='channelUrls' value='" . implode(',', $fullLinks) . "'>";
+    // Add a button to fetch newest video details
+    echo "<button type='submit'>Check for Newest Videos</button>";
+    echo "</form>";
+} else {
+    echo "No matching YouTube links found.<br>";
+}
+?>
+
+
+====confirmnewvid.php===
+
+<?php
+function getLatestVideoFromRSS($channelId) {
+    $rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=$channelId";
+    $rssData = simplexml_load_file($rssUrl);
+    if ($rssData) {
+        $latestVideoUrl = (string)$rssData->entry[0]->link['href'];
+        $videoTitle = (string)$rssData->entry[0]->title;
+        return ['url' => $latestVideoUrl, 'title' => $videoTitle];
+    }
+    return null;
+}
+$ytListFile = 'ytlist.txt';
+$lines = file($ytListFile, FILE_IGNORE_NEW_LINES);
+foreach ($lines as $line) {
+    // Split the line into channel URL, video URL, and timestamp
+    preg_match('/(https:\/\/www\.youtube\.com\/channel\/[a-zA-Z0-9_-]+)\s-\s(https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+)\s(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+00:00)/', $line, $matches);
+    if (count($matches) == 4) {
+        $channelUrl = $matches[1];
+        $videoUrl = $matches[2];
+        $timestamp = $matches[3];
+        preg_match('/channel\/([a-zA-Z0-9_-]+)/', $channelUrl, $channelMatches);
+        $channelId = $channelMatches[1];
+        $latestVideo = getLatestVideoFromRSS($channelId);
+        if ($latestVideo) {
+            $linkText = htmlspecialchars($latestVideo['title']); // Escape special HTML characters for the title
+            $linkUrl = $latestVideo['url'];
+            if ($linkUrl === $videoUrl) {
+                // Gray and bold for "same"
+                echo $line . " <span style='color: gray; font-weight: bold;'>same</span> <a href='$linkUrl' target='_blank'>$linkText</a><br>\n";
+            } else {
+                // Green and bold for "new"
+                echo $line . " <span style='color: green; font-weight: bold;'>new</span> <a href='$linkUrl' target='_blank'>$linkText</a><br>\n";
+            }
+        } else {
+            echo "Error retrieving RSS for channel: $channelUrl\n";
+        }
+    } else {
+        echo "Invalid format in line: $line\n";
+    }
+}
+?>
+
+
+
+Poweramp track relay:
+----------------------------------
+
+https://alcea-wisteria.de/PHP/0demo/2025-01-11-InfoRelays/2025-01-11-CurrPlaying/Tasker.zip
+
+====trackrelay.php=======
+<?php
+// Get the query string value
+if (isset($_GET['track'])) {
+    // Sanitize input to prevent injection attacks
+    $track = htmlspecialchars($_GET['track']);
+    
+    // Get the current date and time
+    $date = date('Y-m-d H:i:s');
+    
+    // Format the line to be written
+    $newLine = "$date - $track" . PHP_EOL;
+    
+    // File path to write the data
+    $file = 'tracks.txt';
+
+    // Read the current contents of the file
+    $currentContent = '';
+    if (file_exists($file)) {
+        $currentContent = file_get_contents($file);
+    }
+    
+    // Prepend the new line to the existing content
+    $updatedContent = $newLine . $currentContent;
+
+    // Write the updated content back to the file
+    if (file_put_contents($file, $updatedContent, LOCK_EX)) {
+        echo "Track recorded successfully.";
+    } else {
+        echo "Failed to write to file.";
+    }
+} else {
+    echo "No track parameter provided.";
+}
+
+
+====rendertrk.html=== 
+<meta charset="utf-8">
+    <div class="container">
+    <div id="line-container" class="line-container">
+        ðŸŽµ<a target="_blank" href="tracks.txt">
+            Currently Playing</a>ðŸŽ¶:
+        <span id="line-content" class="loading">Loading...</span>
+        <span id="yt-link" style="display:none;"> <a id="yt-search-link" target="_blank" href="#">Search on YouTube</a></span>
+    </div></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const url = 'https://alcea-wisteria.de/PHP/0demo/2025-01-11-InfoRelays/2025-01-11-CurrPlaying/tracks.txt';
+        const lineContentElement = document.getElementById('line-content');
+        const ytLinkElement = document.getElementById('yt-link');
+        const ytSearchLink = document.getElementById('yt-search-link');
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                const firstLine = data.split(/\r?\n/)[0];
+                if (firstLine) {
+                    lineContentElement.textContent = firstLine;
+                    const trackInfo = firstLine.split(' - ')[1];
+                    if (trackInfo) {
+                        ytSearchLink.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(trackInfo)}`;
+                        ytSearchLink.textContent = `Â»`;
+                        ytLinkElement.style.display = 'inline';
+                    }
+                } else {
+                    lineContentElement.textContent = 'No content found.';
+                }
+                lineContentElement.classList.remove('loading');
+            })
+            .catch(error => {
+                lineContentElement.textContent = 'Error loading content.';
+                lineContentElement.classList.remove('loading');
+                console.error('Fetch error:', error);
+            });
+    });
+</script>
 
 
 Password protect php file (put at file start!)
