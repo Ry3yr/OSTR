@@ -7,6 +7,205 @@ ________________________________________________________________________________
 _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-packages-without-composer------
 *php-install
 
+
+
+
+
+LinkExtract
+-------------
+
+<?php
+function getDomain($url) {
+    $parsed = parse_url($url);
+    return $parsed['host'] ?? '';
+}
+
+function extractInternalLinks($url) {
+    $html = @file_get_contents($url);
+    if ($html === false) {
+        return ['error' => 'Failed to load URL content.'];
+    }
+
+    $domain = getDomain($url);
+    $internalLinks = [];
+
+    $dom = new DOMDocument();
+    @$dom->loadHTML($html); // Suppress warnings for malformed HTML
+
+    $xpath = new DOMXPath($dom);
+    $links = $xpath->query('//a[@href]');
+
+    foreach ($links as $link) {
+        $href = $link->getAttribute('href');
+        $href = trim($href);
+
+        // Convert relative URLs to absolute
+        $absoluteUrl = url_to_absolute($url, $href);
+        if (getDomain($absoluteUrl) === $domain) {
+            $internalLinks[] = $absoluteUrl;
+        }
+    }
+
+    return array_unique($internalLinks);
+}
+
+function url_to_absolute($baseUrl, $relativeUrl) {
+    // If already absolute
+    if (parse_url($relativeUrl, PHP_URL_SCHEME) != '') return $relativeUrl;
+    // Build from base
+    return rtrim($baseUrl, '/') . '/' . ltrim($relativeUrl, '/');
+}
+?>
+
+<!-- HTML form -->
+<form method="POST">
+    <input type="text" name="url" placeholder="Enter URL" size="50" required value="<?php echo isset($_POST['url']) ? htmlspecialchars($_POST['url']) : ''; ?>">
+    <button type="submit">Extract Links</button>
+</form>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['url'])) {
+    $url = trim($_POST['url']);
+    $links = extractInternalLinks($url);
+
+    if (isset($links['error'])) {
+        echo "<p>Error: " . htmlspecialchars($links['error']) . "</p>";
+    } else {
+        if (count($links) === 0) {
+            echo "<p>No internal links found.</p>";
+        } else {
+            echo "<h3>Internal Links:</h3><ul>";
+            foreach ($links as $link) {
+                echo "<li><a href=\"$link\" target=\"_blank\">" . htmlspecialchars($link) . "</a></li>";
+            }
+            echo "</ul>";
+
+            // Join URLs with the delimiter 𒐫 WITHOUT urlencoding
+            $joinedUrls = implode("𒐫", $links);
+            // Escape for HTML attribute
+            $joinedUrlsEscaped = htmlspecialchars($joinedUrls, ENT_QUOTES, 'UTF-8');
+
+            echo <<<HTML
+<form action="email_extract.php" method="GET" style="margin-top:20px;">
+    <input type="hidden" name="urls" value="$joinedUrlsEscaped">
+    <button type="submit">Send URLs to email_extract.php</button>
+</form>
+HTML;
+        }
+    }
+}
+?>
+
+Mail Extract:
+-------------
+<?php
+function normalizeObfuscatedEmails($content) {
+    // Normalize common obfuscation patterns
+    $patterns = [
+        '/\s*\(?\[?at\]?\)?\s*/i' => '@',
+        '/\s*\(?\[?dot\]?\)?\s*/i' => '.',
+    ];
+    return preg_replace(array_keys($patterns), array_values($patterns), $content);
+}
+
+function extractEmails($content) {
+    // Normalize obfuscated formats first
+    $normalized = normalizeObfuscatedEmails($content);
+
+    // Extract email addresses
+    preg_match_all('/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i', $normalized, $matches);
+    return array_unique($matches[0]);
+}
+
+function fetchPageContent($url) {
+    $ch = curl_init();
+
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:115.0) Gecko/20100101 Firefox/115.0',
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_SSL_VERIFYPEER => false
+    ]);
+
+    $content = curl_exec($ch);
+    $error = curl_error($ch);
+
+    curl_close($ch);
+
+    return $error ? false : $content;
+}
+
+$emails = [];
+$errorUrls = [];
+
+// Handle optional ?urls= parameter (URLs delimited by the special character "𒐫")
+$prefillUrls = '';
+if (isset($_GET['urls'])) {
+    // Replace delimiter with newlines for the textarea
+    $prefillUrls = str_replace("𒐫", "\n", $_GET['urls']);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['urls'])) {
+    $urls = explode("\n", trim($_POST['urls']));
+    foreach ($urls as $url) {
+        $url = trim($url);
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            $content = fetchPageContent($url);
+            if ($content !== false) {
+                $foundEmails = extractEmails($content);
+                $emails = array_merge($emails, $foundEmails);
+            } else {
+                $errorUrls[] = $url;
+            }
+        } else {
+            $errorUrls[] = $url;
+        }
+    }
+    $emails = array_unique($emails);
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <h2>Email Extractor (Supports Obfuscation)</h2>
+    <form method="post">
+        <textarea name="urls" rows="10" cols="80" placeholder="Enter one URL per line"><?php
+            if (isset($_POST['urls'])) {
+                echo htmlspecialchars($_POST['urls']);
+            } elseif (!empty($prefillUrls)) {
+                echo htmlspecialchars($prefillUrls);
+            }
+        ?></textarea><br>
+        <button type="submit">Extract Emails</button>
+    </form>
+
+    <?php if (!empty($emails)): ?>
+        <h3>Found Emails:</h3>
+        <ul>
+            <?php foreach ($emails as $email): ?>
+                <li><?php echo htmlspecialchars($email); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <?php if (!empty($errorUrls)): ?>
+        <h3>Errors/Invalid URLs:</h3>
+        <ul style="color:red;">
+            <?php foreach ($errorUrls as $url): ?>
+                <li><?php echo htmlspecialchars($url); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</body>
+</html>
+
+
+
 Calendar with colored events n biweekly underline
 ------------------
 
