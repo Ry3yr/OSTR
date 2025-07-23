@@ -1,0 +1,41 @@
+
+
+
+
+
+LetsEncrypt ChronJob Reneweal SSL Cert (@VPS /root/
+-------------------------
+
+#!/bin/bash
+
+LAST_RENEWAL_FILE="/var/lib/letsencrypt/last_renewal.txt"
+DOMAIN="alceawis.com"
+
+# Initialize last renewal file if it doesn't exist or is empty
+if [ ! -f "$LAST_RENEWAL_FILE" ] || [ ! -s "$LAST_RENEWAL_FILE" ]; then
+    echo $(date +%s) > "$LAST_RENEWAL_FILE"
+fi
+
+CURRENT_DATE=$(date +%s)
+LAST_RENEWAL_DATE=$(cat "$LAST_RENEWAL_FILE")
+DIFF_SECONDS=$((CURRENT_DATE - LAST_RENEWAL_DATE))
+DIFF_DAYS=$((DIFF_SECONDS / 86400))
+
+if [ "$DIFF_DAYS" -ge 60 ]; then
+    echo "More than 60 days passed. Attempting certificate renewal..."
+    systemctl stop nginx
+    if certbot certonly --standalone -d "$DOMAIN" --quiet --non-interactive --agree-tos --preferred-challenges http; then
+        echo "Certificate successfully renewed."
+        echo "$CURRENT_DATE" > "$LAST_RENEWAL_FILE"
+    else
+        echo "Certificate renewal failed."
+        echo "Renewal failed" | mail -s "SSL Renewal Failed" alceawisteria@proton.me
+    fi
+    systemctl start nginx
+else
+    REMAINING_SECONDS=$((60 * 86400 - DIFF_SECONDS))
+    REMAINING_DAYS=$((REMAINING_SECONDS / 86400))
+    REMAINING_HOURS=$(( (REMAINING_SECONDS % 86400) / 3600 ))
+    # echo "Only $DIFF_DAYS days since last renewal."
+    echo "Wait another ${REMAINING_DAYS} days and ${REMAINING_HOURS} hours before attempting renewal."
+fi
