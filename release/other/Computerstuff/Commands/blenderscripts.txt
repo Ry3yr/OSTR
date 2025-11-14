@@ -1,3 +1,195 @@
+
+
+
+Remove bones from existing fbx:
+------------------------------
+
+@echo off
+set "BLENDER_EXE=C:\portableapps\blender36\blender.exe"
+
+if "%~1"=="" (
+    echo No file provided.
+    pause
+    exit /b
+)
+
+set "FBX_FILE=%~1"
+for %%f in ("%FBX_FILE%") do set "OUTPUT_FILE=%%~dpnf_nobones%%~xf"
+
+set "PYTHON_SCRIPT=%TEMP%\blender_fix_%RANDOM%.py"
+
+(
+echo import bpy
+echo import os
+echo.
+echo bpy.ops.wm.read_factory_settings(use_empty=True^)
+echo.
+echo bpy.ops.import_scene.fbx(filepath=r'%FBX_FILE:\=\\%'^)
+echo.
+echo for obj in bpy.data.objects:
+echo     if obj.type == 'MESH':
+echo         bpy.context.view_layer.objects.active = obj
+echo         bpy.ops.object.transform_apply(location=False, rotation=True, scale=True^)
+echo.
+echo armatures = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE'^]
+echo bpy.ops.object.select_all(action='DESELECT'^)
+echo for arm in armatures:
+echo     arm.select_set(True^)
+echo if armatures:
+echo     bpy.ops.object.delete(^)
+echo.
+echo bpy.ops.export_scene.fbx(filepath=r'%OUTPUT_FILE:\=\\%'^)
+echo print('Saved:', r'%OUTPUT_FILE:\=\\%'^)
+) > "%PYTHON_SCRIPT%"
+
+"%BLENDER_EXE%" --background --python "%PYTHON_SCRIPT%"
+del "%PYTHON_SCRIPT%" >nul 2>&1
+echo.
+echo Conversion complete!
+pause
+
+Facege (3.5) obj to fbx with blendshapes convert
+------------------------------------------------
+
+import bpy
+import os
+import glob
+
+# File paths (Update if needed)
+sf_folder = r"C:\Users\User\Desktop\sf"
+base_mesh_path = os.path.join(sf_folder, "ls.obj")
+output_fbx_path = os.path.join(sf_folder, "ls.fbx")
+
+# Clear existing objects in the scene
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete()
+
+# Import the base mesh (ls.obj)
+bpy.ops.import_scene.obj(filepath=base_mesh_path)
+base_obj = bpy.context.selected_objects[0]
+base_obj.name = "BaseMesh"
+
+# Find all blendshape files (expressions, modifiers, phonemes)
+blendshape_files = glob.glob(os.path.join(sf_folder, "ls_Expression*.obj")) + \
+                   glob.glob(os.path.join(sf_folder, "ls_Modifier*.obj")) + \
+                   glob.glob(os.path.join(sf_folder, "ls_Phoneme*.obj"))
+
+# Process each blendshape
+for blendshape_path in blendshape_files:
+    blendshape_name = os.path.basename(blendshape_path).replace(".obj", "")
+
+    # Import blendshape mesh
+    bpy.ops.import_scene.obj(filepath=blendshape_path)
+    blendshape_obj = bpy.context.selected_objects[0]
+
+    # Create Basis shape key if not exists
+    if base_obj.data.shape_keys is None:
+        base_obj.shape_key_add(name="Basis")
+
+    # Create new shape key
+    shape_key = base_obj.shape_key_add(name=blendshape_name)
+    
+    # Transfer vertex positions
+    for i, vert in enumerate(blendshape_obj.data.vertices):
+        shape_key.data[i].co = vert.co
+
+    # Remove the imported blendshape mesh
+    bpy.data.objects.remove(blendshape_obj, do_unlink=True)
+
+# Export the final FBX
+bpy.ops.export_scene.fbx(filepath=output_fbx_path, use_selection=False, apply_unit_scale=True)
+
+print("FBX exported successfully:", output_fbx_path)
+
+
+
+Hardlink mesh parts
+-------------------
+
+import bpy
+
+# Create a new mesh object
+def join_all_meshes():
+    # Get all mesh objects in the scene
+    mesh_objects = [obj for obj in bpy.context.scene.objects if obj.type == 'MESH']
+    
+    if not mesh_objects:
+        print("No mesh objects found in the scene.")
+        return
+
+    # Select all mesh objects
+    bpy.ops.object.select_all(action='DESELECT')
+    for obj in mesh_objects:
+        obj.select_set(True)
+
+    # Set the active object to the first mesh object
+    bpy.context.view_layer.objects.active = mesh_objects[0]
+
+    # Join all selected mesh objects
+    bpy.ops.object.join()
+
+# Run the function
+join_all_meshes()
+
+
+
+Make mesh "single user" (to allow CATS at some times)
+------------------------------------
+
+import bpy
+
+# Iterate through all mesh objects
+for obj in bpy.data.objects:
+    if obj.type == 'MESH':  # Check if the object is a mesh
+        obj.data = obj.data.copy()  # Make mesh data single-user
+
+print("All meshes are now single-user.")
+
+
+
+
+Extract current loaded model textures
+--------------------------------------
+
+import bpy
+import os
+import shutil
+
+# Define the destination directory
+output_dir = r"C:\Users\User\Desktop\out"
+
+# Ensure the output directory exists
+os.makedirs(output_dir, exist_ok=True)
+
+# Function to extract textures
+def extract_textures():
+    for material in bpy.data.materials:
+        if not material.use_nodes:
+            continue  # Skip materials that don't use nodes
+
+        for node in material.node_tree.nodes:
+            if node.type == 'TEX_IMAGE':
+                image = node.image
+                if image and image.filepath:
+                    # Get the source file path
+                    source_path = bpy.path.abspath(image.filepath)
+                    
+                    # Ensure the source file exists
+                    if os.path.exists(source_path):
+                        # Copy the texture to the output directory
+                        destination_path = os.path.join(output_dir, os.path.basename(source_path))
+                        shutil.copy2(source_path, destination_path)
+                        print(f"Copied: {source_path} -> {destination_path}")
+                    else:
+                        print(f"File not found: {source_path}")
+
+# Run the texture extraction
+extract_textures()
+print("Texture extraction completed.")
+
+
+
+
 Erase all Textures
 ------------------
 
