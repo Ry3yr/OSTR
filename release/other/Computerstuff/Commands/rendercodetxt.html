@@ -1,3 +1,4 @@
+
 <button id="copyAllTitles" class="copy-all-button">Copy All Titles</button>
 <script>
   window.addEventListener("DOMContentLoaded", () => {
@@ -35,7 +36,7 @@ function toggleContent(titleElement) {
 }
 
 function copyContent(contentElement) {
-  const text = contentElement.innerText.trim();
+  const text = contentElement.innerText;
   navigator.clipboard.writeText(text)
     .then(() => {
       console.log('Content copied to clipboard:', text);
@@ -83,7 +84,7 @@ if (fileTextParam) {
       contentLines.shift();
 
       filteredLines.forEach((line, index) => {
-        const extractedElement = document.createElement("div");
+        const extractedElement = document.createElement("pre");
         extractedElement.className = "extracted";
 
         const titleElement = document.createElement("div");
@@ -94,7 +95,7 @@ if (fileTextParam) {
 
         const contentElement = document.createElement("div");
         contentElement.className = "content";
-        contentElement.innerText = contentLines[index].trim();
+        contentElement.innerText = contentLines[index];
         extractedElement.appendChild(contentElement);
 
         const copyButton = document.createElement("button");
@@ -124,7 +125,7 @@ if (fileTextParam) {
     <script>
         document.getElementById('copyAllTitles').addEventListener('click', function() {
             // Gather all titles
-            const titles = Array.from(document.querySelectorAll('.title')).map(title => title.innerText.trim()).join('\n');
+            const titles = Array.from(document.querySelectorAll('.title')).map(title => title.innerText).join('\n');
             
             // Copy to clipboard
             navigator.clipboard.writeText(titles)
