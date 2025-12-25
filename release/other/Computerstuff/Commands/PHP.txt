@@ -8,6 +8,3395 @@ _____https://stackoverflow.com/questions/40545795/how-do-i-install-composer-php-
 *php-install
 
 
+
+AudioIntentReciver (Control Poweramp via PHP, Tasker, Macrodroid n Root)
+----------------------------
+
+commandprocess.php
+--
+<?php
+header('Content-Type: text/plain');
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET');
+date_default_timezone_set('Europe/Berlin');
+if (isset($_GET['delete']) && $_GET['delete'] === 'ok') {
+    $commandFile = 'commands.txt';
+    if (file_exists($commandFile)) {
+        if (unlink($commandFile)) {
+            echo "OK: Command file deleted";
+        } else {
+            echo "ERROR: Could not delete command file";
+        }
+    } else {
+        echo "OK: Command file does not exist (already deleted)";
+    }
+    exit;
+}
+$command = $_GET['command'] ?? '';
+if ($command === '') {
+    echo "ERROR: No command provided";
+    exit;
+}
+$timestamp = date('YmdHis');
+$entry = $timestamp . ' - ' . $command;
+$commandFile = 'commands.txt';
+$existingCommands = [];
+if (file_exists($commandFile)) {
+    $existingCommands = file($commandFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
+array_unshift($existingCommands, $entry);
+$existingCommands = array_slice($existingCommands, 0, 4);
+if (file_put_contents($commandFile, implode(PHP_EOL, $existingCommands) . PHP_EOL) === false) {
+    echo "ERROR: Could not write to command file";
+    exit;
+}
+?>
+
+index.html
+--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Remote</title>
+<details><summary>CMD Shell</summary>
+<pre>
+#!/bin/bash
+URL="https://alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/commands.txt"
+echo "Fetching commands from: $URL"
+first_line=$(curl -s "$URL" | head -n 1)
+if [ -z "$first_line" ]; then
+    echo "Error: Could not fetch or file is empty"
+    exit 1
+fi
+echo "First line: $first_line"
+command="${first_line:17}"
+echo "Executing command: $command"
+eval "$command"
+exit_code=$?
+if [ $exit_code -eq 0 ]; then
+    echo "Command executed successfully"
+    delete_url="https://alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/commandprocess.php?delete=ok"
+    echo "Making GET request to: $delete_url"
+    delete_response=$(curl -s "$delete_url")
+    curl_exit_code=$?
+    if [ $curl_exit_code -eq 0 ]; then
+        echo "Delete request sent successfully"
+        echo "Response: $delete_response"
+    else
+        echo "Warning: Failed to send delete request (curl exit code: $curl_exit_code)"
+    fi
+else
+    echo "Error executing command"
+    exit 1
+fi
+
+<hr style="width:50%;float:left;">
+<u>AudioIntentReceive.macro (Macrodroid)</u>
+{"globalVariables":[],"macro":{"disabledTimestamp":0,"exportedActionBlocks":[],"forceEvenIfNotEnabledTimestamp":0,"isActionBlock":false,"isExtra":false,"isFavourite":false,"lastEditedTimestamp":1766437547779,"localVariables":[],"localVarsAlphabetical":true,"m_GUID":-7890590420177522383,"m_actionList":[{"blockNextAction":false,"m_nonRoot":false,"m_script":"#!/bin/bash\nURL\u003d\"https://alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/commands.txt\"\necho \"Fetching commands from: $URL\"\nfirst_line\u003d$(curl -s \"$URL\" | head -n 1)\nif [ -z \"$first_line\" ]; then\n    echo \"Error: Could not fetch or file is empty\"\n    exit 1\nfi\necho \"First line: $first_line\"\ncommand\u003d\"${first_line:17}\"\necho \"Executing command: $command\"\neval \"$command\"\nexit_code\u003d$?\nif [ $exit_code -eq 0 ]; then\n    echo \"Command executed successfully\"\n    delete_url\u003d\"https://alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/commandprocess.php?delete\u003dok\"\n    echo \"Making GET request to: $delete_url\"\n    delete_response\u003d$(curl -s \"$delete_url\")\n    curl_exit_code\u003d$?\n    if [ $curl_exit_code -eq 0 ]; then\n        echo \"Delete request sent successfully\"\n        echo \"Response: $delete_response\"\n    else\n        echo \"Warning: Failed to send delete request (curl exit code: $curl_exit_code)\"\n    fi\nelse\n    echo \"Error executing command\"\n    exit 1\nfi\n","timeoutSeconds":30,"useHelper":false,"useShizuku":false,"disableLogging":false,"m_SIGUID":-7400398854717422661,"m_classType":"ShellScriptAction","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false},{"m_delayInMilliSeconds":0,"m_delayInSeconds":2,"m_useAlarm":true,"unitForVariables":0,"disableLogging":false,"m_SIGUID":-6918740774120871296,"m_classType":"PauseAction","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false},{"m_appName":"Task Shortcut","m_intentEncoded":"task:TrackAudioPlayerSend#Intent;action\u003dnet.dinglisch.android.tasker.WIDICKYUM;component\u003dnet.dinglisch.android.taskerm/.IntentHandler;S.mcro\u003d%3CTask%20sr%3D%22%22%3E%3Cid%3E-3%3C%2Fid%3E%3CImg%20sr%3D%22icn%22ve%3D%222%22%3E%3Ccls%3Ecom.maxmpz.audioplayer.standard_adaptive%3C%2Fcls%3E%3Cpkg%3Ecom.maxmpz.audioplayer%3C%2Fpkg%3E%3C%2FImg%3E%3Cnme%3ETrackAudioPlayerSend%3C%2Fnme%3E%3Cpri%3E7%3C%2Fpri%3E%3Crty%3E2%3C%2Frty%3E%3CAction%20sr%3D%22act0%22ve%3D%227%22%3E%3CStr%20sr%3D%22arg0%22ve%3D%223%22%3ETrackAudioPlayerSend%3C%2FStr%3E%3CInt%20sr%3D%22arg1%22val%3D%227%22%2F%3E%3CStr%20sr%3D%22arg2%22ve%3D%223%22%2F%3E%3CStr%20sr%3D%22arg3%22ve%3D%223%22%2F%3E%3CStr%20sr%3D%22arg4%22ve%3D%223%22%2F%3E%3CInt%20sr%3D%22arg5%22val%3D%221%22%2F%3E%3Ccode%3E130%3C%2Fcode%3E%3C%2FAction%3E%3Ccdate%3E1766436510717%3C%2Fcdate%3E%3Cedate%3E1766436510717%3C%2Fedate%3E%3C%2FTask%3E;end","m_name":"TrackAudioPlayerSend","disableLogging":false,"m_SIGUID":-6281820491066775691,"m_classType":"LaunchShortcutAction","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false}],"m_category":"Nicht kategorisiert","m_constraintList":[{"checkThisMacro":true,"m_invoked":false,"m_macroIds":[],"m_macroNames":[],"m_timePeriodSeconds":4,"disableLogging":false,"m_SIGUID":-8368519708659995381,"m_classType":"LastRunTimeConstraint","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false},{"customAddedSSIDs":[],"m_SSIDList":[null],"m_wifiState":0,"disableLogging":false,"m_SIGUID":-7151573572426603523,"m_classType":"WifiConstraint","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false},{"m_anyDevice":true,"m_btState":2,"m_deviceName":"Any Device","disableLogging":false,"m_SIGUID":-5759114516428804920,"m_classType":"BluetoothConstraint","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false},{"a":true,"m_screenOn":false,"disableLogging":false,"m_SIGUID":-5961729435389429292,"m_classType":"ScreenOnOffConstraint","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false}],"m_description":"","m_descriptionOpen":false,"m_enabled":true,"m_excludeLog":false,"m_headingColor":0,"m_isOrCondition":false,"m_name":"AudioIntentReceive","m_triggerList":[{"m_ignoreReferenceStartTime":false,"m_minutes":0,"m_seconds":31,"m_startHour":0,"m_startMinute":0,"m_useAlarm":true,"disableLogging":false,"m_SIGUID":-6597252848197539427,"m_classType":"RegularIntervalTrigger","m_constraintList":[],"m_isDisabled":true,"m_isOrCondition":false},{"disableLogging":false,"m_SIGUID":-4665790134467948861,"m_classType":"ShortcutTrigger","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false},{"m_ignoreReferenceStartTime":false,"m_minutes":0,"m_seconds":32,"m_startHour":0,"m_startMinute":0,"m_useAlarm":true,"disableLogging":false,"m_SIGUID":-9050416507675238679,"m_classType":"RegularIntervalTrigger","m_constraintList":[{"m_externalPower":false,"m_powerConnectedOptions":[true,true,true],"disableLogging":false,"m_SIGUID":-6029441548626236214,"m_classType":"ExternalPowerConstraint","m_constraintList":[],"m_isDisabled":false,"m_isOrCondition":false}],"m_isDisabled":false,"m_isOrCondition":false}]},"macroExportVersion":1}
+
+
+
+<hr style="width:50%;float:left;">
+<u>Tasker.psk.xml</u>- Also requires "Curr Track" from <a href="https://ry3yr.github.io/tasker.zip">here</a> which will chreate the Trackinfo to be send on every Poweramp track change<br>
+&lt;TaskerData sr="" dvi="1" tv="4.9u4m"&gt;
+	&lt;Task sr="task13"&gt;
+		&lt;cdate&gt;1766436427918&lt;/cdate&gt;
+		&lt;edate&gt;1766436443750&lt;/edate&gt;
+		&lt;id&gt;13&lt;/id&gt;
+		&lt;nme&gt;TrackAudioPlayerSend&lt;/nme&gt;
+		&lt;Action sr="act0" ve="7"&gt;
+			&lt;code&gt;118&lt;/code&gt;
+			&lt;Str sr="arg0" ve="3"&gt;https&#58;//alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/save_track.php?track=%Trackinfo&lt;/Str&gt;
+			&lt;Str sr="arg1" ve="3"/&gt;
+			&lt;Str sr="arg2" ve="3"/&gt;
+			&lt;Str sr="arg3" ve="3"/&gt;
+			&lt;Str sr="arg4" ve="3"/&gt;
+			&lt;Int sr="arg5" val="10"/&gt;
+			&lt;Str sr="arg6" ve="3"/&gt;
+			&lt;Str sr="arg7" ve="3"/&gt;
+			&lt;Int sr="arg8" val="0"/&gt;
+		&lt;/Action&gt;
+	&lt;/Task&gt;
+&lt;/TaskerData&gt;
+<!---Tasker tsk.xml end -->
+<hr></pre></details>
+
+
+
+
+    <style>
+        .player-window {
+            width: 300px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-top-color: #dfdfdf;
+            border-left-color: #dfdfdf;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+        }
+        
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: white;
+            padding: 3px 5px;
+            font-size: 11px;
+            font-weight: bold;
+            border-bottom: 2px solid #c0c0c0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .title-text {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .control-btn-small {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px solid;
+            border-top-color: #dfdfdf;
+            border-left-color: #dfdfdf;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .control-btn-small:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #dfdfdf;
+            border-bottom-color: #dfdfdf;
+        }
+        
+        .now-playing {
+            background: white;
+            border: 2px inset;
+            height: 60px;
+            margin: 10px;
+            padding: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .song-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #000;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        
+        .song-album {
+            font-size: 11px;
+            color: #404040;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        
+        .song-time {
+            font-size: 10px;
+            color: #808080;
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+        }
+        
+        .no-song {
+            font-size: 12px;
+            color: #808080;
+            font-style: italic;
+            text-align: center;
+            line-height: 44px;
+        }
+        
+        .transport-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            padding: 10px;
+            background: #c0c0c0;
+            border-top: 2px solid #808080;
+        }
+        
+        .transport-btn {
+            width: 50px;
+            height: 50px;
+            background: #c0c0c0;
+            border: 2px outset;
+            border-top-color: #dfdfdf;
+            border-left-color: #dfdfdf;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        
+        .transport-btn:active {
+            border: 2px inset;
+            border-top-color: #808080;
+            border-left-color: #808080;
+        }
+        
+        .play-btn {
+            width: 60px;
+            background: #00a000;
+            color: white;
+            font-size: 12px;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .play-btn:active {
+            background: #008000;
+        }
+        
+        .play-text {
+            font-size: 10px;
+            margin-top: 2px;
+        }
+        
+        .status-bar {
+            background: #c0c0c0;
+            border-top: 2px solid #808080;
+            padding: 3px 6px;
+            font-size: 11px;
+            color: #000;
+            height: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: marquee 10s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .marquee:hover {
+            animation-play-state: paused;
+        }
+        
+        .command-hint {
+            font-size: 9px;
+            color: #404040;
+            text-align: center;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="player-window">
+        <div class="title-bar">
+            <div class="title-text">
+                <span>🎵</span>
+                Audio Player Remote
+            </div>
+            <div class="window-controls">
+                <button class="control-btn-small" title="Minimize">_</button>
+                <button class="control-btn-small" title="Maximize">□</button>
+                <button class="control-btn-small" title="Close" onclick="window.close()">X</button>
+            </div>
+        </div>
+        
+        <div class="now-playing">
+            <div class="no-song" id="noSong">No song playing</div>
+            <div class="song-info" id="songInfo" style="display: none;">
+                <div class="song-title marquee" id="songTitle"></div>
+                <div class="song-album marquee" id="songAlbum"></div>
+                <div class="song-time" id="songTime"></div>
+            </div>
+        </div>
+        
+        <div class="transport-controls">
+            <button class="transport-btn" onclick="sendCommand(7)" title="Previous Album (7)">
+                &lt;&lt;
+                <div class="command-hint">(7)</div>
+            </button>
+            
+            <button class="transport-btn" onclick="sendCommand(5)" title="Previous Song (5)">
+                &lt;
+                <div class="command-hint">(5)</div>
+            </button>
+            
+            <button class="transport-btn play-btn" onclick="sendCommand(1)" id="playPauseBtn" title="Play/Pause (1)">
+                ▶
+                <div class="play-text" id="playText">PLAY</div>
+                <div class="command-hint">(1)</div>
+            </button>
+            
+            <button class="transport-btn" onclick="sendCommand(4)" title="Next Song (4)">
+                &gt;
+                <div class="command-hint">(4)</div>
+            </button>
+            
+            <button class="transport-btn" onclick="sendCommand(6)" title="Next Album (6)">
+                &gt;&gt;
+                <div class="command-hint">(6)</div>
+            </button>
+        </div>
+        
+        <div class="status-bar" id="status">
+            Ready
+        </div>
+    </div>
+
+    <script>
+        const API_ENDPOINT = 'commandprocess.php';
+        const NOW_PLAYING_FILE = 'currently_playing.txt';
+        
+function parseNowPlayingLine(line) {
+    if (!line || line.trim() === '') return null;
+    const match = line.match(/^"(\d{14})"_"(.*?)"\s*-\s*"(.*?)"$/);
+    if (match) {
+        const [, timestamp, title, album] = match;
+        const hour = timestamp.substring(8, 10);
+        const minute = timestamp.substring(10, 12);
+        const day = timestamp.substring(6, 8);
+        const month = timestamp.substring(4, 6);
+        const formattedTime = `${hour}:${minute} ${day}/${month}`;
+        return {
+            timestamp: formattedTime,
+            title: title.trim(),
+            album: album.trim() || ""
+        };
+    }
+    
+    return null;
+}
+        
+        async function loadNowPlaying() {
+            const noSongElement = document.getElementById('noSong');
+            const songInfoElement = document.getElementById('songInfo');
+            const songTitleElement = document.getElementById('songTitle');
+            const songAlbumElement = document.getElementById('songAlbum');
+            const songTimeElement = document.getElementById('songTime');
+            
+            try {
+                // Cache bust with timestamp
+                const response = await fetch(NOW_PLAYING_FILE + '?t=' + Date.now());
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    const lines = text.trim().split('\n');
+                    //const latestLine = lines[lines.length - 1]; //Gets last line
+                    const latestLine = lines[0];  // Gets FIRST line (NEWEST/TOPMOST entry)
+                    
+                    const songInfo = parseNowPlayingLine(latestLine);
+                    
+                    if (songInfo) {
+                        songTitleElement.textContent = songInfo.title;
+                        songAlbumElement.textContent = songInfo.album;
+                        songTimeElement.textContent = songInfo.timestamp;
+                        
+                        noSongElement.style.display = 'none';
+                        songInfoElement.style.display = 'block';
+                        
+                        // Adjust marquee speed based on text length
+                        const titleLength = songInfo.title.length;
+                        const albumLength = songInfo.album.length;
+                        const titleSpeed = Math.max(8, titleLength / 4);
+                        const albumSpeed = Math.max(8, albumLength / 4);
+                        
+                        songTitleElement.style.animationDuration = `${titleSpeed}s`;
+                        songAlbumElement.style.animationDuration = `${albumSpeed}s`;
+                        
+                        updateStatus(`Playing: ${songInfo.title.substring(0, 30)}...`);
+                    } else {
+                        noSongElement.style.display = 'block';
+                        songInfoElement.style.display = 'none';
+                        noSongElement.textContent = 'No song playing';
+                        updateStatus('Stopped');
+                    }
+                } else {
+                    noSongElement.style.display = 'block';
+                    songInfoElement.style.display = 'none';
+                    noSongElement.textContent = 'File not found';
+                    updateStatus('Error loading file');
+                }
+            } catch (error) {
+                noSongElement.style.display = 'block';
+                songInfoElement.style.display = 'none';
+                noSongElement.textContent = 'Error loading';
+                updateStatus('Connection error');
+            }
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+        
+        async function sendCommand(commandNumber) {
+            updateStatus(`Sending command ${commandNumber}...`);
+            
+            try {
+                const intentString = `am broadcast "intent:#Intent;action=com.maxmpz.audioplayer.API_COMMAND;package=com.maxmpz.audioplayer;i.cmd=${commandNumber};end"`;
+                const response = await fetch(`${API_ENDPOINT}?command=${encodeURIComponent(intentString)}`);
+                
+                if (response.ok) {
+                    // Update play/pause button for command 1
+                    if (commandNumber === 1) {
+                        const playBtn = document.getElementById('playPauseBtn');
+                        const playText = document.getElementById('playText');
+                        const symbol = playBtn.innerHTML.charAt(0);
+                        
+                        if (symbol === '▶') {
+                            playBtn.innerHTML = '⏸<div class="play-text" id="playText">PAUSE</div><div class="command-hint">(1)</div>';
+                            playText.textContent = 'PAUSE';
+                        } else {
+                            playBtn.innerHTML = '▶<div class="play-text" id="playText">PLAY</div><div class="command-hint">(1)</div>';
+                            playText.textContent = 'PLAY';
+                        }
+                    }
+                    
+                    updateStatus(`Command ${commandNumber} sent`);
+                    
+                    // Refresh now playing after a short delay
+                    setTimeout(loadNowPlaying, 300);
+                } else {
+                    updateStatus('Error sending command');
+                }
+            } catch (error) {
+                updateStatus('Network error');
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (event) => {
+            // Prevent default for space to avoid scrolling
+            if (event.key === ' ') {
+                event.preventDefault();
+            }
+            
+            switch(event.key) {
+                case '1': case ' ': sendCommand(1); break;
+                case '4': case 'ArrowRight': sendCommand(4); break;
+                case '5': case 'ArrowLeft': sendCommand(5); break;
+                case '6': case 'ArrowUp': sendCommand(6); break;
+                case '7': case 'ArrowDown': sendCommand(7); break;
+            }
+        });
+        
+        // Load on startup
+        loadNowPlaying();
+        
+        // Auto-refresh every 3 seconds
+        setInterval(loadNowPlaying, 3000);
+    </script>
+</body>
+</html>
+
+
+run.sh
+--
+#!/bin/bash
+URL="https://alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/commands.txt"
+echo "Fetching commands from: $URL"
+first_line=$(curl -s "$URL" | head -n 1)
+if [ -z "$first_line" ]; then
+    echo "Error: Could not fetch or file is empty"
+    exit 1
+fi
+echo "First line: $first_line"
+command="${first_line:17}"
+echo "Executing command: $command"
+eval "$command"
+exit_code=$?
+if [ $exit_code -eq 0 ]; then
+    echo "Command executed successfully"
+    delete_url="https://alcea-wisteria.de/PHP/0demo/2025-12-22-DeviceNAppCtrl/%5BAndroid%5D_Poweramp%E2%80%90%28Tasker%29%2820251222%29/commandprocess.php?delete=ok"
+    echo "Making GET request to: $delete_url"
+    delete_response=$(curl -s "$delete_url")
+    curl_exit_code=$?
+    if [ $curl_exit_code -eq 0 ]; then
+        echo "Delete request sent successfully"
+        echo "Response: $delete_response"
+    else
+        echo "Warning: Failed to send delete request (curl exit code: $curl_exit_code)"
+    fi
+else
+    echo "Error executing command"
+    exit 1
+fi
+
+save_track.php
+--
+<?php
+// commandprocess.php - Updated to handle both command execution and track logging
+
+// Configuration
+$TRACK_FILE = 'currently_playing.txt';
+$MAX_FILE_LINES = 50; // Keep only last 50 tracks to prevent file from growing too large
+
+// Handle track logging via GET parameter
+if (isset($_GET['track'])) {
+    $track = $_GET['track'];
+    
+    // Clean the input (remove any trailing/leading whitespace)
+    $track = trim($track);
+    
+    if (!empty($track)) {
+        // Generate timestamp in format YYYYMMDDHHMMSS
+        $timestamp = date('YmdHis');
+        
+        // Format: "20250209143022"_"Song Title" - "Album Name"
+        // The incoming track should already be in the format: "Song Title" - "Album Name"
+        // or just "Song Title" if no album
+        
+        // Parse the incoming track string
+        $formattedTrack = "\"{$timestamp}\"_";
+        
+        // Check if track contains album separator " - "
+        if (strpos($track, ' - ') !== false) {
+            // Split into title and album
+            $parts = explode(' - ', $track, 2);
+            $title = trim($parts[0]);
+            $album = isset($parts[1]) ? trim($parts[1]) : '';
+            
+            // Ensure both parts are quoted
+            $title = trim($title, '"\'');
+            $album = trim($album, '"\'');
+            
+            $formattedTrack .= "\"{$title}\" - \"{$album}\"";
+        } else {
+            // No album, just title
+            $title = trim($track, '"\'');
+            $formattedTrack .= "\"{$title}\" - \"\"";
+        }
+        
+        // Read existing content
+        $lines = [];
+        if (file_exists($TRACK_FILE)) {
+            $lines = file($TRACK_FILE, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        }
+        
+        // Prepend new track
+        array_unshift($lines, $formattedTrack);
+        if (count($lines) > $MAX_FILE_LINES) {
+            $lines = array_slice($lines, 0, $MAX_FILE_LINES);
+        }
+        if (file_put_contents($TRACK_FILE, implode(PHP_EOL, $lines) . PHP_EOL)) {
+            echo "Track logged: {$formattedTrack}";
+        } else {
+            http_response_code(500);
+            echo "Error writing to file";
+        }
+        exit;
+    }
+}
+
+// Original command execution logic from your bash script
+if (isset($_GET['command'])) {
+    $command = $_GET['command'];
+    
+    // Execute the command (assuming this is running in an environment with ADB/shell access)
+    exec($command, $output, $return_var);
+    
+    if ($return_var === 0) {
+        echo "Command executed successfully";
+    } else {
+        http_response_code(500);
+        echo "Error executing command";
+    }
+    exit;
+}
+
+// Optional: Handle delete request if needed
+if (isset($_GET['delete']) && $_GET['delete'] === 'ok') {
+    // Your original delete logic would go here
+    echo "Delete request received";
+    exit;
+}
+
+// If no parameters provided, show usage
+echo "Usage: 
+- Log track: ?track=\"Song Title\" - \"Album Name\"
+- Send command: ?command=am+broadcast+...
+- Delete: ?delete=ok";
+?>
+
+
+
+
+LineageOS Samsung Parser
+-----------------------
+
+<?php
+
+libxml_use_internal_errors(true);
+
+// Fetch the devices page
+$html = file_get_contents('https://wiki.lineageos.org/devices/');
+
+$dom = new DOMDocument();
+$dom->loadHTML($html);
+
+$xpath = new DOMXPath($dom);
+
+/**
+ * 1. Get the Samsung devices container
+ */
+$devicesDiv = $xpath->query(
+    "//div[contains(concat(' ', normalize-space(@class), ' '), ' devices ')][@data-vendor='samsung']"
+);
+
+if ($devicesDiv->length === 0) {
+    die('Samsung devices div not found');
+}
+
+/**
+ * 2. Get all device items inside it
+ */
+$items = $xpath->query(
+    ".//div[contains(concat(' ', normalize-space(@class), ' '), ' item ')]",
+    $devicesDiv->item(0)
+);
+
+$samsungDevices = [];
+
+foreach ($items as $item) {
+    $nameNode = $xpath->query(".//span[@class='devicename']", $item)->item(0);
+    $linkNode = $xpath->query(".//a[@href]", $item)->item(0);
+    $imageNode = $xpath->query(".//img", $item)->item(0);
+
+    if ($nameNode && $linkNode && $imageNode) {
+        $deviceName = trim($nameNode->textContent);
+        $deviceUrl = 'https://wiki.lineageos.org' . $linkNode->getAttribute('href');
+        $deviceImageUrl = 'https://wiki.lineageos.org' . $imageNode->getAttribute('src'); // Prepend the base URL
+        $codename = $xpath->query(".//span[@class='codename']", $item)->item(0)->textContent;
+
+        // Construct install URL
+        $installUrl = $deviceUrl . '/install';
+
+        // Store device info along with install details link and image URL
+        $samsungDevices[] = [
+            'name' => $deviceName,
+            'url'  => $deviceUrl,
+            'install_url' => $installUrl,
+            'image_url' => $deviceImageUrl
+        ];
+    }
+}
+
+// Check for device query parameter
+$deviceFilterValue = isset($_GET['device']) ? htmlspecialchars($_GET['device']) : '';
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Samsung Devices - LineageOS</title>
+    <style>
+        .device-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .filter-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .filter-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .filter-input:focus {
+            outline: none;
+            border-color: #007cba;
+            box-shadow: 0 0 0 1px #007cba;
+        }
+        .device-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .device-image {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-style: italic;
+        }
+        .results-count {
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        .query-hint {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+        .query-hint a {
+            color: #007cba;
+            text-decoration: none;
+        }
+        .query-hint a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="filter-container">
+        <h2>Samsung Devices with LineageOS Support</h2>
+        <input type="text" 
+               id="deviceFilter" 
+               class="filter-input" 
+               placeholder="Type to filter devices by name (e.g., Galaxy, Note, S9, etc.)"
+               value="<?php echo $deviceFilterValue; ?>"
+               onkeyup="filterDevices()">
+        <div id="resultsCount" class="results-count"></div>
+        <div class="query-hint">
+            <?php if (!empty($deviceFilterValue)): ?>
+                Filtered by query string: "<?php echo $deviceFilterValue; ?>" | 
+                <a href="<?php echo strtok($_SERVER['REQUEST_URI'], '?'); ?>">Clear filter</a>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div id="devicesList">
+        <?php foreach ($samsungDevices as $device): ?>
+            <div class="device-container" data-device-name="<?php echo htmlspecialchars(strtolower($device['name'])); ?>">
+                <div class="device-item">
+                    <img src="<?php echo $device['image_url']; ?>" 
+                         alt="<?php echo htmlspecialchars($device['name']); ?>" 
+                         class="device-image">
+                    <a href="<?php echo $device['url']; ?>" target="_blank">
+                        <?php echo htmlspecialchars($device['name']); ?>
+                    </a>
+                </div>
+                
+                <details onclick="loadIframe('iframe_<?php echo urlencode($device['name']); ?>', '<?php echo $device['install_url']; ?>')">
+                    <summary>Installation Instructions</summary>
+                    <iframe id="iframe_<?php echo urlencode($device['name']); ?>" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0" 
+                            src="about:blank"
+                            style="border: 1px solid #ddd; border-radius: 4px; margin-top: 10px;">
+                        Your browser does not support iframes.
+                    </iframe>
+                </details>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <script>
+        function loadIframe(id, url) {
+            var iframe = document.getElementById(id);
+            if (iframe && iframe.src === 'about:blank') {
+                iframe.src = url;
+            }
+        }
+
+        function filterDevices() {
+            var input = document.getElementById('deviceFilter');
+            var filter = input.value.toLowerCase();
+            var devices = document.getElementsByClassName('device-container');
+            var visibleCount = 0;
+            
+            for (var i = 0; i < devices.length; i++) {
+                var deviceName = devices[i].getAttribute('data-device-name');
+                if (deviceName.indexOf(filter) > -1) {
+                    devices[i].style.display = '';
+                    visibleCount++;
+                } else {
+                    devices[i].style.display = 'none';
+                }
+            }
+            
+            // Update results count
+            var resultsCount = document.getElementById('resultsCount');
+            resultsCount.textContent = visibleCount + ' of ' + devices.length + ' devices shown';
+            
+            // Show no results message
+            var noResultsMsg = document.getElementById('noResultsMessage');
+            if (visibleCount === 0 && filter.length > 0) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'noResultsMessage';
+                    noResultsMsg.className = 'no-results';
+                    noResultsMsg.textContent = 'No devices found matching "' + filter + '"';
+                    document.getElementById('devicesList').appendChild(noResultsMsg);
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
+        }
+        
+        // Initialize page with filter if query parameter exists
+        document.addEventListener('DOMContentLoaded', function() {
+            var devices = document.getElementsByClassName('device-container');
+            var deviceFilter = document.getElementById('deviceFilter');
+            
+            // Update results count
+            document.getElementById('resultsCount').textContent = devices.length + ' devices found';
+            
+            // Apply filter if query parameter exists
+            var filterValue = deviceFilter.value;
+            if (filterValue) {
+                filterDevices();
+                
+                // Optionally scroll to first visible device
+                setTimeout(function() {
+                    var firstVisible = document.querySelector('.device-container[style=""]');
+                    if (firstVisible) {
+                        firstVisible.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+File backup tool (here: data_akkoma.json)
+------------------------------
+<a target="_blank" href="https://alcea-wisteria.de/z_files/acwsbackup/" style=color:blue>MRGNCYCKUP</a>
+
+
+<?php
+
+// Define the URL to download
+$url = 'https://alceawis.de/other/extra/scripts/fakesocialmedia/0ld/data_akkoma.json';
+
+// Define the directory to save the file
+$dir = 'akkoma_data';
+
+// Check if the directory exists, if not, create it
+if (!is_dir($dir)) {
+    mkdir($dir, 0777, true);
+}
+
+// Get the current timestamp
+$timestamp = date('Y-m-d-H-i-s');
+
+// Define the filename with timestamp
+$filename = $timestamp . '-data_akkoma.json';
+
+// Full path where the file will be saved
+$filepath = $dir . '/' . $filename;
+
+// Download the file content
+$file_content = file_get_contents($url);
+
+// Check if the content was fetched successfully
+if ($file_content === false) {
+    die('Error downloading the file.');
+}
+
+// Save the content to the specified file
+file_put_contents($filepath, $file_content);
+
+// Check the size of the downloaded file
+$file_size = filesize($filepath);
+
+// Only keep the file if it's larger than 300KB
+if ($file_size < 300 * 1024) {
+    unlink($filepath); // Delete the file if it's smaller than 300KB
+    echo "File discarded as it is smaller than 300KB.";
+    exit;
+}
+
+// Check the total size of the directory
+$total_size = 0;
+$files = glob($dir . '/*');
+foreach ($files as $file) {
+    $total_size += filesize($file);
+}
+
+// If the total size exceeds 10MB (10 * 1024 * 1024 bytes), clean up old files
+if ($total_size > 10 * 1024 * 1024) {
+    // Sort files by modification time (oldest first)
+    usort($files, function ($a, $b) {
+        return filemtime($a) - filemtime($b);
+    });
+
+    // Delete old files until the total size is under 5MB (5 * 1024 * 1024 bytes)
+    foreach ($files as $file) {
+        if ($total_size <= 5 * 1024 * 1024) break; // Stop if under 5MB
+        if (is_file($file)) {
+            $total_size -= filesize($file);
+            unlink($file); // Delete old file
+        }
+    }
+}
+
+echo "File saved as: $filepath";
+
+?>
+
+
+Fedi post metrics
+----------
+
+<?php
+// Configuration for instances
+$instances = [
+    'akkoma' => ['domain' => 'alceawis.com', 'api_key' => '123', 'type' => 'akkoma'],
+    'mastodon1' => ['domain' => 'mastodon.social', 'api_key' => '123', 'type' => 'mastodon'],
+    'mastodon2' => ['domain' => 'mas.to', 'api_key' => '123', 'type' => 'mastodon']
+];
+
+if (!isset($_GET['url']) || empty($_GET['url'])) {
+    die("?url=POST_URL");
+}
+
+$originalUrl = $_GET['url'];
+
+// Fetch ActivityPub JSON and follow redirects
+function fetchActivityPubJson($url) {
+    $ch = curl_init($url . '.json');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS => 5,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_USERAGENT => 'Fediverse Analyzer',
+        CURLOPT_HTTPHEADER => ['Accept: application/activity+json'],
+    ]);
+    $response = curl_exec($ch);
+    $finalUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    if ($httpCode === 200) {
+        $data = json_decode($response, true);
+        if ($data && isset($data['id'])) {
+            return [
+                'data' => $data,
+                'final_url' => $finalUrl,
+                'redirected' => ($finalUrl !== $url)
+            ];
+        }
+    }
+    return null;
+}
+
+// API request
+function makeApiRequest($url, $apiKey = null) {
+    $ch = curl_init();
+    $headers = ['Accept: application/json'];
+    if ($apiKey && $apiKey !== 'public') $headers[] = 'Authorization: Bearer ' . $apiKey;
+    
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_TIMEOUT => 10,
+    ]);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($response, true);
+}
+
+// Get full handle from user data
+function getFullHandle($userData, $currentInstance) {
+    // Always use the acct field - it contains @user@instance for remote users
+    $acct = $userData['acct'] ?? '';
+    
+    // If acct doesn't contain @, it's a local user, add instance
+    if (strpos($acct, '@') === false) {
+        return $acct . '@' . $currentInstance;
+    }
+    
+    return $acct;
+}
+
+// Create unique reply ID for deduplication - ONLY author + timestamp
+function getReplyUniqueId($authorHandle, $timestamp) {
+    // Just use author handle and timestamp (rounded to minute to handle small variations)
+    $timestampRounded = $timestamp ? date('Y-m-d H:i', strtotime($timestamp)) : '';
+    return md5($authorHandle . '|' . $timestampRounded);
+}
+
+// Get data with redirect tracking
+$activityResult = fetchActivityPubJson($originalUrl);
+if (!$activityResult) die("<div class='error'>No ActivityPub data found</div>");
+
+$activityData = $activityResult['data'];
+$finalUrl = $activityResult['final_url'];
+$redirected = $activityResult['redirected'];
+$originalDomain = parse_url($originalUrl, PHP_URL_HOST);
+
+$postUrl = $activityData['url'] ?? $activityData['id'] ?? $finalUrl;
+$urlParts = parse_url($postUrl);
+$finalDomain = $urlParts['host'];
+$pathParts = explode('/', trim($urlParts['path'], '/'));
+$postId = end($pathParts);
+
+// Global storage for deduplication (for totals only)
+$globalUsers = []; // full handle => true
+$globalLikes = []; // full handle => true  
+$globalBoosts = []; // full handle => true
+$globalReplies = []; // unique reply ID => true
+
+// Track what's unique to remote instances
+$remoteOnlyStats = [
+    'likes' => 0,
+    'boosts' => 0,
+    'replies' => 0
+];
+
+// Results per instance
+$instanceResults = [];
+
+// Function to check an instance
+function checkInstance($domain, $postId, $postUrl, $instanceType = 'remote', $apiKey = null) {
+    global $globalUsers, $globalLikes, $globalBoosts, $globalReplies, $remoteOnlyStats;
+    
+    $instanceData = [
+        'name' => $domain,
+        'type' => $instanceType,
+        'likes' => [],
+        'boosts' => [],
+        'replies' => [],
+        'success' => false
+    ];
+    
+    $baseUrl = "https://{$domain}";
+    
+    // Try direct access first (no auth)
+    $postApi = "{$baseUrl}/api/v1/statuses/{$postId}";
+    $postData = makeApiRequest($postApi, 'public');
+    
+    if ($postData && !isset($postData['error'])) {
+        $instanceData['success'] = true;
+        
+        // Get likes
+        $likes = makeApiRequest("{$baseUrl}/api/v1/statuses/{$postId}/favourited_by", 'public');
+        if ($likes && !isset($likes['error'])) {
+            foreach ($likes as $user) {
+                $fullHandle = getFullHandle($user, $domain);
+                $instanceData['likes'][$fullHandle] = [
+                    'full_handle' => $fullHandle,
+                    'username' => $user['acct'],
+                    'display_name' => $user['display_name'] ?? $user['acct'],
+                    'avatar' => $user['avatar'] ?? '',
+                    'instance' => $domain
+                ];
+                
+                // Track for global totals
+                if (!isset($globalLikes[$fullHandle])) {
+                    $globalLikes[$fullHandle] = true;
+                    if ($instanceType === 'remote') $remoteOnlyStats['likes']++;
+                }
+                $globalUsers[$fullHandle] = true;
+            }
+        }
+        
+        // Get boosts
+        $boosts = makeApiRequest("{$baseUrl}/api/v1/statuses/{$postId}/reblogged_by", 'public');
+        if ($boosts && !isset($boosts['error'])) {
+            foreach ($boosts as $user) {
+                $fullHandle = getFullHandle($user, $domain);
+                $instanceData['boosts'][$fullHandle] = [
+                    'full_handle' => $fullHandle,
+                    'username' => $user['acct'],
+                    'display_name' => $user['display_name'] ?? $user['acct'],
+                    'avatar' => $user['avatar'] ?? '',
+                    'instance' => $domain
+                ];
+                
+                // Track for global totals
+                if (!isset($globalBoosts[$fullHandle])) {
+                    $globalBoosts[$fullHandle] = true;
+                    if ($instanceType === 'remote') $remoteOnlyStats['boosts']++;
+                }
+                $globalUsers[$fullHandle] = true;
+            }
+        }
+        
+        // Get replies
+        $context = makeApiRequest("{$baseUrl}/api/v1/statuses/{$postId}/context", 'public');
+        if ($context && isset($context['descendants'])) {
+            foreach ($context['descendants'] as $reply) {
+                $authorHandle = getFullHandle($reply['account'], $domain);
+                $replyData = [
+                    'id' => $reply['id'],
+                    'author' => $authorHandle,
+                    'content' => strip_tags($reply['content']),
+                    'created_at' => $reply['created_at'] ?? ''
+                ];
+                $replyUniqueId = getReplyUniqueId($authorHandle, $replyData['created_at']);
+                
+                $instanceData['replies'][$replyUniqueId] = $replyData;
+                
+                // Track for global totals
+                if (!isset($globalReplies[$replyUniqueId])) {
+                    $globalReplies[$replyUniqueId] = true;
+                    if ($instanceType === 'remote') $remoteOnlyStats['replies']++;
+                }
+                $globalUsers[$authorHandle] = true;
+            }
+        }
+    } else {
+        // If public access fails and we have an API key, try with auth
+        if ($apiKey) {
+            $postData = makeApiRequest($postApi, $apiKey);
+            
+            if ($postData && !isset($postData['error'])) {
+                $instanceData['success'] = true;
+                
+                // Get likes with auth
+                $likes = makeApiRequest("{$baseUrl}/api/v1/statuses/{$postId}/favourited_by", $apiKey);
+                if ($likes) {
+                    foreach ($likes as $user) {
+                        $fullHandle = getFullHandle($user, $domain);
+                        $instanceData['likes'][$fullHandle] = [
+                            'full_handle' => $fullHandle,
+                            'username' => $user['acct'],
+                            'display_name' => $user['display_name'] ?? $user['acct'],
+                            'avatar' => $user['avatar'] ?? '',
+                            'instance' => $domain
+                        ];
+                        
+                        if (!isset($globalLikes[$fullHandle])) {
+                            $globalLikes[$fullHandle] = true;
+                            if ($instanceType === 'remote') $remoteOnlyStats['likes']++;
+                        }
+                        $globalUsers[$fullHandle] = true;
+                    }
+                }
+                
+                // Get boosts with auth
+                $boosts = makeApiRequest("{$baseUrl}/api/v1/statuses/{$postId}/reblogged_by", $apiKey);
+                if ($boosts) {
+                    foreach ($boosts as $user) {
+                        $fullHandle = getFullHandle($user, $domain);
+                        $instanceData['boosts'][$fullHandle] = [
+                            'full_handle' => $fullHandle,
+                            'username' => $user['acct'],
+                            'display_name' => $user['display_name'] ?? $user['acct'],
+                            'avatar' => $user['avatar'] ?? '',
+                            'instance' => $domain
+                        ];
+                        
+                        if (!isset($globalBoosts[$fullHandle])) {
+                            $globalBoosts[$fullHandle] = true;
+                            if ($instanceType === 'remote') $remoteOnlyStats['boosts']++;
+                        }
+                        $globalUsers[$fullHandle] = true;
+                    }
+                }
+                
+                // Get replies with auth
+                $context = makeApiRequest("{$baseUrl}/api/v1/statuses/{$postId}/context", $apiKey);
+                if ($context && isset($context['descendants'])) {
+                    foreach ($context['descendants'] as $reply) {
+                        $authorHandle = getFullHandle($reply['account'], $domain);
+                        $replyData = [
+                            'id' => $reply['id'],
+                            'author' => $authorHandle,
+                            'content' => strip_tags($reply['content']),
+                            'created_at' => $reply['created_at'] ?? ''
+                        ];
+                        $replyUniqueId = getReplyUniqueId($authorHandle, $replyData['created_at']);
+                        
+                        $instanceData['replies'][$replyUniqueId] = $replyData;
+                        
+                        if (!isset($globalReplies[$replyUniqueId])) {
+                            $globalReplies[$replyUniqueId] = true;
+                            if ($instanceType === 'remote') $remoteOnlyStats['replies']++;
+                        }
+                        $globalUsers[$authorHandle] = true;
+                    }
+                }
+            }
+        }
+    }
+    
+    return $instanceData;
+}
+
+// 1. Check final domain (home instance)
+$instanceResults[$finalDomain] = checkInstance($finalDomain, $postId, $postUrl, 'home');
+
+// 2. Check original domain if different (especially for redirects like woof.tech)
+if ($redirected && $originalDomain !== $finalDomain) {
+    // Try to find API key for original domain
+    $originalApiKey = null;
+    foreach ($instances as $config) {
+        if ($config['domain'] === $originalDomain) {
+            $originalApiKey = $config['api_key'];
+            break;
+        }
+    }
+    
+    // Try to extract post ID from original URL
+    $originalPathParts = explode('/', trim(parse_url($originalUrl, PHP_URL_PATH), '/'));
+    $originalPostId = end($originalPathParts);
+    
+    if ($originalPostId) {
+        $instanceResults[$originalDomain] = checkInstance($originalDomain, $originalPostId, $originalUrl, 'redirect_source', $originalApiKey);
+    }
+}
+
+// 3. Check other configured instances
+foreach ($instances as $config) {
+    $domain = $config['domain'];
+    
+    // Skip if already checked (final domain or original domain)
+    if (isset($instanceResults[$domain]) || $domain === $finalDomain || $domain === $originalDomain) {
+        continue;
+    }
+    
+    // For other instances, we need to search for the post first
+    $searchUrl = "https://{$domain}/api/v2/search?q=" . urlencode($postUrl) . "&resolve=true&limit=1";
+    $searchResult = makeApiRequest($searchUrl, $config['api_key']);
+    
+    if ($searchResult && isset($searchResult['statuses'][0]['id'])) {
+        $remoteId = $searchResult['statuses'][0]['id'];
+        $instanceResults[$domain] = checkInstance($domain, $remoteId, $postUrl, 'remote', $config['api_key']);
+    } else {
+        // Mark as not found
+        $instanceResults[$domain] = [
+            'name' => $domain,
+            'type' => 'remote',
+            'likes' => [],
+            'boosts' => [],
+            'replies' => [],
+            'success' => false
+        ];
+    }
+}
+
+// Calculate totals with proper deduplication
+$totalLikes = count($globalLikes);
+$totalBoosts = count($globalBoosts);
+$totalReplies = count($globalReplies);
+$totalUsers = count($globalUsers);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Fedi Stats</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: #f5f7fa; 
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .compact-view {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+        }
+        
+        .url-display {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            word-break: break-all;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .redirect-note {
+            font-size: 12px;
+            color: #666;
+            padding: 5px 10px;
+            background: #e8f4fd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .stat-card {
+            padding: 15px 10px;
+            border-radius: 8px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+            position: relative;
+        }
+        
+        .stat-card:hover { transform: translateY(-2px); }
+        
+        .stat-icon { font-size: 24px; margin-bottom: 5px; }
+        .stat-count { 
+            font-size: 28px; 
+            font-weight: 700; 
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+        .stat-label { 
+            font-size: 12px; 
+            color: #666; 
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .unique-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .like-card { background: linear-gradient(135deg, #fff5f5, #ffeaea); border: 1px solid #ffcccc; }
+        .boost-card { background: linear-gradient(135deg, #f0f9ff, #e6f7ff); border: 1px solid #b3e0ff; }
+        .reply-card { background: linear-gradient(135deg, #f9f7ff, #f0eeff); border: 1px solid #d6ccff; }
+        .user-card { background: linear-gradient(135deg, #f0fff4, #e6ffed); border: 1px solid #b3ffcc; }
+        
+        details {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-top: 15px;
+        }
+        
+        summary {
+            padding: 15px 20px;
+            background: #2c3e50;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            font-size: 14px;
+        }
+        
+        summary::after {
+            content: '▼';
+            position: absolute;
+            right: 20px;
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+        
+        details[open] summary::after { transform: rotate(180deg); }
+        summary::-webkit-details-marker { display: none; }
+        
+        .details-content {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .instance-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .instance-section:last-child { border-bottom: none; }
+        
+        .instance-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .instance-icon {
+            font-size: 20px;
+        }
+        
+        .instance-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+        
+        .instance-badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .badge-home {
+            background: #3498db;
+            color: white;
+        }
+        
+        .badge-redirect {
+            background: #9b59b6;
+            color: white;
+        }
+        
+        .badge-remote {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .instance-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .instance-count {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+        }
+        
+        .count-number {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .count-label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .category-section {
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .category-icon {
+            font-size: 18px;
+        }
+        
+        .user-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            object-fit: cover;
+        }
+        
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .user-display-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+        
+        .user-handle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 2px;
+            font-family: monospace;
+        }
+        
+        .user-instance {
+            font-size: 11px;
+            color: #888;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .reply-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .reply-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #9b59b6;
+        }
+        
+        .reply-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .reply-author {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .reply-handle {
+            font-size: 12px;
+            color: #666;
+            font-family: monospace;
+            margin-left: 5px;
+        }
+        
+        .reply-time {
+            font-size: 11px;
+            color: #888;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        
+        .reply-content {
+            font-size: 14px;
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .no-data {
+            color: #95a5a6;
+            font-style: italic;
+            font-size: 14px;
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px dashed #ddd;
+        }
+        
+        .deduplication-note {
+            background: #e8f4fd;
+            border: 1px solid #b3e0ff;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 12px;
+            color: #2c3e50;
+        }
+        
+        .total-summary {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .dedup-info {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="compact-view">
+        <div class="url-display">
+            📎 <?php echo htmlspecialchars($postUrl); ?>
+            <?php if($redirected && $originalDomain !== $finalDomain): ?>
+                <div class="redirect-note">
+                    🔀 Redirected from: <?php echo htmlspecialchars($originalUrl); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card like-card">
+                <?php if($remoteOnlyStats['likes'] > 0): ?>
+                    <div class="unique-badge">+<?php echo $remoteOnlyStats['likes']; ?></div>
+                <?php endif; ?>
+                <div class="stat-icon">❤️</div>
+                <div class="stat-count"><?php echo $totalLikes; ?></div>
+                <div class="stat-label">Likes</div>
+            </div>
+            
+            <div class="stat-card boost-card">
+                <?php if($remoteOnlyStats['boosts'] > 0): ?>
+                    <div class="unique-badge">+<?php echo $remoteOnlyStats['boosts']; ?></div>
+                <?php endif; ?>
+                <div class="stat-icon">🔁</div>
+                <div class="stat-count"><?php echo $totalBoosts; ?></div>
+                <div class="stat-label">Boosts</div>
+            </div>
+            
+            <div class="stat-card reply-card">
+                <?php if($remoteOnlyStats['replies'] > 0): ?>
+                    <div class="unique-badge">+<?php echo $remoteOnlyStats['replies']; ?></div>
+                <?php endif; ?>
+                <div class="stat-icon">💬</div>
+                <div class="stat-count"><?php echo $totalReplies; ?></div>
+                <div class="stat-label">Replies</div>
+                <div class="dedup-info">by @user + time</div>
+            </div>
+            
+            <div class="stat-card user-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-count"><?php echo $totalUsers; ?></div>
+                <div class="stat-label">Unique Users</div>
+            </div>
+        </div>
+        
+        <?php if($remoteOnlyStats['likes'] > 0 || $remoteOnlyStats['boosts'] > 0 || $remoteOnlyStats['replies'] > 0): ?>
+            <div class="total-summary">
+                <span>✨ <?php echo $totalLikes; ?> likes, <?php echo $totalBoosts; ?> boosts, <?php echo $totalReplies; ?> replies total (deduplicated across instances)</span>
+            </div>
+        <?php endif; ?>
+    </div>
+    
+    <details>
+        <summary>📊 Detailed Breakdown</summary>
+        <div class="details-content">
+            
+            <div class="deduplication-note">
+                <strong>Note:</strong> Global totals are deduplicated across instances. Replies are deduplicated by @user@handle + timestamp. Each instance shows its own counts below.
+            </div>
+            
+            <?php foreach($instanceResults as $domain => $instance): 
+                $likeCount = count($instance['likes']);
+                $boostCount = count($instance['boosts']);
+                $replyCount = count($instance['replies']);
+                
+                // Skip instances that failed
+                if (!$instance['success'] && $likeCount == 0 && $boostCount == 0 && $replyCount == 0) continue;
+            ?>
+                <div class="instance-section">
+                    <div class="instance-header">
+                        <span class="instance-icon">
+                            <?php if($instance['type'] === 'home'): ?>🏠<?php elseif($instance['type'] === 'redirect_source'): ?>🔀<?php else: ?>🌐<?php endif; ?>
+                        </span>
+                        <span class="instance-name"><?php echo $domain; ?></span>
+                        <span class="instance-badge <?php 
+                            if($instance['type'] === 'home') echo 'badge-home';
+                            elseif($instance['type'] === 'redirect_source') echo 'badge-redirect';
+                            else echo 'badge-remote';
+                        ?>">
+                            <?php 
+                                if($instance['type'] === 'home') echo 'Home';
+                                elseif($instance['type'] === 'redirect_source') echo 'Redirect Source';
+                                else echo 'Remote';
+                            ?>
+                        </span>
+                    </div>
+                    
+                    <?php if($instance['success']): ?>
+                        <div class="instance-stats">
+                            <div class="instance-count">
+                                <div class="count-number"><?php echo $likeCount; ?></div>
+                                <div class="count-label">❤️ Likes</div>
+                            </div>
+                            <div class="instance-count">
+                                <div class="count-number"><?php echo $boostCount; ?></div>
+                                <div class="count-label">🔁 Boosts</div>
+                            </div>
+                            <div class="instance-count">
+                                <div class="count-number"><?php echo $replyCount; ?></div>
+                                <div class="count-label">💬 Replies</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Likes -->
+                        <?php if($likeCount > 0): ?>
+                            <div class="category-section">
+                                <div class="category-title">
+                                    <span class="category-icon">❤️</span>
+                                    <span>Likes (<?php echo $likeCount; ?>)</span>
+                                </div>
+                                <div class="user-list">
+                                    <?php foreach($instance['likes'] as $user): ?>
+                                        <div class="user-item">
+                                            <?php if(!empty($user['avatar'])): ?>
+                                                <img src="<?php echo htmlspecialchars($user['avatar']); ?>" class="user-avatar" alt="">
+                                            <?php else: ?>
+                                                <div class="user-avatar"></div>
+                                            <?php endif; ?>
+                                            <div class="user-info">
+                                                <div class="user-display-name"><?php echo htmlspecialchars($user['display_name']); ?></div>
+                                                <div class="user-handle">@<?php echo htmlspecialchars($user['full_handle']); ?></div>
+                                                <span class="user-instance"><?php echo $domain; ?></span>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <!-- Boosts -->
+                        <?php if($boostCount > 0): ?>
+                            <div class="category-section">
+                                <div class="category-title">
+                                    <span class="category-icon">🔁</span>
+                                    <span>Boosts (<?php echo $boostCount; ?>)</span>
+                                </div>
+                                <div class="user-list">
+                                    <?php foreach($instance['boosts'] as $user): ?>
+                                        <div class="user-item">
+                                            <?php if(!empty($user['avatar'])): ?>
+                                                <img src="<?php echo htmlspecialchars($user['avatar']); ?>" class="user-avatar" alt="">
+                                            <?php else: ?>
+                                                <div class="user-avatar"></div>
+                                            <?php endif; ?>
+                                            <div class="user-info">
+                                                <div class="user-display-name"><?php echo htmlspecialchars($user['display_name']); ?></div>
+                                                <div class="user-handle">@<?php echo htmlspecialchars($user['full_handle']); ?></div>
+                                                <span class="user-instance"><?php echo $domain; ?></span>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <!-- Replies -->
+                        <?php if($replyCount > 0): ?>
+                            <div class="category-section">
+                                <div class="category-title">
+                                    <span class="category-icon">💬</span>
+                                    <span>Replies (<?php echo $replyCount; ?>)</span>
+                                </div>
+                                <div class="reply-list">
+                                    <?php foreach($instance['replies'] as $reply): ?>
+                                        <div class="reply-item">
+                                            <div class="reply-header">
+                                                <span class="reply-author"><?php 
+                                                    $authorHandle = $reply['author'];
+                                                    $authorParts = explode('@', $authorHandle);
+                                                    $authorName = $authorParts[0] ?? $authorHandle;
+                                                    echo htmlspecialchars($authorName);
+                                                ?></span>
+                                                <span class="reply-handle">@<?php echo htmlspecialchars($reply['author']); ?></span>
+                                                <?php if($reply['created_at']): ?>
+                                                    <span class="reply-time"><?php echo date('M j, H:i', strtotime($reply['created_at'])); ?></span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="reply-content"><?php echo htmlspecialchars($reply['content']); ?></div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
+                    <?php else: ?>
+                        <div class="no-data">Could not access this instance or post not found</div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+            
+        </div>
+    </details>
+</body>
+</html>
+
+html file writer
+----------------------
+
+
+<?php
+// Pre-fill from query string, but only act when form is submitted
+$sourcepath = $_GET['path'] ?? '';
+$printstart = $_GET['printstart'] ?? '';
+$content = '';
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $sourcepath = $_POST['sourcepath'] ?? '';
+    $printstart = $_POST['printstart'] ?? '';
+    $content = $_POST['content'] ?? '';
+
+    if ($sourcepath && file_exists($sourcepath)) {
+        $fileContent = file_get_contents($sourcepath);
+
+        // Find marker position
+        $pos = strpos($fileContent, $printstart);
+
+        if ($pos !== false) {
+            // Insert content right after the marker
+            $newContent = substr($fileContent, 0, $pos + strlen($printstart))
+                        . $content
+                        . substr($fileContent, $pos + strlen($printstart));
+
+            // Write back to the file
+            file_put_contents($sourcepath, $newContent);
+            $message = "✅ Content successfully inserted into '$sourcepath'.";
+        } else {
+            $message = "❌ Marker '$printstart' not found in file.";
+        }
+    } else {
+        $message = "❌ File not found or invalid path.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insert Content into File</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h2>Insert Content into File</h2>
+    <?php if ($message): ?>
+        <p><strong><?= htmlspecialchars($message) ?></strong></p>
+    <?php endif; ?>
+
+    <form method="post">
+        <label>Source Path:</label><br>
+        <input type="text" name="sourcepath" size="80"
+               value="<?= htmlspecialchars($sourcepath) ?>"><br><br>
+
+        <label>Print Start Marker:</label><br>
+        <input type="text" name="printstart" size="80"
+               value="<?= htmlspecialchars($printstart) ?>"><br><br>
+
+        <label>Content to Insert:</label><br>
+        <textarea name="content" rows="10" cols="80"><?= htmlspecialchars($content) ?></textarea><br><br>
+
+        <input type="submit" value="Insert Content">
+    </form>
+</body>
+</html>
+
+
+
+Steam Wishlist / PriceDropCheck
+-------------------------------
+
+checkprices.php
+--
+<?php
+// Price Comparison Script for Steam Games
+define('DEFAULT_STEAM_API_KEY', 'YOUR_STEAM_API_KEY');
+
+// Function to extract app ID from URL
+function extractAppIdFromUrl($url) {
+    preg_match('/\/app\/(\d+)\//', $url, $matches);
+    return $matches[1] ?? null;
+}
+
+// Function to fetch current price from Steam API
+function fetchCurrentPrice($appId, $cc = 'EUR', $lang = 'en') {
+    $apiKey = DEFAULT_STEAM_API_KEY;
+    $url = "https://store.steampowered.com/api/appdetails?appids={$appId}&cc={$cc}&l={$lang}&key={$apiKey}";
+    
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 15,
+            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n"
+        ]
+    ]);
+    
+    $response = @file_get_contents($url, false, $context);
+    $data = json_decode($response, true);
+
+    if (isset($data[$appId]['data'])) {
+        $gameData = $data[$appId]['data'];
+        
+        if (isset($gameData['price_overview'])) {
+            return [
+                'final_formatted' => $gameData['price_overview']['final_formatted'],
+                'final' => $gameData['price_overview']['final'],
+                'discount_percent' => $gameData['price_overview']['discount_percent'],
+                'initial_formatted' => $gameData['price_overview']['initial_formatted'],
+                'initial' => $gameData['price_overview']['initial']
+            ];
+        } elseif (isset($gameData['is_free']) && $gameData['is_free']) {
+            return [
+                'final_formatted' => 'Free',
+                'final' => 0,
+                'discount_percent' => 0,
+                'initial_formatted' => 'Free',
+                'initial' => 0
+            ];
+        }
+    }
+    
+    return null;
+}
+
+// Function to convert price string to numeric value
+function priceToNumeric($priceString) {
+    if ($priceString === 'Free') return 0;
+    
+    // Remove currency symbols and commas, keep only numbers and decimal separator
+    $cleanPrice = preg_replace('/[^\d,\.]/', '', $priceString);
+    
+    // Handle European format (comma as decimal separator)
+    if (strpos($cleanPrice, ',') !== false && strpos($cleanPrice, '.') !== false) {
+        // If both comma and dot exist, comma is likely decimal separator
+        $cleanPrice = str_replace('.', '', $cleanPrice); // Remove thousand separators
+        $cleanPrice = str_replace(',', '.', $cleanPrice); // Convert comma to decimal point
+    } elseif (strpos($cleanPrice, ',') !== false) {
+        // Only comma exists - check if it's decimal or thousand separator
+        $parts = explode(',', $cleanPrice);
+        if (strlen(end($parts)) === 2) {
+            // Last part is 2 digits, likely decimal
+            $cleanPrice = str_replace(',', '.', $cleanPrice);
+        } else {
+            // Comma as thousand separator
+            $cleanPrice = str_replace(',', '', $cleanPrice);
+        }
+    }
+    
+    return floatval($cleanPrice);
+}
+
+// Function to compare prices and detect drops
+function comparePrices($storedPrice, $currentPrice) {
+    $storedNumeric = priceToNumeric($storedPrice);
+    $currentNumeric = priceToNumeric($currentPrice['final_formatted']);
+    
+    if ($storedNumeric === 0 && $currentNumeric === 0) {
+        return ['status' => 'same', 'change' => 0, 'percent' => 0];
+    }
+    
+    if ($storedNumeric > $currentNumeric) {
+        $change = $storedNumeric - $currentNumeric;
+        $percent = ($change / $storedNumeric) * 100;
+        return [
+            'status' => 'drop',
+            'change' => $change,
+            'percent' => round($percent, 1),
+            'old_price' => $storedPrice,
+            'new_price' => $currentPrice['final_formatted']
+        ];
+    } elseif ($storedNumeric < $currentNumeric) {
+        $change = $currentNumeric - $storedNumeric;
+        $percent = ($change / $storedNumeric) * 100;
+        return [
+            'status' => 'increase',
+            'change' => $change,
+            'percent' => round($percent, 1),
+            'old_price' => $storedPrice,
+            'new_price' => $currentPrice['final_formatted']
+        ];
+    } else {
+        return ['status' => 'same', 'change' => 0, 'percent' => 0];
+    }
+}
+
+// Function to format currency
+function formatCurrency($amount, $currency = 'EUR') {
+    $symbols = ['EUR' => '€', 'USD' => '$', 'GBP' => '£'];
+    $symbol = $symbols[$currency] ?? $currency;
+    
+    return number_format($amount, 2, ',', '.') . $symbol;
+}
+
+// Main execution
+$jsonFile = 'games_data.json';
+$results = [];
+
+if (file_exists($jsonFile)) {
+    $data = json_decode(file_get_contents($jsonFile), true);
+    
+    if (!empty($data)) {
+        echo "<!DOCTYPE html>
+        <html lang='en'>
+        <head>
+            <meta charset='UTF-8'>
+            <title>Steam Price Checker</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                .container { max-width: 1200px; margin: 0 auto; }
+                .game-card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+                .price-drop { background: #e7ffe7; border-left: 4px solid #00ba07; }
+                .price-increase { background: #ffe7e7; border-left: 4px solid #ba0000; }
+                .no-change { background: #f0f0f0; border-left: 4px solid #666; }
+                .error { background: #fffae7; border-left: 4px solid #baa300; }
+                .price-badge { padding: 3px 8px; border-radius: 3px; font-weight: bold; }
+                .drop { background: #00ba07; color: white; }
+                .increase { background: #ba0000; color: white; }
+                .same { background: #666; color: white; }
+                .stats { background: #e7f3ff; padding: 15px; margin: 20px 0; border-radius: 5px; }
+                .loading { color: #666; font-style: italic; }
+                h1 { color: #333; }
+                .game-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+                .price-comparison { font-size: 16px; margin: 5px 0; }
+                .discount { color: #00ba07; font-weight: bold; }
+                .last-checked { font-size: 12px; color: #666; }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <h1>Steam Price Checker</h1>
+                <div class='stats'>
+                    <strong>Checking prices for " . count($data) . " games...</strong>
+                    <p>Currency: EUR | Last updated: " . date('Y-m-d H:i:s') . "</p>
+                </div>";
+        
+        $totalGames = count($data);
+        $priceDrops = 0;
+        $priceIncreases = 0;
+        $noChanges = 0;
+        $errors = 0;
+        
+        foreach ($data as $index => $game) {
+            echo "<div class='game-card loading' id='game-{$index}'>";
+            echo "Checking: <strong>{$game['title']}</strong>...";
+            echo "</div>";
+            
+            // Flush output to show progress
+            flush();
+            ob_flush();
+            
+            $appId = extractAppIdFromUrl($game['url']);
+            $currentPrice = fetchCurrentPrice($appId, 'EUR', 'en');
+            
+            if ($currentPrice) {
+                $comparison = comparePrices($game['price'], $currentPrice);
+                
+                $statusClass = $comparison['status'] . '-change';
+                if ($comparison['status'] === 'drop') $priceDrops++;
+                elseif ($comparison['status'] === 'increase') $priceIncreases++;
+                else $noChanges++;
+                
+                echo "<script>document.getElementById('game-{$index}').outerHTML = " . json_encode("
+                    <div class='game-card {$statusClass}'>
+                        <div class='game-title'>{$game['title']}</div>
+                        <div class='price-comparison'>
+                            Stored: {$game['price']} → Current: {$currentPrice['final_formatted']}
+                            " . ($comparison['status'] !== 'same' ? 
+                                "<span class='price-badge {$comparison['status']}'>" . 
+                                strtoupper($comparison['status']) . " " . 
+                                ($comparison['percent'] > 0 ? formatCurrency($comparison['change']) . " ({$comparison['percent']}%)" : '') . 
+                                "</span>" : '') . "
+                        </div>
+                        " . ($currentPrice['discount_percent'] > 0 ? 
+                            "<div class='discount'>🏷️ Currently {$currentPrice['discount_percent']}% off (Original: {$currentPrice['initial_formatted']})</div>" : '') . "
+                        <div class='last-checked'>Last checked in database: {$game['date']}</div>
+                        <div><small><a href='{$game['url']}' target='_blank'>View on Steam</a></small></div>
+                    </div>
+                ") . ";</script>";
+                
+                flush();
+                ob_flush();
+                
+            } else {
+                $errors++;
+                echo "<script>document.getElementById('game-{$index}').outerHTML = " . json_encode("
+                    <div class='game-card error'>
+                        <div class='game-title'>{$game['title']}</div>
+                        <div>❌ Could not fetch current price</div>
+                        <div class='last-checked'>Stored price: {$game['price']} | Last checked: {$game['date']}</div>
+                    </div>
+                ") . ";</script>";
+                
+                flush();
+                ob_flush();
+            }
+            
+            // Small delay to avoid hitting rate limits
+            usleep(500000); // 0.5 second delay
+        }
+        
+        // Final statistics
+        echo "<div class='stats'>
+                <h3>Summary</h3>
+                <p>Total Games: {$totalGames}</p>
+                <p style='color: #00ba07;'>Price Drops: {$priceDrops}</p>
+                <p style='color: #ba0000;'>Price Increases: {$priceIncreases}</p>
+                <p style='color: #666;'>No Changes: {$noChanges}</p>
+                <p style='color: #baa300;'>Errors: {$errors}</p>
+            </div>";
+        
+        echo "</div></body></html>";
+        
+    } else {
+        echo "<p>No game data found in the JSON file.</p>";
+    }
+} else {
+    echo "<p>JSON file not found: {$jsonFile}</p>";
+}
+?>
+
+addtolist.php
+--
+<?php
+// Default Steam API Key (replace with your own or leave blank)
+define('DEFAULT_STEAM_API_KEY', 'YOUR_STEAM_API_KEY');
+
+// Function to extract the last part of the URL path (the game title)
+function extractTitleFromUrl($url) {
+    $parts = parse_url($url);
+    $path = rtrim($parts['path'], '/');
+    $segments = explode('/', $path);
+    return end($segments);
+}
+
+// Function to decode Unicode escape sequences in price
+function decodeUnicode($string) {
+    return preg_replace_callback('/\\\u([a-fA-F0-9]{4})/', function ($matches) {
+        return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UCS-2BE');
+    }, $string);
+}
+
+// Function to fetch Steam Deck compatibility data
+function fetchSteamDeckCompatibility($appId) {
+    $urlDeck = "https://store.steampowered.com/saleaction/ajaxgetdeckappcompatibilityreport?nAppID={$appId}";
+    $deckJson = @file_get_contents($urlDeck);
+
+    if ($deckJson) {
+        $deckData = json_decode($deckJson, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $deckCompatibility = 'Not Available';
+            $deckResult = '';
+
+            if (isset($deckData['results']['resolved_items'][0])) {
+                $resolvedItem = $deckData['results']['resolved_items'][0];
+                $deckCompatibility = $resolvedItem['loc_token'] ?? 'Not Available';
+            }
+
+            return [
+                'deck_compat' => $deckCompatibility,
+                'deck_result' => $deckResult
+            ];
+        }
+    }
+
+    return [
+        'deck_compat' => 'Not Available',
+        'deck_result' => 'No Result Data'
+    ];
+}
+
+// Function to format bytes into human-readable format (MB/GB)
+function formatFileSize($bytes) {
+    if (!is_numeric($bytes) || $bytes <= 0) return 'Size Not Available';
+    if ($bytes >= 1073741824) {
+        return number_format($bytes / 1073741824, 1) . ' GB';
+    } elseif ($bytes >= 1048576) {
+        return number_format($bytes / 1048576, 1) . ' MB';
+    } elseif ($bytes >= 1024) {
+        return number_format($bytes / 1024, 1) . ' KB';
+    } else {
+        return $bytes . ' bytes';
+    }
+}
+
+// NEW: Improved function to fetch filesize with better error handling and reliable sources
+function fetchFileSize($appId) {
+    $filesize = 'Size Not Available';
+    
+    // Method 1: Try SteamDB API first (most reliable for file sizes)
+    $steamDbUrl = "https://steamdb.info/api/GetAppSize/?appid={$appId}";
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 10,
+            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n"
+        ]
+    ]);
+    
+    $steamDbResponse = @file_get_contents($steamDbUrl, false, $context);
+    
+    if ($steamDbResponse !== false) {
+        $steamDbData = json_decode($steamDbResponse, true);
+        if (isset($steamDbData['success']) && $steamDbData['success'] && isset($steamDbData['data']['size'])) {
+            $size = $steamDbData['data']['size'];
+            if ($size > 0) {
+                return formatFileSize($size);
+            }
+        }
+    }
+    
+    // Method 2: Try Steam API with multiple size fields
+    $apiUrl = "https://store.steampowered.com/api/appdetails?appids={$appId}";
+    $response = @file_get_contents($apiUrl, false, $context);
+    
+    if ($response !== false) {
+        $data = json_decode($response, true);
+        
+        if (isset($data[$appId]['data'])) {
+            $gameData = $data[$appId]['data'];
+            
+            // Check multiple possible size fields
+            $sizeFields = ['size_on_disk', 'content_size', 'package_size', 'install_size'];
+            foreach ($sizeFields as $field) {
+                if (isset($gameData[$field]) && $gameData[$field] > 0) {
+                    return formatFileSize($gameData[$field]);
+                }
+            }
+            
+            // Check for PC requirements which might contain size info
+            if (isset($gameData['pc_requirements']['minimum'])) {
+                $requirements = $gameData['pc_requirements']['minimum'];
+                if (preg_match('/(\d+(?:\.\d+)?)\s*GB|(\d+(?:\.\d+)?)\s*gigabyte/i', $requirements, $matches)) {
+                    $size = $matches[1] ?: $matches[2];
+                    if ($size > 0) {
+                        return number_format(floatval($size), 1) . ' GB';
+                    }
+                }
+                if (preg_match('/(\d+(?:\.\d+)?)\s*MB|(\d+(?:\.\d+)?)\s*megabyte/i', $requirements, $matches)) {
+                    $size = $matches[1] ?: $matches[2];
+                    if ($size > 0) {
+                        return number_format(floatval($size), 1) . ' MB';
+                    }
+                }
+            }
+        }
+    }
+    
+    // Method 3: Try scraping the store page for size information
+    $storeUrl = "https://store.steampowered.com/app/{$appId}/";
+    $storePage = @file_get_contents($storeUrl, false, $context);
+    
+    if ($storePage !== false) {
+        // Look for size patterns in system requirements
+        $sizePatterns = [
+            '/(\d+(?:\.\d+)?)\s*GB.*storage/i',
+            '/(\d+(?:\.\d+)?)\s*GB.*space/i',
+            '/(\d+(?:\.\d+)?)\s*gigabyte/i',
+            '/(\d+(?:\.\d+)?)\s*MB.*storage/i',
+            '/(\d+(?:\.\d+)?)\s*MB.*space/i',
+            '/(\d+(?:\.\d+)?)\s*megabyte/i',
+            '/storage.*?(\d+(?:\.\d+)?)\s*GB/i',
+            '/space.*?(\d+(?:\.\d+)?)\s*GB/i'
+        ];
+        
+        foreach ($sizePatterns as $pattern) {
+            if (preg_match($pattern, $storePage, $matches)) {
+                $size = floatval($matches[1]);
+                if ($size > 0) {
+                    if (stripos($pattern, 'GB') !== false || stripos($pattern, 'gigabyte') !== false) {
+                        return number_format($size, 1) . ' GB';
+                    } else {
+                        // Convert MB to GB if it's a large number
+                        if ($size > 1000) {
+                            return number_format($size / 1024, 1) . ' GB';
+                        }
+                        return number_format($size, 1) . ' MB';
+                    }
+                }
+            }
+        }
+    }
+    
+    return $filesize;
+}
+
+// Function to get price and filesize using Steam API
+function fetchGameDetailsFromSteamApi($appId, $apiKey, $cc = 'USD', $lang = 'en') {
+    $url = "https://store.steampowered.com/api/appdetails?appids={$appId}&cc={$cc}&l={$lang}&key={$apiKey}";
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 15,
+            'header' => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\n"
+        ]
+    ]);
+    
+    $response = @file_get_contents($url, false, $context);
+    $data = json_decode($response, true);
+
+    $price = 'Price Not Available';
+    $filesize = fetchFileSize($appId); // Use our improved filesize function
+
+    if (isset($data[$appId]['data'])) {
+        $gameData = $data[$appId]['data'];
+
+        // Get price
+        if (isset($gameData['price_overview'])) {
+            $price = decodeUnicode($gameData['price_overview']['final_formatted']);
+        } elseif (isset($gameData['is_free']) && $gameData['is_free']) {
+            $price = 'Free';
+        }
+    }
+
+    return [
+        'price' => $price,
+        'filesize' => $filesize
+    ];
+}
+
+// Function to check if the URL already exists in the JSON data
+function isDuplicate($url, $data) {
+    foreach ($data as $item) {
+        if ($item['url'] === $url) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['url'])) {
+    $url = trim($_POST['url']);
+    
+    if (filter_var($url, FILTER_VALIDATE_URL)) {
+        $title = extractTitleFromUrl($url);
+
+        // Extract the app ID from the URL
+        preg_match('/\/app\/(\d+)\//', $url, $matches);
+        $appId = $matches[1] ?? null;
+
+        if ($appId) {
+            $apiKey = isset($_GET['api_key']) ? $_GET['api_key'] : DEFAULT_STEAM_API_KEY;
+            $cc = isset($_POST['currency']) ? $_POST['currency'] : 'USD';
+            $lang = isset($_POST['language']) ? $_POST['language'] : 'en';
+
+            // Fetch data
+            $gameDetails = fetchGameDetailsFromSteamApi($appId, $apiKey, $cc, $lang);
+            $deckDetails = fetchSteamDeckCompatibility($appId);
+
+            $currentDate = date('Y-m-d H:i:s');
+            $gameData = [
+                'url' => $url,
+                'title' => $title,
+                'price' => $gameDetails['price'],
+                'steamDeckCompatibility' => $deckDetails['deck_compat'],
+                'filesize' => $gameDetails['filesize'],
+                'deck_result' => $deckDetails['deck_result'],
+                'date' => $currentDate
+            ];
+
+            $jsonFile = 'games_data.json';
+            $data = file_exists($jsonFile) ? json_decode(file_get_contents($jsonFile), true) : [];
+
+            if (!isDuplicate($url, $data)) {
+                $data[] = $gameData;
+                file_put_contents($jsonFile, json_encode($data, JSON_PRETTY_PRINT));
+                echo "<div class='success'><p>Data for <strong>{$title}</strong> has been added to the JSON file.</p>";
+                echo "<p>Price: <strong>{$gameDetails['price']}</strong> | Size: <strong>{$gameDetails['filesize']}</strong> | Deck Compatibility: <strong>{$deckDetails['deck_compat']}</strong></p></div>";
+            } else {
+                echo "<div class='warning'><p>Data for <strong>{$title}</strong> already exists. No duplicate added.</p></div>";
+            }
+        } else {
+            echo "<div class='error'><p>Could not extract App ID from the URL.</p></div>";
+        }
+    } else {
+        echo "<div class='error'><p>Invalid URL. Please enter a valid URL.</p></div>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Steam Game Logger</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        form { margin: 20px 0; padding: 20px; border: 1px solid #ddd; background: #f9f9f9; border-radius: 5px; }
+        label { display: inline-block; width: 150px; margin-right: 10px; font-weight: bold; }
+        input[type="text"] { padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 3px; }
+        button { padding: 10px 20px; background: #007cba; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #005a87; }
+        .info { background: #e7f3ff; padding: 15px; margin: 15px 0; border-left: 4px solid #007cba; border-radius: 3px; }
+        .success { background: #e7ffe7; padding: 15px; margin: 15px 0; border-left: 4px solid #00ba07; border-radius: 3px; }
+        .warning { background: #fffae7; padding: 15px; margin: 15px 0; border-left: 4px solid #baa300; border-radius: 3px; }
+        .error { background: #ffe7e7; padding: 15px; margin: 15px 0; border-left: 4px solid #ba0000; border-radius: 3px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; font-family: monospace; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Steam Game Logger</h1>
+    
+    <div class="info">
+        <strong>Improved Filesize Detection:</strong><br>
+        • Primary: SteamDB API (most reliable)<br>
+        • Secondary: Steam API with multiple size fields<br>
+        • Fallback: Store page system requirements parsing<br>
+        • Better timeout handling and user agents
+    </div>
+    
+    <form method="POST">
+        <div>
+            <label for="currency">Currency Code:</label>
+            <input type="text" name="currency" id="currency" value="EUR" style="width: 100px;">
+            <small>(e.g., USD, EUR, GBP)</small>
+        </div>
+        <div>
+            <label for="language">Language:</label>
+            <input type="text" name="language" id="language" value="en" style="width: 100px;">
+            <small>(e.g., en, fr, de)</small>
+        </div>
+        <div>
+            <label for="url">Steam Game URL:</label>
+            <input type="text" name="url" id="url" placeholder="https://store.steampowered.com/app/2124490/SILENT_HILL_2/" required style="width: 500px;">
+        </div>
+        <div>
+            <button type="submit">Add Game to List</button>
+        </div>
+    </form>
+    
+    <?php
+    // Debug info - show recent entries
+    $jsonFile = 'games_data.json';
+    if (file_exists($jsonFile)) {
+        $data = json_decode(file_get_contents($jsonFile), true);
+        if (!empty($data)) {
+            echo "<div class='info'>";
+            echo "<h3>Recent Entries:</h3>";
+            $recent = array_slice($data, -3); // Show last 3 entries
+            foreach ($recent as $entry) {
+                echo "<p><strong>{$entry['title']}</strong> - Price: {$entry['price']} - Size: {$entry['filesize']} - Deck: {$entry['steamDeckCompatibility']}</p>";
+            }
+            echo "</div>";
+        }
+    }
+    ?>
+</body>
+</html>
+
+NintendoNews parser (exclude ninteverything )
+--------------
+
+
+<?php
+function fetch_url_content($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
+    $html = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return ($http_code === 200) ? $html : false;
+}
+
+function normalize_image_url($url, $base_url) {
+    $url = trim($url);
+    if ($url === '' || strpos($url, '...') !== false) {
+        return 'https://via.placeholder.com/150x80?text=No+Image';
+    }
+    if (preg_match('#^https?://#i', $url)) return $url;
+    $parsed = parse_url($base_url);
+    $host = $parsed['scheme'].'://'.$parsed['host'];
+    if (isset($parsed['port'])) $host .= ':'.$parsed['port'];
+    if ($url[0] !== '/') $url = '/'.$url;
+    return $host.$url;
+}
+
+function parse_articles_regex($html, $base_url, $blocked_domains) {
+    $articles = [];
+    $pattern = '#<div\s+class=["\']item[^"\']*["\'][^>]*>.*?<img[^>]*src=["\']([^"\']+)["\'][^>]*>.*?<h2[^>]*class=["\']heading[^"\']*["\'][^>]*>\s*<a[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>.*?(<p[^>]*class=["\']summary[^"\']*["\']>(.*?)</p>)?.*?data-timestamp=["\']([^"\']+)["\']#si';
+
+    if (preg_match_all($pattern, $html, $matches, PREG_SET_ORDER)) {
+        foreach ($matches as $m) {
+            $link = trim($m[2]);
+            $blocked = false;
+            foreach ($blocked_domains as $d) {
+                if (stripos($link, $d) !== false) { $blocked = true; break; }
+            }
+            if ($blocked) continue;
+
+            $host = parse_url($link, PHP_URL_HOST);
+            $badge = strtoupper(preg_replace('/^www\./','',$host));
+
+            $articles[] = [
+                'image' => normalize_image_url($m[1], $base_url),
+                'link' => $link,
+                'title' => trim(htmlspecialchars_decode($m[3])),
+                'excerpt' => isset($m[5]) ? trim(htmlspecialchars_decode($m[5])) : '',
+                'badge' => $badge,
+                'date' => isset($m[6]) ? $m[6] : ''
+            ];
+        }
+    }
+
+    return $articles;
+}
+
+$base_url = 'https://nintendonews.com/news';
+$blocked_domains = ['nintendolife.de','nintendoeverything.com'];
+$per_page = 10;
+
+$page_param = isset($_GET['page']) ? max(1,intval($_GET['page'])) : 1;
+$autopage = isset($_GET['autopage']);
+
+$url = $base_url . '?page=' . $page_param;
+$html = fetch_url_content($url);
+$all_articles = $html ? parse_articles_regex($html, $base_url, $blocked_domains) : [];
+
+$total_articles = count($all_articles);
+$total_pages = 100;
+$current_page = $page_param;
+$articles_to_show = $all_articles;
+
+if ($autopage && isset($_GET['ajax'])) {
+    header('Content-Type: application/json');
+    echo json_encode([
+        'articles' => $articles_to_show,
+        'current' => $current_page,
+        'total' => $total_pages
+    ]);
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nintendo News</title>
+<style>
+body{font-family:Arial,sans-serif;}
+.article{position:relative;border:1px solid #ccc;margin-bottom:10px;padding:15px;border-radius:8px;display:flex;gap:15px;}
+.article img{max-width:150px;border-radius:4px;}
+.badge{position:absolute;bottom:5px;right:10px;font-size:11px;color:#666;background:#f2f2f2;padding:2px 6px;border-radius:3px;}
+.date{position:absolute;top:5px;left:10px;font-size:11px;color:#333;background:#fff;padding:2px 6px;border-radius:3px;border:1px solid #ccc;}
+#page-indicator{position:fixed;bottom:10px;right:10px;font-size:12px;color:#444;background:#eee;padding:2px 6px;border-radius:4px;}
+</style>
+</head>
+<body>
+<h1>Latest Nintendo News</h1>
+<ul id="article-list" style="list-style:none;padding:0;">
+<?php foreach($articles_to_show as $a): ?>
+<li class="article">
+  <div class="date"><?=htmlspecialchars($a['date'])?></div>
+  <div><img src="<?=htmlspecialchars($a['image'])?>" alt="<?=htmlspecialchars($a['title'])?>"></div>
+  <div>
+    <h3><a href="<?=htmlspecialchars($a['link'])?>" target="_blank"><?=htmlspecialchars($a['title'])?></a></h3>
+    <p><?=htmlspecialchars($a['excerpt'])?></p>
+  </div>
+  <span class="badge"><?=htmlspecialchars($a['badge'])?></span>
+</li>
+<?php endforeach; ?>
+</ul>
+
+<div id="page-indicator">Page <?=$current_page?></div>
+
+<script>
+let currentPage = <?=$current_page?>;
+let loading = false;
+const indicator = document.getElementById('page-indicator');
+const list = document.getElementById('article-list');
+
+window.addEventListener('scroll', async () => {
+    if (loading) return;
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+        loading = true;
+        const next = currentPage + 1;
+        const resp = await fetch(`?autopage=1&page=${next}&ajax=1`);
+        const data = await resp.json();
+        if (data.articles.length === 0) return;
+        data.articles.forEach(a => {
+            const li = document.createElement('li');
+            li.className = 'article';
+            li.innerHTML = `
+                <div class="date">${a.date}</div>
+                <div><img src="${a.image}" alt="${a.title}"></div>
+                <div>
+                    <h3><a href="${a.link}" target="_blank">${a.title}</a></h3>
+                    <p>${a.excerpt}</p>
+                </div>
+                <span class="badge">${a.badge}</span>`;
+            list.appendChild(li);
+        });
+        currentPage = next;
+        indicator.textContent = `Page ${currentPage}`;
+        loading = false;
+    }
+});
+</script>
+</body>
+</html>
+
+
+Fedi is Missing
+------------------------
+
+filereport.php
+--
+<?php
+// Handle the form submission and processing
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the Fediverse URL from the POST request
+    $fediverse_url = trim($_POST['fediverse_url']);
+
+    // Validate the URL (basic validation)
+    if (!filter_var($fediverse_url, FILTER_VALIDATE_URL)) {
+        die("Invalid URL.");
+    }
+
+    // Parse the URL
+    $parsed_url = parse_url($fediverse_url);
+    if (!isset($parsed_url['host'])) {
+        die("Invalid URL structure.");
+    }
+    
+    $domain = $parsed_url['host'];
+    $path = $parsed_url['path'];
+    
+    // Extract username from different URL formats
+    $username = null;
+    $status_id = null;
+    
+    // Pattern for Mastodon/Pleroma/Akkoma post URLs: /@user/123456
+    if (preg_match('#^/(@[^/]+)/(\d+)$#', $path, $matches)) {
+        $username = $matches[1];
+        $status_id = $matches[2];
+    } 
+    // Pattern for user profile URLs: /@user
+    else if (preg_match('#^/(@[^/]+)$#', $path, $matches)) {
+        $username = $matches[1];
+    }
+    // Pattern for Pleroma/Akkoma notice URLs: /notice/ABC123
+    else if (preg_match('#^/notice/([^/]+)$#', $path, $matches)) {
+        $status_id = $matches[1];
+    }
+    // Pattern for Akkoma objects: /objects/ABC123
+    else if (preg_match('#^/objects/([^/]+)$#', $path, $matches)) {
+        $status_id = $matches[1];
+    }
+    // Pattern for Akkoma users: /users/username
+    else if (preg_match('#^/users/([^/]+)$#', $path, $matches)) {
+        $username = '@' . $matches[1];
+    }
+    else {
+        die("Unsupported URL format: $path");
+    }
+    
+    // Configure HTTP context
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 15,
+            'header' => "User-Agent: FediversePostFetcher/1.0\r\nAccept: application/json\r\n"
+        ],
+        'ssl' => [
+            'verify_peer' => false,
+            'verify_peer_name' => false
+        ]
+    ]);
+    
+    // If we have a status ID but no username, fetch the post to get the username
+    if ($status_id && !$username) {
+        // Try different API endpoints for different platforms
+        $api_urls = [
+            "https://$domain/api/v1/statuses/$status_id", // Mastodon/Pleroma standard
+            "https://$domain/objects/$status_id", // Akkoma alternative
+        ];
+        
+        $post_data = null;
+        foreach ($api_urls as $api_url) {
+            $response = @file_get_contents($api_url, false, $context);
+            if ($response !== false) {
+                $post_data = json_decode($response, true);
+                if ($post_data) break;
+            }
+        }
+        
+        if (!$post_data) {
+            die("Error fetching post data from the server.");
+        }
+        
+        // Extract username from post data - ensure we get the full @user@domain format
+        if (isset($post_data['account']['acct'])) {
+            $acct = $post_data['account']['acct'];
+            // Check if the acct already contains a domain
+            if (strpos($acct, '@') === false) {
+                // If not, add the domain
+                $username = '@' . $acct . '@' . $domain;
+            } else {
+                $username = '@' . $acct;
+            }
+        } else if (isset($post_data['account']['username'])) {
+            $acct = $post_data['account']['username'];
+            // Try to get the full acct (username@domain) if possible
+            if (isset($post_data['account']['url'])) {
+                $account_url = parse_url($post_data['account']['url']);
+                if (isset($account_url['host']) && $account_url['host'] !== $domain) {
+                    $username = '@' . $acct . '@' . $account_url['host'];
+                } else {
+                    $username = '@' . $acct . '@' . $domain;
+                }
+            } else {
+                $username = '@' . $acct . '@' . $domain;
+            }
+        } else {
+            die("Unable to extract user information from post.");
+        }
+    } else if ($username) {
+        // If we already have a username from the URL, ensure it's in the full @user@domain format
+        $username_parts = explode('@', $username);
+        if (count($username_parts) === 2) {
+            // Only username part is present, add domain
+            $username = $username . '@' . $domain;
+        }
+    }
+    
+    // Now get the user's latest post using the username
+    // Extract just the username part without @ for lookup
+    $lookup_username = substr($username, 1); // Remove the leading @
+    $lookup_username_parts = explode('@', $lookup_username);
+    $local_username = $lookup_username_parts[0];
+    
+    // Try different lookup endpoints
+    $lookup_urls = [
+        "https://$domain/api/v1/accounts/lookup?acct=" . urlencode($lookup_username), // Standard
+        "https://$domain/users/" . urlencode($local_username) . ".json", // Akkoma alternative
+    ];
+    
+    $account_data = null;
+    foreach ($lookup_urls as $lookup_url) {
+        $response = @file_get_contents($lookup_url, false, $context);
+        if ($response !== false) {
+            $account_data = json_decode($response, true);
+            if ($account_data) break;
+        }
+    }
+    
+    $user_id = null;
+    $user_acct = $lookup_username; // Default to the full username we already have
+    
+    if ($account_data) {
+        if (isset($account_data['id'])) {
+            $user_id = $account_data['id'];
+        }
+        // Get the proper account identifier
+        if (isset($account_data['acct'])) {
+            $acct = $account_data['acct'];
+            // Check if the acct already contains a domain
+            if (strpos($acct, '@') === false) {
+                // If not, add the domain
+                $user_acct = $acct . '@' . $domain;
+            } else {
+                $user_acct = $acct;
+            }
+        }
+    }
+    
+    $latest_post_url = null;
+    $created_at = null;
+    
+    // If we couldn't get user ID through lookup, try to get statuses directly
+    if (!$user_id) {
+        // Try different statuses endpoints
+        $statuses_urls = [
+            "https://$domain/users/$local_username/outbox?page=true&limit=1", // ActivityPub
+            "https://$domain/api/v1/accounts/$local_username/statuses?limit=1", // Mastodon API
+            "https://$domain/@$local_username.json?limit=1", // Alternative
+        ];
+        
+        $statuses = null;
+        foreach ($statuses_urls as $statuses_url) {
+            $response = @file_get_contents($statuses_url, false, $context);
+            if ($response !== false) {
+                $data = json_decode($response, true);
+                
+                // Handle different response formats
+                if (isset($data['orderedItems'])) {
+                    // ActivityPub format
+                    if (!empty($data['orderedItems']) && isset($data['orderedItems'][0]['published'])) {
+                        $created_at = $data['orderedItems'][0]['published'];
+                        if (isset($data['orderedItems'][0]['id'])) {
+                            $latest_post_url = $data['orderedItems'][0]['id'];
+                        }
+                        $statuses = [['created_at' => $created_at]];
+                        break;
+                    }
+                } else if (is_array($data) && !empty($data) && isset($data[0]['created_at'])) {
+                    // Standard API format
+                    $statuses = $data;
+                    $created_at = $data[0]['created_at'];
+                    if (isset($data[0]['url'])) {
+                        $latest_post_url = $data[0]['url'];
+                    }
+                    break;
+                }
+            }
+        }
+        
+        if (!$statuses || empty($statuses)) {
+            die("No posts found for the user.");
+        }
+    } else {
+        // Get statuses using the user ID
+        $statuses_url = "https://$domain/api/v1/accounts/$user_id/statuses?limit=1";
+        $response = @file_get_contents($statuses_url, false, $context);
+        
+        if ($response === false) {
+            die("Error fetching user's latest post.");
+        }
+        
+        $statuses = json_decode($response, true);
+        if (empty($statuses)) {
+            die("No posts found for the user.");
+        }
+        
+        $created_at = $statuses[0]['created_at'];
+        if (isset($statuses[0]['url'])) {
+            $latest_post_url = $statuses[0]['url'];
+        }
+    }
+    
+    // If we don't have a post URL, try to construct one
+    if (!$latest_post_url && isset($statuses[0]['id'])) {
+        $post_id = $statuses[0]['id'];
+        $latest_post_url = "https://$domain/@$user_acct/$post_id";
+    }
+    
+    // Format the date to yyyymmdd
+    $date = date('Ymd', strtotime($created_at));
+
+    // Prepare the data for saving to the JSON file
+    $entry = [
+        'username' => "@$user_acct",
+        'date' => $date,
+        'post_url' => $latest_post_url
+    ];
+
+    // Load the existing JSON data
+    $filename = 'fedimissing.json';
+    $json_data = [];
+    if (file_exists($filename)) {
+        $json_content = file_get_contents($filename);
+        if ($json_content !== false) {
+            $json_data = json_decode($json_content, true);
+        }
+        if (!is_array($json_data)) {
+            $json_data = [];
+        }
+    }
+
+    // Check if the user already exists
+    $user_exists = false;
+    foreach ($json_data as $existing_entry) {
+        if ($existing_entry['username'] === "@$user_acct") {
+            $user_exists = true;
+            break;
+        }
+    }
+    
+    if ($user_exists) {
+        die("User @$user_acct already exists in the JSON file.");
+    }
+
+    // Prepend the new entry to the array
+    array_unshift($json_data, $entry);
+
+    // Save the updated data back to the JSON file
+    if (file_put_contents($filename, json_encode($json_data, JSON_PRETTY_PRINT))) {
+        echo "Latest post date saved successfully: @$user_acct $date";
+        if ($latest_post_url) {
+            echo "<br>Post URL: <a href='$latest_post_url' target='_blank'>$latest_post_url</a>";
+        }
+    } else {
+        echo "Error saving to JSON file. Please check file permissions.";
+    }
+} else {
+    // Display the HTML form
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fediverse Post Fetcher</title>
+        <style>
+            body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+            form { margin-top: 20px; }
+            input[type="text"] { width: 100%; padding: 8px; margin: 8px 0; }
+            button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+            button:hover { background-color: #45a049; }
+            .error { color: red; }
+            .success { color: green; }
+        </style>
+    </head>
+    <body>
+        <h1>Fetch Latest Post From Fediverse User</h1>
+        <p>This tool will always get the date of the user's NEWEST post, regardless of which post URL you provide.</p>
+        <form action="" method="POST">
+            <label for="fediverse_url">Enter Fediverse URL:</label>
+            <input type="text" id="fediverse_url" name="fediverse_url" placeholder="e.g., https://mastodon.social/@user or https://example.com/notice/ABC123" required>
+            <button type="submit">Get Newest Post Date</button>
+        </form>
+        <p>Supported formats:
+            <ul>
+                <li>https://mastodon.social/@username</li>
+                <li>https://instance.tld/@username/1234567890 (any post URL)</li>
+                <li>https://instance.tld/notice/ABC123 (Pleroma/Akkoma)</li>
+                <li>https://instance.tld/objects/ABC123 (Akkoma)</li>
+                <li>https://instance.tld/users/username (Akkoma)</li>
+            </ul>
+        </p>
+        <p class="error">Note: Some instances may have API limitations or require authentication.</p>
+    </body>
+    </html>
+    <?php
+}
+?>
+
+index.html
+--
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fediverse Missing Posts</title>
+<style>
+  :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+  body{margin:16px;background:#f7f7fb;color:#111}
+  .container{max-width:880px;margin:0 auto}
+  h1{font-size:18px;margin:0 0 12px}
+  .row{display:flex;align-items:flex-start;background:#fff;border:1px solid #e3e6ee;padding:12px;border-radius:8px;margin-bottom:12px;box-shadow:0 1px 0 rgba(0,0,0,0.02)}
+  .pfp{flex:0 0 48px;height:48px;width:48px;border-radius:50%;overflow:hidden;background:#ddd;margin-right:12px}
+  .pfp img{width:100%;height:100%;object-fit:cover;display:block}
+  .meta{font-size:14px;margin-bottom:8px;color:#333}
+  .meta .username{font-weight:600}
+  .meta .missing{color:#b33}
+  .content{font-size:14px;color:#222;line-height:1.45}
+  a.open{display:inline-block;margin-top:8px;text-decoration:none;padding:6px 10px;border-radius:6px;border:1px solid #cfd6e8;background:#f2f6ff;font-size:13px;color:#123}
+  .error{color:#a00;font-weight:600}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Fediverse Missing Posts</h1>
+  <div id="list"></div>
+</div>
+
+<script>
+async function loadItems(){
+  const url = "fedimissing.json?cb=" + Date.now();
+  const res = await fetch(url, {cache: "no-store"});
+  if(!res.ok) throw new Error("Could not load " + url);
+  return res.json();
+}
+
+function parseYYYYMMDD(yyyymmdd){
+  if(typeof yyyymmdd !== 'string' || yyyymmdd.length !== 8) return null;
+  const y = Number(yyyymmdd.slice(0,4));
+  const m = Number(yyyymmdd.slice(4,6)) - 1;
+  const d = Number(yyyymmdd.slice(6,8));
+  return new Date(Date.UTC(y,m,d));
+}
+
+function daysBetween(dateA, dateB){
+  const msPerDay = 24*60*60*1000;
+  const a = Date.UTC(dateA.getUTCFullYear(), dateA.getUTCMonth(), dateA.getUTCDate());
+  const b = Date.UTC(dateB.getUTCFullYear(), dateB.getUTCMonth(), dateB.getUTCDate());
+  return Math.floor((b - a)/msPerDay);
+}
+
+function sanitizeHtml(html){
+  html = html.replace(/<(script|iframe|object|embed)[^>]*>[\s\S]*?<\/\1>/gi, '');
+  html = html.replace(/\son\w+=(?:'[^']*'|"[^"]*"|[^\s>]+)/gi, '');
+  html = html.replace(/(href|src)\s*=\s*(['"]?)\s*javascript:[^'">]*\2/gi, '$1="#"');
+  return html;
+}
+
+async function fetchPostContent(postUrl){
+  try {
+    const url = new URL(postUrl);
+    const pathParts = url.pathname.split('/').filter(Boolean);
+    const statusId = pathParts[pathParts.length - 1];
+    if(/^\d+$/.test(statusId)){
+      const apiUrl = `${url.origin}/api/v1/statuses/${statusId}`;
+      const res = await fetch(apiUrl);
+      if(res.ok){
+        const data = await res.json();
+        return { html: sanitizeHtml(data.content || ""), avatar: data.account?.avatar_static || null };
+      }
+    }
+    return null;
+  } catch(e){
+    return null;
+  }
+}
+
+async function main(){
+  const listEl = document.getElementById('list');
+  const items = await loadItems();
+  const now = new Date();
+
+  for(const item of items){
+    const sinceDate = parseYYYYMMDD(item.date);
+    let days = sinceDate ? daysBetween(sinceDate, now) : "?";
+
+    const row = document.createElement("div");
+    row.className = "row";
+
+    const pfp = document.createElement("div");
+    pfp.className = "pfp";
+    row.appendChild(pfp);
+
+    const info = document.createElement("div");
+    info.style.flex = "1";
+    row.appendChild(info);
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.innerHTML = `<span class="username">${item.username}</span> - <span class="missing">missing since ${days} days</span>`;
+    info.appendChild(meta);
+
+    const contentDiv = document.createElement("div");
+    contentDiv.className = "content";
+    contentDiv.textContent = "Loading post content...";
+    info.appendChild(contentDiv);
+
+    const link = document.createElement("a");
+    link.href = item.post_url;
+    link.textContent = "Open Post";
+    link.className = "open";
+    link.target = "_blank";
+    info.appendChild(link);
+
+    listEl.appendChild(row);
+
+    const result = await fetchPostContent(item.post_url);
+    if(result && result.html){
+      contentDiv.innerHTML = result.html;
+      if(result.avatar){
+        const img = document.createElement("img");
+        img.src = result.avatar;
+        img.alt = item.username;
+        pfp.appendChild(img);
+      }
+    } else {
+      contentDiv.innerHTML = `<span class="error">Could not fetch content.</span>`;
+    }
+  }
+}
+
+main().catch(err=>{
+  document.getElementById('list').innerHTML = `<div class="error">Error: ${err.message}</div>`;
+});
+</script>
+</body>
+</html>
+
+
+post.php
+--
+<?php
+header('Content-Type: text/plain');
+
+// Get query parameters
+$instanceUrl = $_GET['instanceurl'] ?? '';
+$apiKey = $_GET['apikey'] ?? '';
+$oldPostUrl = $_GET['oldposturl'] ?? '';
+
+// Validate required parameters
+if (empty($instanceUrl) || empty($apiKey)) {
+    http_response_code(400);
+    echo "Error: instanceurl and apikey parameters are required";
+    exit;
+}
+
+// Load JSON data
+$jsonFile = 'fedimissing.json';
+if (!file_exists($jsonFile)) {
+    http_response_code(404);
+    echo "Error: fedimissing.json not found";
+    exit;
+}
+
+$jsonData = file_get_contents($jsonFile);
+$missingPersons = json_decode($jsonData, true);
+
+if ($missingPersons === null) {
+    http_response_code(500);
+    echo "Error: Invalid JSON format";
+    exit;
+}
+
+// Generate HTML content
+$htmlContent = '<a href="https://alcea-wisteria.de/PHP/0demo/2024-03-07-FediTools/2025-09-10-FediIsMissing/">Missing Fedi person:</a> <a target="_blank" href="https://alcea-wisteria.de/PHP/0demo/2024-03-07-FediTools/2025-09-10-FediIsMissing/updatereport.php" style=color:blue>(update)</a><hr>';
+
+foreach ($missingPersons as $person) {
+    $username = htmlspecialchars($person['username']);
+    $postUrl = htmlspecialchars($person['post_url']);
+    $date = $person['date'];
+    
+    // Calculate days missing
+    $today = new DateTime();
+    $missingDate = DateTime::createFromFormat('Ymd', $date);
+    
+    if ($missingDate) {
+        $interval = $today->diff($missingDate);
+        $daysMissing = $interval->days;
+        $daysText = $daysMissing == 1 ? 'day' : 'days';
+    } else {
+        $daysMissing = 'unknown';
+        $daysText = 'days';
+    }
+    
+    $htmlContent .= "<a href=\"$postUrl\">$username</a> - $daysMissing $daysText missing<br>";
+}
+
+// Prepare API request
+$apiEndpoint = rtrim($instanceUrl, '/') . '/api/v1/statuses';
+
+$postData = [
+    'status' => $htmlContent,
+    'content_type' => 'text/html',
+    'visibility' => 'public'
+];
+
+// Headers for Akkoma API
+$headers = [
+    'Authorization: Bearer ' . $apiKey,
+    'Content-Type: application/json'
+];
+
+// Initialize cURL
+$ch = curl_init();
+
+if (!empty($oldPostUrl)) {
+    // Edit existing post - extract status ID from URL
+    $urlParts = parse_url($oldPostUrl);
+    $pathParts = explode('/', trim($urlParts['path'], '/'));
+    $statusId = end($pathParts);
+    
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $apiEndpoint . '/' . $statusId,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => 'PUT',
+        CURLOPT_POSTFIELDS => json_encode($postData),
+        CURLOPT_HTTPHEADER => $headers
+    ]);
+    
+    $action = "editing";
+} else {
+    // Create new post
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $apiEndpoint,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($postData),
+        CURLOPT_HTTPHEADER => $headers
+    ]);
+    
+    $action = "posting";
+}
+
+// Execute API request
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+if (curl_error($ch)) {
+    http_response_code(500);
+    echo "Error: cURL error - " . curl_error($ch);
+    curl_close($ch);
+    exit;
+}
+
+curl_close($ch);
+
+// Handle response
+if ($httpCode >= 200 && $httpCode < 300) {
+    $responseData = json_decode($response, true);
+    $postUrl = $responseData['url'] ?? $oldPostUrl;
+    
+    echo "Successfully $action post: " . $postUrl . "\n";
+    echo "Generated content:\n\n";
+    echo $htmlContent;
+} else {
+    http_response_code($httpCode);
+    echo "Error: API returned status code $httpCode\n";
+    echo "Response: " . $response;
+}
+?>
+
+
+updatereport.php
+--
+<?php
+// This script checks the JSON file for existing users and updates their newest post date + URL if newer ones exist.
+
+$filename = 'fedimissing.json';
+
+// Ensure file exists
+if (!file_exists($filename)) {
+    die("JSON file not found: $filename");
+}
+
+// Load JSON
+$json_content = file_get_contents($filename);
+if ($json_content === false) {
+    die("Error reading JSON file.");
+}
+
+$json_data = json_decode($json_content, true);
+if (!is_array($json_data)) {
+    die("Invalid JSON format.");
+}
+
+// Configure HTTP context
+$context = stream_context_create([
+    'http' => [
+        'timeout' => 15,
+        'header' => "User-Agent: FediversePostUpdater/1.0\r\nAccept: application/json\r\n"
+    ],
+    'ssl' => [
+        'verify_peer' => false,
+        'verify_peer_name' => false
+    ]
+]);
+
+// Iterate over all entries
+foreach ($json_data as &$entry) {
+    $username = $entry['username']; // e.g. @user@domain
+    $parts = explode('@', $username);
+
+    if (count($parts) < 3) {
+        echo "Skipping invalid username format: $username<br>";
+        continue;
+    }
+
+    $local_user = $parts[1];
+    $domain = $parts[2];
+
+    // Look up account to get ID
+    $lookup_urls = [
+        "https://$domain/api/v1/accounts/lookup?acct=" . urlencode("$local_user@$domain"),
+        "https://$domain/users/" . urlencode($local_user) . ".json",
+    ];
+
+    $account_data = null;
+    foreach ($lookup_urls as $lookup_url) {
+        $response = @file_get_contents($lookup_url, false, $context);
+        if ($response !== false) {
+            $account_data = json_decode($response, true);
+            if ($account_data) break;
+        }
+    }
+
+    $user_id = null;
+    if ($account_data && isset($account_data['id'])) {
+        $user_id = $account_data['id'];
+    }
+
+    $latest_post_url = null;
+    $created_at = null;
+
+    if ($user_id) {
+        // Get statuses by user ID
+        $statuses_url = "https://$domain/api/v1/accounts/$user_id/statuses?limit=1";
+        $response = @file_get_contents($statuses_url, false, $context);
+        if ($response !== false) {
+            $statuses = json_decode($response, true);
+            if (is_array($statuses) && !empty($statuses)) {
+                $created_at = $statuses[0]['created_at'];
+                if (isset($statuses[0]['url'])) {
+                    $latest_post_url = $statuses[0]['url'];
+                }
+            }
+        }
+    }
+
+    if (!$created_at) {
+        echo "No posts found for $username<br>";
+        continue;
+    }
+
+    // Format date
+    $date = date('Ymd', strtotime($created_at));
+
+    // Only update if date is newer
+    if ($date > $entry['date']) {
+        $entry['date'] = $date;
+        $entry['post_url'] = $latest_post_url;
+        echo "Updated $username → $date ($latest_post_url)<br>";
+    } else {
+        echo "No new posts for $username (latest: {$entry['date']})<br>";
+    }
+}
+
+// Save updated JSON
+if (file_put_contents($filename, json_encode($json_data, JSON_PRETTY_PRINT))) {
+    echo "<br>JSON file updated successfully.";
+} else {
+    echo "<br>Error saving JSON file. Check permissions.";
+}
+?>
+
+
 Fedi Follow List Creator
 ----------------
 
@@ -551,6 +3940,50 @@ fediusers.json
 
 EmojiShorthandDownloader (Zip & single dld)
 ----------------------
+
+<button id="save-list-btn" style="margin-top: 10px;">💾 Save Emoji List</button>
+
+<script>
+document.getElementById('save-list-btn').addEventListener('click', function () {
+    const instanceInput = document.getElementById('instance');
+    const domain = instanceInput ? instanceInput.value.trim() : 'emojis';
+
+    if (!domain) {
+        alert("Please enter a valid instance domain first.");
+        return;
+    }
+
+    // Get all emojis in the grid
+    const emojis = document.querySelectorAll('.emoji-item');
+
+    if (!emojis.length) {
+        alert("No emojis found to save.");
+        return;
+    }
+
+    let lines = [];
+
+    emojis.forEach(emojiItem => {
+        const shortcodeElem = emojiItem.querySelector('small');
+        const imgElem = emojiItem.querySelector('img');
+
+        if (shortcodeElem && imgElem) {
+            const shortcode = shortcodeElem.textContent.replace(/:/g, '').trim();
+            const url = imgElem.getAttribute('src');
+            lines.push(`${shortcode} ${url}`);
+        }
+    });
+
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${domain}.txt`;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
+</script>
 <?php
 // Enable error reporting for debugging
 ini_set('display_errors', 1);
@@ -3630,6 +7063,370 @@ header('Content-Disposition: inline; filename="' . basename($path) . '"');
 readfile($url);
 exit;
 ?>
+
+
+streamtplink.php
+--
+<?php
+set_time_limit(0);  // prevent timeout for big files
+@ob_implicit_flush(true);
+@ob_end_flush();
+
+$cacheDir = __DIR__ . '/cache';
+if (!is_dir($cacheDir)) {
+    mkdir($cacheDir, 0755, true);
+}
+
+if (!isset($_GET['path'])) {
+    http_response_code(400);
+    echo "Missing 'path' parameter.";
+    exit;
+}
+
+$relativePath = ltrim($_GET['path'], '/');
+$ext = strtolower(pathinfo($relativePath, PATHINFO_EXTENSION));
+
+if ($ext !== 'mp4') {
+    http_response_code(403);
+    echo "Only .mp4 files are allowed.";
+    exit;
+}
+
+// FTP info
+$server    = isset($_GET['server'])   ? $_GET['server']   : '192.168.0.1';
+$username  = isset($_GET['username']) ? $_GET['username'] : 'anonymous';
+$password  = isset($_GET['password']) ? $_GET['password'] : '';
+$anonymous = isset($_GET['anonymous']) && $_GET['anonymous'] == '1';
+
+if ($anonymous) {
+    $username = 'anonymous';
+    $password = 'anonymous@domain.com';
+}
+
+$cacheFile = $cacheDir . '/' . md5($server . $relativePath) . '.mp4';
+
+// Handle direct play request: delete cache and stream from FTP directly
+if (isset($_GET['direct']) && $_GET['direct'] == '1') {
+    if (file_exists($cacheFile)) {
+        @unlink($cacheFile);
+    }
+    // Stream directly from FTP without caching
+    streamFTPDirect($server, $username, $password, $relativePath);
+    exit;
+}
+
+// Function to stream file directly from FTP without caching
+function streamFTPDirect($server, $username, $password, $remoteFile) {
+    // Connect FTP
+    $ftp = ftp_connect($server);
+    if (!$ftp || !ftp_login($ftp, $username, $password)) {
+        http_response_code(500);
+        echo "FTP connection failed.";
+        exit;
+    }
+    ftp_pasv($ftp, true);
+
+    // Get size for content length
+    $size = ftp_size($ftp, $remoteFile);
+    if ($size <= 0) {
+        ftp_close($ftp);
+        http_response_code(404);
+        echo "Remote file not found or size unknown.";
+        exit;
+    }
+
+    // Handle Range header for partial content
+    $start = 0;
+    $end = $size - 1;
+    $length = $size;
+    $status = 200;
+
+    if (isset($_SERVER['HTTP_RANGE']) &&
+        preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $matches)) {
+        $start = intval($matches[1]);
+        if (!empty($matches[2])) {
+            $end = intval($matches[2]);
+        }
+        if ($end > $size - 1) $end = $size - 1;
+        $length = $end - $start + 1;
+        $status = 206;
+    }
+
+    // Set headers
+    if (function_exists('http_response_code')) {
+        http_response_code($status);
+    } else {
+        header($_SERVER["SERVER_PROTOCOL"] . " " . $status);
+    }
+    header("Content-Type: video/mp4");
+    header("Accept-Ranges: bytes");
+    header("Content-Length: $length");
+    header('Content-Disposition: inline; filename="' . basename($remoteFile) . '"');
+    if ($status === 206) {
+        header("Content-Range: bytes $start-$end/$size");
+    }
+
+    // Open a temporary local stream for output buffering
+    // Use ftp_nb_fget to fetch from FTP in chunks and output directly
+
+    $tmpStream = fopen('php://output', 'wb');
+    if (!$tmpStream) {
+        ftp_close($ftp);
+        http_response_code(500);
+        echo "Failed to open output stream.";
+        exit;
+    }
+
+    // ftp_nb_fget doesn't support offset, so we have to download full or partial file manually
+    // We'll download full file into php://output but skip bytes before $start by reading and discarding
+
+    // Unfortunately, FTP protocol itself doesn't support partial retrieval starting at offset
+    // so we have to download and skip bytes, or use ftp_raw to send REST command (some FTP servers support it)
+    // We'll try REST command
+
+    ftp_raw($ftp, "TYPE I"); // Switch to binary mode
+
+    // Attempt REST command for offset
+    $restResp = ftp_raw($ftp, "REST $start");
+    if (strpos(implode("\n", $restResp), '350') === false) {
+        // REST not supported or failed - fallback to downloading entire file and skipping in PHP
+        $start = 0; // ignore range start - will download entire file
+        $length = $size;
+        $status = 200;
+    }
+
+    $ret = ftp_nb_fget($ftp, $tmpStream, $remoteFile, FTP_BINARY);
+
+    $bytesSent = 0;
+    while ($ret == FTP_MOREDATA) {
+        flush();
+        $ret = ftp_nb_continue($ftp);
+    }
+
+    fclose($tmpStream);
+    ftp_close($ftp);
+}
+
+// If cached file does NOT exist, do caching download with progress page and play button
+if (!file_exists($cacheFile)) {
+    // Show progress bar page with play button, video, speed and ETR display and direct play button
+    echo '<!DOCTYPE html><html><head><title>Downloading...</title><style>
+        #progress-container { width: 100%; background: #ddd; margin-bottom: 10px; }
+        #progress-bar { width: 0; height: 30px; background: #4caf50; text-align: center; color: white; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #video-player { width: 100%; max-width: 720px; display: none; margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin-right: 10px; }
+        #stats { margin-top: 8px; font-size: 14px; color: #333; }
+    </style></head><body>';
+    echo "<h2>Downloading and caching video file...</h2>";
+    echo '<div style="margin-bottom:10px;">
+        <button id="direct-play-btn">Direct Play</button>
+        <button id="play-btn" disabled>Play Now</button>
+    </div>';
+    echo '<div id="progress-container"><div id="progress-bar">0%</div></div>';
+    echo '<div id="stats">Speed: 0 KB/s | Estimated time remaining: calculating...</div>';
+    echo '<video id="video-player" controls preload="auto"></video>';
+    echo '<script>
+        const progressBar = document.getElementById("progress-bar");
+        const playBtn = document.getElementById("play-btn");
+        const directBtn = document.getElementById("direct-play-btn");
+        const videoPlayer = document.getElementById("video-player");
+        const statsDiv = document.getElementById("stats");
+
+        let lastDownloaded = 0;
+        let lastTimestamp = Date.now();
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + " B/s";
+            else if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + " KB/s";
+            else return (bytes/(1024*1024)).toFixed(2) + " MB/s";
+        }
+
+        function formatTime(seconds) {
+            if (seconds === Infinity || isNaN(seconds)) return "calculating...";
+            let h = Math.floor(seconds / 3600);
+            let m = Math.floor((seconds % 3600) / 60);
+            let s = Math.floor(seconds % 60);
+            return (h > 0 ? h + "h " : "") + (m > 0 ? m + "m " : "") + s + "s";
+        }
+
+        function updateProgress(pct, downloadedBytes, totalBytes) {
+            progressBar.style.width = pct + "%";
+            progressBar.textContent = pct + "%";
+
+            const now = Date.now();
+            const timeDiff = (now - lastTimestamp) / 1000; // seconds
+            const bytesDiff = downloadedBytes - lastDownloaded;
+            if (timeDiff > 0) {
+                const speed = bytesDiff / timeDiff;
+                const bytesLeft = totalBytes - downloadedBytes;
+                const eta = bytesLeft / speed;
+
+                statsDiv.textContent = "Speed: " + formatBytes(speed) + " | Estimated time remaining: " + formatTime(eta);
+            }
+
+            lastDownloaded = downloadedBytes;
+            lastTimestamp = now;
+
+            if (pct > 0) {
+                playBtn.disabled = false; // enable play button once some progress
+            }
+            if (pct === 100) {
+                playBtn.textContent = "Play Full Video";
+                videoPlayer.src = "' . htmlspecialchars(basename($_SERVER['PHP_SELF'])) . '?path=' . rawurlencode($relativePath) . '&server=' . rawurlencode($server) . '&username=' . rawurlencode($username) . '&password=' . rawurlencode($password) . '";
+                videoPlayer.style.display = "block";
+                videoPlayer.play();
+                playBtn.style.display = "none"; // hide play button after auto-play
+                statsDiv.textContent = "Download complete.";
+            }
+        }
+
+        playBtn.addEventListener("click", () => {
+            videoPlayer.src = "' . htmlspecialchars(basename($_SERVER['PHP_SELF'])) . '?path=' . rawurlencode($relativePath) . '&server=' . rawurlencode($server) . '&username=' . rawurlencode($username) . '&password=' . rawurlencode($password) . '";
+            videoPlayer.style.display = "block";
+            videoPlayer.play();
+        });
+
+        directBtn.addEventListener("click", () => {
+    // Redirect with ?direct=1 query param added
+    const url = new URL(window.location.href);
+    url.searchParams.set("direct", "1");
+    window.location.href = url.toString();
+});
+
+       
+    </script>';
+
+    flush();
+
+    // Connect FTP
+    $ftp = ftp_connect($server);
+    if (!$ftp || !ftp_login($ftp, $username, $password)) {
+        http_response_code(500);
+        echo "<p style='color:red;'>FTP connection failed.</p></body></html>";
+        exit;
+    }
+    ftp_pasv($ftp, true);
+
+    // Get file size for progress calculation
+    $ftpSize = ftp_size($ftp, $relativePath);
+    if ($ftpSize <= 0) {
+        echo "<p style='color:red;'>Failed to get remote file size.</p></body></html>";
+        ftp_close($ftp);
+        exit;
+    }
+
+    $tmpFile = $cacheFile . '.part';
+    $fp = fopen($tmpFile, 'wb');
+    if (!$fp) {
+        echo "<p style='color:red;'>Failed to open local file for writing.</p></body></html>";
+        ftp_close($ftp);
+        exit;
+    }
+
+    // Use ftp_nb_fget for non-blocking download to track progress
+    $ret = ftp_nb_fget($ftp, $fp, $relativePath, FTP_BINARY);
+    $downloaded = 0;
+
+    while ($ret == FTP_MOREDATA) {
+        clearstatcache(true, $tmpFile);
+        $downloaded = filesize($tmpFile);
+        $pct = min(100, round(($downloaded / $ftpSize) * 100));
+        echo "<script>updateProgress($pct, $downloaded, $ftpSize);</script>";
+        flush();
+
+        $ret = ftp_nb_continue($ftp);
+        usleep(50000); // slight delay to reduce CPU load
+    }
+
+    if ($ret != FTP_FINISHED) {
+        echo "<p style='color:red;'>FTP download failed.</p></body></html>";
+        fclose($fp);
+        ftp_close($ftp);
+        unlink($tmpFile);
+        exit;
+    }
+
+    fclose($fp);
+    ftp_close($ftp);
+
+    rename($tmpFile, $cacheFile);
+
+    // Download complete, set progress bar to 100%
+    echo "<script>updateProgress(100, $ftpSize, $ftpSize);</script>";
+    echo "<p>Download complete! Preparing video for streaming...</p>";
+    echo '</body></html>';
+    flush();
+
+    // Give user 1 second to see 100% before redirecting to self without caching phase
+    sleep(1);
+
+    // Redirect to self to serve cached video directly
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . '?' . $_SERVER['QUERY_STRING']);
+    exit;
+}
+
+// Serve cached file with Range support
+
+$filesize = filesize($cacheFile);
+$start = 0;
+$end = $filesize - 1;
+$length = $filesize;
+$status = 200;
+
+if (isset($_SERVER['HTTP_RANGE']) &&
+    preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $matches)) {
+    $start = intval($matches[1]);
+    if (!empty($matches[2])) {
+        $end = intval($matches[2]);
+    }
+    if ($end > $filesize - 1) {
+        $end = $filesize - 1;
+    }
+    $length = $end - $start + 1;
+    $status = 206;
+}
+
+$fp = fopen($cacheFile, 'rb');
+if ($fp === false) {
+    http_response_code(500);
+    echo "Failed to open cached file.";
+    exit;
+}
+
+fseek($fp, $start);
+
+if (function_exists('http_response_code')) {
+    http_response_code($status);
+} else {
+    header($_SERVER["SERVER_PROTOCOL"] . " " . $status);
+}
+
+header("Content-Type: video/mp4");
+header("Content-Length: $length");
+header("Accept-Ranges: bytes");
+header('Content-Disposition: inline; filename="' . basename($relativePath) . '"');
+if ($status === 206) {
+    header("Content-Range: bytes $start-$end/$filesize");
+}
+
+// Stream the file
+$buffer = 8192;
+$bytesSent = 0;
+while (!feof($fp) && $bytesSent < $length) {
+    $read = min($buffer, $length - $bytesSent);
+    $data = fread($fp, $read);
+    if ($data === false) {
+        break;
+    }
+    echo $data;
+    flush();
+    $bytesSent += strlen($data);
+}
+
+fclose($fp);
+exit;
+
 
 
 HiDrive WebDAV access

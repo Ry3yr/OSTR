@@ -1,15 +1,127 @@
-
 [📱Android Keyevents] Shell / Terminal / cmdz /adb intent  ( https://nimbusweb.me/s/share/3027690/v4kh4aneqtckm3f2hz3e )
 [ 📱 App Info / Android_Mods -etc-] android app specific keyev Shell intent cmdz appspec   https://nimbusweb.me/s/share/3027689/fty0t5uemd2hn4cm2l6v
-
- 
 App-Info-Android-Mods-NL (r)
 •swipe-actions  • Force-Unlock •intent-z
 •intent-viashell *reco-veryshell *adb-related
 https://developer.android.com/studio/command-line/shell.html
+-------------------------------------------------
+WSA for Windows (Android #apk on windows ) pacman
+https://pb.todon.de/@alcea/110974406231576365
+••WSA Pacman 1.5 ••
+https://github.com/alesimula/wsa_pacman/releases
+••MXI BUNDLE ••• 
+https://windows-subsystem-for-android.de.uptodown.com/windows/download (works !)
+https://web.archive.org/web/20230903172630/http://tlu.dl.delivery.mp.microsoft.com/filestreamingservice/files/c7e4a2d1-eec9-41f7-9c20-04394821d8da?P1=1693790316&P2=404&P3=2&P4=kVhG7oAvq0j7v6Lv0kn67hPvfBdDNyzyj3%2b3ToIAT6xGdijPMokwIkhCiU%2bAWtCPu4zXxuVYpH%2bWqyum7nuLew%3d%3d
+
+
+Fetch Poweramp currently playing track
+----------------------------------
+
+adb shell "dumpsys media_session | grep 'description=' | sed 's/.*description=\([^,]*\), \([^,]*\),.*/\1 - \2/'"
+
+
+Set #RefreshRate to amount x
+-----------------------------
+
+"settings put system peak_refresh_rate 60" 
+
+
+https://alceawis.de/other/extra/scripts/fakesocialmedia/commentload.html?number=8000&text=💬https%3A%2F%2Finfosec.exchange%2F%40alcea%2F115745545131301226%23💬 %0D%0A•a
+
+binary-copy-termux2system_bin.sh
+----------------------------
+#!/bin/bash
+
+echo -n "Enter the binary name (must exist in Termux bin dir): "
+read BIN_NAME
+
+SRC_BIN="/data/data/com.termux/files/usr/bin/$BIN_NAME"
+TARGET_BIN="/system_ext/xbin/$BIN_NAME"
+
+if [ ! -f "$SRC_BIN" ]; then
+  echo "Error: Source binary '$SRC_BIN' does not exist."
+  exit 1
+fi
+
+echo "Remounting /system_ext as read-write..."
+su -c "mount -o rw,remount /system_ext" || {
+  echo "Failed to remount /system_ext rw, trying /system..."
+  su -c "mount -o rw,remount /system" || {
+    echo "Failed to remount /system rw"
+    exit 1
+  }
+}
+
+if [ ! -d "/system_ext/xbin" ]; then
+  echo "Directory /system_ext/xbin does not exist, creating it..."
+  su -c "mkdir -p /system_ext/xbin" || { echo "Failed to create directory"; exit 1; }
+  su -c "chmod 755 /system_ext/xbin" || { echo "Failed to chmod directory"; exit 1; }
+fi
+
+if [ -f "$TARGET_BIN" ]; then
+  echo "Backing up existing $TARGET_BIN to ${TARGET_BIN}.bk"
+  su -c "mv $TARGET_BIN ${TARGET_BIN}.bk" || { echo "Failed to backup existing binary"; exit 1; }
+fi
+
+echo "Copying $SRC_BIN to $TARGET_BIN"
+su -c "cp $SRC_BIN $TARGET_BIN" || { echo "Failed to copy binary"; exit 1; }
+
+echo "Setting executable permission on $TARGET_BIN"
+su -c "chmod 755 $TARGET_BIN" || { echo "Failed to chmod"; exit 1; }
+
+echo "Remounting /system_ext as read-only..."
+su -c "mount -o ro,remount /system_ext" || {
+  echo "Failed to remount /system_ext ro, trying /system..."
+  su -c "mount -o ro,remount /system" || echo "Warning: failed to remount /system ro"
+}
+
+echo "Done! You can now run $BIN_NAME from /system_ext/xbin/"
+
+
+sync lpcal file to (s)ftp (via curl)
+----------------
+#!/bin/sh
+
+USER="admin"
+PASS="passeria"
+HOST="ftp.alcea-wisteria.de"
+REMOTE_DIR="PHP/0demo/2025-08-04-UptimeCheck"
+LOCAL_DIR="/storage/emulated/0/pws/www/2025-08-04-UptimeCheck"
+
+# Upload each file using the curl in /system_ext/xbin
+/system_ext/xbin/curl -T "$LOCAL_DIR/alceawis.com.json" "ftp://$USER:$PASS@$HOST/$REMOTE_DIR/alceawis.com.json"
+/system_ext/xbin/curl -T "$LOCAL_DIR/alceawis.de.json" "ftp://$USER:$PASS@$HOST/$REMOTE_DIR/alceawis.de.json"
+/system_ext/xbin/curl -T "$LOCAL_DIR/alcea-wisteria.de.json" "ftp://$USER:$PASS@$HOST/$REMOTE_DIR/alcea-wisteria.de.json"
+
+
+
+send #adb #commands via #rooted #android device
+----------------------------
+
+https://play.google.com/store/apps/det
+ails?id=com.htetznaing.adbotg
+
+
+Create #Symlink on Android
+---------------------
+1) Create empty folder (where you link to)
+2)  make sure path to -to-link-to- is right and exists:
+3) su -mm -c 'mount -o bind "/storage/emulated/0/original/path/foldername "/storage/emulated/0/foldernamesource"' 
+su -mm -c 'mount -o bind "/storage/emulated/0/pws/www/SampleWebMMD-master" "/storage/emulated/0/SampleWebMMD-master"' https://android.stackexchange.com/questions/203951/how-can-i-make-a-symlink-or-equivalent-inside-storage-emulated-0
+
+
+ Backup android app, data included, no root needed, with adb 
+--------------------
+https://gist.github.com/AnatomicJC/e773dd55ae60ab0b2d6dd2351eb977c1
  
+ 
+ Enable Accessibility Access for APPs
+--------------------
+ https://www.android-hilfe.de/forum/huawei-watch-4-pro.4207/benachrichtigungen-eingeschraenkte-einstellung.1062545.html
+ https://i.ibb.co/hZRBM5L/Download.png
  
 31.10.20 Disable program / update nag
+-------------------
 pm uninstall -k --user 0 com.oppo.ota
 pm uninstall -k --user 0 com.oppo.otaui
 forum.xda-developers.com/realme-5-pro/help/disable-update-android10-t4079411
@@ -21,6 +133,7 @@ gist.github.com/davidnunez/1404789
 You can reinstall it with the following ADB command: adb shell cmd package install-existing com.huawei.systemmanager
  
 IME Call: (Keyboard Picker)
+-------------------------
 *com.android.settings/.Settings$KeyboardLayoutPicker
 *ime set com.thihaayekyaw.frozenkeyboard/com.example.android.softkeyboard.SoftKeyboard
 https://android.stackexchange.com/questions/47948/how-to-change-input-method-with-ime-command
@@ -528,6 +641,19 @@ http://tomazwang.logdown.com/posts/1743911/android-mock-braodcast-intent-with-ad
 adb shell am broadcast  specifications include these flags and arguments:    [-a  ] [-d  ] [-t  ]    [-c   [-c  ] ...]    [-e|--es     ...]    [--esn   ...]    [--ez     ...]    [--ei     ...]    [--el     ...]    [--ef     ...]    [--eu     ...]    [--ecn    ]    [--eia    [,   [,   [,   [, ] [-p  ] [-f  ]
 ---------------------------------------
  
+
+Fetch activities for app:
+-------------------
+
+dumpsys package com.samsung.android.app.smartcapture | grep -i activity
+
+Services:
+dumpsys package com.samsung.android.app.smartcapture | grep "service"
+
+receivers:
+dumpsys package com.samsung.android.app.smartcapture | grep "receiver"
+
+
 WORKING EXAMPLE (01.09.20) (src - used krow.dev.scheme to fetch intent[experiment w. tasker values, then copy from dir])
 am broadcast 'intent:#Intent;action=com.maxmpz.audioplayer.API_COMMAND;package=com.maxmpz.audioplayer;i.cmd=1;end'
 https://stackoverflow.com/questions/49542964/reform-tasker-intent-to-shell/63678798#63678798
@@ -539,8 +665,13 @@ https://cheatography.com/citguy/cheat-sheets/android-activity-manager-am/
  
 Intent to file w. app:
 ----------------------------------
+
+Play mp3 with Poweramp:
 am start -n com.maxmpz.audioplayer/.PlayerUIActivity  -a android.intent.action.VIEW -d file:///mnt/media_rw/72DB-3A49/mobile/music/0Castlevania/Castlevania_-_Harmony_of_Despair/02-Hymnus.mp3 -t audio/mpg
  
+Read txt with FX:
+ am start -n nextapp.fx/.ui.viewer.TextViewerActivity -d "file:///storage/emulated/0/pws/logs/macrodroidboot.log" -t "text/plain"
+
  
 Start activity:
 sudo am start -n com.xxx/.xxxxxxx
