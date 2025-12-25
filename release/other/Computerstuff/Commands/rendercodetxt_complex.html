@@ -68,7 +68,7 @@
     }
 
     function copyContent(contentElement) {
-      const text = contentElement.innerText.trim();
+      const text = contentElement.innerText;
       navigator.clipboard.writeText(text)
         .then(() => {
           console.log('Content copied to clipboard:', text);
@@ -111,7 +111,7 @@
           contentLines.shift();
 
           filteredLines.forEach((line, index) => {
-            const extractedElement = document.createElement("div");
+            const extractedElement = document.createElement("pre");
             extractedElement.className = "extracted";
 
             const titleElement = document.createElement("div");
@@ -128,7 +128,7 @@
 
             const contentElement = document.createElement("div");
             contentElement.className = "content";
-            contentElement.innerText = contentLines[index].trim();
+            contentElement.innerText = contentLines[index];
             extractedElement.appendChild(contentElement);
 
             const copyButton = document.createElement("button");
@@ -152,7 +152,7 @@
 
     document.getElementById('copyAllTitles').addEventListener('click', function() {
       // Gather all titles
-      const titles = Array.from(document.querySelectorAll('.title.contains-complex')).map(title => title.innerText.trim()).join('\n');
+      const titles = Array.from(document.querySelectorAll('.title.contains-complex')).map(title => title.innerText).join('\n');
 
       // Copy to clipboard
       navigator.clipboard.writeText(titles)
